@@ -1,0 +1,38 @@
+version: '3.9'
+
+volumes:
+  postgres_data_playbot:
+
+services:
+  playbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    container_name: playbot
+    command: >
+      bash -c "python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
+    restart: on-failure
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres_playbot
+
+  postgres_playbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: postgres_playbot
+    restart: always
+    ports:
+      - "5445:5432"
+    volumes:
+      - postgres_data_playbot:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+
