@@ -1,3 +1,5 @@
+import os
+
 import environ
 
 from pathlib import Path
@@ -24,7 +26,7 @@ CSRF_TRUSTED_ORIGINS = env.tuple("CSRF_TRUSTED_ORIGINS")
 
 CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN")
 
-CORS_ORIGIN_WHITELIST = env.tuple("CORS_ORIGIN_WHITELIST")
+# CORS_ORIGIN_WHITELIST = env.tuple("CORS_ORIGIN_WHITELIST")
 
 TIME_ZONE = "America/New_York"
 
@@ -71,10 +73,12 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'loguru',
+    # "core",
+    "corsheaders",
 ]
 
 LOCAL_APPS = [
-    # "playbot.users.apps.UsersConfig",
+    "playbot.users.apps.UsersConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -82,6 +86,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -95,6 +100,8 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     str(APPS_DIR.path("static")),
+    str(APPS_DIR.path("frontend/build/static")),
+    str(APPS_DIR.path("frontend/build")),
 ]
 
 STATICFILES_FINDERS = [
@@ -109,14 +116,21 @@ MEDIA_URL = "/media/"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        "DIRS": [
+            str(APPS_DIR.path("templates")),
+            str(APPS_DIR.path("frontend/build")),
+        ],
+        # 'APP_DIRS': True,
         'OPTIONS': {
             "debug": DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -124,6 +138,14 @@ TEMPLATES = [
 ]
 
 FIXTURE_DIRS = (str(APPS_DIR.path("fixtures")),)
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':
+        ['rest_framework.permissions.AllowAny']
+}
 
 ADMIN_URL = "admin/"
 
