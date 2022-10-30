@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers, exceptions
 from django.contrib.auth.models import update_last_login
+from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.settings import api_settings
 from django.utils.translation import gettext_lazy as _
@@ -51,7 +52,6 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
             pass
 
         # self.user = authenticate(**authenticate_kwargs)
-
         if not api_settings.USER_AUTHENTICATION_RULE(self.user):
             raise exceptions.AuthenticationFailed(
                 self.error_messages["no_active_account"],
@@ -100,32 +100,41 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
         return data
 
 
-class CreateUserSerializer(serializers.ModelSerializer):
-
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
-
-    class Meta:
-        model = User
-        fields = ('id', 'email', 'password')
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
-
-
-
-class RegisterSerializer(UserSerializer):
-    password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
+class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True, write_only=True, max_length=128)
+    password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'is_active',]
+        fields = ("email", "password")
+        extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        try:
-            user = User.objects.get(email=validated_data['email'])
-        except ObjectDoesNotExist:
-            user = User.objects.create_user(**validated_data)
-        return user
+        instance = self.Meta.model(**validated_data)
+        password = validated_data.pop("password", None)
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+    def is_valid(self, *, raise_exception=False):
+        assert hasattr(self, 'initial_data'), (
+            'Cannot call `.is_valid()` as no `data=` keyword argument was '
+            'passed when instantiating the serializer instance.'
+        )
+
+        if not hasattr(self, '_validated_data'):
+            try:
+                self._validated_data = self.run_validation(self.initial_data)
+            except ValidationError as exc:
+                self._validated_data = {}
+                self._errors = exc.detail
+            else:
+                self._errors = {}
+            if self.validated_data.get("email") and User.objects.filter(email=self.validated_data["email"]).exists():
+                self._errors["user"] = "User with this email already exists!"
+
+        if self._errors and raise_exception:
+            raise ValidationError(self.errors)
+
+        return not bool(self._errors)

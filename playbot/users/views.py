@@ -1,18 +1,17 @@
-import requests
+
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-from playbot.users.serializers import CreateUserSerializer, LoginSerializer, RegisterSerializer, LoginTelegramSerializer
+
+from playbot.users.serializers import LoginSerializer, RegisterSerializer, LoginTelegramSerializer, UserSerializer
 
 
 def index(request):
@@ -55,27 +54,17 @@ class LoginTelegramView(TokenObtainPairView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class RegistrationViewSet(GenericAPIView):
-    serializer_class = RegisterSerializer
+class RegisterView(APIView):
     permission_classes = (AllowAny,)
 
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        refresh = RefreshToken.for_user(user)
-        res = {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
-
-        return Response({
-            "user": serializer.data,
-            "refresh": res["refresh"],
-            "token": res["access"]
-        }, status=status.HTTP_201_CREATED)
+    def post(self, request, format='json'):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = UserSerializer(user).data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RefreshViewSet(GenericAPIView):
@@ -90,6 +79,15 @@ class RefreshViewSet(GenericAPIView):
             raise InvalidToken(e.args[0])
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+
+class DataView(APIView):
+    permission_classes = (IsAuthenticated,)
+    # authentication_classes = [JWTAuthentication,]
+
+    def get(self, request, format='json'):
+
+        return Response({"data": "success!"}, status=status.HTTP_200_OK)
 
 
 
