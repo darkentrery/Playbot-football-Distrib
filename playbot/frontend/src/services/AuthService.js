@@ -1,10 +1,34 @@
 import axios from 'axios';
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = process.env.REACT_APP_API_URL;
 
 
-export default class ArticleService{
+export default class AuthService{
 
 	constructor(){}
+
+	login(user){
+		const url = `${API_URL}login/`;
+		return axios.post(url, user, {headers: { "Content-Type": "multipart/form-data" }})
+			.then((response) => {
+				localStorage.setItem( 'access_token' , response.data.access);
+                localStorage.setItem( 'refresh_token' , response.data.refresh);
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
+	signUp(user){
+		const url = `${API_URL}sign-up/`;
+		return axios.post(url, user, {headers: { "Content-Type": "multipart/form-data" }})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
 
 	setUser(user) {
 		const url = `${API_URL}/api/articles/`;

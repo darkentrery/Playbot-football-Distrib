@@ -100,7 +100,7 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
         return data
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class SignUpSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True, write_only=True, max_length=128)
     password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
 
@@ -114,6 +114,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         password = validated_data.pop("password", None)
         if password is not None:
             instance.set_password(password)
+            instance.username = instance.email
         instance.save()
         return instance
 

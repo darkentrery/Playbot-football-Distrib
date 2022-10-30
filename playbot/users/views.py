@@ -11,7 +11,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-from playbot.users.serializers import LoginSerializer, RegisterSerializer, LoginTelegramSerializer, UserSerializer
+from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer
 
 
 def index(request):
@@ -54,15 +54,15 @@ class LoginTelegramView(TokenObtainPairView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class RegisterView(APIView):
+class SignUpView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, format='json'):
-        serializer = RegisterSerializer(data=request.data)
+        serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             if user:
-                json = UserSerializer(user).data
+                json = serializer.validated_data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
