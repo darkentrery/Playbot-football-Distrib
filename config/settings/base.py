@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 import environ
 
@@ -26,7 +27,9 @@ CSRF_TRUSTED_ORIGINS = env.tuple("CSRF_TRUSTED_ORIGINS")
 
 CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN")
 
-# CORS_ORIGIN_WHITELIST = env.tuple("CORS_ORIGIN_WHITELIST")
+CORS_ORIGIN_WHITELIST = env.tuple("CORS_ORIGIN_WHITELIST")
+
+CORS_ALLOW_CREDENTIALS = True
 
 TIME_ZONE = "America/New_York"
 
@@ -74,6 +77,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'loguru',
     # "core",
+    # 'oauth2_provider',
     "corsheaders",
 ]
 
@@ -86,6 +90,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'oauth2_provider.middleware.OAuth2TokenMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -123,6 +128,10 @@ TEMPLATES = [
         # 'APP_DIRS': True,
         'OPTIONS': {
             "debug": DEBUG,
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -143,9 +152,20 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     ),
-    'DEFAULT_PERMISSION_CLASSES':
-        ['rest_framework.permissions.AllowAny']
+    'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.AllowAny',
+            'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES' : (
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    # 'oauth2_provider.backends.OAuth2Backend',
+)
 
 ADMIN_URL = "admin/"
 
@@ -164,6 +184,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 loguru.logger.add(f"{BASE_DIR}/logs.log", level='DEBUG', format="{time} {level} {message}")
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
+CHANEL_ID = "1234"
