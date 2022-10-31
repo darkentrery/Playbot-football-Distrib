@@ -101,12 +101,14 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=128, write_only=True, required=True)
+    phone_number = serializers.CharField(max_length=128, write_only=True, required=True)
     email = serializers.EmailField(required=True, write_only=True, max_length=128)
     password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ("email", "password")
+        fields = ("name", "phone_number", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -133,7 +135,9 @@ class SignUpSerializer(serializers.ModelSerializer):
             else:
                 self._errors = {}
             if self.validated_data.get("email") and User.objects.filter(email=self.validated_data["email"]).exists():
-                self._errors["user"] = "User with this email already exists!"
+                self._errors["email"] = "User with this email already exists!"
+            if self.validated_data.get("phone_number") and User.objects.filter(email=self.validated_data["email"]).exists():
+                self._errors["phone_number"] = "User with this phone_number already exists!"
 
         if self._errors and raise_exception:
             raise ValidationError(self.errors)

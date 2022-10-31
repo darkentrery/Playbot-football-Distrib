@@ -1,5 +1,6 @@
 import React, {Component, useState, useEffect, useRef} from "react";
 import AuthService from "../services/AuthService";
+import TelegramLoginComponent from "./TelegramLoginComponent";
 
 
 export default function LoginComponent () {
@@ -23,6 +24,9 @@ export default function LoginComponent () {
             authService.login(data).then((response) => {
                 console.log(response)
             })
+            // authService.refresh(localStorage.getItem("refresh_token")).then((response) => {
+            //     console.log(response)
+            // })
         }
     }
 
@@ -33,6 +37,7 @@ export default function LoginComponent () {
             <label>Password</label><br/>
             <input className="form-control" type="text"  onChange={(event) => setPassword(event.target.value)}/><br/><br/>
             <button onClick={sendForm}>Login</button>
+            <TelegramLoginComponent/>
         </div>
     )
 }

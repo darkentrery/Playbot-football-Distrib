@@ -55,6 +55,53 @@ export default class AuthService{
 			});
 	}
 
+	signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer) {
+		let errors = new Map();
+		if (name && phoneNumber && email && password && passwordConfirm && allowPolicy && allowOffer) {
+            if (password !== passwordConfirm) errors.set("password", "noMatch");
+
+        } else {
+            if (!name) errors.set("name", "name");
+            if (!phoneNumber) errors.set("phoneNumber", "phoneNumber");
+            if (!email) errors.set("email", "email");
+            if (!password) errors.set("password", "password");
+            if (!passwordConfirm) errors.set("passwordConfirm", "passwordConfirm");
+            if (!allowPolicy) errors.set("allowPolicy", true);
+            if (!allowOffer) errors.set("allowOffer", true);
+        }
+		return errors;
+	}
+
+	signUpResponseValidation(response) {
+		console.log(response)
+		let errors = new Map();
+		if (response.status !== 201) {
+			["name", "phone_number", "email", "password"].forEach(field => {
+				if (response.data[field]) errors.set(field, response.data[field]);
+			})
+
+		}
+		return errors;
+	}
+
+	refresh(refreshToken){
+		const url = `${API_URL}token/refresh/`;
+		return axios.post(url, {"refresh": refreshToken}, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			// "Content-Type": "multipart/form-data"
+		}})
+			.then((response) => {
+				localStorage.setItem( 'access_token' , response.data.access);
+                localStorage.setItem( 'refresh_token' , response.data.refresh);
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
+
 	setUser(user) {
 		const url = `${API_URL}/api/articles/`;
 		return axios.post(url, user, {headers: { "Content-Type": "multipart/form-data" }});

@@ -5,14 +5,14 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("Email Address"), unique=True)
     username_validator = UnicodeUsernameValidator()
-    first_name = models.CharField(_("first name"), max_length=150)
-    last_name = models.CharField(_("last name"), max_length=150)
-    # middle_name = models.CharField(_("Отчество"), max_length=150, blank=True)
-    phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True)
-    telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True)
-    chanel = "1234"
+    first_name = models.CharField(_("First Name"), max_length=150, blank=True)
+    last_name = models.CharField(_("Last Name"), max_length=150, blank=True)
+    name = models.CharField(_("Name"), max_length=150)
+    phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, unique=True)
+    telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
+
 
     username = models.EmailField(
         _("username"),

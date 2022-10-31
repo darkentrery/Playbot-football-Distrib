@@ -12,8 +12,8 @@ urlpatterns = [
     re_path(r"^api/telegram-login/$", views.LoginTelegramView.as_view(), name='telegram-login'),
     re_path(r"^api/sign-up/$", views.SignUpView.as_view(), name='sign-up'),
     re_path(r"^api/telegram-sign-up/$", views.SignUpTelegramView.as_view(), name='telegram-sign-up'),
-    path('api/token/obtain', TokenObtainPairView.as_view(), name='token_obtain'),
-    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_obtain'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
     re_path(r"^api/data/$", views.DataView.as_view(), name='data'),
 ]
