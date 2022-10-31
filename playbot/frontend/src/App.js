@@ -3,6 +3,7 @@ import './assets/css/App.css';
 import LoginComponent from "./components/LoginComponent";
 import SignUpComponent from "./components/SignUpComponent";
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
+import { TLoginButton, TLoginButtonSize } from 'react-telegram-auth';
 
 function App() {
   return (
@@ -18,6 +19,19 @@ function App() {
                         <Link to={"/sign-up"} ><h3>Sign Up</h3></Link>
                     </li>
                   </ul>
+                    <TLoginButton
+                        botName="PlaybotTestBot"
+                        buttonSize={TLoginButtonSize.Large}
+                        lang="en"
+                        usePic={false}
+                        cornerRadius={20}
+                        // onAuthCallback={(user) => {
+                        //   console.log('Hello, user!', user);
+                        // }}
+                        requestAccess={'write'}
+                        redirectUrl={"http://ba62-2a0d-b201-8010-d531-c4fe-c240-f438-dbb0.ngrok.io/auth/complete/telegram"}
+                      />
+
 
                   <div className="features">
                       <Routes>

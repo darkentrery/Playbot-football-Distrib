@@ -139,3 +139,44 @@ class SignUpSerializer(serializers.ModelSerializer):
             raise ValidationError(self.errors)
 
         return not bool(self._errors)
+
+
+class SignUpTelegramSerializer(serializers.ModelSerializer):
+    telegram_id = serializers.CharField(required=True, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ("telegram_id",)
+        # extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        password = "1234"
+        if password is not None:
+            instance.set_password(password)
+            instance.email = "aaaa@aaaa.com"
+            instance.username = instance.email
+        instance.save()
+        return instance
+
+    def is_valid(self, *, raise_exception=False):
+        assert hasattr(self, 'initial_data'), (
+            'Cannot call `.is_valid()` as no `data=` keyword argument was '
+            'passed when instantiating the serializer instance.'
+        )
+
+        if not hasattr(self, '_validated_data'):
+            try:
+                self._validated_data = self.run_validation(self.initial_data)
+            except ValidationError as exc:
+                self._validated_data = {}
+                self._errors = exc.detail
+            else:
+                self._errors = {}
+            if self.validated_data.get("telegram_id") and User.objects.filter(email=self.validated_data["telegram_id"]).exists():
+                self._errors["telegram_id"] = "User with this telegram_id already exists!"
+
+        if self._errors and raise_exception:
+            raise ValidationError(self.errors)
+
+        return not bool(self._errors)

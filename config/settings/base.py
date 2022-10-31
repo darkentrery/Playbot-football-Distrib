@@ -79,6 +79,8 @@ THIRD_PARTY_APPS = [
     # "core",
     # 'oauth2_provider',
     "corsheaders",
+    'social_django',
+    # 'social_django_mongoengine',
 ]
 
 LOCAL_APPS = [
@@ -135,6 +137,8 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                # 'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
                 'django.contrib.auth.context_processors.auth',
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
@@ -159,10 +163,17 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
         # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
 
 AUTHENTICATION_BACKENDS = (
+    # 'social_core.backends.open_id.OpenIdAuth',
+    # 'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth',
+    # 'social_core.backends.twitter.TwitterOAuth',
+    # 'social_core.backends.yahoo.YahooOpenId',
+    'social_core.backends.telegram.TelegramAuth',
     'django.contrib.auth.backends.ModelBackend',
     # 'oauth2_provider.backends.OAuth2Backend',
 )
@@ -206,3 +217,26 @@ SIMPLE_JWT = {
 }
 
 CHANEL_ID = "1234"
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = env("SOCIAL_AUTH_TELEGRAM_BOT_TOKEN")
+
+LOGIN_URL = '/auth/complete/telegram/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)

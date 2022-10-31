@@ -1,6 +1,23 @@
 import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL;
 
+function getCookie(name) {
+	let cookieValue = null;
+	if (document.cookie && document.cookie !== '') {
+		let cookies = document.cookie.split(';');
+		for (let i = 0; i < cookies.length; i++) {
+			let cookie = cookies[i].trim();
+			// Does this cookie string begin with the name we want?
+			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
+			}
+		}
+	}
+	return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
 
 export default class AuthService{
 
@@ -8,7 +25,11 @@ export default class AuthService{
 
 	login(user){
 		const url = `${API_URL}login/`;
-		return axios.post(url, user, {headers: { "Content-Type": "multipart/form-data" }})
+		return axios.post(url, user, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			// "Content-Type": "multipart/form-data"
+		}})
 			.then((response) => {
 				localStorage.setItem( 'access_token' , response.data.access);
                 localStorage.setItem( 'refresh_token' , response.data.refresh);
@@ -21,7 +42,11 @@ export default class AuthService{
 
 	signUp(user){
 		const url = `${API_URL}sign-up/`;
-		return axios.post(url, user, {headers: { "Content-Type": "multipart/form-data" }})
+		return axios.post(url, user, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			// "Content-Type": "multipart/form-data"
+		}})
 			.then((response) => {
 				return response;
 			})

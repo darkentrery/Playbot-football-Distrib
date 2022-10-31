@@ -1,9 +1,9 @@
-
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
@@ -11,10 +11,22 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer
+from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
+    SignUpTelegramSerializer
+
+
+class ProfileList(APIView):
+    permission_classes = (AllowAny,)
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'index.html'
+
+    def get(self, request):
+        print(request)
+        return Response({})
 
 
 def index(request):
+    print(request)
     return render(request, 'index.html')
 
 
@@ -59,6 +71,19 @@ class SignUpView(APIView):
 
     def post(self, request, format='json'):
         serializer = SignUpSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.validated_data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SignUpTelegramView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format='json'):
+        serializer = SignUpTelegramSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             if user:
