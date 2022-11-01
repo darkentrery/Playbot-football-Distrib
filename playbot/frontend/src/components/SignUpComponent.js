@@ -85,58 +85,75 @@ export default function SignUpComponent () {
                             <div className={"sign-up-div-input"}>
                                 <input type="text" placeholder={"Имя и фамилия *"} onChange={(event) => setName(event.target.value)}/>
                                 <div className={"sign-up-icon"}>
-                                    <img src={avatarIcon} alt=""/>
+                                    <img className={"name-icon"} src={avatarIcon} alt=""/>
                                 </div>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
-                                <input className="form-control" type="text" placeholder={"Телефон *"}  onChange={(event) => phoneInput(event)}/>
+                                <input type="text" placeholder={"Телефон *"}  onChange={(event) => phoneInput(event)}/>
                                 <div className={"sign-up-icon"}>
-                                    <img src={phoneIcon} alt=""/>
+                                    <img className={"phone-icon"} src={phoneIcon} alt=""/>
                                 </div>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
-                                <input className="form-control" type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
+                                <input type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
                                 <div className={"sign-up-icon"}>
-                                    <img src={emailIcon} alt=""/>
+                                    <img className={"email-icon"} src={emailIcon} alt=""/>
                                 </div>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
-                                <input className="form-control" type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
+                                <input type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
                                 <div className={"sign-up-icon"}>
-                                    <img src={passwordIcon} alt=""/>
+                                    <img className={"password-icon"} src={passwordIcon} alt=""/>
                                 </div>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
-                                <input className="form-control" type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
+                                <input type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
                                 <div className={"sign-up-icon"}>
-                                    <img src={passwordIcon} alt=""/>
+                                    <img className={"password-icon"} src={passwordIcon} alt=""/>
                                 </div>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input-ch"}>
+                                <div className={"checkbox-div"}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
-                                <label htmlFor={"id-policy"}></label>
+                                <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
                                 <text>Я согласен с политикой<br/> конфеденциальности</text>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
-
+                            <div className={"sign-up-div-input-ch"}>
+                                <div className={"checkbox-div"}></div>
+                                <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
+                                <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
+                                <text>Я согласен с политикой<br/> конфеденциальности</text>
+                            </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
-
+                            <button className={"btn-reg"} onClick={sendForm}>
+                                <div className={"btn-reg-text"}>Зарегистрироваться</div>
+                            </button>
                         </div>
                     </div>
                     <div className={"sign-up-l-bottom"}>
+                        <div className={"sign-up-l-bottom-elem"}>
+                            <a onClick={() => {setOpenSignUp(!openSignUp)}} className={"sign-up-btn-login"}>У меня уже есть аккаунт, Войти</a>
+                        </div>
+                        <div className={"sign-up-l-bottom-elem"}>
+                            <div className={"sign-up-line"}></div>
+                        </div>
+                        <div className={"sign-up-l-bottom-elem"}>
 
+
+                        </div>
                     </div>
                     {/*<div className={"sign-up-left-elem"}>*/}
                     {/*    <input className={"sign-up-input"} type="text" placeholder={"Имя и фамилия"} onChange={(event) => setName(event.target.value)}/><br/><br/>*/}

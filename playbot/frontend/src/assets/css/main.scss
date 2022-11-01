@@ -1,7 +1,10 @@
+$fieldWidth: 280px;
+$fieldHeight: 48px;
 .display {
-  position: absolute;
+  display: flex;
+  //position: absolute;
   width: 1280px;
-  height: 722px;
+  height: 789px;
   left: 815px;
   top: 2014px;
 
@@ -12,11 +15,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  width: 1280px;
+  height: 789px;
 
   background: rgba(27, 27, 27, 0.7);
 }
@@ -44,8 +44,11 @@
 
 .sign-up-l-bottom {
   display: flex;
-  flex: 1 1 auto;
-  max-height: 132px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 132px;
 
   background: #F3F3F3;
 }
@@ -55,10 +58,8 @@
   flex: 1 1 auto;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  //align-content: space-around;
-  padding: 10px;
-
+  justify-content: space-around;
+  padding: 30px;
 }
 
 .sign-up-l-elem {
@@ -66,8 +67,8 @@
   flex: 1 1 auto;
   justify-content: center;
   align-items: center;
-  height: 48px;
-  width: 280px;
+  height: $fieldHeight;
+  width: $fieldWidth;
 }
 
 .sign-up-title {
@@ -85,25 +86,49 @@
 
 .sign-up-div-input {
   flex: 1 1 auto;
-  height: 48px;
+  height: $fieldHeight;
 }
 
 .sign-up-icon {
-  position: absolute;
+  position: relative;
   width: 20px;
   height: 20px;
+  top: 14px;
+  left: 14px;
 }
 
-.sign-up-icon img {
-  margin: 14px;
-  width: 14px;
+.name-icon {
+  position: relative;
+  width: 15px;
   height: 16px;
+  top: 1px;
+}
+
+.phone-icon {
+  position: relative;
+  width: 16px;
+  height: 15px;
+  top: 1px;
+}
+
+.email-icon {
+  position: relative;
+  width: 16px;
+  height: 12px;
+  top: 2px;
+}
+
+.password-icon {
+  position: relative;
+  width: 12px;
+  height: 15px;
+  top: 1px;
 }
 
 .sign-up-div-input input[type=text]{
   position: absolute;
-  height: 48px;
-  width: 280px;
+  height: $fieldHeight;
+  width: $fieldWidth;
   border: 0.8px solid #949494;
   border-radius: 8px;
   padding-left: 40px;
@@ -111,7 +136,7 @@
 
 .sign-up-div-input-ch {
   flex: 1 1 auto;
-  height: 48px;
+  height: $fieldHeight;
 }
 
 input[type="checkbox"] {
@@ -119,7 +144,8 @@ input[type="checkbox"] {
 }
 
 /* стили для метки */
-label {
+
+.checkbox-div {
   box-sizing: border-box;
   position: absolute;
   width: 16px;
@@ -127,26 +153,27 @@ label {
 
   border: 1px solid #949494;
   border-radius: 4px;
-  cursor: pointer;
 
-  //color: #000;
-  //cursor: default;
-  //font-weight: normal;
-  //line-height: 30px;
-  //padding: 10px 0;
-  //vertical-align: middle;
+}
+
+.checkbox-label {
+  position: absolute;
+  width: $fieldWidth;
+  height: $fieldHeight;
+  cursor: pointer;
+  z-index: 99999;
 }
 
 /* формируем внешний вид чекбокса в псевдоэлементе before */
-label:before {
+.checkbox-label:before {
   //box-sizing: border-box;
   position: absolute;
-  width: 90px;
-  height: 160px;
-  left: 1.43%;
-  right: 95.36%;
-  top: 11.76%;
-  bottom: 67.65%;
+  width: $fieldWidth;
+  height: $fieldHeight;
+  left: 2px;
+  //right: 95.36%;
+  top: 2px;
+  //bottom: 67.65%;
   cursor: pointer;
 }
 
@@ -175,7 +202,6 @@ input:checked + label:before {
   width: 252px;
   height: 34px;
   left: 28px;
-  //top: 0px;
 
   font-family: 'Raleway', sans-serif;
   font-style: normal;
@@ -184,6 +210,75 @@ input:checked + label:before {
   line-height: 120%;
 
   color: #949494;
+}
+
+.btn-reg {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
+
+  width: $fieldWidth;
+  height: $fieldHeight;
+  /* Main */
+
+  background: #D19C6C;
+  border-radius: 8px;
+  border-color: #D19C6C;
+  cursor: pointer;
+}
+
+.btn-reg-text {
+  width: 180px;
+  height: 21px;
+
+  /* Buttons texts/Button 56 (18 Medium) */
+
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #FFFFFF;
+}
+
+.sign-up-l-bottom-elem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: $fieldWidth;
+  margin: 5px;
+}
+
+.sign-up-line {
+  width: 279px;
+  height: 0px;
+  border: 1px solid #DBDBDB;
+}
+
+.sign-up-btn-login {
+  width: 213px;
+  height: 17px;
+  cursor: pointer;
+
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  /* identical to box height, or 17px */
+
+  /* Grey text */
+
+  color: #949494;
+}
+
+.sign-up-btn-login:hover {
+  text-decoration: underline;
 }
 
 .sign-up-right {
