@@ -1,0 +1,288 @@
+.display {
+  position: absolute;
+  width: 1280px;
+  height: 722px;
+  left: 815px;
+  top: 2014px;
+
+  background: #F3F3F3;
+}
+
+.popup-fon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+
+  background: rgba(27, 27, 27, 0.7);
+}
+
+.frame-sign-up {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: stretch;
+  align-items: stretch;
+  width: 872px;
+  height: 714px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  background: #FFFFFF;
+}
+.sign-up-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+  align-items: stretch;
+
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+
+.sign-up-l-bottom {
+  display: flex;
+  flex: 1 1 auto;
+  max-height: 132px;
+
+  background: #F3F3F3;
+}
+
+.sign-up-l-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  //align-content: space-around;
+  padding: 10px;
+
+}
+
+.sign-up-l-elem {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 280px;
+}
+
+.sign-up-title {
+  width: 138px;
+  height: 26px;
+
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 120%;
+
+  color: #1B1B1B;
+}
+
+.sign-up-div-input {
+  flex: 1 1 auto;
+  height: 48px;
+}
+
+.sign-up-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.sign-up-icon img {
+  margin: 14px;
+  width: 14px;
+  height: 16px;
+}
+
+.sign-up-div-input input[type=text]{
+  position: absolute;
+  height: 48px;
+  width: 280px;
+  border: 0.8px solid #949494;
+  border-radius: 8px;
+  padding-left: 40px;
+}
+
+.sign-up-div-input-ch {
+  flex: 1 1 auto;
+  height: 48px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+/* стили для метки */
+label {
+  box-sizing: border-box;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+
+  border: 1px solid #949494;
+  border-radius: 4px;
+  cursor: pointer;
+
+  //color: #000;
+  //cursor: default;
+  //font-weight: normal;
+  //line-height: 30px;
+  //padding: 10px 0;
+  //vertical-align: middle;
+}
+
+/* формируем внешний вид чекбокса в псевдоэлементе before */
+label:before {
+  //box-sizing: border-box;
+  position: absolute;
+  width: 90px;
+  height: 160px;
+  left: 1.43%;
+  right: 95.36%;
+  top: 11.76%;
+  bottom: 67.65%;
+  cursor: pointer;
+}
+
+/* вариации внешнего вида в зав-ти от статуса checkbox */
+/* checked */
+input:checked + label:before {
+  content: '';
+  background: url("../icon/checked.png") no-repeat;
+  background-size: 9px 7px;
+  background-position: 2px 2px;
+  position: absolute;
+}
+
+.sign-up-div-input-ch input[type=checkbox]{
+  box-sizing: border-box;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+
+  border: 1px solid #949494;
+  border-radius: 4px;
+}
+
+.sign-up-div-input-ch text {
+  position: relative;
+  width: 252px;
+  height: 34px;
+  left: 28px;
+  //top: 0px;
+
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+
+  color: #949494;
+}
+
+.sign-up-right {
+  display: flex;
+  flex: 0 0 400px;
+  align-items: stretch;
+}
+
+.btn-close {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  left: 352px;
+  top: 24px;
+  cursor: pointer;
+}
+
+.icon-cross {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  left: 4px;
+  top: 4px;
+}
+
+.sign-up-right-text {
+  position: absolute;
+  width: 249px;
+  height: 87px;
+  left: 60px;
+  top: 94px;
+
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+
+  letter-spacing: 0.04em;
+  color: #1B1B1B;
+}
+
+.sign-up-fon-cell {
+  display: flex;
+  flex: 1 1 auto;
+
+  background: url(../icon/signUpFon.png);
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+
+.sign-up-fon-orange {
+  display: flex;
+  flex: 1 1 400px;
+  align-items: stretch;
+
+  background: #D19C6C;
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+
+.sign-up-fon-white {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+
+  background: #F2F2F2;
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+
+.sign-up-img {
+  //display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  position: relative;
+
+  background: url(../icon/signUpImg.png);
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  //mix-blend-mode: overlay;
+}
+
+.sign-up-circle-1 {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 62px;
+  top: 51px;
+}
+
+.sign-up-circle-2 {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 90px;
+  top: 55px;
+}

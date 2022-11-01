@@ -1,11 +1,19 @@
 import logo from './assets/icon/logo.svg';
 import './assets/css/App.css';
+import './assets/css/main.scss';
 import LoginComponent from "./components/LoginComponent";
 import SignUpComponent from "./components/SignUpComponent";
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
 import AuthRoutes from "./routes/AuthRoutes";
+import React, {useState} from "react";
+import {OpenSignUpContext} from "./context/AuthContext";
 
-function App() {
+
+function App(defaultValue) {
+    const [openSignUp, setOpenSignUp] = useState(false);
+    const signUpWindow = { openSignUp, setOpenSignUp };
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +28,10 @@ function App() {
                     </li>
                   </ul>
 
-
+                  <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
+                      <OpenSignUpContext.Provider value={signUpWindow}>
+                          <SignUpComponent/>
+                      </OpenSignUpContext.Provider>
 
                   <div className="features">
                       <Routes>

@@ -1,9 +1,14 @@
-import React, {Component, useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import AuthService from "../services/AuthService";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthRoutes from "../routes/AuthRoutes";
-
-
+import TelegramLoginComponent from "./TelegramLoginComponent";
+import {OpenSignUpContext} from "../context/AuthContext";
+import Modal from "react-modal";
+import avatarIcon from "../assets/icon/avatar.png";
+import phoneIcon from "../assets/icon/phone.png";
+import emailIcon from "../assets/icon/email.png";
+import passwordIcon from "../assets/icon/password.png";
 
 
 export default function SignUpComponent () {
@@ -16,6 +21,8 @@ export default function SignUpComponent () {
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
     const [data, setData] = useState("No");
+    const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
+
 
     function phoneInput(event) {
         let value = event.target.value.replace(/\D/g, "");
@@ -25,7 +32,6 @@ export default function SignUpComponent () {
     }
 
     useEffect(() => {
-        console.log(allowOffer)
         let bodyFormData = new FormData();
         bodyFormData.append('name', name);
         bodyFormData.append('phone_number', phoneNumber);
@@ -34,21 +40,6 @@ export default function SignUpComponent () {
         setData(bodyFormData)
     }, [name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer])
 
-    const changeAllowPolicy = () => {
-        if (allowPolicy) {
-            setAllowPolicy(false);
-        } else {
-            setAllowPolicy(true);
-        }
-    }
-    const changeAllowOffer = () => {
-        if (allowOffer) {
-            setAllowOffer(false);
-        } else {
-            setAllowOffer(true);
-        }
-    }
-    // const history = useHistory();
     const navigate = useNavigate();
 
     const sendForm = () => {
@@ -75,19 +66,137 @@ export default function SignUpComponent () {
     }
 
     return(
-        <div>
-            <input className="form-control" type="text" placeholder={"Имя и фамилия"} onChange={(event) => setName(event.target.value)}/><br/><br/>
-            <input className="form-control" type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/><br/><br/>
-            <input className="form-control" type="text" placeholder={"Почта"} onChange={(event) => setEmail(event.target.value)}/><br/><br/>
-            <input className="form-control" type="text" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/><br/><br/>
-            <input className="form-control" type="text" placeholder={"Потвердите пароль"} onChange={(event) => setPasswordConfirm(event.target.value)}/><br/><br/>
-            <label>Я согласен с политикой конфеденциальности</label><br/>
-            <input className="form-control" type="checkbox" onChange={(event) => changeAllowPolicy()}/><br/><br/>
-            <label>Я согласен с условиями договора-оферты</label><br/>
-            <input className="form-control" type="checkbox" onChange={(event) => changeAllowOffer()}/><br/><br/>
+        <Modal
+            isOpen={openSignUp}
+            // onAfterOpen={afterOpenModal}
+            // onRequestClose={closeModal}
+            // style={customStyles}
+            className={"popup-fon"}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+        >
+            <div className={"frame-sign-up"}>
+                <div className={"sign-up-left"}>
+                    <div className={"sign-up-l-body"}>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-title"}>Регистрация</div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-div-input"}>
+                                <input type="text" placeholder={"Имя и фамилия *"} onChange={(event) => setName(event.target.value)}/>
+                                <div className={"sign-up-icon"}>
+                                    <img src={avatarIcon} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-div-input"}>
+                                <input className="form-control" type="text" placeholder={"Телефон *"}  onChange={(event) => phoneInput(event)}/>
+                                <div className={"sign-up-icon"}>
+                                    <img src={phoneIcon} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-div-input"}>
+                                <input className="form-control" type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
+                                <div className={"sign-up-icon"}>
+                                    <img src={emailIcon} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-div-input"}>
+                                <input className="form-control" type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
+                                <div className={"sign-up-icon"}>
+                                    <img src={passwordIcon} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-div-input"}>
+                                <input className="form-control" type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
+                                <div className={"sign-up-icon"}>
+                                    <img src={passwordIcon} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+                            <div className={"sign-up-div-input-ch"}>
+                                <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
+                                <label htmlFor={"id-policy"}></label>
+                                <text>Я согласен с политикой<br/> конфеденциальности</text>
+                            </div>
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+
+                        </div>
+                        <div className={"sign-up-l-elem"}>
+
+                        </div>
+                    </div>
+                    <div className={"sign-up-l-bottom"}>
+
+                    </div>
+                    {/*<div className={"sign-up-left-elem"}>*/}
+                    {/*    <input className={"sign-up-input"} type="text" placeholder={"Имя и фамилия"} onChange={(event) => setName(event.target.value)}/><br/><br/>*/}
+                    {/*</div>*/}
+
+                    {/*<input className="form-control" type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/><br/><br/>*/}
+                    {/*<input className="form-control" type="text" placeholder={"Почта"} onChange={(event) => setEmail(event.target.value)}/><br/><br/>*/}
+                    {/*<input className="form-control" type="text" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/><br/><br/>*/}
+                    {/*<input className="form-control" type="text" placeholder={"Потвердите пароль"} onChange={(event) => setPasswordConfirm(event.target.value)}/><br/><br/>*/}
+                    {/*<label>Я согласен с политикой конфеденциальности</label><br/>*/}
+                    {/*<input className="form-control" type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/><br/><br/>*/}
+                    {/*<label>Я согласен с условиями договора-оферты</label><br/>*/}
+                    {/*<input className="form-control" type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/><br/><br/>*/}
+                    {/*<button onClick={sendForm}>Sign Up</button>*/}
+
+                    {/*<Link to={AuthRoutes.login}><h3>Login</h3></Link>*/}
+                    {/*<TelegramLoginComponent/>*/}
+                    {/*<button onClick={() => {setOpenSignUp(!openSignUp)}}>Close</button>*/}
+                </div>
+                <div className={"sign-up-right"}>
+                    <div className={"sign-up-fon-orange"}>
+                        <div className={"sign-up-fon-white"}>
+                            <div className={"sign-up-fon-white"}>
+                                <div className={"sign-up-fon-cell"}>
+                                    <div className={"sign-up-img"}>
+                                        <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close"}>
+                                            <svg className={"icon-cross"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L8 6.58579L14.2929 0.292893C14.6834 -0.0976311 15.3166 -0.0976311 15.7071 0.292893C16.0976 0.683417 16.0976 1.31658 15.7071 1.70711L9.41421 8L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L8 9.41421L1.70711 15.7071C1.31658 16.0976 0.683417 16.0976 0.292893 15.7071C-0.0976311 15.3166 -0.0976311 14.6834 0.292893 14.2929L6.58579 8L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z" fill="#1B1B1B"/>
+                                            </svg>
+                                        </div>
+                                         <svg  className={"sign-up-circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="4" cy="4" r="4" fill="#EFB041"/>
+                                        </svg>
+                                        <svg className={"sign-up-circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="8" cy="8" r="8" fill="#EFB041"/>
+                                        </svg>
+
+                                        <div className={"sign-up-right-text"}>Попробуй себя в любительском футболе</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/*<div className={"sign-up-fon-f"}></div>*/}
 
 
-            <button onClick={sendForm}>Sign Up</button>
-        </div>
+
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </Modal>
+
     )
 }
