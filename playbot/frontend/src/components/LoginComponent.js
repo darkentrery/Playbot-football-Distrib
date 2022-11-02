@@ -3,6 +3,7 @@ import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext} from "../context/AuthContext";
+import CheckToken from "../services/AuthDecorator";
 
 
 export default function LoginComponent () {
@@ -20,19 +21,26 @@ export default function LoginComponent () {
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
         setData(bodyFormData)
-    }, [email, password])
+    }, [email, password]);
+
+
+    const [isLogin, setIsLogin] = useState(false);
+    CheckToken(authService.getData, [], isLogin, setIsLogin);
+
 
     const sendForm = () => {
         if (email && password) {
-            console.log(data)
             console.log(localStorage.getItem("access_token"))
             console.log(localStorage.getItem("refresh_token"))
             authService.login(data).then((response) => {
                 console.log(response)
             })
-            // authService.refresh(localStorage.getItem("refresh_token")).then((response) => {
-            //     console.log(response)
+            // authService.getData(setIsLogin).then((response) => {
+            //     if (response.status == 200) {
+            //         console.log(response)
+            //     }
             // })
+
         }
     }
 

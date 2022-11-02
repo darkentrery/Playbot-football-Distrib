@@ -16,4 +16,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
     re_path(r"^api/data/$", views.DataView.as_view(), name='data'),
+    re_path(r"^api/valid-token/$", views.ValidView.as_view(), name='valid-token'),
 ]

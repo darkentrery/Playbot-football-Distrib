@@ -15,8 +15,8 @@ $fieldHeight: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1280px;
-  height: 789px;
+  width: 100vw;
+  height: 100vh;
 
   background: rgba(27, 27, 27, 0.7);
 }
@@ -359,7 +359,7 @@ input:checked + label:before {
   align-items: stretch;
   position: relative;
 
-  background: url(../icon/signUpImg.png);
+  background: url(../icon/signUpImg2.png);
   background-size: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;

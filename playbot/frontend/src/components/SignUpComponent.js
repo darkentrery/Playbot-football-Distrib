@@ -179,10 +179,10 @@ export default function SignUpComponent () {
                     {/*<button onClick={() => {setOpenSignUp(!openSignUp)}}>Close</button>*/}
                 </div>
                 <div className={"sign-up-right"}>
-                    <div className={"sign-up-fon-orange"}>
-                        <div className={"sign-up-fon-white"}>
-                            <div className={"sign-up-fon-white"}>
-                                <div className={"sign-up-fon-cell"}>
+                    {/*<div className={"sign-up-fon-orange"}>*/}
+                    {/*    <div className={"sign-up-fon-white"}>*/}
+                    {/*        <div className={"sign-up-fon-white"}>*/}
+                    {/*            <div className={"sign-up-fon-cell"}>*/}
                                     <div className={"sign-up-img"}>
                                         <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close"}>
                                             <svg className={"icon-cross"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -198,11 +198,11 @@ export default function SignUpComponent () {
 
                                         <div className={"sign-up-right-text"}>Попробуй себя в любительском футболе</div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
 
-                    </div>
+                    {/*</div>*/}
 
                     {/*<div className={"sign-up-fon-f"}></div>*/}
 

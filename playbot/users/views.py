@@ -123,5 +123,18 @@ class DataView(APIView):
         return Response({"data": "success!"}, status=status.HTTP_200_OK)
 
 
+class ValidView(APIView):
+    permission_classes = (AllowAny,)
+    # authentication_classes = [JWTAuthentication,]
+
+    def get(self, request, format='json'):
+        if request.user.is_authenticated:
+            authenticated = True
+        else:
+            authenticated = False
+
+        return Response({"authenticated": authenticated}, status=status.HTTP_200_OK)
+
+
 
 
