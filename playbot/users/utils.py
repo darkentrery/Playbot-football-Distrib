@@ -6,7 +6,11 @@ from email.mime.text import MIMEText
 def send_message(recipient, new_password):
     server = "smtp.yandex.ru"
     user = "mikhail.badazhkov@yandex.kz"
-    password = "EntreryOly1506!"
+    password = "snbwtingtgforyqw"
+
+    # server = "smtp.gmail.com"
+    # user = "badajkovmihail@gmail.com"
+    # password = "EntreryOly89139362589"
 
     # recipient = ["badajkovmihail@gmail.com",]
     sender = "mikhail.badazhkov@yandex.kz"

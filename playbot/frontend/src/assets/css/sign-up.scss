@@ -1,0 +1,158 @@
+.sign-up {
+  width: 800px;
+  height: 714px;
+}
+
+.sign-up-l-bottom {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 132px;
+
+  background: #F3F3F3;
+}
+
+.sign-up-l-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px;
+}
+
+.sign-up-l-elem {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  height: $fieldHeight;
+  width: $fieldWidth;
+}
+
+.sign-up-title {
+  width: 138px;
+  height: 26px;
+
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 120%;
+
+  color: #1B1B1B;
+}
+
+.sign-up-div-input {
+  flex: 1 1 auto;
+  height: $fieldHeight;
+}
+
+.sign-up-div-input input[type=text]{
+  position: absolute;
+  height: $fieldHeight;
+  width: $fieldWidth;
+  border: 0.8px solid #949494;
+  border-radius: 8px;
+  padding-left: 40px;
+
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.sign-up-div-input-ch {
+  flex: 1 1 auto;
+  height: $fieldHeight;
+}
+
+.sign-up-div-input-ch input[type=checkbox]{
+  box-sizing: border-box;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+
+  border: 1px solid #949494;
+  border-radius: 4px;
+}
+
+.sign-up-div-input-ch span {
+  position: relative;
+  width: 252px;
+  height: 34px;
+  left: 28px;
+
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+
+  color: #949494;
+}
+
+.btn-reg {
+  width: $fieldWidth;
+  height: $fieldHeight;
+}
+
+.sign-up-l-bottom-elem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: $fieldWidth;
+  margin: 5px;
+}
+
+.sign-up-line {
+  width: 279px;
+  height: 0px;
+  border: 1px solid #DBDBDB;
+}
+
+.link-sin-up-login {
+  width: 213px;
+  height: 17px;
+}
+
+.sign-up-right-text {
+  position: absolute;
+  width: 249px;
+  height: 87px;
+  left: 60px;
+  top: 94px;
+
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+
+  letter-spacing: 0.04em;
+  color: #1B1B1B;
+}
+
+.sign-up-img {
+  background: url(../icon/signUpImg2.png);
+}
+
+.sign-up-circle-1 {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 62px;
+  top: 51px;
+}
+
+.sign-up-circle-2 {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 90px;
+  top: 55px;
+}

@@ -1,15 +1,10 @@
 $fieldWidth: 280px;
 $fieldHeight: 48px;
-.display {
-  display: flex;
-  //position: absolute;
-  width: 1280px;
-  height: 789px;
-  left: 815px;
-  top: 2014px;
+@import "fonts";
+@import "sign-up";
+@import "login";
 
-  background: #F3F3F3;
-}
+
 
 .popup-fon {
   display: flex;
@@ -21,18 +16,17 @@ $fieldHeight: 48px;
   background: rgba(27, 27, 27, 0.7);
 }
 
-.frame-sign-up {
+.popup-frame {
   display: flex;
   flex-wrap: nowrap;
   justify-content: stretch;
   align-items: stretch;
-  width: 872px;
-  height: 714px;
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
+
+  border-radius: 10px;
   background: #FFFFFF;
 }
-.sign-up-left {
+
+.popup-left {
   display: flex;
   flex-direction: column;
   flex: 1 1 200px;
@@ -40,61 +34,6 @@ $fieldHeight: 48px;
 
   background: #FFFFFF;
   border-radius: 10px;
-}
-
-.sign-up-l-bottom {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 132px;
-
-  background: #F3F3F3;
-}
-
-.sign-up-l-body {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 30px;
-}
-
-.sign-up-l-elem {
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: center;
-  align-items: center;
-  height: $fieldHeight;
-  width: $fieldWidth;
-}
-
-.sign-up-title {
-  width: 138px;
-  height: 26px;
-
-  font-family: "Raleway", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 120%;
-
-  color: #1B1B1B;
-}
-
-.sign-up-div-input {
-  flex: 1 1 auto;
-  height: $fieldHeight;
-}
-
-.sign-up-icon {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  top: 14px;
-  left: 14px;
 }
 
 .name-icon {
@@ -125,25 +64,16 @@ $fieldHeight: 48px;
   top: 1px;
 }
 
-.sign-up-div-input input[type=text]{
-  position: absolute;
-  height: $fieldHeight;
-  width: $fieldWidth;
-  border: 0.8px solid #949494;
-  border-radius: 8px;
-  padding-left: 40px;
-}
-
-.sign-up-div-input-ch {
-  flex: 1 1 auto;
-  height: $fieldHeight;
+.eye-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  top: 1px;
 }
 
 input[type="checkbox"] {
   display: none;
 }
-
-/* стили для метки */
 
 .checkbox-div {
   box-sizing: border-box;
@@ -187,50 +117,38 @@ input:checked + label:before {
   position: absolute;
 }
 
-.sign-up-div-input-ch input[type=checkbox]{
-  box-sizing: border-box;
-  position: absolute;
-  width: 16px;
-  height: 16px;
-
-  border: 1px solid #949494;
-  border-radius: 4px;
-}
-
-.sign-up-div-input-ch span {
-  position: relative;
-  width: 252px;
-  height: 34px;
-  left: 28px;
-
-  font-family: 'Raleway', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 120%;
-
-  color: #949494;
-}
-
-.btn-reg {
+.btn {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 10px 24px;
   gap: 10px;
+  border:none;
 
-  width: $fieldWidth;
-  height: $fieldHeight;
   /* Main */
 
-  background: #D19C6C;
+  background: #d19c6c;
   border-radius: 8px;
-  border-color: #D19C6C;
+  //border-color: #D19C6C;
   cursor: pointer;
+
+  &:hover {
+    background: #e0a773;
+  }
+
+  &:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    background: #e0a773;
+  }
+
+  &:active {
+    background: #c29165;
+  }
 }
 
-.btn-reg-text {
+.btn-text {
   width: 180px;
   height: 21px;
 
@@ -245,43 +163,21 @@ input:checked + label:before {
   color: #FFFFFF;
 }
 
-.sign-up-l-bottom-elem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-  width: $fieldWidth;
-  margin: 5px;
-}
-
-.sign-up-line {
-  width: 279px;
-  height: 0px;
-  border: 1px solid #DBDBDB;
-}
-
-.sign-up-btn-login {
-  width: 213px;
-  height: 17px;
+.link {
   cursor: pointer;
-
   font-family: 'Raleway', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
-  /* identical to box height, or 17px */
-
-  /* Grey text */
-
   color: #949494;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.sign-up-btn-login:hover {
-  text-decoration: underline;
-}
-
-.sign-up-right {
+.popup-right {
   display: flex;
   flex: 0 0 400px;
   align-items: stretch;
@@ -302,23 +198,6 @@ input:checked + label:before {
   height: 16px;
   left: 4px;
   top: 4px;
-}
-
-.sign-up-right-text {
-  position: absolute;
-  width: 249px;
-  height: 87px;
-  left: 60px;
-  top: 94px;
-
-  font-family: "Raleway", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 120%;
-
-  letter-spacing: 0.04em;
-  color: #1B1B1B;
 }
 
 .sign-up-fon-cell {
@@ -353,31 +232,28 @@ input:checked + label:before {
   background-repeat: no-repeat;
 }
 
-.sign-up-img {
-  //display: flex;
+.popup-img {
   flex: 1 1 auto;
   align-items: stretch;
   position: relative;
-
-  background: url(../icon/signUpImg2.png);
   background-size: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
-  //mix-blend-mode: overlay;
 }
 
-.sign-up-circle-1 {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  left: 62px;
-  top: 51px;
+.left-input-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  top: 14px;
+  left: 14px;
 }
 
-.sign-up-circle-2 {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  left: 90px;
-  top: 55px;
+.right-input-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  top: -7px;
+  left: $fieldWidth - 34px;
 }
+

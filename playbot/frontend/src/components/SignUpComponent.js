@@ -77,8 +77,8 @@ export default function SignUpComponent () {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"frame-sign-up"}>
-                <div className={"sign-up-left"}>
+            <div className={"popup-frame sign-up"}>
+                <div className={"popup-left"}>
                     <div className={"sign-up-l-body"}>
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-title"}>Регистрация</div>
@@ -86,7 +86,7 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
                                 <input type="text" placeholder={"Имя и фамилия *"} onChange={(event) => setName(event.target.value)}/>
-                                <div className={"sign-up-icon"}>
+                                <div className={"left-input-icon"}>
                                     <img className={"name-icon"} src={avatarIcon} alt=""/>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
                                 <input type="text" placeholder={"Телефон *"}  onChange={(event) => phoneInput(event)}/>
-                                <div className={"sign-up-icon"}>
+                                <div className={"left-input-icon"}>
                                     <img className={"phone-icon"} src={phoneIcon} alt=""/>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
                                 <input type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
-                                <div className={"sign-up-icon"}>
+                                <div className={"left-input-icon"}>
                                     <img className={"email-icon"} src={emailIcon} alt=""/>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
                                 <input type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
-                                <div className={"sign-up-icon"}>
+                                <div className={"left-input-icon"}>
                                     <img className={"password-icon"} src={passwordIcon} alt=""/>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-elem"}>
                             <div className={"sign-up-div-input"}>
                                 <input type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
-                                <div className={"sign-up-icon"}>
+                                <div className={"left-input-icon"}>
                                     <img className={"password-icon"} src={passwordIcon} alt=""/>
                                 </div>
                             </div>
@@ -140,8 +140,8 @@ export default function SignUpComponent () {
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
-                            <button className={"btn-reg"} onClick={sendForm}>
-                                <div className={"btn-reg-text"}>Зарегистрироваться</div>
+                            <button className={"btn btn-reg"} onClick={sendForm}>
+                                <div className={"btn-text"}>Зарегистрироваться</div>
                             </button>
                         </div>
                     </div>
@@ -150,7 +150,7 @@ export default function SignUpComponent () {
                             <a onClick={() => {
                                 setOpenSignUp(!openSignUp)
                                 setOpenLogin(!openLogin)
-                            }} className={"sign-up-btn-login"}>У меня уже есть аккаунт, Войти</a>
+                            }} className={"link link-sin-up-login"}>У меня уже есть аккаунт, Войти</a>
                         </div>
                         <div className={"sign-up-l-bottom-elem"}>
                             <div className={"sign-up-line"}></div>
@@ -160,30 +160,13 @@ export default function SignUpComponent () {
 
                         </div>
                     </div>
-                    {/*<div className={"sign-up-left-elem"}>*/}
-                    {/*    <input className={"sign-up-input"} type="text" placeholder={"Имя и фамилия"} onChange={(event) => setName(event.target.value)}/><br/><br/>*/}
-                    {/*</div>*/}
-
-                    {/*<input className="form-control" type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/><br/><br/>*/}
-                    {/*<input className="form-control" type="text" placeholder={"Почта"} onChange={(event) => setEmail(event.target.value)}/><br/><br/>*/}
-                    {/*<input className="form-control" type="text" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/><br/><br/>*/}
-                    {/*<input className="form-control" type="text" placeholder={"Потвердите пароль"} onChange={(event) => setPasswordConfirm(event.target.value)}/><br/><br/>*/}
-                    {/*<label>Я согласен с политикой конфеденциальности</label><br/>*/}
-                    {/*<input className="form-control" type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/><br/><br/>*/}
-                    {/*<label>Я согласен с условиями договора-оферты</label><br/>*/}
-                    {/*<input className="form-control" type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/><br/><br/>*/}
-                    {/*<button onClick={sendForm}>Sign Up</button>*/}
-
-                    {/*<Link to={AuthRoutes.login}><h3>Login</h3></Link>*/}
-                    {/*<TelegramLoginComponent/>*/}
-                    {/*<button onClick={() => {setOpenSignUp(!openSignUp)}}>Close</button>*/}
                 </div>
-                <div className={"sign-up-right"}>
+                <div className={"popup-right"}>
                     {/*<div className={"sign-up-fon-orange"}>*/}
                     {/*    <div className={"sign-up-fon-white"}>*/}
                     {/*        <div className={"sign-up-fon-white"}>*/}
                     {/*            <div className={"sign-up-fon-cell"}>*/}
-                                    <div className={"sign-up-img"}>
+                                    <div className={"popup-img sign-up-img"}>
                                         <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close"}>
                                             <svg className={"icon-cross"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path fillRule="evenodd" clipRule="evenodd" d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L8 6.58579L14.2929 0.292893C14.6834 -0.0976311 15.3166 -0.0976311 15.7071 0.292893C16.0976 0.683417 16.0976 1.31658 15.7071 1.70711L9.41421 8L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L8 9.41421L1.70711 15.7071C1.31658 16.0976 0.683417 16.0976 0.292893 15.7071C-0.0976311 15.3166 -0.0976311 14.6834 0.292893 14.2929L6.58579 8L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z" fill="#1B1B1B"/>
@@ -206,17 +189,7 @@ export default function SignUpComponent () {
 
                     {/*<div className={"sign-up-fon-f"}></div>*/}
 
-
-
-
-
-
-
-
-
                 </div>
-
-
             </div>
         </Modal>
 
