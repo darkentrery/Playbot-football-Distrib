@@ -3,7 +3,7 @@ import AuthService from "../services/AuthService";
 import {Link, useNavigate} from "react-router-dom";
 import AuthRoutes from "../routes/AuthRoutes";
 import TelegramLoginComponent from "./TelegramLoginComponent";
-import {OpenSignUpContext} from "../context/AuthContext";
+import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
 import avatarIcon from "../assets/icon/avatar.png";
 import phoneIcon from "../assets/icon/phone.png";
@@ -22,6 +22,7 @@ export default function SignUpComponent () {
     const [allowOffer, setAllowOffer] = useState(false);
     const [data, setData] = useState("No");
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
+    const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
 
 
     function phoneInput(event) {
@@ -43,6 +44,7 @@ export default function SignUpComponent () {
     const navigate = useNavigate();
 
     const sendForm = () => {
+        console.log("open", openLogin)
         console.log(data)
         console.log(localStorage.getItem("access_token"))
         console.log(localStorage.getItem("refresh_token"))
@@ -126,7 +128,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <text>Я согласен с политикой<br/> конфеденциальности</text>
+                                <span>Я согласен с политикой<br/> конфеденциальности</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
@@ -134,7 +136,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <text>Я согласен с политикой<br/> конфеденциальности</text>
+                                <span>Я согласен с условиями договора<br/>-оферты</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
@@ -145,7 +147,10 @@ export default function SignUpComponent () {
                     </div>
                     <div className={"sign-up-l-bottom"}>
                         <div className={"sign-up-l-bottom-elem"}>
-                            <a onClick={() => {setOpenSignUp(!openSignUp)}} className={"sign-up-btn-login"}>У меня уже есть аккаунт, Войти</a>
+                            <a onClick={() => {
+                                setOpenSignUp(!openSignUp)
+                                setOpenLogin(!openLogin)
+                            }} className={"sign-up-btn-login"}>У меня уже есть аккаунт, Войти</a>
                         </div>
                         <div className={"sign-up-l-bottom-elem"}>
                             <div className={"sign-up-line"}></div>
@@ -181,7 +186,7 @@ export default function SignUpComponent () {
                                     <div className={"sign-up-img"}>
                                         <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close"}>
                                             <svg className={"icon-cross"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L8 6.58579L14.2929 0.292893C14.6834 -0.0976311 15.3166 -0.0976311 15.7071 0.292893C16.0976 0.683417 16.0976 1.31658 15.7071 1.70711L9.41421 8L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L8 9.41421L1.70711 15.7071C1.31658 16.0976 0.683417 16.0976 0.292893 15.7071C-0.0976311 15.3166 -0.0976311 14.6834 0.292893 14.2929L6.58579 8L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z" fill="#1B1B1B"/>
+                                                <path fillRule="evenodd" clipRule="evenodd" d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L8 6.58579L14.2929 0.292893C14.6834 -0.0976311 15.3166 -0.0976311 15.7071 0.292893C16.0976 0.683417 16.0976 1.31658 15.7071 1.70711L9.41421 8L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L8 9.41421L1.70711 15.7071C1.31658 16.0976 0.683417 16.0976 0.292893 15.7071C-0.0976311 15.3166 -0.0976311 14.6834 0.292893 14.2929L6.58579 8L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z" fill="#1B1B1B"/>
                                             </svg>
                                         </div>
                                          <svg  className={"sign-up-circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">

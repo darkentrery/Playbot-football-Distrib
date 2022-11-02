@@ -1,15 +1,20 @@
+import re
+
 from django.contrib.auth import get_user_model, authenticate
-from django.core.exceptions import ObjectDoesNotExist
+from loguru import logger
 from rest_framework import serializers, exceptions
 from django.contrib.auth.models import update_last_login
 from rest_framework.exceptions import ValidationError
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.serializers import raise_errors_on_nested_writes
+from rest_framework.utils import model_meta
+from rest_framework_simplejwt.serializers import PasswordField
 from rest_framework_simplejwt.settings import api_settings
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from config.settings.base import CHANEL_ID
 from playbot.users.models import User
+from playbot.users.utils import generate_password, send_message
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,6 +22,50 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'is_active',]
         read_only_field = ['is_active',]
+
+
+class CustomTokenObtainSerializer(serializers.Serializer):
+    username_field = get_user_model().USERNAME_FIELD
+    token_class = None
+
+    default_error_messages = {
+        "no_active_account": _("No active account found with the given credentials")
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields[self.username_field] = serializers.CharField()
+        self.fields["password"] = PasswordField()
+
+    def validate(self, attrs):
+        is_email = re.search(r"\D{1,}", attrs[self.username_field])
+        if not is_email:
+            users = User.objects.filter(phone_number=attrs[self.username_field])
+            if users.count() == 1:
+                attrs[self.username_field] = users.first().email
+        authenticate_kwargs = {
+            self.username_field: attrs[self.username_field],
+            "password": attrs["password"],
+        }
+        try:
+            authenticate_kwargs["request"] = self.context["request"]
+        except KeyError:
+            pass
+
+        self.user = authenticate(**authenticate_kwargs)
+
+        if not api_settings.USER_AUTHENTICATION_RULE(self.user):
+            raise exceptions.AuthenticationFailed(
+                self.error_messages["no_active_account"],
+                "no_active_account",
+            )
+
+        return {}
+
+    @classmethod
+    def get_token(cls, user):
+        return cls.token_class.for_user(user)
 
 
 class TokenObtainTelegramSerializer(serializers.Serializer):
@@ -65,7 +114,8 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
         return cls.token_class.for_user(user)
 
 
-class LoginSerializer(TokenObtainPairSerializer):
+class LoginSerializer(CustomTokenObtainSerializer):
+    token_class = RefreshToken
 
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -184,3 +234,31 @@ class SignUpTelegramSerializer(serializers.ModelSerializer):
             raise ValidationError(self.errors)
 
         return not bool(self._errors)
+
+
+class RefreshPasswordSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=True, write_only=True, max_length=128)
+
+    class Meta:
+        model = User
+        fields = ("email",)
+
+    @logger.catch
+    def update(self):
+        email = self.validated_data.get("email")
+        instance = None
+        users = User.objects.filter(email=email)
+        if users.exists():
+            instance = users.first()
+            password = generate_password()
+            instance.set_password(password)
+            instance.save()
+            send_message(email, password)
+        else:
+            self._errors["email"] = ["Invalid email!"]
+
+        return instance
+
+
+
+

@@ -6,12 +6,19 @@ import SignUpComponent from "./components/SignUpComponent";
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
 import AuthRoutes from "./routes/AuthRoutes";
 import React, {useState} from "react";
-import {OpenSignUpContext} from "./context/AuthContext";
+import {OpenSignUpContext, OpenLoginContext, OpenRefreshPasswordContext} from "./context/AuthContext";
+import RefreshPasswordComponent from "./components/RefreshPasswordComponent";
+
 
 
 function App(defaultValue) {
     const [openSignUp, setOpenSignUp] = useState(false);
+    const [openLogin, setOpenLogin] = useState(false);
+    const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
+
     const signUpWindow = { openSignUp, setOpenSignUp };
+    const loginWindow = { openLogin, setOpenLogin };
+    const refreshPasswordWindow = { openRefreshPassword, setOpenRefreshPassword };
 
 
   return (
@@ -29,9 +36,25 @@ function App(defaultValue) {
                   </ul>
 
                   <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
+                  <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
+                  <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
                           <SignUpComponent/>
                       </OpenSignUpContext.Provider>
+                  </OpenLoginContext.Provider>
+                  <OpenLoginContext.Provider value={loginWindow}>
+                      <OpenSignUpContext.Provider value={signUpWindow}>
+                          <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
+                              <LoginComponent/>
+                          </OpenRefreshPasswordContext.Provider>
+                      </OpenSignUpContext.Provider>
+                  </OpenLoginContext.Provider>
+                  <OpenLoginContext.Provider value={loginWindow}>
+                      <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
+                          <RefreshPasswordComponent/>
+                      </OpenRefreshPasswordContext.Provider>
+                  </OpenLoginContext.Provider>
+
 
                   <div className="features">
                       <Routes>

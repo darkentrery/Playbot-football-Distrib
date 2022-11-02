@@ -84,6 +84,20 @@ export default class AuthService{
 		return errors;
 	}
 
+	refreshPassword(user){
+		const url = `${API_URL}refresh-password/`;
+		return axios.post(url, user, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	refresh(refreshToken){
 		const url = `${API_URL}token/refresh/`;
 		return axios.post(url, {"refresh": refreshToken}, {headers: {
