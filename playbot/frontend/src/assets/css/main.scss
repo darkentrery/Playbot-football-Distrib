@@ -3,6 +3,7 @@ $fieldHeight: 48px;
 @import "fonts";
 @import "sign-up";
 @import "login";
+@import "refresh-password";
 
 
 
@@ -186,12 +187,23 @@ input:checked + label:before {
 }
 
 .btn-close {
-  position: relative;
   width: 24px;
   height: 24px;
-  left: 352px;
-  top: 24px;
   cursor: pointer;
+
+  background: url("../icon/cross.png") no-repeat;
+  background-size: 16px;
+  background-position: center;
+}
+
+.btn-back {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  background: url("../icon/left-arrow.png") no-repeat;
+  background-size: 10px 16px;
+  background-position: center;
 }
 
 .icon-cross {
@@ -285,4 +297,71 @@ input:checked + label:before {
   }
   z-index: -1;
 }
+
+.div-input {
+  flex: 1 1 auto;
+  height: $fieldHeight;
+
+  input[type=text]{
+    position: absolute;
+    width: $fieldWidth;
+    height: $fieldHeight;
+    border: 0.8px solid #949494;
+    border-radius: 8px;
+    padding-left: 40px;
+
+    font-family: "Raleway", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+  }
+}
+
+.div-input-checkbox {
+  flex: 1 1 auto;
+  height: $fieldHeight;
+
+  input[type=checkbox]{
+    box-sizing: border-box;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #949494;
+    border-radius: 4px;
+  }
+
+  span {
+    position: relative;
+    width: 252px;
+    height: 34px;
+    left: 28px;
+
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+
+    color: #949494;
+  }
+}
+
+.circle-1 {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 62px;
+  top: 51px;
+}
+
+.circle-2 {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 90px;
+  top: 55px;
+}
+
 

@@ -44,7 +44,7 @@
 }
 
 .login-l-bottom-elem {
-  flex: 0 0 99px;
+  flex: 0 1 99px;
   align-items: start;
 }
 
@@ -76,4 +76,10 @@
 .link-login-reg {
   width: $fieldWidth / 2;
   height: 17px;
+}
+
+.login-close {
+  position: relative;
+  left: 352px;
+  top: 24px;
 }
