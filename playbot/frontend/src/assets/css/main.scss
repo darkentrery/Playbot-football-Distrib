@@ -164,6 +164,8 @@ input:checked + label:before {
 }
 
 .link {
+  display: flex;
+  justify-content: center;
   cursor: pointer;
   font-family: 'Raleway', sans-serif;
   font-style: normal;
@@ -255,5 +257,32 @@ input:checked + label:before {
   height: 20px;
   top: -7px;
   left: $fieldWidth - 34px;
+}
+
+.line {
+  width: 279px;
+  height: 0px;
+  border: 1px solid #DBDBDB;
+}
+
+#telegram-login-PlaybotTestBot{
+  height: 20px;
+}
+
+.hidden {
+  background-color: #ffffff00;
+  opacity: 1;
+  &::after {
+    content: "";
+    background-color: #ffffff00;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+  z-index: -1;
 }
 

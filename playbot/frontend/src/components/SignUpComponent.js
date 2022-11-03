@@ -150,14 +150,13 @@ export default function SignUpComponent () {
                             <a onClick={() => {
                                 setOpenSignUp(!openSignUp)
                                 setOpenLogin(!openLogin)
-                            }} className={"link link-sin-up-login"}>У меня уже есть аккаунт, Войти</a>
+                            }} className={"link link-sign-up-login"}>У меня уже есть аккаунт, Войти</a>
                         </div>
                         <div className={"sign-up-l-bottom-elem"}>
-                            <div className={"sign-up-line"}></div>
+                            <div className={"line"}></div>
                         </div>
                         <div className={"sign-up-l-bottom-elem"}>
-
-
+                            <TelegramLoginComponent/>
                         </div>
                     </div>
                 </div>

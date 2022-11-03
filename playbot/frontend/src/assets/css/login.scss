@@ -44,12 +44,18 @@
 }
 
 .login-l-bottom-elem {
-  height: 99px;
+  flex: 0 0 99px;
+  align-items: start;
 }
 
 .login-l-head-elem {
   align-items: end;
-  height: 94px;
+  flex: 0 1 94px;
+}
+
+.login-l-elem-line {
+  flex: 0 0 30px;
+  align-items: start;
 }
 
 .login-title {
@@ -65,4 +71,9 @@
 .btn-login {
   width: $fieldWidth;
   height: $fieldHeight;
+}
+
+.link-login-reg {
+  width: $fieldWidth / 2;
+  height: 17px;
 }

@@ -1,8 +1,8 @@
-import React, {Component, useState, useEffect, useRef, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
-import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext} from "../context/AuthContext";
+import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext, TelegramContext} from "../context/AuthContext";
 import CheckToken from "../services/AuthDecorator";
 import avatarIcon from "../assets/icon/avatar.png";
 import passwordIcon from "../assets/icon/password.png";
@@ -85,13 +85,20 @@ export default function LoginComponent () {
                             </button>
                         </div>
                         <div className={"login-l-elem"}>
-
+                            <a onClick={() => {
+                                setOpenLogin(!openLogin)
+                                setOpenSignUp(!openSignUp)
+                            }} className={"link link-login-reg"}>Регистрация</a>
+                            <a onClick={() => {
+                                setOpenLogin(!openLogin)
+                                setOpenRefreshPassword(!openRefreshPassword)
+                            }} className={"link link-login-reg"}>Забыли пароль?</a>
                         </div>
-                        <div className={"login-l-elem"}>
-
+                        <div className={"login-l-elem login-l-elem-line"}>
+                            <div className={"line"}></div>
                         </div>
                         <div className={"login-l-elem login-l-bottom-elem"}>
-
+                            <TelegramLoginComponent/>
                         </div>
                     </div>
                 </div>

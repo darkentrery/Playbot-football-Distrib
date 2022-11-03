@@ -9,11 +9,13 @@ export default function TelegramLoginComponent () {
             lang="en"
             usePic={false}
             cornerRadius={20}
-            // onAuthCallback={(user) => {
-            //   console.log('Hello, user!', user);
-            // }}
+            onAuthCallback={(user) => {
+              console.log('Hello, user!', user);
+            }}
             requestAccess={'write'}
-            redirectUrl={"http://ba62-2a0d-b201-8010-d531-c4fe-c240-f438-dbb0.ngrok.io/auth/complete/telegram"}
+            // redirectUrl={"http://ba62-2a0d-b201-8010-d531-c4fe-c240-f438-dbb0.ngrok.io/auth/complete/telegram"}
+            redirectUrl={"http://localhost:80/auth/complete/telegram"}
         />
     )
 }
+

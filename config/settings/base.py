@@ -33,7 +33,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 TIME_ZONE = "America/New_York"
 
-LANGUAGE_CODE = "en-us"
+# LANGUAGE_CODE = "en-us"
+
+LANGUAGE_CODE = "ru-RU"
 
 SITE_ID = 1
 
