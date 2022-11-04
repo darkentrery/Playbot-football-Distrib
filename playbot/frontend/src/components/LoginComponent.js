@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
-import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext, TelegramContext} from "../context/AuthContext";
-import CheckToken from "../services/AuthDecorator";
+import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext} from "../context/AuthContext";
 import avatarIcon from "../assets/icon/avatar.png";
 import passwordIcon from "../assets/icon/password.png";
 import eyeIcon from "../assets/icon/eye.png";
@@ -26,24 +25,13 @@ export default function LoginComponent () {
         setData(bodyFormData)
     }, [email, password]);
 
-
-    const [isLogin, setIsLogin] = useState(false);
-    CheckToken(authService.getData, [], isLogin, setIsLogin);
-
-
-    const sendForm = () => {
+    const sendForm = async () => {
         if (email && password) {
             console.log(localStorage.getItem("access_token"))
             console.log(localStorage.getItem("refresh_token"))
-            authService.login(data).then((response) => {
+            await authService.login(data).then((response) => {
                 console.log(response)
             })
-            // authService.getData(setIsLogin).then((response) => {
-            //     if (response.status == 200) {
-            //         console.log(response)
-            //     }
-            // })
-
         }
     }
 

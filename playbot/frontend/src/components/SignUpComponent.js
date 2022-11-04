@@ -1,7 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
 import AuthService from "../services/AuthService";
-import {Link, useNavigate} from "react-router-dom";
-import AuthRoutes from "../routes/AuthRoutes";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
@@ -41,8 +39,6 @@ export default function SignUpComponent () {
         setData(bodyFormData)
     }, [name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer])
 
-    const navigate = useNavigate();
-
     const sendForm = () => {
         console.log("open", openLogin)
         console.log(data)
@@ -60,7 +56,7 @@ export default function SignUpComponent () {
                 if (errors.size) {
                     console.log(2)
                 } else {
-                   navigate(AuthRoutes.login);
+                   setOpenLogin(!openLogin);
                     console.log(3)
                 }
             })

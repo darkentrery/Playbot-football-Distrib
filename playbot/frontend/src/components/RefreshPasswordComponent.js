@@ -4,6 +4,7 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenRefreshPasswordContext} from "../context/AuthContext";
 import emailIcon from "../assets/icon/email.png";
+import {getData} from "../services/AuthDecorator";
 
 
 export default function RefreshPasswordComponent () {
@@ -20,7 +21,7 @@ export default function RefreshPasswordComponent () {
         setData(bodyFormData)
     }, [email])
 
-    const sendForm = () => {
+    const sendForm = async () => {
         if (email) {
             console.log(data)
             console.log(localStorage.getItem("access_token"))
@@ -28,6 +29,8 @@ export default function RefreshPasswordComponent () {
             authService.refreshPassword(data).then((response) => {
                 console.log(response)
             })
+
+            // await getData(authService.getData, [], openLogin, setOpenLogin)
         }
     }
 

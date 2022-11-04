@@ -1,20 +1,28 @@
 import AuthService from "./AuthService";
-import {useEffect} from "react";
 
 
-export default function CheckToken(func, arg, isLogin, setIsLogin) {
+export async function getData(func, arg, openLogin, setOpenLogin) {
+    let accessToken = null;
+    let refreshToken = null;
+    let dateToken = null;
     const authService = new AuthService();
-    return useEffect(() => {
-        if (isLogin === true) {
-            func(setIsLogin()).then((response) => {
-                if (response.status == 200) {
-                    console.log(response)
-                }
-            })
-        } else if (isLogin === false) {
-            authService.refresh(setIsLogin);
-            console.log("Fail")
+    console.log(localStorage.access_token)
+
+    if (localStorage.access_token) {
+        accessToken = localStorage.access_token;
+        refreshToken = localStorage.refresh_token;
+        dateToken = localStorage.date_token;
+    } else {
+        setOpenLogin(!openLogin)
+    }
+
+    if (accessToken) {
+        if (Date.now() - dateToken > 1.5*60*1000) {
+            await authService.refresh();
         }
-        console.log("!", isLogin)
-    }, [isLogin])
+    } else {
+        setOpenLogin(!openLogin)
+    }
+
+    return await func();
 }

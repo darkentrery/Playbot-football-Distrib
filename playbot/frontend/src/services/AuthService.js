@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function getCookie(name) {
@@ -23,7 +25,7 @@ export default class AuthService{
 
 	constructor(){}
 
-	login(user){
+	async login(user){
 		const url = `${API_URL}login/`;
 		return axios.post(url, user, {headers: {
 			'Content-Type': 'application/json',
@@ -31,8 +33,9 @@ export default class AuthService{
 			// "Content-Type": "multipart/form-data"
 		}})
 			.then((response) => {
-				localStorage.setItem( 'access_token' , response.data.access);
-                localStorage.setItem( 'refresh_token' , response.data.refresh);
+				localStorage.setItem("access_token" , response.data.access);
+                localStorage.setItem("refresh_token" , response.data.refresh);
+				localStorage.setItem("date_token", Date.now());
 				return response;
 			})
 			.catch((error) => {
@@ -45,7 +48,6 @@ export default class AuthService{
 		return axios.post(url, user, {headers: {
 			'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
-			// "Content-Type": "multipart/form-data"
 		}})
 			.then((response) => {
 				return response;
@@ -98,7 +100,7 @@ export default class AuthService{
 			});
 	}
 
-	refresh(setIsLogin){
+	refresh(){
 		const url = `${API_URL}token/refresh/`;
 		return axios.post(url, {"refresh": localStorage.getItem("refresh_token")}, {headers: {
 			'Content-Type': 'application/json',
@@ -107,7 +109,6 @@ export default class AuthService{
 			.then((response) => {
 				localStorage.setItem( 'access_token' , response.data.access);
                 localStorage.setItem( 'refresh_token' , response.data.refresh);
-				setIsLogin(true);
 				return response;
 			})
 			.catch((error) => {
@@ -115,24 +116,7 @@ export default class AuthService{
 			});
 	}
 
-	is_authenticated(){
-		const url = `${API_URL}valid-token/`;
-		return axios.get(url, "",{headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-		}})
-			.then((response) => {
-				if (!response.data["authenticated"]){
-					this.refresh();
-				}
-				console.log(response)
-				return response;
-			})
-	}
-
-
-	getData(setIsLogin){
+	getData(){
 		const url = `${API_URL}data/`;
 		return axios.get(url, {headers: {
 			'Content-Type': 'application/json',
@@ -143,15 +127,10 @@ export default class AuthService{
 				return response;
 			})
 			.catch((error) => {
-				setIsLogin(false)
 				return error.response;
 			});
 	}
 
-	setUser(user) {
-		const url = `${API_URL}/api/articles/`;
-		return axios.post(url, user, {headers: { "Content-Type": "multipart/form-data" }});
-	}
 
 
 	getArticles() {
