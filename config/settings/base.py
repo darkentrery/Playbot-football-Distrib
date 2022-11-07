@@ -15,7 +15,7 @@ APPS_DIR = ROOT_DIR.path("playbot")
 
 env = environ.Env()
 
-env.read_env(str(ROOT_DIR.path(".env.dev")))
+env.read_env(str(ROOT_DIR.path(".env")))
 
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
