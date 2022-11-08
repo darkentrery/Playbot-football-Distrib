@@ -9,4 +9,5 @@ urlpatterns = [
     # path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('auth/', include('social_django.urls', namespace='social')),
     path('', include('playbot.users.urls')),
+    path('events', include('playbot.events.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

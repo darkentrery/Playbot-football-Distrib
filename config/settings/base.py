@@ -74,6 +74,8 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    # 'django.contrib.gis',
+
 ]
 
 THIRD_PARTY_APPS = [
@@ -87,6 +89,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "playbot.users.apps.UsersConfig",
+    "playbot.events.apps.EventsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
