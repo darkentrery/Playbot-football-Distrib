@@ -76,7 +76,10 @@ export default function SignUpComponent () {
             <div className={"popup-frame sign-up"}>
                 <div className={"popup-left"}>
                     <div className={"sign-up-l-body"}>
-                        <div className={"sign-up-l-elem"}>
+                        <div className={"sign-up-l-elem close"}>
+                            <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close sign-up-close"}></div>
+                        </div>
+                        <div className={"sign-up-l-elem head"}>
                             <div className={"sign-up-title"}>Регистрация</div>
                         </div>
                         <div className={"sign-up-l-elem"}>
@@ -135,7 +138,7 @@ export default function SignUpComponent () {
                                 <span>Я согласен с условиями договора-оферты</span>
                             </div>
                         </div>
-                        <div className={"sign-up-l-elem"}>
+                        <div className={"sign-up-l-elem bottom"}>
                             <button className={"btn btn-reg"} onClick={sendForm}>
                                 <div className={"btn-text"}>Зарегистрироваться</div>
                             </button>
@@ -176,6 +179,5 @@ export default function SignUpComponent () {
                 </div>
             </div>
         </Modal>
-
     )
 }

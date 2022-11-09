@@ -45,6 +45,9 @@ export default function LoginComponent () {
             <div className={"popup-frame login"}>
                 <div className={"popup-left"}>
                     <div className={"login-l-body"}>
+                        <div className={"login-l-elem close"}>
+                            <div onClick={() => {setOpenLogin(!openLogin)}} className={"btn-close login-close"}></div>
+                        </div>
                         <div className={"login-l-elem login-l-head-elem"}>
                             <div className={"login-title"}>Вход</div>
                         </div>

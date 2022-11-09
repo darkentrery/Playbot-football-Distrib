@@ -1,11 +1,11 @@
 .login {
   width: $popupWidth;
-  height: 489px;
+  height: $loginHeigh;
 }
 
 .login-img {
   background: url(../icon/signUpImg2.png);
-  border-radius: 10px;
+  border-radius: $borderRadius;
 }
 
 .login-right-text {
@@ -27,7 +27,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  //padding: 30px;
 }
 
 .login-l-elem {
@@ -36,7 +35,7 @@
   justify-content: center;
   align-items: center;
   height: $fieldHeight;
-  width: $fieldWidth;
+  margin-top: 16px;
 }
 
 .login-l-bottom-elem {
@@ -77,4 +76,24 @@
 .login-close {
   flex: 0 0 24px;
   margin-right: 24px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .login-l-elem.close {
+    justify-content: end;
+    align-items: start;
+    flex: 0 1 190px;
+    width: 100vw;
+    .login-close {
+      margin-right: 24px;
+      margin-top: 24px;
+    }
+  }
+  .login-l-bottom-elem {
+    flex: 1 1 221px;
+  }
+  .login-l-head-elem {
+    flex: 0 1 auto;
+    margin-top: 0;
+  }
 }

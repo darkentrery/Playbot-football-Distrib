@@ -20,7 +20,7 @@
   justify-content: stretch;
   align-items: stretch;
 
-  border-radius: 10px;
+  border-radius: $borderRadius;
   background: #FFFFFF;
 }
 
@@ -31,7 +31,7 @@
   align-items: stretch;
 
   background: #FFFFFF;
-  border-radius: 10px;
+  border-radius: $borderRadius;
 }
 
 .name-icon {
@@ -207,7 +207,7 @@ input[type="checkbox"] {
   flex: 1 1 auto;
   flex-direction: column;
   align-items: stretch;
-  border-radius: 10px;
+  border-radius: $borderRadius;
 
   background-size: cover;
   background-position: center left;
@@ -278,7 +278,7 @@ input[type="checkbox"] {
 }
 
 .div-input {
-  flex: 1 1 auto;
+  flex: 0 0 $fieldWidth;
   height: $fieldHeight;
 
   input[type=text]{
@@ -299,7 +299,7 @@ input[type="checkbox"] {
 
 .div-input-checkbox {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 $fieldWidth;
   align-items: stretch;
   height: $fieldHeight;
   justify-content: start;
