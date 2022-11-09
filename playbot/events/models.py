@@ -28,13 +28,14 @@ class Event(models.Model):
     name = models.CharField(_("Name"), max_length=150)
     date = models.DateField(_("Date Of Game"))
     time_begin = models.TimeField(_("Time Begin"))
-    time_end = models.TimeField(_("Time End"))
+    time_end = models.TimeField(_("Time End"), blank=True, null=True)
     count_players = models.IntegerField(_("Count Of Players"))
     address = models.CharField(_("Address"), max_length=150)
     # geo = models.PointField(_("Geo Points"))
     cancel = models.BooleanField(_("Cancel"), default=False)
     cancel_reasons = models.ForeignKey(CancelReasons, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)
-    format = models.CharField(_("Format"), max_length=50, choices=Format.choices, default=Format.FIVE)
+    format = models.CharField(_("Format"), max_length=50, choices=Format.choices, default=Format.FIVE, blank=True, null=True)
+    notice = models.TextField(_("Notice"), blank=True, null=True)
 
     class Meta:
         verbose_name = "Event"

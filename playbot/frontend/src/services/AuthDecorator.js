@@ -20,9 +20,10 @@ export async function getData(func, arg, openLogin, setOpenLogin) {
         if (Date.now() - dateToken > 1.5*60*1000) {
             await authService.refresh();
         }
-    } else {
-        setOpenLogin(!openLogin)
     }
+    // else {
+    //     setOpenLogin(!openLogin)
+    // }
 
     return await func();
 }

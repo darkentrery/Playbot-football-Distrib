@@ -16,6 +16,12 @@ const OpenRefreshPasswordContext = React.createContext({
   setOpenRefreshPassword: () => {}
 });
 
+const OpenMobileFirstPageContext = React.createContext({
+  openMobileFirstPage: true,
+  setOpenMobileFirstPage: () => {}
+});
+
 export { OpenSignUpContext };
 export { OpenLoginContext };
 export { OpenRefreshPasswordContext };
+export { OpenMobileFirstPageContext };
