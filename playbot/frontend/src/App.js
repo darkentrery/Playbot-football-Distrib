@@ -1,6 +1,5 @@
 import logo from './assets/icon/logo.svg';
-// import './assets/css/App.css';
-import './assets/css/main.scss';
+
 import LoginComponent from "./components/LoginComponent";
 import SignUpComponent from "./components/SignUpComponent";
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";

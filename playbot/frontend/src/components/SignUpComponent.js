@@ -124,7 +124,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <span>Я согласен с политикой<br/> конфеденциальности</span>
+                                <span>Я согласен с политикой конфеденциальности</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
@@ -132,7 +132,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <span>Я согласен с условиями договора<br/>-оферты</span>
+                                <span>Я согласен с условиями договора-оферты</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
@@ -157,29 +157,22 @@ export default function SignUpComponent () {
                     </div>
                 </div>
                 <div className={"popup-right"}>
-                    {/*<div className={"sign-up-fon-orange"}>*/}
-                    {/*    <div className={"sign-up-fon-white"}>*/}
-                    {/*        <div className={"sign-up-fon-white"}>*/}
-                    {/*            <div className={"sign-up-fon-cell"}>*/}
-                                    <div className={"popup-img sign-up-img"}>
-                                        <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close sign-up-close"}></div>
-                                         <svg  className={"circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4" cy="4" r="4" fill="#EFB041"/>
-                                        </svg>
-                                        <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="8" cy="8" r="8" fill="#EFB041"/>
-                                        </svg>
-
-                                        <div className={"sign-up-right-text"}>Попробуй себя в любительском футболе</div>
-                                    </div>
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-
-                    {/*</div>*/}
-
-                    {/*<div className={"sign-up-fon-f"}></div>*/}
-
+                    <div className={"popup-img sign-up-img"}>
+                        <div className={"first"}>
+                            <div onClick={() => {setOpenSignUp(!openSignUp)}} className={"btn-close sign-up-close"}></div>
+                        </div>
+                        <div className={"second"}>
+                            <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="8" cy="8" r="8" fill="#EFB041"/>
+                            </svg>
+                            <svg  className={"circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="4" cy="4" r="4" fill="#EFB041"/>
+                            </svg>
+                        </div>
+                        <div className={"third"}>
+                            <div className={"sign-up-right-text"}>Попробуй себя в любительском футболе</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </Modal>

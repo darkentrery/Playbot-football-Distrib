@@ -1,13 +1,9 @@
-$fieldWidth: 280px;
-$fieldHeight: 48px;
-@import "fonts";
+
 @import "sign-up";
 @import "login";
 @import "refresh-password";
 @import "create-event";
 @import "mobile-first-page";
-
-
 
 .popup-fon {
   display: flex;
@@ -21,7 +17,6 @@ $fieldHeight: 48px;
 
 .popup-frame {
   display: flex;
-  flex-wrap: nowrap;
   justify-content: stretch;
   align-items: stretch;
 
@@ -32,7 +27,7 @@ $fieldHeight: 48px;
 .popup-left {
   display: flex;
   flex-direction: column;
-  flex: 1 1 200px;
+  flex: 1 1 $popupWidth/2;
   align-items: stretch;
 
   background: #FFFFFF;
@@ -95,30 +90,23 @@ input[type="checkbox"] {
   height: $fieldHeight;
   cursor: pointer;
   z-index: 99999;
-}
 
-/* формируем внешний вид чекбокса в псевдоэлементе before */
-.checkbox-label:before {
-  //box-sizing: border-box;
-  position: absolute;
-  width: $fieldWidth;
-  height: $fieldHeight;
-  left: 2px;
-  //right: 95.36%;
-  top: 2px;
-  //bottom: 67.65%;
-  cursor: pointer;
+  &:before {
+    //box-sizing: border-box;
+    position: absolute;
+    width: $fieldWidth;
+    height: $fieldHeight;
+    left: 2px;
+    right: 95.36%;
+    top: 2px;
+    //bottom: 67.65%;
+    cursor: pointer;
+  }
 }
 
 /* вариации внешнего вида в зав-ти от статуса checkbox */
 /* checked */
-input:checked + label:before {
-  content: '';
-  background: url("../icon/checked.png") no-repeat;
-  background-size: 9px 7px;
-  background-position: 2px 2px;
-  position: absolute;
-}
+
 
 .btn {
   display: flex;
@@ -155,8 +143,6 @@ input:checked + label:before {
   width: 180px;
   height: 21px;
 
-  /* Buttons texts/Button 56 (18 Medium) */
-
   font-family: 'Raleway', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -184,7 +170,7 @@ input:checked + label:before {
 
 .popup-right {
   display: flex;
-  flex: 0 0 400px;
+  flex: 0 0 $popupWidth/2;
   align-items: stretch;
 }
 
@@ -194,7 +180,7 @@ input:checked + label:before {
   cursor: pointer;
 
   background: url("../icon/cross.png") no-repeat;
-  background-size: 16px;
+  background-size: 16px 16px;
   background-position: center;
 }
 
@@ -216,45 +202,36 @@ input:checked + label:before {
   top: 4px;
 }
 
-.sign-up-fon-cell {
-  display: flex;
-  flex: 1 1 auto;
-
-  background: url(../icon/signUpFon.png);
-  background-size: 100%;
-  background-position: bottom center;
-  background-repeat: no-repeat;
-}
-
-.sign-up-fon-orange {
-  display: flex;
-  flex: 1 1 400px;
-  align-items: stretch;
-
-  background: #D19C6C;
-  background-size: 100%;
-  background-position: bottom center;
-  background-repeat: no-repeat;
-}
-
-.sign-up-fon-white {
-  display: flex;
-  flex: 1 1 auto;
-  align-items: stretch;
-
-  background: #F2F2F2;
-  background-size: 100%;
-  background-position: bottom center;
-  background-repeat: no-repeat;
-}
-
 .popup-img {
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
   align-items: stretch;
-  position: relative;
-  background-size: 100%;
-  background-position: bottom center;
+  border-radius: 10px;
+
+  background-size: cover;
+  background-position: center left;
   background-repeat: no-repeat;
+
+  .first {
+    display: flex;
+    flex: 0 0 24px;
+    margin-top: 20px;
+    justify-content: end;
+  }
+  .second {
+    display: flex;
+    flex: 0 0 42px;
+    justify-content: start;
+    align-items: center;
+    padding-left: 62px;
+  }
+  .third {
+    display: flex;
+    flex: 1 0 97px;
+    justify-content: start;
+    padding-left: 60px;
+  }
 }
 
 .left-input-icon {
@@ -321,25 +298,22 @@ input:checked + label:before {
 }
 
 .div-input-checkbox {
+  display: flex;
   flex: 1 1 auto;
+  align-items: stretch;
   height: $fieldHeight;
+  justify-content: start;
 
   input[type=checkbox]{
     box-sizing: border-box;
-    position: absolute;
-    width: 16px;
-    height: 16px;
-
+    flex: 0 0 16px;
     border: 1px solid #949494;
     border-radius: 4px;
   }
 
   span {
-    position: relative;
-    width: 252px;
-    height: 34px;
-    left: 28px;
-
+    flex: 0 0 $fieldWidth - 28px;
+    margin-left: 28px;
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -348,22 +322,24 @@ input:checked + label:before {
 
     color: #949494;
   }
+
+  input:checked + label:before {
+    flex: 0 0 $fieldWidth;
+    content: '';
+    background: url("../icon/checked.png") no-repeat;
+    background-size: 9px 7px;
+    background-position: 2px 2px;
+    position: absolute;
+  }
 }
 
 .circle-1 {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  left: 62px;
-  top: 51px;
+  flex: 0 0 16px;
+  margin-right: 12px;
 }
 
 .circle-2 {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  left: 90px;
-  top: 55px;
+  flex: 0 0 8px;
 }
 
 

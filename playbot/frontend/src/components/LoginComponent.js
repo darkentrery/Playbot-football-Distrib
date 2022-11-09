@@ -92,14 +92,20 @@ export default function LoginComponent () {
                 </div>
                 <div className={"popup-right"}>
                     <div className={"popup-img login-img"}>
-                        <div onClick={() => {setOpenLogin(!openLogin)}} className={"btn-close login-close"}></div>
-                         <svg  className={"circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="4" cy="4" r="4" fill="#EFB041"/>
-                        </svg>
-                        <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="8" cy="8" r="8" fill="#EFB041"/>
-                        </svg>
-                        <div className={"login-right-text"}>Попробуй себя в любительском футболе</div>
+                        <div className={"first"}>
+                            <div onClick={() => {setOpenLogin(!openLogin)}} className={"btn-close login-close"}></div>
+                        </div>
+                        <div className={"second"}>
+                            <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="8" cy="8" r="8" fill="#EFB041"/>
+                            </svg>
+                            <svg  className={"circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="4" cy="4" r="4" fill="#EFB041"/>
+                            </svg>
+                        </div>
+                        <div className={"third"}>
+                            <div className={"login-right-text"}>Попробуй себя в любительском футболе</div>
+                        </div>
                     </div>
                 </div>
             </div>

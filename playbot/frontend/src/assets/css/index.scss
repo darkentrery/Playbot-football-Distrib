@@ -1,0 +1,16 @@
+$fieldHeight: 48px;
+
+@import "fonts";
+
+@media screen and (min-width: 1280px){
+  $fieldWidth: 280px;
+  $popupWidth: 800px;
+  @import "main";
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  $fieldWidth: 252px;
+  $popupWidth: 696px;
+  @import "main";
+}
+

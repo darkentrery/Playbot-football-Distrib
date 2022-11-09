@@ -1,5 +1,5 @@
 .sign-up {
-  width: 800px;
+  width: $popupWidth;
   height: 714px;
 }
 
@@ -65,11 +65,7 @@
 }
 
 .sign-up-right-text {
-  position: absolute;
-  width: 249px;
-  height: 87px;
-  left: 60px;
-  top: 94px;
+  flex: 0 1 249px;
 
   font-family: "Raleway", sans-serif;
   font-style: normal;
@@ -82,11 +78,10 @@
 }
 
 .sign-up-img {
-  background: url(../icon/signUpImg2.png);
+  background: url(../icon/signUpImg2.png) no-repeat;
 }
 
 .sign-up-close {
-  position: relative;
-  left: 352px;
-  top: 24px;
+  flex: 0 0 24px;
+  margin-right: 24px;
 }
