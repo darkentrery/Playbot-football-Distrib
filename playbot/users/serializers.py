@@ -258,5 +258,11 @@ class RefreshPasswordSerializer(serializers.ModelSerializer):
         return instance
 
 
+class UpdateCitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("city",)
+
+
 
 

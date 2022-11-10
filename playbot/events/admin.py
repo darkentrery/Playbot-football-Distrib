@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from playbot.events.models import Event, CancelReasons, Team
+from playbot.events.models import Event, CancelReasons, Team, City
 
 
 class TeamInline(admin.TabularInline):
@@ -45,4 +45,11 @@ class TeamAdmin(admin.ModelAdmin):
         "name",
         "event",
         "count_players",
+    ]
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
     ]

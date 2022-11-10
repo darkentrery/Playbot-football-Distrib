@@ -1,0 +1,37 @@
+[
+  {
+    "model": "events.City",
+    "pk": 1,
+    "fields": {
+      "name": "Москва"
+    }
+  },
+  {
+    "model": "events.City",
+    "pk": 2,
+    "fields": {
+      "name": "Санкт-Петербург"
+    }
+  },
+  {
+    "model": "events.City",
+    "pk": 3,
+    "fields": {
+      "name": "Новосибирск"
+    }
+  },
+  {
+    "model": "events.City",
+    "pk": 4,
+    "fields": {
+      "name": "Казань"
+    }
+  },
+  {
+    "model": "events.City",
+    "pk": 5,
+    "fields": {
+      "name": "Челябинск"
+    }
+  }
+]

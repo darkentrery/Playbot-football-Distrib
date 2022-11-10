@@ -5,7 +5,7 @@
 
 .sign-up-l-bottom {
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 0 126px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,6 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: space-around;
-  //padding: 30px;
 }
 
 .sign-up-l-elem {
@@ -32,7 +31,8 @@
   margin-top: 16px;
 
   &.head {
-    margin-top: 32px;
+    flex: 0 0 26px;
+    margin-top: 22px;
   }
 
   &.bottom {

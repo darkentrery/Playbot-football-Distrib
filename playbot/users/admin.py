@@ -22,7 +22,8 @@ class CustomUserAdmin(UserAdmin):
                     "last_name",
                     "email",
                     "phone_number",
-                    "telegram_id"
+                    "telegram_id",
+                    "city",
                 )
             },
         ),

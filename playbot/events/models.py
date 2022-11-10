@@ -14,6 +14,18 @@ class CancelReasons(models.Model):
         return f"{self.name}"
 
 
+class City(models.Model):
+    name = models.CharField(_("City"), max_length=150)
+
+    class Meta:
+        verbose_name = "City"
+        verbose_name_plural = "Cities"
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Event(models.Model):
     class Format(models.TextChoices):
         FIVE = "5x5", _("5x5")
@@ -36,6 +48,7 @@ class Event(models.Model):
     cancel_reasons = models.ForeignKey(CancelReasons, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)
     format = models.CharField(_("Format"), max_length=50, choices=Format.choices, default=Format.FIVE, blank=True, null=True)
     notice = models.TextField(_("Notice"), blank=True, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="event", blank=True, null=True)
 
     class Meta:
         verbose_name = "Event"

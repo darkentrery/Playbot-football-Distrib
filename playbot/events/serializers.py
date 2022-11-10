@@ -4,8 +4,6 @@ from playbot.events.models import Event
 
 
 class CreateEventSerializer(serializers.ModelSerializer):
-    # name = serializers.CharField(max_length=128, write_only=True, required=True)
-    # date = serializers.DateField(write_only=True, required=True)
 
     class Meta:
         model = Event

@@ -18,7 +18,7 @@ export default function RefreshPasswordComponent () {
     useEffect(() => {
         let bodyFormData = new FormData();
         bodyFormData.append('email', email);
-        setData(bodyFormData)
+        setData(bodyFormData);
     }, [email])
 
     const sendForm = async () => {

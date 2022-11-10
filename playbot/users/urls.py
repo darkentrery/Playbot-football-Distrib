@@ -12,6 +12,7 @@ urlpatterns = [
     re_path(r"^api/sign-up/$", views.SignUpView.as_view(), name='sign-up'),
     re_path(r"^api/refresh-password/$", views.RefreshPasswordView.as_view(), name='refresh-password'),
     re_path(r"^api/telegram-sign-up/$", views.SignUpTelegramView.as_view(), name='telegram-sign-up'),
+    path("api/update-city/", views.UpdateCityView.as_view(), name='update-city'),
     path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),

@@ -1,36 +1,51 @@
-import React, {useState, useEffect, useContext, useRef} from "react";
+import React, {useState, useContext, useRef, useEffect} from "react";
 import AuthService from "../services/AuthService";
-import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenChoiceCityContext} from "../context/AuthContext";
-import {getData} from "../services/AuthDecorator";
-import passwordIcon from "../assets/icon/password.png";
 import searchIcon from "../assets/icon/search.png";
-import checkIcon from "../assets/icon/checked-orange.png";
 import $ from 'jquery';
+import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
+import EventService from "../services/EventService";
 
 
 export default function ChoiceCityComponent () {
     const authService = new AuthService();
+    const eventService = new EventService();
     const [city, setCity] = useState(false);
-    const [search, setSearch] = useState(false);
     const [data, setData] = useState("No");
     const [citiesTag, setCitiesTag] = useState([]);
+    const [cities, setCities] = useState([]);
 
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
-
-    let cities = ["Moscow", "aaa", "bbb", "ccc"];
-
-    // useEffect(() => {
-    //     let bodyFormData = new FormData();
-    //     bodyFormData.append('email', email);
-    //     setData(bodyFormData)
-    // }, [email])
     const citiesRef = useRef();
 
-    const sendForm = async () => {
+    useEffect(() => {
+        if (openChoiceCity) {
+            eventService.getCities().then((response) => {
+                if (response.status == 200) {
+                    setCities(response.data.cities)
+                }
+                console.log(response)
+            })
+        }
+    }, [openChoiceCity])
 
+
+
+    const sendForm = async () => {
+        if (city) {
+            localStorage.city = city;
+            await authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
+                console.log(response)
+            })
+        }
+        setOpenChoiceCity(!openChoiceCity);
     }
+    useEffect(() => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('city', city);
+        setData(bodyFormData);
+    }, [city])
 
     const searchCity = (event) => {
         let children = citiesRef.current.children;
@@ -46,16 +61,15 @@ export default function ChoiceCityComponent () {
         }
         citiesTag.forEach(elem => {
             $(elem).attr('class', 'scroll-elem');
-            $(elem).find('img').attr('class', 'scroll-elem-check disabled');
         })
         setCity(false);
         if (citiesTag.length) {
             citiesTag.forEach(elem => {
-                if ($(elem).find('span').html().toLowerCase().includes(val.toLowerCase())) newCities.push(elem);
+                if ($(elem).html().toLowerCase().includes(val.toLowerCase())) newCities.push(elem);
             })
         } else {
             for (let i=0; i<children.length; i++) {
-                if ($(children[i]).find('span').html().toLowerCase().includes(val.toLowerCase())) newCities.push(children[i]);
+                if ($(children[i]).html().toLowerCase().includes(val.toLowerCase())) newCities.push(children[i]);
             }
         }
 
@@ -66,29 +80,19 @@ export default function ChoiceCityComponent () {
         $('.scroll-elem').on('click', function () {
             citiesTag.forEach(elem => {
                 $(elem).attr('class', 'scroll-elem');
-                $(elem).find('img').attr('class', 'scroll-elem-check disabled');
             })
             $(this).attr('class', 'scroll-elem checked');
-            $(this).find('img').attr('class', 'scroll-elem-check');
-            setCity(this.value);
+            setCity($(this).html());
         })
-
     }
 
     const choiceCity = (event) => {
         let children = citiesRef.current.children;
         for (let i=0; i<children.length; i++) {
-            children[i].className = "scroll-elem";
-            children[i].children[0].className = "scroll-elem-check disabled";
+            $(children[i]).attr('class', 'scroll-elem');
         }
-        event.target.className = "scroll-elem checked";
-        event.target.children[0].className = "scroll-elem-check";
-        setCity(event.target.value);
-    }
-
-
-    for (let i=0; i<30; i++) {
-        cities.push(cities[0])
+        $(event.target).attr('class', 'scroll-elem checked');
+        setCity($(event.target).html());
     }
 
     return(
@@ -117,8 +121,7 @@ export default function ChoiceCityComponent () {
                     {cities && cities.map((item, key) => {
                         return(
                             <div className={"scroll-elem"} onClick={choiceCity} key={key}>
-                                <img className={"scroll-elem-check disabled"} src={checkIcon} alt=""/>
-                                <span>{item}</span>
+                                {item}
                             </div>
                         )
                     })}

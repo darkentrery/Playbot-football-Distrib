@@ -11,7 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
-    SignUpTelegramSerializer, RefreshPasswordSerializer
+    SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer
 
 
 class IndexView(APIView):
@@ -111,6 +111,19 @@ class RefreshViewSet(GenericAPIView):
             raise InvalidToken(e.args[0])
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+
+class UpdateCityView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        serializer = UpdateCitySerializer(instance=request.user, data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.validated_data
+                return Response(json, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DataView(APIView):

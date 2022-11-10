@@ -116,6 +116,21 @@ export default class AuthService{
 			});
 	}
 
+	updateCity(data){
+		const url = `${API_URL}update-city/`;
+		return axios.post(url, data,{headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	getData(){
 		const url = `${API_URL}data/`;
 		return axios.get(url, {headers: {

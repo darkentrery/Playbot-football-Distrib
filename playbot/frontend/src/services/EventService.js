@@ -40,4 +40,18 @@ export default class EventService{
 				return error.response;
 			});
 	}
+
+	getCities(){
+		const url = `${API_URL}get-cities/`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
 }
