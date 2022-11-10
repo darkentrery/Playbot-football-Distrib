@@ -21,7 +21,13 @@ const OpenMobileFirstPageContext = React.createContext({
   setOpenMobileFirstPage: () => {}
 });
 
+const OpenChoiceCityContext = React.createContext({
+  openChoiceCity: false,
+  setOpenChoiceCity: () => {}
+});
+
 export { OpenSignUpContext };
 export { OpenLoginContext };
 export { OpenRefreshPasswordContext };
 export { OpenMobileFirstPageContext };
+export { OpenChoiceCityContext };

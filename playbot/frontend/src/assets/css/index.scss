@@ -1,9 +1,12 @@
+@use "sass:math";
 $popupWidth: 800px;
 $fieldHeight: 48px;
 $signUpHeight: 714px;
 $borderRadius: 10px;
-$loginHeigh: 489px;
+$loginHeight: 489px;
 $refreshWidth: $popupWidth/2;
+$choiceCityWidth: 410px;
+$choiceCityHeight: 722px;
 
 @import "fonts";
 
@@ -37,8 +40,10 @@ $refreshWidth: $popupWidth/2;
   $fieldWidth: 295px;
   $popupWidth: 696px;
   $signUpHeight: 100vh;
-  $loginHeigh: 100vh;
+  $loginHeight: 100vh;
   $refreshWidth: 100vw;
+  $choiceCityHeight: 100vh;
+  $choiceCityWidth: 100vw;
   $borderRadius: 0;
   @import "main";
   .popup-right {

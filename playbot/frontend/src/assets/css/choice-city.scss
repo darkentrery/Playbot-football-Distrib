@@ -1,0 +1,102 @@
+.popup-frame {
+  &.choice-city {
+    display: flex;
+    flex: 0 0 $choiceCityWidth;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: start;
+    height: $choiceCityHeight;
+
+    .elem {
+      display: flex;
+      margin-right: 40px;
+      margin-left: 40px;
+      width: calc($choiceCityWidth - 80px);
+
+      &.head {
+        justify-content: space-between;
+        margin-top: 40px;
+        flex: 0 0 26px;
+        span {
+          font-family: 'Raleway', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 22px;
+          line-height: 120%;
+          color: #1B1B1B;
+        }
+      }
+
+      &.under-head {
+        margin-top: 10px;
+        span {
+          font-family: 'Raleway',sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 120%;
+          color: #949494;
+        }
+      }
+
+      &.search {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 24px;
+        .div-input {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          flex: 0 0 36px;
+          width: calc($choiceCityWidth - 80px);
+
+          input[type=text]{
+            position: relative;
+            flex: 0 0 calc($choiceCityWidth - 80px - 40px);
+            height: 36px;
+            border: 0;
+            border-radius: 0;
+            padding-left: 0;
+
+            font-family: "Raleway", sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 120%;
+
+            &:active {
+              outline: 0;
+            }
+            &:focus {
+              outline: 0;
+            }
+          }
+        }
+
+        .line {
+          width: calc($choiceCityWidth - 80px);
+        }
+      }
+
+      &.cities {
+        flex: 1 1 480px;
+        margin-top: 16px;
+
+        div {
+          width: calc($choiceCityWidth - 100px);
+        }
+      }
+
+      &.bottom {
+        justify-content: center;
+        margin-bottom: 40px;
+        flex: 0 0 $fieldHeight;
+      }
+    }
+  }
+}
+
+.btn-choice-city {
+  flex: 0 0 calc($choiceCityWidth - 80px);
+}

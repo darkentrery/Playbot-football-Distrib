@@ -1,9 +1,10 @@
-
+@use "sass:math";
 @import "sign-up";
 @import "login";
 @import "refresh-password";
 @import "create-event";
 @import "mobile-first-page";
+@import "choice-city";
 
 .popup-fon {
   display: flex;
@@ -27,7 +28,7 @@
 .popup-left {
   display: flex;
   flex-direction: column;
-  flex: 1 1 $popupWidth/2;
+  flex: 1 1 math.div($popupWidth, 2);
   align-items: stretch;
 
   background: #FFFFFF;
@@ -69,6 +70,15 @@
   top: 1px;
 }
 
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  margin: 10px;
+}
+
 input[type="checkbox"] {
   display: none;
 }
@@ -92,7 +102,6 @@ input[type="checkbox"] {
   z-index: 99999;
 
   &:before {
-    //box-sizing: border-box;
     position: absolute;
     width: $fieldWidth;
     height: $fieldHeight;
@@ -104,10 +113,6 @@ input[type="checkbox"] {
   }
 }
 
-/* вариации внешнего вида в зав-ти от статуса checkbox */
-/* checked */
-
-
 .btn {
   display: flex;
   flex-direction: row;
@@ -117,11 +122,8 @@ input[type="checkbox"] {
   gap: 10px;
   border:none;
 
-  /* Main */
-
   background: #d19c6c;
   border-radius: 8px;
-  //border-color: #D19C6C;
   cursor: pointer;
 
   &:hover {
@@ -170,7 +172,7 @@ input[type="checkbox"] {
 
 .popup-right {
   display: flex;
-  flex: 0 0 $popupWidth/2;
+  flex: 0 0 math.div($popupWidth, 2);
   align-items: stretch;
 }
 
@@ -254,6 +256,7 @@ input[type="checkbox"] {
   width: 279px;
   height: 0px;
   border: 1px solid #DBDBDB;
+  background: #DBDBDB;
 }
 
 #telegram-login-PlaybotTestBot{
@@ -340,6 +343,57 @@ input[type="checkbox"] {
 
 .circle-2 {
   flex: 0 0 8px;
+}
+
+.div-scroll {
+  overflow: auto;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  .scroll-elem {
+    display: flex;
+    cursor: pointer;
+    flex: 0 0 44px;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #1B1B1B;
+    &:hover {
+      background: #dcdbdb;
+    }
+  }
+
+  .checked {
+    font-weight: 600;
+    line-height: 44px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #E1E1E1;
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(35, 32, 33, 0.12);
+    border-radius: 2px;
+  }
+}
+
+.scroll-elem-check {
+  width: 12px;
+  height: 9px;
+  margin-right: 12px;
+
+  &.disabled {
+    display: none;
+  }
 }
 
 

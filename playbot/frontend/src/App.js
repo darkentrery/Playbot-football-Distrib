@@ -10,7 +10,7 @@ import {
     OpenSignUpContext,
     OpenLoginContext,
     OpenRefreshPasswordContext,
-    OpenMobileFirstPageContext
+    OpenMobileFirstPageContext, OpenChoiceCityContext
 } from "./context/AuthContext";
 import RefreshPasswordComponent from "./components/RefreshPasswordComponent";
 import EventService from "./services/EventService";
@@ -19,6 +19,7 @@ import CreateEventComponent from "./components/CreateEventComponent";
 import CreateEventUnAuthComponent from "./components/CreateEventUnAuthComponent";
 import {OpenCreateEventContext, OpenCreateEventUnAuthContext} from "./context/EventContext";
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
+import ChoiceCityComponent from "./components/ChoiceCityComponent";
 
 
 
@@ -29,6 +30,7 @@ function App(defaultValue) {
     const [openCreateEvent, setOpenCreateEvent] = useState(false);
     const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(true);
+    const [openChoiceCity, setOpenChoiceCity] = useState(false);
 
     const signUpWindow = { openSignUp, setOpenSignUp };
     const loginWindow = { openLogin, setOpenLogin };
@@ -36,6 +38,7 @@ function App(defaultValue) {
     const createEventWindow = { openCreateEvent, setOpenCreateEvent };
     const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
+    const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
 
     const eventService = new EventService();
 
@@ -80,6 +83,7 @@ function App(defaultValue) {
                   <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
                   <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
                   <button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>
+                  <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
 
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
@@ -113,6 +117,9 @@ function App(defaultValue) {
                           </OpenMobileFirstPageContext.Provider>
                       </OpenSignUpContext.Provider>
                   </OpenLoginContext.Provider>
+                  <OpenChoiceCityContext.Provider value={choiceCityWindow}>
+                      <ChoiceCityComponent/>
+                  </OpenChoiceCityContext.Provider>
 
 
                   <div className="features">
