@@ -1,20 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 import {csrftoken} from "./CsrfService";
 
+const API_URL = process.env.REACT_APP_API_URL + "cities/";
 
-const API_URL = process.env.REACT_APP_API_URL + "events/";
 
-
-export default class EventService{
+export default class CityService{
 
     constructor(){}
 
-    getCreateEvent(){
-		const url = `${API_URL}create/`;
+	getCities(){
+		const url = `${API_URL}get-cities/`;
 		return axios.get(url, {headers: {
 			'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
-			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
 		}})
 			.then((response) => {
 				return response;
@@ -23,5 +21,4 @@ export default class EventService{
 				return error.response;
 			});
 	}
-
 }

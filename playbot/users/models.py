@@ -3,6 +3,8 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from playbot.cities.models import City
+
 
 class User(AbstractUser):
     email = models.EmailField(_("Email Address"), unique=True)
@@ -12,7 +14,7 @@ class User(AbstractUser):
     name = models.CharField(_("Name"), max_length=150)
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
-    city = models.CharField(_("City"), max_length=100, blank=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
 
     username = models.EmailField(
         _("username"),

@@ -90,6 +90,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "playbot.users.apps.UsersConfig",
     "playbot.events.apps.EventsConfig",
+    "playbot.cities.apps.CitiesConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

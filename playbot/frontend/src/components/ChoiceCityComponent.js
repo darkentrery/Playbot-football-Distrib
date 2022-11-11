@@ -5,12 +5,12 @@ import {OpenChoiceCityContext} from "../context/AuthContext";
 import searchIcon from "../assets/icon/search.png";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
-import EventService from "../services/EventService";
+import CityService from "../services/CityService";
 
 
 export default function ChoiceCityComponent () {
     const authService = new AuthService();
-    const eventService = new EventService();
+    const cityService = new CityService();
     const [city, setCity] = useState(false);
     const [data, setData] = useState("No");
     const [citiesTag, setCitiesTag] = useState([]);
@@ -21,7 +21,7 @@ export default function ChoiceCityComponent () {
 
     useEffect(() => {
         if (openChoiceCity) {
-            eventService.getCities().then((response) => {
+            cityService.getCities().then((response) => {
                 if (response.status == 200) {
                     setCities(response.data.cities)
                 }

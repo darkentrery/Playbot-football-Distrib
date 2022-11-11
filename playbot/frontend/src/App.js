@@ -87,7 +87,9 @@ function App(defaultValue) {
 
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
-                          <SignUpComponent/>
+                          <OpenChoiceCityContext.Provider value={choiceCityWindow}>
+                              <SignUpComponent/>
+                          </OpenChoiceCityContext.Provider>
                       </OpenSignUpContext.Provider>
                   </OpenLoginContext.Provider>
                   <OpenLoginContext.Provider value={loginWindow}>

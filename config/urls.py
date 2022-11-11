@@ -10,4 +10,5 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
     path('', include('playbot.users.urls')),
     path('api/events/', include('playbot.events.urls')),
+    path('api/cities/', include('playbot.cities.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

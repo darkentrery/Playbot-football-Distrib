@@ -11,6 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from config.settings.base import CHANEL_ID
+from playbot.cities.models import City
+from playbot.cities.serializers import CitySerializer
 from playbot.users.models import User
 from playbot.users.utils import generate_password, send_message
 
@@ -259,6 +261,8 @@ class RefreshPasswordSerializer(serializers.ModelSerializer):
 
 
 class UpdateCitySerializer(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+
     class Meta:
         model = User
         fields = ("city",)

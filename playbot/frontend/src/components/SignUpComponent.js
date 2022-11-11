@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useContext} from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
-import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
+import { isMobile } from 'react-device-detect';
+import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
 import avatarIcon from "../assets/icon/avatar.png";
 import phoneIcon from "../assets/icon/phone.png";
@@ -19,8 +20,10 @@ export default function SignUpComponent () {
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
     const [data, setData] = useState("No");
+    const [loginData, setLoginData] = useState(false);
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
+    const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
 
 
     function phoneInput(event) {
@@ -32,21 +35,21 @@ export default function SignUpComponent () {
 
     useEffect(() => {
         let bodyFormData = new FormData();
+        let bodyLoginFormData = new FormData();
         bodyFormData.append('name', name);
         bodyFormData.append('phone_number', phoneNumber);
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
-        setData(bodyFormData)
+        bodyLoginFormData.append('email', email);
+        bodyLoginFormData.append('password', password);
+        setData(bodyFormData);
+        setLoginData(bodyLoginFormData);
     }, [name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer])
 
     const sendForm = () => {
-        console.log("open", openLogin)
-        console.log(data)
-        console.log(localStorage.getItem("access_token"))
-        console.log(localStorage.getItem("refresh_token"))
-        console.log(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer)
+        console.log(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
         let errors = authService.signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
-        console.log(errors)
+        console.log(errors);
         if (errors.size){
             console.log(1)
         } else {
@@ -56,7 +59,14 @@ export default function SignUpComponent () {
                 if (errors.size) {
                     console.log(2)
                 } else {
-                   setOpenLogin(!openLogin);
+                    if (isMobile) {
+                        authService.login(loginData).then((response) => {
+                            console.log(response);
+                            setOpenSignUp(!openSignUp);
+                            setOpenChoiceCity(!openChoiceCity);
+                        })
+
+                    }
                     console.log(3)
                 }
             })
