@@ -2,7 +2,6 @@ import React, {useState, useContext, useRef, useEffect} from "react";
 import AuthService from "../services/AuthService";
 import Modal from "react-modal";
 import {OpenChoiceCityContext} from "../context/AuthContext";
-import searchIcon from "../assets/icon/search.png";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
@@ -112,8 +111,7 @@ export default function ChoiceCityComponent () {
                 </div>
                 <div className={"elem search"}>
                     <div className={"div-input"}>
-                        <img className={"search-icon"} src={searchIcon} alt=""/>
-                        <input type="text" placeholder={"Поиск"} onChange={searchCity}/>
+                        <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={searchCity}/>
                     </div>
                     <div className={"line"}></div>
                 </div>
@@ -127,9 +125,7 @@ export default function ChoiceCityComponent () {
                     })}
                 </div>
                 <div className={"elem bottom"}>
-                    <button className={"btn btn-choice-city"} onClick={sendForm}>
-                        <div className={"btn-text"}>Сохранить</div>
-                    </button>
+                    <button className={"btn btn-choice-city"} onClick={sendForm}>Сохранить</button>
                 </div>
             </div>
         </Modal>

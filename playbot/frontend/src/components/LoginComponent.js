@@ -3,9 +3,7 @@ import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext} from "../context/AuthContext";
-import avatarIcon from "../assets/icon/avatar.png";
-import passwordIcon from "../assets/icon/password.png";
-import eyeIcon from "../assets/icon/eye.png";
+import $ from 'jquery';
 
 
 export default function LoginComponent () {
@@ -35,6 +33,16 @@ export default function LoginComponent () {
         }
     }
 
+    const hiddenPassword = (event) => {
+        if ($(event.target).attr('class').includes("off")) {
+            $(event.target).removeClass('off');
+            $(event.target).parent('div').children('input').attr('type', 'password');
+        } else {
+            $(event.target).addClass('off');
+            $(event.target).parent('div').children('input').attr('type', 'text');
+        }
+    }
+
     return(
         <Modal
             isOpen={openLogin}
@@ -53,27 +61,17 @@ export default function LoginComponent () {
                         </div>
                         <div className={"login-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Номер телефона или e-mail"} onChange={(event) => setEmail(event.target.value)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"name-icon"} src={avatarIcon} alt=""/>
-                                </div>
+                                <input className={"name-icon"} type="text" placeholder={"Номер телефона или e-mail"} onChange={(event) => setEmail(event.target.value)}/>
                             </div>
                         </div>
                         <div className={"login-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"password-icon"} src={passwordIcon} alt=""/>
-                                </div>
-                                <div className={"right-input-icon"}>
-                                    <img className={"eye-icon"} src={eyeIcon} alt=""/>
-                                </div>
+                                <input className={"password-icon password-input"} type="text" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
+                                <div className={"eye-icon right-input-icon"} onClick={hiddenPassword}></div>
                             </div>
                         </div>
                         <div className={"login-l-elem"}>
-                            <button className={"btn btn-login"} onClick={sendForm}>
-                                <div className={"btn-text"}>Войти</div>
-                            </button>
+                            <button className={"btn btn-login"} onClick={sendForm}>Войти</button>
                         </div>
                         <div className={"login-l-elem"}>
                             <a onClick={() => {

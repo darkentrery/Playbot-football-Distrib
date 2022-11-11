@@ -5,6 +5,8 @@
 @import "create-event";
 @import "mobile-first-page";
 @import "choice-city";
+@import "buttons";
+@import "icons";
 
 .popup-fon {
   display: flex;
@@ -33,62 +35,6 @@
 
   background: #FFFFFF;
   border-radius: $borderRadius;
-}
-
-.name-icon {
-  position: relative;
-  width: 15px;
-  height: 16px;
-  top: 1px;
-}
-
-.phone-icon {
-  position: relative;
-  width: 16px;
-  height: 15px;
-  top: 1px;
-}
-
-.email-icon {
-  position: relative;
-  width: 16px;
-  height: 12px;
-  top: 2px;
-}
-
-.password-icon {
-  position: relative;
-  width: 12px;
-  height: 15px;
-  top: 1px;
-}
-
-.eye-icon {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  top: 1px;
-}
-
-.search-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15px;
-  height: 15px;
-  margin: 10px;
-}
-
-.check-icon {
-  display: flex;
-  flex: 0 0 12px;
-  //width: 12px;
-  height: 9px;
-  margin-right: 12px;
-
-  &.disabled {
-    display: none;
-  }
 }
 
 input[type="checkbox"] {
@@ -125,47 +71,6 @@ input[type="checkbox"] {
   }
 }
 
-.btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 24px;
-  gap: 10px;
-  border:none;
-
-  background: #d19c6c;
-  border-radius: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background: #e0a773;
-  }
-
-  &:focus {
-    outline-color: transparent;
-    outline-style:solid;
-    background: #e0a773;
-  }
-
-  &:active {
-    background: #c29165;
-  }
-}
-
-.btn-text {
-  width: 180px;
-  height: 21px;
-
-  font-family: 'Raleway', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
-
-  color: #FFFFFF;
-}
-
 .link {
   display: flex;
   justify-content: center;
@@ -186,34 +91,6 @@ input[type="checkbox"] {
   display: flex;
   flex: 0 0 math.div($popupWidth, 2);
   align-items: stretch;
-}
-
-.btn-close {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-
-  background: url("../icon/cross.png") no-repeat;
-  background-size: 16px 16px;
-  background-position: center;
-}
-
-.btn-back {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-
-  background: url("../icon/left-arrow.png") no-repeat;
-  background-size: 10px 16px;
-  background-position: center;
-}
-
-.icon-cross {
-  position: relative;
-  width: 16px;
-  height: 16px;
-  left: 4px;
-  top: 4px;
 }
 
 .popup-img {
@@ -248,19 +125,11 @@ input[type="checkbox"] {
   }
 }
 
-.left-input-icon {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  top: 14px;
-  left: 14px;
-}
-
 .right-input-icon {
   position: relative;
   width: 20px;
   height: 20px;
-  top: -7px;
+  top: 14px;
   left: $fieldWidth - 34px;
 }
 
@@ -275,28 +144,11 @@ input[type="checkbox"] {
   height: 20px;
 }
 
-.hidden {
-  background-color: #ffffff00;
-  opacity: 1;
-  &::after {
-    content: "";
-    background-color: #ffffff00;
-    opacity: 0.5;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-  z-index: -1;
-}
-
 .div-input {
   flex: 0 0 $fieldWidth;
   height: $fieldHeight;
 
-  input[type=text]{
+  input[type=text], [type=password]{
     position: absolute;
     width: $fieldWidth;
     height: $fieldHeight;

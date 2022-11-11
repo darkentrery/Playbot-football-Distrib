@@ -3,8 +3,6 @@ import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenRefreshPasswordContext} from "../context/AuthContext";
-import emailIcon from "../assets/icon/email.png";
-import {getData} from "../services/AuthDecorator";
 
 
 export default function RefreshPasswordComponent () {
@@ -58,16 +56,11 @@ export default function RefreshPasswordComponent () {
                     </div>
                     <div className={"refresh-elem"}>
                         <div className={"div-input"}>
-                            <input type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
-                            <div className={"left-input-icon"}>
-                                <img className={"email-icon"} src={emailIcon} alt=""/>
-                            </div>
+                            <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
                         </div>
                     </div>
                     <div className={"refresh-elem"}>
-                        <button className={"btn btn-reg"} onClick={sendForm}>
-                            <div className={"btn-text"}>Войти</div>
-                        </button>
+                        <button className={"btn btn-reg"} onClick={sendForm}>Войти</button>
                     </div>
                     <div className={"refresh-elem"}>
                         <div className={"line"}></div>
@@ -77,12 +70,6 @@ export default function RefreshPasswordComponent () {
                     </div>
                 </div>
             </div>
-            {/*<div>*/}
-            {/*    <label>Email</label><br/>*/}
-            {/*    <input className="form-control" type="text"  onChange={(event) => setEmail(event.target.value)}/><br/><br/>*/}
-            {/*    <button onClick={sendForm}>Login</button>*/}
-            {/*    <TelegramLoginComponent/>*/}
-            {/*</div>*/}
         </Modal>
     )
 }

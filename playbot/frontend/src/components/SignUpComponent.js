@@ -4,10 +4,6 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import { isMobile } from 'react-device-detect';
 import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
-import avatarIcon from "../assets/icon/avatar.png";
-import phoneIcon from "../assets/icon/phone.png";
-import emailIcon from "../assets/icon/email.png";
-import passwordIcon from "../assets/icon/password.png";
 
 
 export default function SignUpComponent () {
@@ -37,7 +33,9 @@ export default function SignUpComponent () {
         let bodyFormData = new FormData();
         let bodyLoginFormData = new FormData();
         bodyFormData.append('name', name);
-        bodyFormData.append('phone_number', phoneNumber);
+        if (phoneNumber) {
+            bodyFormData.append('phone_number', phoneNumber);
+        }
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
         bodyLoginFormData.append('email', email);
@@ -59,10 +57,19 @@ export default function SignUpComponent () {
                 if (errors.size) {
                     console.log(2)
                 } else {
+                    setName(false);
+                    setPhoneNumber(false);
+                    setEmail(false);
+                    setPassword(false);
+                    setPasswordConfirm(false);
+                    setAllowPolicy(false);
+                    setAllowOffer(false);
+                    setData(false);
+                    setOpenSignUp(!openSignUp);
+
                     if (isMobile) {
                         authService.login(loginData).then((response) => {
                             console.log(response);
-                            setOpenSignUp(!openSignUp);
                             setOpenChoiceCity(!openChoiceCity);
                         })
 
@@ -94,42 +101,27 @@ export default function SignUpComponent () {
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Имя и фамилия *"} onChange={(event) => setName(event.target.value)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"name-icon"} src={avatarIcon} alt=""/>
-                                </div>
+                                <input className={"name-icon"} type="text" placeholder={"Имя и фамилия *"} onChange={(event) => setName(event.target.value)}/>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Телефон *"}  onChange={(event) => phoneInput(event)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"phone-icon"} src={phoneIcon} alt=""/>
-                                </div>
+                                <input className={"phone-icon"} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"email-icon"} src={emailIcon} alt=""/>
-                                </div>
+                                <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"password-icon"} src={passwordIcon} alt=""/>
-                                </div>
+                                <input className={"password-icon"} type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
                             <div className={"div-input"}>
-                                <input type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
-                                <div className={"left-input-icon"}>
-                                    <img className={"password-icon"} src={passwordIcon} alt=""/>
-                                </div>
+                                <input className={"password-icon"} type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"}>
@@ -149,9 +141,7 @@ export default function SignUpComponent () {
                             </div>
                         </div>
                         <div className={"sign-up-l-elem bottom"}>
-                            <button className={"btn btn-reg"} onClick={sendForm}>
-                                <div className={"btn-text"}>Зарегистрироваться</div>
-                            </button>
+                            <button className={"btn btn-reg"} onClick={sendForm}>Зарегистрироваться</button>
                         </div>
                     </div>
                     <div className={"sign-up-l-bottom"}>

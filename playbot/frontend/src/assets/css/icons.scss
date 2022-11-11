@@ -1,0 +1,38 @@
+.name-icon {
+  background: url("../icon/avatar.png") no-repeat;
+  background-size: 15px 16px;
+  background-position: 14px center;
+}
+
+.phone-icon {
+  background: url("../icon/phone.png") no-repeat;
+  background-size: 16px 15px;
+  background-position: 14px center;
+}
+
+.email-icon {
+  background: url("../icon/email.png") no-repeat;
+  background-size: 16px 12px;
+  background-position: 14px center;
+}
+
+.password-icon {
+  background: url("../icon/password.png") no-repeat;
+  background-size: 12px 15px;
+  background-position: 14px center;
+}
+
+.eye-icon {
+  background-image: url("../icon/eye.png");
+  background-size: 20px;
+  cursor: pointer;
+  &.off {
+    background-image: url("../icon/eye-off.png");
+  }
+}
+
+.search-icon {
+  background: url("../icon/search.png") no-repeat;
+  background-size: 15px;
+  background-position: 14px center;
+}

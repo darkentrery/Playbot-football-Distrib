@@ -12,7 +12,7 @@ class User(AbstractUser):
     first_name = models.CharField(_("First Name"), max_length=150, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=150, blank=True)
     name = models.CharField(_("Name"), max_length=150)
-    phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, unique=True)
+    phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
 

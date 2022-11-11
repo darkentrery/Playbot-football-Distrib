@@ -1,0 +1,55 @@
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
+  border:none;
+
+  background: #d19c6c;
+  border-radius: 8px;
+  cursor: pointer;
+
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #FFFFFF;
+
+  &:hover {
+    background: #e0a773;
+  }
+
+  &:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    background: #e0a773;
+  }
+
+  &:active {
+    background: #c29165;
+  }
+}
+
+.btn-close {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  background: url("../icon/cross.png") no-repeat;
+  background-size: 16px 16px;
+  background-position: center;
+}
+
+.btn-back {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  background: url("../icon/left-arrow.png") no-repeat;
+  background-size: 10px 16px;
+  background-position: center;
+}

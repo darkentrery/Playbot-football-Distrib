@@ -43,12 +43,12 @@ export default class AuthService{
 
 	signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer) {
 		let errors = new Map();
-		if (name && phoneNumber && email && password && passwordConfirm && allowPolicy && allowOffer) {
+		if (name && email && password && passwordConfirm && allowPolicy && allowOffer) {
             if (password !== passwordConfirm) errors.set("password", "noMatch");
 
         } else {
             if (!name) errors.set("name", "name");
-            if (!phoneNumber) errors.set("phoneNumber", "phoneNumber");
+            // if (!phoneNumber) errors.set("phoneNumber", "phoneNumber");
             if (!email) errors.set("email", "email");
             if (!password) errors.set("password", "password");
             if (!passwordConfirm) errors.set("passwordConfirm", "passwordConfirm");

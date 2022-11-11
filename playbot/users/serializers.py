@@ -151,10 +151,10 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=128, write_only=True, required=True)
-    phone_number = serializers.CharField(max_length=128, write_only=True, required=True)
-    email = serializers.EmailField(required=True, write_only=True, max_length=128)
-    password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
+    # name = serializers.CharField(max_length=128, write_only=True, required=True)
+    phone_number = serializers.CharField(max_length=128, write_only=True, required=False)
+    # email = serializers.EmailField(required=True, write_only=True, max_length=128)
+    # password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
 
     class Meta:
         model = User
