@@ -6,7 +6,7 @@ export default function TelegramLoginComponent () {
         <TLoginButton
             botName="PlaybotTestBot"
             buttonSize={TLoginButtonSize.Large}
-            lang="en"
+            lang="ru"
             usePic={false}
             cornerRadius={20}
             onAuthCallback={(user) => {
