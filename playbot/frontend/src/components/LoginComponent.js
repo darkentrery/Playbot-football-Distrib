@@ -28,6 +28,9 @@ export default function LoginComponent () {
             console.log(localStorage.getItem("access_token"))
             console.log(localStorage.getItem("refresh_token"))
             await authService.login(data).then((response) => {
+                if (response.status == 200) {
+                    setOpenLogin(!openLogin);
+                }
                 console.log(response)
             })
         }
@@ -36,10 +39,10 @@ export default function LoginComponent () {
     const hiddenPassword = (event) => {
         if ($(event.target).attr('class').includes("off")) {
             $(event.target).removeClass('off');
-            $(event.target).parent('div').children('input').attr('type', 'password');
+            $(event.target).parent('div').find('input').attr('type', 'password');
         } else {
             $(event.target).addClass('off');
-            $(event.target).parent('div').children('input').attr('type', 'text');
+            $(event.target).parent('div').find('input').attr('type', 'text');
         }
     }
 
@@ -64,11 +67,11 @@ export default function LoginComponent () {
                                 <input className={"name-icon"} type="text" placeholder={"Номер телефона или e-mail"} onChange={(event) => setEmail(event.target.value)}/>
                             </div>
                         </div>
-                        <div className={"login-l-elem"}>
-                            <div className={"div-input"}>
-                                <input className={"password-icon password-input"} type="text" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
-                                <div className={"eye-icon right-input-icon"} onClick={hiddenPassword}></div>
+                        <div className={"login-l-elem password-elem"}>
+                            <div className={"div-input left-password-elem"}>
+                                <input className={"password-icon password-input"} type="password" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
                             </div>
+                            <div className={"eye-icon right-input-icon"} onClick={hiddenPassword}></div>
                         </div>
                         <div className={"login-l-elem"}>
                             <button className={"btn btn-login"} onClick={sendForm}>Войти</button>

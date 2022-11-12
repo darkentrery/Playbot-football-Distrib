@@ -18,16 +18,16 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: space-around;
 }
 
 .sign-up-l-elem {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 $fieldHeight;
   justify-content: center;
-  align-items: center;
-  height: $fieldHeight;
+  align-items: stretch;
+  width: $fieldWidth;
   margin-top: 16px;
 
   &.head {
@@ -98,6 +98,7 @@
   .sign-up-l-elem.close {
     justify-content: end;
     flex: 0 0 24px;
+    width: 100vw;
     .sign-up-close {
       margin-right: 24px;
     }

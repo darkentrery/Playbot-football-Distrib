@@ -31,11 +31,15 @@
 
 .login-l-elem {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 $fieldHeight;
   justify-content: center;
-  align-items: center;
-  height: $fieldHeight;
+  align-items: stretch;
+  width: $fieldWidth;
   margin-top: 16px;
+
+  button {
+    margin-top: 18px;
+  }
 }
 
 .login-l-bottom-elem {
@@ -99,5 +103,8 @@
 }
 
 .password-input {
+  flex: 0 0 $fieldWidth !important;
   padding-right: 40px;
 }
+
+

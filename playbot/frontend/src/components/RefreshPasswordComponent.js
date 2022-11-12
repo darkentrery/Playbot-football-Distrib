@@ -3,6 +3,7 @@ import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenRefreshPasswordContext} from "../context/AuthContext";
+import {getData} from "../services/AuthDecorator";
 
 
 export default function RefreshPasswordComponent () {
@@ -24,11 +25,11 @@ export default function RefreshPasswordComponent () {
             console.log(data)
             console.log(localStorage.getItem("access_token"))
             console.log(localStorage.getItem("refresh_token"))
-            authService.refreshPassword(data).then((response) => {
-                console.log(response)
-            })
+            // authService.refreshPassword(data).then((response) => {
+            //     console.log(response)
+            // })
 
-            // await getData(authService.getData, [], openLogin, setOpenLogin)
+            await getData(authService.getData, [], openLogin, setOpenLogin)
         }
     }
 
