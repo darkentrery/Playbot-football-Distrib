@@ -103,7 +103,7 @@
 }
 
 .password-input {
-  flex: 0 0 $fieldWidth !important;
+  flex: 0 0 $fieldWidth - 80px !important;
   padding-right: 40px;
 }
 

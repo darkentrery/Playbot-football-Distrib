@@ -52,18 +52,18 @@ export default function CreateEventComponent () {
                     <span ref={refCount} onClick={() => setIsDropdown(!isDropdown)}>1</span>
                     <div className={`menu ${isDropdown ? 'open' : ''}`}>
                         <ul>
-                            {content && content.map((item, key) => {
-                                return (
-                                    <li onClick={() => {
-                                        console.log(refCount)
-                                        refCount.current.innerHTML = item
-                                        setCount(item)
-                                        setIsDropdown(!isDropdown)
-                                    }}>
-                                        {item}
-                                    </li>
-                                )
-                            })}
+                            {/*{content && content.map((item, key) => {*/}
+                            {/*    return (*/}
+                            {/*        <li onClick={() => {*/}
+                            {/*            console.log(refCount)*/}
+                            {/*            refCount.current.innerHTML = item*/}
+                            {/*            setCount(item)*/}
+                            {/*            setIsDropdown(!isDropdown)*/}
+                            {/*        }}>*/}
+                            {/*            {item}*/}
+                            {/*        </li>*/}
+                            {/*    )*/}
+                            {/*})}*/}
                         </ul>
                     </div>
                 </div>
