@@ -152,6 +152,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 'django.contrib.messages.context_processors.messages',
+                # 'django.template.context_processors.csrf',
             ],
         },
     },
@@ -170,7 +171,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
         # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ),
 }
 
@@ -248,4 +249,5 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
-X_FRAME_OPTIONS = 'ALLOW-FROM https://oauth.telegram.org'
+# X_FRAME_OPTIONS = 'ALLOW-FROM https://telegram.org/, http://127.0.0.1/'
+# X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000'
