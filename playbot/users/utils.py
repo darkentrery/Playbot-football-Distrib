@@ -2,6 +2,12 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from django.conf import settings
+from django.template.loader import render_to_string
+from loguru import logger
+from sendgrid import Mail, SendGridAPIClient
+
+
 
 def send_message(recipient, new_password):
     server = "smtp.yandex.ru"
@@ -43,3 +49,21 @@ def generate_password():
     alphabet = string.ascii_letters + string.digits
     password = ''.join(secrets.choice(alphabet) for i in range(10))
     return password
+
+
+def send_email(recipient, password):
+    subject = f"Востановление пароля"
+    template = "refresh-password.html"
+
+
+    message = Mail(
+        from_email=settings.SENDGRID_DEFAULT_FROM_EMAIL,
+        to_emails=recipient,
+        subject=subject,
+        html_content=render_to_string(template, context={"password": password})
+    )
+    try:
+        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+        response = sg.send(message)
+    except Exception as e:
+        logger.error(e)

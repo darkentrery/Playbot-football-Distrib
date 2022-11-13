@@ -25,9 +25,9 @@ export default function RefreshPasswordComponent () {
             console.log(data)
             console.log(localStorage.getItem("access_token"))
             console.log(localStorage.getItem("refresh_token"))
-            // authService.refreshPassword(data).then((response) => {
-            //     console.log(response)
-            // })
+            authService.refreshPassword(data).then((response) => {
+                console.log(response)
+            })
 
             await getData(authService.getData, [], openLogin, setOpenLogin)
         }

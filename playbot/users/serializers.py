@@ -12,11 +12,10 @@ from rest_framework_simplejwt.settings import api_settings
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from config.settings.base import CHANEL_ID, SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
+from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
-from playbot.cities.serializers import CitySerializer
 from playbot.users.models import User
-from playbot.users.utils import generate_password, send_message
+from playbot.users.utils import generate_password, send_message, send_email
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -116,10 +115,7 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
             if attrs.get("username"):
                 defaults["username"] = attrs.get("username")
             self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
-            # if User.objects.filter(telegram_id=attrs["id"]).exists():
-            #     self.user = User.objects.get(telegram_id=attrs["id"])
-            # else:
-            #     self.user = User.objects.create(telegram_id=attrs["id"])
+
         # if User.objects.filter(telegram_id=attrs["telegram_id"]).exists() and attrs["chanel_id"] == CHANEL_ID:
         #     self.user = User.objects.get(telegram_id=attrs["telegram_id"])
         else:
@@ -290,7 +286,8 @@ class RefreshPasswordSerializer(serializers.ModelSerializer):
             password = generate_password()
             instance.set_password(password)
             instance.save()
-            send_message(email, password)
+            send_email(email, password)
+            # send_message(email, password)
         else:
             self._errors["email"] = ["Invalid email!"]
 
