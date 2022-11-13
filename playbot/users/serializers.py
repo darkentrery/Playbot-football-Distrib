@@ -1,3 +1,5 @@
+import hashlib
+import hmac
 import re
 
 from django.contrib.auth import get_user_model, authenticate
@@ -10,7 +12,7 @@ from rest_framework_simplejwt.settings import api_settings
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from config.settings.base import CHANEL_ID
+from config.settings.base import CHANEL_ID, SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.cities.serializers import CitySerializer
 from playbot.users.models import User
@@ -20,7 +22,7 @@ from playbot.users.utils import generate_password, send_message
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'is_active',]
+        fields = ["id", "username", "email", "is_active", "telegram_id"]
         read_only_field = ['is_active',]
 
 
@@ -78,13 +80,48 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["auth_date"] = serializers.CharField()
+        self.fields["first_name"] = serializers.CharField()
+        self.fields["hash"] = serializers.CharField()
+        self.fields["id"] = serializers.CharField()
+        self.fields["last_name"] = serializers.CharField()
+        self.fields["photo_url"] = serializers.CharField()
+        self.fields["username"] = serializers.CharField()
 
-        self.fields["telegram_id"] = serializers.CharField()
-        self.fields["chanel_id"] = serializers.CharField()
+        # self.fields["telegram_id"] = serializers.CharField()
+        # self.fields["chanel_id"] = serializers.CharField()
+
+    def check_response(self, data):
+        d = data.copy()
+        del d['hash']
+        d_list = []
+        for key in sorted(d.keys()):
+            if d[key] != None:
+                d_list.append(key + '=' + d[key])
+        data_string = bytes('\n'.join(d_list), 'utf-8')
+
+        secret_key = hashlib.sha256(SOCIAL_AUTH_TELEGRAM_BOT_TOKEN.encode('utf-8')).digest()
+        hmac_string = hmac.new(secret_key, data_string, hashlib.sha256).hexdigest()
+        if hmac_string == data['hash']:
+            return True
+        return False
 
     def validate(self, attrs):
-        if User.objects.filter(telegram_id=attrs["telegram_id"]).exists() and attrs["chanel_id"] == CHANEL_ID:
-            self.user = User.objects.get(telegram_id=attrs["telegram_id"])
+        if self.check_response(attrs):
+            defaults = {}
+            if attrs.get("first_name"):
+                defaults["first_name"] = attrs.get("first_name")
+            if attrs.get("last_name"):
+                defaults["last_name"] = attrs.get("last_name")
+            if attrs.get("username"):
+                defaults["username"] = attrs.get("username")
+            self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
+            # if User.objects.filter(telegram_id=attrs["id"]).exists():
+            #     self.user = User.objects.get(telegram_id=attrs["id"])
+            # else:
+            #     self.user = User.objects.create(telegram_id=attrs["id"])
+        # if User.objects.filter(telegram_id=attrs["telegram_id"]).exists() and attrs["chanel_id"] == CHANEL_ID:
+        #     self.user = User.objects.get(telegram_id=attrs["telegram_id"])
         else:
             raise exceptions.AuthenticationFailed(
                 self.error_messages["no_active_account"],

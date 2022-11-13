@@ -100,6 +100,23 @@ export default class AuthService{
 			});
 	}
 
+	async loginTelegram(user){
+		const url = `${API_URL}telegram-login/`;
+		return axios.post(url, user, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				// localStorage.setItem("access_token" , response.data.access);
+                // localStorage.setItem("refresh_token" , response.data.refresh);
+				// localStorage.setItem("date_token", Date.now());
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	updateCity(data){
 		const url = `${API_URL}update-city/`;
 		return axios.post(url, data,{headers: {

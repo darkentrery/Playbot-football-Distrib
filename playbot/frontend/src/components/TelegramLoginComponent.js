@@ -2,17 +2,41 @@ import {useEffect, useRef} from "react";
 
 
 export default function TelegramLoginComponent () {
+
     const ref = useRef();
     function n(e) {
+        const API_URL = process.env.REACT_APP_API_URL;
+        async function loginTelegram(user){
+            const url = `${API_URL}telegram-login/`;
+            return window.axios.post(url, user, {headers: {
+                'Content-Type': 'application/json',
+                // 'X-CSRFToken': csrftoken,
+            }})
+                .then((response) => {
+                    localStorage.setItem("access_token" , response.data.access);
+                    localStorage.setItem("refresh_token" , response.data.refresh);
+                    localStorage.setItem("date_token", Date.now());
+                    return response;
+                })
+                .catch((error) => {
+                    return error.response;
+                });
+        }
         console.log(e)
+        loginTelegram(e).then((response) => {
+            console.log(response)
+        })
     }
 
     useEffect(() => {
         const script = document.createElement('script');
         const func = document.createElement('script');
+        const axios = document.createElement('script');
+
+        // ax.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"
+        axios.src = "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js";
         func.innerHTML = n;
 
-        // script.src = "http://27d5-2a0d-b201-8010-7155-acb3-f7-a736-e390.ngrok.io/static/js/telegram.js"
         script.src = "https://test.korobkaplay.ru/static/js/telegram.js"
         script.async = true;
         script.setAttribute('data-telegram-login', 'PlaybotTestBot');
@@ -20,11 +44,9 @@ export default function TelegramLoginComponent () {
         script.setAttribute('data-request-access', 'write');
         script.setAttribute('data-userpic', 'false');
         script.setAttribute('data-onauth', `${n.name}(e)`);
-
-
         ref.current.appendChild(script);
+        ref.current.appendChild(axios);
         ref.current.appendChild(func);
-
 
         return () => {
             // ref.current.removeChild(script);
@@ -33,25 +55,7 @@ export default function TelegramLoginComponent () {
       }, []);
 
     return(
-        // <TLoginButton
-        //     botName="PlaybotTestBot"
-        //     buttonSize={TLoginButtonSize.Large}
-        //     lang="ru"
-        //     usePic={false}
-        //     cornerRadius={20}
-        //     onAuthCallback={(user) => {
-        //       console.log('Hello, user!', user);
-        //     }}
-        //     requestAccess={'write'}
-        //     // redirectUrl={"http://ba62-2a0d-b201-8010-d531-c4fe-c240-f438-dbb0.ngrok.io/auth/complete/telegram"}
-        //     // redirectUrl={"http://127.0.0.1:80/auth/complete/telegram"}
-        //     // redirectUrl={"https://test.korobkaplay.ru/auth/complete/telegram"}
-        // />
-        // <script async src="https://telegram.org/js/telegram-widget.js?21" data-telegram-login="PlaybotTestBot" data-size="large" data-request-access="write" data-userpic="false" data-onauth="onTelegramAuthUser(user)" >
-        //     {/*{script.toString()}*/}
-        // </script>
         <div ref={ref}></div>
-
     )
 }
 
