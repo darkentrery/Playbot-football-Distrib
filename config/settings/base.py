@@ -31,6 +31,8 @@ CORS_ORIGIN_WHITELIST = env.tuple("CORS_ORIGIN_WHITELIST")
 
 CORS_ALLOW_CREDENTIALS = True
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
 TIME_ZONE = "America/New_York"
 
 # LANGUAGE_CODE = "en-us"
