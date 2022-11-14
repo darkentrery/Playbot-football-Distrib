@@ -8,7 +8,7 @@ from playbot.users.models import User
 class CustomUserAdmin(UserAdmin):
     list_display = [
         "email",
-        "name",
+        "username",
         "is_superuser",
     ]
 
@@ -17,7 +17,7 @@ class CustomUserAdmin(UserAdmin):
             ("Personal info"),
             {
                 "fields": (
-                    "name",
+                    "username",
                     "first_name",
                     "last_name",
                     "email",

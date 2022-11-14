@@ -17,24 +17,14 @@ class User(AbstractUser):
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
 
-    # username = models.EmailField(
-    #     _("username"),
-    #     max_length=150,
-    #     unique=True,
-    #     help_text=_(
-    #         "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-    #     ),
-    #     validators=[username_validator],
-    #     error_messages={
-    #         "unique": _("A user with that username already exists."),
-    #     },
-    # )
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
+
+    def __str__(self):
+        return f"{self.email}" or f"{self.username}"
 
 
