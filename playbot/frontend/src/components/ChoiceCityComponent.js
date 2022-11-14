@@ -5,6 +5,7 @@ import {OpenChoiceCityContext} from "../context/AuthContext";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
+import {isMobile} from "react-device-detect";
 
 
 export default function ChoiceCityComponent () {
@@ -17,6 +18,17 @@ export default function ChoiceCityComponent () {
 
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
     const citiesRef = useRef();
+
+    if (isMobile) {
+        console.log(navigator.userAgent)
+        console.log(navigator.userAgent.indexOf('Safari'))
+        console.log(navigator.userAgent.indexOf('Chrome'))
+        console.log($('.popup-frame').children('.elem.bottom'))
+
+        if (navigator.userAgent.indexOf('Chrome') == -1) {
+            $('.popup-frame').children('.elem.bottom').addClass("safari-margin");
+        }
+    }
 
     useEffect(() => {
         if (openChoiceCity) {

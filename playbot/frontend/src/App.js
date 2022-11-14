@@ -65,6 +65,14 @@ function App(defaultValue) {
         })
     }
 
+    useEffect(() => {
+        console.log(localStorage.telegramLogin)
+        if (localStorage.telegramLogin === 'true') {
+            setOpenChoiceCity(true);
+            localStorage.telegramLogin = false;
+        }
+    }, [localStorage.telegramLogin])
+
 
 
 

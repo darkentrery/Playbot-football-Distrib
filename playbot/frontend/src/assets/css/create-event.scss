@@ -1,3 +1,80 @@
+.create-event {
+  width: $createEventWidth;
+  height: $createEventHeight;
+  flex-direction: column;
+
+  .elem {
+    display: flex;
+    flex: 0 0 $fieldHeight;
+    align-items: stretch;
+    justify-content: stretch;
+    margin-right: 28px;
+    margin-left: 28px;
+    margin-top: 24px;
+    //width: $createEventWidth - 56px;
+
+    &.head {
+      justify-content: space-between;
+      flex: 0 0 26px;
+      span {
+        font-family: 'Raleway', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 120%;
+        color: #1B1B1B;
+      }
+    }
+
+    &.second {
+      flex: 0 0 80px;
+      background: url("../icon/create-event-img.png");
+      background-size: cover !important;
+      background-position: center left !important;
+      background-repeat: no-repeat !important;
+      border-radius: 8px;
+    }
+
+    input {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .date-time {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex: 1 0 auto;
+      flex-direction: column;
+
+      &.date {
+        margin-right: 5px;
+      }
+
+      &.time {
+        margin-left: 5px;
+      }
+
+      .input {
+        flex: 0 0 $fieldHeight;
+        box-sizing: border-box;
+      }
+
+      .icon {
+        flex: 0 0 24px;
+        width: 24px;
+        align-self: end;
+        margin-right: 12px;
+        margin-top: -36px;
+        cursor: pointer;
+      }
+    }
+
+  }
+}
+
+
+
 .dropdown {
   span {
     cursor: pointer;

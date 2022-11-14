@@ -3,6 +3,7 @@ import $ from "jquery";
 
 
 export default function TelegramLoginComponent () {
+    localStorage.setItem("telegramLogin", false);
 
     const ref = useRef();
     function n(e) {
@@ -14,7 +15,9 @@ export default function TelegramLoginComponent () {
                 localStorage.setItem("access_token" , response.data.access);
                 localStorage.setItem("refresh_token" , response.data.refresh);
                 localStorage.setItem("date_token", Date.now());
+                localStorage.setItem("telegramLogin", true);
                 console.log(response);
+                window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
                 // return response;
             })
             .catch((error) => {
@@ -23,6 +26,7 @@ export default function TelegramLoginComponent () {
             });
         console.log(e)
     }
+
 
     useEffect(() => {
         if (!$(ref.current).children('#id-axios').left) {

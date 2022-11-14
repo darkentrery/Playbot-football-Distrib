@@ -42,11 +42,48 @@ export default function CreateEventComponent () {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame login"}>
-                <input type="text" placeholder={"Название *"} onChange={(event) => setName(event.target.value)}/>
+            <div className={"popup-frame create-event"}>
+                <div className={"elem head"}>
+                    <span>Создайте свое событие</span>
+                    <div onClick={() => {setOpenCreateEvent(!openCreateEvent)}} className={"btn-close choice-city-close"}></div>
+                </div>
+                <div className={"elem second"}></div>
+                <div className={"elem div-input"}>
+                    <input type="text" placeholder={"Название *"} value={"Футбол с друзьями"} onChange={(event) => setName(event.target.value)}/>
+                </div>
+                <div className={"elem"}>
+                    <div className={"date-time date"}>
+                        <div className={"div-input input"}>
+                            <input type="text" placeholder={"Дата игры *"} onChange={(event) => setAddress(event.target.value)}/>
+                        </div>
+                        <div className={"calendar-icon icon"}></div>
+                    </div>
+                    <div className={"date-time time"}>
+                        <div className={"div-input input"}>
+                            <input className={""} type="text" placeholder={"Время начала игры *"} onChange={(event) => setAddress(event.target.value)}/>
+                        </div>
+                        <div className={"clock-icon icon"}></div>
+                    </div>
+                </div>
+                <div className={"elem div-input"}>
+                    <input type="text" placeholder={"Адрес проведения *"} onChange={(event) => setAddress(event.target.value)}/>
+                </div>
+                <div className={"elem"}>
+
+                </div>
+                <div className={"elem"}>
+
+                </div>
+                <div className={"elem"}>
+
+                </div>
+                <div className={"elem"}>
+
+                </div>
+
                 <ReactDatetimeClass/>
 
-                <input type="text" placeholder={"Адрес проведения *"} onChange={(event) => setAddress(event.target.value)}/>
+
 
                 <div className={"dropdown"}>
                     <span ref={refCount} onClick={() => setIsDropdown(!isDropdown)}>1</span>

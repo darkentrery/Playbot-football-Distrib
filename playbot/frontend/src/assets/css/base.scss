@@ -1,3 +1,7 @@
+body {
+  -webkit-text-size-adjust: none;
+}
+
 .popup-fon {
   display: flex;
   justify-content: center;
@@ -160,6 +164,7 @@ input[type="checkbox"] {
     font-weight: 400;
     font-size: 14px;
     line-height: 120%;
+    -webkit-appearance: none;
   }
 }
 
@@ -256,4 +261,8 @@ input[type="checkbox"] {
     background: rgba(35, 32, 33, 0.12);
     border-radius: 2px;
   }
+}
+
+.safari-margin {
+  margin-bottom: 110px !important;
 }

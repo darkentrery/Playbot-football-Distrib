@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Playbot",
+  "name": "Playbot football",
   "icons": [
     {
       "src": "favicon.ico",
@@ -24,7 +24,7 @@
   "background_color": "#ffffff",
   "scope": ".",
   "description": "Test app for Django and PWA",
-    "dir": "ltr",
-    "lang": "en-US",
-    "orientation": "portrait-primary"
+  "dir": "ltr",
+  "lang": "en-US",
+  "orientation": "any"
 }

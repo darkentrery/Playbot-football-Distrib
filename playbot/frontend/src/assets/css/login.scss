@@ -26,7 +26,7 @@
   flex: 1 1 auto;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: stretch;
 }
 
 .login-l-elem {
@@ -86,7 +86,7 @@
   .login-l-elem.close {
     justify-content: end;
     align-items: start;
-    flex: 0 1 190px;
+    flex: 1 1 auto;
     width: 100vw;
     .login-close {
       margin-right: 24px;
@@ -94,7 +94,7 @@
     }
   }
   .login-l-bottom-elem {
-    flex: 1 1 221px;
+    flex: 1 1 auto;
   }
   .login-l-head-elem {
     flex: 0 1 auto;
