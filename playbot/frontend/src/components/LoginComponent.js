@@ -29,6 +29,9 @@ export default function LoginComponent () {
             console.log(localStorage.getItem("refresh_token"))
             await authService.login(data).then((response) => {
                 if (response.status == 200) {
+                    setPassword(false);
+                    setEmail(false);
+                    setData(false);
                     setOpenLogin(!openLogin);
                 }
                 console.log(response)

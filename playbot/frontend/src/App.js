@@ -14,12 +14,13 @@ import {
 } from "./context/AuthContext";
 import RefreshPasswordComponent from "./components/RefreshPasswordComponent";
 import EventService from "./services/EventService";
-import {getData} from "./services/AuthDecorator";
+import {authDecoratorWithoutLogin, getData} from "./services/AuthDecorator";
 import CreateEventComponent from "./components/CreateEventComponent";
 import CreateEventUnAuthComponent from "./components/CreateEventUnAuthComponent";
 import {OpenCreateEventContext, OpenCreateEventUnAuthContext} from "./context/EventContext";
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
 import ChoiceCityComponent from "./components/ChoiceCityComponent";
+import AuthService from "./services/AuthService";
 
 
 
@@ -29,7 +30,7 @@ function App(defaultValue) {
     const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
     const [openCreateEvent, setOpenCreateEvent] = useState(false);
     const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
-    const [openMobileFirstPage, setOpenMobileFirstPage] = useState(true);
+    const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [openChoiceCity, setOpenChoiceCity] = useState(false);
 
     const signUpWindow = { openSignUp, setOpenSignUp };
@@ -42,11 +43,16 @@ function App(defaultValue) {
 
     const eventService = new EventService();
 
+
     const defaultState = {
         center: [55.751574, 37.573856],
         zoom: 10,
         controls: ["zoomControl", "fullscreenControl"],
       };
+
+    // useEffect(() => {
+
+    // }, [openMobileFirstPage])
 
     const getOpenCreateEvent = async () => {
         await getData(eventService.getCreateEvent, [], openLogin, setOpenLogin).then((response) => {

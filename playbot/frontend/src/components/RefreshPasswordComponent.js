@@ -26,6 +26,12 @@ export default function RefreshPasswordComponent () {
             console.log(localStorage.getItem("access_token"))
             console.log(localStorage.getItem("refresh_token"))
             authService.refreshPassword(data).then((response) => {
+                if (response.status == 200) {
+                    setEmail(false);
+                    setData(false);
+                    setOpenRefreshPassword(!openRefreshPassword);
+                    setOpenLogin(!openLogin);
+                }
                 console.log(response)
             })
 
