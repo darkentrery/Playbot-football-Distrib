@@ -11,22 +11,17 @@
     margin-right: 28px;
     margin-left: 28px;
     margin-top: 24px;
-    //width: $createEventWidth - 56px;
 
-    &.head {
+    &.elem-1 {
       justify-content: space-between;
       flex: 0 0 26px;
       span {
-        font-family: 'Raleway', sans-serif;
-        font-style: normal;
         font-weight: 600;
         font-size: 22px;
-        line-height: 120%;
-        color: #1B1B1B;
       }
     }
 
-    &.second {
+    &.elem-2 {
       flex: 0 0 80px;
       background: url("../icon/create-event-img.png");
       background-size: cover !important;
@@ -38,6 +33,14 @@
     input {
       padding-right: 20px;
       padding-left: 20px;
+    }
+
+    &.margin-12 {
+      margin-top: 12px;
+    }
+
+    &.margin-8 {
+      margin-top: 8px;
     }
 
     .date-time {
@@ -57,6 +60,7 @@
 
       .input {
         flex: 0 0 $fieldHeight;
+        margin-top: -12px;
         box-sizing: border-box;
       }
 
@@ -70,30 +74,25 @@
       }
     }
 
-  }
-}
+    &.label {
+      flex: 0 0 19px;
+    }
+
+    &.elem-btn {
+      margin-bottom: 24px;
+    }
+
+    &.notice {
+      flex: 1 1 auto;
+      textarea {
+        flex: 1 1 auto;
+        height: 96px;
+      }
+    }
 
 
 
-.dropdown {
-  span {
-    cursor: pointer;
-  }
-}
 
-.menu {
-  opacity: 0;
-  position: absolute;
-  top: 40px; // same as your nav height
-  left: 0;
-  background: #ededed;
-  border: 1px solid gray;
-  padding: 10px;
-  text-align: center;
-  transition: all 1000ms ease;
-
-  &.open {
-    opacity: 1;
   }
 }
 
@@ -106,4 +105,9 @@ ul {
     color: #61dafb;
     cursor: pointer;
   }
+}
+
+.btn-create-event {
+  flex: 1 1 auto;
+  height: $fieldHeight;
 }

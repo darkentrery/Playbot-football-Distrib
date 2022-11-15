@@ -2,6 +2,31 @@ body {
   -webkit-text-size-adjust: none;
 }
 
+span {
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  color: #1B1B1B;
+}
+
+textarea {
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    border: 0.8px solid #949494;
+    border-radius: 10px;
+    padding: 16px;
+
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #1B1B1B;
+}
+
 .popup-fon {
   display: flex;
   justify-content: center;
@@ -266,3 +291,57 @@ input[type="checkbox"] {
 .safari-margin {
   margin-bottom: 110px !important;
 }
+
+.dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 217px;
+  height: $fieldHeight;
+  box-sizing: border-box;
+
+  .dropdown-label {
+    display: flex;
+    flex: 0 0 $fieldHeight;
+    align-items: center;
+    padding-left: 16px;
+    border: 0.8px solid #949494;
+    border-radius: 8px;
+    cursor: pointer;
+
+  }
+}
+
+.dropdown-menu {
+  display: none;
+  flex-direction: column;
+  opacity: 0;
+  border: 1px solid gray;
+  border-radius: 8px;
+  transition: all 100ms ease;
+  background: rgb(255, 255, 255);
+
+  &.open {
+    opacity: 1;
+    display: flex;
+  }
+
+  .dropdown-elem {
+    display: flex;
+    align-items: center;
+    flex: 0 0 $fieldHeight;
+    padding-left: 16px;
+    padding-right: 16px;
+    cursor: pointer;
+    &:hover {
+      background: rgba(227, 225, 225, 0.63);
+      border-radius: 8px;
+    }
+  }
+}
+
+.rdtPicker {
+  top: $fieldHeight;
+}
+

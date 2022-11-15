@@ -41,10 +41,24 @@
   background: url("../icon/calendar.png") no-repeat;
   background-size: 24px;
   background-position: 0px center;
+  z-index: 99999;
 }
 
 .clock-icon {
   background: url("../icon/clock.png") no-repeat;
   background-size: 24px;
   background-position: 0px center;
+  z-index: 99999;
+}
+
+.down-arrow-icon {
+  background: url("../icon/down-arrow.png") no-repeat;
+  background-size: 24px;
+  background-position: 181px center;
+}
+
+.up-arrow-icon {
+  background: url("../icon/up-arrow.png") no-repeat;
+  background-size: 24px;
+  background-position: 181px center;
 }
