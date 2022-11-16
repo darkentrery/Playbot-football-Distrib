@@ -4,7 +4,8 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import { isMobile } from 'react-device-detect';
 import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
-import doc from "../assets/doc.pdf";
+import docPolicy from "../assets/documents/policy.docx";
+import docOffer from "../assets/documents/offer.docx";
 
 
 export default function SignUpComponent () {
@@ -81,10 +82,17 @@ export default function SignUpComponent () {
 
     const openAllowPolicy = () => {
         let link = document.createElement("a");
-        link.download = `doc.pdf`;
-        link.href = doc
+        link.download = `Политика конфиденциальности.docx`;
+        link.href = docPolicy
         link.click();
         // URL.revokeObjectURL(link.href);
+    }
+
+    const openAllowOffer = () => {
+        let link = document.createElement("a");
+        link.download = `Пользовательское соглашение.docx`;
+        link.href = docOffer
+        link.click();
     }
 
     const sendForm = () => {
@@ -159,7 +167,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <span className={"link"}>Я согласен с условиями договора-оферты</span>
+                                <span className={"link"} onClick={openAllowOffer}>Я согласен с условиями договора-оферты</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem bottom"}>
