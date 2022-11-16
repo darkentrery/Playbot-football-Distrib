@@ -17,8 +17,9 @@ export default function SignUpComponent () {
     const [passwordConfirm, setPasswordConfirm] = useState(false);
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
-    const [data, setData] = useState("No");
+    const [data, setData] = useState(false);
     const [loginData, setLoginData] = useState(false);
+    const [flagSafari, setFlagSafari] = useState(false);
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
@@ -48,7 +49,11 @@ export default function SignUpComponent () {
         setPhoneNumber(value);
     }
 
-    authService.addSafariBottomMargin('.telegram')
+    useEffect(() => {
+        if (openSignUp && !authService.addSafariBottomMargin('.sign-up-l-bottom')) setFlagSafari(!flagSafari);
+    }, [openSignUp, flagSafari])
+
+
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -130,11 +135,12 @@ export default function SignUpComponent () {
             <div className={"popup-frame sign-up"}>
                 <div className={"popup-left"}>
                     <div className={"sign-up-l-body"}>
-                        <div className={"sign-up-l-elem close"}>
-                            <div onClick={closeWindow} className={"btn-close sign-up-close"}></div>
-                        </div>
+                        {/*<div className={"sign-up-l-elem close"}>*/}
+                        {/*    <div onClick={closeWindow} className={"btn-close sign-up-close"}></div>*/}
+                        {/*</div>*/}
                         <div className={"sign-up-l-elem head"}>
                             <span className={"sign-up-title"}>Регистрация</span>
+                            <div onClick={closeWindow} className={"btn-close sign-up-close left"}></div>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refUsername}>
                             <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>

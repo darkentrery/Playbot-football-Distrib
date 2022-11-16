@@ -88,6 +88,9 @@
         margin-bottom: 40px;
         flex: 0 0 $fieldHeight;
       }
+      &.safari-margin {
+        margin-bottom: 110px !important;
+      }
     }
   }
 }

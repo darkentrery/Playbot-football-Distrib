@@ -21,6 +21,9 @@ $createEventWidth: 500px;
   .sign-up-l-elem.close {
     display: none;
   }
+  .sign-up-close.left {
+    display: none;
+  }
   .login-l-elem.close {
     display: none;
   }
@@ -32,6 +35,9 @@ $createEventWidth: 500px;
   $refreshWidth: $popupWidth/2;
   @import "main";
   .sign-up-l-elem.close {
+    display: none;
+  }
+  .sign-up-close.left {
     display: none;
   }
   .login-l-elem.close {

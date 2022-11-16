@@ -227,15 +227,21 @@ export default class AuthService{
 	}
 
 	addSafariBottomMargin(classSelector) {
-		if (isMobile) {
+		if (isMobile && window.screen.width < 743) {
 			console.log(navigator.userAgent)
 			console.log(navigator.userAgent.indexOf('Safari'))
 			console.log(navigator.userAgent.indexOf('Chrome'))
-			console.log($('.popup-frame').find(classSelector))
+			console.log(classSelector)
+			console.log($('.popup-frame'))
 			if (navigator.userAgent.indexOf('Chrome') == -1) {
-				$('.popup-frame').find(classSelector).addClass("safari-margin");
+				if ($('.popup-frame').find(classSelector).length) {
+					$('.popup-frame').find(classSelector).addClass("safari-margin");
+					return true;
+				}
 			}
+			return false
 		}
+		return true;
 	}
 
 	getData(){

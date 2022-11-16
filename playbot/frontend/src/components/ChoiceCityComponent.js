@@ -15,6 +15,7 @@ export default function ChoiceCityComponent () {
     const [data, setData] = useState("No");
     const [citiesTag, setCitiesTag] = useState([]);
     const [cities, setCities] = useState([]);
+    const [flagSafari, setFlagSafari] = useState(false);
 
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
     const citiesRef = useRef();
@@ -30,7 +31,9 @@ export default function ChoiceCityComponent () {
         }
     }, [openChoiceCity])
 
-    authService.addSafariBottomMargin('.bottom')
+    useEffect(() => {
+        if (openChoiceCity && !authService.addSafariBottomMargin('.bottom')) setFlagSafari(!flagSafari);
+    }, [openChoiceCity, flagSafari])
 
 
 
@@ -113,9 +116,7 @@ export default function ChoiceCityComponent () {
                     <span>Для корректного отображения событий укажите город</span>
                 </div>
                 <div className={"elem search div-input"}>
-                    {/*<div className={"div-input"}>*/}
-                        <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={searchCity}/>
-                    {/*</div>*/}
+                    <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={searchCity}/>
                     <div className={"line"}></div>
                 </div>
                 <div className={"elem cities div-scroll"} ref={citiesRef}>

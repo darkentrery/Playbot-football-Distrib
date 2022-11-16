@@ -10,8 +10,12 @@
   align-items: center;
   justify-content: center;
   height: 132px;
-
   background: #F3F3F3;
+
+  &.safari-margin {
+    flex: 1 0 186px;
+    justify-content: start;
+  }
 }
 
 .sign-up-l-body {
@@ -24,14 +28,14 @@
 
 .sign-up-l-elem {
   display: flex;
-  //flex: 0 0 $fieldHeight;
   justify-content: center;
   align-items: stretch;
   width: $fieldWidth;
-  //margin-top: 16px;
 
   &.head {
     flex: 0 0 26px;
+    flex-direction: column;
+    align-items: stretch;
     margin-top: 22px;
     margin-bottom: 16px;
   }
@@ -42,6 +46,8 @@
 }
 
 .sign-up-title {
+  display: flex;
+  justify-content: center;
   font-weight: 600;
   font-size: 22px;
 }
@@ -92,13 +98,23 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
+  .sign-up-close {
+    position: relative;
+    top: -24px;
+    left: $fieldWidth;
+  }
   .sign-up-l-elem.close {
+    position: relative;
     justify-content: end;
     flex: 0 0 24px;
     width: 100vw;
-    margin-top: 24px;
+    top: -24px;
+    //margin-top: 24px;
     .sign-up-close {
       margin-right: 24px;
     }
+  }
+  .sign-up-l-elem.head {
+    margin-bottom: 0;
   }
 }
