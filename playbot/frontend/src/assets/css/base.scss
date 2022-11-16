@@ -27,6 +27,17 @@ textarea {
     color: #1B1B1B;
 }
 
+input[type=text], [type=password] {
+  border: 0.8px solid #949494;
+  padding-left: 40px;
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  -webkit-appearance: none;
+}
+
 .popup-fon {
   display: flex;
   justify-content: center;
@@ -65,10 +76,12 @@ input[type="checkbox"] {
   position: absolute;
   width: 16px;
   height: 16px;
-
   border: 1px solid #949494;
   border-radius: 4px;
 
+  &.error {
+      border: 0.8px solid #EC5B56;
+    }
 }
 
 .checkbox-label {
@@ -176,20 +189,26 @@ input[type="checkbox"] {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  flex: 1 0 auto;
+  flex-direction: column;
+  flex: 0 0 $fieldContainerHeight;
 
   input[type=text], [type=password]{
-    flex: 1 0 auto;
+    flex: 0 0 $fieldHeight;
     border: 0.8px solid #949494;
     border-radius: 8px;
-    padding-left: 40px;
 
-    font-family: "Raleway", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 120%;
-    -webkit-appearance: none;
+    &.error {
+      border: 0.8px solid #EC5B56;
+    }
+  }
+
+  .input-message {
+    flex: 0 0 12px;
+    margin-top: 4px;
+    font-size: 10px;
+    &.error {
+      color: #EC5B56;
+    }
   }
 }
 
@@ -205,6 +224,9 @@ input[type="checkbox"] {
     flex: 0 0 16px;
     border: 1px solid #949494;
     border-radius: 4px;
+    &.error {
+      border: 0.8px solid #EC5B56;
+    }
   }
 
   span {

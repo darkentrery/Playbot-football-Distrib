@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {csrftoken} from "./CsrfService";
+import $ from "jquery";
 
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -41,31 +42,70 @@ export default class AuthService{
 			});
 	}
 
-	signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer) {
-		let errors = new Map();
+	signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict) {
+		refs.forEach(ref => {
+            $(ref.current).children('input').removeClass('error');
+            $(ref.current).children('span').removeClass('error');
+            $(ref.current).children('span').html('');
+        })
+        $(refsDict["allowPolicy"].current).find('.checkbox-div').removeClass('error');
+        $(refsDict["allowOffer"].current).find('.checkbox-div').removeClass('error');
+
+		let errors = [];
 		if (name && email && password && passwordConfirm && allowPolicy && allowOffer) {
-            if (password !== passwordConfirm) errors.set("password", "noMatch");
+            if (password !== passwordConfirm) errors.push("noMatch");
 
         } else {
-            if (!name) errors.set("name", "name");
+            if (!name) errors.push("name");
             // if (!phoneNumber) errors.set("phoneNumber", "phoneNumber");
-            if (!email) errors.set("email", "email");
-            if (!password) errors.set("password", "password");
-            if (!passwordConfirm) errors.set("passwordConfirm", "passwordConfirm");
-            if (!allowPolicy) errors.set("allowPolicy", true);
-            if (!allowOffer) errors.set("allowOffer", true);
+            if (!email) errors.push("email");
+            if (!password) errors.push("password");
+            if (!passwordConfirm) errors.push("passwordConfirm");
+            if (!allowPolicy) errors.push("allowPolicy");
+            if (!allowOffer) errors.push("allowOffer");
         }
+
+		if (errors.length) {
+			errors.forEach(error => {
+                if (error == "noMatch") {
+                    $(refsDict["password"].current).children('input').addClass('error');
+                    $(refsDict["password"].current).children('span').addClass('error');
+                    $(refsDict["password"].current).children('span').html('Пароли не совпадают!');
+                    $(refsDict["passwordConfirm"].current).children('input').addClass('error');
+                    $(refsDict["passwordConfirm"].current).children('span').addClass('error');
+                    $(refsDict["passwordConfirm"].current).children('span').html('Пароли не совпадают!');
+                } else if (error == "allowPolicy") {
+                    $(refsDict["allowPolicy"].current).find('.checkbox-div').addClass('error');
+                } else if (error == "allowOffer") {
+                    $(refsDict["allowOffer"].current).find('.checkbox-div').addClass('error');
+                } else {
+                   $(refsDict[error].current).children('input').addClass('error');
+                   $(refsDict[error].current).children('span').addClass('error');
+                   $(refsDict[error].current).children('span').html('Это поле обязательно для заполнения!');
+                }
+                console.log(error)
+            })
+		}
+
 		return errors;
 	}
 
-	signUpResponseValidation(response) {
+	signUpResponseValidation(response, refsDict) {
 		console.log(response)
 		let errors = new Map();
 		if (response.status !== 201) {
 			["name", "phone_number", "email", "password"].forEach(field => {
 				if (response.data[field]) errors.set(field, response.data[field]);
 			})
-
+			if (response.data["email"]) {
+				$(refsDict["email"].current).children('input').addClass('error');
+				$(refsDict["email"].current).children('span').addClass('error');
+				if (response.data["email"][0] == "User с таким Email Address уже существует.") {
+					$(refsDict["email"].current).children('span').html('Пользователь с таким email уже существует!');
+				} else if (response.data["email"][0] == "Введите правильный адрес электронной почты.") {
+					$(refsDict["email"].current).children('span').html('Введите правильный адрес электронной почты!');
+				}
+			}
 		}
 		return errors;
 	}

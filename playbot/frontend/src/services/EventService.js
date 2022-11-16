@@ -24,4 +24,19 @@ export default class EventService{
 			});
 	}
 
+	createEvent(event){
+		const url = `${API_URL}create/`;
+		return axios.post(url, event, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 }

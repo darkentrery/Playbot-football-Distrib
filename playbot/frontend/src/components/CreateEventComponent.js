@@ -4,11 +4,14 @@ import {OpenCreateEventContext} from "../context/EventContext";
 import ReactDatetimeClass from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import $ from "jquery";
+import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
+import EventService from "../services/EventService";
 
 
 export default function CreateEventComponent () {
+    const eventService = new EventService();
     const [data, setData] = useState("No");
-    const [name, setName] = useState(false);
+    const [name, setName] = useState("Футбол с друзьями");
     const [date, setDate] = useState(false);
     const [timeBegin, setTimeBegin] = useState(false);
     const [address, setAddress] = useState(false);
@@ -36,6 +39,9 @@ export default function CreateEventComponent () {
     }, [name, date, timeBegin, address, count, notice]);
 
     const sendForm = async () => {
+        authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
+            console.log(response)
+        })
         console.log(count)
         console.log(data)
     }
@@ -50,9 +56,10 @@ export default function CreateEventComponent () {
     }
 
     const choiceCount = (e) => {
-        refCount.current.innerHTML = e.target.innerHTML
-        setCount(e.target.innerHTML)
-        setIsDropdown(!isDropdown)
+        refCount.current.innerHTML = e.target.innerHTML;
+        refCount.current.className = "dropdown-label down-arrow-icon";
+        setCount(e.target.innerHTML);
+        setIsDropdown(!isDropdown);
     }
 
     const inputNotice = (e) => {

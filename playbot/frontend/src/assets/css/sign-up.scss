@@ -24,15 +24,16 @@
 
 .sign-up-l-elem {
   display: flex;
-  flex: 0 0 $fieldHeight;
+  //flex: 0 0 $fieldHeight;
   justify-content: center;
   align-items: stretch;
   width: $fieldWidth;
-  margin-top: 16px;
+  //margin-top: 16px;
 
   &.head {
     flex: 0 0 26px;
     margin-top: 22px;
+    margin-bottom: 16px;
   }
 
   &.bottom {
@@ -41,16 +42,8 @@
 }
 
 .sign-up-title {
-  width: 138px;
-  height: 26px;
-
-  font-family: "Raleway", sans-serif;
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
-  line-height: 120%;
-
-  color: #1B1B1B;
 }
 
 .btn-reg {
@@ -68,8 +61,12 @@
 }
 
 .link-sign-up-login {
-  width: 213px;
+  display: flex;
+  justify-content: center;
+  //width: 213px;
+  flex: 1 1 auto;
   height: 17px;
+  font-size: 14px;
 }
 
 .sign-up-right-text {
