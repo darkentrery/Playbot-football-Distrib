@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {csrftoken} from "./CsrfService";
 import $ from "jquery";
+import {isMobile} from "react-device-detect";
 
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -101,9 +102,8 @@ export default class AuthService{
 		let errors = [];
 		if (name && email && password && passwordConfirm && allowPolicy && allowOffer) {
             if (password !== passwordConfirm) errors.push("noMatch");
-
         } else {
-            if (!name) errors.push("name");
+            if (!name) errors.push("username");
             // if (!phoneNumber) errors.set("phoneNumber", "phoneNumber");
             if (!email) errors.push("email");
             if (!password) errors.push("password");
@@ -141,7 +141,7 @@ export default class AuthService{
 		console.log(response)
 		let errors = new Map();
 		if (response.status !== 201) {
-			["name", "phone_number", "email", "password"].forEach(field => {
+			["username", "phone_number", "email", "password"].forEach(field => {
 				if (response.data[field]) errors.set(field, response.data[field]);
 			})
 			if (response.data["email"]) {
@@ -151,6 +151,13 @@ export default class AuthService{
 					$(refsDict["email"].current).children('span').html('Пользователь с таким email уже существует!');
 				} else if (response.data["email"][0] === "Введите правильный адрес электронной почты.") {
 					$(refsDict["email"].current).children('span').html('Введите правильный адрес электронной почты!');
+				}
+			}
+			if (response.data["phone_number"]) {
+				$(refsDict["phoneNumber"].current).children('input').addClass('error');
+				$(refsDict["phoneNumber"].current).children('span').addClass('error');
+				if (response.data["phone_number"] === "User with this phone_number already exists!") {
+					$(refsDict["phoneNumber"].current).children('span').html('Пользователь с таким номером уже существует!');
 				}
 			}
 		}
@@ -219,6 +226,18 @@ export default class AuthService{
 			});
 	}
 
+	addSafariBottomMargin(classSelector) {
+		if (isMobile) {
+			console.log(navigator.userAgent)
+			console.log(navigator.userAgent.indexOf('Safari'))
+			console.log(navigator.userAgent.indexOf('Chrome'))
+			console.log($('.popup-frame').find(classSelector))
+			if (navigator.userAgent.indexOf('Chrome') == -1) {
+				$('.popup-frame').find(classSelector).addClass("safari-margin");
+			}
+		}
+	}
+
 	getData(){
 		const url = `${API_URL}data/`;
 		return axios.get(url, {headers: {
@@ -232,32 +251,5 @@ export default class AuthService{
 			.catch((error) => {
 				return error.response;
 			});
-	}
-
-
-
-	getArticles() {
-		const url = `${API_URL}/api/articles/`;
-		return axios.get(url).then(response => response.data);
-	}
-	getArticlesByURL(link){
-		const url = `${API_URL}${link}`;
-		return axios.get(url).then(response => response.data);
-	}
-	getArticle(pk) {
-		const url = `${API_URL}/api/articles/${pk}`;
-		return axios.get(url).then(response => response.data);
-	}
-	deleteArticle(article){
-		const url = `${API_URL}/api/articles/${article.pk}`;
-		return axios.delete(url);
-	}
-	createArticle(article){
-		const url = `${API_URL}/api/articles/`;
-		return axios.post(url, article, {headers: { "Content-Type": "multipart/form-data" }});
-	}
-	updateArticle(article){
-		const url = `${API_URL}/api/articles/${article.pk}`;
-		return axios.put(url,article);
 	}
 }

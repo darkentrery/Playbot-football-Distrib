@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext, useRef} from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
@@ -9,7 +9,8 @@ import {getData} from "../services/AuthDecorator";
 export default function RefreshPasswordComponent () {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
-    const [data, setData] = useState("No");
+    const [data, setData] = useState(false);
+    const refEmail = useRef();
 
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openRefreshPassword, setOpenRefreshPassword} = useContext(OpenRefreshPasswordContext);
@@ -20,11 +21,19 @@ export default function RefreshPasswordComponent () {
         setData(bodyFormData);
     }, [email])
 
+    const closeWindow = () => {
+        setEmail(false);
+        setData(false);
+        setOpenRefreshPassword(!openRefreshPassword);
+    }
+
+    const toLogin = () => {
+        closeWindow();
+        setOpenLogin(!openLogin);
+    }
+
     const sendForm = async () => {
         if (email) {
-            console.log(data)
-            console.log(localStorage.getItem("access_token"))
-            console.log(localStorage.getItem("refresh_token"))
             authService.refreshPassword(data).then((response) => {
                 if (response.status == 200) {
                     setEmail(false);
@@ -49,27 +58,23 @@ export default function RefreshPasswordComponent () {
             <div className={"popup-frame popup-frame-refresh"}>
                 <div className={"refresh-body"}>
                     <div className={"refresh-elem refresh-head-elem"}>
-                        <div onClick={() => {
-                            setOpenRefreshPassword(!openRefreshPassword)
-                            setOpenLogin(!openLogin)
-                        }} className={"btn-back refresh-back"}></div>
-                        <div onClick={() => {setOpenRefreshPassword(!openRefreshPassword)}} className={"btn-close refresh-close"}></div>
+                        <div onClick={toLogin} className={"btn-back refresh-back"}></div>
+                        <div onClick={closeWindow} className={"btn-close refresh-close"}></div>
                     </div>
-                    <div className={"refresh-elem"}>
+                    <div className={"refresh-elem refresh-elem-2"}>
                         <div className={"refresh-title"}>Забыли пароль?</div>
                     </div>
-                    <div className={"refresh-elem"}>
+                    <div className={"refresh-elem refresh-elem-3"}>
                         <span className={"refresh-text"}>Напишите вашу почту, мы вышлем вам пароль.</span>
                     </div>
-                    <div className={"refresh-elem"}>
-                        <div className={"div-input"}>
-                            <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
-                        </div>
+                    <div className={"refresh-elem div-input"}>
+                        <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
+                        <span className={"input-message"}></span>
                     </div>
-                    <div className={"refresh-elem"}>
+                    <div className={"refresh-elem refresh-elem-btn"}>
                         <button className={"btn btn-reg"} onClick={sendForm}>Войти</button>
                     </div>
-                    <div className={"refresh-elem"}>
+                    <div className={"refresh-elem div-line"}>
                         <div className={"line"}></div>
                     </div>
                     <div className={"refresh-elem refresh-bottom-elem"}>

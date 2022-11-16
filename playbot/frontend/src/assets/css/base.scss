@@ -107,10 +107,16 @@ input[type="checkbox"] {
   display: flex;
   justify-content: center;
   cursor: pointer;
+  color: #949494;
+  font-size: 14px;
 
   &:hover {
     text-decoration: underline;
   }
+}
+
+.text-bold {
+  font-weight: 600;
 }
 
 .popup-right {
@@ -160,6 +166,10 @@ input[type="checkbox"] {
   top: -50px;
 }
 
+.div-line {
+  flex: 0 0 2px !important;
+}
+
 .line {
   width: 279px;
   height: 0px;
@@ -176,7 +186,7 @@ input[type="checkbox"] {
   align-items: stretch;
   justify-content: center;
   flex-direction: column;
-  flex: 0 0 $fieldContainerHeight !important;
+  //flex: 0 0 $fieldContainerHeight !important;
 
   input[type=text], [type=password]{
     flex: 0 0 $fieldHeight;

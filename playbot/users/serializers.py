@@ -200,7 +200,7 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("name", "phone_number", "email", "password")
+        fields = ("username", "phone_number", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -208,7 +208,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         password = validated_data.pop("password", None)
         if password is not None:
             instance.set_password(password)
-            instance.username = instance.email
+            # instance.username = instance.email
         instance.save()
         return instance
 
@@ -228,7 +228,7 @@ class SignUpSerializer(serializers.ModelSerializer):
                 self._errors = {}
             if self.validated_data.get("email") and User.objects.filter(email=self.validated_data["email"]).exists():
                 self._errors["email"] = "User with this email already exists!"
-            if self.validated_data.get("phone_number") and User.objects.filter(email=self.validated_data["email"]).exists():
+            if self.validated_data.get("phone_number") and User.objects.filter(phone_number=self.validated_data["phone_number"]).exists():
                 self._errors["phone_number"] = "User with this phone_number already exists!"
 
         if self._errors and raise_exception:
@@ -250,8 +250,8 @@ class SignUpTelegramSerializer(serializers.ModelSerializer):
         password = "1234"
         if password is not None:
             instance.set_password(password)
-            instance.email = "aaaa@aaaa.com"
-            instance.username = instance.email
+            # instance.email = "aaaa@aaaa.com"
+            # instance.username = instance.email
         instance.save()
         return instance
 

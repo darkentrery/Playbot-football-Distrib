@@ -10,7 +10,7 @@ import docOffer from "../assets/documents/offer.docx";
 
 export default function SignUpComponent () {
     const authService = new AuthService();
-    const [name, setName] = useState(false);
+    const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
@@ -31,7 +31,7 @@ export default function SignUpComponent () {
     const refAllowOffer = useRef();
     const refs = [refUsername, refPhoneNumber, refEmail, refPassword, refPasswordConfirm];
     const refsDict = {
-        "name": refUsername,
+        "username": refUsername,
         "phoneNumber": refPhoneNumber,
         "email": refEmail,
         "password": refPassword,
@@ -48,10 +48,12 @@ export default function SignUpComponent () {
         setPhoneNumber(value);
     }
 
+    authService.addSafariBottomMargin('.telegram')
+
     useEffect(() => {
         let bodyFormData = new FormData();
         let bodyLoginFormData = new FormData();
-        bodyFormData.append('name', name);
+        bodyFormData.append('username', username);
         if (phoneNumber) {
             bodyFormData.append('phone_number', phoneNumber);
         }
@@ -61,10 +63,10 @@ export default function SignUpComponent () {
         bodyLoginFormData.append('password', password);
         setData(bodyFormData);
         setLoginData(bodyLoginFormData);
-    }, [name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer])
+    }, [username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer])
 
     const closeWindow = () => {
-        setName(false);
+        setUsername(false);
         setPhoneNumber(false);
         setEmail(false);
         setPassword(false);
@@ -96,8 +98,8 @@ export default function SignUpComponent () {
     }
 
     const sendForm = () => {
-        console.log(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
-        let errors = authService.signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
+        console.log(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
+        let errors = authService.signUpRequestValidation(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
         console.log(errors);
         if (!errors.length){
             authService.signUp(data).then((response) => {
@@ -135,7 +137,7 @@ export default function SignUpComponent () {
                             <span className={"sign-up-title"}>Регистрация</span>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refUsername}>
-                            <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setName(event.target.value)}/>
+                            <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>
                             <span className={"input-message"}></span>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refPhoneNumber}>
@@ -178,13 +180,13 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-bottom-elem"}>
                             <span className={"link-sign-up-login"}>
                                 У меня уже есть аккаунт,&nbsp;
-                                <span onClick={toLogin} className={"link"}>Войти</span>
+                                <span onClick={toLogin} className={"link text-bold"}>Войти</span>
                             </span>
                         </div>
                         <div className={"sign-up-l-bottom-elem"}>
                             <div className={"line"}></div>
                         </div>
-                        <div className={"sign-up-l-bottom-elem"}>
+                        <div className={"sign-up-l-bottom-elem telegram"}>
                             <TelegramLoginComponent/>
                         </div>
                     </div>

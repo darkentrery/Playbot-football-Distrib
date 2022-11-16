@@ -39,7 +39,24 @@ $createEventWidth: 500px;
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px){
+@media screen and (min-width: 375px) and (max-width: 743px) and (max-height: 750px){
+  $fieldContainerHeight: 61px;
+  $fieldHeight: 40px;
+  $fieldWidth: 295px;
+  $popupWidth: 696px;
+  $signUpHeight: 100vh;
+  $loginHeight: 100vh;
+  $refreshWidth: 100vw;
+  $choiceCityHeight: 100vh;
+  $choiceCityWidth: 100vw;
+  $borderRadius: 0;
+  @import "main";
+  .popup-right {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px) and (min-height: 751px){
   $fieldWidth: 295px;
   $popupWidth: 696px;
   $signUpHeight: 100vh;

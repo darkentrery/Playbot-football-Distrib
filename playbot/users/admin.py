@@ -9,6 +9,8 @@ class CustomUserAdmin(UserAdmin):
     list_display = [
         "email",
         "username",
+        "phone_number",
+        "telegram_id",
         "is_superuser",
     ]
 

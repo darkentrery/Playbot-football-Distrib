@@ -63,10 +63,10 @@
 .link-sign-up-login {
   display: flex;
   justify-content: center;
-  //width: 213px;
   flex: 1 1 auto;
   height: 17px;
   font-size: 14px;
+  color: #949494;
 }
 
 .sign-up-right-text {
@@ -96,6 +96,7 @@
     justify-content: end;
     flex: 0 0 24px;
     width: 100vw;
+    margin-top: 24px;
     .sign-up-close {
       margin-right: 24px;
     }

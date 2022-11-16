@@ -19,17 +19,6 @@ export default function ChoiceCityComponent () {
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
     const citiesRef = useRef();
 
-    if (isMobile) {
-        console.log(navigator.userAgent)
-        console.log(navigator.userAgent.indexOf('Safari'))
-        console.log(navigator.userAgent.indexOf('Chrome'))
-        console.log($('.popup-frame').children('.elem.bottom'))
-
-        if (navigator.userAgent.indexOf('Chrome') == -1) {
-            $('.popup-frame').children('.elem.bottom').addClass("safari-margin");
-        }
-    }
-
     useEffect(() => {
         if (openChoiceCity) {
             cityService.getCities().then((response) => {
@@ -40,6 +29,8 @@ export default function ChoiceCityComponent () {
             })
         }
     }, [openChoiceCity])
+
+    authService.addSafariBottomMargin('.bottom')
 
 
 
@@ -121,10 +112,10 @@ export default function ChoiceCityComponent () {
                 <div className={"elem under-head"}>
                     <span>Для корректного отображения событий укажите город</span>
                 </div>
-                <div className={"elem search"}>
-                    <div className={"div-input"}>
+                <div className={"elem search div-input"}>
+                    {/*<div className={"div-input"}>*/}
                         <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={searchCity}/>
-                    </div>
+                    {/*</div>*/}
                     <div className={"line"}></div>
                 </div>
                 <div className={"elem cities div-scroll"} ref={citiesRef}>
