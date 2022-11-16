@@ -86,14 +86,14 @@ input[type="checkbox"] {
 
 .checkbox-label {
   position: absolute;
-  width: $fieldWidth;
+  width: 20px;
   height: $fieldHeight;
   cursor: pointer;
   z-index: 99999;
 
   &:before {
     position: absolute;
-    width: $fieldWidth;
+    width: 20px;
     height: $fieldHeight;
     left: 2px;
     right: 95.36%;
@@ -158,21 +158,13 @@ input[type="checkbox"] {
 }
 
 .right-input-icon {
+  position: relative;
   flex: 0 0 20px;
   width: 20px;
   align-self: end;
   margin-right: 14px;
-  margin-top: -34px;
+  top: -50px;
 }
-
-.password-elem {
-  flex-direction: column;
-}
-
-.left-password-elem {
-  flex: 0 0 $fieldHeight !important;
-}
-
 
 .line {
   width: 279px;
@@ -190,7 +182,7 @@ input[type="checkbox"] {
   align-items: stretch;
   justify-content: center;
   flex-direction: column;
-  flex: 0 0 $fieldContainerHeight;
+  flex: 0 0 $fieldContainerHeight !important;
 
   input[type=text], [type=password]{
     flex: 0 0 $fieldHeight;

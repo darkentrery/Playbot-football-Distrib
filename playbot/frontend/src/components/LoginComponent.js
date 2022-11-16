@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
@@ -10,7 +10,9 @@ export default function LoginComponent () {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
-    const [data, setData] = useState("No");
+    const [data, setData] = useState(false);
+    const refEmail = useRef();
+    const refPassword = useRef();
 
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
@@ -23,18 +25,32 @@ export default function LoginComponent () {
         setData(bodyFormData)
     }, [email, password]);
 
+    const closeWindow = () => {
+        setEmail(false);
+        setPassword(false);
+        setData(false);
+        setOpenLogin(!openLogin);
+    }
+
+    const toSignUp = () => {
+        closeWindow();
+        setOpenSignUp(!openSignUp);
+    }
+
+    const toRefreshPassword = () => {
+        closeWindow();
+        setOpenRefreshPassword(!openRefreshPassword);
+    }
+
     const sendForm = async () => {
-        if (email && password) {
-            console.log(localStorage.getItem("access_token"))
-            console.log(localStorage.getItem("refresh_token"))
+        let errors = authService.loginRequestValidation(email, password, refEmail, refPassword);
+        if (!errors.length) {
             await authService.login(data).then((response) => {
-                if (response.status == 200) {
-                    setPassword(false);
-                    setEmail(false);
-                    setData(false);
-                    setOpenLogin(!openLogin);
-                }
                 console.log(response)
+                errors = authService.loginResponseValidation(response, refEmail, refPassword);
+                if (!errors.length) {
+                    closeWindow();
+                }
             })
         }
     }
@@ -60,34 +76,26 @@ export default function LoginComponent () {
                 <div className={"popup-left"}>
                     <div className={"login-l-body"}>
                         <div className={"login-l-elem close"}>
-                            <div onClick={() => {setOpenLogin(!openLogin)}} className={"btn-close login-close"}></div>
+                            <div onClick={closeWindow} className={"btn-close login-close"}></div>
                         </div>
                         <div className={"login-l-elem login-l-head-elem"}>
                             <div className={"login-title"}>Вход</div>
                         </div>
-                        <div className={"login-l-elem"}>
-                            <div className={"div-input"}>
-                                <input className={"name-icon"} type="text" placeholder={"Номер телефона или e-mail"} onChange={(event) => setEmail(event.target.value)}/>
-                            </div>
+                        <div className={"login-l-elem div-input"} ref={refEmail}>
+                            <input className={"name-icon"} type="text" placeholder={"Номер телефона или e-mail"} onChange={(event) => setEmail(event.target.value)}/>
+                            <span className={"input-message"}></span>
                         </div>
-                        <div className={"login-l-elem password-elem"}>
-                            <div className={"div-input left-password-elem"}>
-                                <input className={"password-icon password-input"} type="password" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
-                            </div>
+                        <div className={"login-l-elem div-input password-elem"} ref={refPassword}>
+                            <input className={"password-icon password-input"} type="password" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
+                            <span className={"input-message"}></span>
                             <div className={"eye-icon right-input-icon"} onClick={hiddenPassword}></div>
                         </div>
                         <div className={"login-l-elem"}>
                             <button className={"btn btn-login"} onClick={sendForm}>Войти</button>
                         </div>
                         <div className={"login-l-elem"}>
-                            <a onClick={() => {
-                                setOpenLogin(!openLogin)
-                                setOpenSignUp(!openSignUp)
-                            }} className={"link link-login-reg"}>Регистрация</a>
-                            <a onClick={() => {
-                                setOpenLogin(!openLogin)
-                                setOpenRefreshPassword(!openRefreshPassword)
-                            }} className={"link link-login-reg"}>Забыли пароль?</a>
+                            <span onClick={toSignUp} className={"link link-login-reg"}>Регистрация</span>
+                            <span onClick={toRefreshPassword} className={"link link-login-reg"}>Забыли пароль?</span>
                         </div>
                         <div className={"login-l-elem login-l-elem-line"}>
                             <div className={"line"}></div>
@@ -100,7 +108,7 @@ export default function LoginComponent () {
                 <div className={"popup-right"}>
                     <div className={"popup-img login-img"}>
                         <div className={"first"}>
-                            <div onClick={() => {setOpenLogin(!openLogin)}} className={"btn-close login-close"}></div>
+                            <div onClick={closeWindow} className={"btn-close login-close"}></div>
                         </div>
                         <div className={"second"}>
                             <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

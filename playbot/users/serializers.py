@@ -45,6 +45,15 @@ class CustomTokenObtainSerializer(serializers.Serializer):
             users = User.objects.filter(phone_number=attrs[self.username_field])
             if users.count() == 1:
                 attrs[self.username_field] = users.first().email
+            if not users.exists():
+                raise exceptions.AuthenticationFailed(
+                    detail="No exists number!"
+                )
+        else:
+            if not User.objects.filter(email=attrs[self.username_field]).exists():
+                raise exceptions.AuthenticationFailed(
+                    detail="No exists email!"
+                )
         authenticate_kwargs = {
             self.username_field: attrs[self.username_field],
             "password": attrs["password"],

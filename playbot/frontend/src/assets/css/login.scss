@@ -35,10 +35,9 @@
   justify-content: center;
   align-items: stretch;
   width: $fieldWidth;
-  margin-top: 16px;
 
   button {
-    margin-top: 18px;
+    margin-bottom: 18px;
   }
 }
 
@@ -50,6 +49,7 @@
 .login-l-head-elem {
   align-items: end;
   flex: 0 1 94px;
+  margin-bottom: 16px;
 }
 
 .login-l-elem-line {
@@ -103,7 +103,6 @@
 }
 
 .password-input {
-  flex: 0 0 $fieldWidth !important;
   padding-right: 40px !important;
   box-sizing: border-box;
 }

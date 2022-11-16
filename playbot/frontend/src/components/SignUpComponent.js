@@ -4,7 +4,6 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import { isMobile } from 'react-device-detect';
 import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
-import $ from "jquery";
 
 
 export default function SignUpComponent () {
@@ -91,7 +90,6 @@ export default function SignUpComponent () {
                     console.log(2)
                 } else {
                     closeWindow();
-
                     if (isMobile) {
                         authService.login(loginData).then((response) => {
                             console.log(response);
@@ -167,7 +165,7 @@ export default function SignUpComponent () {
                         <div className={"sign-up-l-bottom-elem"}>
                             <span className={"link-sign-up-login"}>
                                 У меня уже есть аккаунт,&nbsp;
-                                <a onClick={toLogin} className={"link"}>Войти</a>
+                                <span onClick={toLogin} className={"link"}>Войти</span>
                             </span>
                         </div>
                         <div className={"sign-up-l-bottom-elem"}>

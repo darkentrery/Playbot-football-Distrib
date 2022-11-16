@@ -42,6 +42,53 @@ export default class AuthService{
 			});
 	}
 
+	loginRequestValidation(email, password, refEmail, refPassword) {
+		$(refEmail.current).children('input').removeClass('error');
+		$(refEmail.current).children('span').removeClass('error');
+		$(refEmail.current).children('span').html('');
+		$(refPassword.current).children('input').removeClass('error');
+		$(refPassword.current).children('span').removeClass('error');
+		$(refPassword.current).children('span').html('');
+		let errors = [];
+		if (!email) {
+			errors.push("email");
+			$(refEmail.current).children('input').addClass('error');
+			$(refEmail.current).children('span').addClass('error');
+			$(refEmail.current).children('span').html('Заполните поле!');
+		}
+		if (!password) {
+			errors.push("password");
+			$(refPassword.current).children('input').addClass('error');
+			$(refPassword.current).children('span').addClass('error');
+			$(refPassword.current).children('span').html('Заполните поле!');
+		}
+		return errors;
+	}
+
+	loginResponseValidation(response, refEmail, refPassword) {
+		let errors = [];
+		if (response.status !== 200) {
+			console.log(response.data.detail)
+			if (response.data.detail === "No exists number!") {
+				errors.push("email");
+				$(refEmail.current).children('input').addClass('error');
+				$(refEmail.current).children('span').addClass('error');
+				$(refEmail.current).children('span').html('Пользователь с таким номером не зарегистрирован!');
+			} else if (response.data.detail === "No exists email!") {
+				errors.push("email");
+				$(refEmail.current).children('input').addClass('error');
+				$(refEmail.current).children('span').addClass('error');
+				$(refEmail.current).children('span').html('Пользователь с таким email не зарегистрирован!');
+			} else {
+				errors.push("password");
+				$(refPassword.current).children('input').addClass('error');
+				$(refPassword.current).children('span').addClass('error');
+				$(refPassword.current).children('span').html('Неверный пароль!');
+			}
+		}
+		return errors;
+	}
+
 	signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict) {
 		refs.forEach(ref => {
             $(ref.current).children('input').removeClass('error');
@@ -67,16 +114,16 @@ export default class AuthService{
 
 		if (errors.length) {
 			errors.forEach(error => {
-                if (error == "noMatch") {
+                if (error === "noMatch") {
                     $(refsDict["password"].current).children('input').addClass('error');
                     $(refsDict["password"].current).children('span').addClass('error');
                     $(refsDict["password"].current).children('span').html('Пароли не совпадают!');
                     $(refsDict["passwordConfirm"].current).children('input').addClass('error');
                     $(refsDict["passwordConfirm"].current).children('span').addClass('error');
                     $(refsDict["passwordConfirm"].current).children('span').html('Пароли не совпадают!');
-                } else if (error == "allowPolicy") {
+                } else if (error === "allowPolicy") {
                     $(refsDict["allowPolicy"].current).find('.checkbox-div').addClass('error');
-                } else if (error == "allowOffer") {
+                } else if (error === "allowOffer") {
                     $(refsDict["allowOffer"].current).find('.checkbox-div').addClass('error');
                 } else {
                    $(refsDict[error].current).children('input').addClass('error');
@@ -100,9 +147,9 @@ export default class AuthService{
 			if (response.data["email"]) {
 				$(refsDict["email"].current).children('input').addClass('error');
 				$(refsDict["email"].current).children('span').addClass('error');
-				if (response.data["email"][0] == "User с таким Email Address уже существует.") {
+				if (response.data["email"][0] === "User с таким Email Address уже существует.") {
 					$(refsDict["email"].current).children('span').html('Пользователь с таким email уже существует!');
-				} else if (response.data["email"][0] == "Введите правильный адрес электронной почты.") {
+				} else if (response.data["email"][0] === "Введите правильный адрес электронной почты.") {
 					$(refsDict["email"].current).children('span').html('Введите правильный адрес электронной почты!');
 				}
 			}
