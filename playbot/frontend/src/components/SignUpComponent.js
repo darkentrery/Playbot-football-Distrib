@@ -4,6 +4,7 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import { isMobile } from 'react-device-detect';
 import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import Modal from "react-modal";
+import doc from "../assets/doc.pdf";
 
 
 export default function SignUpComponent () {
@@ -78,6 +79,14 @@ export default function SignUpComponent () {
         setOpenLogin(!openLogin);
     }
 
+    const openAllowPolicy = () => {
+        let link = document.createElement("a");
+        link.download = `doc.pdf`;
+        link.href = doc
+        link.click();
+        // URL.revokeObjectURL(link.href);
+    }
+
     const sendForm = () => {
         console.log(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
         let errors = authService.signUpRequestValidation(name, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
@@ -85,14 +94,10 @@ export default function SignUpComponent () {
         if (!errors.length){
             authService.signUp(data).then((response) => {
                 errors = authService.signUpResponseValidation(response, refsDict);
-                console.log(errors)
-                if (errors.size) {
-                    console.log(2)
-                } else {
+                if (!errors.size) {
                     closeWindow();
                     if (isMobile) {
                         authService.login(loginData).then((response) => {
-                            console.log(response);
                             setOpenChoiceCity(!openChoiceCity);
                         })
 
@@ -146,7 +151,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <span>Я согласен с политикой конфеденциальности</span>
+                                <span className={"link"} onClick={openAllowPolicy}>Я согласен с политикой конфеденциальности</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem"} ref={refAllowOffer}>
@@ -154,7 +159,7 @@ export default function SignUpComponent () {
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <span>Я согласен с условиями договора-оферты</span>
+                                <span className={"link"}>Я согласен с условиями договора-оферты</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem bottom"}>
