@@ -4,6 +4,7 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenRefreshPasswordContext} from "../context/AuthContext";
 import {getData} from "../services/AuthDecorator";
+import $ from "jquery";
 
 
 export default function RefreshPasswordComponent () {
@@ -33,18 +34,25 @@ export default function RefreshPasswordComponent () {
     }
 
     const sendForm = async () => {
+        $(refEmail.current).children('input').removeClass('error');
+        $(refEmail.current).children('span').removeClass('error');
+        $(refEmail.current).children('span').html('');
         if (email) {
             authService.refreshPassword(data).then((response) => {
                 if (response.status == 200) {
-                    setEmail(false);
-                    setData(false);
-                    setOpenRefreshPassword(!openRefreshPassword);
-                    setOpenLogin(!openLogin);
+                    $(refEmail.current).children('span').html('На ваш email отправлен новый пароль!');
+                } else {
+                    $(refEmail.current).children('input').addClass('error');
+                    $(refEmail.current).children('span').addClass('error');
+                    $(refEmail.current).children('span').html('Пользователей с таким email не зарегистрировано!');
                 }
                 console.log(response)
             })
-
-            await getData(authService.getData, [], openLogin, setOpenLogin)
+            // await getData(authService.getData, [], openLogin, setOpenLogin)
+        } else {
+            $(refEmail.current).children('input').addClass('error');
+            $(refEmail.current).children('span').addClass('error');
+            $(refEmail.current).children('span').html('Введите email!');
         }
     }
 
@@ -67,7 +75,7 @@ export default function RefreshPasswordComponent () {
                     <div className={"refresh-elem refresh-elem-3"}>
                         <span className={"refresh-text"}>Напишите вашу почту, мы вышлем вам пароль.</span>
                     </div>
-                    <div className={"refresh-elem div-input"}>
+                    <div className={"refresh-elem div-input"} ref={refEmail}>
                         <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
                         <span className={"input-message"}></span>
                     </div>
