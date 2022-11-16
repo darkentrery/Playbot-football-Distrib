@@ -13,7 +13,7 @@ export default function CreateEventComponent () {
     const [data, setData] = useState("No");
     const [name, setName] = useState("Футбол с друзьями");
     const [date, setDate] = useState(false);
-    const [timeBegin, setTimeBegin] = useState(false);
+    const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
     const [count, setCount] = useState(false);
     const [notice, setNotice] = useState(false);
@@ -31,12 +31,12 @@ export default function CreateEventComponent () {
         let bodyFormData = new FormData();
         bodyFormData.append('name', name);
         bodyFormData.append('date', date);
-        bodyFormData.append('time_begin', timeBegin);
+        bodyFormData.append('time_begin', time);
         bodyFormData.append('address', address);
         bodyFormData.append('count', count);
         bodyFormData.append('notice', notice);
         setData(bodyFormData)
-    }, [name, date, timeBegin, address, count, notice]);
+    }, [name, date, time, address, count, notice]);
 
     const sendForm = async () => {
         authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
@@ -66,26 +66,6 @@ export default function CreateEventComponent () {
         let rows = e.target.value.split('\n');
         if (rows.length > 4) e.target.value = rows.slice(0, 4).join('\n');
         setNotice(e.target.value);
-    }
-
-    const choiceDate = (e) => {
-        console.log(typeof e == "string")
-        if (typeof e == "string") {
-            let val = e.replace(/\D/g, '')
-            console.log(val)
-            console.log($('.date-time.date').find('input'))
-            $('.date-time.date').find('input').clean();
-            console.log($('.date-time.date').find('input').val())
-        }
-
-        // if (e) {
-        //     console.log(e.format("DD.MM.YYYY"))
-        // }
-
-    }
-
-    const choiceTime = (e) => {
-        console.log(e)
     }
 
     const popupClick = (e) => {
@@ -122,7 +102,7 @@ export default function CreateEventComponent () {
                     <input type="text" placeholder={"Название *"} value={"Футбол с друзьями"} onChange={(event) => setName(event.target.value)}/>
                 </div>
                 <div className={"elem margin-12"}>
-                    <div className={"date-time date"} ref={refDate}>
+                    <div className={"date-time date"} >
                         <ReactDatetimeClass
                             open={isOpenCalendar}
                             className={"div-input input"}
@@ -130,7 +110,8 @@ export default function CreateEventComponent () {
                             dateFormat={"DD.MM.YYYY"}
                             closeOnSelect={true}
                             inputProps={{placeholder: 'Дата игры *'}}
-                            onChange={choiceDate}
+                            onChange={(e) => eventService.choiceDate(e, setDate, refDate)}
+                            ref={refDate}
                         />
                         <div className={"calendar-icon icon"} onClick={() => setIsOpenCalendar(!isOpenCalendar)}></div>
                     </div>
@@ -138,11 +119,12 @@ export default function CreateEventComponent () {
                         <ReactDatetimeClass
                             open={isOpenTime}
                             className={"div-input input"}
-                            timeFormat={"hh:mm"}
+                            timeFormat={"HH:mm"}
                             dateFormat={false}
                             closeOnSelect={true}
                             inputProps={{placeholder: 'Время начала игры *'}}
-                            onChange={choiceTime}
+                            onChange={(e) => eventService.choiceTime(e, setTime, refTime)}
+                            ref={refTime}
                         />
                         <div className={"clock-icon icon"} onClick={() => setIsOpenTime(!isOpenTime)}></div>
                     </div>

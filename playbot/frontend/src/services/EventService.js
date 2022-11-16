@@ -39,4 +39,53 @@ export default class EventService{
 			});
 	}
 
+	replaceAt (val, i) {
+		val = val.substring(0, i) + '' + val.substring(i + 1);
+		return val;
+	}
+
+	choiceDate(e, setDate, refDate){
+        if (typeof e == "string") {
+            let val = e.replace(/\D/g, '');
+            val = val.slice(0, 8);
+            if (Number(val.slice(0, 1)) > 3) val = this.replaceAt(val, 0);
+            if (Number(val.slice(0, 2)) > 31) val = this.replaceAt(val, 1);
+            if (Number(val.slice(2, 3)) > 1) val = this.replaceAt(val, 2);
+            if (Number(val.slice(2, 4)) > 12) val = this.replaceAt(val, 3);
+            let formatVal = val;
+            if (val.length > 2 && val.length < 5) {
+                formatVal = `${val.slice(0, 2)}.${val.slice(2, 4)}`;
+            } else if (val.length > 4) {
+                formatVal = `${val.slice(0, 2)}.${val.slice(2, 4)}.${val.slice(4, 8)}`;
+            }
+            if (val.length === 8) {
+                setDate(formatVal);
+            }
+            refDate.current.setState({inputValue: formatVal})
+        } else {
+            setDate(e.format("DD.MM.YYYY"));
+        }
+    }
+
+	choiceTime(e, setTime, refTime){
+		if (typeof e == "string") {
+			let val = e.replace(/\D/g, '');
+            val = val.slice(0, 4);
+			if (Number(val.slice(0, 1)) > 2) val = this.replaceAt(val, 0);
+			if (Number(val.slice(0, 2)) > 24) val = this.replaceAt(val, 1);
+			if (Number(val.slice(2, 3)) > 6) val = this.replaceAt(val, 2);
+            if (Number(val.slice(2, 4)) > 60) val = this.replaceAt(val, 3);
+			let formatVal = val;
+			if (val.length > 2 && val.length < 5) {
+                formatVal = `${val.slice(0, 2)}:${val.slice(2, 4)}`;
+            }
+			if (val.length === 4) {
+                setTime(formatVal);
+            }
+            refTime.current.setState({inputValue: formatVal})
+		} else {
+			setTime(e.format("HH:mm"));
+		}
+	}
+
 }
