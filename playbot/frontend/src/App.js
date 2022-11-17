@@ -17,10 +17,15 @@ import EventService from "./services/EventService";
 import {authDecoratorWithoutLogin, getData} from "./services/AuthDecorator";
 import CreateEventComponent from "./components/CreateEventComponent";
 import CreateEventUnAuthComponent from "./components/CreateEventUnAuthComponent";
-import {OpenCreateEventContext, OpenCreateEventUnAuthContext} from "./context/EventContext";
+import {
+    OpenCreateEventContext,
+    OpenCreateEventUnAuthContext,
+    OpenSuccessCreateEventContext
+} from "./context/EventContext";
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
 import ChoiceCityComponent from "./components/ChoiceCityComponent";
 import AuthService from "./services/AuthService";
+import SuccessCreateEventComponent from "./components/SuccessCreateEventComponent";
 
 
 
@@ -30,6 +35,7 @@ function App(defaultValue) {
     const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
     const [openCreateEvent, setOpenCreateEvent] = useState(false);
     const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
+    const [openSuccessCreateEvent, setOpenSuccessCreateEvent] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [openChoiceCity, setOpenChoiceCity] = useState(false);
 
@@ -38,6 +44,7 @@ function App(defaultValue) {
     const refreshPasswordWindow = { openRefreshPassword, setOpenRefreshPassword };
     const createEventWindow = { openCreateEvent, setOpenCreateEvent };
     const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
+    const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
     const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
 
@@ -100,6 +107,7 @@ function App(defaultValue) {
                   <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
                   <button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>
                   <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
+                  <button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>
 
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
@@ -121,8 +129,13 @@ function App(defaultValue) {
                       </OpenRefreshPasswordContext.Provider>
                   </OpenLoginContext.Provider>
                   <OpenCreateEventContext.Provider value={createEventWindow}>
-                      <CreateEventComponent/>
+                      <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>
+                          <CreateEventComponent/>
+                      </OpenSuccessCreateEventContext.Provider>
                   </OpenCreateEventContext.Provider>
+                  <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>
+                      <SuccessCreateEventComponent/>
+                  </OpenSuccessCreateEventContext.Provider>
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenCreateEventUnAuthContext.Provider value={createEventUnAuthWindow}>
                           <CreateEventUnAuthComponent/>

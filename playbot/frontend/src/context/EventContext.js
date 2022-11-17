@@ -11,4 +11,9 @@ const OpenCreateEventUnAuthContext = React.createContext({
   setOpenCreateEventUnAuth: () => {}
 });
 
-export { OpenCreateEventContext, OpenCreateEventUnAuthContext };
+const OpenSuccessCreateEventContext = React.createContext({
+  openSuccessCreateEvent: false,
+  setOpenSuccessCreateEvent: () => {}
+});
+
+export { OpenCreateEventContext, OpenCreateEventUnAuthContext, OpenSuccessCreateEventContext };

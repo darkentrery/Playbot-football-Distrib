@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext, useRef} from "react";
 import Modal from "react-modal";
-import {OpenCreateEventContext} from "../context/EventContext";
+import {OpenCreateEventContext, OpenSuccessCreateEventContext} from "../context/EventContext";
 import ReactDatetimeClass from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import $ from "jquery";
@@ -40,6 +40,7 @@ export default function CreateEventComponent () {
     const content = [1, 2, 3, 4];
 
     const { openCreateEvent, setOpenCreateEvent } = useContext(OpenCreateEventContext);
+    const { openSuccessCreateEvent, setOpenSuccessCreateEvent } = useContext(OpenSuccessCreateEventContext);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -66,12 +67,12 @@ export default function CreateEventComponent () {
     }
 
     const sendForm = async () => {
-        // if (!notice) setNotice('');
         let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
                 console.log(response)
                 closeWindow();
+                setOpenSuccessCreateEvent(true);
             })
         }
     }
@@ -180,7 +181,7 @@ export default function CreateEventComponent () {
                         <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"}></textarea>
                         <span className={"input-message"}></span>
                     </div>
-                        <div className={"elem elem-10"}>
+                    <div className={"elem elem-10"}>
                         <button className={"btn btn-create-event"} onClick={sendForm}>Создать</button>
                     </div>
                 </div>
