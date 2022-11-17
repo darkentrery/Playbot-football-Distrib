@@ -25,6 +25,8 @@ class IndexView(APIView):
 
 class ConfirmSignUpView(APIView):
     permission_classes = (AllowAny,)
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'index.html'
 
     def get(self, request, slug):
         users = User.objects.filter(confirm_slug=slug)
