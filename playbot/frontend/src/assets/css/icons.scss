@@ -54,11 +54,50 @@
 .down-arrow-icon {
   background: url("../icon/down-arrow.png") no-repeat;
   background-size: 24px;
-  background-position: 181px center;
+  //background-position: 181px center;
 }
 
 .up-arrow-icon {
   background: url("../icon/up-arrow.png") no-repeat;
   background-size: 24px;
-  background-position: 181px center;
+  //background-position: 181px center;
+}
+
+.ball-icon {
+  background: url("../icon/ball.png") no-repeat;
+  background-size: 20px;
+}
+
+.map-point-icon {
+  background: url("../icon/map-point.png") no-repeat;
+  background-size: 20px;
+}
+
+.foot-icon {
+  background: url("../icon/foot-with-ball.png") no-repeat;
+  background-size: 20px;
+}
+
+.point-icon {
+  background: url("../icon/orange-point.png");
+  background-repeat: no-repeat;
+  background-size: 8px;
+}
+
+.slider-check-icon {
+  background: url("../icon/slider-check.png");
+  background-repeat: no-repeat;
+  background-size: 40px 24px;
+  width: 40px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.slider-uncheck-icon {
+  background: url("../icon/slider-uncheck2.png");
+  background-repeat: no-repeat;
+  background-size: 40px 24px;
+  width: 40px;
+  height: 24px;
+  cursor: pointer;
 }

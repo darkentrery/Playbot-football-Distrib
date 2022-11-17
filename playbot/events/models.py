@@ -38,6 +38,7 @@ class Event(models.Model):
     format = models.CharField(_("Format"), max_length=50, choices=Format.choices, default=Format.FIVE, blank=True, null=True)
     notice = models.TextField(_("Notice"), blank=True, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="event", blank=True, null=True)
+    is_player = models.BooleanField(_("Is Organizer Play"), default=False)
 
     class Meta:
         verbose_name = "Event"
