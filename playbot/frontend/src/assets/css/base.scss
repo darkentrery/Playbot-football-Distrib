@@ -364,3 +364,36 @@ input[type="checkbox"] {
   top: $fieldHeight;
 }
 
+.generate-password {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  position: absolute;
+  width: $fieldWidth;
+  height: $fieldHeight - 10px;
+  border: 1px solid #949494;
+  border-radius: 8px;
+  background: #FFFFFF;
+  top: $fieldHeight + 10px;
+  cursor: pointer;
+
+  &.disabled {
+    display: none;
+  }
+
+  &:hover {
+    background: rgba(227, 225, 225, 1);
+    border-radius: 8px;
+  }
+
+  span {
+    flex: 1 1 auto;
+    margin: 4px;
+    font-size: 12px;
+
+    .new-password {
+      color: #428bca;
+    }
+  }
+}
+

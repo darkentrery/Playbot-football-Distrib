@@ -6,6 +6,7 @@ import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../con
 import Modal from "react-modal";
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
+import $ from "jquery";
 
 
 export default function SignUpComponent () {
@@ -87,6 +88,33 @@ export default function SignUpComponent () {
         setOpenLogin(!openLogin);
     }
 
+    const suggestPassword = () => {
+        let elem = $(refPassword.current).children('.generate-password');
+        if (elem.hasClass('disabled')) {
+            elem.removeClass('disabled');
+            let newPassword = Math.random().toString(36).slice(2, 10);
+            elem.find('.new-password').html(newPassword);
+        } else {
+            elem.addClass('disabled');
+        }
+    }
+
+    const usePassword = () => {
+        let elem = $(refPassword.current).children('.generate-password');
+        let newPassword = elem.find('.new-password').html();
+        $(refPassword.current).children('input').val(newPassword);
+        $(refPasswordConfirm.current).children('input').val(newPassword);
+        setPassword(newPassword);
+        setPasswordConfirm(newPassword);
+    }
+
+    const hiddenSuggestPassword = (e) => {
+        let elem = $(refPassword.current).children('.generate-password');
+        if ($(e.target).attr('placeholder') !== "Пароль *" && !elem.hasClass('disabled')) {
+            elem.addClass('disabled');
+        }
+    }
+
     const openAllowPolicy = () => {
         let link = document.createElement("a");
         link.download = `Политика конфиденциальности.docx`;
@@ -132,12 +160,9 @@ export default function SignUpComponent () {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame sign-up"}>
+            <div className={"popup-frame sign-up"} onClick={hiddenSuggestPassword}>
                 <div className={"popup-left"}>
                     <div className={"sign-up-l-body"}>
-                        {/*<div className={"sign-up-l-elem close"}>*/}
-                        {/*    <div onClick={closeWindow} className={"btn-close sign-up-close"}></div>*/}
-                        {/*</div>*/}
                         <div className={"sign-up-l-elem head"}>
                             <span className={"sign-up-title"}>Регистрация</span>
                             <div onClick={closeWindow} className={"btn-close sign-up-close left"}></div>
@@ -154,12 +179,15 @@ export default function SignUpComponent () {
                             <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
                             <span className={"input-message"}></span>
                         </div>
-                        <div className={"sign-up-l-elem div-input"} ref={refPassword}>
-                            <input className={"password-icon"} type="text" placeholder={"Пароль *"} onChange={(event) => setPassword(event.target.value)}/>
+                        <div className={"sign-up-l-elem div-input elem-5"} ref={refPassword}>
+                            <input className={"password-icon"} type="password" placeholder={"Пароль *"} onClick={suggestPassword} onChange={(event) => setPassword(event.target.value)}/>
                             <span className={"input-message"}></span>
+                            <div className={"generate-password disabled"} onClick={usePassword}>
+                                <span>Сгенерированный пароль: <span className={"new-password"}></span></span>
+                            </div>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refPasswordConfirm}>
-                            <input className={"password-icon"} type="text" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
+                            <input className={"password-icon"} type="password" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
                             <span className={"input-message"}></span>
                         </div>
                         <div className={"sign-up-l-elem"} ref={refAllowPolicy}>
