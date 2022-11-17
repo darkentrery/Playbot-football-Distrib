@@ -32,6 +32,10 @@
   &:active {
     background: #c29165;
   }
+
+  &.disabled {
+    background: #C9C9C9;
+  }
 }
 
 .btn-close {

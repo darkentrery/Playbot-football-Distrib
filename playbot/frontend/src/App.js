@@ -116,6 +116,7 @@ function App(defaultValue) {
                   <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
                   <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
                   <button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>
+                  <button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>
                   <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
                   <button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>
 
