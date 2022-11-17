@@ -8,7 +8,6 @@ from loguru import logger
 from sendgrid import Mail, SendGridAPIClient
 
 
-
 def send_message(recipient, new_password):
     server = "smtp.yandex.ru"
     user = "mikhail.badazhkov@yandex.kz"
@@ -51,7 +50,7 @@ def generate_password():
     return password
 
 
-def send_email(recipient, password):
+def send_email_refresh(recipient, password):
     subject = f"Востановление пароля"
     template = "refresh-password.html"
 
@@ -61,6 +60,25 @@ def send_email(recipient, password):
         to_emails=recipient,
         subject=subject,
         html_content=render_to_string(template, context={"password": password})
+    )
+    try:
+        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+        response = sg.send(message)
+    except Exception as e:
+        logger.error(e)
+
+
+def send_email_confirm_sign_up(recipient, slug):
+    subject = f"Подтверждение регистрации"
+    template = "confirm-sign-up.html"
+    href = f"{settings.CONFIRM_REGISTRATION_DOMAIN}/confirm-sign-up/{slug}/"
+
+
+    message = Mail(
+        from_email=settings.SENDGRID_DEFAULT_FROM_EMAIL,
+        to_emails=recipient,
+        subject=subject,
+        html_content=render_to_string(template, context={"href": href})
     )
     try:
         sg = SendGridAPIClient(settings.SENDGRID_API_KEY)

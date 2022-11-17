@@ -9,6 +9,7 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from playbot.users.models import User
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer
 
@@ -19,8 +20,19 @@ class IndexView(APIView):
     template_name = 'index.html'
 
     def get(self, request):
-        print(request)
         return Response({})
+
+
+class ConfirmSignUpView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, slug):
+        users = User.objects.filter(confirm_slug=slug)
+        if users.exists():
+            user = users.first()
+            user.is_active = True
+            user.save()
+        return Response({"data": "success!"}, status=status.HTTP_200_OK)
 
 
 class ServiceWorkerView(TemplateView):

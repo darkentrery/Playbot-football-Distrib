@@ -28,8 +28,8 @@ import AuthService from "./services/AuthService";
 import SuccessCreateEventComponent from "./components/SuccessCreateEventComponent";
 
 
-
 function App(defaultValue) {
+    const authService = new AuthService();
     const [openSignUp, setOpenSignUp] = useState(false);
     const [openLogin, setOpenLogin] = useState(false);
     const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
@@ -38,6 +38,7 @@ function App(defaultValue) {
     const [openSuccessCreateEvent, setOpenSuccessCreateEvent] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [openChoiceCity, setOpenChoiceCity] = useState(false);
+    const [confirmSignUp, setConfirmSignUp] = useState(false);
 
     const signUpWindow = { openSignUp, setOpenSignUp };
     const loginWindow = { openLogin, setOpenLogin };
@@ -49,6 +50,15 @@ function App(defaultValue) {
     const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
 
     const eventService = new EventService();
+
+    useEffect(() => {
+        if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
+            console.log(window.location.pathname)
+            authService.confirmSignUp(window.location.pathname)
+            setConfirmSignUp(true);
+            setOpenLogin(true);
+        }
+    }, [confirmSignUp])
 
 
     const defaultState = {

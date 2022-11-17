@@ -15,7 +15,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.users.models import User
-from playbot.users.utils import generate_password, send_message, send_email
+from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -49,10 +49,19 @@ class CustomTokenObtainSerializer(serializers.Serializer):
                 raise exceptions.AuthenticationFailed(
                     detail="No exists number!"
                 )
+            if users.exists() and not users.first().is_active:
+                raise exceptions.AuthenticationFailed(
+                    detail="Is not active!"
+                )
         else:
-            if not User.objects.filter(email=attrs[self.username_field]).exists():
+            users = User.objects.filter(email=attrs[self.username_field])
+            if not users.exists():
                 raise exceptions.AuthenticationFailed(
                     detail="No exists email!"
+                )
+            if users.exists() and not users.first().is_active:
+                raise exceptions.AuthenticationFailed(
+                    detail="Is not active!"
                 )
         authenticate_kwargs = {
             self.username_field: attrs[self.username_field],
@@ -123,6 +132,7 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
                 defaults["last_name"] = attrs.get("last_name")
             if attrs.get("username"):
                 defaults["username"] = attrs.get("username")
+            defaults["is_active"] = True
             self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
 
         # if User.objects.filter(telegram_id=attrs["telegram_id"]).exists() and attrs["chanel_id"] == CHANEL_ID:
@@ -206,10 +216,13 @@ class SignUpSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         password = validated_data.pop("password", None)
+        slug = generate_password()
+        instance.confirm_slug = slug
         if password is not None:
             instance.set_password(password)
-            # instance.username = instance.email
+
         instance.save()
+        send_email_confirm_sign_up(instance.email, slug)
         return instance
 
     def is_valid(self, *, raise_exception=False):
@@ -295,7 +308,7 @@ class RefreshPasswordSerializer(serializers.ModelSerializer):
             password = generate_password()
             instance.set_password(password)
             instance.save()
-            send_email(email, password)
+            send_email_refresh(email, password)
             # send_message(email, password)
         else:
             self._errors["email"] = ["Invalid email!"]

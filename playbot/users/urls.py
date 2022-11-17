@@ -15,6 +15,7 @@ urlpatterns = [
     path("api/update-city/", views.UpdateCityView.as_view(), name='update-city'),
     path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("confirm-sign-up/<slug>/", views.ConfirmSignUpView.as_view(), name='confirm-sign-up'),
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
     re_path(r"^api/data/$", views.DataView.as_view(), name='data'),
     re_path(r"^api/valid-token/$", views.ValidView.as_view(), name='valid-token'),

@@ -12,6 +12,7 @@ class CustomUserAdmin(UserAdmin):
         "phone_number",
         "telegram_id",
         "is_superuser",
+        "is_active",
     ]
 
     fieldsets = (
@@ -26,6 +27,7 @@ class CustomUserAdmin(UserAdmin):
                     "phone_number",
                     "telegram_id",
                     "city",
+                    "confirm_slug",
                 )
             },
         ),

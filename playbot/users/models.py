@@ -16,6 +16,15 @@ class User(AbstractUser):
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
+    is_active = models.BooleanField(
+        _("active"),
+        default=False,
+        help_text=_(
+            "Designates whether this user should be treated as active. "
+            "Unselect this instead of deleting accounts."
+        ),
+    )
+    confirm_slug = models.CharField(_("Confirm Slug"), max_length=150, blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

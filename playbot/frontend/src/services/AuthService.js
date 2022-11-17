@@ -5,6 +5,7 @@ import {isMobile} from "react-device-detect";
 
 
 const API_URL = process.env.REACT_APP_API_URL;
+const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
 
 export default class AuthService{
@@ -80,6 +81,11 @@ export default class AuthService{
 				$(refEmail.current).children('input').addClass('error');
 				$(refEmail.current).children('span').addClass('error');
 				$(refEmail.current).children('span').html('Пользователь с таким email не зарегистрирован!');
+			} else if (response.data.detail === "Is not active!") {
+				errors.push("email");
+				$(refEmail.current).children('input').addClass('error');
+				$(refEmail.current).children('span').addClass('error');
+				$(refEmail.current).children('span').html('Активируйте ваш аккаунт по ссылке из письма!');
 			} else {
 				errors.push("password");
 				$(refPassword.current).children('input').addClass('error');
@@ -250,6 +256,21 @@ export default class AuthService{
 			'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
 			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
+	 confirmSignUp(pathName){
+		 console.log(API_URL.slice(0,-4))
+		const url = `${API_URL.slice(0,-4)}${pathName.slice(1,)}`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
 		}})
 			.then((response) => {
 				return response;
