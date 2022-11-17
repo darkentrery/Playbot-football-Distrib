@@ -243,6 +243,8 @@ class SignUpSerializer(serializers.ModelSerializer):
                 self._errors["email"] = "User with this email already exists!"
             if self.validated_data.get("phone_number") and User.objects.filter(phone_number=self.validated_data["phone_number"]).exists():
                 self._errors["phone_number"] = "User with this phone_number already exists!"
+            if self.validated_data.get("email") and User.objects.filter(username=self.validated_data["username"]).exists():
+                self._errors["username"] = "User with this username already exists!"
 
         if self._errors and raise_exception:
             raise ValidationError(self.errors)

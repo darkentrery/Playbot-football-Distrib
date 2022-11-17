@@ -10,7 +10,7 @@ class User(AbstractUser):
     email = models.EmailField(_("Email Address"), unique=True, blank=True, null=True)
     # username_validator = UnicodeUsernameValidator()
     first_name = models.CharField(_("First Name"), max_length=150, blank=True)
-    username = models.CharField(_("Username"), max_length=150, blank=True)
+    username = models.CharField(_("Username"), max_length=150, unique=True, blank=True, null=True)
     last_name = models.CharField(_("Last Name"), max_length=150, blank=True)
     name = models.CharField(_("Name"), max_length=150)
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)

@@ -166,6 +166,13 @@ export default class AuthService{
 					$(refsDict["phoneNumber"].current).children('span').html('Пользователь с таким номером уже существует!');
 				}
 			}
+			if (response.data["username"]) {
+				$(refsDict["username"].current).children('input').addClass('error');
+				$(refsDict["username"].current).children('span').addClass('error');
+				if (response.data["username"][0] === "User с таким Имя пользователя уже существует.") {
+					$(refsDict["username"].current).children('span').html('Пользователь с username уже существует!');
+				}
+			}
 		}
 		return errors;
 	}
