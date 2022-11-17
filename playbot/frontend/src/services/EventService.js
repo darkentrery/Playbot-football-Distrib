@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {csrftoken} from "./CsrfService";
+import $ from "jquery";
 
 
 const API_URL = process.env.REACT_APP_API_URL + "events/";
@@ -60,10 +61,12 @@ export default class EventService{
             }
             if (val.length === 8) {
                 setDate(formatVal);
-            }
+            } else {
+				setDate(false);
+			}
             refDate.current.setState({inputValue: formatVal})
         } else {
-            setDate(e.format("DD.MM.YYYY"));
+            setDate(e.format("YYYY-MM-DD"));
         }
     }
 
@@ -81,11 +84,34 @@ export default class EventService{
             }
 			if (val.length === 4) {
                 setTime(formatVal);
-            }
+            } else {
+				setTime(false);
+			}
             refTime.current.setState({inputValue: formatVal})
 		} else {
 			setTime(e.format("HH:mm"));
 		}
+	}
+
+	createEventRequestValidation(name, date, time, address, notice, refs){
+		let errors = [];
+		["name", "address", "notice", "date", "time"].forEach(elem => {
+			$(refs[elem].current).find('input').removeClass('error');
+			$(refs[elem].current).children('span').removeClass('error');
+			$(refs[elem].current).children('span').html('');
+		});
+
+		if (!name) errors.push("name");
+		if (!date) errors.push("date");
+		if (!time) errors.push("time");
+		if (!address) errors.push("address");
+
+		errors.forEach(error => {
+			$(refs[error].current).children('span').addClass('error');
+			$(refs[error].current).children('span').html('Заполните поле!');
+			$(refs[error].current).find('input').addClass('error');
+		})
+		return errors;
 	}
 
 }

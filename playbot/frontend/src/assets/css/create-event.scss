@@ -10,9 +10,10 @@
     justify-content: stretch;
     margin-right: 28px;
     margin-left: 28px;
-    margin-top: 24px;
+    //margin-top: 24px;
 
     &.elem-1 {
+      margin-top: 24px;
       justify-content: space-between;
       flex: 0 0 26px;
       span {
@@ -23,11 +24,21 @@
 
     &.elem-2 {
       flex: 0 0 80px;
+      margin-top: 24px;
       background: url("../icon/create-event-img.png");
       background-size: cover !important;
       background-position: center left !important;
       background-repeat: no-repeat !important;
       border-radius: 8px;
+    }
+
+    &.elem-3 {
+      flex: 0 0 64px;
+    }
+
+    &.elem-7 {
+      flex-direction: column;
+      margin-top: 8px;
     }
 
     input {
@@ -39,14 +50,19 @@
       margin-top: 12px;
     }
 
+    &.margin-24 {
+      margin-top: 24px;
+    }
+
     &.margin-8 {
       margin-top: 8px;
     }
 
+
     .date-time {
       display: flex;
       align-items: stretch;
-      justify-content: center;
+      justify-content: start;
       flex: 1 0 auto;
       flex-direction: column;
 
@@ -60,7 +76,6 @@
 
       .input {
         flex: 0 0 $fieldHeight;
-        margin-top: -12px;
         box-sizing: border-box;
       }
 
@@ -69,8 +84,17 @@
         width: 24px;
         align-self: end;
         margin-right: 12px;
-        margin-top: -36px;
+        margin-top: -52px;
         cursor: pointer;
+      }
+
+      .input-message {
+        flex: 0 0 12px;
+        margin-top: 4px;
+        font-size: 10px;
+        &.error {
+          color: #EC5B56;
+        }
       }
     }
 
@@ -84,9 +108,19 @@
 
     &.notice {
       flex: 1 1 auto;
+      flex-direction: column;
       textarea {
         flex: 1 1 auto;
         height: 96px;
+      }
+    }
+
+    .input-message {
+      flex: 0 0 12px;
+      margin-top: 4px;
+      font-size: 10px;
+      &.error {
+        color: #EC5B56;
       }
     }
 
