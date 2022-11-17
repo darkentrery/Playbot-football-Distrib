@@ -2,7 +2,12 @@ import React, {useState, useEffect, useContext, useRef} from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import { isMobile } from 'react-device-detect';
-import {OpenChoiceCityContext, OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
+import {
+    OpenChoiceCityContext,
+    OpenLoginContext,
+    OpenSignUpContext,
+    OpenSuccessSignUpContext
+} from "../context/AuthContext";
 import Modal from "react-modal";
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
@@ -24,6 +29,7 @@ export default function SignUpComponent () {
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
+    const {openSuccessSignUp, setOpenSuccessSignUp} = useContext(OpenSuccessSignUpContext);
     const refUsername = useRef();
     const refPhoneNumber = useRef();
     const refEmail = useRef();
@@ -142,6 +148,7 @@ export default function SignUpComponent () {
                     if (isMobile) {
                         authService.login(loginData).then((response) => {
                             setOpenChoiceCity(!openChoiceCity);
+                            setOpenSuccessSignUp(!openSuccessSignUp);
                         })
 
                     }

@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import Modal from "react-modal";
-import {OpenSuccessCreateEventContext} from "../context/EventContext";
+import {OpenSuccessCreateEventContext} from "../../context/EventContext";
 
 
 export default function SuccessCreateEventComponent () {
@@ -26,7 +26,7 @@ export default function SuccessCreateEventComponent () {
                     <span>Теперь дождитесь, когда соберется необходимое количество игроков и начинайте игру</span>
                 </div>
                 <div className={"elem elem-3"}>
-                    <button className={"btn btn-success-event"} onClick={closeWindow}>Перейти на страницу события</button>
+                    <button className={"btn"} onClick={closeWindow}>Перейти на страницу события</button>
                 </div>
             </div>
         </Modal>

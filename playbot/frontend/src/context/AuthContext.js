@@ -26,8 +26,20 @@ const OpenChoiceCityContext = React.createContext({
   setOpenChoiceCity: () => {}
 });
 
+const OpenSuccessRefreshPasswordContext = React.createContext({
+  openSuccessRefreshPassword: false,
+  setOpenSuccessRefreshPassword: () => {}
+});
+
+const OpenSuccessSignUpContext = React.createContext({
+  openSuccessSignUp: false,
+  setOpenSuccessSignUp: () => {}
+});
+
 export { OpenSignUpContext };
 export { OpenLoginContext };
 export { OpenRefreshPasswordContext };
 export { OpenMobileFirstPageContext };
 export { OpenChoiceCityContext };
+export { OpenSuccessRefreshPasswordContext };
+export { OpenSuccessSignUpContext };

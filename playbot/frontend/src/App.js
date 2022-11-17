@@ -10,7 +10,7 @@ import {
     OpenSignUpContext,
     OpenLoginContext,
     OpenRefreshPasswordContext,
-    OpenMobileFirstPageContext, OpenChoiceCityContext
+    OpenMobileFirstPageContext, OpenChoiceCityContext, OpenSuccessSignUpContext, OpenSuccessRefreshPasswordContext
 } from "./context/AuthContext";
 import RefreshPasswordComponent from "./components/RefreshPasswordComponent";
 import EventService from "./services/EventService";
@@ -25,7 +25,8 @@ import {
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
 import ChoiceCityComponent from "./components/ChoiceCityComponent";
 import AuthService from "./services/AuthService";
-import SuccessCreateEventComponent from "./components/SuccessCreateEventComponent";
+import SuccessCreateEventComponent from "./components/success/SuccessCreateEventComponent";
+import SuccessSignUpComponent from "./components/success/SuccessSignUp";
 
 
 function App(defaultValue) {
@@ -39,6 +40,8 @@ function App(defaultValue) {
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [openChoiceCity, setOpenChoiceCity] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
+    const [openSuccessRefreshPassword, setOpenSuccessRefreshPassword] = useState(false);
+    const [openSuccessSignUp, setOpenSuccessSignUp] = useState(false);
 
     const signUpWindow = { openSignUp, setOpenSignUp };
     const loginWindow = { openLogin, setOpenLogin };
@@ -48,6 +51,8 @@ function App(defaultValue) {
     const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
     const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
+    const successRefreshPasswordWindow = { openSuccessRefreshPassword, setOpenSuccessRefreshPassword };
+    const successSignUpWindow = { openSuccessSignUp, setOpenSuccessSignUp };
 
     const eventService = new EventService();
 
@@ -123,10 +128,13 @@ function App(defaultValue) {
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
                           <OpenChoiceCityContext.Provider value={choiceCityWindow}>
-                              <SignUpComponent/>
+                              <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>
+                                  <SignUpComponent/>
+                              </OpenSuccessSignUpContext.Provider>
                           </OpenChoiceCityContext.Provider>
                       </OpenSignUpContext.Provider>
                   </OpenLoginContext.Provider>
+
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
                           <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
@@ -134,24 +142,29 @@ function App(defaultValue) {
                           </OpenRefreshPasswordContext.Provider>
                       </OpenSignUpContext.Provider>
                   </OpenLoginContext.Provider>
+
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
                           <RefreshPasswordComponent/>
                       </OpenRefreshPasswordContext.Provider>
                   </OpenLoginContext.Provider>
+
                   <OpenCreateEventContext.Provider value={createEventWindow}>
                       <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>
                           <CreateEventComponent/>
                       </OpenSuccessCreateEventContext.Provider>
                   </OpenCreateEventContext.Provider>
+
                   <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>
                       <SuccessCreateEventComponent/>
                   </OpenSuccessCreateEventContext.Provider>
+
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenCreateEventUnAuthContext.Provider value={createEventUnAuthWindow}>
                           <CreateEventUnAuthComponent/>
                       </OpenCreateEventUnAuthContext.Provider>
                   </OpenLoginContext.Provider>
+
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
                           <OpenMobileFirstPageContext.Provider value={mobileFirstPageWindow}>
@@ -159,9 +172,14 @@ function App(defaultValue) {
                           </OpenMobileFirstPageContext.Provider>
                       </OpenSignUpContext.Provider>
                   </OpenLoginContext.Provider>
+
                   <OpenChoiceCityContext.Provider value={choiceCityWindow}>
                       <ChoiceCityComponent/>
                   </OpenChoiceCityContext.Provider>
+
+                  <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>
+                      <SuccessSignUpComponent/>
+                  </OpenSuccessSignUpContext.Provider>
 
 
                   {/*<div className="features">*/}
