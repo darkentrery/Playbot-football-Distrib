@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext, useRef} from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
-import {OpenLoginContext, OpenRefreshPasswordContext} from "../context/AuthContext";
-import {getData} from "../services/AuthDecorator";
+import {OpenLoginContext, OpenRefreshPasswordContext, OpenSuccessRefreshPasswordContext} from "../context/AuthContext";
 import $ from "jquery";
 
 
@@ -15,6 +14,7 @@ export default function RefreshPasswordComponent () {
 
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openRefreshPassword, setOpenRefreshPassword} = useContext(OpenRefreshPasswordContext);
+    const { openSuccessRefreshPassword, setOpenSuccessRefreshPassword } = useContext(OpenSuccessRefreshPasswordContext);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -40,7 +40,8 @@ export default function RefreshPasswordComponent () {
         if (email) {
             authService.refreshPassword(data).then((response) => {
                 if (response.status == 200) {
-                    $(refEmail.current).children('span').html('На ваш email отправлен новый пароль!');
+                    closeWindow();
+                    setOpenSuccessRefreshPassword(!openSuccessRefreshPassword);
                 } else {
                     $(refEmail.current).children('input').addClass('error');
                     $(refEmail.current).children('span').addClass('error');
@@ -48,7 +49,6 @@ export default function RefreshPasswordComponent () {
                 }
                 console.log(response)
             })
-            // await getData(authService.getData, [], openLogin, setOpenLogin)
         } else {
             $(refEmail.current).children('input').addClass('error');
             $(refEmail.current).children('span').addClass('error');

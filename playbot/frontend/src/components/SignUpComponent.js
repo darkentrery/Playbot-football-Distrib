@@ -145,6 +145,7 @@ export default function SignUpComponent () {
                 errors = authService.signUpResponseValidation(response, refsDict);
                 if (!errors.size) {
                     closeWindow();
+                    setOpenSuccessSignUp(!openSuccessSignUp);
                     if (isMobile) {
                         authService.login(loginData).then((response) => {
                             setOpenChoiceCity(!openChoiceCity);

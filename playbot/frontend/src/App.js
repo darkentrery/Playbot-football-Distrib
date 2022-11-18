@@ -27,6 +27,10 @@ import ChoiceCityComponent from "./components/ChoiceCityComponent";
 import AuthService from "./services/AuthService";
 import SuccessCreateEventComponent from "./components/success/SuccessCreateEventComponent";
 import SuccessSignUpComponent from "./components/success/SuccessSignUp";
+import SuccessRefreshPasswordComponent from "./components/success/SuccessRefreshPassword";
+import HeadComponent from "./components/HeadComponent";
+import BodyComponent from "./components/BodyComponent";
+import BottomComponent from "./components/BottomComponent";
 
 
 function App(defaultValue) {
@@ -99,10 +103,20 @@ function App(defaultValue) {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
+      <div className="App">
+          <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
+          <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
+          <button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>
+          <button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>
+          <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
+          <button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>
           <Router>
-              <main>
+              <main className={"main-page"}>
+
+                  <HeadComponent/>
+                  <BodyComponent/>
+                  <BottomComponent/>
+
                   {/*<ul>*/}
                   {/*  <li>*/}
                   {/*      <Link to={AuthRoutes.login}><h3>Login</h3></Link>*/}
@@ -118,12 +132,7 @@ function App(defaultValue) {
                   {/*    </Map>*/}
                   {/*  </YMaps>*/}
 
-                  <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
-                  <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
-                  <button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>
-                  <button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>
-                  <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
-                  <button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>
+
 
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
@@ -145,7 +154,9 @@ function App(defaultValue) {
 
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
-                          <RefreshPasswordComponent/>
+                          <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>
+                              <RefreshPasswordComponent/>
+                          </OpenSuccessRefreshPasswordContext.Provider>
                       </OpenRefreshPasswordContext.Provider>
                   </OpenLoginContext.Provider>
 
@@ -181,6 +192,10 @@ function App(defaultValue) {
                       <SuccessSignUpComponent/>
                   </OpenSuccessSignUpContext.Provider>
 
+                  <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>
+                      <SuccessRefreshPasswordComponent/>
+                  </OpenSuccessRefreshPasswordContext.Provider>
+
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}
@@ -191,11 +206,7 @@ function App(defaultValue) {
               </main>
           </Router>
 
-
-
-
-      </header>
-    </div>
+      </div>
 
   );
 }

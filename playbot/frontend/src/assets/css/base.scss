@@ -401,3 +401,10 @@ input[type="checkbox"] {
   }
 }
 
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-content: stretch;
+}
+

@@ -1,0 +1,79 @@
+.main-page .head {
+  display: flex;
+  flex: 0 0 96px;
+  align-items: center;
+
+  .elem {
+    display: flex;
+    flex: 1 1 auto;
+    height: 19px;
+    margin-right: 40px;
+    flex-direction: column;
+    align-items: center;
+
+    &.elem-1 {
+      margin-left: 60px;
+      flex: 0 0 78px;
+    }
+
+    &.elem-2 {
+      flex: 0 0 406px;
+      flex-direction: row;
+
+      .menu-point {
+        display: flex;
+        flex: 1 1 auto;
+        margin-right: 40px;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+
+        &.inactive {
+          background: 0;
+          span {
+            color: #949494 !important;
+          }
+        }
+
+        &.black-point-icon {
+          margin-top: 8px;
+          height: 27px;
+          background-position: center 21px;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &.search-black-icon {
+      flex: 0 0 28px;
+      height: 28px;
+      cursor: pointer;
+    }
+
+    &.elem-5 {
+      flex-direction: row;
+      flex: 0 0 189px;
+      margin-right: 60px;
+
+
+      span {
+        margin-left: 16px;
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .avatar-black-icon {
+        flex: 0 0 18px;
+        height: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
