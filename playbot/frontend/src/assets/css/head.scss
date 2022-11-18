@@ -12,7 +12,7 @@
     align-items: center;
 
     &.elem-1 {
-      margin-left: 60px;
+      margin-left: $marginSides;
       flex: 0 0 78px;
     }
 
@@ -56,7 +56,7 @@
     &.elem-5 {
       flex-direction: row;
       flex: 0 0 189px;
-      margin-right: 60px;
+      margin-right: $marginSides;
 
 
       span {
@@ -74,6 +74,16 @@
         height: 20px;
         cursor: pointer;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .main-page .head .elem-5 {
+    flex: 0 0 18px !important;
+
+    span {
+      display: none;
     }
   }
 }

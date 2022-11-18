@@ -30,7 +30,7 @@ export default function HeadComponent () {
             </div>
             <div className={"elem search-black-icon"}></div>
             <div className={"elem elem-5"}>
-                <div className={"avatar-black-icon"}></div>
+                <div onClick={(e) => setOpenLogin(!openLogin)} className={"avatar-black-icon"}></div>
                 <span onClick={(e) => setOpenLogin(!openLogin)}>Регистрация / Вход</span>
             </div>
         </div>
