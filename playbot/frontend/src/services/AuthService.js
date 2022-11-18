@@ -329,4 +329,26 @@ export default class AuthService{
             $(refCountryBody.current).append(elem);
         })
     }
+
+	getCountries(setBanner){
+		const url = `https://restcountries.com/v3.1/all`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+		}})
+			.then((response) => {
+				let newList = [];
+				for (let i in response.data) {
+                    let country = response.data[i];
+					if (country.translations["rus"]["common"] && country.idd.root && country.flags.png
+						&& country.translations["rus"]["common"] !== "Центральноафриканская Республика") {
+						newList.push([country.translations["rus"]["common"], country.idd.root, country.flags.png]);
+						if (country.translations["rus"]["common"] === "Россия") setBanner(country.flags.png);
+					}
+                }
+				return newList;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
 }

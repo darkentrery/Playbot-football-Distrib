@@ -12,14 +12,13 @@ import Modal from "react-modal";
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
-import banner from "../assets/icon/bannerRussia.png";
 
 
 export default function SignUpComponent () {
     const authService = new AuthService();
     const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
-    const [phoneCode, setPhoneCode] = useState("+1");
+    const [phoneCode, setPhoneCode] = useState("+7");
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
@@ -30,6 +29,8 @@ export default function SignUpComponent () {
     const [isIPhone, setIsIphone] = useState(false);
     const [isDropdown, setIsDropdown] = useState(false);
     const [countryTag, setCountryTag] = useState([]);
+    const [countries, setCountries] = useState(false);
+    const [banner, setBanner] = useState(false);
 
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
@@ -55,8 +56,12 @@ export default function SignUpComponent () {
         "allowPolicy": refAllowPolicy,
         "allowOffer": refAllowOffer,
     };
-    const phoneCodes = [["Россия", "+7", banner], ["Китай", "+4", banner], ["США", "+1", banner]];
 
+    if (!countries) {
+        authService.getCountries(setBanner).then((response) => {
+            setCountries(response);
+        })
+    }
 
     function phoneInput(event) {
         let value = event.target.value.replace(/\D/g, "");
@@ -74,7 +79,7 @@ export default function SignUpComponent () {
     }
 
     const openDropdown = () => {
-        setIsDropdown(!isDropdown)
+        setIsDropdown(!isDropdown);
         if ($(refArrowIcon.current).hasClass("down-arrow-icon")) {
             refArrowIcon.current.className = "up-arrow-icon";
             $(refPhoneNumber.current).addClass('open');
@@ -86,7 +91,8 @@ export default function SignUpComponent () {
 
     const choicePhoneCode = (e) => {
         let parent = $(e.target).closest('.dropdown-elem');
-        refPhoneCode.current.src = parent.find('img').attr('src');
+        setBanner(parent.find('img').attr('src'));
+        console.log(parent.find('.code').html())
         setPhoneCode(parent.find('.code').html());
         openDropdown();
     }
@@ -100,7 +106,7 @@ export default function SignUpComponent () {
         let bodyLoginFormData = new FormData();
         bodyFormData.append('username', username);
         if (phoneNumber) {
-            bodyFormData.append('phone_number', phoneNumber);
+            bodyFormData.append('phone_number', `${phoneCode}${phoneNumber}`);
         }
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
@@ -108,7 +114,7 @@ export default function SignUpComponent () {
         bodyLoginFormData.append('password', password);
         setData(bodyFormData);
         setLoginData(bodyLoginFormData);
-    }, [username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer])
+    }, [username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, phoneCode])
 
     const closeWindow = () => {
         setUsername(false);
@@ -119,6 +125,9 @@ export default function SignUpComponent () {
         setAllowPolicy(false);
         setAllowOffer(false);
         setData(false);
+        setIsDropdown(false);
+        refArrowIcon.current.className = "down-arrow-icon";
+        $(refPhoneNumber.current).removeClass('open');
         setOpenSignUp(!openSignUp);
     }
 
@@ -222,7 +231,7 @@ export default function SignUpComponent () {
                                     <input className={"search-icon"} type="text" placeholder={"Найти страну"}
                                            onChange={(event) => authService.searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode)}/>
                                     <div className={"dropdown-body"} ref={refCountryBody}>
-                                        {phoneCodes && phoneCodes.map((item, key) => {
+                                        {countries && countries.map((item, key) => {
                                             return (
                                                 <div className={"dropdown-elem"} onClick={choicePhoneCode}>
                                                     <span className={"country"}>{item[0]}</span>
