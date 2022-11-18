@@ -87,7 +87,7 @@ export default function BottomComponent () {
                 </div>
             </div>
 
-            <div className={"elem-2"}>
+            <div className={"elem-bottom"}>
                 <div className={"el-1"}>
                     <span className={"policy"} onClick={openAllowPolicy}>Правила пользования</span>
                     <span className={"offer"} onClick={openAllowOffer}>Пользовательское соглашение</span>
@@ -100,6 +100,21 @@ export default function BottomComponent () {
                     <div className={"instagram-icon"}></div>
                     <div className={"telegram-icon"}></div>
                     <div className={"vk-icon"}></div>
+                </div>
+            </div>
+
+            <div className={"elem-376"}>
+                <div className={"elem elem-1"}>
+                    <div className={"orange-cup-icon"}></div>
+                    <span className={"active-page"}>События</span>
+                </div>
+                <div className={"elem elem-2"}>
+                    <div className={"statistic-icon disabled"}></div>
+                    <span className={"disabled-page"}>Статистика</span>
+                </div>
+                <div className={"elem elem-3"}>
+                    <div className={"avatar-icon disabled"}></div>
+                    <span className={"disabled-page"}>Профиль</span>
                 </div>
             </div>
         </div>

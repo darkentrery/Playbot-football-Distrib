@@ -16,7 +16,8 @@
     justify-content: center;
 
     &.first {
-      flex: 0 0 67px;
+      flex: 0 0 19px;
+      margin-top: 24px;
       .link-skip {
         font-family: 'Raleway', sans-serif;
         font-style: normal;
@@ -75,7 +76,10 @@
       flex: 0 0 $fieldHeight;
     }
     &.seventh {
-      flex: 0 0 $fieldHeight;
+      flex: 0 0 19px;
+      margin-bottom: 50px;
+      margin-top: 24px;
+
       .link-reg {
         font-family: 'Raleway', sans-serif;
         font-style: normal;
