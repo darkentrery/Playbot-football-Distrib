@@ -123,10 +123,62 @@
   cursor: pointer;
 }
 
+.logo-korobka-white-icon {
+  background: url("../icon/logo-korobka-white.png");
+  background-repeat: no-repeat;
+  background-size: 78px 46px;
+  width: 78px;
+  height: 46px;
+  cursor: pointer;
+}
+
+.title-korobka-white-icon {
+  background: url("../icon/title-korobka-white.png");
+  background-repeat: no-repeat;
+  background-size: 94px 27px;
+  width: 94px;
+  height: 27px;
+}
+
 .black-point-icon {
   background: url("../icon/black-point.png");
   background-repeat: no-repeat;
   background-size: 6px;
   width: 6px;
   height: 6px;
+}
+
+.note-orange-icon {
+  background: url("../icon/note-orange.png") no-repeat;
+  background-size: 15px 16px;
+  background-position: center center;
+  height: 16px;
+  width: 15px;
+}
+
+.instagram-icon {
+  background: url("../icon/instagram.png") no-repeat;
+  background-size: 24px;
+  background-position: center center;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.telegram-icon {
+  background: url("../icon/telegram.png") no-repeat;
+  background-size: 24px;
+  background-position: center center;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.vk-icon {
+  background: url("../icon/vk.png") no-repeat;
+  background-size: 24px;
+  background-position: center center;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
 }

@@ -1,3 +1,161 @@
 .main-page .bottom {
+  display: flex;
   flex: 0 0 224px;
+  flex-direction: column;
+
+  .elem-1 {
+    display: flex;
+    flex: 0 0 168px;
+    background: #1B1B1B;
+
+    .el {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 50px;
+
+      &.el-1 {
+        margin-left: 60px;
+        flex: 0 0 220px;
+        margin-top: 45px;
+
+        .logo {
+          display: flex;
+          margin-bottom: 29px;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        span {
+          font-size: 12px;
+          color: #949494;
+        }
+      }
+
+      &.el-2 {
+        flex: 1 1 auto;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 65px;
+
+        span {
+          color: #FFFFFF;
+          font-size: 14px;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .col {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          &.col-1 {
+            padding-right: 48px;
+            border-right: 1px solid #949494;
+
+          }
+
+          &.col-2 {
+            margin-left: 48px;
+            margin-right: 48px;
+
+          }
+
+          &.col-3 {
+            padding-left: 48px;
+            border-left: 1px solid #949494;
+
+          }
+        }
+      }
+
+      &.el-3 {
+        flex: 0 0 195px;
+        margin-right: 60px;
+        align-items: end;
+
+        .label {
+          font-size: 14px;
+          color: #949494;
+          line-height: 164%;
+
+          .value {
+            font-size: 14px;
+            color: #FFFFFF;
+            line-height: 164%;
+          }
+        }
+      }
+    }
+  }
+
+  .elem-2 {
+    display: flex;
+    flex: 0 0 56px;
+    background: #252525;
+    align-items: stretch;
+
+    .el-1 {
+      display: flex;
+      flex: 0 0 330px;
+      margin-left: 60px;
+      align-items: center;
+      font-size: 12px;
+      color: #949494;
+
+      .policy {
+        padding-right: 12px;
+        border-right: 1px solid #949494;
+        font-size: 12px;
+        color: #949494;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .offer {
+        padding-left: 12px;
+        font-size: 12px;
+        color: #949494;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+      }
+    }
+
+    .el-2 {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      justify-content: center;
+
+      .music {
+        font-size: 14px;
+        color: #D19C6C;
+        cursor: pointer;
+        margin-left: 15px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .el-3 {
+      display: flex;
+      flex: 0 0 118px;
+      margin-right: 60px;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
 }
