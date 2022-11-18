@@ -297,4 +297,36 @@ export default class AuthService{
 				return error.response;
 			});
 	}
+
+	searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode){
+        let children = refCountryBody.current.children;
+        let val = event.target.value;
+        let newCountry = [];
+        let allCountries = [];
+
+        if (countryTag.length < children.length) {
+            for (let i=0; i<children.length; i++) {
+                allCountries.push(children[i])
+            }
+            setCountryTag(allCountries);
+        }
+        countryTag.forEach(elem => {
+            $(elem).attr('class', 'dropdown-elem');
+        })
+        setPhoneCode(false);
+        if (countryTag.length) {
+            countryTag.forEach(elem => {
+                if ($(elem).html().toLowerCase().includes(val.toLowerCase())) newCountry.push(elem);
+            })
+        } else {
+            for (let i=0; i<children.length; i++) {
+                if ($(children[i]).html().toLowerCase().includes(val.toLowerCase())) newCountry.push(children[i]);
+            }
+        }
+
+        $(refCountryBody.current).html('');
+        newCountry.forEach(elem => {
+            $(refCountryBody.current).append(elem);
+        })
+    }
 }

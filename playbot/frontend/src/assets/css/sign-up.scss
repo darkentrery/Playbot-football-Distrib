@@ -101,6 +101,33 @@
   margin-right: 24px;
 }
 
+.phone-field {
+  flex-direction: row;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  &.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .phone-input {
+    flex: 1 1 auto;
+    border-radius: 8px;
+    border: 0;
+    padding-left: 12px;
+
+
+    &:focus {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+
+}
+
 @media screen and (min-width: 375px) and (max-width: 743px){
   .sign-up-close {
     position: relative;

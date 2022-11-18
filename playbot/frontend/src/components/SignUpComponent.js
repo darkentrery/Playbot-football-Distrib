@@ -12,12 +12,14 @@ import Modal from "react-modal";
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
+import banner from "../assets/icon/bannerRussia.png";
 
 
 export default function SignUpComponent () {
     const authService = new AuthService();
     const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
+    const [phoneCode, setPhoneCode] = useState("+1");
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
@@ -26,6 +28,8 @@ export default function SignUpComponent () {
     const [data, setData] = useState(false);
     const [loginData, setLoginData] = useState(false);
     const [isIPhone, setIsIphone] = useState(false);
+    const [isDropdown, setIsDropdown] = useState(false);
+    const [countryTag, setCountryTag] = useState([]);
 
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
@@ -38,6 +42,9 @@ export default function SignUpComponent () {
     const refPasswordConfirm = useRef();
     const refAllowPolicy = useRef();
     const refAllowOffer = useRef();
+    const refPhoneCode = useRef();
+    const refArrowIcon = useRef();
+    const refCountryBody = useRef();
     const refs = [refUsername, refPhoneNumber, refEmail, refPassword, refPasswordConfirm];
     const refsDict = {
         "username": refUsername,
@@ -48,20 +55,45 @@ export default function SignUpComponent () {
         "allowPolicy": refAllowPolicy,
         "allowOffer": refAllowOffer,
     };
+    const phoneCodes = [["Россия", "+7", banner], ["Китай", "+4", banner], ["США", "+1", banner]];
 
 
     function phoneInput(event) {
         let value = event.target.value.replace(/\D/g, "");
-        if (value.length > 11) value = value.slice(0, 11);
-        event.target.value = value;
+        if (value.length > 10) value = value.slice(0, 10);
+        let formatValue = '';
+        if (value.length > 0 && value.length < 4) {
+            formatValue = `(${value}`;
+        } else if (value.length > 3 && value.length < 7) {
+            formatValue = `(${value.slice(0, 3)})-${value.slice(3, 6)}`;
+        } else if (value.length > 6) {
+            formatValue = `(${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(6, 10)}`;
+        }
+        event.target.value = formatValue;
         setPhoneNumber(value);
+    }
+
+    const openDropdown = () => {
+        setIsDropdown(!isDropdown)
+        if ($(refArrowIcon.current).hasClass("down-arrow-icon")) {
+            refArrowIcon.current.className = "up-arrow-icon";
+            $(refPhoneNumber.current).addClass('open');
+        } else {
+            refArrowIcon.current.className = "down-arrow-icon";
+            $(refPhoneNumber.current).removeClass('open');
+        }
+    }
+
+    const choicePhoneCode = (e) => {
+        let parent = $(e.target).closest('.dropdown-elem');
+        refPhoneCode.current.src = parent.find('img').attr('src');
+        setPhoneCode(parent.find('.code').html());
+        openDropdown();
     }
 
     useEffect(() => {
         if (openSignUp && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
     }, [openSignUp, isIPhone])
-
-
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -180,9 +212,29 @@ export default function SignUpComponent () {
                             <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>
                             <span className={"input-message"}></span>
                         </div>
-                        <div className={"sign-up-l-elem div-input"} ref={refPhoneNumber}>
-                            <input className={"phone-icon"} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/>
-                            <span className={"input-message"}></span>
+                        <div className={"sign-up-l-elem phone-field"} ref={refPhoneNumber}>
+                            <div className={"dropdown-country"}>
+                                <span className={"dropdown-label"} ref={refPhoneCode} onClick={openDropdown}>
+                                    <img src={banner} alt=""/>
+                                </span>
+                                <div className={"down-arrow-icon"} ref={refArrowIcon} onClick={openDropdown}></div>
+                                <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
+                                    <input className={"search-icon"} type="text" placeholder={"Найти страну"}
+                                           onChange={(event) => authService.searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode)}/>
+                                    <div className={"dropdown-body"} ref={refCountryBody}>
+                                        {phoneCodes && phoneCodes.map((item, key) => {
+                                            return (
+                                                <div className={"dropdown-elem"} onClick={choicePhoneCode}>
+                                                    <span className={"country"}>{item[0]}</span>
+                                                    <span className={"code"}>{item[1]}</span>
+                                                    <img className={"banner"} src={item[2]} alt=""/>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <input className={"phone-input"} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refEmail}>
                             <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
