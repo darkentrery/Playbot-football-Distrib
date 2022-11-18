@@ -17,6 +17,7 @@ $successEventWidth: 410px;
 $successEventHeight: 281px;
 $marginSides: 60px;
 $bottomHeight: 224px;
+$successMarginBottom: 0;
 
 
 @import "fonts";
@@ -57,6 +58,7 @@ $bottomHeight: 224px;
 
 @media screen and (min-width: 375px) and (max-width: 743px) and (max-height: 750px){
   $fieldContainerHeight: 61px;
+  $fieldHeight: 40px;
   $fieldWidth: 295px;
   $popupWidth: 696px;
   $marginSides: 25px;
@@ -65,6 +67,9 @@ $bottomHeight: 224px;
   $refreshWidth: 100vw;
   $choiceCityHeight: 100vh;
   $choiceCityWidth: 100vw;
+  $successEventWidth: 100vw;
+  $successEventHeight: 100vh;
+  $successMarginBottom: 50px;
   $borderRadius: 0;
   @import "main";
   .popup-right {
@@ -81,6 +86,9 @@ $bottomHeight: 224px;
   $refreshWidth: 100vw;
   $choiceCityHeight: 100vh;
   $choiceCityWidth: 100vw;
+  $successEventWidth: 100vw;
+  $successEventHeight: 100vh;
+  $successMarginBottom: 50px;
   $borderRadius: 0;
   @import "main";
   .popup-right {
