@@ -36,6 +36,11 @@ const OpenSuccessSignUpContext = React.createContext({
   setOpenSuccessSignUp: () => {}
 });
 
+const OpenSuccessSignUp2Context = React.createContext({
+  openSuccessSignUp2: false,
+  setOpenSuccessSignUp2: () => {}
+});
+
 export { OpenSignUpContext };
 export { OpenLoginContext };
 export { OpenRefreshPasswordContext };
@@ -43,3 +48,4 @@ export { OpenMobileFirstPageContext };
 export { OpenChoiceCityContext };
 export { OpenSuccessRefreshPasswordContext };
 export { OpenSuccessSignUpContext };
+export { OpenSuccessSignUp2Context };

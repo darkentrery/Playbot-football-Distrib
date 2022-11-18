@@ -57,11 +57,7 @@ export default function SignUpComponent () {
         "allowOffer": refAllowOffer,
     };
 
-    if (!countries) {
-        authService.getCountries(setBanner).then((response) => {
-            setCountries(response);
-        })
-    }
+
 
     function phoneInput(event) {
         let value = event.target.value.replace(/\D/g, "");
@@ -99,6 +95,11 @@ export default function SignUpComponent () {
 
     useEffect(() => {
         if (openSignUp && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
+        if (!countries && openSignUp) {
+            authService.getCountries(setBanner).then((response) => {
+                setCountries(response);
+            })
+        }
     }, [openSignUp, isIPhone])
 
     useEffect(() => {

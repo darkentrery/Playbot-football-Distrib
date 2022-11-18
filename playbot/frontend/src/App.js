@@ -10,7 +10,11 @@ import {
     OpenSignUpContext,
     OpenLoginContext,
     OpenRefreshPasswordContext,
-    OpenMobileFirstPageContext, OpenChoiceCityContext, OpenSuccessSignUpContext, OpenSuccessRefreshPasswordContext
+    OpenMobileFirstPageContext,
+    OpenChoiceCityContext,
+    OpenSuccessSignUpContext,
+    OpenSuccessRefreshPasswordContext,
+    OpenSuccessSignUp2Context
 } from "./context/AuthContext";
 import RefreshPasswordComponent from "./components/RefreshPasswordComponent";
 import EventService from "./services/EventService";
@@ -31,6 +35,7 @@ import SuccessRefreshPasswordComponent from "./components/success/SuccessRefresh
 import HeadComponent from "./components/HeadComponent";
 import BodyComponent from "./components/BodyComponent";
 import BottomComponent from "./components/BottomComponent";
+import SuccessSignUp2Component from "./components/success/SuccessSignUp2";
 
 
 function App(defaultValue) {
@@ -46,6 +51,7 @@ function App(defaultValue) {
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [openSuccessRefreshPassword, setOpenSuccessRefreshPassword] = useState(false);
     const [openSuccessSignUp, setOpenSuccessSignUp] = useState(false);
+    const [openSuccessSignUp2, setOpenSuccessSignUp2] = useState(false);
 
 
     const signUpWindow = { openSignUp, setOpenSignUp };
@@ -58,6 +64,7 @@ function App(defaultValue) {
     const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
     const successRefreshPasswordWindow = { openSuccessRefreshPassword, setOpenSuccessRefreshPassword };
     const successSignUpWindow = { openSuccessSignUp, setOpenSuccessSignUp };
+    const successSignUp2Window = { openSuccessSignUp2, setOpenSuccessSignUp2 };
 
     const eventService = new EventService();
 
@@ -65,7 +72,7 @@ function App(defaultValue) {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
             authService.confirmSignUp(window.location.pathname)
             setConfirmSignUp(true);
-            setOpenLogin(true);
+            setOpenSuccessSignUp2(true);
         }
     }, [confirmSignUp])
 
@@ -202,6 +209,10 @@ function App(defaultValue) {
                   <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>
                       <SuccessRefreshPasswordComponent/>
                   </OpenSuccessRefreshPasswordContext.Provider>
+
+                  <OpenSuccessSignUp2Context.Provider value={successSignUp2Window}>
+                      <SuccessSignUp2Component/>
+                  </OpenSuccessSignUp2Context.Provider>
 
 
                   {/*<div className="features">*/}
