@@ -239,18 +239,29 @@ export default class AuthService{
 			});
 	}
 
-	addSafariBottomMargin(classSelector) {
-		if (isMobile && window.screen.width < 743) {
-			console.log(navigator.userAgent)
-			console.log(navigator.userAgent.indexOf('Safari'))
-			console.log(navigator.userAgent.indexOf('Chrome'))
+	isIPhone() {
+		if (navigator.appVersion.includes("iPhone") && navigator.userAgent.includes("iPhone")) {
+			return true
+		}
+		return false
+	}
+
+	isPWA() {
+		if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator.standalone)) {
+			return true
+		}
+		return false;
+	}
+
+	addIPhoneBottomMargin(classSelector) {
+		console.log("Is Iphone", this.isIPhone())
+		console.log("Is PWA", this.isPWA())
+
+		if (isMobile && window.screen.width < 743 && this.isIPhone() && !this.isPWA()) {
 			console.log(classSelector)
-			console.log($('.popup-frame'))
-			if (navigator.userAgent.indexOf('Chrome') == -1) {
-				if ($('.popup-frame').find(classSelector).length) {
-					$('.popup-frame').find(classSelector).addClass("safari-margin");
-					return true;
-				}
+			if ($('.popup-frame').find(classSelector).length) {
+				$('.popup-frame').find(classSelector).addClass("safari-margin");
+				return true;
 			}
 			return false
 		}

@@ -5,7 +5,6 @@ import {OpenChoiceCityContext} from "../context/AuthContext";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
-import {isMobile} from "react-device-detect";
 
 
 export default function ChoiceCityComponent () {
@@ -15,7 +14,7 @@ export default function ChoiceCityComponent () {
     const [data, setData] = useState("No");
     const [citiesTag, setCitiesTag] = useState([]);
     const [cities, setCities] = useState([]);
-    const [flagSafari, setFlagSafari] = useState(false);
+    const [isIPhone, setIsIphone] = useState(false);
 
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
     const citiesRef = useRef();
@@ -26,15 +25,13 @@ export default function ChoiceCityComponent () {
                 if (response.status == 200) {
                     setCities(response.data.cities)
                 }
-                console.log(response)
             })
         }
     }, [openChoiceCity])
 
     useEffect(() => {
-        if (openChoiceCity && !authService.addSafariBottomMargin('.bottom')) setFlagSafari(!flagSafari);
-    }, [openChoiceCity, flagSafari])
-
+        if (openChoiceCity && !authService.addIPhoneBottomMargin('.bottom')) setIsIphone(!isIPhone);
+    }, [openChoiceCity, isIPhone])
 
 
     const sendForm = async () => {
@@ -46,6 +43,7 @@ export default function ChoiceCityComponent () {
         }
         setOpenChoiceCity(!openChoiceCity);
     }
+
     useEffect(() => {
         let bodyFormData = new FormData();
         bodyFormData.append('city', city);

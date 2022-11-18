@@ -25,7 +25,8 @@ export default function SignUpComponent () {
     const [allowOffer, setAllowOffer] = useState(false);
     const [data, setData] = useState(false);
     const [loginData, setLoginData] = useState(false);
-    const [flagSafari, setFlagSafari] = useState(false);
+    const [isIPhone, setIsIphone] = useState(false);
+
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
@@ -57,8 +58,8 @@ export default function SignUpComponent () {
     }
 
     useEffect(() => {
-        if (openSignUp && !authService.addSafariBottomMargin('.sign-up-l-bottom')) setFlagSafari(!flagSafari);
-    }, [openSignUp, flagSafari])
+        if (openSignUp && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
+    }, [openSignUp, isIPhone])
 
 
 

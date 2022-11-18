@@ -47,6 +47,7 @@ function App(defaultValue) {
     const [openSuccessRefreshPassword, setOpenSuccessRefreshPassword] = useState(false);
     const [openSuccessSignUp, setOpenSuccessSignUp] = useState(false);
 
+
     const signUpWindow = { openSignUp, setOpenSignUp };
     const loginWindow = { openLogin, setOpenLogin };
     const refreshPasswordWindow = { openRefreshPassword, setOpenRefreshPassword };
@@ -62,7 +63,6 @@ function App(defaultValue) {
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
-            console.log(window.location.pathname)
             authService.confirmSignUp(window.location.pathname)
             setConfirmSignUp(true);
             setOpenLogin(true);
@@ -92,12 +92,15 @@ function App(defaultValue) {
     }
 
     useEffect(() => {
-        console.log(localStorage.telegramLogin)
         if (localStorage.telegramLogin === 'true') {
             setOpenChoiceCity(true);
             localStorage.telegramLogin = false;
         }
     }, [localStorage.telegramLogin])
+
+    console.log(window.matchMedia)
+    console.log(navigator)
+    console.log(document.referrer)
 
 
 
@@ -112,10 +115,13 @@ function App(defaultValue) {
           <button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>
           <Router>
               <main className={"main-page"}>
+                  <OpenLoginContext.Provider value={loginWindow}>
+                      <HeadComponent/>
+                  </OpenLoginContext.Provider>
 
-                  <HeadComponent/>
                   <BodyComponent/>
                   <BottomComponent/>
+              </main>
 
                   {/*<ul>*/}
                   {/*  <li>*/}
@@ -131,6 +137,7 @@ function App(defaultValue) {
                   {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
                   {/*    </Map>*/}
                   {/*  </YMaps>*/}
+
 
 
 
@@ -203,7 +210,7 @@ function App(defaultValue) {
                   {/*        <Route exact path={AuthRoutes.signUp} element={<SignUpComponent/>}/>*/}
                   {/*    </Routes>*/}
                   {/*</div>*/}
-              </main>
+
           </Router>
 
       </div>

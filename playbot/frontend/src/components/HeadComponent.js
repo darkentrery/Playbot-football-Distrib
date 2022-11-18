@@ -1,6 +1,10 @@
+import {useContext} from "react";
+import {OpenLoginContext} from "../context/AuthContext";
 
 
 export default function HeadComponent () {
+
+    const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
 
 
     return(
@@ -27,7 +31,7 @@ export default function HeadComponent () {
             <div className={"elem search-black-icon"}></div>
             <div className={"elem elem-5"}>
                 <div className={"avatar-black-icon"}></div>
-                <span>Регистрация / Вход</span>
+                <span onClick={(e) => setOpenLogin(!openLogin)}>Регистрация / Вход</span>
             </div>
         </div>
     )
