@@ -19,6 +19,16 @@ $marginSides: 60px;
 $bottomHeight: 224px;
 $successMarginBottom: 0;
 
+$paddingSidesBody: 60px;
+$paddingTopBody: 32px;
+$paddingBottomBody: 60px;
+$paddingEventsTable: 20px;
+$col-1-Width: 260px;
+$col-2-Width: 520px;
+$col-3-Width: 100px;
+$col-4-Width: 100px;
+$col-5-Width: 24px;
+
 
 @import "fonts";
 
@@ -44,6 +54,16 @@ $successMarginBottom: 0;
   $refreshWidth: $popupWidth/2;
   $marginSides: 30px;
   $bottomHeight: 323px;
+
+  $paddingSidesBody: 20px;
+  $paddingTopBody: 16px;
+  $paddingBottomBody: 40px;
+  $paddingEventsTable: 16px;
+  $col-1-Width: 160px;
+  $col-2-Width: 210px;
+  $col-3-Width: 80px;
+  $col-4-Width: 80px;
+  $col-5-Width: 24px;
   @import "main";
   .sign-up-l-elem.close {
     display: none;

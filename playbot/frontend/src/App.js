@@ -36,7 +36,6 @@ import HeadComponent from "./components/HeadComponent";
 import BodyComponent from "./components/BodyComponent";
 import BottomComponent from "./components/BottomComponent";
 import SuccessSignUp2Component from "./components/success/SuccessSignUp2";
-import EventsComponent from "./components/EventsComponent";
 
 
 function App(defaultValue) {
