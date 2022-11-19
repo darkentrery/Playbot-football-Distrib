@@ -168,7 +168,8 @@ export default function SignUpComponent () {
         if ($(e.target).attr('placeholder') !== "Пароль *" && !elem.hasClass('disabled')) {
             elem.addClass('disabled');
         }
-        if (isDropdown && !$(e.target).hasClass('dropdown-elem')) {
+        if (isDropdown && !$(e.target).hasClass('dropdown-elem') && !$(e.target).hasClass('search-icon')) {
+            console.log($(e.target))
             setIsDropdown(!isDropdown);
             refArrowIcon.current.className = "down-arrow-icon";
             $(refPhoneNumber.current).removeClass('open');

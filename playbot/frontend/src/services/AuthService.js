@@ -284,7 +284,6 @@ export default class AuthService{
 	}
 
 	 confirmSignUp(pathName){
-		 console.log(API_URL.slice(0,-4))
 		const url = `${API_URL.slice(0,-4)}${pathName.slice(1,)}`;
 		return axios.get(url, {headers: {
 			'Content-Type': 'application/json',
