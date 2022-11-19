@@ -31,6 +31,7 @@ export default function SignUpComponent () {
     const [countryTag, setCountryTag] = useState([]);
     const [countries, setCountries] = useState(false);
     const [banner, setBanner] = useState(false);
+    const [enterFlag, setEnterFlag] = useState(false);
 
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
@@ -172,6 +173,7 @@ export default function SignUpComponent () {
             refArrowIcon.current.className = "down-arrow-icon";
             $(refPhoneNumber.current).removeClass('open');
         }
+        if ($(e.target)[0].nodeName !== "INPUT") $('.btn.btn-reg').focus();
     }
 
     const openAllowPolicy = () => {
@@ -209,6 +211,7 @@ export default function SignUpComponent () {
             })
         }
     }
+
 
     return(
         <Modal
@@ -287,7 +290,7 @@ export default function SignUpComponent () {
                             </div>
                         </div>
                         <div className={"sign-up-l-elem bottom"}>
-                            <button className={"btn btn-reg"} onClick={sendForm}>Зарегистрироваться</button>
+                            <button className={"btn btn-reg"} autoFocus={true} onClick={sendForm}>Зарегистрироваться</button>
                         </div>
                     </div>
                     <div className={"sign-up-l-bottom"}>

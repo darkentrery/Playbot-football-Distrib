@@ -65,6 +65,10 @@ export default function LoginComponent () {
         }
     }
 
+    const hiddenFrames = (e) => {
+        if ($(e.target)[0].nodeName !== "INPUT") $('.btn.btn-login').focus();
+    }
+
     return(
         <Modal
             isOpen={openLogin}
@@ -72,7 +76,7 @@ export default function LoginComponent () {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame login"}>
+            <div className={"popup-frame login"} onClick={hiddenFrames}>
                 <div className={"popup-left"}>
                     <div className={"login-l-body"}>
                         <div className={"login-l-elem close"}>
@@ -91,7 +95,7 @@ export default function LoginComponent () {
                             <div className={"eye-icon right-input-icon"} onClick={hiddenPassword}></div>
                         </div>
                         <div className={"login-l-elem"}>
-                            <button className={"btn btn-login"} onClick={sendForm}>Войти</button>
+                            <button className={"btn btn-login"} autoFocus={true} onClick={sendForm}>Войти</button>
                         </div>
                         <div className={"login-l-elem"}>
                             <span onClick={toSignUp} className={"link link-login-reg"}>Регистрация</span>

@@ -56,6 +56,10 @@ export default function RefreshPasswordComponent () {
         }
     }
 
+    const hiddenFrames = (e) => {
+        if ($(e.target)[0].nodeName !== "INPUT") $('.btn.btn-reg').focus();
+    }
+
     return(
         <Modal
             isOpen={openRefreshPassword}
@@ -63,7 +67,7 @@ export default function RefreshPasswordComponent () {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame popup-frame-refresh"}>
+            <div className={"popup-frame popup-frame-refresh"} onClick={hiddenFrames}>
                 <div className={"refresh-body"}>
                     <div className={"refresh-elem refresh-head-elem"}>
                         <div onClick={toLogin} className={"btn-back refresh-back"}></div>
@@ -80,7 +84,7 @@ export default function RefreshPasswordComponent () {
                         <span className={"input-message"}></span>
                     </div>
                     <div className={"refresh-elem refresh-elem-btn"}>
-                        <button className={"btn btn-reg"} onClick={sendForm}>Войти</button>
+                        <button className={"btn btn-reg"} autoFocus={true} onClick={sendForm}>Войти</button>
                     </div>
                     <div className={"refresh-elem div-line"}>
                         <div className={"line"}></div>

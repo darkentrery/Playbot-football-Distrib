@@ -11,7 +11,7 @@ export default function ChoiceCityComponent () {
     const authService = new AuthService();
     const cityService = new CityService();
     const [city, setCity] = useState(false);
-    const [data, setData] = useState("No");
+    const [data, setData] = useState(false);
     const [citiesTag, setCitiesTag] = useState([]);
     const [cities, setCities] = useState([]);
     const [isIPhone, setIsIphone] = useState(false);
