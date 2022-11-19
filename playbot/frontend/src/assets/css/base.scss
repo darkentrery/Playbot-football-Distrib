@@ -47,6 +47,13 @@ input[type=text], [type=password] {
   -webkit-appearance: none;
 }
 
+a {
+  text-decoration: 0;
+  &:-webkit-any-link:active {
+    color: #949494;
+  }
+}
+
 .popup-fon {
   display: flex;
   justify-content: center;

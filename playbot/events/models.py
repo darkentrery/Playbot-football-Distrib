@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 # from django.contrib.gis.db import models
 from playbot.cities.models import City
+from playbot.users.models import User
 
 
 class CancelReasons(models.Model):
@@ -39,6 +40,7 @@ class Event(models.Model):
     notice = models.TextField(_("Notice"), blank=True, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="event", blank=True, null=True)
     is_player = models.BooleanField(_("Is Organizer Play"), default=False)
+    organizer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)
 
     class Meta:
         verbose_name = "Event"

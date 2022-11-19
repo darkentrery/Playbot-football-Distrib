@@ -1,5 +1,9 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {OpenLoginContext} from "../context/AuthContext";
+import {Link, Route, Routes} from "react-router-dom";
+import BaseRoutes from "../routes/BaseRoutes";
+import ActiveMenuLinkComponent from "./head/ActiveMenuLinkComponent";
+import InActiveMenuLinkComponent from "./head/InActiveMenuLinkComponent";
 
 
 export default function HeadComponent () {
@@ -11,18 +15,28 @@ export default function HeadComponent () {
         <div className={"head"}>
             <div className={"elem elem-1 logo-korobka-icon"}></div>
             <div className={"elem elem-2"}>
-                <div className={"menu-point black-point-icon"}>
-                    <span>Главная</span>
-                </div>
-                <div className={"menu-point black-point-icon inactive"}>
-                    <span>События</span>
-                </div>
+                <Routes>
+                    <Route exact path={BaseRoutes.events} element={<InActiveMenuLinkComponent link={BaseRoutes.main} label={"Главная"}/>}/>
+                    <Route exact path={BaseRoutes.main} element={<ActiveMenuLinkComponent link={BaseRoutes.main} label={"Главная"}/>}/>
+                </Routes>
+                <Routes>
+                    <Route exact path={BaseRoutes.events} element={<ActiveMenuLinkComponent link={BaseRoutes.events} label={"События"}/>}/>
+                    <Route exact path={BaseRoutes.main} element={<InActiveMenuLinkComponent link={BaseRoutes.events} label={"События"}/>}/>
+                </Routes>
+
+                {/*<div className={"menu-point black-point-icon"}>*/}
+                {/*    <Link to={BaseRoutes.main}><span>Главная</span></Link>*/}
+                {/*</div>*/}
+                {/*<div className={"menu-point black-point-icon inactive"}>*/}
+                {/*    <Link to={BaseRoutes.events}><span>События</span></Link>*/}
+                {/*</div>*/}
                 <div className={"menu-point black-point-icon inactive"}>
                     <span>Статистика</span>
                 </div>
                 <div className={"menu-point black-point-icon inactive"}>
                     <span>FAQ</span>
                 </div>
+
             </div>
 
             <div className={"elem"}>

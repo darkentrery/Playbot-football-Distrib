@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import {OpenCreateEventUnAuthContext} from "../context/EventContext";
-import ReactDatetimeClass from "react-datetime";
 import {OpenLoginContext} from "../context/AuthContext";
 
 
@@ -12,6 +11,7 @@ export default function CreateEventUnAuthComponent () {
     const toLogin = () => {
         setOpenCreateEventUnAuth(!openCreateEventUnAuth);
         setOpenLogin(!openLogin);
+        console.log("222")
     }
 
 
@@ -34,7 +34,7 @@ export default function CreateEventUnAuthComponent () {
                 </div>
                 <div className={"popup-right popup-img create-event-img"}>
                     <div className={"elem-1"}>
-                        <div onClick={(e) => setOpenCreateEventUnAuth(false)} className={"btn-close"}></div>
+                        <div onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} className={"btn-close"}></div>
                     </div>
                     <div className={"elem-3"}>
                         <span className={"text"}>Зарегестрируйся или авторизуйся, чтобы создать игру</span>

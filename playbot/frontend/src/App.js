@@ -36,6 +36,7 @@ import HeadComponent from "./components/HeadComponent";
 import BodyComponent from "./components/BodyComponent";
 import BottomComponent from "./components/BottomComponent";
 import SuccessSignUp2Component from "./components/success/SuccessSignUp2";
+import EventsComponent from "./components/EventsComponent";
 
 
 function App(defaultValue) {
@@ -88,7 +89,7 @@ function App(defaultValue) {
     // }, [openMobileFirstPage])
 
     const getOpenCreateEvent = async () => {
-        await getData(eventService.getCreateEvent, [], openLogin, setOpenLogin).then((response) => {
+        await authDecoratorWithoutLogin(eventService.getCreateEvent, []).then((response) => {
             if (response.status == 200) {
                 setOpenCreateEvent(!openCreateEvent)
             } else {
@@ -217,8 +218,8 @@ function App(defaultValue) {
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}
-                  {/*        <Route exact path={AuthRoutes.login} element={<LoginComponent/>}/>*/}
-                  {/*        <Route exact path={AuthRoutes.signUp} element={<SignUpComponent/>}/>*/}
+                  {/*        <Route exact path={"events/"} element={<EventsComponent/>}/>*/}
+                  {/*        /!*<Route exact path={AuthRoutes.signUp} element={<SignUpComponent/>}/>*!/*/}
                   {/*    </Routes>*/}
                   {/*</div>*/}
 

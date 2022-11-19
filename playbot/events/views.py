@@ -14,6 +14,8 @@ class CreateEventView(APIView):
             return Response(status=status.HTTP_200_OK)
 
     def post(self, request, format='json'):
+        data = request.data
+        data.update({"organizer": request.user.pk})
         serializer = CreateEventSerializer(data=request.data)
         if serializer.is_valid():
             event = serializer.save()
