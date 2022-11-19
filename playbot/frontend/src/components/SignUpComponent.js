@@ -59,18 +59,17 @@ export default function SignUpComponent () {
 
 
 
-    function phoneInput(event) {
-        let value = event.target.value.replace(/\D/g, "");
-        if (value.length > 10) value = value.slice(0, 10);
-        let formatValue = '';
+    function phoneInput(elem) {
+        let value = elem.value.replace(/\D/g, "").slice(1, 11);
+        let formatValue = `${phoneCode}`;
         if (value.length > 0 && value.length < 4) {
-            formatValue = `(${value}`;
+            formatValue = `${phoneCode} (${value}`;
         } else if (value.length > 3 && value.length < 7) {
-            formatValue = `(${value.slice(0, 3)})-${value.slice(3, 6)}`;
+            formatValue = `${phoneCode} (${value.slice(0, 3)})-${value.slice(3, 6)}`;
         } else if (value.length > 6) {
-            formatValue = `(${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(6, 10)}`;
+            formatValue = `${phoneCode} (${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(6, 10)}`;
         }
-        event.target.value = formatValue;
+        elem.value = formatValue;
         setPhoneNumber(value);
     }
 
@@ -88,9 +87,15 @@ export default function SignUpComponent () {
     const choicePhoneCode = (e) => {
         let parent = $(e.target).closest('.dropdown-elem');
         setBanner(parent.find('img').attr('src'));
-        console.log(parent.find('.code').html())
-        setPhoneCode(parent.find('.code').html());
+        let  code = parent.find('.code').html();
+        setPhoneCode(code);
+        let formatPhone = code + $(refPhoneNumber.current).find('.phone-input').html().slice(2, 15);
+        $(refPhoneNumber.current).find('.phone-input').val(formatPhone);
         openDropdown();
+    }
+
+    const clickPhoneInput = (e) => {
+        if ($(e.target).val().length === 0) $(e.target).val(phoneCode);
     }
 
     useEffect(() => {
@@ -157,10 +162,15 @@ export default function SignUpComponent () {
         setPasswordConfirm(newPassword);
     }
 
-    const hiddenSuggestPassword = (e) => {
+    const hiddenFrames = (e) => {
         let elem = $(refPassword.current).children('.generate-password');
         if ($(e.target).attr('placeholder') !== "Пароль *" && !elem.hasClass('disabled')) {
             elem.addClass('disabled');
+        }
+        if (isDropdown && !$(e.target).hasClass('dropdown-elem')) {
+            setIsDropdown(!isDropdown);
+            refArrowIcon.current.className = "down-arrow-icon";
+            $(refPhoneNumber.current).removeClass('open');
         }
     }
 
@@ -189,13 +199,12 @@ export default function SignUpComponent () {
                 if (!errors.size) {
                     closeWindow();
                     setOpenSuccessSignUp(!openSuccessSignUp);
-                    if (isMobile) {
-                        authService.login(loginData).then((response) => {
-                            setOpenChoiceCity(!openChoiceCity);
-                            setOpenSuccessSignUp(!openSuccessSignUp);
-                        })
-
-                    }
+                    // if (isMobile) {
+                    //     authService.login(loginData).then((response) => {
+                    //         setOpenChoiceCity(!openChoiceCity);
+                    //         setOpenSuccessSignUp(!openSuccessSignUp);
+                    //     })
+                    // }
                 }
             })
         }
@@ -211,7 +220,7 @@ export default function SignUpComponent () {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame sign-up"} onClick={hiddenSuggestPassword}>
+            <div className={"popup-frame sign-up"} onClick={hiddenFrames}>
                 <div className={"popup-left"}>
                     <div className={"sign-up-l-body"}>
                         <div className={"sign-up-l-elem head"}>
@@ -244,7 +253,7 @@ export default function SignUpComponent () {
                                     </div>
                                 </div>
                             </div>
-                            <input className={"phone-input"} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event)}/>
+                            <input className={"phone-input"} onClick={clickPhoneInput} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event.target)}/>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refEmail}>
                             <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
@@ -288,7 +297,7 @@ export default function SignUpComponent () {
                                 <span onClick={toLogin} className={"link text-bold"}>Войти</span>
                             </span>
                         </div>
-                        <div className={"sign-up-l-bottom-elem"}>
+                        <div className={"sign-up-l-bottom-elem elem-3"}>
                             <div className={"line"}></div>
                         </div>
                         <div className={"sign-up-l-bottom-elem telegram"}>

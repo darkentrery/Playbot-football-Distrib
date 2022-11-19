@@ -13,7 +13,7 @@
   background: #F3F3F3;
 
   &.safari-margin {
-    flex: 1 0 186px;
+    flex: 1 0 196px;
     justify-content: start;
   }
 }
@@ -65,9 +65,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 20px;
+  flex: 0 0 20px;
   width: $fieldWidth;
-  margin: 5px;
+  margin: 8px;
+
+  &.elem-3 {
+    flex: 0 0 2px;
+    margin: 0;
+  }
 }
 
 .link-sign-up-login {
