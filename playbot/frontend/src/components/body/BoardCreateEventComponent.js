@@ -50,7 +50,7 @@ export default function BoardCreateEventComponent () {
 
             <div className={"board-create-event-376"}>
                 <span className={"elem elem-1 events-376-fon"}>События</span>
-                <button className={"elem elem-2 btn"} onClick={getOpenCreateEvent}><div className={"white-ball-icon"}></div></button>
+                <button className={"elem elem-2 btn"} onClick={getOpenCreateEvent}><div className={"white-plus-icon"}></div></button>
             </div>
 
             <OpenCreateEventContext.Provider value={createEventWindow}>
