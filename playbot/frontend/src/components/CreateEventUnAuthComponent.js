@@ -11,7 +11,6 @@ export default function CreateEventUnAuthComponent () {
     const toLogin = () => {
         setOpenCreateEventUnAuth(!openCreateEventUnAuth);
         setOpenLogin(!openLogin);
-        console.log("222")
     }
 
 
@@ -43,6 +42,16 @@ export default function CreateEventUnAuthComponent () {
                         <button className={"btn btn-login"} onClick={toLogin}>Регистрация / Вход</button>
                     </div>
                 </div>
+            </div>
+
+            <div className={"popup-frame create-event-376"}>
+                <div className={"elem elem-1"}>
+                    <div onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} className={"btn-close"}></div>
+                </div>
+                <span className={"elem elem-2"}>Войдите или зарегистрируйтесь</span>
+                <span className={"elem elem-3"}>Для того чтобы создать игру, нужно зарегистрироваться</span>
+                <button className={"elem elem-4 btn"} onClick={toLogin}>Вход</button>
+                <span className={"elem elem-5 link"}>Регистрация</span>
             </div>
         </Modal>
     )

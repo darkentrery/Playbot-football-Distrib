@@ -1,3 +1,7 @@
+.create-event-376 {
+  display: none;
+}
+
 .create-event {
   width: $createEventWidth;
   height: $createEventHeight;
@@ -55,7 +59,6 @@
 
     &.elem-3 {
       justify-content: start;
-      flex: 1 0 auto;
       flex-direction: column;
 
       input {
@@ -69,7 +72,6 @@
 
     &.elem-4 {
       justify-content: start;
-      flex: 1 0 auto;
       flex-direction: column;
 
       input {
@@ -123,7 +125,7 @@
       flex-direction: column;
       textarea {
         box-sizing: border-box;
-        flex: 0 0 69px;
+        flex: 1 0 69px;
       }
     }
 
@@ -139,6 +141,10 @@
       &.error {
         color: #EC5B56;
       }
+    }
+
+    input {
+      box-sizing: border-box;
     }
   }
 }
@@ -199,6 +205,114 @@
 
 .event-inactive {
   flex: 1 1 auto !important;
-  background: url("../icon/event-inactive.png") no-repeat;
-  background-size: cover;
+  background: url("../icon/event-inactive.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .popup-left .elem {
+
+    &.elem-1 {
+      margin-top: 28px;
+      margin-bottom: 22px;
+    }
+
+    &.elem-10 {
+      margin-bottom: 30px;
+    }
+  }
+
+  .popup-right {
+    .elem-3 {
+      margin-left: 30px;
+
+    }
+
+    .elem-4 {
+      margin-left: 30px;
+    }
+  }
+
+  .event-inactive {
+    background: url("../icon/event-inactive-376.png");
+    background-size: cover;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .popup-right {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .create-event {
+    display: none;
+  }
+
+  .popup-fon {
+    justify-content: stretch;
+    align-items: stretch;
+  }
+
+  .create-event-376 {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: stretch;
+
+    .elem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .elem-1 {
+      flex: 0 0 24px;
+      justify-content: end;
+      margin-top: 24px;
+      width: 100vw;
+
+      .btn-close {
+        margin-right: 24px;
+      }
+    }
+
+    .elem-2 {
+      flex: 1 0 48px;
+      align-items: end;
+      width: 247px;
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+
+    .elem-3 {
+      flex: 0 0 38px;
+      align-items: center;
+      width: 249px;
+      margin-bottom: 25px;
+    }
+
+    .elem-4 {
+      flex: 0 0 $fieldHeight;
+      width: 296px;
+      margin-bottom: 24px;
+    }
+
+    .elem-5 {
+      flex: 1 0 19px;
+      width: 100px;
+      align-items: start;
+      color: #D19C6C;
+      font-weight: 600;
+      font-size: 16px;
+
+    }
+
+  }
 }

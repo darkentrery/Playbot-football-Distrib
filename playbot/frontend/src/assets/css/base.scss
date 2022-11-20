@@ -326,7 +326,6 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  //width: 217px;
   height: $fieldHeight;
   box-sizing: border-box;
 
@@ -338,7 +337,7 @@ input[type="checkbox"] {
     border: 0.8px solid #949494;
     border-radius: 8px;
     cursor: pointer;
-
+    box-sizing: border-box;
   }
 }
 
