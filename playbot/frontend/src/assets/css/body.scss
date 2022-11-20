@@ -98,41 +98,113 @@
       display: flex;
       align-items: center;
       flex: 0 0 56px;
-      //white-space: nowrap;
 
       .elem {
         margin-right: 20px;
         color: #949494;
         font-size: 13px;
+        box-sizing: border-box;
 
         &.elem-1 {
-          margin-left: 16px;
+          //margin-left: 16px;
+          padding-left: 16px;
           flex: 0 1 $col-1-Width;
-
         }
         &.elem-2 {
-          margin-left: 16px;
           flex: 1 0 $col-2-Width;
-
         }
         &.elem-3 {
-          margin-left: 16px;
           flex: 0 0 $col-3-Width;
-
         }
         &.elem-4 {
-          margin-left: 16px;
           flex: 0 0 $col-4-Width;
-
         }
         &.elem-5 {
-          margin-right: 16px;
           flex: 0 0 $col-5-Width;
           height: 24px;
-
         }
       }
     }
 
+    .date {
+      display: flex;
+      align-items: center;
+      flex: 0 0 43px;
+      padding-left: 16px;
+      background: #F3F3F3;
+      border-radius: 6px;
+
+      .bold {
+        font-weight: 600;
+      }
+    }
+
+    .event {
+      display: flex;
+      align-items: center;
+      flex: 0 0 58px;
+
+      .elem {
+        display: flex;
+        margin-right: 20px;
+        font-size: 13px;
+        box-sizing: border-box;
+
+        &.elem-1 {
+          padding-left: 16px;
+          flex: 0 1 $col-1-Width;
+
+          &.point-icon {
+            padding-left: 32px;
+            background-position: 12px center;
+          }
+
+          &.star-icon {
+            padding-left: 48px;
+            background-position: 16px center;
+          }
+        }
+
+        &.elem-2 {
+          flex: 1 0 $col-2-Width;
+          flex-direction: column;
+          justify-content: center;
+
+          .time {
+            color: #949494;
+            font-size: 13px;
+          }
+        }
+
+        &.elem-3 {
+          flex: 0 0 $col-3-Width;
+        }
+
+        &.elem-4 {
+          flex: 0 0 $col-4-Width;
+        }
+
+        &.elem-5 {
+          flex: 0 0 $col-5-Width;
+          height: 24px;
+        }
+
+        &.green {
+          color: #72C140;
+        }
+
+        &.gray {
+          color: #949494;
+        }
+
+        &.red {
+          color: #EC5B56;
+        }
+
+        &.orange {
+          color: #EFB041;
+        }
+      }
+    }
   }
 }
