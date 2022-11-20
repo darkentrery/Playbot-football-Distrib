@@ -43,9 +43,9 @@ function App(defaultValue) {
     const [openSignUp, setOpenSignUp] = useState(false);
     const [openLogin, setOpenLogin] = useState(false);
     const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
-    const [openCreateEvent, setOpenCreateEvent] = useState(false);
-    const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
-    const [openSuccessCreateEvent, setOpenSuccessCreateEvent] = useState(false);
+    // const [openCreateEvent, setOpenCreateEvent] = useState(false);
+    // const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
+    // const [openSuccessCreateEvent, setOpenSuccessCreateEvent] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [openChoiceCity, setOpenChoiceCity] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
@@ -57,9 +57,9 @@ function App(defaultValue) {
     const signUpWindow = { openSignUp, setOpenSignUp };
     const loginWindow = { openLogin, setOpenLogin };
     const refreshPasswordWindow = { openRefreshPassword, setOpenRefreshPassword };
-    const createEventWindow = { openCreateEvent, setOpenCreateEvent };
-    const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
-    const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
+    // const createEventWindow = { openCreateEvent, setOpenCreateEvent };
+    // const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
+    // const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
     const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
     const successRefreshPasswordWindow = { openSuccessRefreshPassword, setOpenSuccessRefreshPassword };
@@ -87,16 +87,16 @@ function App(defaultValue) {
 
     // }, [openMobileFirstPage])
 
-    const getOpenCreateEvent = async () => {
-        await authDecoratorWithoutLogin(eventService.getCreateEvent, []).then((response) => {
-            if (response.status == 200) {
-                setOpenCreateEvent(!openCreateEvent)
-            } else {
-                setOpenCreateEventUnAuth(!openCreateEventUnAuth)
-            }
-            console.log(response)
-        })
-    }
+    // const getOpenCreateEvent = async () => {
+    //     await authDecoratorWithoutLogin(eventService.getCreateEvent, []).then((response) => {
+    //         if (response.status == 200) {
+    //             setOpenCreateEvent(!openCreateEvent)
+    //         } else {
+    //             setOpenCreateEventUnAuth(!openCreateEventUnAuth)
+    //         }
+    //         console.log(response)
+    //     })
+    // }
 
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
@@ -116,17 +116,19 @@ function App(defaultValue) {
       <div className="App">
           <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
           <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
-          <button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>
-          <button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>
+          {/*<button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>*/}
+          {/*<button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>*/}
           <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
-          <button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>
+          {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
               <main className={"main-page"}>
                   <OpenLoginContext.Provider value={loginWindow}>
                       <HeadComponent/>
                   </OpenLoginContext.Provider>
+                  <OpenLoginContext.Provider value={loginWindow}>
+                      <BodyComponent/>
+                  </OpenLoginContext.Provider>
 
-                  <BodyComponent/>
                   <BottomComponent/>
               </main>
 
@@ -174,21 +176,22 @@ function App(defaultValue) {
                       </OpenRefreshPasswordContext.Provider>
                   </OpenLoginContext.Provider>
 
-                  <OpenCreateEventContext.Provider value={createEventWindow}>
-                      <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>
-                          <CreateEventComponent/>
-                      </OpenSuccessCreateEventContext.Provider>
-                  </OpenCreateEventContext.Provider>
+                  {/*<OpenCreateEventContext.Provider value={createEventWindow}>*/}
+                  {/*    <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>*/}
+                  {/*        <CreateEventComponent/>*/}
+                  {/*    </OpenSuccessCreateEventContext.Provider>*/}
+                  {/*</OpenCreateEventContext.Provider>*/}
 
-                  <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>
-                      <SuccessCreateEventComponent/>
-                  </OpenSuccessCreateEventContext.Provider>
+                  {/*<OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>*/}
+                  {/*    <SuccessCreateEventComponent/>*/}
+                  {/*</OpenSuccessCreateEventContext.Provider>*/}
 
-                  <OpenLoginContext.Provider value={loginWindow}>
-                      <OpenCreateEventUnAuthContext.Provider value={createEventUnAuthWindow}>
-                          <CreateEventUnAuthComponent/>
-                      </OpenCreateEventUnAuthContext.Provider>
-                  </OpenLoginContext.Provider>
+                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
+                  {/*    <OpenCreateEventUnAuthContext.Provider value={createEventUnAuthWindow}>*/}
+                  {/*        <CreateEventUnAuthComponent/>*/}
+                  {/*    </OpenCreateEventUnAuthContext.Provider>*/}
+                  {/*</OpenLoginContext.Provider>*/}
+
 
                   <OpenLoginContext.Provider value={loginWindow}>
                       <OpenSignUpContext.Provider value={signUpWindow}>
