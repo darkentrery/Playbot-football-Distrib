@@ -91,6 +91,11 @@ $col-5-Width: 24px;
   $successEventHeight: 100vh;
   $successMarginBottom: 50px;
   $borderRadius: 0;
+
+  $paddingSidesBody: 16px;
+  $paddingTopBody: 16px;
+  $paddingBottomBody: 2px;
+  $paddingEventsTable: 0px;
   @import "main";
   .popup-right {
     display: none;
@@ -110,6 +115,11 @@ $col-5-Width: 24px;
   $successEventHeight: 100vh;
   $successMarginBottom: 50px;
   $borderRadius: 0;
+
+  $paddingSidesBody: 16px;
+  $paddingTopBody: 16px;
+  $paddingBottomBody: 2px;
+  $paddingEventsTable: 0px;
   @import "main";
   .popup-right {
     display: none;

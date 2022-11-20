@@ -211,12 +211,24 @@
 
 .main-page .body .board-create-event {
   display: flex;
-  flex-direction: column;
   flex: 0 0 478px;
+  justify-content: stretch;
+  align-items: stretch;
+  margin-bottom: 40px;
+}
+
+.main-page .body .board-create-event .board-create-event-376 {
+  display: none;
+}
+
+.main-page .body .board-create-event .board-create-event-1280 {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   background: #FFFFFF;
   box-shadow: 0px 2px 10px rgba(215, 215, 215, 0.25);
   border-radius: 10px;
-  margin-bottom: 40px;
+
 
   .elem {
     display: flex;
@@ -269,7 +281,6 @@
     }
 
     &.elem-3 {
-      //margin-top: 76px;
       flex: 0 0 $fieldHeight;
       align-items: stretch;
       margin-bottom: 70px;
@@ -286,4 +297,45 @@
       }
     }
   }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .main-page .body .board-create-event .board-create-event-1280 {
+    display: none;
+  }
+
+  .main-page .body .board-create-event {
+    display: flex;
+    flex: 0 0 60px;
+    justify-content: stretch;
+    align-items: stretch;
+    margin-bottom: 16px;
+  }
+
+  .main-page .body .board-create-event .board-create-event-376 {
+    display: flex;
+    flex: 1 1 auto;
+
+    .elem {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .elem-1 {
+      flex: 1 1 auto;
+      margin-right: 12px;
+      border-radius: 8px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+
+    .elem-2 {
+      flex: 0 0 60px;
+
+    }
+  }
+
 }
