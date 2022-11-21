@@ -36,6 +36,8 @@ $col-4-Player-Width: 182px;
 $col-5-Player-Width: 141px;
 $col-6-Player-Width: 192px;
 
+$noEventsHeight: 243px;
+
 $whiteColor: #FFFFFF;
 $grayColor: #949494;
 $lightGrayColor: #F3F3F3;
@@ -90,6 +92,8 @@ $lightGrayColor: #F3F3F3;
   $col-5-Player-Width: 56px;
   $col-6-Player-Width: 137px;
 
+  $noEventsHeight: 226px;
+
   @import "main";
   .sign-up-l-elem.close {
     display: none;
@@ -130,6 +134,8 @@ $lightGrayColor: #F3F3F3;
   $col-1-Width: 55px;
   $col-2-Width: 70px;
   $col-3-Width: 51px;
+
+  $noEventsHeight: 443px;
   @import "main";
   .popup-right {
     display: none;
@@ -162,6 +168,9 @@ $lightGrayColor: #F3F3F3;
   $col-1-Width: 55px;
   $col-2-Width: 70px;
   $col-3-Width: 51px;
+
+  $noEventsHeight: 443px;
+
   @import "main";
   .popup-right {
     display: none;

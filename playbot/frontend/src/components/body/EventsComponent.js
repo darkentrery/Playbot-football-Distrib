@@ -5,17 +5,6 @@ export default function EventsComponent () {
 
     return (
         <div className={"body-events"}>
-            <div className={"title"}>
-                <span className={"t-1"}>Список событий</span>
-                <div className={"t-2"}>
-                    <span>Смотреть все</span>
-                    <div className={"orange-right-arrow-icon"}></div>
-                </div>
-            </div>
-            <div className={"location"}>
-                <span className={"elem country"}>Россия</span>
-                <span className={"elem city"}>Санкт-Петербург</span>
-            </div>
             <div className={"events-table"}>
                 <div className={"table-head"}>
                     <span className={"elem elem-1"}>Название</span>
@@ -70,8 +59,6 @@ export default function EventsComponent () {
                     </div>
                 </div>
             </div>
-
-
         </div>
     )
 }

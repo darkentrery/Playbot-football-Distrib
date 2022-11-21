@@ -6,6 +6,10 @@ import EventsComponent from "./body/EventsComponent";
 import BoardCreateEventComponent from "./body/BoardCreateEventComponent";
 import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 import BestPlayersComponent from "./body/BestPlayersComponent";
+import NoEventsComponent from "./body/NoEventsComponent";
+import TitleComponent from "./body/TitleComponent";
+import LocationComponent from "./body/LocationComponent";
+
 
 export default function BodyComponent () {
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
@@ -22,8 +26,16 @@ export default function BodyComponent () {
                 </OpenLoginContext.Provider>
             </OpenSignUpContext.Provider>
 
+            <TitleComponent label={"Список событий"}/>
+            <LocationComponent/>
+            <NoEventsComponent/>
 
+            <TitleComponent label={"Список событий"}/>
+            <LocationComponent/>
             <EventsComponent/>
+
+            <TitleComponent label={"Лучшие игроки"}/>
+            <LocationComponent/>
             <BestPlayersComponent/>
             {/*<Routes>*/}
             {/*    <Route exact path={BaseRoutes.events} element={<EventsComponent/>}/>*/}
