@@ -125,9 +125,12 @@ function App(defaultValue) {
                   <OpenLoginContext.Provider value={loginWindow}>
                       <HeadComponent/>
                   </OpenLoginContext.Provider>
-                  <OpenLoginContext.Provider value={loginWindow}>
-                      <BodyComponent/>
-                  </OpenLoginContext.Provider>
+                  <OpenSignUpContext.Provider value={signUpWindow}>
+                      <OpenLoginContext.Provider value={loginWindow}>
+                          <BodyComponent/>
+                      </OpenLoginContext.Provider>
+                  </OpenSignUpContext.Provider>
+
 
                   <BottomComponent/>
               </main>

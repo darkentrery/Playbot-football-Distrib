@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import {OpenCreateEventUnAuthContext} from "../context/EventContext";
-import {OpenLoginContext} from "../context/AuthContext";
+import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 
 
 export default function CreateEventUnAuthComponent () {
     const { openCreateEventUnAuth, setOpenCreateEventUnAuth } = useContext(OpenCreateEventUnAuthContext);
     const { openLogin, setOpenLogin } = useContext(OpenLoginContext);
+    const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
 
     const toLogin = () => {
         setOpenCreateEventUnAuth(!openCreateEventUnAuth);
         setOpenLogin(!openLogin);
+    }
+
+    const toSignUp = () => {
+        setOpenCreateEventUnAuth(!openCreateEventUnAuth);
+        setOpenSignUp(!openSignUp);
     }
 
 
@@ -51,7 +57,7 @@ export default function CreateEventUnAuthComponent () {
                 <span className={"elem elem-2"}>Войдите или зарегистрируйтесь</span>
                 <span className={"elem elem-3"}>Для того чтобы создать игру, нужно зарегистрироваться</span>
                 <button className={"elem elem-4 btn"} onClick={toLogin}>Вход</button>
-                <span className={"elem elem-5 link"}>Регистрация</span>
+                <span className={"elem elem-5 link"} onClick={toSignUp}>Регистрация</span>
             </div>
         </Modal>
     )

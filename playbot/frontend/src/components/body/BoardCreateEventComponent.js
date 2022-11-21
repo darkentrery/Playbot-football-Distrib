@@ -6,7 +6,7 @@ import {
     OpenSuccessCreateEventContext
 } from "../../context/EventContext";
 import SuccessCreateEventComponent from "../success/SuccessCreateEventComponent";
-import {OpenLoginContext} from "../../context/AuthContext";
+import {OpenLoginContext, OpenSignUpContext} from "../../context/AuthContext";
 import CreateEventUnAuthComponent from "../CreateEventUnAuthComponent";
 import EventService from "../../services/EventService";
 import CreateEventComponent from "../CreateEventComponent";
@@ -21,7 +21,9 @@ export default function BoardCreateEventComponent () {
     const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
     const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
+    const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const loginWindow = { openLogin, setOpenLogin };
+    const signUpWindow = { openSignUp, setOpenSignUp };
 
     const getOpenCreateEvent = async () => {
         await authDecoratorWithoutLogin(eventService.getCreateEvent, []).then((response) => {
@@ -65,7 +67,9 @@ export default function BoardCreateEventComponent () {
 
             <OpenLoginContext.Provider value={loginWindow}>
                 <OpenCreateEventUnAuthContext.Provider value={createEventUnAuthWindow}>
-                    <CreateEventUnAuthComponent/>
+                    <OpenSignUpContext.Provider value={signUpWindow}>
+                        <CreateEventUnAuthComponent/>
+                    </OpenSignUpContext.Provider>
                 </OpenCreateEventUnAuthContext.Provider>
             </OpenLoginContext.Provider>
         </div>
