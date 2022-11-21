@@ -1,3 +1,5 @@
+@import "head/user";
+
 .main-page .head {
   display: flex;
   flex: 0 0 96px;
@@ -53,7 +55,7 @@
       cursor: pointer;
     }
 
-    &.elem-5 {
+    &.un-auth-user {
       flex-direction: row;
       flex: 0 0 189px;
       margin-right: $marginSides;
@@ -79,7 +81,7 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .main-page .head .elem-5 {
+  .main-page .head .un-auth-user {
     flex: 0 0 18px !important;
 
     span {

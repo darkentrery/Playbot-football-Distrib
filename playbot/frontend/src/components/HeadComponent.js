@@ -4,11 +4,13 @@ import {Link, Route, Routes} from "react-router-dom";
 import BaseRoutes from "../routes/BaseRoutes";
 import ActiveMenuLinkComponent from "./head/ActiveMenuLinkComponent";
 import InActiveMenuLinkComponent from "./head/InActiveMenuLinkComponent";
+import UnAuthUserComponent from "./head/UnAuthUserComponent";
+import UserComponent from "./head/UserComponent";
 
 
 export default function HeadComponent () {
-
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
+    const loginWindow = { openLogin, setOpenLogin };
 
 
     return(
@@ -43,10 +45,12 @@ export default function HeadComponent () {
 
             </div>
             <div className={"elem search-black-icon"}></div>
-            <div className={"elem elem-5"}>
-                <div onClick={(e) => setOpenLogin(!openLogin)} className={"avatar-black-icon"}></div>
-                <span onClick={(e) => setOpenLogin(!openLogin)}>Регистрация / Вход</span>
-            </div>
+            {/*<OpenLoginContext.Provider value={loginWindow}>*/}
+            {/*    <UnAuthUserComponent/>*/}
+            {/*</OpenLoginContext.Provider>*/}
+
+            <UserComponent/>
+
         </div>
     )
 }
