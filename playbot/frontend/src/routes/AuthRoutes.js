@@ -3,11 +3,11 @@
 const AuthRoutes = {
 
 	get login () {
-		return "/login";
+		return "login/";
 	},
 
 	get signUp () {
-		return "/sign-up";
+		return "sign-up/";
 	}
 
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import {csrftoken} from "./CsrfService";
 import $ from "jquery";
 import {isMobile} from "react-device-detect";
+import BaseRoutes from "../routes/BaseRoutes";
 
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -222,6 +223,12 @@ export default class AuthService{
 			.catch((error) => {
 				return error.response;
 			});
+	}
+
+	logout(){
+		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token");
+		window.location.href = `${process.env.REACT_APP_MAIN_URL}${BaseRoutes.events}`;
 	}
 
 	updateCity(data){

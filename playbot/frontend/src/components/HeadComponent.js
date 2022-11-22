@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {OpenLoginContext} from "../context/AuthContext";
 import {Link, Route, Routes} from "react-router-dom";
 import BaseRoutes from "../routes/BaseRoutes";
@@ -6,11 +6,30 @@ import ActiveMenuLinkComponent from "./head/ActiveMenuLinkComponent";
 import InActiveMenuLinkComponent from "./head/InActiveMenuLinkComponent";
 import UnAuthUserComponent from "./head/UnAuthUserComponent";
 import UserComponent from "./head/UserComponent";
+import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
+import EventService from "../services/EventService";
 
 
 export default function HeadComponent () {
+    const eventService = new EventService();
+    const [isAuth, setIsAuth] = useState(false);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const loginWindow = { openLogin, setOpenLogin };
+
+    const auth = async () => {
+        await authDecoratorWithoutLogin(eventService.getCreateEvent, []).then((response) => {
+            if (response.status == 200) {
+                setIsAuth(true);
+            } else {
+                setIsAuth(false);
+            }
+            console.log(response)
+        })
+    }
+
+    useEffect(() => {
+        auth();
+    }, [isAuth])
 
 
     return(
@@ -48,9 +67,8 @@ export default function HeadComponent () {
             {/*<OpenLoginContext.Provider value={loginWindow}>*/}
             {/*    <UnAuthUserComponent/>*/}
             {/*</OpenLoginContext.Provider>*/}
-
-            <UserComponent/>
-
+            {isAuth && <UserComponent/>}
+            {!isAuth && <UnAuthUserComponent/>}
         </div>
     )
 }

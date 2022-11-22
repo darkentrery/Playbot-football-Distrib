@@ -44,6 +44,7 @@
       margin-bottom: 32px;
       justify-content: center;
       flex: 0 0 26px;
+      flex-direction: column;
 
       .btn-close {
         display: none;
@@ -244,10 +245,23 @@
   .popup-right {
     display: none;
   }
-}
 
-@media screen and (min-width: 375px) and (max-width: 743px){
-  .create-event {
+  .popup-left {
+    .elem-1 {
+      width: 100vw;
+      align-items: center;
+
+      .btn-close {
+        display: flex !important;
+        flex: 0 0 28px;
+        width: 100vw;
+        margin-top: -28px;
+        background-position: calc(100vw - 56px) !important;
+      }
+    }
+  }
+
+  .create-event-un-auth {
     display: none;
   }
 
@@ -311,8 +325,6 @@
       color: #D19C6C;
       font-weight: 600;
       font-size: 16px;
-
     }
-
   }
 }

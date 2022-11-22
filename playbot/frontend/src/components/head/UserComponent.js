@@ -1,9 +1,11 @@
 import React, {useRef, useState} from "react";
 import userIcon from "../../assets/icon/player-avatar.png";
 import $ from "jquery";
+import AuthService from "../../services/AuthService";
 
 
 export default function UserComponent () {
+    const authService = new AuthService();
     const [isDropdown, setIsDropdown] = useState(false);
     const refuserHead = useRef();
 
@@ -26,6 +28,10 @@ export default function UserComponent () {
         setIsDropdown(false);
     }
 
+    const logout = () => {
+      authService.logout();
+    }
+
     return (
         <div className={"elem user"}>
             <div className={"el black-bell-icon"}></div>
@@ -38,7 +44,7 @@ export default function UserComponent () {
                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
                     <span className={"dropdown-elem"} onClick={selectMenu}>Профиль</span>
                     <span className={"dropdown-elem"} onClick={selectMenu}>Личные данные</span>
-                    <span className={"dropdown-elem"} onClick={selectMenu}>Выйти</span>
+                    <span className={"dropdown-elem"} onClick={logout}>Выйти</span>
                     <div className={"dropdown-elem d-el-4"} onClick={selectMenu}>
                         <span className={"label"}>Ваш город</span>
                         <span className={"city"}>Москва</span>

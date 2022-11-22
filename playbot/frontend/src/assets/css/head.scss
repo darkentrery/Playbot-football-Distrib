@@ -81,6 +81,10 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
+  .main-page .head .elem-2 {
+    flex: 0 0 395px !important;
+  }
+
   .main-page .head .un-auth-user {
     flex: 0 0 18px !important;
 

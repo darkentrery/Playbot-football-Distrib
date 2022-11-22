@@ -4,6 +4,7 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext} from "../context/AuthContext";
 import $ from 'jquery';
+import BaseRoutes from "../routes/BaseRoutes";
 
 
 export default function LoginComponent () {
@@ -50,6 +51,7 @@ export default function LoginComponent () {
                 errors = authService.loginResponseValidation(response, refEmail, refPassword);
                 if (!errors.length) {
                     closeWindow();
+                    window.location.href = `${process.env.REACT_APP_MAIN_URL}${BaseRoutes.events}`;
                 }
             })
         }

@@ -3,7 +3,7 @@
 const BaseRoutes = {
 
 	get events () {
-		return "/events/";
+		return "events/";
 	},
 
 	get main () {
