@@ -9,6 +9,8 @@ import BestPlayersComponent from "./body/BestPlayersComponent";
 import NoEventsComponent from "./body/NoEventsComponent";
 import TitleComponent from "./body/TitleComponent";
 import LocationComponent from "./body/LocationComponent";
+import BoardEventOrganizerComponent from "./body/BoardEventOrganizerComponent";
+import EventComponent from "./body/EventComponent";
 
 
 export default function BodyComponent () {
@@ -20,11 +22,12 @@ export default function BodyComponent () {
 
     return(
         <div className={"body"}>
-            <OpenSignUpContext.Provider value={signUpWindow}>
-                <OpenLoginContext.Provider value={loginWindow}>
-                    <BoardCreateEventComponent/>
-                </OpenLoginContext.Provider>
-            </OpenSignUpContext.Provider>
+            <EventComponent/>
+            {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
+            {/*    <OpenLoginContext.Provider value={loginWindow}>*/}
+            {/*        <BoardCreateEventComponent/>*/}
+            {/*    </OpenLoginContext.Provider>*/}
+            {/*</OpenSignUpContext.Provider>*/}
 
             <TitleComponent label={"Список событий"}/>
             <LocationComponent/>
@@ -37,10 +40,7 @@ export default function BodyComponent () {
             <TitleComponent label={"Лучшие игроки"}/>
             <LocationComponent/>
             <BestPlayersComponent/>
-            {/*<Routes>*/}
-            {/*    <Route exact path={BaseRoutes.events} element={<EventsComponent/>}/>*/}
-            {/*    <Route exact path={BaseRoutes.main} element={""}/>*/}
-            {/*</Routes>*/}
+
         </div>
     )
 }
