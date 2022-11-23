@@ -1,0 +1,64 @@
+.main-page .body .event-organizer-component .elem .event-members-component {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  border: 1px solid $grayColor;
+  border-radius: 10px;
+  align-items: stretch;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 28px;
+  padding-bottom: 34px;
+
+  .elem {
+    display: flex;
+    margin-top: 16px;
+    flex: 0 0 52px;
+
+     .el {
+       display: flex;
+     }
+
+    .el-1 {
+      flex: 1 1 auto;
+      flex-direction: column;
+      padding-left: 57px;
+      justify-content: space-around;
+
+      .name {
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .role {
+        font-size: 12px;
+      }
+
+    }
+
+    .el-2 {
+      flex: 0 0 42px;
+      height: 19px;
+      background: $whiteColor;
+      border-radius: 15px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+  }
+
+  .title {
+    display: flex;
+    flex: 0 0 24px;
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .main-page .body .event-organizer-component .elem .event-members-component {
+    padding: 24px;
+  }
+}
