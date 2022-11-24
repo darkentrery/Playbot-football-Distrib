@@ -1,4 +1,4 @@
-.main-page .body .event-organizer-component .elem .event-members-component {
+.event-members-component {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -50,15 +50,31 @@
   .title {
     display: flex;
     flex: 0 0 24px;
-    margin-bottom: 6px;
+    margin-bottom: 6px !important;
     font-weight: 700;
     font-size: 20px;
-    margin-top: 0;
+    margin-top: 0 !important;
   }
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .main-page .body .event-organizer-component .elem .event-members-component {
+  .event-members-component {
     padding: 24px;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .event-members-component {
+    padding: 20px;
+
+    &.disabled {
+      display: none;
+    }
+
+    .title {
+      display: flex !important;
+      font-weight: 700;
+      font-size: 18px;
+    }
   }
 }

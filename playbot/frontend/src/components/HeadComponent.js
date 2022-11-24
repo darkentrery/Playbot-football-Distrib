@@ -38,10 +38,10 @@ export default function HeadComponent () {
             <div className={"elem elem-2"}>
                 <Routes>
                     <Route exact path={BaseRoutes.events} element={<InActiveMenuLinkComponent link={BaseRoutes.main} label={"Главная"}/>}/>
-                    <Route exact path={BaseRoutes.main} element={<ActiveMenuLinkComponent link={BaseRoutes.main} label={"Главная"}/>}/>
+                    <Route exact path={BaseRoutes.main} element={<ActiveMenuLinkComponent link={""} label={"Главная"}/>}/>
                 </Routes>
                 <Routes>
-                    <Route exact path={BaseRoutes.events} element={<ActiveMenuLinkComponent link={BaseRoutes.events} label={"События"}/>}/>
+                    <Route exact path={BaseRoutes.events} element={<ActiveMenuLinkComponent link={""} label={"События"}/>}/>
                     <Route exact path={BaseRoutes.main} element={<InActiveMenuLinkComponent link={BaseRoutes.events} label={"События"}/>}/>
                 </Routes>
 

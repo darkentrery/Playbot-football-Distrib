@@ -34,6 +34,17 @@ export default function EventDescriptionComponent () {
             <span className={"elem-744 elem-6"}>Адрес:</span>
             <span className={"elem-744 elem-7"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>
             <div className={"elem-744 elem-8"}></div>
+
+            <div className={"elem-376 elem-1"}>
+                <span className={"el el-1"}>Информация</span>
+                <span className={"el gray-copy-icon link"}></span>
+            </div>
+            <span className={"elem-376 elem-2 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
+            <span className={"elem-376 elem-3"}>Организатор:</span>
+            <span className={"elem-376 elem-4"}>Андрей Иванов</span>
+            <span className={"elem-376 elem-5"}>Адрес:</span>
+            <span className={"elem-376 elem-6"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>
+            <div className={"elem-376 elem-7"}></div>
         </div>
     )
 }
