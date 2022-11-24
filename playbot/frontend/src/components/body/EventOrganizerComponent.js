@@ -5,6 +5,7 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import InActiveMenuLinkComponent from "../head/InActiveMenuLinkComponent";
 import React, {useRef} from "react";
 import $ from "jquery";
+import EventChatComponent from "./EventChatComponent";
 
 export default function EventOrganizerComponent () {
 
@@ -33,7 +34,7 @@ export default function EventOrganizerComponent () {
         <div className={"event-organizer-component"}>
             <div className={"elem-1280 elem-1"}>
                 <EventDescriptionComponent/>
-
+                <EventChatComponent/>
             </div>
             <div className={"elem-1280 elem-2"}>
                 <EventMembersComponent/>

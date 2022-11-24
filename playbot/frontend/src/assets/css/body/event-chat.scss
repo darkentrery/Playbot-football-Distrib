@@ -1,0 +1,50 @@
+.event-chat-component {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 40px;
+  align-items: stretch;
+  box-sizing: border-box;
+  margin-top: 24px;
+
+  .elem {
+    display: flex;
+    font-weight: 500;
+
+    .count {
+      font-weight: 500;
+      color: $grayColor;
+    }
+
+    &.elem-3 {
+      flex: 0 0 76px;
+      margin-top: 24px;
+      border: 1px solid $grayColor;
+      border-radius: 8px;
+      padding: 24px;
+      align-items: center;
+      box-sizing: border-box;
+
+      .el {
+        display: flex;
+
+        &.el-1 {
+          flex: 1 1 auto;
+          padding: 0;
+          border: 0;
+          border-radius: 0;
+        }
+
+        &.btn-second {
+          height: 32px;
+          flex: 0 0 110px;
+          font-weight: 600;
+        }
+      }
+    }
+
+  }
+
+}

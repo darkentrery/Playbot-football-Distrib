@@ -22,8 +22,6 @@ export default function EventMembersComponent () {
                 </div>
                 <span className={"el el-2"}>88,6</span>
             </div>
-
-
         </div>
     )
 }
