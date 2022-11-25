@@ -44,7 +44,49 @@
         }
       }
     }
-
   }
+}
 
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .event-chat-component {
+    padding: 24px;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .event-chat-component {
+    padding: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0;
+
+    &.disabled {
+      display: none;
+    }
+
+    .elem {
+
+      &.elem-3 {
+        flex: 0 0 121px;
+        margin-top: 24px;
+        flex-direction: column;
+        box-sizing: border-box;
+        align-items: stretch;
+        padding-bottom: 20px;
+        padding-top: 20px;
+
+        .el-1 {
+          flex: 1 1 auto !important;
+        }
+
+        .btn-second {
+          flex: 0 0 32px !important;
+          width: 110px;
+          margin-top: 8px;
+        }
+
+
+      }
+    }
+  }
 }

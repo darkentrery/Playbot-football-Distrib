@@ -2,12 +2,11 @@ import React, {useContext, useEffect, useState} from "react";
 import {OpenLoginContext} from "../context/AuthContext";
 import {Link, Route, Routes} from "react-router-dom";
 import BaseRoutes from "../routes/BaseRoutes";
-import ActiveMenuLinkComponent from "./head/ActiveMenuLinkComponent";
-import InActiveMenuLinkComponent from "./head/InActiveMenuLinkComponent";
 import UnAuthUserComponent from "./head/UnAuthUserComponent";
 import UserComponent from "./head/UserComponent";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
+import $ from "jquery";
 
 
 export default function HeadComponent () {
@@ -31,33 +30,22 @@ export default function HeadComponent () {
         auth();
     }, [isAuth])
 
+    const clickMenu = (e) => {
+        let parent = $(e.target).parent('.elem-2');
+        parent.children('a').removeClass('inactive');
+        parent.children('a').addClass('inactive');
+        $(e.target).removeClass('inactive');
+    }
+
 
     return(
         <div className={"head"}>
             <div className={"elem elem-1 logo-korobka-icon"}></div>
             <div className={"elem elem-2"}>
-                <Routes>
-                    <Route exact path={BaseRoutes.events} element={<InActiveMenuLinkComponent link={BaseRoutes.main} label={"Главная"}/>}/>
-                    <Route exact path={BaseRoutes.main} element={<ActiveMenuLinkComponent link={""} label={"Главная"}/>}/>
-                </Routes>
-                <Routes>
-                    <Route exact path={BaseRoutes.events} element={<ActiveMenuLinkComponent link={""} label={"События"}/>}/>
-                    <Route exact path={BaseRoutes.main} element={<InActiveMenuLinkComponent link={BaseRoutes.events} label={"События"}/>}/>
-                </Routes>
-
-                {/*<div className={"menu-point black-point-icon"}>*/}
-                {/*    <Link to={BaseRoutes.main}><span>Главная</span></Link>*/}
-                {/*</div>*/}
-                {/*<div className={"menu-point black-point-icon inactive"}>*/}
-                {/*    <Link to={BaseRoutes.events}><span>События</span></Link>*/}
-                {/*</div>*/}
-                <div className={"menu-point black-point-icon inactive"}>
-                    <span>Статистика</span>
-                </div>
-                <div className={"menu-point black-point-icon inactive"}>
-                    <span>FAQ</span>
-                </div>
-
+                <Link className={"menu-point black-point-icon"} to={BaseRoutes.main} onClick={clickMenu}>Главная</Link>
+                <Link className={"menu-point black-point-icon inactive"} to={BaseRoutes.events} onClick={clickMenu}>События</Link>
+                <Link className={"menu-point black-point-icon inactive"} to={BaseRoutes.main} onClick={clickMenu}>Статистика</Link>
+                <Link className={"menu-point black-point-icon inactive"} to={BaseRoutes.main} onClick={clickMenu}>FAQ</Link>
             </div>
 
             <div className={"elem"}>

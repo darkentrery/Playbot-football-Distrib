@@ -10,7 +10,6 @@ export default function EventChatComponent () {
             <div className={"elem elem-3"}>
                 <textarea className={"el el-1"} placeholder={"Введите текст сообщения"}></textarea>
                 <button className={"el btn-second"}>Отправить</button>
-
             </div>
         </div>
     )

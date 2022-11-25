@@ -16,6 +16,13 @@
   overflow: auto;
 }
 
+.main-page .body .main-page-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: stretch;
+}
+
 .main-page .body .title {
   display: flex;
   align-items: center;
@@ -183,7 +190,7 @@
     flex: 0 0 60px;
     justify-content: stretch;
     align-items: stretch;
-    margin: 16px;
+    margin: 20px;
   }
 
   .main-page .body .board-create-event .board-create-event-376 {
@@ -221,8 +228,8 @@
   }
 
   .main-page .body .location {
-    margin-right: 16px;
-    margin-left: 16px;
+    margin-right: 20px;
+    margin-left: 20px;
     margin-bottom: 16px;
   }
 
