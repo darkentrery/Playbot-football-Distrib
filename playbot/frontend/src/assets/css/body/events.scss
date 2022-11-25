@@ -48,6 +48,10 @@
       }
     }
 
+    .date-376 {
+      display: none;
+    }
+
     .date {
       display: flex;
       align-items: center;
@@ -153,6 +157,10 @@
     }
 
     .date {
+      display: none;
+    }
+
+    .date-376 {
       border-radius: 0;
       flex: 0 0 36px;
     }

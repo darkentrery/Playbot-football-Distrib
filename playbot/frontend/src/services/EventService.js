@@ -25,6 +25,20 @@ export default class EventService{
 			});
 	}
 
+	getEvents(){
+		const url = `${API_URL}get-events/`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	createEvent(event){
 		const url = `${API_URL}create/`;
 		return axios.post(url, event, {headers: {

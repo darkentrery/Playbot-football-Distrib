@@ -12,3 +12,9 @@ class CreateEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer"]
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = "__all__"

@@ -1,7 +1,59 @@
-
+import EventService from "../../services/EventService";
+import {useEffect, useState} from "react";
+import HTMLReactParser from "html-react-parser";
+import NoEventsComponent from "./NoEventsComponent";
 
 
 export default function EventsComponent () {
+    const eventService = new EventService();
+    const [events, setEvents] = useState([]);
+
+
+
+    useEffect(() => {
+        if (!events.length) {
+            eventService.getEvents().then((response) => {
+                if (response.status === 200) {
+                    let data = [];
+                    response.data.map((item, key) => {
+                        if (key === 0 || item.date !== events[key - 1]) {
+                            data.push({date: new Date(item.date)})
+                        }
+                        data.push({event: item})
+                    })
+                    setEvents(data);
+                }
+            })
+        }
+    }, [events])
+
+    const monthsNames = [
+       'января',
+       'февраля',
+       'марта',
+       'апреля',
+       'мая',
+       'июня',
+       'июля',
+       'августа',
+       'сентября',
+       'октября',
+       'ноября',
+       'декабря',
+    ];
+
+    const weekDay = [
+        "воскресенье",
+        "понеделльник",
+        "вторник",
+        "среда",
+        "четверг",
+        "пятница",
+        "суббота",
+    ]
+
+
+
 
     return (
         <div className={"body-events"}>
@@ -20,44 +72,94 @@ export default function EventsComponent () {
                     <span className={"elem elem-3"}>Рейтинг</span>
                 </div>
 
-                <div className={"date"}>
-                    <span className={"bold"}>12 мая <span>(вторник)</span></span>
-                </div>
-                <div className={"event"}>
-                    <span className={"elem elem-1 point-icon"}>Футбол с коллегами</span>
-                    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>
-                    <span className={"elem elem-3 green"}>10/10</span>
-                    <span className={"elem elem-4 gray"}>88,9</span>
-                    <span className={"elem elem-5 gray-right-arrow-icon"}></span>
-                </div>
-                <div className={"event"}>
-                    <span className={"elem elem-1 star-icon"}>Футбол с коллегами</span>
-                    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>
-                    <span className={"elem elem-3 red"}>10/10</span>
-                    <span className={"elem elem-4 orange"}>88,9</span>
-                    <span className={"elem elem-5 gray-right-arrow-icon"}></span>
-                </div>
+                {events.length && events.map((item, key) => {
+                    let date = item.date;
+                    if (item.date) {
+                        return (
+                            <div className={"date"}>
+                                <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
+                            </div>
+                        )
+                    } else {
+                        let event = item.event;
+                        return (
+                            <div className={"event"}>
+                                <span className={"elem elem-1 point-icon"}>{event.name}</span>
+                                <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
+                                <span className={"elem elem-3 green"}>10/{event.count_players}</span>
+                                <span className={"elem elem-4 gray"}>88,9</span>
+                                <span className={"elem elem-5 gray-right-arrow-icon"}></span>
+                            </div>
+                        )
+                    }
+                })}
 
-                <div className={"event-376"}>
-                    <div className={"row row-1"}>
-                        <span className={"elem elem-1 point-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>
-                        <span className={"elem elem-2 red"}>10/10</span>
-                        <span className={"elem elem-3 orange"}>88,9</span>
-                    </div>
-                    <div className={"row row-2"}>
-                        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>
-                    </div>
-                </div>
-                <div className={"event-376"}>
-                    <div className={"row row-1"}>
-                        <span className={"elem elem-1 star-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>
-                        <span className={"elem elem-2 red"}>10/10</span>
-                        <span className={"elem elem-3 orange"}>88,9</span>
-                    </div>
-                    <div className={"row row-2"}>
-                        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>
-                    </div>
-                </div>
+                {events.length && events.map((item, key) => {
+                    let date = item.date;
+                    if (item.date) {
+                        return (
+                            <div className={"date-376"}>
+                                <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
+                            </div>
+                        )
+                    } else {
+                        let event = item.event;
+                        return (
+                            <div className={"event-376"}>
+                                <div className={"row row-1"}>
+                                    <span className={"elem elem-1 point-icon"}>{event.name}<span className={"gray"}>12:00</span></span>
+                                    <span className={"elem elem-2 red"}>10/{event.count_players}</span>
+                                    <span className={"elem elem-3 orange"}>88,9</span>
+                                </div>
+                                <div className={"row row-2"}>
+                                    <span className={"elem elem-1 map-point-icon"}>{event.address}</span>
+                                </div>
+                            </div>
+                        )
+                    }
+                })}
+
+                {!events.length && <NoEventsComponent/>}
+
+
+                {/*<div className={"date"}>*/}
+                {/*    <span className={"bold"}>12 мая <span>(вторник)</span></span>*/}
+                {/*</div>*/}
+                {/*<div className={"event"}>*/}
+                {/*    <span className={"elem elem-1 point-icon"}>Футбол с коллегами</span>*/}
+                {/*    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>*/}
+                {/*    <span className={"elem elem-3 green"}>10/10</span>*/}
+                {/*    <span className={"elem elem-4 gray"}>88,9</span>*/}
+                {/*    <span className={"elem elem-5 gray-right-arrow-icon"}></span>*/}
+                {/*</div>*/}
+                {/*<div className={"event"}>*/}
+                {/*    <span className={"elem elem-1 star-icon"}>Футбол с коллегами</span>*/}
+                {/*    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>*/}
+                {/*    <span className={"elem elem-3 red"}>10/10</span>*/}
+                {/*    <span className={"elem elem-4 orange"}>88,9</span>*/}
+                {/*    <span className={"elem elem-5 gray-right-arrow-icon"}></span>*/}
+                {/*</div>*/}
+
+                {/*<div className={"event-376"}>*/}
+                {/*    <div className={"row row-1"}>*/}
+                {/*        <span className={"elem elem-1 point-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>*/}
+                {/*        <span className={"elem elem-2 red"}>10/10</span>*/}
+                {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
+                {/*    </div>*/}
+                {/*    <div className={"row row-2"}>*/}
+                {/*        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div className={"event-376"}>*/}
+                {/*    <div className={"row row-1"}>*/}
+                {/*        <span className={"elem elem-1 star-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>*/}
+                {/*        <span className={"elem elem-2 red"}>10/10</span>*/}
+                {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
+                {/*    </div>*/}
+                {/*    <div className={"row row-2"}>*/}
+                {/*        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         </div>
     )
