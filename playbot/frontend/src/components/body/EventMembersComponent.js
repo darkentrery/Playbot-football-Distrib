@@ -4,7 +4,7 @@ export default function EventMembersComponent () {
 
 
     return (
-        <div className={"event-members-component"}>
+        <div className={"event-members-component disabled"}>
             <span className={"title"}>Участники (8)</span>
 
             <div className={"elem"}>

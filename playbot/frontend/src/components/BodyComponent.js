@@ -13,6 +13,7 @@ import BoardEventOrganizerComponent from "./body/BoardEventOrganizerComponent";
 import EventComponent from "./body/EventComponent";
 import InActiveMenuLinkComponent from "./head/InActiveMenuLinkComponent";
 import MainPageComponent from "./body/MainPageComponent";
+import EventsPageComponent from "./body/EventsPageComponent";
 
 
 export default function BodyComponent () {
@@ -27,14 +28,8 @@ export default function BodyComponent () {
     return(
         <div className={"body"}>
             <Routes>
-                <Route exact path={BaseRoutes.events} element={""}/>
-                <Route exact path={BaseRoutes.main} element={
-                    // <OpenSignUpContext.Provider value={signUpWindow}>
-                    //     <OpenLoginContext.Provider value={loginWindow}>
-                            <MainPageComponent/>
-                        // </OpenLoginContext.Provider>
-                    // </OpenSignUpContext.Provider>
-                }/>
+                <Route exact path={BaseRoutes.events} element={<EventsPageComponent/>}/>
+                <Route exact path={BaseRoutes.main} element={<MainPageComponent/>}/>
 
                 <Route exact path={BaseRoutes.eventLink(eventPk)} element={<EventComponent pk={eventPk}/>}/>
             </Routes>

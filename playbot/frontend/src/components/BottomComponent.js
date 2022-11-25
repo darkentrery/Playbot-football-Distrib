@@ -1,5 +1,10 @@
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
+import BaseRoutes from "../routes/BaseRoutes";
+import {Link} from "react-router-dom";
+import React from "react";
+import $ from "jquery";
+
 
 export default function BottomComponent () {
 
@@ -15,6 +20,14 @@ export default function BottomComponent () {
         link.download = `Пользовательское соглашение.docx`;
         link.href = docOffer
         link.click();
+    }
+
+    const clickMenu = (e) => {
+      let parent = $(e.target).parent('.elem-376');
+      parent.children('a').removeClass('active');
+      parent.children('a').addClass('disabled');
+      $(e.target).removeClass('disabled');
+      $(e.target).addClass('active');
     }
 
 
@@ -104,18 +117,9 @@ export default function BottomComponent () {
             </div>
 
             <div className={"elem-376"}>
-                <div className={"elem elem-1"}>
-                    <div className={"orange-cup-icon"}></div>
-                    <span className={"active-page"}>События</span>
-                </div>
-                <div className={"elem elem-2"}>
-                    <div className={"statistic-icon disabled"}></div>
-                    <span className={"disabled-page"}>Статистика</span>
-                </div>
-                <div className={"elem elem-3"}>
-                    <div className={"avatar-icon disabled"}></div>
-                    <span className={"disabled-page"}>Профиль</span>
-                </div>
+                <Link className={"elem elem-1 orange-cup-icon active"} to={BaseRoutes.main} onClick={clickMenu}>События</Link>
+                <Link className={"elem elem-2 statistic-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Статистика</Link>
+                <Link className={"elem elem-3 avatar-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Профиль</Link>
             </div>
         </div>
     )

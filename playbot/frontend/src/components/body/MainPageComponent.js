@@ -16,11 +16,11 @@ export default function MainPageComponent () {
 
     return (
         <div className={"main-page-component"}>
-            <OpenSignUpContext.Provider value={signUpWindow}>
-                <OpenLoginContext.Provider value={loginWindow}>
+            {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
+            {/*    <OpenLoginContext.Provider value={loginWindow}>*/}
                     <BoardCreateEventComponent/>
-                </OpenLoginContext.Provider>
-            </OpenSignUpContext.Provider>
+                {/*</OpenLoginContext.Provider>*/}
+            {/*</OpenSignUpContext.Provider>*/}
 
             <TitleComponent label={"Список событий"}/>
             <LocationComponent/>

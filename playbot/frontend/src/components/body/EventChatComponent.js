@@ -2,7 +2,7 @@
 
 export default function EventChatComponent () {
     return (
-        <div className={"event-chat-component"}>
+        <div className={"event-chat-component disabled"}>
             <span className={"elem elem-1"}>Обсуждение<span className={"count"}>&nbsp;&nbsp;0</span></span>
             <div className={"elem elem-2"}>
 
