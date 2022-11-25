@@ -1,7 +1,7 @@
 
 
 
-export default function BoardEventOrganizerComponent () {
+export default function BoardEventOrganizerComponent ({event}) {
 
 
     return (

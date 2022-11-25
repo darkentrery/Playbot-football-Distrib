@@ -1,6 +1,6 @@
 
 
-export default function EventDescriptionComponent () {
+export default function EventDescriptionComponent ({event}) {
 
 
     return (
@@ -16,7 +16,8 @@ export default function EventDescriptionComponent () {
                 <span className={"el el-2"}>Организатор:</span>
             </div>
             <div className={"elem-1280 elem-5"}>
-                <span className={"el el-1"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>
+                {/*<span className={"el el-1"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>*/}
+                <span className={"el el-1"}>{event.address}</span>
                 <span className={"el el-2"}>Андрей Иванов</span>
             </div>
             <div className={"elem-1280 elem-6"}>

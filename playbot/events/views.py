@@ -34,3 +34,12 @@ class EventsView(APIView):
         return Response(events.data, status=status.HTTP_200_OK)
 
 
+class EventView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        id = self.kwargs.get("id")
+        event = EventSerializer(Event.objects.get(id=id)).data
+        return Response(event, status=status.HTTP_200_OK)
+
+
