@@ -118,8 +118,8 @@ export default function BottomComponent () {
 
             <div className={"elem-376"}>
                 <Link className={"elem elem-1 orange-cup-icon active"} to={BaseRoutes.main} onClick={clickMenu}>События</Link>
-                <Link className={"elem elem-2 statistic-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Статистика</Link>
-                <Link className={"elem elem-3 avatar-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Профиль</Link>
+                <Link className={"elem elem-2 orange-statistic-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Статистика</Link>
+                <Link className={"elem elem-3 orange-avatar-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Профиль</Link>
             </div>
         </div>
     )
