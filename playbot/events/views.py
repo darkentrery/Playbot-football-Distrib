@@ -21,7 +21,7 @@ class CreateEventView(APIView):
         if serializer.is_valid():
             event = serializer.save()
             if event:
-                json = serializer.validated_data
+                json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -30,8 +30,7 @@ class EventsView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json'):
-        events = EventSerializer(Event.objects.all(), many=True)
-
+        events = EventSerializer(Event.objects.all().order_by("date", "time_begin"), many=True)
         return Response(events.data, status=status.HTTP_200_OK)
 
 

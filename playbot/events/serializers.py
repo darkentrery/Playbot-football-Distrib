@@ -7,7 +7,7 @@ from playbot.users.models import User
 class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
-    organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
 
     class Meta:
         model = Event

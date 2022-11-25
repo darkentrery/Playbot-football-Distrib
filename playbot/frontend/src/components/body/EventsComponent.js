@@ -1,7 +1,8 @@
 import EventService from "../../services/EventService";
-import {useEffect, useState} from "react";
-import HTMLReactParser from "html-react-parser";
+import React, {useEffect, useState} from "react";
 import NoEventsComponent from "./NoEventsComponent";
+import BaseRoutes from "../../routes/BaseRoutes";
+import {Link} from "react-router-dom";
 
 
 export default function EventsComponent () {
@@ -16,7 +17,7 @@ export default function EventsComponent () {
                 if (response.status === 200) {
                     let data = [];
                     response.data.map((item, key) => {
-                        if (key === 0 || item.date !== events[key - 1]) {
+                        if (key === 0 || item.date !== response.data[key - 1].date) {
                             data.push({date: new Date(item.date)})
                         }
                         data.push({event: item})
@@ -57,110 +58,119 @@ export default function EventsComponent () {
 
     return (
         <div className={"body-events"}>
-            <div className={"events-table"}>
-                <div className={"table-head"}>
-                    <span className={"elem elem-1"}>Название</span>
-                    <span className={"elem elem-2"}>Место проведения и дата начала</span>
-                    <span className={"elem elem-3"}>Кол-во участников</span>
-                    <span className={"elem elem-4"}>Средний рейтинг</span>
-                    <span className={"elem elem-5 gray-right-arrow-icon"}></span>
-                </div>
+            {!events.length && <NoEventsComponent/>}
 
-                <div className={"table-head-376"}>
-                    <span className={"elem elem-1"}>Событие</span>
-                    <span className={"elem elem-2"}>Кол-во уч.</span>
-                    <span className={"elem elem-3"}>Рейтинг</span>
-                </div>
+            {events.length !== 0 &&
+                <div className={"events-table"}>
+                    <div className={"table-head"}>
+                        <span className={"elem elem-1"}>Название</span>
+                        <span className={"elem elem-2"}>Место проведения и дата начала</span>
+                        <span className={"elem elem-3"}>Кол-во участников</span>
+                        <span className={"elem elem-4"}>Средний рейтинг</span>
+                        <span className={"elem elem-5 gray-right-arrow-icon"}></span>
+                    </div>
 
-                {events.length && events.map((item, key) => {
-                    let date = item.date;
-                    if (item.date) {
-                        return (
-                            <div className={"date"}>
-                                <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
-                            </div>
-                        )
-                    } else {
-                        let event = item.event;
-                        return (
-                            <div className={"event"}>
-                                <span className={"elem elem-1 point-icon"}>{event.name}</span>
-                                <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
-                                <span className={"elem elem-3 green"}>10/{event.count_players}</span>
-                                <span className={"elem elem-4 gray"}>88,9</span>
-                                <span className={"elem elem-5 gray-right-arrow-icon"}></span>
-                            </div>
-                        )
-                    }
-                })}
+                    <div className={"table-head-376"}>
+                        <span className={"elem elem-1"}>Событие</span>
+                        <span className={"elem elem-2"}>Кол-во уч.</span>
+                        <span className={"elem elem-3"}>Рейтинг</span>
+                    </div>
 
-                {events.length && events.map((item, key) => {
-                    let date = item.date;
-                    if (item.date) {
-                        return (
-                            <div className={"date-376"}>
-                                <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
-                            </div>
-                        )
-                    } else {
-                        let event = item.event;
-                        return (
-                            <div className={"event-376"}>
-                                <div className={"row row-1"}>
-                                    <span className={"elem elem-1 point-icon"}>{event.name}<span className={"gray"}>12:00</span></span>
-                                    <span className={"elem elem-2 red"}>10/{event.count_players}</span>
-                                    <span className={"elem elem-3 orange"}>88,9</span>
+                    {events.length && events.map((item, key) => {
+                        let date = item.date;
+                        if (item.date) {
+                            return (
+                                <div className={"date"}>
+                                    <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
                                 </div>
-                                <div className={"row row-2"}>
-                                    <span className={"elem elem-1 map-point-icon"}>{event.address}</span>
+                            )
+                        } else {
+                            let event = item.event;
+                            let path = '';
+                            if (!window.location.pathname.includes("events")) path = 'events/'
+                            return (
+                                <div className={"event"}>
+                                    <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
+                                    {/*<span className={"elem elem-1 point-icon"}>{event.name}</span>*/}
+                                    <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
+                                    <span className={"elem elem-3 green"}>10/{event.count_players}</span>
+                                    <span className={"elem elem-4 gray"}>88,9</span>
+                                    <span className={"elem elem-5 gray-right-arrow-icon"}></span>
                                 </div>
-                            </div>
-                        )
-                    }
-                })}
+                            )
+                        }
+                    })}
 
-                {!events.length && <NoEventsComponent/>}
+                    {events.length && events.map((item, key) => {
+                        let date = item.date;
+                        if (item.date) {
+                            return (
+                                <div className={"date-376"}>
+                                    <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
+                                </div>
+                            )
+                        } else {
+                            let event = item.event;
+                            return (
+                                <div className={"event-376"}>
+                                    <div className={"row row-1"}>
+                                        <span className={"elem elem-1 point-icon"}>{event.name}<span className={"gray"}>12:00</span></span>
+                                        <span className={"elem elem-2 red"}>10/{event.count_players}</span>
+                                        <span className={"elem elem-3 orange"}>88,9</span>
+                                    </div>
+                                    <div className={"row row-2"}>
+                                        <span className={"elem elem-1 map-point-icon"}>{event.address}</span>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })}
 
 
-                {/*<div className={"date"}>*/}
-                {/*    <span className={"bold"}>12 мая <span>(вторник)</span></span>*/}
-                {/*</div>*/}
-                {/*<div className={"event"}>*/}
-                {/*    <span className={"elem elem-1 point-icon"}>Футбол с коллегами</span>*/}
-                {/*    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>*/}
-                {/*    <span className={"elem elem-3 green"}>10/10</span>*/}
-                {/*    <span className={"elem elem-4 gray"}>88,9</span>*/}
-                {/*    <span className={"elem elem-5 gray-right-arrow-icon"}></span>*/}
-                {/*</div>*/}
-                {/*<div className={"event"}>*/}
-                {/*    <span className={"elem elem-1 star-icon"}>Футбол с коллегами</span>*/}
-                {/*    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>*/}
-                {/*    <span className={"elem elem-3 red"}>10/10</span>*/}
-                {/*    <span className={"elem elem-4 orange"}>88,9</span>*/}
-                {/*    <span className={"elem elem-5 gray-right-arrow-icon"}></span>*/}
-                {/*</div>*/}
 
-                {/*<div className={"event-376"}>*/}
-                {/*    <div className={"row row-1"}>*/}
-                {/*        <span className={"elem elem-1 point-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>*/}
-                {/*        <span className={"elem elem-2 red"}>10/10</span>*/}
-                {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
-                {/*    </div>*/}
-                {/*    <div className={"row row-2"}>*/}
-                {/*        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div className={"event-376"}>*/}
-                {/*    <div className={"row row-1"}>*/}
-                {/*        <span className={"elem elem-1 star-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>*/}
-                {/*        <span className={"elem elem-2 red"}>10/10</span>*/}
-                {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
-                {/*    </div>*/}
-                {/*    <div className={"row row-2"}>*/}
-                {/*        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-            </div>
+
+                    {/*<div className={"date"}>*/}
+                    {/*    <span className={"bold"}>12 мая <span>(вторник)</span></span>*/}
+                    {/*</div>*/}
+                    {/*<div className={"event"}>*/}
+                    {/*    <span className={"elem elem-1 point-icon"}>Футбол с коллегами</span>*/}
+                    {/*    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>*/}
+                    {/*    <span className={"elem elem-3 green"}>10/10</span>*/}
+                    {/*    <span className={"elem elem-4 gray"}>88,9</span>*/}
+                    {/*    <span className={"elem elem-5 gray-right-arrow-icon"}></span>*/}
+                    {/*</div>*/}
+                    {/*<div className={"event"}>*/}
+                    {/*    <span className={"elem elem-1 star-icon"}>Футбол с коллегами</span>*/}
+                    {/*    <span className={"elem elem-2"}>ул. Тверская, 22 стр. 1<span className={"time"}>Событие началось, в 12:00</span></span>*/}
+                    {/*    <span className={"elem elem-3 red"}>10/10</span>*/}
+                    {/*    <span className={"elem elem-4 orange"}>88,9</span>*/}
+                    {/*    <span className={"elem elem-5 gray-right-arrow-icon"}></span>*/}
+                    {/*</div>*/}
+
+                    {/*<div className={"event-376"}>*/}
+                    {/*    <div className={"row row-1"}>*/}
+                    {/*        <span className={"elem elem-1 point-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>*/}
+                    {/*        <span className={"elem elem-2 red"}>10/10</span>*/}
+                    {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={"row row-2"}>*/}
+                    {/*        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className={"event-376"}>*/}
+                    {/*    <div className={"row row-1"}>*/}
+                    {/*        <span className={"elem elem-1 star-icon"}>Футбол с коллегами<span className={"gray"}>12:00</span></span>*/}
+                    {/*        <span className={"elem elem-2 red"}>10/10</span>*/}
+                    {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={"row row-2"}>*/}
+                    {/*        <span className={"elem elem-1 map-point-icon"}>ул. Садово-Кудринская, 19 стр. 1</span>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                </div>
+            }
+
+
         </div>
     )
 }

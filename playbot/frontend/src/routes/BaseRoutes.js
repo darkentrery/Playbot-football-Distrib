@@ -1,7 +1,6 @@
 
 
 const BaseRoutes = {
-	eventPk: 1,
 
 	get events () {
 		return "events/";
@@ -23,17 +22,10 @@ const BaseRoutes = {
 		return "events/chat/"
 	},
 
-	get event() {
-		return `events/event/${this.eventPk}/`
-	},
-
 	eventLink (pk) {
-		return `events/event/${pk}/`
+		return `event/${pk}/`
 	},
 
-	set event(pk) {
-		this.eventPk = pk;
-	},
 
 }
 export default BaseRoutes;

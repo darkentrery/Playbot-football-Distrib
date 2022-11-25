@@ -1,27 +1,36 @@
 import {Link, Route, Routes} from "react-router-dom";
 
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import BaseRoutes from "../routes/BaseRoutes";
-import EventsComponent from "./body/EventsComponent";
-import BoardCreateEventComponent from "./body/BoardCreateEventComponent";
 import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
-import BestPlayersComponent from "./body/BestPlayersComponent";
-import NoEventsComponent from "./body/NoEventsComponent";
-import TitleComponent from "./body/TitleComponent";
-import LocationComponent from "./body/LocationComponent";
-import BoardEventOrganizerComponent from "./body/BoardEventOrganizerComponent";
 import EventComponent from "./body/EventComponent";
-import InActiveMenuLinkComponent from "./head/InActiveMenuLinkComponent";
 import MainPageComponent from "./body/MainPageComponent";
 import EventsPageComponent from "./body/EventsPageComponent";
+import EventService from "../services/EventService";
 
 
 export default function BodyComponent () {
-    const [eventPk, setEventPk] = useState(1);
+    const eventService = new EventService();
+    const [eventsPk, setEventsPk] = useState([]);
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const loginWindow = { openLogin, setOpenLogin };
     const signUpWindow = { openSignUp, setOpenSignUp };
+
+    useEffect(() => {
+        if (!eventsPk.length) {
+            eventService.getEvents().then((response) => {
+                console.log(response)
+                if (response.status === 200) {
+                    let data = [];
+                    response.data.map((item, key) => {
+                        data.push(item.id)
+                    })
+                    setEventsPk(data);
+                }
+            })
+        }
+    }, [eventsPk])
 
 
 
@@ -31,17 +40,10 @@ export default function BodyComponent () {
                 <Route exact path={BaseRoutes.events} element={<EventsPageComponent/>}/>
                 <Route exact path={BaseRoutes.main} element={<MainPageComponent/>}/>
 
-                <Route exact path={BaseRoutes.eventLink(eventPk)} element={<EventComponent pk={eventPk}/>}/>
+                {eventsPk.length !== 0 && eventsPk.map((item, key) => {
+                    return (<Route exact path={'events/' + BaseRoutes.eventLink(item)} element={<EventComponent pk={item}/>}/>)
+                })}
             </Routes>
-
-            <Link to={BaseRoutes.eventLink(2)} onClick={(e) => {
-                console.log(eventPk)
-                setEventPk(2)
-            }}>sdfsdfsd</Link>
-
-
-
-
 
         </div>
     )
