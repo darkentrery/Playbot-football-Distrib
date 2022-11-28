@@ -63,6 +63,10 @@ export default function CreateEventComponent () {
         setIsPlayer(false);
         setNotice('');
         setData(false);
+        setIsDropdown(false)
+        if (refCount.current.className.includes("up-arrow-icon")) {
+            refCount.current.className = "dropdown-label down-arrow-icon";
+        }
         setOpenCreateEvent(!openCreateEvent);
     }
 
@@ -110,6 +114,14 @@ export default function CreateEventComponent () {
             if (!e.target.className.includes("rdt") && !e.target.className.includes("clock-icon")
                 && !e.target.localName.includes("span")) {
                 setIsOpenTime(false);
+            }
+        }
+        if (isDropdown) {
+            if (!e.target.className.includes("dropdown-elem")) {
+                setIsDropdown(false)
+                if (refCount.current.className.includes("up-arrow-icon")) {
+                    refCount.current.className = "dropdown-label down-arrow-icon";
+                }
             }
         }
     }

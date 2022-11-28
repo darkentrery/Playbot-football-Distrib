@@ -18,3 +18,12 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = "__all__"
+
+
+class EditEventSerializer(serializers.ModelSerializer):
+    date = serializers.CharField(max_length=128, write_only=True, required=True)
+    time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
+
+    class Meta:
+        model = Event
+        fields = "__all__"

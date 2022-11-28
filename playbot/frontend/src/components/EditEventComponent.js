@@ -9,6 +9,7 @@ import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 export default function EditEventComponent ({event}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
+    const [id, setId] = useState(false);
     const [name, setName] = useState(false);
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
@@ -39,9 +40,30 @@ export default function EditEventComponent ({event}) {
     const { openEditEvent, setOpenEditEvent } = useContext(OpenEditEventContext);
 
     useEffect(() => {
+        if (!id) setId(event.id);
+        if (!name) setName(event.name);
+        if (!date && event.date) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
+        if (!time && event.time_begin) setTime(event.time_begin.slice(0, 5));
+        if (!address) setAddress(event.address);
+        if (event && event.count_players) setCount(event.count_players);
+        if (event && event.is_player == true) setIsPlayer(true);
+        if (!notice) setNotice(event.notice);
+    }, [event, openEditEvent])
+
+    useEffect(() => {
         let bodyFormData = new FormData();
+        bodyFormData.append('id', id);
         bodyFormData.append('name', name);
-        bodyFormData.append('date', date);
+
+        if (date) {
+            let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
+            if (match !== null) {
+                bodyFormData.append('date', `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}`);
+            } else {
+                bodyFormData.append('date', date);
+            }
+        }
+
         bodyFormData.append('time_begin', time);
         bodyFormData.append('address', address);
         bodyFormData.append('count_players', count);
@@ -59,15 +81,20 @@ export default function EditEventComponent ({event}) {
         setIsPlayer(false);
         setNotice('');
         setData(false);
+        setIsDropdown(false)
+        if (refCount.current.className.includes("up-arrow-icon")) {
+            refCount.current.className = "dropdown-label down-arrow-icon";
+        }
         setOpenEditEvent(!openEditEvent);
     }
 
     const sendForm = async () => {
         let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
         if (!errors.length) {
-            authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
+            authDecoratorWithoutLogin(eventService.editEvent, data).then((response) => {
                 console.log(response)
                 closeWindow();
+                window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${id}/`
                 // setOpenSuccessCreateEvent(true);
             })
         }
@@ -108,6 +135,14 @@ export default function EditEventComponent ({event}) {
                 setIsOpenTime(false);
             }
         }
+        if (isDropdown) {
+            if (!e.target.className.includes("dropdown-elem")) {
+                setIsDropdown(false)
+                if (refCount.current.className.includes("up-arrow-icon")) {
+                    refCount.current.className = "dropdown-label down-arrow-icon";
+                }
+            }
+        }
     }
 
     return (
@@ -123,7 +158,7 @@ export default function EditEventComponent ({event}) {
                     <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <div className={"elem div-input elem-2"} ref={refName}>
-                    <input className={"ball-icon input-icon"} type="text" placeholder={"Название *"} onChange={(event) => setName(event.target.value)}/>
+                    <input className={"ball-icon input-icon"} type="text" placeholder={"Название *"} value={name ? name : ''} onChange={(event) => setName(event.target.value)}/>
                     <span className={"input-message"}></span>
                 </div>
                 <div className={"elem elem-3"} ref={refDateP}>
@@ -135,6 +170,7 @@ export default function EditEventComponent ({event}) {
                         inputProps={{placeholder: 'Дата игры *'}}
                         onChange={(e) => eventService.choiceDate(e, setDate, refDate)}
                         ref={refDate}
+                        value={date ? date : ''}
                     />
                     <span className={"input-message"}></span>
                 </div>
@@ -147,11 +183,12 @@ export default function EditEventComponent ({event}) {
                         inputProps={{placeholder: 'Время начала игры *'}}
                         onChange={(e) => eventService.choiceTime(e, setTime, refTime)}
                         ref={refTime}
+                        value={time ? time : ''}
                     />
                     <span className={"input-message"}></span>
                 </div>
                 <div className={"elem div-input"} ref={refAddress}>
-                    <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} onChange={(event) => setAddress(event.target.value)}/>
+                    <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} value={address ? address : ''} onChange={(event) => setAddress(event.target.value)}/>
                     <span className={"input-message"}></span>
                 </div>
                 <div className={"elem elem-6"}>
@@ -159,7 +196,7 @@ export default function EditEventComponent ({event}) {
                 </div>
                 <div className={"elem elem-7"}>
                     <div className={"dropdown foot-icon"}>
-                        <span className={"dropdown-label down-arrow-icon"} ref={refCount} onClick={openDropdown}>1</span>
+                        <span className={"dropdown-label down-arrow-icon"} ref={refCount} onClick={openDropdown}>{count ? count : "1"}</span>
                         <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
                             {content && content.map((item, key) => {
                                 return (<span className={"dropdown-elem"} onClick={choiceCount}>{item}</span>)
@@ -173,11 +210,11 @@ export default function EditEventComponent ({event}) {
                     <span>Организатор события не играет</span>
                 </div>
                 <div className={"elem elem-9"} ref={refNotice}>
-                    <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"}></textarea>
+                    <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"} value={notice ? notice : ''}></textarea>
                     <span className={"input-message"}></span>
                 </div>
                 <div className={"elem elem-10"}>
-                    <button className={"btn btn-create-event"} onClick={sendForm}>Создать</button>
+                    <button className={"btn btn-create-event"} onClick={sendForm}>Сохранить</button>
                 </div>
 
             </div>

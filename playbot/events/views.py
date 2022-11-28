@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from playbot.events.models import Event
-from playbot.events.serializers import CreateEventSerializer, EventSerializer
+from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer
 
 
 class CreateEventView(APIView):
@@ -41,5 +41,19 @@ class EventView(APIView):
         id = self.kwargs.get("id")
         event = EventSerializer(Event.objects.get(id=id)).data
         return Response(event, status=status.HTTP_200_OK)
+
+
+class EditEventView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["id"])
+        serializer = EditEventSerializer(event, data=request.data)
+        if serializer.is_valid() and event.organizer == request.user:
+            event = serializer.save()
+            if event:
+                json = EventSerializer(Event.objects.get(id=event.id)).data
+                return Response(json, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

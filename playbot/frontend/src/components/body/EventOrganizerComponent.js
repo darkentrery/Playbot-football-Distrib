@@ -24,10 +24,7 @@ export default function EventOrganizerComponent ({event}) {
     return (
         <div className={"event-organizer-component"}>
             <div className={"elem-1280 elem-1"}>
-                {/*<OpenEditEventContext.Provider value={editEventWindow}>*/}
-                    <EventDescriptionComponent event={event}/>
-                {/*</OpenEditEventContext.Provider>*/}
-
+                <EventDescriptionComponent event={event}/>
                 <EventChatComponent/>
             </div>
             <div className={"elem-1280 elem-2"}>
