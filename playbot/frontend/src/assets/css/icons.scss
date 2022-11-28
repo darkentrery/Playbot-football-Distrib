@@ -332,6 +332,12 @@
   background-position: center center;
 }
 
+.gray-left-arrow-icon {
+  background: url("../icon/gray-left-arrow.png") no-repeat;
+  background-size: 6.5px 10px;
+  background-position: center center;
+}
+
 .dark-gray-cup-icon {
   background: url("../icon/dark-gray-cup.png");
   background-repeat: no-repeat;
@@ -379,4 +385,9 @@
   background-repeat: no-repeat;
   background-size: 20px 18px;
   background-position: left center;
+}
+
+.board-events-icon {
+  background: url("../icon/board-events.png") no-repeat;
+  background-size: cover;
 }

@@ -1,8 +1,9 @@
 import EventMembersComponent from "./EventMembersComponent";
 import EventDescriptionComponent from "./EventDescriptionComponent";
-import React, {useRef} from "react";
+import React, {useContext, useRef, useState} from "react";
 import $ from "jquery";
 import EventChatComponent from "./EventChatComponent";
+import {OpenEditEventContext} from "../../context/EventContext";
 
 
 export default function EventOrganizerComponent ({event}) {
@@ -23,7 +24,10 @@ export default function EventOrganizerComponent ({event}) {
     return (
         <div className={"event-organizer-component"}>
             <div className={"elem-1280 elem-1"}>
-                <EventDescriptionComponent event={event}/>
+                {/*<OpenEditEventContext.Provider value={editEventWindow}>*/}
+                    <EventDescriptionComponent event={event}/>
+                {/*</OpenEditEventContext.Provider>*/}
+
                 <EventChatComponent/>
             </div>
             <div className={"elem-1280 elem-2"}>
@@ -48,7 +52,6 @@ export default function EventOrganizerComponent ({event}) {
                 <EventMembersComponent/>
                 <EventChatComponent/>
             </div>
-
         </div>
     )
 }

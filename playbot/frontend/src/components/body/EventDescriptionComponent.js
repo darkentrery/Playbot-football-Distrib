@@ -1,12 +1,17 @@
+import {useContext, useState} from "react";
+import {OpenEditEventContext} from "../../context/EventContext";
+import EditEventComponent from "../EditEventComponent";
 
 
 export default function EventDescriptionComponent ({event}) {
+    const [openEditEvent, setOpenEditEvent]= useState(false);
+    const editEventWindow = { openEditEvent, setOpenEditEvent };
 
 
     return (
         <div className={"event-description-component"}>
             <div className={"elem-1280 elem-1"}>
-                <span className={"el black-edit-icon link"}>Редактировать игру</span>
+                <span className={"el black-edit-icon link"} onClick={(e) => setOpenEditEvent(!openEditEvent)}>Редактировать игру</span>
                 <span className={"el gray-copy-icon link"}>Копировать ссылку</span>
             </div>
             <span className={"elem-1280 elem-2"}>Информация</span>
@@ -25,7 +30,7 @@ export default function EventDescriptionComponent ({event}) {
             </div>
 
             <div className={"elem-744 elem-1"}>
-                <span className={"el black-edit-icon link"}>Редактировать игру</span>
+                <span className={"el black-edit-icon link"} onClick={(e) => setOpenEditEvent(!openEditEvent)}>Редактировать игру</span>
                 <span className={"el gray-copy-icon link"}></span>
             </div>
             <span className={"elem-744 elem-2"}>Информация</span>
@@ -33,7 +38,7 @@ export default function EventDescriptionComponent ({event}) {
             <span className={"elem-744 elem-4"}>Организатор:</span>
             <span className={"elem-744 elem-5"}>Андрей Иванов</span>
             <span className={"elem-744 elem-6"}>Адрес:</span>
-            <span className={"elem-744 elem-7"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>
+            <span className={"elem-744 elem-7"}>{event.address}</span>
             <div className={"elem-744 elem-8"}></div>
 
             <div className={"elem-376 elem-1"}>
@@ -44,8 +49,12 @@ export default function EventDescriptionComponent ({event}) {
             <span className={"elem-376 elem-3"}>Организатор:</span>
             <span className={"elem-376 elem-4"}>Андрей Иванов</span>
             <span className={"elem-376 elem-5"}>Адрес:</span>
-            <span className={"elem-376 elem-6"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>
+            <span className={"elem-376 elem-6"}>{event.address}</span>
             <div className={"elem-376 elem-7"}></div>
+
+            <OpenEditEventContext.Provider value={editEventWindow}>
+                <EditEventComponent event={event}/>
+            </OpenEditEventContext.Provider>
         </div>
     )
 }

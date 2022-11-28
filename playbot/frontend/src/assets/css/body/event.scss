@@ -3,6 +3,10 @@
 @import "event-members";
 @import "event-chat";
 
+.main-page .body .elem-376 {
+  display: none;
+}
+
 .main-page .body .event-organizer-component {
   display: flex;
   flex: 1 1 auto;
@@ -48,6 +52,41 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
+  .main-page .body .elem-376 {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    .event-mobile-head {
+        display: flex;
+        flex: 0 0 17px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+        align-items: center;
+      justify-content: stretch;
+
+      .el-1 {
+        flex: 0 0 6.5px;
+        height: 10px;
+        margin-left: 8px;
+        margin-right: 18px;
+      }
+
+      .el-2 {
+        flex: 1 1 auto;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .el-3 {
+        flex: 0 0 16px;
+        height: 16px;
+        margin-right: 4px;
+
+      }
+    }
+  }
+
   .main-page .body .event-organizer-component {
     margin-top: 24px;
     flex: 1 1 auto;

@@ -16,4 +16,9 @@ const OpenSuccessCreateEventContext = React.createContext({
   setOpenSuccessCreateEvent: () => {}
 });
 
-export { OpenCreateEventContext, OpenCreateEventUnAuthContext, OpenSuccessCreateEventContext };
+const OpenEditEventContext = React.createContext({
+  openEditEvent: false,
+  setOpenEditEvent: () => {}
+});
+
+export { OpenCreateEventContext, OpenCreateEventUnAuthContext, OpenSuccessCreateEventContext, OpenEditEventContext };

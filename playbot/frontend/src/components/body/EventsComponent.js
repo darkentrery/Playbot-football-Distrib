@@ -52,10 +52,7 @@ export default function EventsComponent () {
         "пятница",
         "суббота",
     ]
-
-
-
-
+    
     return (
         <div className={"body-events"}>
             {!events.length && <NoEventsComponent/>}
@@ -91,7 +88,6 @@ export default function EventsComponent () {
                             return (
                                 <div className={"event"}>
                                     <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
-                                    {/*<span className={"elem elem-1 point-icon"}>{event.name}</span>*/}
                                     <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
                                     <span className={"elem elem-3 green"}>10/{event.count_players}</span>
                                     <span className={"elem elem-4 gray"}>88,9</span>
@@ -111,10 +107,12 @@ export default function EventsComponent () {
                             )
                         } else {
                             let event = item.event;
+                            let path = '';
+                            if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
                                 <div className={"event-376"}>
                                     <div className={"row row-1"}>
-                                        <span className={"elem elem-1 point-icon"}>{event.name}<span className={"gray"}>12:00</span></span>
+                                        <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}<span className={"gray"}>12:00</span></Link>
                                         <span className={"elem elem-2 red"}>10/{event.count_players}</span>
                                         <span className={"elem elem-3 orange"}>88,9</span>
                                     </div>
