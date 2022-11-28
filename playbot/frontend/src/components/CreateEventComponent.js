@@ -3,7 +3,6 @@ import Modal from "react-modal";
 import {OpenCreateEventContext, OpenSuccessCreateEventContext} from "../context/EventContext";
 import ReactDatetimeClass from "react-datetime";
 import "react-datetime/css/react-datetime.css";
-import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
 
@@ -40,7 +39,7 @@ export default function CreateEventComponent () {
     const content = [1, 2, 3, 4];
 
     const { openCreateEvent, setOpenCreateEvent } = useContext(OpenCreateEventContext);
-    const { openSuccessCreateEvent, setOpenSuccessCreateEvent } = useContext(OpenSuccessCreateEventContext);
+    const { openSuccessCreateEvent, setOpenSuccessCreateEvent, createEventId, setCreateEventId } = useContext(OpenSuccessCreateEventContext);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -74,7 +73,7 @@ export default function CreateEventComponent () {
         let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
-                console.log(response)
+                setCreateEventId(response.data.id);
                 closeWindow();
                 setOpenSuccessCreateEvent(true);
             })

@@ -1,9 +1,8 @@
 import EventMembersComponent from "./EventMembersComponent";
 import EventDescriptionComponent from "./EventDescriptionComponent";
-import React, {useContext, useRef, useState} from "react";
+import React from "react";
 import $ from "jquery";
 import EventChatComponent from "./EventChatComponent";
-import {OpenEditEventContext} from "../../context/EventContext";
 
 
 export default function EventOrganizerComponent ({event}) {

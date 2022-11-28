@@ -1,26 +1,26 @@
 import {useContext} from "react";
 import Modal from "react-modal";
-import {OpenSuccessCreateEventContext} from "../../context/EventContext";
+import {OpenSuccessEditEventContext} from "../../context/EventContext";
 
 
-export default function SuccessCreateEventComponent () {
-    const { openSuccessCreateEvent, setOpenSuccessCreateEvent, createEventId, setCreateEventId } = useContext(OpenSuccessCreateEventContext);
+export default function SuccessEditEventComponent ({id}) {
+    const { openSuccessEditEvent, setOpenSuccessEditEvent } = useContext(OpenSuccessEditEventContext);
 
     const closeWindow = () => {
-        setOpenSuccessCreateEvent(!openSuccessCreateEvent);
-        window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${createEventId}/`
+        setOpenSuccessEditEvent(!openSuccessEditEvent);
+        window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${id}/`
     }
 
     return(
         <Modal
-            isOpen={openSuccessCreateEvent}
+            isOpen={openSuccessEditEvent}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
             <div className={"popup-frame success-event"}>
                 <div className={"elem elem-1"}>
-                    <span className={"title-22"}>Событие создано</span>
+                    <span className={"title-22"}>Событие изменено</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <div className={"elem elem-2"}>

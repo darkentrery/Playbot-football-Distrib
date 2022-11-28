@@ -1,11 +1,14 @@
-import {useContext, useState} from "react";
-import {OpenEditEventContext} from "../../context/EventContext";
+import React, {useContext, useState} from "react";
+import {OpenEditEventContext, OpenSuccessEditEventContext} from "../../context/EventContext";
 import EditEventComponent from "../EditEventComponent";
+import SuccessEditEventComponent from "../success/SuccessEditEventComponent";
 
 
 export default function EventDescriptionComponent ({event}) {
     const [openEditEvent, setOpenEditEvent]= useState(false);
     const editEventWindow = { openEditEvent, setOpenEditEvent };
+    const [openSuccessEditEvent, setOpenSuccessEditEvent]= useState(false);
+    const successEditEventWindow = { openSuccessEditEvent, setOpenSuccessEditEvent };
 
 
     return (
@@ -52,9 +55,15 @@ export default function EventDescriptionComponent ({event}) {
             <span className={"elem-376 elem-6"}>{event.address}</span>
             <div className={"elem-376 elem-7"}></div>
 
-            <OpenEditEventContext.Provider value={editEventWindow}>
-                <EditEventComponent event={event}/>
-            </OpenEditEventContext.Provider>
+            <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
+                <OpenEditEventContext.Provider value={editEventWindow}>
+                    <EditEventComponent event={event}/>
+                </OpenEditEventContext.Provider>
+            </OpenSuccessEditEventContext.Provider>
+
+            <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
+                <SuccessEditEventComponent id={event.id}/>
+            </OpenSuccessEditEventContext.Provider>
         </div>
     )
 }

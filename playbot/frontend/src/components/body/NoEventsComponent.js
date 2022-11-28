@@ -17,9 +17,10 @@ export default function NoEventsComponent () {
     const [openCreateEvent, setOpenCreateEvent] = useState(false);
     const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
     const [openSuccessCreateEvent, setOpenSuccessCreateEvent] = useState(false);
+    const [createEventId, setCreateEventId] = useState(false);
     const createEventWindow = { openCreateEvent, setOpenCreateEvent };
     const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
-    const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
+    const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent, createEventId, setCreateEventId };
     const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
     const loginWindow = { openLogin, setOpenLogin };

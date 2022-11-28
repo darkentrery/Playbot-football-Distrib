@@ -13,7 +13,9 @@ const OpenCreateEventUnAuthContext = React.createContext({
 
 const OpenSuccessCreateEventContext = React.createContext({
   openSuccessCreateEvent: false,
-  setOpenSuccessCreateEvent: () => {}
+  setOpenSuccessCreateEvent: () => {},
+  createEventId: false,
+  setCreateEventId: () => {}
 });
 
 const OpenEditEventContext = React.createContext({
@@ -21,4 +23,9 @@ const OpenEditEventContext = React.createContext({
   setOpenEditEvent: () => {}
 });
 
-export { OpenCreateEventContext, OpenCreateEventUnAuthContext, OpenSuccessCreateEventContext, OpenEditEventContext };
+const OpenSuccessEditEventContext = React.createContext({
+  openSuccessEditEvent: false,
+  setOpenSuccessEditEvent: () => {}
+});
+
+export { OpenCreateEventContext, OpenCreateEventUnAuthContext, OpenSuccessCreateEventContext, OpenEditEventContext, OpenSuccessEditEventContext };

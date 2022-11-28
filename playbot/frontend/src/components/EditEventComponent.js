@@ -1,6 +1,6 @@
 import EventService from "../services/EventService";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {OpenEditEventContext} from "../context/EventContext";
+import {OpenEditEventContext, OpenSuccessEditEventContext} from "../context/EventContext";
 import Modal from "react-modal";
 import ReactDatetimeClass from "react-datetime";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
@@ -38,6 +38,8 @@ export default function EditEventComponent ({event}) {
     }
     const content = [1, 2, 3, 4];
     const { openEditEvent, setOpenEditEvent } = useContext(OpenEditEventContext);
+
+    const { openSuccessEditEvent, setOpenSuccessEditEvent } = useContext(OpenSuccessEditEventContext);
 
     useEffect(() => {
         if (!id) setId(event.id);
@@ -94,8 +96,8 @@ export default function EditEventComponent ({event}) {
             authDecoratorWithoutLogin(eventService.editEvent, data).then((response) => {
                 console.log(response)
                 closeWindow();
-                window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${id}/`
-                // setOpenSuccessCreateEvent(true);
+                // window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${id}/`
+                setOpenSuccessEditEvent(true);
             })
         }
     }
@@ -216,7 +218,6 @@ export default function EditEventComponent ({event}) {
                 <div className={"elem elem-10"}>
                     <button className={"btn btn-create-event"} onClick={sendForm}>Сохранить</button>
                 </div>
-
             </div>
         </Modal>
     )

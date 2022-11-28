@@ -3,7 +3,8 @@ import EventOrganizerComponent from "./EventOrganizerComponent";
 import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 import EditEventComponent from "../EditEventComponent";
-import {OpenEditEventContext} from "../../context/EventContext";
+import {OpenEditEventContext, OpenSuccessEditEventContext} from "../../context/EventContext";
+import SuccessEditEventComponent from "../success/SuccessEditEventComponent";
 
 
 export default function EventComponent ({pk}) {
@@ -11,11 +12,12 @@ export default function EventComponent ({pk}) {
     const [event, setEvent] = useState(false);
     const [openEditEvent, setOpenEditEvent]= useState(false);
     const editEventWindow = { openEditEvent, setOpenEditEvent };
+    const [openSuccessEditEvent, setOpenSuccessEditEvent]= useState(false);
+    const successEditEventWindow = { openSuccessEditEvent, setOpenSuccessEditEvent };
 
     useEffect(() => {
         if (!event) {
             eventService.getEvent(pk).then((response) => {
-                console.log(response)
                 setEvent(response.data)
             })
         }
@@ -34,9 +36,15 @@ export default function EventComponent ({pk}) {
             <BoardEventOrganizerComponent event={event}/>
             <EventOrganizerComponent event={event}/>
 
-            <OpenEditEventContext.Provider value={editEventWindow}>
-                <EditEventComponent event={event}/>
-            </OpenEditEventContext.Provider>
+            <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
+                <OpenEditEventContext.Provider value={editEventWindow}>
+                    <EditEventComponent event={event}/>
+                </OpenEditEventContext.Provider>
+            </OpenSuccessEditEventContext.Provider>
+
+            <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
+                <SuccessEditEventComponent id={pk}/>
+            </OpenSuccessEditEventContext.Provider>
         </div>
     )
 }
