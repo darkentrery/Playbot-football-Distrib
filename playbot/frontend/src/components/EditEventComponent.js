@@ -94,9 +94,7 @@ export default function EditEventComponent ({event}) {
         let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.editEvent, data).then((response) => {
-                console.log(response)
                 closeWindow();
-                // window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${id}/`
                 setOpenSuccessEditEvent(true);
             })
         }

@@ -2,8 +2,8 @@ import {useContext, useEffect, useState} from "react";
 import Modal from "react-modal";
 import {OpenCancelEventContext} from "../../context/EventContext";
 import $ from "jquery";
-import BaseRoutes from "../../routes/BaseRoutes";
 import EventService from "../../services/EventService";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
 export default function CancelEventComponent ({event}) {
@@ -37,7 +37,7 @@ export default function CancelEventComponent ({event}) {
         if (reason) {
             event.cancel = true;
             event.cancel_reasons = reason;
-            eventService.editEvent(event).then((response) => {
+            authDecoratorWithoutLogin(eventService.editEvent, event).then((response) => {
                 if (response.status === 200) {
                     closeWindow();
                     window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${event.id}/`
