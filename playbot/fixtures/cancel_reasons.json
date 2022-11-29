@@ -1,0 +1,30 @@
+[
+  {
+    "model": "events.CancelReasons",
+    "pk": 1,
+    "fields": {
+      "name": "Плохая погода"
+    }
+  },
+  {
+    "model": "events.CancelReasons",
+    "pk": 2,
+    "fields": {
+      "name": "Не набралось достаточное количество участников"
+    }
+  },
+  {
+    "model": "events.CancelReasons",
+    "pk": 3,
+    "fields": {
+      "name": "Решили не пользоваться сервисом"
+    }
+  },
+  {
+    "model": "events.CancelReasons",
+    "pk": 4,
+    "fields": {
+      "name": "Другая причина"
+    }
+  }
+]

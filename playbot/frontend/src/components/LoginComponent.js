@@ -23,7 +23,7 @@ export default function LoginComponent () {
         let bodyFormData = new FormData();
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
-        setData(bodyFormData)
+        setData(bodyFormData);
     }, [email, password]);
 
     const closeWindow = () => {

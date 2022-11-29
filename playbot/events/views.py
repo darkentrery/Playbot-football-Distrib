@@ -3,8 +3,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from playbot.events.models import Event
-from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer
+from playbot.events.models import Event, CancelReasons
+from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
+    CancelReasonsSerializer
 
 
 class CreateEventView(APIView):
@@ -55,5 +56,13 @@ class EditEventView(APIView):
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CancelReasonsView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json'):
+        items = CancelReasonsSerializer(CancelReasons.objects.all(), many=True)
+        return Response(items.data, status=status.HTTP_200_OK)
 
 

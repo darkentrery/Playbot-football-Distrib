@@ -338,6 +338,19 @@
   background-position: center center;
 }
 
+.radio-select-icon {
+  background: url("../icon/orange-radio-select.png") no-repeat;
+  background-size: 24px;
+  background-position: center center;
+
+  &.inactive {
+    background: url("../icon/gray-radio-select-outline.png") no-repeat;
+    background-size: 18px;
+    background-position: center center;
+  }
+
+}
+
 .dark-gray-cup-icon {
   background: url("../icon/dark-gray-cup.png");
   background-repeat: no-repeat;

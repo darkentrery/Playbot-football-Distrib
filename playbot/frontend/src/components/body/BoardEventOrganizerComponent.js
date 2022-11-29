@@ -1,7 +1,11 @@
-
+import {useState} from "react";
+import {OpenCancelEventContext} from "../../context/EventContext";
+import CancelEventComponent from "../popups/CancelEventComponent";
 
 
 export default function BoardEventOrganizerComponent ({event}) {
+    const [openCancelEvent, setOpenCancelEvent] = useState(false);
+    const cancelEventWindow = { openCancelEvent, setOpenCancelEvent };
 
 
     return (
@@ -16,7 +20,7 @@ export default function BoardEventOrganizerComponent ({event}) {
                 <span className={"elem elem-3"}>21 августа 2022, 12:00</span>
                 <div className={"elem elem-4"}>
                     <button className={"el el-1 btn"}>Начать игру</button>
-                    <button className={"el el-2 btn-second"}>Отменить игру</button>
+                    <button className={"el el-2 btn-second"} onClick={(e) => setOpenCancelEvent(!openCancelEvent)}>Отменить игру</button>
                 </div>
 
             </div>
@@ -32,10 +36,13 @@ export default function BoardEventOrganizerComponent ({event}) {
                 <span className={"elem elem-3"}>21 августа 2022, 12:00</span>
                 <div className={"elem elem-4"}>
                     <button className={"el el-1 btn"}>Начать игру</button>
-                    <button className={"el el-2 btn-second"}>Отменить игру</button>
+                    <button className={"el el-2 btn-second"} onClick={(e) => setOpenCancelEvent(!openCancelEvent)}>Отменить игру</button>
                 </div>
-
             </div>
+
+            <OpenCancelEventContext.Provider value={cancelEventWindow}>
+                <CancelEventComponent event={event}/>
+            </OpenCancelEventContext.Provider>
         </div>
     )
 }
