@@ -10,6 +10,7 @@ import SuccessEditEventComponent from "../success/SuccessEditEventComponent";
 export default function EventComponent ({pk}) {
     const eventService = new EventService();
     const [event, setEvent] = useState(false);
+    const [players, setPlayers] = useState([]);
     const [openEditEvent, setOpenEditEvent]= useState(false);
     const editEventWindow = { openEditEvent, setOpenEditEvent };
     const [openSuccessEditEvent, setOpenSuccessEditEvent]= useState(false);
@@ -18,10 +19,20 @@ export default function EventComponent ({pk}) {
     useEffect(() => {
         if (!event) {
             eventService.getEvent(pk).then((response) => {
-                setEvent(response.data)
+                setEvent(response.data);
             })
         }
     }, [event])
+
+
+
+    useEffect(() => {
+        if (!players.length) {
+            eventService.getPlayers(pk).then((response) => {
+                setPlayers(response.data);
+            })
+        }
+    }, [players])
 
 
     return (
@@ -34,7 +45,7 @@ export default function EventComponent ({pk}) {
                 </div>
             </div>
             <BoardEventOrganizerComponent event={event}/>
-            <EventOrganizerComponent event={event}/>
+            <EventOrganizerComponent event={event} players={players}/>
 
             <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
                 <OpenEditEventContext.Provider value={editEventWindow}>

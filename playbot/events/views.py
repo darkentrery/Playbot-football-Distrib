@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from playbot.events.models import Event, CancelReasons
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer
+from playbot.users.models import User
+from playbot.users.serializers import UserSerializer
 
 
 class CreateEventView(APIView):
@@ -63,6 +65,16 @@ class CancelReasonsView(APIView):
 
     def get(self, request, format='json'):
         items = CancelReasonsSerializer(CancelReasons.objects.all(), many=True)
+        return Response(items.data, status=status.HTTP_200_OK)
+
+
+class EventPlayersView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        id = self.kwargs.get("id")
+        players_id = Event.objects.get(id=id).event_player.all().values_list("player", flat=True)
+        items = UserSerializer(User.objects.filter(id__in=players_id), many=True)
         return Response(items.data, status=status.HTTP_200_OK)
 
 

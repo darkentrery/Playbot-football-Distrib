@@ -351,6 +351,19 @@
 
 }
 
+.player-select-icon {
+  background: url("../icon/active-player-select.png") no-repeat;
+  background-size: 20px;
+  background-position: center center;
+
+  &.inactive {
+    background: url("../icon/inactive-player-select.png") no-repeat;
+    background-size: 20px;
+    background-position: center center;
+  }
+
+}
+
 .dark-gray-cup-icon {
   background: url("../icon/dark-gray-cup.png");
   background-repeat: no-repeat;

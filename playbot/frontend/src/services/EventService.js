@@ -97,6 +97,20 @@ export default class EventService{
 			});
 	}
 
+	getPlayers(id){
+		const url = `${API_URL}event-players/${id}/`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	replaceAt (val, i) {
 		val = val.substring(0, i) + '' + val.substring(i + 1);
 		return val;

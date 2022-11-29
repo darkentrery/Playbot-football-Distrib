@@ -34,6 +34,8 @@ export default function BodyComponent () {
                 <Route exact path={BaseRoutes.events} element={<EventsPageComponent/>}/>
                 <Route exact path={BaseRoutes.main} element={<MainPageComponent/>}/>
 
+                {/*<Route exact path={'events/event/:pk/'} element={<EventComponent/>}/>*/}
+
                 {eventsPk.length !== 0 && eventsPk.map((item, key) => {
                     return (<Route exact path={'events/' + BaseRoutes.eventLink(item)} element={<EventComponent pk={item}/>}/>)
                 })}

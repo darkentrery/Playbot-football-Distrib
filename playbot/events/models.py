@@ -56,11 +56,38 @@ class Team(models.Model):
     count_players = models.IntegerField(_("Count Of Players"))
 
     class Meta:
+        unique_together = ["name", "event"]
         verbose_name = "Team"
         verbose_name_plural = "Teams"
 
     def __str__(self):
         return f"{self.name} - {self.event.name}"
+
+
+class EventPlayer(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_player")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_player")
+
+    class Meta:
+        unique_together = ["player", "event"]
+        verbose_name = "Event Player"
+        verbose_name_plural = "Events Players"
+
+    def __str__(self):
+        return f"{self.player.name} - {self.event.name}"
+
+
+class TeamPlayer(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="team_player")
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team_player")
+
+    class Meta:
+        unique_together = ["player", "team"]
+        verbose_name = "Team Player"
+        verbose_name_plural = "Teams Players"
+
+    def __str__(self):
+        return f"{self.player.name} - {self.team.name}"
 
 
 

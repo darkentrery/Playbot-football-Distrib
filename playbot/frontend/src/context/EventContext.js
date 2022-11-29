@@ -33,4 +33,17 @@ const OpenCancelEventContext = React.createContext({
   setOpenCancelEvent: () => {}
 });
 
-export { OpenCreateEventContext, OpenCreateEventUnAuthContext, OpenSuccessCreateEventContext, OpenEditEventContext, OpenSuccessEditEventContext, OpenCancelEventContext };
+const OpenConfirmPlayersContext = React.createContext({
+  openConfirmPlayers: false,
+  setOpenConfirmPlayers: () => {}
+});
+
+export {
+  OpenCreateEventContext,
+  OpenCreateEventUnAuthContext,
+  OpenSuccessCreateEventContext,
+  OpenEditEventContext,
+  OpenSuccessEditEventContext,
+  OpenCancelEventContext,
+  OpenConfirmPlayersContext
+};
