@@ -4,7 +4,8 @@ import {OpenConfirmPlayersContext} from "../../context/EventContext";
 import $ from "jquery";
 
 
-export default function ConfirmPlayersComponent ({event}) {
+export default function ConfirmPlayersComponent ({event, players}) {
+
     const { openConfirmPlayers, setOpenConfirmPlayers } = useContext(OpenConfirmPlayersContext);
 
     const closeWindow = () => {
@@ -48,19 +49,17 @@ export default function ConfirmPlayersComponent ({event}) {
                     <div className={"gray-line"}></div>
                 </div>
                 <div className={"elem elem-4 scroll"}>
-                    <div className={"el"} onClick={selectPlayer}>
-                        <div className={"player-select-icon"}></div>
-                        <div className={"player-avatar-icon"}></div>
-                        <span className={"black-400-13"}>Андрей Иванов</span>
-                    </div>
-                    <div className={"el"}>
-                        <div className={"player-select-icon"}></div>
-                        <div className={"player-avatar-icon"}></div>
-                        <span className={"black-400-13"}>Андрей Иванов</span>
-                    </div>
+                    {players.length !== 0 && players.map((item, key) => {
+                        return (
+                            <div className={"el"} onClick={selectPlayer} key={key}>
+                                <div className={"player-select-icon"}></div>
+                                <div className={"player-avatar-icon"}></div>
+                                <span className={"black-400-13"}>{item.username}</span>
+                            </div>
+                        )
+                    })}
                 </div>
                 <button className={"elem elem-5 btn"}>Продолжить</button>
-
             </div>
         </Modal>
     )

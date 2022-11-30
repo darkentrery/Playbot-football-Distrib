@@ -36,16 +36,16 @@ import HeadComponent from "./components/HeadComponent";
 import BodyComponent from "./components/BodyComponent";
 import BottomComponent from "./components/BottomComponent";
 import SuccessSignUp2Component from "./components/success/SuccessSignUp2";
+import VisibleSignUp from "./redux/containers/VisibleSignUp";
+import {signUp} from "./redux/actions/actions";
+import VisibleLogin from "./redux/containers/VisibleLogin";
+import VisibleRefreshPassword from "./redux/containers/VisibleRefreshPassword";
 
 
-function App(defaultValue) {
+function App({isOpenSignUp, openSignUp}) {
     const authService = new AuthService();
-    const [openSignUp, setOpenSignUp] = useState(false);
     const [openLogin, setOpenLogin] = useState(false);
     const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
-    // const [openCreateEvent, setOpenCreateEvent] = useState(false);
-    // const [openCreateEventUnAuth, setOpenCreateEventUnAuth] = useState(false);
-    // const [openSuccessCreateEvent, setOpenSuccessCreateEvent] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [openChoiceCity, setOpenChoiceCity] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
@@ -54,12 +54,8 @@ function App(defaultValue) {
     const [openSuccessSignUp2, setOpenSuccessSignUp2] = useState(false);
 
 
-    const signUpWindow = { openSignUp, setOpenSignUp };
     const loginWindow = { openLogin, setOpenLogin };
     const refreshPasswordWindow = { openRefreshPassword, setOpenRefreshPassword };
-    // const createEventWindow = { openCreateEvent, setOpenCreateEvent };
-    // const createEventUnAuthWindow = { openCreateEventUnAuth, setOpenCreateEventUnAuth };
-    // const createSuccessEventWindow = { openSuccessCreateEvent, setOpenSuccessCreateEvent };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
     const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
     const successRefreshPasswordWindow = { openSuccessRefreshPassword, setOpenSuccessRefreshPassword };
@@ -81,7 +77,7 @@ function App(defaultValue) {
         center: [55.751574, 37.573856],
         zoom: 10,
         controls: ["zoomControl", "fullscreenControl"],
-      };
+    };
 
     // useEffect(() => {
 
@@ -98,6 +94,7 @@ function App(defaultValue) {
     //     })
     // }
 
+
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
             setOpenChoiceCity(true);
@@ -105,17 +102,17 @@ function App(defaultValue) {
         }
     }, [localStorage.telegramLogin])
 
-    console.log(window.matchMedia)
-    console.log(navigator)
-    console.log(document.referrer)
+    // console.log(window.matchMedia)
+    // console.log(navigator)
+    // console.log(document.referrer)
 
 
 
 
   return (
       <div className="App">
-          <button onClick={() => setOpenSignUp(!openSignUp)} type="button" className="">Register</button>
-          <button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>
+          <button onClick={openSignUp} type="button" className="">Register</button>
+          {/*<button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>*/}
           {/*<button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>*/}
           {/*<button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>*/}
           <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
@@ -125,11 +122,11 @@ function App(defaultValue) {
                   <OpenLoginContext.Provider value={loginWindow}>
                       <HeadComponent/>
                   </OpenLoginContext.Provider>
-                  <OpenSignUpContext.Provider value={signUpWindow}>
+                  {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
                       <OpenLoginContext.Provider value={loginWindow}>
                           <BodyComponent/>
                       </OpenLoginContext.Provider>
-                  </OpenSignUpContext.Provider>
+                  {/*</OpenSignUpContext.Provider>*/}
 
 
                   <BottomComponent/>
@@ -153,55 +150,38 @@ function App(defaultValue) {
 
 
 
-                  <OpenLoginContext.Provider value={loginWindow}>
-                      <OpenSignUpContext.Provider value={signUpWindow}>
-                          <OpenChoiceCityContext.Provider value={choiceCityWindow}>
-                              <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>
-                                  <SignUpComponent/>
-                              </OpenSuccessSignUpContext.Provider>
-                          </OpenChoiceCityContext.Provider>
-                      </OpenSignUpContext.Provider>
-                  </OpenLoginContext.Provider>
-
-                  <OpenLoginContext.Provider value={loginWindow}>
-                      <OpenSignUpContext.Provider value={signUpWindow}>
-                          <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
-                              <LoginComponent/>
-                          </OpenRefreshPasswordContext.Provider>
-                      </OpenSignUpContext.Provider>
-                  </OpenLoginContext.Provider>
-
-                  <OpenLoginContext.Provider value={loginWindow}>
-                      <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>
-                          <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>
-                              <RefreshPasswordComponent/>
-                          </OpenSuccessRefreshPasswordContext.Provider>
-                      </OpenRefreshPasswordContext.Provider>
-                  </OpenLoginContext.Provider>
-
-                  {/*<OpenCreateEventContext.Provider value={createEventWindow}>*/}
-                  {/*    <OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>*/}
-                  {/*        <CreateEventComponent/>*/}
-                  {/*    </OpenSuccessCreateEventContext.Provider>*/}
-                  {/*</OpenCreateEventContext.Provider>*/}
-
-                  {/*<OpenSuccessCreateEventContext.Provider value={createSuccessEventWindow}>*/}
-                  {/*    <SuccessCreateEventComponent/>*/}
-                  {/*</OpenSuccessCreateEventContext.Provider>*/}
-
                   {/*<OpenLoginContext.Provider value={loginWindow}>*/}
-                  {/*    <OpenCreateEventUnAuthContext.Provider value={createEventUnAuthWindow}>*/}
-                  {/*        <CreateEventUnAuthComponent/>*/}
-                  {/*    </OpenCreateEventUnAuthContext.Provider>*/}
+                  {/*    <OpenSignUpContext.Provider value={signUpWindow}>*/}
+                  {/*        <OpenChoiceCityContext.Provider value={choiceCityWindow}>*/}
+                  {/*            <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>*/}
+                  {/*                <SignUpComponent/>*/}
+                  {/*            </OpenSuccessSignUpContext.Provider>*/}
+                  {/*        </OpenChoiceCityContext.Provider>*/}
+                  {/*    </OpenSignUpContext.Provider>*/}
                   {/*</OpenLoginContext.Provider>*/}
 
+                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
+                  {/*    /!*<OpenSignUpContext.Provider value={signUpWindow}>*!/*/}
+                  {/*        <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>*/}
+                  {/*            <LoginComponent/>*/}
+                  {/*        </OpenRefreshPasswordContext.Provider>*/}
+                  {/*    /!*</OpenSignUpContext.Provider>*!/*/}
+                  {/*</OpenLoginContext.Provider>*/}
+
+                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
+                  {/*    <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>*/}
+                  {/*        <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>*/}
+                  {/*            <RefreshPasswordComponent/>*/}
+                  {/*        </OpenSuccessRefreshPasswordContext.Provider>*/}
+                  {/*    </OpenRefreshPasswordContext.Provider>*/}
+                  {/*</OpenLoginContext.Provider>*/}
 
                   <OpenLoginContext.Provider value={loginWindow}>
-                      <OpenSignUpContext.Provider value={signUpWindow}>
+                      {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
                           <OpenMobileFirstPageContext.Provider value={mobileFirstPageWindow}>
                               <MobileFirstPageComponent/>
                           </OpenMobileFirstPageContext.Provider>
-                      </OpenSignUpContext.Provider>
+                      {/*</OpenSignUpContext.Provider>*/}
                   </OpenLoginContext.Provider>
 
                   <OpenChoiceCityContext.Provider value={choiceCityWindow}>
@@ -211,6 +191,10 @@ function App(defaultValue) {
                   <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>
                       <SuccessSignUpComponent/>
                   </OpenSuccessSignUpContext.Provider>
+
+              <VisibleSignUp/>
+              <VisibleLogin/>
+              <VisibleRefreshPassword/>
 
                   <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>
                       <SuccessRefreshPasswordComponent/>

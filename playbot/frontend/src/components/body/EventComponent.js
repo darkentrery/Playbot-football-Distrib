@@ -44,7 +44,7 @@ export default function EventComponent ({pk}) {
                     <div className={"el-3 black-edit-icon link"} onClick={(e) => setOpenEditEvent(!openEditEvent)}></div>
                 </div>
             </div>
-            <BoardEventOrganizerComponent event={event}/>
+            <BoardEventOrganizerComponent event={event} players={players}/>
             <EventOrganizerComponent event={event} players={players}/>
 
             <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>

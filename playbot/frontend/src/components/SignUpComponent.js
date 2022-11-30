@@ -4,8 +4,6 @@ import TelegramLoginComponent from "./TelegramLoginComponent";
 import { isMobile } from 'react-device-detect';
 import {
     OpenChoiceCityContext,
-    OpenLoginContext,
-    OpenSignUpContext,
     OpenSuccessSignUpContext
 } from "../context/AuthContext";
 import Modal from "react-modal";
@@ -14,7 +12,7 @@ import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
 
 
-export default function SignUpComponent () {
+export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin}) {
     const authService = new AuthService();
     const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
@@ -33,8 +31,6 @@ export default function SignUpComponent () {
     const [banner, setBanner] = useState(false);
     const [enterFlag, setEnterFlag] = useState(false);
 
-    const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
-    const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
     const {openSuccessSignUp, setOpenSuccessSignUp} = useContext(OpenSuccessSignUpContext);
     const refUsername = useRef();
@@ -57,8 +53,6 @@ export default function SignUpComponent () {
         "allowPolicy": refAllowPolicy,
         "allowOffer": refAllowOffer,
     };
-
-
 
     function phoneInput(elem) {
         let value = elem.value.replace(/\D/g, "").slice(1, 11);
@@ -100,13 +94,13 @@ export default function SignUpComponent () {
     }
 
     useEffect(() => {
-        if (openSignUp && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
-        if (!countries && openSignUp) {
+        if (isOpenSignUp && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
+        if (!countries && isOpenSignUp) {
             authService.getCountries(setBanner).then((response) => {
                 setCountries(response);
             })
         }
-    }, [openSignUp, isIPhone])
+    }, [isOpenSignUp, isIPhone])
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -135,12 +129,12 @@ export default function SignUpComponent () {
         setIsDropdown(false);
         refArrowIcon.current.className = "down-arrow-icon";
         $(refPhoneNumber.current).removeClass('open');
-        setOpenSignUp(!openSignUp);
+        closeSignUp();
     }
 
     const toLogin = () => {
         closeWindow();
-        setOpenLogin(!openLogin);
+        openLogin();
     }
 
     const suggestPassword = () => {
@@ -169,7 +163,6 @@ export default function SignUpComponent () {
             elem.addClass('disabled');
         }
         if (isDropdown && !$(e.target).hasClass('dropdown-elem') && !$(e.target).hasClass('search-icon')) {
-            console.log($(e.target))
             setIsDropdown(!isDropdown);
             refArrowIcon.current.className = "down-arrow-icon";
             $(refPhoneNumber.current).removeClass('open');
@@ -195,7 +188,6 @@ export default function SignUpComponent () {
     const sendForm = () => {
         console.log(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
         let errors = authService.signUpRequestValidation(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
-        console.log(errors);
         if (!errors.length){
             authService.signUp(data).then((response) => {
                 errors = authService.signUpResponseValidation(response, refsDict);
@@ -216,7 +208,7 @@ export default function SignUpComponent () {
 
     return(
         <Modal
-            isOpen={openSignUp}
+            isOpen={isOpenSignUp}
             // onAfterOpen={afterOpenModal}
             // onRequestClose={closeModal}
             // style={customStyles}

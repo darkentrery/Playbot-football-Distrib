@@ -178,7 +178,7 @@ export default function CreateEventComponent () {
                             <span className={"dropdown-label down-arrow-icon"} ref={refCount} onClick={openDropdown}>1</span>
                             <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
                                 {content && content.map((item, key) => {
-                                    return (<span className={"dropdown-elem"} onClick={choiceCount}>{item}</span>)
+                                    return (<span className={"dropdown-elem"} onClick={choiceCount} key={key}>{item}</span>)
                                 })}
                             </div>
                         </div>

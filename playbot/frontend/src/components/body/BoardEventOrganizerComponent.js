@@ -5,7 +5,7 @@ import ConfirmPlayersComponent from "../popups/ConfirmPlayersComponent";
 import React, {render} from "react-dom";
 
 
-export default function BoardEventOrganizerComponent ({event}) {
+export default function BoardEventOrganizerComponent ({event, players}) {
     const [openCancelEvent, setOpenCancelEvent] = useState(false);
     const [openConfirmPlayers, setOpenConfirmPlayers] = useState(false);
     const cancelEventWindow = { openCancelEvent, setOpenCancelEvent };
@@ -55,7 +55,7 @@ export default function BoardEventOrganizerComponent ({event}) {
             </OpenCancelEventContext.Provider>
 
             <OpenConfirmPlayersContext.Provider value={confirmPlayersWindow}>
-                <ConfirmPlayersComponent event={event}/>
+                <ConfirmPlayersComponent event={event} players={players}/>
             </OpenConfirmPlayersContext.Provider>
         </div>
     )

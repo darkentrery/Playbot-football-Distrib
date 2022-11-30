@@ -2,22 +2,17 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
-import {OpenLoginContext, OpenSignUpContext, OpenRefreshPasswordContext} from "../context/AuthContext";
 import $ from 'jquery';
 import BaseRoutes from "../routes/BaseRoutes";
 
 
-export default function LoginComponent () {
+export default function LoginComponent ({isOpenLogin, openSignUp, closeLogin, openRefreshPassword}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
     const [data, setData] = useState(false);
     const refEmail = useRef();
     const refPassword = useRef();
-
-    const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
-    const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
-    const {openRefreshPassword, setOpenRefreshPassword} = useContext(OpenRefreshPasswordContext);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -30,17 +25,18 @@ export default function LoginComponent () {
         setEmail(false);
         setPassword(false);
         setData(false);
-        setOpenLogin(!openLogin);
+        closeLogin();
+        // setOpenLogin(!openLogin);
     }
 
     const toSignUp = () => {
         closeWindow();
-        setOpenSignUp(!openSignUp);
+        openSignUp();
     }
 
     const toRefreshPassword = () => {
         closeWindow();
-        setOpenRefreshPassword(!openRefreshPassword);
+        openRefreshPassword();
     }
 
     const sendForm = async () => {
@@ -73,7 +69,7 @@ export default function LoginComponent () {
 
     return(
         <Modal
-            isOpen={openLogin}
+            isOpen={isOpenLogin}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}

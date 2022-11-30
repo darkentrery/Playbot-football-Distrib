@@ -77,7 +77,7 @@ export default function EventsComponent () {
                         let date = item.date;
                         if (item.date) {
                             return (
-                                <div className={"date"}>
+                                <div className={"date"} key={key}>
                                     <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
                                 </div>
                             )
@@ -86,7 +86,7 @@ export default function EventsComponent () {
                             let path = '';
                             if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
-                                <div className={"event"}>
+                                <div className={"event"} key={key}>
                                     <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
                                     <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
                                     <span className={"elem elem-3 green"}>10/{event.count_players}</span>
@@ -101,7 +101,7 @@ export default function EventsComponent () {
                         let date = item.date;
                         if (item.date) {
                             return (
-                                <div className={"date-376"}>
+                                <div className={"date-376"} key={key}>
                                     <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
                                 </div>
                             )
@@ -110,7 +110,7 @@ export default function EventsComponent () {
                             let path = '';
                             if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
-                                <div className={"event-376"}>
+                                <div className={"event-376"} key={key}>
                                     <div className={"row row-1"}>
                                         <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}<span className={"gray"}>12:00</span></Link>
                                         <span className={"elem elem-2 red"}>10/{event.count_players}</span>

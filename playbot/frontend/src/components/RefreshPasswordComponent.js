@@ -6,14 +6,12 @@ import {OpenLoginContext, OpenRefreshPasswordContext, OpenSuccessRefreshPassword
 import $ from "jquery";
 
 
-export default function RefreshPasswordComponent () {
+export default function RefreshPasswordComponent ({isOpenRefreshPassword, openSignUp, openLogin, closeRefreshPassword}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [data, setData] = useState(false);
     const refEmail = useRef();
 
-    const {openLogin, setOpenLogin} = useContext(OpenLoginContext);
-    const {openRefreshPassword, setOpenRefreshPassword} = useContext(OpenRefreshPasswordContext);
     const { openSuccessRefreshPassword, setOpenSuccessRefreshPassword } = useContext(OpenSuccessRefreshPasswordContext);
 
     useEffect(() => {
@@ -25,12 +23,12 @@ export default function RefreshPasswordComponent () {
     const closeWindow = () => {
         setEmail(false);
         setData(false);
-        setOpenRefreshPassword(!openRefreshPassword);
+        closeRefreshPassword();
     }
 
     const toLogin = () => {
         closeWindow();
-        setOpenLogin(!openLogin);
+        openLogin();
     }
 
     const sendForm = async () => {
@@ -62,7 +60,7 @@ export default function RefreshPasswordComponent () {
 
     return(
         <Modal
-            isOpen={openRefreshPassword}
+            isOpen={isOpenRefreshPassword}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
