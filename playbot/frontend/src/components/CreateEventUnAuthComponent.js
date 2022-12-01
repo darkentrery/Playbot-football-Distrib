@@ -1,28 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import Modal from "react-modal";
-import {OpenCreateEventUnAuthContext} from "../context/EventContext";
-import {OpenLoginContext, OpenSignUpContext} from "../context/AuthContext";
 
 
-export default function CreateEventUnAuthComponent () {
-    const { openCreateEventUnAuth, setOpenCreateEventUnAuth } = useContext(OpenCreateEventUnAuthContext);
-    const { openLogin, setOpenLogin } = useContext(OpenLoginContext);
-    const {openSignUp, setOpenSignUp} = useContext(OpenSignUpContext);
+export default function CreateEventUnAuthComponent ({isOpen, closeComponent, openLogin, openSignUp}) {
+
+    const closeWindow = () => {
+        closeComponent();
+    }
 
     const toLogin = () => {
-        setOpenCreateEventUnAuth(!openCreateEventUnAuth);
-        setOpenLogin(!openLogin);
+        closeWindow();
+        openLogin();
     }
 
     const toSignUp = () => {
-        setOpenCreateEventUnAuth(!openCreateEventUnAuth);
-        setOpenSignUp(!openSignUp);
+        closeWindow();
+        openSignUp();
     }
-
 
     return(
         <Modal
-            isOpen={openCreateEventUnAuth}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
@@ -39,7 +37,7 @@ export default function CreateEventUnAuthComponent () {
                 </div>
                 <div className={"popup-right popup-img create-event-img"}>
                     <div className={"elem-1"}>
-                        <div onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} className={"btn-close"}></div>
+                        <div onClick={closeWindow} className={"btn-close"}></div>
                     </div>
                     <div className={"elem-3"}>
                         <span className={"text"}>Зарегестрируйся или авторизуйся, чтобы создать игру</span>
@@ -52,7 +50,7 @@ export default function CreateEventUnAuthComponent () {
 
             <div className={"popup-frame create-event-376"}>
                 <div className={"elem elem-1"}>
-                    <div onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} className={"btn-close"}></div>
+                    <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <span className={"elem elem-2"}>Войдите или зарегистрируйтесь</span>
                 <span className={"elem elem-3"}>Для того чтобы создать игру, нужно зарегистрироваться</span>

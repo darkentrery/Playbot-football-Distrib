@@ -1,6 +1,6 @@
 import {
     AUTH,
-    CHOICE_CITY_WINDOW,
+    CHOICE_CITY_WINDOW, CREATE_EVENT_UN_AUTH_WINDOW, CREATE_EVENT_WINDOW, EDIT_EVENT_WINDOW, EVENT,
     LOGIN_WINDOW,
     REFRESH_PASSWORD_WINDOW,
     SIGN_UP_WINDOW, SUCCESS_CREATE_EVENT_WINDOW, SUCCESS_EDIT_EVENT_WINDOW,
@@ -18,6 +18,9 @@ const initialState = {
     isOpenSuccessCreateEvent: false,
     isOpenSuccessEditEvent: false,
     isOpenChoiceCity: false,
+    isOpenCreateEvent: false,
+    isOpenCreateEventUnAuth: false,
+    isOpenEditEvent: false,
 }
 
 
@@ -68,6 +71,21 @@ const windows = (state = initialState, action) => {
               ...state,
               isOpenChoiceCity: action.value
           };
+      case CREATE_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenCreateEvent: action.value
+          };
+      case CREATE_EVENT_UN_AUTH_WINDOW:
+          return {
+              ...state,
+              isOpenCreateEventUnAuth: action.value
+          };
+      case EDIT_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenEditEvent: action.value
+          };
       default:
           return state;
   }
@@ -91,9 +109,26 @@ const user = (state = initialAuthState, action) => {
   }
 };
 
+const initialEventState = {
+    event: false,
+}
+
+const event = (state = initialEventState, action) => {
+  switch (action.type) {
+      case EVENT:
+          return {
+              ...state,
+              event: action.value,
+          };
+      default:
+          return state;
+  }
+};
+
 export let rootReducer = combineReducers({
     windows,
     user,
+    event,
 });
 
 

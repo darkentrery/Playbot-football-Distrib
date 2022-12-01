@@ -7,7 +7,13 @@ export const SUCCESS_SIGN_UP2_WINDOW = 'SUCCESS_SIGN_UP2_WINDOW';
 export const SUCCESS_CREATE_EVENT_WINDOW = 'SUCCESS_CREATE_EVENT_WINDOW';
 export const SUCCESS_EDIT_EVENT_WINDOW = 'SUCCESS_EDIT_EVENT_WINDOW';
 export const CHOICE_CITY_WINDOW = 'CHOICE_CITY_WINDOW';
+export const CREATE_EVENT_WINDOW = 'CREATE_EVENT_WINDOW';
+export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
+export const EDIT_EVENT_WINDOW = 'EDIT_EVENT_WINDOW';
+
 export const AUTH = 'AUTH';
+
+export const EVENT = 'EVENT';
 
 
 export const signUpWindow = (value) => ({
@@ -55,8 +61,28 @@ export const choiceCityWindow = (value) => ({
   value,
 });
 
+export const createEventWindow = (value) => ({
+  type: CREATE_EVENT_WINDOW,
+  value,
+});
+
+export const createEventUnAuthWindow = (value) => ({
+  type: CREATE_EVENT_UN_AUTH_WINDOW,
+  value,
+});
+
+export const editEventWindow = (value) => ({
+  type: EDIT_EVENT_WINDOW,
+  value,
+});
+
 export const auth = (value, user) => ({
   type: AUTH,
   value,
   user,
+});
+
+export const event = (value) => ({
+  type: EVENT,
+  value,
 });

@@ -3,14 +3,14 @@ import React from "react";
 import LocationComponent from "./LocationComponent";
 import EventsComponent from "./EventsComponent";
 import BestPlayersComponent from "./BestPlayersComponent";
-import BoardCreateEventComponent from "./BoardCreateEventComponent";
+import VisibleBoardCreateEvent from "../../redux/containers/VisibleBoardCreateEvent";
 
 
 export default function MainPageComponent () {
 
     return (
         <div className={"main-page-component"}>
-            <BoardCreateEventComponent/>
+            <VisibleBoardCreateEvent/>
 
             <TitleComponent label={"Список событий"}/>
             <LocationComponent/>

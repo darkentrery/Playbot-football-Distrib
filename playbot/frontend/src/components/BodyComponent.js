@@ -1,6 +1,5 @@
-import {Link, Route, Routes} from "react-router-dom";
-
-import React, {useContext, useEffect, useState} from "react";
+import {Route, Routes} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import BaseRoutes from "../routes/BaseRoutes";
 import EventComponent from "./body/EventComponent";
 import MainPageComponent from "./body/MainPageComponent";
@@ -27,7 +26,6 @@ export default function BodyComponent () {
     }, [eventsPk])
 
 
-
     return(
         <div className={"body"}>
             <Routes>
@@ -37,7 +35,7 @@ export default function BodyComponent () {
                 {/*<Route exact path={'events/event/:pk/'} element={<EventComponent/>}/>*/}
 
                 {eventsPk.length !== 0 && eventsPk.map((item, key) => {
-                    return (<Route exact path={'events/' + BaseRoutes.eventLink(item)} element={<EventComponent pk={item}/>}/>)
+                    return (<Route key={key} exact path={'events/' + BaseRoutes.eventLink(item)} element={<EventComponent pk={item}/>}/>)
                 })}
             </Routes>
 

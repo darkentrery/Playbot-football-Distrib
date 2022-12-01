@@ -38,7 +38,7 @@ export default function UserComponent ({user}) {
             <div className={"el dropdown-user"}>
                 <div className={"dropdown-head"} onClick={openDropdown} ref={refuserHead}>
                     <img className={"dropdown-icon"} src={userIcon} alt=""/>
-                    <span className={"dropdown-label"}>Andry</span>
+                    <span className={"dropdown-label"}>{user.username}</span>
                     <div className={"arrow-icon down-arrow-icon"}></div>
                 </div>
                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>

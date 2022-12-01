@@ -1,35 +1,20 @@
-import {useContext} from "react";
-import Modal from "react-modal";
-import {OpenSuccessCreateEventContext} from "../../context/EventContext";
+import SuccessComponent from "./SuccessComponent";
 
 
-export default function SuccessCreateEventComponent () {
-    const { openSuccessCreateEvent, setOpenSuccessCreateEvent, createEventId, setCreateEventId } = useContext(OpenSuccessCreateEventContext);
+export default function SuccessCreateEventComponent ({isOpen, event, closeComponent}) {
 
-    const closeWindow = () => {
-        setOpenSuccessCreateEvent(!openSuccessCreateEvent);
-        window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${createEventId}/`
+    const clickSuccess = () => {
+        window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${event.id}/`
     }
 
     return(
-        <Modal
-            isOpen={openSuccessCreateEvent}
-            className={"popup-fon"}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-        >
-            <div className={"popup-frame success-event"}>
-                <div className={"elem elem-1"}>
-                    <span className={"title-22"}>Событие создано</span>
-                    <div onClick={closeWindow} className={"btn-close"}></div>
-                </div>
-                <div className={"elem elem-2"}>
-                    <span>Теперь дождитесь, когда соберется необходимое количество игроков и начинайте игру</span>
-                </div>
-                <div className={"elem elem-3"}>
-                    <button className={"btn"} onClick={closeWindow}>Перейти на страницу события</button>
-                </div>
-            </div>
-        </Modal>
+        <SuccessComponent
+            isOpen={isOpen}
+            closeSuccess={closeComponent}
+            title={"Событие создано"}
+            text={"Теперь дождитесь, когда соберется необходимое количество игроков и начинайте игру"}
+            buttonLabel={"Перейти на страницу события"}
+            clickSuccess={clickSuccess}
+        />
     )
 }

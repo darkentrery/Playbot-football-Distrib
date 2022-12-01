@@ -2,19 +2,13 @@ import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
 import React, {useState, useEffect, useRef} from "react";
 import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
 import {
-    OpenLoginContext,
     OpenMobileFirstPageContext,
-    OpenChoiceCityContext,
-
 } from "./context/AuthContext";
 
 import EventService from "./services/EventService";
 
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
-import ChoiceCityComponent from "./components/ChoiceCityComponent";
 import AuthService from "./services/AuthService";
-
-import HeadComponent from "./components/HeadComponent";
 import BodyComponent from "./components/BodyComponent";
 import BottomComponent from "./components/BottomComponent";
 import VisibleSignUp from "./redux/containers/VisibleSignUp";
@@ -25,17 +19,17 @@ import VisibleSuccessSignUp from "./redux/containers/VisibleSuccessSignUp";
 import VisibleSuccessSignUp2 from "./redux/containers/VisibleSuccessSignUp2";
 import VisibleChoiceCity from "./redux/containers/VisibleChoiceCity";
 import {authDecoratorWithoutLogin} from "./services/AuthDecorator";
+import VisibleHead from "./redux/containers/VisibleHead";
+import VisibleSuccessCreateEvent from "./redux/containers/VisibleSuccessCreateEvent";
+import VisibleCreateEvent from "./redux/containers/VisibleCreateEvent";
+import VisibleCreateEventUnAuth from "./redux/containers/VisibleCreateEventUnAuth";
 
 
 function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
     console.log(state)
     const authService = new AuthService();
-    const [openLogin, setOpenLogin] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
-
-
-    const loginWindow = { openLogin, setOpenLogin };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
 
 
@@ -43,7 +37,6 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
 
     const auth = async () => {
         await authDecoratorWithoutLogin(authService.isAuth, []).then((response) => {
-            console.log(response)
             if (response.status == 200) {
                 setAuth(true, response.data);
             } else {
@@ -75,17 +68,6 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
 
     // }, [openMobileFirstPage])
 
-    // const getOpenCreateEvent = async () => {
-    //     await authDecoratorWithoutLogin(eventService.getCreateEvent, []).then((response) => {
-    //         if (response.status == 200) {
-    //             setOpenCreateEvent(!openCreateEvent)
-    //         } else {
-    //             setOpenCreateEventUnAuth(!openCreateEventUnAuth)
-    //         }
-    //         console.log(response)
-    //     })
-    // }
-
 
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
@@ -111,16 +93,8 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
           {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
               <main className={"main-page"}>
-                  <OpenLoginContext.Provider value={loginWindow}>
-                      <HeadComponent/>
-                  </OpenLoginContext.Provider>
-                  {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
-                      <OpenLoginContext.Provider value={loginWindow}>
-                          <BodyComponent/>
-                      </OpenLoginContext.Provider>
-                  {/*</OpenSignUpContext.Provider>*/}
-
-
+                  <VisibleHead/>
+                  <BodyComponent/>
                   <BottomComponent/>
               </main>
 
@@ -139,13 +113,13 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
                   {/*    </Map>*/}
                   {/*  </YMaps>*/}
 
-                  <OpenLoginContext.Provider value={loginWindow}>
+                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
                       {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
                           <OpenMobileFirstPageContext.Provider value={mobileFirstPageWindow}>
                               <MobileFirstPageComponent/>
                           </OpenMobileFirstPageContext.Provider>
                       {/*</OpenSignUpContext.Provider>*/}
-                  </OpenLoginContext.Provider>
+                  {/*</OpenLoginContext.Provider>*/}
 
               <VisibleSignUp/>
               <VisibleLogin/>
@@ -154,6 +128,9 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
               <VisibleSuccessSignUp/>
               <VisibleSuccessSignUp2/>
               <VisibleChoiceCity/>
+              <VisibleSuccessCreateEvent/>
+              <VisibleCreateEvent/>
+              <VisibleCreateEventUnAuth/>
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}

@@ -1,13 +1,12 @@
-import React, {useState, useEffect, useContext, useRef} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Modal from "react-modal";
-import {OpenCreateEventContext, OpenSuccessCreateEventContext} from "../context/EventContext";
 import ReactDatetimeClass from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
 
 
-export default function CreateEventComponent () {
+export default function CreateEventComponent ({isOpen, closeComponent, openSuccessCreateEvent, setEvent}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [name, setName] = useState(false);
@@ -38,8 +37,6 @@ export default function CreateEventComponent () {
     }
     const content = [1, 2, 3, 4];
 
-    const { openCreateEvent, setOpenCreateEvent } = useContext(OpenCreateEventContext);
-    const { openSuccessCreateEvent, setOpenSuccessCreateEvent, createEventId, setCreateEventId } = useContext(OpenSuccessCreateEventContext);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -66,16 +63,16 @@ export default function CreateEventComponent () {
         if (refCount.current.className.includes("up-arrow-icon")) {
             refCount.current.className = "dropdown-label down-arrow-icon";
         }
-        setOpenCreateEvent(!openCreateEvent);
+        closeComponent();
     }
 
     const sendForm = async () => {
         let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
-                setCreateEventId(response.data.id);
+                setEvent(response.data);
                 closeWindow();
-                setOpenSuccessCreateEvent(true);
+                openSuccessCreateEvent();
             })
         }
     }
@@ -127,7 +124,7 @@ export default function CreateEventComponent () {
 
     return(
         <Modal
-            isOpen={openCreateEvent}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
