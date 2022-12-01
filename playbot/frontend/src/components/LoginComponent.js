@@ -6,7 +6,7 @@ import $ from 'jquery';
 import BaseRoutes from "../routes/BaseRoutes";
 
 
-export default function LoginComponent ({isOpenLogin, openSignUp, closeLogin, openRefreshPassword}) {
+export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
@@ -25,7 +25,7 @@ export default function LoginComponent ({isOpenLogin, openSignUp, closeLogin, op
         setEmail(false);
         setPassword(false);
         setData(false);
-        closeLogin();
+        closeComponent();
         // setOpenLogin(!openLogin);
     }
 
@@ -46,6 +46,7 @@ export default function LoginComponent ({isOpenLogin, openSignUp, closeLogin, op
                 console.log(response)
                 errors = authService.loginResponseValidation(response, refEmail, refPassword);
                 if (!errors.length) {
+                    setAuth(true, response.data);
                     closeWindow();
                     window.location.href = `${process.env.REACT_APP_MAIN_URL}${BaseRoutes.events}`;
                 }
@@ -69,7 +70,7 @@ export default function LoginComponent ({isOpenLogin, openSignUp, closeLogin, op
 
     return(
         <Modal
-            isOpen={isOpenLogin}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}

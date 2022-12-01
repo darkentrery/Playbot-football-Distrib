@@ -11,7 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.users.models import User
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
-    SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer
+    SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer
 
 
 class IndexView(APIView):
@@ -159,6 +159,16 @@ class ValidView(APIView):
             authenticated = False
 
         return Response({"authenticated": authenticated}, status=status.HTTP_200_OK)
+
+
+class IsAuthView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format='json'):
+        serializer = UserSerializer(instance=request.user)
+        json = serializer.data
+        return Response(json, status=status.HTTP_200_OK)
+
 
 
 

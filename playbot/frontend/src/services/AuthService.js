@@ -45,6 +45,21 @@ export default class AuthService{
 			});
 	}
 
+	isAuth(){
+		const url = `${API_URL}is-auth/`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	loginRequestValidation(email, password, refEmail, refPassword) {
 		$(refEmail.current).children('input').removeClass('error');
 		$(refEmail.current).children('span').removeClass('error');
@@ -137,7 +152,6 @@ export default class AuthService{
                    $(refsDict[error].current).children('span').addClass('error');
                    $(refsDict[error].current).children('span').html('Это поле обязательно для заполнения!');
                 }
-                console.log(error)
             })
 		}
 
@@ -145,7 +159,6 @@ export default class AuthService{
 	}
 
 	signUpResponseValidation(response, refsDict) {
-		console.log(response)
 		let errors = new Map();
 		if (response.status !== 201) {
 			["username", "phone_number", "email", "password"].forEach(field => {

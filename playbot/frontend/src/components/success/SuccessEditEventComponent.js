@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 
 export default function SuccessEditEventComponent ({id}) {
     const { openSuccessEditEvent, setOpenSuccessEditEvent } = useContext(OpenSuccessEditEventContext);
-    let navigate = useNavigate();
 
     const closeWindow = () => {
         setOpenSuccessEditEvent(!openSuccessEditEvent);

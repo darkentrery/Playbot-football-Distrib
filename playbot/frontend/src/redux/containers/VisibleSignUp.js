@@ -1,4 +1,4 @@
-import {loginWindow, signUpWindow} from "../actions/actions";
+import {loginWindow, signUpWindow, successSignUpWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import SignUpComponent from "../../components/SignUpComponent";
 
@@ -6,17 +6,20 @@ import SignUpComponent from "../../components/SignUpComponent";
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isOpenSignUp: state.windows.isOpenSignUp,
+    isOpen: state.windows.isOpenSignUp,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    closeSignUp: () => {
+    closeComponent: () => {
       dispatch(signUpWindow(false));
     },
     openLogin: () => {
       dispatch(loginWindow(true));
+    },
+    openSuccessSignUp: () => {
+      dispatch(successSignUpWindow(true));
     },
   };
 };

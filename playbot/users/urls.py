@@ -19,4 +19,5 @@ urlpatterns = [
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
     re_path(r"^api/data/$", views.DataView.as_view(), name='data'),
     re_path(r"^api/valid-token/$", views.ValidView.as_view(), name='valid-token'),
+    path("api/is-auth/", views.IsAuthView.as_view(), name='is-auth'),
 ]

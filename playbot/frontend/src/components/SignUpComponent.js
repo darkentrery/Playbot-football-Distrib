@@ -12,7 +12,7 @@ import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
 
 
-export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin}) {
+export default function SignUpComponent ({isOpen, closeComponent, openLogin, openSuccessSignUp}) {
     const authService = new AuthService();
     const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
@@ -32,7 +32,7 @@ export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin})
     const [enterFlag, setEnterFlag] = useState(false);
 
     const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
-    const {openSuccessSignUp, setOpenSuccessSignUp} = useContext(OpenSuccessSignUpContext);
+
     const refUsername = useRef();
     const refPhoneNumber = useRef();
     const refEmail = useRef();
@@ -94,13 +94,13 @@ export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin})
     }
 
     useEffect(() => {
-        if (isOpenSignUp && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
-        if (!countries && isOpenSignUp) {
+        if (isOpen && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
+        if (!countries && isOpen) {
             authService.getCountries(setBanner).then((response) => {
                 setCountries(response);
             })
         }
-    }, [isOpenSignUp, isIPhone])
+    }, [isOpen, isIPhone])
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -129,7 +129,7 @@ export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin})
         setIsDropdown(false);
         refArrowIcon.current.className = "down-arrow-icon";
         $(refPhoneNumber.current).removeClass('open');
-        closeSignUp();
+        closeComponent();
     }
 
     const toLogin = () => {
@@ -193,7 +193,7 @@ export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin})
                 errors = authService.signUpResponseValidation(response, refsDict);
                 if (!errors.size) {
                     closeWindow();
-                    setOpenSuccessSignUp(!openSuccessSignUp);
+                    openSuccessSignUp();
                     // if (isMobile) {
                     //     authService.login(loginData).then((response) => {
                     //         setOpenChoiceCity(!openChoiceCity);
@@ -208,7 +208,7 @@ export default function SignUpComponent ({isOpenSignUp, closeSignUp, openLogin})
 
     return(
         <Modal
-            isOpen={isOpenSignUp}
+            isOpen={isOpen}
             // onAfterOpen={afterOpenModal}
             // onRequestClose={closeModal}
             // style={customStyles}

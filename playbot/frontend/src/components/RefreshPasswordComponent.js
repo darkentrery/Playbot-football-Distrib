@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useContext, useRef} from "react";
+import React, { useState, useEffect, useRef} from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
-import {OpenLoginContext, OpenRefreshPasswordContext, OpenSuccessRefreshPasswordContext} from "../context/AuthContext";
 import $ from "jquery";
 
 
-export default function RefreshPasswordComponent ({isOpenRefreshPassword, openSignUp, openLogin, closeRefreshPassword}) {
+export default function RefreshPasswordComponent ({isOpen, closeComponent, openSuccess, openLogin}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [data, setData] = useState(false);
     const refEmail = useRef();
-
-    const { openSuccessRefreshPassword, setOpenSuccessRefreshPassword } = useContext(OpenSuccessRefreshPasswordContext);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -23,7 +20,7 @@ export default function RefreshPasswordComponent ({isOpenRefreshPassword, openSi
     const closeWindow = () => {
         setEmail(false);
         setData(false);
-        closeRefreshPassword();
+        closeComponent();
     }
 
     const toLogin = () => {
@@ -39,7 +36,7 @@ export default function RefreshPasswordComponent ({isOpenRefreshPassword, openSi
             authService.refreshPassword(data).then((response) => {
                 if (response.status == 200) {
                     closeWindow();
-                    setOpenSuccessRefreshPassword(!openSuccessRefreshPassword);
+                    openSuccess();
                 } else {
                     $(refEmail.current).children('input').addClass('error');
                     $(refEmail.current).children('span').addClass('error');
@@ -60,7 +57,7 @@ export default function RefreshPasswordComponent ({isOpenRefreshPassword, openSi
 
     return(
         <Modal
-            isOpen={isOpenRefreshPassword}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}

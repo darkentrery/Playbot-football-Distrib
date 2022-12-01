@@ -1,13 +1,12 @@
 import React, {useState, useContext, useRef, useEffect} from "react";
 import AuthService from "../services/AuthService";
 import Modal from "react-modal";
-import {OpenChoiceCityContext} from "../context/AuthContext";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
 
 
-export default function ChoiceCityComponent () {
+export default function ChoiceCityComponent ({isOpen, closeComponent}) {
     const authService = new AuthService();
     const cityService = new CityService();
     const [city, setCity] = useState(false);
@@ -15,23 +14,25 @@ export default function ChoiceCityComponent () {
     const [citiesTag, setCitiesTag] = useState([]);
     const [cities, setCities] = useState([]);
     const [isIPhone, setIsIphone] = useState(false);
-
-    const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
     const citiesRef = useRef();
 
     useEffect(() => {
-        if (openChoiceCity) {
+        if (isOpen) {
             cityService.getCities().then((response) => {
                 if (response.status == 200) {
                     setCities(response.data.cities)
                 }
             })
         }
-    }, [openChoiceCity])
+    }, [isOpen])
 
     useEffect(() => {
-        if (openChoiceCity && !authService.addIPhoneBottomMargin('.bottom')) setIsIphone(!isIPhone);
-    }, [openChoiceCity, isIPhone])
+        if (isOpen && !authService.addIPhoneBottomMargin('.bottom')) setIsIphone(!isIPhone);
+    }, [isOpen, isIPhone])
+
+    const closeWindow = () => {
+        closeComponent();
+    }
 
 
     const sendForm = async () => {
@@ -39,9 +40,9 @@ export default function ChoiceCityComponent () {
             localStorage.city = city;
             await authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
                 console.log(response)
+                closeWindow();
             })
         }
-        setOpenChoiceCity(!openChoiceCity);
     }
 
     useEffect(() => {
@@ -100,7 +101,7 @@ export default function ChoiceCityComponent () {
 
     return(
         <Modal
-            isOpen={openChoiceCity}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
@@ -108,7 +109,7 @@ export default function ChoiceCityComponent () {
             <div className={"popup-frame choice-city"}>
                 <div className={"elem head"}>
                     <span>Выберите город</span>
-                    <div onClick={() => {setOpenChoiceCity(!openChoiceCity)}} className={"btn-close choice-city-close"}></div>
+                    <div onClick={closeWindow} className={"btn-close choice-city-close"}></div>
                 </div>
                 <div className={"elem under-head"}>
                     <span>Для корректного отображения событий укажите город</span>

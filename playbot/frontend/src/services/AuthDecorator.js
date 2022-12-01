@@ -6,7 +6,6 @@ export async function getData(func, arg, openLogin, setOpenLogin) {
     let refreshToken = null;
     let dateToken = null;
     const authService = new AuthService();
-    console.log(localStorage.access_token)
 
     if (localStorage.access_token) {
         accessToken = localStorage.access_token;
@@ -36,7 +35,6 @@ export async function authDecoratorWithoutLogin(func, arg) {
     let refreshToken = null;
     let dateToken = null;
     const authService = new AuthService();
-    console.log(localStorage.access_token)
 
     if (localStorage.access_token) {
         accessToken = localStorage.access_token;

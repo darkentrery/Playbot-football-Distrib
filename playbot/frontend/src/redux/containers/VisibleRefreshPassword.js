@@ -1,4 +1,4 @@
-import {loginWindow, refreshPasswordWindow, signUpWindow} from "../actions/actions";
+import {loginWindow, refreshPasswordWindow, successRefreshPasswordWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import RefreshPasswordComponent from "../../components/RefreshPasswordComponent";
 
@@ -6,21 +6,21 @@ import RefreshPasswordComponent from "../../components/RefreshPasswordComponent"
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
-    isOpenRefreshPassword: state.windows.isOpenRefreshPassword,
+    // ...state,
+    isOpen: state.windows.isOpenRefreshPassword,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openSignUp: () => {
-      dispatch(signUpWindow(true));
+    closeComponent: () => {
+      dispatch(refreshPasswordWindow(false));
+    },
+    openSuccess: () => {
+      dispatch(successRefreshPasswordWindow(true));
     },
     openLogin: () => {
       dispatch(loginWindow(true));
-    },
-    closeRefreshPassword: () => {
-      dispatch(refreshPasswordWindow(false));
     },
   };
 };

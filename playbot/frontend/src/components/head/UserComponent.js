@@ -4,7 +4,7 @@ import $ from "jquery";
 import AuthService from "../../services/AuthService";
 
 
-export default function UserComponent () {
+export default function UserComponent ({user}) {
     const authService = new AuthService();
     const [isDropdown, setIsDropdown] = useState(false);
     const refuserHead = useRef();

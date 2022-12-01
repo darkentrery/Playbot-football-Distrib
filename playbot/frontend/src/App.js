@@ -1,74 +1,66 @@
-import logo from './assets/icon/logo.svg';
-
-import LoginComponent from "./components/LoginComponent";
-import SignUpComponent from "./components/SignUpComponent";
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
-import AuthRoutes from "./routes/AuthRoutes";
 import React, {useState, useEffect, useRef} from "react";
 import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
 import {
-    OpenSignUpContext,
     OpenLoginContext,
-    OpenRefreshPasswordContext,
     OpenMobileFirstPageContext,
     OpenChoiceCityContext,
-    OpenSuccessSignUpContext,
-    OpenSuccessRefreshPasswordContext,
-    OpenSuccessSignUp2Context
+
 } from "./context/AuthContext";
-import RefreshPasswordComponent from "./components/RefreshPasswordComponent";
+
 import EventService from "./services/EventService";
-import {authDecoratorWithoutLogin, getData} from "./services/AuthDecorator";
-import CreateEventComponent from "./components/CreateEventComponent";
-import CreateEventUnAuthComponent from "./components/CreateEventUnAuthComponent";
-import {
-    OpenCreateEventContext,
-    OpenCreateEventUnAuthContext,
-    OpenSuccessCreateEventContext
-} from "./context/EventContext";
+
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
 import ChoiceCityComponent from "./components/ChoiceCityComponent";
 import AuthService from "./services/AuthService";
-import SuccessCreateEventComponent from "./components/success/SuccessCreateEventComponent";
-import SuccessSignUpComponent from "./components/success/SuccessSignUp";
-import SuccessRefreshPasswordComponent from "./components/success/SuccessRefreshPassword";
+
 import HeadComponent from "./components/HeadComponent";
 import BodyComponent from "./components/BodyComponent";
 import BottomComponent from "./components/BottomComponent";
-import SuccessSignUp2Component from "./components/success/SuccessSignUp2";
 import VisibleSignUp from "./redux/containers/VisibleSignUp";
-import {signUp} from "./redux/actions/actions";
 import VisibleLogin from "./redux/containers/VisibleLogin";
 import VisibleRefreshPassword from "./redux/containers/VisibleRefreshPassword";
+import VisibleSuccessRefreshPassword from "./redux/containers/VisibleSuccessRefreshPassword";
+import VisibleSuccessSignUp from "./redux/containers/VisibleSuccessSignUp";
+import VisibleSuccessSignUp2 from "./redux/containers/VisibleSuccessSignUp2";
+import VisibleChoiceCity from "./redux/containers/VisibleChoiceCity";
+import {authDecoratorWithoutLogin} from "./services/AuthDecorator";
 
 
-function App({isOpenSignUp, openSignUp}) {
+function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
+    console.log(state)
     const authService = new AuthService();
     const [openLogin, setOpenLogin] = useState(false);
-    const [openRefreshPassword, setOpenRefreshPassword] = useState(false);
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
-    const [openChoiceCity, setOpenChoiceCity] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
-    const [openSuccessRefreshPassword, setOpenSuccessRefreshPassword] = useState(false);
-    const [openSuccessSignUp, setOpenSuccessSignUp] = useState(false);
-    const [openSuccessSignUp2, setOpenSuccessSignUp2] = useState(false);
 
 
     const loginWindow = { openLogin, setOpenLogin };
-    const refreshPasswordWindow = { openRefreshPassword, setOpenRefreshPassword };
     const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
-    const choiceCityWindow = { openChoiceCity, setOpenChoiceCity };
-    const successRefreshPasswordWindow = { openSuccessRefreshPassword, setOpenSuccessRefreshPassword };
-    const successSignUpWindow = { openSuccessSignUp, setOpenSuccessSignUp };
-    const successSignUp2Window = { openSuccessSignUp2, setOpenSuccessSignUp2 };
+
 
     const eventService = new EventService();
+
+    const auth = async () => {
+        await authDecoratorWithoutLogin(authService.isAuth, []).then((response) => {
+            console.log(response)
+            if (response.status == 200) {
+                setAuth(true, response.data);
+            } else {
+                setAuth(false, false);
+            }
+        })
+    }
+
+    useEffect(() => {
+        auth();
+    }, [state.user.isAuth])
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
             authService.confirmSignUp(window.location.pathname)
             setConfirmSignUp(true);
-            setOpenSuccessSignUp2(true);
+            openSuccessSignUp2();
         }
     }, [confirmSignUp])
 
@@ -97,7 +89,7 @@ function App({isOpenSignUp, openSignUp}) {
 
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
-            setOpenChoiceCity(true);
+            openChoiceCity();
             localStorage.telegramLogin = false;
         }
     }, [localStorage.telegramLogin])
@@ -115,7 +107,7 @@ function App({isOpenSignUp, openSignUp}) {
           {/*<button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>*/}
           {/*<button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>*/}
           {/*<button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>*/}
-          <button onClick={() => setOpenChoiceCity(!openChoiceCity)} type="button" className="">Choice City</button>
+          <button onClick={openChoiceCity} type="button" className="">Choice City</button>
           {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
               <main className={"main-page"}>
@@ -147,35 +139,6 @@ function App({isOpenSignUp, openSignUp}) {
                   {/*    </Map>*/}
                   {/*  </YMaps>*/}
 
-
-
-
-                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
-                  {/*    <OpenSignUpContext.Provider value={signUpWindow}>*/}
-                  {/*        <OpenChoiceCityContext.Provider value={choiceCityWindow}>*/}
-                  {/*            <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>*/}
-                  {/*                <SignUpComponent/>*/}
-                  {/*            </OpenSuccessSignUpContext.Provider>*/}
-                  {/*        </OpenChoiceCityContext.Provider>*/}
-                  {/*    </OpenSignUpContext.Provider>*/}
-                  {/*</OpenLoginContext.Provider>*/}
-
-                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
-                  {/*    /!*<OpenSignUpContext.Provider value={signUpWindow}>*!/*/}
-                  {/*        <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>*/}
-                  {/*            <LoginComponent/>*/}
-                  {/*        </OpenRefreshPasswordContext.Provider>*/}
-                  {/*    /!*</OpenSignUpContext.Provider>*!/*/}
-                  {/*</OpenLoginContext.Provider>*/}
-
-                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
-                  {/*    <OpenRefreshPasswordContext.Provider value={refreshPasswordWindow}>*/}
-                  {/*        <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>*/}
-                  {/*            <RefreshPasswordComponent/>*/}
-                  {/*        </OpenSuccessRefreshPasswordContext.Provider>*/}
-                  {/*    </OpenRefreshPasswordContext.Provider>*/}
-                  {/*</OpenLoginContext.Provider>*/}
-
                   <OpenLoginContext.Provider value={loginWindow}>
                       {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
                           <OpenMobileFirstPageContext.Provider value={mobileFirstPageWindow}>
@@ -184,26 +147,13 @@ function App({isOpenSignUp, openSignUp}) {
                       {/*</OpenSignUpContext.Provider>*/}
                   </OpenLoginContext.Provider>
 
-                  <OpenChoiceCityContext.Provider value={choiceCityWindow}>
-                      <ChoiceCityComponent/>
-                  </OpenChoiceCityContext.Provider>
-
-                  <OpenSuccessSignUpContext.Provider value={successSignUpWindow}>
-                      <SuccessSignUpComponent/>
-                  </OpenSuccessSignUpContext.Provider>
-
               <VisibleSignUp/>
               <VisibleLogin/>
               <VisibleRefreshPassword/>
-
-                  <OpenSuccessRefreshPasswordContext.Provider value={successRefreshPasswordWindow}>
-                      <SuccessRefreshPasswordComponent/>
-                  </OpenSuccessRefreshPasswordContext.Provider>
-
-                  <OpenSuccessSignUp2Context.Provider value={successSignUp2Window}>
-                      <SuccessSignUp2Component/>
-                  </OpenSuccessSignUp2Context.Provider>
-
+              <VisibleSuccessRefreshPassword/>
+              <VisibleSuccessSignUp/>
+              <VisibleSuccessSignUp2/>
+              <VisibleChoiceCity/>
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}

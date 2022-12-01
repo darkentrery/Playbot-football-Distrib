@@ -1,4 +1,4 @@
-import {loginWindow, refreshPasswordWindow, signUpWindow} from "../actions/actions";
+import {loginWindow, refreshPasswordWindow, signUpWindow, auth} from "../actions/actions";
 import {connect} from "react-redux";
 import LoginComponent from "../../components/LoginComponent";
 
@@ -7,20 +7,23 @@ import LoginComponent from "../../components/LoginComponent";
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isOpenLogin: state.windows.isOpenLogin,
+    isOpen: state.windows.isOpenLogin,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    closeComponent: () => {
+      dispatch(loginWindow(false));
+    },
     openSignUp: () => {
       dispatch(signUpWindow(true));
     },
-    closeLogin: () => {
-      dispatch(loginWindow(false));
-    },
     openRefreshPassword: () => {
       dispatch(refreshPasswordWindow(true));
+    },
+    setAuth: (value, user) => {
+      dispatch(auth(value, user));
     },
   };
 };

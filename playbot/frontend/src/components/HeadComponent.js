@@ -7,6 +7,7 @@ import UserComponent from "./head/UserComponent";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
 import $ from "jquery";
+import VisibleUnAuthUser from "../redux/containers/VisibleUnAuthUser";
 
 
 export default function HeadComponent () {
@@ -52,11 +53,9 @@ export default function HeadComponent () {
 
             </div>
             <div className={"elem search-black-icon"}></div>
-            {/*<OpenLoginContext.Provider value={loginWindow}>*/}
-            {/*    <UnAuthUserComponent/>*/}
-            {/*</OpenLoginContext.Provider>*/}
+
             {isAuth && <UserComponent/>}
-            {!isAuth && <UnAuthUserComponent/>}
+            {!isAuth && <VisibleUnAuthUser/>}
         </div>
     )
 }
