@@ -90,4 +90,23 @@ class TeamPlayer(models.Model):
         return f"{self.player.name} - {self.team.name}"
 
 
+class EventStep(models.Model):
+    class StepName(models.TextChoices):
+        STEP_1 = "Step 1", _("Step 1")
+        STEP_2 = "Step 2", _("Step 2")
+        STEP_3 = "Step 3", _("Step 3")
+
+    step = models.CharField(_("Step Name"), max_length=50, choices=StepName.choices, default=StepName.STEP_1)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_step")
+    complete = models.BooleanField(_("Step Is Complete"), default=False)
+
+    class Meta:
+        unique_together = ["step", "event"]
+        verbose_name = "Event Step"
+        verbose_name_plural = "Events Steps"
+
+    def __str__(self):
+        return f"{self.event.name} - {self.step}"
+
+
 

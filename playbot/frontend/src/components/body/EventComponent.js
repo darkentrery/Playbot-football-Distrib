@@ -4,10 +4,11 @@ import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 
 
-export default function EventComponent ({pk, openEditEvent, setEvent, setPlayers, openCancelEvent, openConfirmPlayers}) {
+export default function EventComponent ({pk, steps, openEditEvent, setEvent, setPlayers, setSteps, openCancelEvent, openConfirmPlayers}) {
     const eventService = new EventService();
     const [localeEvent, setLocaleEvent] = useState(false);
     const [localePlayers, setLocalePlayers] = useState([]);
+    // const [localeSteps, setLocaleSteps] = useState([]);
 
     useEffect(() => {
         if (!localeEvent) {
@@ -27,6 +28,14 @@ export default function EventComponent ({pk, openEditEvent, setEvent, setPlayers
         }
     }, [localePlayers])
 
+    useEffect(() => {
+        if (!steps.length) {
+            eventService.getEventSteps(pk).then((response) => {
+                setSteps(response.data);
+            })
+        }
+    }, [steps])
+
 
     return (
         <div className={"event-component"}>
@@ -37,7 +46,14 @@ export default function EventComponent ({pk, openEditEvent, setEvent, setPlayers
                     <div className={"el-3 black-edit-icon link"} onClick={openEditEvent}></div>
                 </div>
             </div>
-            <BoardEventOrganizerComponent event={localeEvent} players={localePlayers} openCancelEvent={openCancelEvent} openConfirmPlayers={openConfirmPlayers}/>
+            <BoardEventOrganizerComponent
+                event={localeEvent}
+                players={localePlayers}
+                openCancelEvent={openCancelEvent}
+                openConfirmPlayers={openConfirmPlayers}
+                steps={steps}
+                setSteps={setSteps}
+            />
             <EventOrganizerComponent event={localeEvent} players={localePlayers} openEditEvent={openEditEvent}/>
         </div>
     )

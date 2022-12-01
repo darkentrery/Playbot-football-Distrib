@@ -83,6 +83,21 @@ export default class EventService{
 			});
 	}
 
+	toConfirmPlayers(event){
+		const url = `${API_URL}to-confirm-players/`;
+		return axios.post(url, event, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	getCancelReasons(){
 		const url = `${API_URL}get-cancel-reasons/`;
 		return axios.get(url, {headers: {
@@ -99,6 +114,20 @@ export default class EventService{
 
 	getPlayers(id){
 		const url = `${API_URL}event-players/${id}/`;
+		return axios.get(url, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
+	getEventSteps(id){
+		const url = `${API_URL}event-steps/${id}/`;
 		return axios.get(url, {headers: {
 			'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,

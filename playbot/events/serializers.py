@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from playbot.events.models import Event, CancelReasons
+from playbot.events.models import Event, CancelReasons, EventStep
 from playbot.users.models import User
 
 
@@ -32,4 +32,10 @@ class EditEventSerializer(serializers.ModelSerializer):
 class CancelReasonsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CancelReasons
+        fields = "__all__"
+
+
+class EventStepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventStep
         fields = "__all__"

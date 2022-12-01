@@ -9,7 +9,7 @@ import {
     EVENT,
     LOGIN_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
-    SIGN_UP_WINDOW,
+    SIGN_UP_WINDOW, STEPS,
     SUCCESS_CREATE_EVENT_WINDOW,
     SUCCESS_EDIT_EVENT_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
@@ -134,6 +134,8 @@ const user = (state = initialAuthState, action) => {
 const initialEventState = {
     event: false,
     players: [],
+    steps: [],
+
 }
 
 const event = (state = initialEventState, action) => {
@@ -147,6 +149,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               players: action.value,
+          };
+      case STEPS:
+          return {
+              ...state,
+              steps: action.value,
           };
       default:
           return state;

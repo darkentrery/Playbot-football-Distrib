@@ -2,7 +2,7 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players
+  confirmPlayersWindow, players, steps
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventComponent from "../../components/body/EventComponent";
@@ -11,7 +11,8 @@ import EventComponent from "../../components/body/EventComponent";
 const mapStateToProps = (state) => {
   return {
     ...state,
-    event: state.event.event,
+    // event: state.event.event,
+    steps: state.event.steps,
   };
 };
 
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setPlayers: (value) => {
       dispatch(players(value));
+    },
+    setSteps: (value) => {
+      dispatch(steps(value));
     },
     openCancelEvent: () => {
       dispatch(cancelEventWindow(true));

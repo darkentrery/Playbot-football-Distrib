@@ -10,4 +10,6 @@ urlpatterns = [
     path("edit/", views.EditEventView.as_view(), name='edit-event'),
     path("get-cancel-reasons/", views.CancelReasonsView.as_view(), name='cancel-reasons'),
     path("event-players/<int:id>/", views.EventPlayersView.as_view(), name='event-players'),
+    path("event-steps/<int:id>/", views.EventStepsView.as_view(), name='event-steps'),
+    path("to-confirm-players/", views.ToConfirmPlayersView.as_view(), name='to-confirm-players'),
 ]

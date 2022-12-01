@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from playbot.events.models import Event, CancelReasons, Team, EventPlayer, TeamPlayer
+from playbot.events.models import Event, CancelReasons, Team, EventPlayer, TeamPlayer, EventStep
 
 
 class TeamInline(admin.TabularInline):
     model = Team
     extra = 0
-    readonly_fields = [
+    list_display = [
         "name",
         "count_players",
     ]
@@ -15,7 +15,7 @@ class TeamInline(admin.TabularInline):
 class EventPlayerInline(admin.TabularInline):
     model = EventPlayer
     extra = 0
-    readonly_fields = [
+    list_display = [
         "player",
     ]
 
@@ -23,8 +23,17 @@ class EventPlayerInline(admin.TabularInline):
 class TeamPlayerInline(admin.TabularInline):
     model = TeamPlayer
     extra = 0
-    readonly_fields = [
+    list_display = [
         "player",
+    ]
+
+
+class EventStepInline(admin.TabularInline):
+    model = EventStep
+    extra = 0
+    list_display = [
+        "step",
+        "complete",
     ]
 
 
@@ -52,6 +61,7 @@ class EventAdmin(admin.ModelAdmin):
     inlines = [
         TeamInline,
         EventPlayerInline,
+        EventStepInline,
     ]
 
 
@@ -78,4 +88,13 @@ class TeamPlayerAdmin(admin.ModelAdmin):
     list_display = [
         "player",
         "team",
+    ]
+
+
+@admin.register(EventStep)
+class EventStepAdmin(admin.ModelAdmin):
+    list_display = [
+        "step",
+        "event",
+        "complete",
     ]

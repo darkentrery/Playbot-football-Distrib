@@ -3,9 +3,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from playbot.events.models import Event, CancelReasons
+from playbot.events.models import Event, CancelReasons, EventStep
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
-    CancelReasonsSerializer
+    CancelReasonsSerializer, EventStepSerializer
 from playbot.users.models import User
 from playbot.users.serializers import UserSerializer
 
@@ -75,6 +75,25 @@ class EventPlayersView(APIView):
         id = self.kwargs.get("id")
         players_id = Event.objects.get(id=id).event_player.all().values_list("player", flat=True)
         items = UserSerializer(User.objects.filter(id__in=players_id), many=True)
+        return Response(items.data, status=status.HTTP_200_OK)
+
+
+class EventStepsView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        id = self.kwargs.get("id")
+        items = EventStepSerializer(EventStep.objects.filter(event_id=id), many=True)
+        return Response(items.data, status=status.HTTP_200_OK)
+
+
+class ToConfirmPlayersView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["id"])
+        EventStep.objects.update_or_create(step=EventStep.StepName.STEP_1, event=event)
+        items = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
         return Response(items.data, status=status.HTTP_200_OK)
 
 

@@ -1,12 +1,18 @@
 import React from "react-dom";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import EventService from "../../services/EventService";
 
 
-export default function BoardEventOrganizerComponent ({event, players, openCancelEvent, openConfirmPlayers}) {
+export default function BoardEventOrganizerComponent ({event, players, steps, openCancelEvent, openConfirmPlayers, setSteps}) {
+    const eventService = new EventService();
 
-    const beginEvent = (e) => {
+    const toConfirmPlayers = (e) => {
         console.log(e)
         openConfirmPlayers();
-        console.log(openConfirmPlayers)
+        authDecoratorWithoutLogin(eventService.toConfirmPlayers, event).then((response) => {
+            setSteps(response.data);
+            console.log(response)
+        })
     }
 
 
@@ -21,10 +27,14 @@ export default function BoardEventOrganizerComponent ({event, players, openCance
                 <span className={"elem elem-2"}>Дворовый турнир Тверской</span>
                 <span className={"elem elem-3"}>21 августа 2022, 12:00</span>
                 <div className={"elem elem-4"}>
-                    <button className={"el el-1 btn"} onClick={beginEvent}>Начать игру</button>
-                    <button className={"el el-2 btn-second"} onClick={openCancelEvent}>Отменить игру</button>
-                </div>
+                    {steps.length === 0 &&
+                        <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>
+                    }
+                    {steps.length === 0 &&
+                        <button className={"el el-2 btn-second"} onClick={openCancelEvent}>Отменить игру</button>
+                    }
 
+                </div>
             </div>
 
             <div className={"board-event-376"}>
@@ -37,7 +47,7 @@ export default function BoardEventOrganizerComponent ({event, players, openCance
                 <span className={"elem elem-2"}>Дворовый турнир Тверской</span>
                 <span className={"elem elem-3"}>21 августа 2022, 12:00</span>
                 <div className={"elem elem-4"}>
-                    <button className={"el el-1 btn"} onClick={beginEvent}>Начать игру</button>
+                    <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>
                     <button className={"el el-2 btn-second"} onClick={openCancelEvent}>Отменить игру</button>
                 </div>
             </div>
