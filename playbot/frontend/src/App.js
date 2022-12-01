@@ -23,6 +23,10 @@ import VisibleHead from "./redux/containers/VisibleHead";
 import VisibleSuccessCreateEvent from "./redux/containers/VisibleSuccessCreateEvent";
 import VisibleCreateEvent from "./redux/containers/VisibleCreateEvent";
 import VisibleCreateEventUnAuth from "./redux/containers/VisibleCreateEventUnAuth";
+import VisibleSuccessEditEvent from "./redux/containers/VisibleSuccessEditEvent";
+import VisibleEditEvent from "./redux/containers/VisibleEditEvent";
+import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
+import VisibleConfirmPlayers from "./redux/containers/VisibleConfirmPlayers";
 
 
 function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
@@ -71,8 +75,9 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
 
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
-            openChoiceCity();
+            // openChoiceCity();
             localStorage.telegramLogin = false;
+            openSuccessSignUp2();
         }
     }, [localStorage.telegramLogin])
 
@@ -129,8 +134,12 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
               <VisibleSuccessSignUp2/>
               <VisibleChoiceCity/>
               <VisibleSuccessCreateEvent/>
+              <VisibleSuccessEditEvent/>
               <VisibleCreateEvent/>
               <VisibleCreateEventUnAuth/>
+              <VisibleEditEvent/>
+              <VisibleCancelEvent/>
+              <VisibleConfirmPlayers/>
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}

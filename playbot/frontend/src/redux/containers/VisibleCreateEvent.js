@@ -1,13 +1,8 @@
 import {
-  loginWindow,
-  refreshPasswordWindow,
-  signUpWindow,
-  auth,
   createEventWindow,
   successCreateEventWindow, event
 } from "../actions/actions";
 import {connect} from "react-redux";
-import LoginComponent from "../../components/LoginComponent";
 import CreateEventComponent from "../../components/CreateEventComponent";
 
 

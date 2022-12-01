@@ -1,12 +1,11 @@
 import EventService from "../services/EventService";
-import React, {useContext, useEffect, useRef, useState} from "react";
-import {OpenEditEventContext, OpenSuccessEditEventContext} from "../context/EventContext";
+import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import ReactDatetimeClass from "react-datetime";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 
 
-export default function EditEventComponent ({event}) {
+export default function EditEventComponent ({isOpen, event, closeComponent, openSuccessEditEvent, setEvent}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [id, setId] = useState(false);
@@ -37,9 +36,6 @@ export default function EditEventComponent ({event}) {
         "notice": refNotice,
     }
     const content = [1, 2, 3, 4];
-    const { openEditEvent, setOpenEditEvent } = useContext(OpenEditEventContext);
-
-    const { openSuccessEditEvent, setOpenSuccessEditEvent } = useContext(OpenSuccessEditEventContext);
 
     useEffect(() => {
         if (!id) setId(event.id);
@@ -50,7 +46,7 @@ export default function EditEventComponent ({event}) {
         if (event && event.count_players) setCount(event.count_players);
         if (event && event.is_player == true) setIsPlayer(true);
         if (!notice) setNotice(event.notice);
-    }, [event, openEditEvent])
+    }, [event, isOpen])
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -87,15 +83,16 @@ export default function EditEventComponent ({event}) {
         if (refCount.current.className.includes("up-arrow-icon")) {
             refCount.current.className = "dropdown-label down-arrow-icon";
         }
-        setOpenEditEvent(!openEditEvent);
+        closeComponent();
     }
 
     const sendForm = async () => {
         let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.editEvent, data).then((response) => {
+                setEvent(response.data);
                 closeWindow();
-                setOpenSuccessEditEvent(true);
+                openSuccessEditEvent();
             })
         }
     }
@@ -147,7 +144,7 @@ export default function EditEventComponent ({event}) {
 
     return (
         <Modal
-            isOpen={openEditEvent}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
@@ -199,7 +196,7 @@ export default function EditEventComponent ({event}) {
                         <span className={"dropdown-label down-arrow-icon"} ref={refCount} onClick={openDropdown}>{count ? count : "1"}</span>
                         <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
                             {content && content.map((item, key) => {
-                                return (<span className={"dropdown-elem"} onClick={choiceCount}>{item}</span>)
+                                return (<span className={"dropdown-elem"} key={key} onClick={choiceCount}>{item}</span>)
                             })}
                         </div>
                     </div>

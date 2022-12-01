@@ -4,12 +4,10 @@ import {OpenConfirmPlayersContext} from "../../context/EventContext";
 import $ from "jquery";
 
 
-export default function ConfirmPlayersComponent ({event, players}) {
-
-    const { openConfirmPlayers, setOpenConfirmPlayers } = useContext(OpenConfirmPlayersContext);
+export default function ConfirmPlayersComponent ({players, isOpen, event, closeComponent}) {
 
     const closeWindow = () => {
-        setOpenConfirmPlayers(false);
+        closeComponent();
     }
 
     const selectPlayer = (e) => {
@@ -28,7 +26,7 @@ export default function ConfirmPlayersComponent ({event, players}) {
 
     return (
         <Modal
-            isOpen={openConfirmPlayers}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}

@@ -1,20 +1,18 @@
 import {useContext, useEffect, useState} from "react";
 import Modal from "react-modal";
-import {OpenCancelEventContext} from "../../context/EventContext";
 import $ from "jquery";
 import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
-export default function CancelEventComponent ({event}) {
+export default function CancelEventComponent ({isOpen, event, closeComponent}) {
     const eventService = new EventService();
     const [reason, setReason] = useState(false);
     const [reasons, setReasons] = useState(false);
-    const { openCancelEvent, setOpenCancelEvent } = useContext(OpenCancelEventContext);
 
     const closeWindow = () => {
         setReason(false);
-        setOpenCancelEvent(!openCancelEvent);
+        closeComponent();
     }
 
     const choiceReason = (e) => {
@@ -26,12 +24,12 @@ export default function CancelEventComponent ({event}) {
     }
 
     useEffect(() => {
-        if (openCancelEvent) {
+        if (isOpen) {
             eventService.getCancelReasons().then((response) => {
                 if (response.status === 200) setReasons(response.data);
             })
         }
-    }, [openCancelEvent])
+    }, [isOpen])
 
     const sendForm = () => {
         if (reason) {
@@ -48,7 +46,7 @@ export default function CancelEventComponent ({event}) {
 
     return(
         <Modal
-            isOpen={openCancelEvent}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}

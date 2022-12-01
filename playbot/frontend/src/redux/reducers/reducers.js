@@ -1,10 +1,20 @@
 import {
     AUTH,
-    CHOICE_CITY_WINDOW, CREATE_EVENT_UN_AUTH_WINDOW, CREATE_EVENT_WINDOW, EDIT_EVENT_WINDOW, EVENT,
-    LOGIN_WINDOW,
+    CANCEL_EVENT_WINDOW,
+    CHOICE_CITY_WINDOW,
+    CONFIRM_PLAYERS_WINDOW,
+    CREATE_EVENT_UN_AUTH_WINDOW,
+    CREATE_EVENT_WINDOW,
+    EDIT_EVENT_WINDOW,
+    EVENT,
+    LOGIN_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
-    SIGN_UP_WINDOW, SUCCESS_CREATE_EVENT_WINDOW, SUCCESS_EDIT_EVENT_WINDOW,
-    SUCCESS_REFRESH_PASSWORD_WINDOW, SUCCESS_SIGN_UP2_WINDOW, SUCCESS_SIGN_UP_WINDOW
+    SIGN_UP_WINDOW,
+    SUCCESS_CREATE_EVENT_WINDOW,
+    SUCCESS_EDIT_EVENT_WINDOW,
+    SUCCESS_REFRESH_PASSWORD_WINDOW,
+    SUCCESS_SIGN_UP2_WINDOW,
+    SUCCESS_SIGN_UP_WINDOW
 } from "../actions/actions";
 import { combineReducers } from 'redux';
 
@@ -21,6 +31,8 @@ const initialState = {
     isOpenCreateEvent: false,
     isOpenCreateEventUnAuth: false,
     isOpenEditEvent: false,
+    isOpenCancelEvent: false,
+    isOpenConfirmPlayers: false,
 }
 
 
@@ -86,6 +98,16 @@ const windows = (state = initialState, action) => {
               ...state,
               isOpenEditEvent: action.value
           };
+      case CANCEL_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenCancelEvent: action.value
+          };
+      case CONFIRM_PLAYERS_WINDOW:
+          return {
+              ...state,
+              isOpenConfirmPlayers: action.value
+          };
       default:
           return state;
   }
@@ -111,6 +133,7 @@ const user = (state = initialAuthState, action) => {
 
 const initialEventState = {
     event: false,
+    players: [],
 }
 
 const event = (state = initialEventState, action) => {
@@ -119,6 +142,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               event: action.value,
+          };
+      case PLAYERS:
+          return {
+              ...state,
+              players: action.value,
           };
       default:
           return state;

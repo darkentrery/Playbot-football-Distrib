@@ -1,8 +1,8 @@
 import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
-import NoEventsComponent from "./NoEventsComponent";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
+import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
 
 
 export default function EventsComponent () {
@@ -53,7 +53,7 @@ export default function EventsComponent () {
     
     return (
         <div className={"body-events"}>
-            {!events.length && <NoEventsComponent/>}
+            {!events.length && <VisibleNoEvents/>}
 
             {events.length !== 0 &&
                 <div className={"events-table"}>

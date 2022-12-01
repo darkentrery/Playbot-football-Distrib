@@ -10,10 +10,13 @@ export const CHOICE_CITY_WINDOW = 'CHOICE_CITY_WINDOW';
 export const CREATE_EVENT_WINDOW = 'CREATE_EVENT_WINDOW';
 export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
 export const EDIT_EVENT_WINDOW = 'EDIT_EVENT_WINDOW';
+export const CANCEL_EVENT_WINDOW = 'CANCEL_EVENT_WINDOW';
+export const CONFIRM_PLAYERS_WINDOW = 'CONFIRM_PLAYERS_WINDOW';
 
 export const AUTH = 'AUTH';
 
 export const EVENT = 'EVENT';
+export const PLAYERS = 'PLAYERS';
 
 
 export const signUpWindow = (value) => ({
@@ -76,6 +79,16 @@ export const editEventWindow = (value) => ({
   value,
 });
 
+export const cancelEventWindow = (value) => ({
+  type: CANCEL_EVENT_WINDOW,
+  value,
+});
+
+export const confirmPlayersWindow = (value) => ({
+  type: CONFIRM_PLAYERS_WINDOW,
+  value,
+});
+
 export const auth = (value, user) => ({
   type: AUTH,
   value,
@@ -84,5 +97,10 @@ export const auth = (value, user) => ({
 
 export const event = (value) => ({
   type: EVENT,
+  value,
+});
+
+export const players = (value) => ({
+  type: PLAYERS,
   value,
 });

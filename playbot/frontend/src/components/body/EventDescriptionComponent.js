@@ -1,20 +1,12 @@
-import React, {useContext, useState} from "react";
-import {OpenEditEventContext, OpenSuccessEditEventContext} from "../../context/EventContext";
-import EditEventComponent from "../EditEventComponent";
-import SuccessEditEventComponent from "../success/SuccessEditEventComponent";
+import React from "react";
 
 
-export default function EventDescriptionComponent ({event}) {
-    const [openEditEvent, setOpenEditEvent]= useState(false);
-    const editEventWindow = { openEditEvent, setOpenEditEvent };
-    const [openSuccessEditEvent, setOpenSuccessEditEvent]= useState(false);
-    const successEditEventWindow = { openSuccessEditEvent, setOpenSuccessEditEvent };
-
+export default function EventDescriptionComponent ({event, openEditEvent}) {
 
     return (
         <div className={"event-description-component"}>
             <div className={"elem-1280 elem-1"}>
-                <span className={"el black-edit-icon link"} onClick={(e) => setOpenEditEvent(!openEditEvent)}>Редактировать игру</span>
+                <span className={"el black-edit-icon link"} onClick={openEditEvent}>Редактировать игру</span>
                 <span className={"el gray-copy-icon link"}>Копировать ссылку</span>
             </div>
             <span className={"elem-1280 elem-2"}>Информация</span>
@@ -33,7 +25,7 @@ export default function EventDescriptionComponent ({event}) {
             </div>
 
             <div className={"elem-744 elem-1"}>
-                <span className={"el black-edit-icon link"} onClick={(e) => setOpenEditEvent(!openEditEvent)}>Редактировать игру</span>
+                <span className={"el black-edit-icon link"} onClick={openEditEvent}>Редактировать игру</span>
                 <span className={"el gray-copy-icon link"}></span>
             </div>
             <span className={"elem-744 elem-2"}>Информация</span>
@@ -54,16 +46,6 @@ export default function EventDescriptionComponent ({event}) {
             <span className={"elem-376 elem-5"}>Адрес:</span>
             <span className={"elem-376 elem-6"}>{event.address}</span>
             <div className={"elem-376 elem-7"}></div>
-
-            <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
-                <OpenEditEventContext.Provider value={editEventWindow}>
-                    <EditEventComponent event={event}/>
-                </OpenEditEventContext.Provider>
-            </OpenSuccessEditEventContext.Provider>
-
-            <OpenSuccessEditEventContext.Provider value={successEditEventWindow}>
-                <SuccessEditEventComponent id={event.id}/>
-            </OpenSuccessEditEventContext.Provider>
         </div>
     )
 }

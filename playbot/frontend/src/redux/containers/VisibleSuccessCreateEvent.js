@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isOpen: state.windows.isOpenSuccessCreateEvent,
+    event: state.event.event,
   };
 };
 
