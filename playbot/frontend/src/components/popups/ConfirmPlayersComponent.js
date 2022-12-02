@@ -1,6 +1,5 @@
 import Modal from "react-modal";
-import React, {useContext, useEffect, useState} from "react";
-import {OpenConfirmPlayersContext} from "../../context/EventContext";
+import React, {useEffect, useState} from "react";
 import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
@@ -16,8 +15,6 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, closeC
             arr.push(item.id.toString());
         })
         setSelected(arr)
-        console.log(selected)
-
     }, [players, isOpen])
 
     const closeWindow = () => {

@@ -4,7 +4,7 @@ import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 
 
-export default function EventComponent ({pk, steps, openEditEvent, setEvent, setPlayers, setSteps, openCancelEvent, openConfirmPlayers}) {
+export default function EventComponent ({pk, steps, funcs}) {
     const eventService = new EventService();
     const [localeEvent, setLocaleEvent] = useState(false);
     const [localePlayers, setLocalePlayers] = useState([]);
@@ -13,7 +13,7 @@ export default function EventComponent ({pk, steps, openEditEvent, setEvent, set
     useEffect(() => {
         if (!localeEvent) {
             eventService.getEvent(pk).then((response) => {
-                setEvent(response.data);
+                funcs.setEvent(response.data);
                 setLocaleEvent(response.data);
             })
         }
@@ -22,7 +22,7 @@ export default function EventComponent ({pk, steps, openEditEvent, setEvent, set
     useEffect(() => {
         if (!localePlayers.length) {
             eventService.getPlayers(pk).then((response) => {
-                setPlayers(response.data);
+                funcs.setPlayers(response.data);
                 setLocalePlayers(response.data);
             })
         }
@@ -31,7 +31,7 @@ export default function EventComponent ({pk, steps, openEditEvent, setEvent, set
     useEffect(() => {
         if (!steps.length) {
             eventService.getEventSteps(pk).then((response) => {
-                setSteps(response.data);
+                funcs.setSteps(response.data);
             })
         }
     }, [steps])
@@ -43,18 +43,19 @@ export default function EventComponent ({pk, steps, openEditEvent, setEvent, set
                 <div className={"event-mobile-head"}>
                     <div className={"el-1 gray-left-arrow-icon link"}></div>
                     <span className={"el-2"}>Событие</span>
-                    <div className={"el-3 black-edit-icon link"} onClick={openEditEvent}></div>
+                    <div className={"el-3 black-edit-icon link"} onClick={funcs.openEditEvent}></div>
                 </div>
             </div>
             <BoardEventOrganizerComponent
                 event={localeEvent}
                 players={localePlayers}
-                openCancelEvent={openCancelEvent}
-                openConfirmPlayers={openConfirmPlayers}
                 steps={steps}
-                setSteps={setSteps}
+                funcs={funcs}
+                // openCancelEvent={funcs.openCancelEvent}
+                // openConfirmPlayers={funcs.openConfirmPlayers}
+                // setSteps={funcs.setSteps}
             />
-            <EventOrganizerComponent event={localeEvent} players={localePlayers} openEditEvent={openEditEvent}/>
+            <EventOrganizerComponent event={localeEvent} players={localePlayers} openEditEvent={funcs.openEditEvent}/>
         </div>
     )
 }

@@ -344,54 +344,54 @@ input[type="checkbox"] {
   }
 }
 
-.dropdown {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  height: $fieldHeight;
-  box-sizing: border-box;
-
-  .dropdown-label {
-    display: flex;
-    flex: 0 0 $fieldHeight;
-    align-items: center;
-    padding-left: 16px;
-    border: 0.8px solid #949494;
-    border-radius: 8px;
-    cursor: pointer;
-    box-sizing: border-box;
-  }
-}
-
-.dropdown-menu {
-  display: none;
-  flex-direction: column;
-  //opacity: 0;
-  border: 1px solid gray;
-  border-radius: 8px;
-  transition: all 100ms ease;
-  background: rgb(255, 255, 255);
-
-  &.open {
-    //opacity: 1;
-    display: flex !important;
-  }
-
-  .dropdown-elem {
-    display: flex;
-    align-items: center;
-    flex: 0 0 $fieldHeight;
-    padding-left: 16px;
-    padding-right: 16px;
-    cursor: pointer;
-
-    &:hover {
-      background: rgba(227, 225, 225, 0.63);
-      border-radius: 8px;
-    }
-  }
-}
+//.dropdown {
+//  position: relative;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: stretch;
+//  height: $fieldHeight;
+//  box-sizing: border-box;
+//
+//  .dropdown-label {
+//    display: flex;
+//    flex: 0 0 $fieldHeight;
+//    align-items: center;
+//    padding-left: 16px;
+//    border: 0.8px solid #949494;
+//    border-radius: 8px;
+//    cursor: pointer;
+//    box-sizing: border-box;
+//  }
+//}
+//
+//.dropdown-menu {
+//  display: none;
+//  flex-direction: column;
+//  //opacity: 0;
+//  border: 1px solid gray;
+//  border-radius: 8px;
+//  transition: all 100ms ease;
+//  background: rgb(255, 255, 255);
+//
+//  &.open {
+//    //opacity: 1;
+//    display: flex !important;
+//  }
+//
+//  .dropdown-elem {
+//    display: flex;
+//    align-items: center;
+//    flex: 0 0 $fieldHeight;
+//    padding-left: 16px;
+//    padding-right: 16px;
+//    cursor: pointer;
+//
+//    &:hover {
+//      background: rgba(227, 225, 225, 0.63);
+//      border-radius: 8px;
+//    }
+//  }
+//}
 
 .rdtPicker {
   top: $fieldHeight;

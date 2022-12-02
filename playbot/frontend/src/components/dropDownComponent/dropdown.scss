@@ -1,0 +1,105 @@
+.dropdown-component {
+  display: flex;
+  flex-direction: column;
+  height: $dropDownLabelHeight + 16px;
+  width: auto;
+
+
+  .dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: 0 0 $dropDownLabelHeight;
+    box-sizing: border-box;
+    background-position: left 14px center;
+
+    .left-icon {
+      position: absolute;
+      left: $dropDownLeftIconLeft;
+      top: $dropDownLeftIconTop;
+    }
+
+    .dropdown-label {
+      display: flex;
+      flex: 0 0 $dropDownLabelHeight;
+      align-items: center;
+      border: 0.8px solid #949494;
+      border-radius: 8px;
+      cursor: pointer;
+      box-sizing: border-box;
+      background-position: right 10px center;
+      padding-left: 44px;
+    }
+
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      flex: 1 1 $dropDownMenuHeight;
+      //opacity: 0;
+      border: 1px solid gray;
+      border-radius: 8px;
+      transition: all 100ms ease;
+      background: rgb(255, 255, 255);
+
+      &.open {
+        //opacity: 1;
+        display: flex !important;
+      }
+
+      .dropdown-elem {
+        display: flex;
+        align-items: center;
+        flex: 0 0 $dropDownElemHeight;
+        padding-left: 16px;
+        padding-right: 16px;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(227, 225, 225, 0.63);
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+
+  .input-message {
+    flex: 0 0 12px;
+    margin-top: 4px;
+  }
+}
+
+
+.dropdown-size {
+  &.dropdown-component {
+    height: $dropDownLabelHeight + 16px;
+    width: auto;
+
+    .dropdown {;
+      flex: 0 0 $dropDownLabelHeight;
+      background-position: left 14px center;
+
+      .left-icon {
+        left: $dropDownLeftIconLeft;
+        top: $dropDownLeftIconTop;
+      }
+
+      .dropdown-label {
+        flex: 0 0 $dropDownLabelHeight;
+        border-radius: 8px;
+        background-position: right 10px center;
+        padding-left: 44px;
+      }
+
+      .dropdown-menu {
+        flex: 1 1 $dropDownMenuHeight;
+
+        .dropdown-elem {
+          flex: 0 0 $dropDownElemHeight;
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+      }
+    }
+  }
+}

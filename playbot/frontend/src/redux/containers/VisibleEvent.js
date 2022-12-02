@@ -2,7 +2,7 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps
+  confirmPlayersWindow, players, steps, fillRegulationWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventComponent from "../../components/body/EventComponent";
@@ -18,23 +18,28 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openEditEvent: () => {
-      dispatch(editEventWindow(true));
-    },
-    setEvent: (value) => {
-      dispatch(event(value));
-    },
-    setPlayers: (value) => {
-      dispatch(players(value));
-    },
-    setSteps: (value) => {
-      dispatch(steps(value));
-    },
-    openCancelEvent: () => {
-      dispatch(cancelEventWindow(true));
-    },
-    openConfirmPlayers: () => {
-      dispatch(confirmPlayersWindow(true));
+    funcs: {
+      openEditEvent: () => {
+        dispatch(editEventWindow(true));
+      },
+      setEvent: (value) => {
+        dispatch(event(value));
+      },
+      setPlayers: (value) => {
+        dispatch(players(value));
+      },
+      setSteps: (value) => {
+        dispatch(steps(value));
+      },
+      openCancelEvent: () => {
+        dispatch(cancelEventWindow(true));
+      },
+      openConfirmPlayers: () => {
+        dispatch(confirmPlayersWindow(true));
+      },
+      openFillRegulation: () => {
+        dispatch(fillRegulationWindow(true));
+      }
     }
   };
 };

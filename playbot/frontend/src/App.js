@@ -27,10 +27,12 @@ import VisibleSuccessEditEvent from "./redux/containers/VisibleSuccessEditEvent"
 import VisibleEditEvent from "./redux/containers/VisibleEditEvent";
 import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
 import VisibleConfirmPlayers from "./redux/containers/VisibleConfirmPlayers";
+import FillRegulationComponent from "./components/popups/FillRegulationComponent";
 
 
-function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
+function App({state, isOpenLogin, funcs}) {
     console.log(state)
+
     const authService = new AuthService();
     const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
@@ -42,9 +44,9 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
     const auth = async () => {
         await authDecoratorWithoutLogin(authService.isAuth, []).then((response) => {
             if (response.status == 200) {
-                setAuth(true, response.data);
+                funcs.setAuth(true, response.data);
             } else {
-                setAuth(false, false);
+                funcs.setAuth(false, false);
             }
         })
     }
@@ -57,7 +59,7 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
             authService.confirmSignUp(window.location.pathname)
             setConfirmSignUp(true);
-            openSuccessSignUp2();
+            funcs.openSuccessSignUp2();
         }
     }, [confirmSignUp])
 
@@ -77,7 +79,7 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
         if (localStorage.telegramLogin === 'true') {
             // openChoiceCity();
             localStorage.telegramLogin = false;
-            openSuccessSignUp2();
+            funcs.openSuccessSignUp2();
         }
     }, [localStorage.telegramLogin])
 
@@ -90,11 +92,11 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
 
   return (
       <div className="App">
-          <button onClick={openSignUp} type="button" className="">Register</button>
+          <button onClick={funcs.openSignUp} type="button" className="">Register</button>
           {/*<button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>*/}
           {/*<button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>*/}
           {/*<button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>*/}
-          <button onClick={openChoiceCity} type="button" className="">Choice City</button>
+          <button onClick={funcs.openChoiceCity} type="button" className="">Choice City</button>
           {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
               <main className={"main-page"}>
@@ -140,6 +142,12 @@ function App({state, openSignUp, openSuccessSignUp2, openChoiceCity, setAuth}) {
               <VisibleEditEvent/>
               <VisibleCancelEvent/>
               <VisibleConfirmPlayers/>
+              <FillRegulationComponent
+                  isOpen={state.windows.isOpenFillRegulation}
+                  players={state.event.players}
+                  event={state.event.event}
+                  funcs={funcs}
+              />
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}

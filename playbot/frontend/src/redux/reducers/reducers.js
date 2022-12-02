@@ -6,7 +6,7 @@ import {
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
-    EVENT,
+    EVENT, FILL_REGULATION_WINDOW,
     LOGIN_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     SIGN_UP_WINDOW, STEPS,
@@ -33,6 +33,7 @@ const initialState = {
     isOpenEditEvent: false,
     isOpenCancelEvent: false,
     isOpenConfirmPlayers: false,
+    isOpenFillRegulation: false,
 }
 
 
@@ -107,6 +108,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenConfirmPlayers: action.value
+          };
+      case FILL_REGULATION_WINDOW:
+          return {
+              ...state,
+              isOpenFillRegulation: action.value
           };
       default:
           return state;

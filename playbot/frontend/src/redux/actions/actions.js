@@ -12,6 +12,7 @@ export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
 export const EDIT_EVENT_WINDOW = 'EDIT_EVENT_WINDOW';
 export const CANCEL_EVENT_WINDOW = 'CANCEL_EVENT_WINDOW';
 export const CONFIRM_PLAYERS_WINDOW = 'CONFIRM_PLAYERS_WINDOW';
+export const FILL_REGULATION_WINDOW = 'FILL_REGULATION_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -87,6 +88,11 @@ export const cancelEventWindow = (value) => ({
 
 export const confirmPlayersWindow = (value) => ({
   type: CONFIRM_PLAYERS_WINDOW,
+  value,
+});
+
+export const fillRegulationWindow = (value) => ({
+  type: FILL_REGULATION_WINDOW,
   value,
 });
 
