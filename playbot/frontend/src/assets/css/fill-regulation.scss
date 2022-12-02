@@ -55,9 +55,8 @@
 
   &.elem-4 {
     flex: 0 0 427px;
-    overflow: auto;
     flex-direction: column;
-    margin-top: 33px;
+    margin-top: 25px;
     margin-bottom: 42px;
     width: 280px;
 
@@ -89,9 +88,37 @@
   }
 }
 
+.dropdown-size-format {
+  &.dropdown-component {
+
+    .dropdown {;
+
+      .left-icon {
+        left: $dropDownLeftIconLeft;
+        top: 16px;
+      }
+    }
+  }
+}
+
+.dropdown-size-count-circle {
+  &.dropdown-component {
+
+    .dropdown {;
+
+      .left-icon {
+        left: $dropDownLeftIconLeft;
+        top: 18px;
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 375px) and (max-width: 743px){
   .fill-regulation-component {
     flex: 0 0 100vw;
     height: 100vh;
   }
 }
+
+

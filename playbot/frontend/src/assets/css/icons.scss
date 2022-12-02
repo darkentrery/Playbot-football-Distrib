@@ -63,6 +63,14 @@
   z-index: 99999;
 }
 
+.gray-clock-icon {
+  background: url("../icon/gray-clock.png");
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  width: 14px;
+  height: 14px;
+}
+
 .down-arrow-icon {
   background: url("../icon/down-arrow.png") no-repeat;
   background-size: 24px;
@@ -125,6 +133,20 @@
   background: url("../icon/two-people.png") no-repeat;
   background-size: 16px;
   height: 16px;
+  width: 16px;
+}
+
+.man-in-target-icon {
+  background: url("../icon/man-in-target.png") no-repeat;
+  background-size: 16px;
+  height: 16px;
+  width: 16px;
+}
+
+.football-field-icon {
+  background: url("../icon/football-field.png") no-repeat;
+  background-size: 16px 11px;
+  height: 11px;
   width: 16px;
 }
 

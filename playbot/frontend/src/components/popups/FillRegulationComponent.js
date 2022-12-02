@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
@@ -10,6 +10,10 @@ export default function FillRegulationComponent ({players, isOpen, event, funcs}
     const eventService = new EventService();
     const [selected, setSelected] = useState(players);
     const [format, setFormat] = useState(false);
+    const [mode, setMode] = useState(false);
+    const [countCircle, setCountCircle] = useState(false);
+    const [duration, setDuration] = useState(false);
+    const [closeDropDown, setCloseDropDown] = useState(false);
 
 
     useEffect(() => {
@@ -40,6 +44,14 @@ export default function FillRegulationComponent ({players, isOpen, event, funcs}
 
     }
 
+    const popupClick = (e) => {
+        if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("dropdown-label")) {
+            setCloseDropDown(!closeDropDown);
+        } else if (e.target.className.includes("dropdown-label")) {
+            setCloseDropDown(e.target.id);
+        }
+    }
+
 
     return (
         <Modal
@@ -48,7 +60,7 @@ export default function FillRegulationComponent ({players, isOpen, event, funcs}
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame fill-regulation-component"}>
+            <div className={"popup-frame fill-regulation-component"} onClick={popupClick}>
                 <div className={"elem elem-1"}>
                     <div onClick={toConfirmPlayers} className={"btn-back"}></div>
                     <span className={"title-22"}>Заполните регламент</span>
@@ -65,7 +77,10 @@ export default function FillRegulationComponent ({players, isOpen, event, funcs}
                     <div className={"gray-line"}></div>
                 </div>
                 <div className={"elem elem-4"}>
-                    <DropDownComponent value={format} setValue={setFormat} leftIcon={'two-people-icon'}/>
+                    <DropDownComponent value={format} setValue={setFormat} leftIcon={'two-people-icon'} sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={1}/>
+                    <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'} sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2}/>
+                    <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'} sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3}/>
+                    <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'} sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4}/>
 
                 </div>
                 <button className={"elem elem-5 btn"} onClick={fillRegulation}>Поделиться на команды</button>

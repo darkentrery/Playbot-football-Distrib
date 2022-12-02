@@ -39,8 +39,8 @@ $col-6-Player-Width: 192px;
 $noEventsHeight: 243px;
 
 $dropDownLabelHeight: 48px;
-$dropDownMenuHeight: 150px;
 $dropDownElemHeight: 48px;
+$dropDownMenuHeight: $dropDownElemHeight * 3;
 $dropDownWidth: 100px;
 $dropDownLeftIconLeft: 15px;
 $dropDownLeftIconTop: 12px;
