@@ -97,3 +97,23 @@ class ToConfirmPlayersView(APIView):
         return Response(items.data, status=status.HTTP_200_OK)
 
 
+class ConfirmPlayersView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        players = request.data["players"]
+        event = Event.objects.get(id=request.data["event"]["id"])
+        event_players = event.event_player.all()
+        for player in event_players:
+            if not (str(player.player.id) in players):
+                player.delete()
+
+        players_id = event.event_player.all().values_list("player", flat=True)
+        items = UserSerializer(User.objects.filter(id__in=players_id), many=True)
+        EventStep.objects.update_or_create(step=EventStep.StepName.STEP_1, event=event, defaults={"complete": True})
+        EventStep.objects.update_or_create(step=EventStep.StepName.STEP_2, event=event)
+        steps = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
+
+        return Response({"players": items.data, "steps": steps.data}, status=status.HTTP_200_OK)
+
+

@@ -12,4 +12,5 @@ urlpatterns = [
     path("event-players/<int:id>/", views.EventPlayersView.as_view(), name='event-players'),
     path("event-steps/<int:id>/", views.EventStepsView.as_view(), name='event-steps'),
     path("to-confirm-players/", views.ToConfirmPlayersView.as_view(), name='to-confirm-players'),
+    path("confirm-players/", views.ConfirmPlayersView.as_view(), name='confirm-players'),
 ]

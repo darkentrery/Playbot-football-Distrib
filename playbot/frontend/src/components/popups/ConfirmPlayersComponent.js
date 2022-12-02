@@ -1,10 +1,24 @@
 import Modal from "react-modal";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {OpenConfirmPlayersContext} from "../../context/EventContext";
 import $ from "jquery";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import EventService from "../../services/EventService";
 
 
-export default function ConfirmPlayersComponent ({players, isOpen, event, closeComponent}) {
+export default function ConfirmPlayersComponent ({players, isOpen, event, closeComponent, setPlayers, setSteps}) {
+    const eventService = new EventService();
+    const [selected, setSelected] = useState(players);
+
+    useEffect(() => {
+        let arr = [];
+        players.forEach((item) => {
+            arr.push(item.id.toString());
+        })
+        setSelected(arr)
+        console.log(selected)
+
+    }, [players, isOpen])
 
     const closeWindow = () => {
         closeComponent();
@@ -12,16 +26,30 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, closeC
 
     const selectPlayer = (e) => {
         let iconSelect = $(e.target).parent('.el').children('.player-select-icon');
+        let arr = [];
         if ($(e.target).hasClass('el')) {
             iconSelect = $(e.target).children('.player-select-icon');
         }
+        let parent = iconSelect.closest('.elem-4');
         if (iconSelect.hasClass('inactive')) {
             iconSelect.removeClass('inactive');
         } else {
             iconSelect.addClass('inactive');
         }
+        parent.find('.player-select-icon').map((item) => {
+            if (!$(parent.find('.player-select-icon')[item]).hasClass('inactive')) arr.push($(parent.find('.player-select-icon')[item]).parent().attr('id'));
+        })
+        setSelected(arr);
     }
 
+    const confirmPlayers = () => {
+        authDecoratorWithoutLogin(eventService.confirmPlayers, {"event": event, "players": selected}).then((response) => {
+            console.log(response)
+            setPlayers(response.data.players);
+            setSteps(response.data.steps);
+            closeWindow();
+        })
+    }
 
 
     return (
@@ -49,7 +77,7 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, closeC
                 <div className={"elem elem-4 scroll"}>
                     {players.length !== 0 && players.map((item, key) => {
                         return (
-                            <div className={"el"} onClick={selectPlayer} key={key}>
+                            <div className={"el"} onClick={selectPlayer} key={key} id={item.id}>
                                 <div className={"player-select-icon"}></div>
                                 <div className={"player-avatar-icon"}></div>
                                 <span className={"black-400-13"}>{item.username}</span>
@@ -57,7 +85,7 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, closeC
                         )
                     })}
                 </div>
-                <button className={"elem elem-5 btn"}>Продолжить</button>
+                <button className={"elem elem-5 btn"} onClick={confirmPlayers}>Продолжить</button>
             </div>
         </Modal>
     )

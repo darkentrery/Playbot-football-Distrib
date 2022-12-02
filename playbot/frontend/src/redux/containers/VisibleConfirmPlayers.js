@@ -1,4 +1,4 @@
-import {confirmPlayersWindow} from "../actions/actions";
+import {confirmPlayersWindow, players, steps} from "../actions/actions";
 import {connect} from "react-redux";
 import ConfirmPlayersComponent from "../../components/popups/ConfirmPlayersComponent";
 
@@ -16,6 +16,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     closeComponent: () => {
       dispatch(confirmPlayersWindow(false));
+    },
+    setPlayers: (value) => {
+      dispatch(players(value));
+    },
+    setSteps: (value) => {
+      dispatch(steps(value));
     },
   };
 };

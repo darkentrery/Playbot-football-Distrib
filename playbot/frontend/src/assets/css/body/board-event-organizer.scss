@@ -77,10 +77,14 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 19px;
-      }
 
-      .el-1 {
-        margin-right: 16px;
+        &.el-1 {
+          margin-right: 16px;
+        }
+
+        &.el-3 {
+          flex: 0 0 266px;
+        }
       }
     }
   }
