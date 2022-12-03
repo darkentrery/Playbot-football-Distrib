@@ -28,6 +28,8 @@ import VisibleEditEvent from "./redux/containers/VisibleEditEvent";
 import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
 import VisibleConfirmPlayers from "./redux/containers/VisibleConfirmPlayers";
 import FillRegulationComponent from "./components/popups/FillRegulationComponent";
+import ConfirmTeamsComponent from "./components/popups/ConfirmTeamsComponent";
+import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent";
 
 
 function App({state, isOpenLogin, funcs}) {
@@ -141,12 +143,13 @@ function App({state, isOpenLogin, funcs}) {
               <VisibleCreateEventUnAuth/>
               <VisibleEditEvent/>
               <VisibleCancelEvent/>
-              <VisibleConfirmPlayers/>
-              <FillRegulationComponent
-                  isOpen={state.windows.isOpenFillRegulation}
-                  event={state.event.event}
-                  funcs={funcs}
-              />
+
+              <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
+                                       players={state.event.players} funcs={funcs}/>
+              <FillRegulationComponent isOpen={state.windows.isOpenFillRegulation} event={state.event.event}
+                                       funcs={funcs}/>
+              <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
+                                     players={state.event.players} funcs={funcs}/>
 
                   {/*<div className="features">*/}
                   {/*    <Routes>*/}

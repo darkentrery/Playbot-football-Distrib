@@ -3,10 +3,10 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
+export default function BoardEventOrganizerComponent ({event, steps, players, funcs}) {
     const eventService = new EventService();
 
-    const toConfirmPlayers = (e) => {
+    const toConfirmPlayers = () => {
         funcs.openConfirmPlayers();
         authDecoratorWithoutLogin(eventService.toConfirmPlayers, event).then((response) => {
             funcs.setSteps(response.data);
@@ -17,13 +17,17 @@ export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
         funcs.openFillRegulation();
     }
 
+    const toConfirmTeams = () => {
+        funcs.openConfirmTeams();
+    }
+
 
     return (
         <div className={"board-event-component"}>
             <div className={"board-event-1280"}>
                 <div className={"elem elem-1"}>
                     <span className={"el el-1 dark-gray-cup-icon"}>78,8</span>
-                    <span className={"el el-2 dark-gray-avatar-icon"}>4/10</span>
+                    <span className={"el el-2 dark-gray-avatar-icon"}>{players.length}/{event.count_players}</span>
                     <span className={"el el-3 dark-gray-star-icon"}>В избранное</span>
                 </div>
                 <span className={"elem elem-2"}>Дворовый турнир Тверской</span>
@@ -33,7 +37,7 @@ export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
                     {steps.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
                     {steps.length === 1 && steps[0]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
                     {steps.length === 2 && steps[1]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
-                    {steps.length === 3 && steps[2]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердите команды</button>}
+                    {steps.length === 3 && steps[2]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
                     {steps.length === 3 && steps[2]["complete"] === true && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
                 </div>
             </div>

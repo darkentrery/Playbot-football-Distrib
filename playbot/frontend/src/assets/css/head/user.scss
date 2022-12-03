@@ -47,18 +47,21 @@
     .dropdown-menu {
       display: none;
       flex-direction: column;
+      margin-top: 30px;
       flex: 1 1 auto;
       width: 260px;
       align-items: stretch;
       border-radius: 0;
       border: none;
+      background: rgb(255, 255, 255);
 
       .dropdown-elem {
         display: flex;
         flex: 0 0 60px;
-        border-bottom: 1px solid $lightGrayColor;
+        border: 1px solid $lightGrayColor;
         border-radius: 0;
         padding-left: 40px;
+        align-items: center;
 
         &.d-el-4 {
           flex-direction: column;
@@ -74,6 +77,15 @@
             font-weight: 600;
           }
         }
+
+        &:hover {
+          background: #F8F8F8;
+        }
+      }
+
+      &.open {
+        //opacity: 1;
+        display: flex !important;
       }
     }
   }

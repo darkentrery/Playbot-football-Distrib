@@ -2,7 +2,7 @@ import {
     AUTH,
     CANCEL_EVENT_WINDOW,
     CHOICE_CITY_WINDOW,
-    CONFIRM_PLAYERS_WINDOW,
+    CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
@@ -34,6 +34,7 @@ const initialState = {
     isOpenCancelEvent: false,
     isOpenConfirmPlayers: false,
     isOpenFillRegulation: false,
+    isOpenConfirmTeams: false,
 }
 
 
@@ -113,6 +114,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenFillRegulation: action.value
+          };
+      case CONFIRM_TEAMS_WINDOW:
+          return {
+              ...state,
+              isOpenConfirmTeams: action.value
           };
       default:
           return state;

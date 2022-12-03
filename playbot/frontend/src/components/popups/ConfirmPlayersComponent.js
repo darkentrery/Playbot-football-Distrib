@@ -5,7 +5,7 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function ConfirmPlayersComponent ({players, isOpen, event, closeComponent, setPlayers, setSteps}) {
+export default function ConfirmPlayersComponent ({players, isOpen, event, funcs}) {
     const eventService = new EventService();
     const [selected, setSelected] = useState(players);
 
@@ -18,7 +18,7 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, closeC
     }, [players, isOpen])
 
     const closeWindow = () => {
-        closeComponent();
+        funcs.closeConfirmPlayers();
     }
 
     const selectPlayer = (e) => {
@@ -41,10 +41,10 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, closeC
 
     const confirmPlayers = () => {
         authDecoratorWithoutLogin(eventService.confirmPlayers, {"event": event, "players": selected}).then((response) => {
-            console.log(response)
-            setPlayers(response.data.players);
-            setSteps(response.data.steps);
+            funcs.setPlayers(response.data.players);
+            funcs.setSteps(response.data.steps);
             closeWindow();
+            funcs.openFillRegulation();
         })
     }
 

@@ -6,7 +6,7 @@ import {
   successSignUp2Window,
   auth,
   fillRegulationWindow,
-  confirmPlayersWindow, event, steps
+  confirmPlayersWindow, event, steps, confirmTeamsWindow, players
 } from "../actions/actions";
 
 
@@ -39,11 +39,26 @@ const mapDispatchToProps = (dispatch) => {
       setSteps: (value) => {
         dispatch(steps(value));
       },
+      setPlayers: (value) => {
+        dispatch(players(value));
+      },
+      openFillRegulation: () => {
+        dispatch(fillRegulationWindow(true));
+      },
       closeFillRegulation: () => {
         dispatch(fillRegulationWindow(false));
       },
       openConfirmPlayers: () => {
         dispatch(confirmPlayersWindow(true));
+      },
+      closeConfirmPlayers: () => {
+        dispatch(confirmPlayersWindow(false));
+      },
+      openConfirmTeams: () => {
+        dispatch(confirmTeamsWindow(true));
+      },
+      closeConfirmTeams: () => {
+        dispatch(confirmTeamsWindow(false));
       },
     }
   };

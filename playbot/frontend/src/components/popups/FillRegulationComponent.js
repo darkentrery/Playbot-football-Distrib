@@ -86,6 +86,7 @@ export default function FillRegulationComponent ({isOpen, event, funcs}) {
             funcs.setEvent(response.data.event);
             funcs.setSteps(response.data.steps);
             closeWindow();
+            funcs.openConfirmTeams();
         })
     }
 

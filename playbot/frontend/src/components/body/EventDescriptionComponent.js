@@ -15,8 +15,6 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
         }
     }
 
-
-
     return (
         <div className={"event-description-component"}>
             <div className={"elem-1280 elem-1"}>
