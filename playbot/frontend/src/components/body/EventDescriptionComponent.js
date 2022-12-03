@@ -1,13 +1,27 @@
-import React from "react";
+import React, {useRef} from "react";
+import $ from "jquery";
+
 
 
 export default function EventDescriptionComponent ({event, openEditEvent}) {
+
+    const copyLink = () => {
+        window.navigator.clipboard.writeText(window.location.href);
+        if ($('.tooltip').hasClass('hidden')) {
+            $('.tooltip').removeClass('hidden');
+            setTimeout(() => {
+                $('.tooltip').addClass('hidden');
+            }, 1000)
+        }
+    }
+
+
 
     return (
         <div className={"event-description-component"}>
             <div className={"elem-1280 elem-1"}>
                 <span className={"el black-edit-icon link"} onClick={openEditEvent}>Редактировать игру</span>
-                <span className={"el gray-copy-icon link"}>Копировать ссылку</span>
+                <span className={"el gray-copy-icon link"} onClick={copyLink}>Копировать ссылку</span>
             </div>
             <span className={"elem-1280 elem-2"}>Информация</span>
             <span className={"elem-1280 elem-3 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
@@ -26,7 +40,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
 
             <div className={"elem-744 elem-1"}>
                 <span className={"el black-edit-icon link"} onClick={openEditEvent}>Редактировать игру</span>
-                <span className={"el gray-copy-icon link"}></span>
+                <span className={"el gray-copy-icon link"} onClick={copyLink}></span>
             </div>
             <span className={"elem-744 elem-2"}>Информация</span>
             <span className={"elem-744 elem-3 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
@@ -38,7 +52,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
 
             <div className={"elem-376 elem-1"}>
                 <span className={"el el-1"}>Информация</span>
-                <span className={"el gray-copy-icon link"}></span>
+                <span className={"el gray-copy-icon link"} onClick={copyLink}></span>
             </div>
             <span className={"elem-376 elem-2 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
             <span className={"elem-376 elem-3"}>Организатор:</span>
@@ -46,6 +60,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
             <span className={"elem-376 elem-5"}>Адрес:</span>
             <span className={"elem-376 elem-6"}>{event.address}</span>
             <div className={"elem-376 elem-7"}></div>
+            <span className={"tooltip hidden"}>Ссылка успешно скопирована!</span>
         </div>
     )
 }

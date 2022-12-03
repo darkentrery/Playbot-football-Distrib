@@ -20,6 +20,7 @@
       justify-content: space-between !important;
       flex-direction: row !important;
       margin-right: 0 !important;
+      //position: relative;
 
       .el {
         display: flex;
@@ -107,6 +108,25 @@
       border: 1px solid $grayColor;
       border-radius: 8px;
     }
+  }
+}
+
+.tooltip {
+  position: absolute;
+  display: flex;
+  width: 230px;
+  top: 30vh;
+  padding: 20px;
+  left: calc(50vw - 115px);
+  border: 1px solid $grayColor;
+  border-radius: 8px;
+  background: $whiteColor;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: center;
+
+  &.hidden {
+    display: none;
   }
 }
 
