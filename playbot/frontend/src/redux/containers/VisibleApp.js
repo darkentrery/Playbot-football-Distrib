@@ -6,7 +6,7 @@ import {
   successSignUp2Window,
   auth,
   fillRegulationWindow,
-  confirmPlayersWindow, event, steps, confirmTeamsWindow, players
+  confirmPlayersWindow, event, steps, confirmTeamsWindow, players, mobileFirstPageWindow, loginWindow
 } from "../actions/actions";
 
 
@@ -23,6 +23,9 @@ const mapDispatchToProps = (dispatch) => {
     funcs: {
       openSignUp: () => {
         dispatch(signUpWindow(true));
+      },
+      openLogin: () => {
+        dispatch(loginWindow(true));
       },
       openSuccessSignUp2: () => {
         dispatch(successSignUp2Window(true));
@@ -59,6 +62,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       closeConfirmTeams: () => {
         dispatch(confirmTeamsWindow(false));
+      },
+      openMobileFirstPage: () => {
+        dispatch(mobileFirstPageWindow(true));
+      },
+      closeMobileFirstPage: () => {
+        dispatch(mobileFirstPageWindow(false));
       },
     }
   };

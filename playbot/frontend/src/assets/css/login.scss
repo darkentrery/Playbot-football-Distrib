@@ -108,4 +108,16 @@
   box-sizing: border-box;
 }
 
+@media screen and (min-width: 375px) and (max-width: 743px) and (max-height: 750px){
+  .login .popup-left {
+    .login-l-body {
+      .login-l-elem {
+        .right-input-icon {
+          top: -46px;
+        }
+      }
+    }
+  }
+}
+
 

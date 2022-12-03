@@ -14,6 +14,7 @@ export const CANCEL_EVENT_WINDOW = 'CANCEL_EVENT_WINDOW';
 export const CONFIRM_PLAYERS_WINDOW = 'CONFIRM_PLAYERS_WINDOW';
 export const FILL_REGULATION_WINDOW = 'FILL_REGULATION_WINDOW';
 export const CONFIRM_TEAMS_WINDOW = 'CONFIRM_TEAMS_WINDOW';
+export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -99,6 +100,11 @@ export const fillRegulationWindow = (value) => ({
 
 export const confirmTeamsWindow = (value) => ({
   type: CONFIRM_TEAMS_WINDOW,
+  value,
+});
+
+export const mobileFirstPageWindow = (value) => ({
+  type: MOBILE_FIRST_PAGE_WINDOW,
   value,
 });
 

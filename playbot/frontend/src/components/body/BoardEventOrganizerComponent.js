@@ -1,10 +1,17 @@
 import React from "react-dom";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
+import {getMonth, getDay} from "../../utils/dates";
 
 
 export default function BoardEventOrganizerComponent ({event, steps, players, funcs}) {
     const eventService = new EventService();
+    console.log(event)
+    let date = new Date();
+    if (event) {
+        date = new Date(event.date);
+    }
+
 
     const toConfirmPlayers = () => {
         funcs.openConfirmPlayers();
@@ -30,8 +37,8 @@ export default function BoardEventOrganizerComponent ({event, steps, players, fu
                     <span className={"el el-2 dark-gray-avatar-icon"}>{players.length}/{event.count_players}</span>
                     <span className={"el el-3 dark-gray-star-icon"}>В избранное</span>
                 </div>
-                <span className={"elem elem-2"}>Дворовый турнир Тверской</span>
-                <span className={"elem elem-3"}>21 августа 2022, 12:00</span>
+                <span className={"elem elem-2"}>{event.name}</span>
+                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''}</span>
                 <div className={"elem elem-4"}>
                     {steps.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
                     {steps.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
@@ -49,8 +56,8 @@ export default function BoardEventOrganizerComponent ({event, steps, players, fu
                     <span className={"el el-3 dark-gray-message-icon"}>8</span>
                     <span className={"el el-4 dark-gray-star-icon"}></span>
                 </div>
-                <span className={"elem elem-2"}>Дворовый турнир Тверской</span>
-                <span className={"elem elem-3"}>21 августа 2022, 12:00</span>
+                <span className={"elem elem-2"}>{event.name}</span>
+                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''}</span>
                 <div className={"elem elem-4"}>
                     <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>
                     <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>

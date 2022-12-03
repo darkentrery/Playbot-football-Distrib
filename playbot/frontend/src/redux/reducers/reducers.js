@@ -7,7 +7,7 @@ import {
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
     EVENT, FILL_REGULATION_WINDOW,
-    LOGIN_WINDOW, PLAYERS,
+    LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     SIGN_UP_WINDOW, STEPS,
     SUCCESS_CREATE_EVENT_WINDOW,
@@ -35,6 +35,7 @@ const initialState = {
     isOpenConfirmPlayers: false,
     isOpenFillRegulation: false,
     isOpenConfirmTeams: false,
+    isOpenMobileFirstPage: false,
 }
 
 
@@ -119,6 +120,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenConfirmTeams: action.value
+          };
+      case MOBILE_FIRST_PAGE_WINDOW:
+          return {
+              ...state,
+              isOpenMobileFirstPage: action.value
           };
       default:
           return state;

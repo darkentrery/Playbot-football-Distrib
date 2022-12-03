@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
+import {getMonth, getWeekDay} from "../../utils/dates";
 
 
 export default function EventsComponent () {
@@ -10,7 +11,6 @@ export default function EventsComponent () {
     const [events, setEvents] = useState(false);
 
     useEffect(() => {
-        console.log(events)
         if (events === false) {
             eventService.getEvents().then((response) => {
                 if (response.status === 200) {
@@ -26,31 +26,6 @@ export default function EventsComponent () {
             })
         }
     }, [events])
-
-    const monthsNames = [
-       'января',
-       'февраля',
-       'марта',
-       'апреля',
-       'мая',
-       'июня',
-       'июля',
-       'августа',
-       'сентября',
-       'октября',
-       'ноября',
-       'декабря',
-    ];
-
-    const weekDay = [
-        "воскресенье",
-        "понеделльник",
-        "вторник",
-        "среда",
-        "четверг",
-        "пятница",
-        "суббота",
-    ]
     
     return (
         <div className={"body-events"}>
@@ -77,7 +52,7 @@ export default function EventsComponent () {
                         if (item.date) {
                             return (
                                 <div className={"date"} key={key}>
-                                    <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
+                                    <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
                                 </div>
                             )
                         } else {
@@ -101,7 +76,7 @@ export default function EventsComponent () {
                         if (item.date) {
                             return (
                                 <div className={"date-376"} key={key}>
-                                    <span className={"bold"}>{date.getDate()} {monthsNames[date.getMonth()]} <span>({weekDay[date.getDay()]})</span></span>
+                                    <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
                                 </div>
                             )
                         } else {

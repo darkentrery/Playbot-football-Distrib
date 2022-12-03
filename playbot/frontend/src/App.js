@@ -1,10 +1,6 @@
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
 import React, {useState, useEffect, useRef} from "react";
 import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
-import {
-    OpenMobileFirstPageContext,
-} from "./context/AuthContext";
-
 import EventService from "./services/EventService";
 
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
@@ -26,20 +22,16 @@ import VisibleCreateEventUnAuth from "./redux/containers/VisibleCreateEventUnAut
 import VisibleSuccessEditEvent from "./redux/containers/VisibleSuccessEditEvent";
 import VisibleEditEvent from "./redux/containers/VisibleEditEvent";
 import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
-import VisibleConfirmPlayers from "./redux/containers/VisibleConfirmPlayers";
 import FillRegulationComponent from "./components/popups/FillRegulationComponent";
 import ConfirmTeamsComponent from "./components/popups/ConfirmTeamsComponent";
 import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent";
 
 
-function App({state, isOpenLogin, funcs}) {
+function App({state, funcs}) {
     console.log(state)
 
     const authService = new AuthService();
-    const [openMobileFirstPage, setOpenMobileFirstPage] = useState(false);
     const [confirmSignUp, setConfirmSignUp] = useState(false);
-    const mobileFirstPageWindow = { openMobileFirstPage, setOpenMobileFirstPage };
-
 
     const eventService = new EventService();
 
@@ -94,11 +86,11 @@ function App({state, isOpenLogin, funcs}) {
 
   return (
       <div className="App">
-          <button onClick={funcs.openSignUp} type="button" className="">Register</button>
+          {/*<button onClick={funcs.openSignUp} type="button" className="">Register</button>*/}
           {/*<button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>*/}
           {/*<button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>*/}
           {/*<button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>*/}
-          <button onClick={funcs.openChoiceCity} type="button" className="">Choice City</button>
+          {/*<button onClick={funcs.openChoiceCity} type="button" className="">Choice City</button>*/}
           {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
               <main className={"main-page"}>
@@ -107,29 +99,22 @@ function App({state, isOpenLogin, funcs}) {
                   <BottomComponent/>
               </main>
 
-                  {/*<ul>*/}
-                  {/*  <li>*/}
-                  {/*      <Link to={AuthRoutes.login}><h3>Login</h3></Link>*/}
-                  {/*  </li>*/}
-                  {/*  <li>*/}
-                  {/*      <Link to={AuthRoutes.signUp} ><h3>Sign Up</h3></Link>*/}
-                  {/*  </li>*/}
-                  {/*</ul>*/}
-                  {/*<YMaps>*/}
-                  {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}
-                  {/*      /!*<Placemark geometry={[55.684758, 37.738521]} />*!/*/}
-                  {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
-                  {/*    </Map>*/}
-                  {/*  </YMaps>*/}
+              {/*<ul>*/}
+              {/*  <li>*/}
+              {/*      <Link to={AuthRoutes.login}><h3>Login</h3></Link>*/}
+              {/*  </li>*/}
+              {/*  <li>*/}
+              {/*      <Link to={AuthRoutes.signUp} ><h3>Sign Up</h3></Link>*/}
+              {/*  </li>*/}
+              {/*</ul>*/}
+              {/*<YMaps>*/}
+              {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}
+              {/*      /!*<Placemark geometry={[55.684758, 37.738521]} />*!/*/}
+              {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
+              {/*    </Map>*/}
+              {/*  </YMaps>*/}
 
-                  {/*<OpenLoginContext.Provider value={loginWindow}>*/}
-                      {/*<OpenSignUpContext.Provider value={signUpWindow}>*/}
-                          <OpenMobileFirstPageContext.Provider value={mobileFirstPageWindow}>
-                              <MobileFirstPageComponent/>
-                          </OpenMobileFirstPageContext.Provider>
-                      {/*</OpenSignUpContext.Provider>*/}
-                  {/*</OpenLoginContext.Provider>*/}
-
+              <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} funcs={funcs}/>
               <VisibleSignUp/>
               <VisibleLogin/>
               <VisibleRefreshPassword/>
@@ -151,17 +136,8 @@ function App({state, isOpenLogin, funcs}) {
               <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
                                      players={state.event.players} funcs={funcs}/>
 
-                  {/*<div className="features">*/}
-                  {/*    <Routes>*/}
-                  {/*        <Route exact path={"events/"} element={<EventsComponent/>}/>*/}
-                  {/*        /!*<Route exact path={AuthRoutes.signUp} element={<SignUpComponent/>}/>*!/*/}
-                  {/*    </Routes>*/}
-                  {/*</div>*/}
-
           </Router>
-
       </div>
-
   );
 }
 
