@@ -1,0 +1,16 @@
+[
+  {
+    "model": "events.DistributionMethod",
+    "pk": 1,
+    "fields": {
+      "name": "Автоматический"
+    }
+  },
+  {
+    "model": "events.DistributionMethod",
+    "pk": 2,
+    "fields": {
+      "name": "Механический"
+    }
+  }
+]

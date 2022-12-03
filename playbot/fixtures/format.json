@@ -1,0 +1,58 @@
+[
+  {
+    "model": "events.Format",
+    "pk": 1,
+    "fields": {
+      "name": "5x5",
+      "count": 5
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 2,
+    "fields": {
+      "name": "6x6",
+      "count": 6
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 3,
+    "fields": {
+      "name": "7x7",
+      "count": 7
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 4,
+    "fields": {
+      "name": "8x8",
+      "count": 8
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 5,
+    "fields": {
+      "name": "9x9",
+      "count": 9
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 6,
+    "fields": {
+      "name": "10x10",
+      "count": 10
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 7,
+    "fields": {
+      "name": "11x11",
+      "count": 11
+    }
+  }
+]

@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from playbot.events.models import Event, CancelReasons, Team, EventPlayer, TeamPlayer, EventStep
+from playbot.events.models import Event, CancelReasons, Team, EventPlayer, TeamPlayer, EventStep, Duration, Format, \
+    DistributionMethod, CountCircles
 
 
 class TeamInline(admin.TabularInline):
@@ -97,4 +98,35 @@ class EventStepAdmin(admin.ModelAdmin):
         "step",
         "event",
         "complete",
+    ]
+
+
+@admin.register(Duration)
+class DurationAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "duration",
+    ]
+
+
+@admin.register(Format)
+class FormatAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "count",
+    ]
+
+
+@admin.register(DistributionMethod)
+class DistributionMethodAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+    ]
+
+
+@admin.register(CountCircles)
+class CountCirclesAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "count",
     ]

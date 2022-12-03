@@ -3,9 +3,8 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function BoardEventOrganizerComponent ({event, players, steps, funcs}) {
+export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
     const eventService = new EventService();
-    console.log(steps)
 
     const toConfirmPlayers = (e) => {
         funcs.openConfirmPlayers();

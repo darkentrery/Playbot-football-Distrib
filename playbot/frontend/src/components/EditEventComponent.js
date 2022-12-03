@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import ReactDatetimeClass from "react-datetime";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
+import DropDownComponent from "./dropDownComponent/DropDownComponent";
 
 
 export default function EditEventComponent ({isOpen, event, closeComponent, openSuccessEditEvent, setEvent}) {
@@ -15,10 +16,10 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
     const [address, setAddress] = useState(false);
     const [count, setCount] = useState(1);
     const [notice, setNotice] = useState('');
-    const [isDropdown, setIsDropdown] = useState(false);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [isOpenTime, setIsOpenTime] = useState(false);
     const [isPlayer, setIsPlayer] = useState(false);
+    const [closeDropDown, setCloseDropDown] = useState(false);
     const refName = useRef();
     const refCount = useRef();
     const refDate = useRef();
@@ -35,7 +36,6 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
         "count": refCount,
         "notice": refNotice,
     }
-    const content = [1, 2, 3, 4];
 
     useEffect(() => {
         if (!id) setId(event.id);
@@ -79,10 +79,6 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
         setIsPlayer(false);
         setNotice('');
         setData(false);
-        setIsDropdown(false)
-        if (refCount.current.className.includes("up-arrow-icon")) {
-            refCount.current.className = "dropdown-label down-arrow-icon";
-        }
         closeComponent();
     }
 
@@ -95,22 +91,6 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
                 openSuccessEditEvent();
             })
         }
-    }
-
-    const openDropdown = () => {
-        setIsDropdown(!isDropdown)
-        if (refCount.current.className.includes("down-arrow-icon")) {
-            refCount.current.className = "dropdown-label up-arrow-icon";
-        } else {
-            refCount.current.className = "dropdown-label down-arrow-icon";
-        }
-    }
-
-    const choiceCount = (e) => {
-        refCount.current.innerHTML = e.target.innerHTML;
-        refCount.current.className = "dropdown-label down-arrow-icon";
-        setCount(e.target.innerHTML);
-        setIsDropdown(!isDropdown);
     }
 
     const inputNotice = (e) => {
@@ -132,13 +112,10 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
                 setIsOpenTime(false);
             }
         }
-        if (isDropdown) {
-            if (!e.target.className.includes("dropdown-elem")) {
-                setIsDropdown(false)
-                if (refCount.current.className.includes("up-arrow-icon")) {
-                    refCount.current.className = "dropdown-label down-arrow-icon";
-                }
-            }
+        if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("dropdown-label")) {
+            setCloseDropDown(!closeDropDown);
+        } else if (e.target.className.includes("dropdown-label")) {
+            setCloseDropDown(e.target.id);
         }
     }
 
@@ -191,17 +168,7 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
                 <div className={"elem elem-6"}>
                     <span>Максимальное кол. игроков *</span>
                 </div>
-                <div className={"elem elem-7"}>
-                    <div className={"dropdown foot-icon"}>
-                        <span className={"dropdown-label down-arrow-icon"} ref={refCount} onClick={openDropdown}>{count ? count : "1"}</span>
-                        <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
-                            {content && content.map((item, key) => {
-                                return (<span className={"dropdown-elem"} key={key} onClick={choiceCount}>{item}</span>)
-                            })}
-                        </div>
-                    </div>
-                    <span className={"input-message"}></span>
-                </div>
+                <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1}/>
                 <div className={"elem elem-8"}>
                     <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={(e) => setIsPlayer(!isPlayer)}></div>
                     <span>Организатор события не играет</span>

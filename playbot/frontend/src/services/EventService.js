@@ -113,6 +113,35 @@ export default class EventService{
 			});
 	}
 
+	getRegulation(id){
+		const url = `${API_URL}get-regulation/${id}/`;
+		return axios.get(url,  {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
+	setRegulation(data){
+		const url = `${API_URL}set-regulation/`;
+		return axios.post(url, data, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	getCancelReasons(){
 		const url = `${API_URL}get-cancel-reasons/`;
 		return axios.get(url, {headers: {

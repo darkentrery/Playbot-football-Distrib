@@ -1,6 +1,8 @@
 # Playbot_football
 
-`loaddata playbot/fixtures/user.json playbot/fixtures/city.json playbot/fixtures/cancel_reasons.json`
+`loaddata playbot/fixtures/user.json playbot/fixtures/city.json playbot/fixtures/cancel_reasons.json
+playbot/fixtures/count_circles.json playbot/fixtures/distribution_method.json playbot/fixtures/duration.json
+playbot/fixtures/format.json`
 
 `eval "$(ssh-agent -s)"`
 

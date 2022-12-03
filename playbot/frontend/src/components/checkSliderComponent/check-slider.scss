@@ -1,0 +1,17 @@
+.check-slider-component {
+  display: flex;
+  flex: 0 0 24px;
+  align-items: center;
+
+  .slider-uncheck-icon {
+    flex: 0 0 40px;
+  }
+
+  .slider-check-icon {
+    flex: 0 0 40px;
+  }
+
+  span {
+    margin-left: 16px;
+  }
+}

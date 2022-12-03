@@ -3,9 +3,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from playbot.events.models import Event, CancelReasons, EventStep
+from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
-    CancelReasonsSerializer, EventStepSerializer
+    CancelReasonsSerializer, EventStepSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
+    CountCirclesSerializer, SetRegulationSerializer
 from playbot.users.models import User
 from playbot.users.serializers import UserSerializer
 
@@ -115,5 +116,43 @@ class ConfirmPlayersView(APIView):
         steps = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
 
         return Response({"players": items.data, "steps": steps.data}, status=status.HTTP_200_OK)
+
+
+class GetRegulationView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        id = self.kwargs.get("id")
+        formats = FormatSerializer(Format.objects.all(), many=True)
+        distribution_method = DistributionMethodSerializer(DistributionMethod.objects.all(), many=True)
+        duration = DurationSerializer(Duration.objects.all(), many=True)
+        count_circles = CountCirclesSerializer(CountCircles.objects.all(), many=True)
+        data = {
+            "formats": formats.data,
+            "distribution_method": distribution_method.data,
+            "duration": duration.data,
+            "count_circles": count_circles.data,
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class SetRegulationView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        id = request.data.pop("id")
+        event = Event.objects.get(id=id)
+        serializer = SetRegulationSerializer(instance=event, data=request.data)
+        if serializer.is_valid() and event.organizer == request.user:
+            event = serializer.save()
+            if event:
+                json = EventSerializer(Event.objects.get(id=id)).data
+                EventStep.objects.update_or_create(step=EventStep.StepName.STEP_2, event=event, defaults={"complete": True})
+                EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event)
+                steps = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
+                return Response({"event": json, "steps": steps.data}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 

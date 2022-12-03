@@ -144,7 +144,6 @@ function App({state, isOpenLogin, funcs}) {
               <VisibleConfirmPlayers/>
               <FillRegulationComponent
                   isOpen={state.windows.isOpenFillRegulation}
-                  players={state.event.players}
                   event={state.event.event}
                   funcs={funcs}
               />

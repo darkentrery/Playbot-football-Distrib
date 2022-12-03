@@ -1,0 +1,26 @@
+[
+  {
+    "model": "events.Duration",
+    "pk": 1,
+    "fields": {
+      "name": "10 минут",
+      "duration": 10
+    }
+  },
+  {
+    "model": "events.Duration",
+    "pk": 2,
+    "fields": {
+      "name": "20 минут",
+      "duration": 20
+    }
+  },
+  {
+    "model": "events.Duration",
+    "pk": 3,
+    "fields": {
+      "name": "30 минут",
+      "duration": 30
+    }
+  }
+]

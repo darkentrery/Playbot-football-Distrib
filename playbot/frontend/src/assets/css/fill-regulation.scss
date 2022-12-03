@@ -53,31 +53,38 @@
     }
   }
 
+
   &.elem-4 {
-    flex: 0 0 427px;
+    flex: 1 1 auto;
     flex-direction: column;
     margin-top: 25px;
-    margin-bottom: 42px;
+    margin-bottom: 19px;
     width: 280px;
 
-    .el {
-      display: flex;
-      flex: 0 0 52px;
-      align-items: center;
-      cursor: pointer;
-
-      .player-select-icon {
-        flex: 0 0 20px;
-        height: 20px;
+    .dropdown-size-format {
+      &.dropdown-component {
+        .dropdown {
+          .left-icon {
+            left: $dropDownLeftIconLeft;
+            top: 16px;
+          }
+        }
       }
+    }
 
-      .player-avatar-icon {
-        flex: 0 0 32px;
-        height: 42px;
-        margin-left: 20px;
-        margin-right: 14px;
-        background-size: 32px 42px;
+    .dropdown-size-count-circle {
+      &.dropdown-component {
+        .dropdown {
+          .left-icon {
+            left: $dropDownLeftIconLeft;
+            top: 18px;
+          }
+        }
       }
+    }
+
+    .check-slider-size {
+      margin-bottom: 13px;
     }
   }
 
@@ -88,31 +95,7 @@
   }
 }
 
-.dropdown-size-format {
-  &.dropdown-component {
 
-    .dropdown {;
-
-      .left-icon {
-        left: $dropDownLeftIconLeft;
-        top: 16px;
-      }
-    }
-  }
-}
-
-.dropdown-size-count-circle {
-  &.dropdown-component {
-
-    .dropdown {;
-
-      .left-icon {
-        left: $dropDownLeftIconLeft;
-        top: 18px;
-      }
-    }
-  }
-}
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .fill-regulation-component {

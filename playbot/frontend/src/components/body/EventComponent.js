@@ -8,7 +8,7 @@ export default function EventComponent ({pk, steps, funcs}) {
     const eventService = new EventService();
     const [localeEvent, setLocaleEvent] = useState(false);
     const [localePlayers, setLocalePlayers] = useState([]);
-    // const [localeSteps, setLocaleSteps] = useState([]);
+    const [flagRequest, setFlagRequest] = useState(false);
 
     useEffect(() => {
         if (!localeEvent) {
@@ -19,22 +19,27 @@ export default function EventComponent ({pk, steps, funcs}) {
         }
     }, [localeEvent])
 
+    // useEffect(() => {
+    //     if (!localePlayers.length) {
+    //         eventService.getPlayers(pk).then((response) => {
+    //             funcs.setPlayers(response.data);
+    //             setLocalePlayers(response.data);
+    //         })
+    //     }
+    // }, [localePlayers])
+
     useEffect(() => {
-        if (!localePlayers.length) {
+        if (!flagRequest) {
+            eventService.getEventSteps(pk).then((response) => {
+                funcs.setSteps(response.data);
+            })
             eventService.getPlayers(pk).then((response) => {
                 funcs.setPlayers(response.data);
                 setLocalePlayers(response.data);
             })
         }
-    }, [localePlayers])
-
-    useEffect(() => {
-        if (!steps.length) {
-            eventService.getEventSteps(pk).then((response) => {
-                funcs.setSteps(response.data);
-            })
-        }
-    }, [steps])
+        setFlagRequest(true);
+    }, [flagRequest])
 
 
     return (
@@ -46,15 +51,7 @@ export default function EventComponent ({pk, steps, funcs}) {
                     <div className={"el-3 black-edit-icon link"} onClick={funcs.openEditEvent}></div>
                 </div>
             </div>
-            <BoardEventOrganizerComponent
-                event={localeEvent}
-                players={localePlayers}
-                steps={steps}
-                funcs={funcs}
-                // openCancelEvent={funcs.openCancelEvent}
-                // openConfirmPlayers={funcs.openConfirmPlayers}
-                // setSteps={funcs.setSteps}
-            />
+            <BoardEventOrganizerComponent event={localeEvent} steps={steps} funcs={funcs}/>
             <EventOrganizerComponent event={localeEvent} players={localePlayers} openEditEvent={funcs.openEditEvent}/>
         </div>
     )

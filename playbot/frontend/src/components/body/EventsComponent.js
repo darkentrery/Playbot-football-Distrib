@@ -7,10 +7,11 @@ import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
 
 export default function EventsComponent () {
     const eventService = new EventService();
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState(false);
 
     useEffect(() => {
-        if (!events.length) {
+        console.log(events)
+        if (events === false) {
             eventService.getEvents().then((response) => {
                 if (response.status === 200) {
                     let data = [];

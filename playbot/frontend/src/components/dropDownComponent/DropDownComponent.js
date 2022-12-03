@@ -16,7 +16,6 @@ const DropDownComponent = ({
     const refLabel = useRef();
     let firstValue = value ? value : content[0]
 
-
     const openDropdown = () => {
         if (isDropdown) {
             refLabel.current.className = `dropdown-label ${rightFirstIcon}`;

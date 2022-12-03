@@ -148,6 +148,14 @@
       box-sizing: border-box;
     }
   }
+
+  .dropdown-size {
+    display: flex;
+    flex: 0 0 $fieldHeight;
+    width: $createEventFieldWidth !important;
+    align-items: stretch;
+    justify-content: stretch;
+  }
 }
 
 .popup-right {

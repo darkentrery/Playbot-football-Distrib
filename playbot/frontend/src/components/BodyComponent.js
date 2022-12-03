@@ -9,10 +9,10 @@ import VisibleEvent from "../redux/containers/VisibleEvent";
 
 export default function BodyComponent () {
     const eventService = new EventService();
-    const [eventsPk, setEventsPk] = useState([]);
+    const [eventsPk, setEventsPk] = useState(false);
 
     useEffect(() => {
-        if (!eventsPk.length) {
+        if (eventsPk === false) {
             eventService.getEvents().then((response) => {
                 if (response.status === 200) {
                     let data = [];
@@ -34,7 +34,7 @@ export default function BodyComponent () {
 
                 {/*<Route exact path={'events/event/:pk/'} element={<EventComponent/>}/>*/}
 
-                {eventsPk.length !== 0 && eventsPk.map((item, key) => {
+                {eventsPk !== false && eventsPk.length !== 0 && eventsPk.map((item, key) => {
                     // return (<Route key={key} exact path={'events/' + BaseRoutes.eventLink(item)} element={<EventComponent pk={item}/>}/>)
                     return (<Route key={key} exact path={'events/' + BaseRoutes.eventLink(item)} element={<VisibleEvent pk={item}/>}/>)
                 })}

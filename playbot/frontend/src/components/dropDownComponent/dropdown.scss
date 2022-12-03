@@ -35,13 +35,15 @@
     .dropdown-menu {
       display: none;
       flex-direction: column;
-      flex: 1 1 $dropDownMenuHeight;
+      flex: 1 1 auto;
+      max-height: $dropDownMenuHeight;
       //opacity: 0;
       border: 1px solid gray;
       border-radius: 8px;
       transition: all 100ms ease;
       background: rgb(255, 255, 255);
       z-index: 999999;
+      overflow: auto;
 
       &.open {
         //opacity: 1;
@@ -106,8 +108,7 @@
       }
 
       .dropdown-menu {
-        flex: 0 1 $dropDownMenuHeight;
-        overflow: auto;
+        //flex: 0 1 $dropDownMenuHeight;
 
         .dropdown-elem {
           flex: 0 0 $dropDownElemHeight;
