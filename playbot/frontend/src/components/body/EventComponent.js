@@ -5,7 +5,7 @@ import VisibleBoardEventOrganizer from "../../redux/containers/VisibleBoardEvent
 import {Link, useParams} from "react-router-dom";
 
 
-export default function EventComponent ({steps, funcs}) {
+export default function EventComponent ({event, user, funcs}) {
     const eventService = new EventService();
     const [flagRequest, setFlagRequest] = useState(false);
     const params = useParams();
@@ -33,10 +33,10 @@ export default function EventComponent ({steps, funcs}) {
                 <div className={"event-mobile-head"}>
                     <Link className={"el-1 gray-left-arrow-icon link"} to={".."}></Link>
                     <span className={"el-2"}>Событие</span>
-                    <div className={"el-3 black-edit-icon link"} onClick={funcs.openEditEvent}></div>
+                    <div className={"el-3 black-edit-icon link"} onClick={user.isAuth && event.organizer.id === user.user.id ? funcs.openEditEvent : funcs.openLogin}></div>
                 </div>
             </div>
-            <VisibleBoardEventOrganizer/>
+            {event && user.isAuth && event.organizer.id === user.user.id && <VisibleBoardEventOrganizer/>}
             <VisibleEventOrganizer/>
         </div>
     )

@@ -3,7 +3,7 @@ import $ from "jquery";
 
 
 
-export default function EventDescriptionComponent ({event, openEditEvent}) {
+export default function EventDescriptionComponent ({event, user, funcs}) {
 
     const copyLink = () => {
         window.navigator.clipboard.writeText(window.location.href);
@@ -18,7 +18,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
     return (
         <div className={"event-description-component"}>
             <div className={"elem-1280 elem-1"}>
-                <span className={"el black-edit-icon link"} onClick={openEditEvent}>Редактировать игру</span>
+                <span className={"el black-edit-icon link"} onClick={user.isAuth && event.organizer.id === user.user.id ? funcs.openEditEvent : funcs.openLogin}>Редактировать игру</span>
                 <span className={"el gray-copy-icon link"} onClick={copyLink}>Копировать ссылку</span>
             </div>
             <span className={"elem-1280 elem-2"}>Информация</span>
@@ -37,7 +37,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
             </div>
 
             <div className={"elem-744 elem-1"}>
-                <span className={"el black-edit-icon link"} onClick={openEditEvent}>Редактировать игру</span>
+                <span className={"el black-edit-icon link"} onClick={user.isAuth && event.organizer.id === user.user.id ? funcs.openEditEvent : funcs.openLogin}>Редактировать игру</span>
                 <span className={"el gray-copy-icon link"} onClick={copyLink}></span>
             </div>
             <span className={"elem-744 elem-2"}>Информация</span>

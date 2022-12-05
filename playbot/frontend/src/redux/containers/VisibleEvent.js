@@ -2,7 +2,7 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow
+  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventComponent from "../../components/body/EventComponent";
@@ -11,8 +11,9 @@ import EventComponent from "../../components/body/EventComponent";
 const mapStateToProps = (state) => {
   return {
     ...state,
-    // event: state.event.event,
-    steps: state.event.steps,
+    event: state.event.event,
+    user: state.user,
+    // steps: state.event.steps,
   };
 };
 
@@ -30,6 +31,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setSteps: (value) => {
         dispatch(steps(value));
+      },
+      openLogin: () => {
+        dispatch(loginWindow(true));
       },
       openCancelEvent: () => {
         dispatch(cancelEventWindow(true));
