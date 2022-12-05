@@ -25,6 +25,8 @@ import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
 import FillRegulationComponent from "./components/popups/FillRegulationComponent";
 import ConfirmTeamsComponent from "./components/popups/ConfirmTeamsComponent";
 import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent";
+import $ from "jquery";
+import HeadComponent from "./components/HeadComponent";
 
 
 function App({state, funcs}) {
@@ -32,6 +34,7 @@ function App({state, funcs}) {
 
     const authService = new AuthService();
     const [confirmSignUp, setConfirmSignUp] = useState(false);
+    const [isUserDropdown, setIsUserDropdown] = useState(false);
 
     const eventService = new EventService();
 
@@ -81,6 +84,13 @@ function App({state, funcs}) {
     // console.log(navigator)
     // console.log(document.referrer)
 
+    const pageClick = (e) => {
+        if (!$(e.target).hasClass('dropdown-icon') && !$(e.target).hasClass('dropdown-label')
+            && !$(e.target).hasClass('arrow-icon') && !$(e.target).hasClass('dropdown-head')) {
+            setIsUserDropdown(!isUserDropdown);
+        }
+    }
+
 
 
 
@@ -93,8 +103,8 @@ function App({state, funcs}) {
           {/*<button onClick={funcs.openChoiceCity} type="button" className="">Choice City</button>*/}
           {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
-              <main className={"main-page"}>
-                  <VisibleHead/>
+              <main className={"main-page"} onClick={pageClick}>
+                  <HeadComponent user={state.user} flagDropdown={isUserDropdown} funcs={funcs}/>
                   <BodyComponent/>
                   <BottomComponent/>
               </main>

@@ -241,7 +241,6 @@ export default class AuthService{
 	logout(){
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
-		window.location.href = `${process.env.REACT_APP_MAIN_URL}${BaseRoutes.events}`;
 	}
 
 	updateCity(data){

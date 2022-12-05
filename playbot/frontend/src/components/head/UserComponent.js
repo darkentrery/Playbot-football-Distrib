@@ -1,17 +1,27 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import userIcon from "../../assets/icon/player-avatar.png";
 import $ from "jquery";
 import AuthService from "../../services/AuthService";
 
 
-export default function UserComponent ({user}) {
+export default function UserComponent ({user, flagDropdown=false, funcs}) {
     const authService = new AuthService();
     const [isDropdown, setIsDropdown] = useState(false);
     const refuserHead = useRef();
 
+    useEffect(() => {
+        if (isDropdown) {
+            let arrow = $(refuserHead.current).children('.arrow-icon');
+            arrow.removeClass('up-arrow-icon');
+            arrow.addClass('down-arrow-icon');
+            setIsDropdown(!isDropdown);
+        }
+    }, [flagDropdown])
+
     const openDropdown = () => {
         let arrow = $(refuserHead.current).children('.arrow-icon');
-        if (arrow.hasClass('down-arrow-icon')) {
+        // if (arrow.hasClass('down-arrow-icon')) {
+        if (!isDropdown) {
             arrow.removeClass('down-arrow-icon');
             arrow.addClass('up-arrow-icon');
         } else {
@@ -30,6 +40,7 @@ export default function UserComponent ({user}) {
 
     const logout = () => {
       authService.logout();
+      funcs.setAuth(false, false);
     }
 
     return (

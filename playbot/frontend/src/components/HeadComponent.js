@@ -6,7 +6,7 @@ import $ from "jquery";
 import VisibleUnAuthUser from "../redux/containers/VisibleUnAuthUser";
 
 
-export default function HeadComponent ({user}) {
+export default function HeadComponent ({user, flagDropdown=false, funcs}) {
     const refMain = useRef();
     const refEvents = useRef();
     const refs = [
@@ -23,14 +23,18 @@ export default function HeadComponent ({user}) {
 
     const firstLink = () => {
         refs.forEach(ref => {
+            if (ref.current !== undefined && !ref.current.className.includes('inactive')) ref.current.className += ' inactive';
             if (ref.current !== undefined && ref.current.href === window.location.href) {
+                ref.current.className = ref.current.className.replace(" inactive", "");
+            }
+            if (ref.current !== undefined && ref.current.href.includes('events')
+                && window.location.href.includes('events')) {
                 ref.current.className = ref.current.className.replace(" inactive", "");
             }
         })
     }
 
     firstLink();
-
 
     return(
         <div className={"head"}>
@@ -47,7 +51,7 @@ export default function HeadComponent ({user}) {
             </div>
             <div className={"elem search-black-icon"}></div>
 
-            {user.isAuth && <UserComponent user={user.user}/>}
+            {user.isAuth && <UserComponent user={user.user} flagDropdown={flagDropdown} funcs={funcs}/>}
             {!user.isAuth && <VisibleUnAuthUser/>}
         </div>
     )

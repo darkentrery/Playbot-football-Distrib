@@ -16,9 +16,13 @@ export default function MainPageComponent () {
             <LocationComponent/>
             <EventsComponent/>
 
-            <TitleComponent label={"Лучшие игроки"}/>
-            <LocationComponent/>
-            <BestPlayersComponent/>
+            <div className={"elem-1280"}>
+                <TitleComponent label={"Лучшие игроки"}/>
+                <LocationComponent/>
+                <BestPlayersComponent/>
+            </div>
+
+
         </div>
     )
 }

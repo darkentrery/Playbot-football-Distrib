@@ -238,6 +238,10 @@
   .main-page .body {
     padding: 0;
     max-height: calc(100vh - $bottomHeight);
+
+    .main-page-component .elem-1280 {
+      display: none;
+    }
   }
 
   .main-page .body .location {

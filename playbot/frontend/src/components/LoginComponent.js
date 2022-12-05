@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import $ from 'jquery';
-import BaseRoutes from "../routes/BaseRoutes";
 
 
 export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth}) {
@@ -26,7 +25,6 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         setPassword(false);
         setData(false);
         closeComponent();
-        // setOpenLogin(!openLogin);
     }
 
     const toSignUp = () => {
@@ -43,12 +41,10 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         let errors = authService.loginRequestValidation(email, password, refEmail, refPassword);
         if (!errors.length) {
             await authService.login(data).then((response) => {
-                console.log(response)
                 errors = authService.loginResponseValidation(response, refEmail, refPassword);
                 if (!errors.length) {
                     setAuth(true, response.data);
                     closeWindow();
-                    window.location.href = `${process.env.REACT_APP_MAIN_URL}${BaseRoutes.events}`;
                 }
             })
         }
