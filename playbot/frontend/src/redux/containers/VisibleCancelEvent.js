@@ -1,4 +1,4 @@
-import {cancelEventWindow} from "../actions/actions";
+import {cancelEventWindow, event} from "../actions/actions";
 import {connect} from "react-redux";
 import CancelEventComponent from "../../components/popups/CancelEventComponent";
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     closeComponent: () => {
       dispatch(cancelEventWindow(false));
+    },
+    setEvent: (value) => {
+      dispatch(event(value));
     },
   };
 };

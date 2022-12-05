@@ -1,10 +1,11 @@
 import SuccessComponent from "./SuccessComponent";
+import {useNavigate} from "react-router-dom";
 
 
 export default function SuccessCreateEventComponent ({isOpen, event, closeComponent}) {
-
+    const navigate = useNavigate();
     const clickSuccess = () => {
-        window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${event.id}/`
+        navigate(`events/event/${event.id}/`)
     }
 
     return(

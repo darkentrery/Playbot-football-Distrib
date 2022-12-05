@@ -5,7 +5,7 @@ import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
-export default function CancelEventComponent ({isOpen, event, closeComponent}) {
+export default function CancelEventComponent ({isOpen, event, closeComponent, setEvent}) {
     const eventService = new EventService();
     const [reason, setReason] = useState(false);
     const [reasons, setReasons] = useState(false);
@@ -38,7 +38,7 @@ export default function CancelEventComponent ({isOpen, event, closeComponent}) {
             authDecoratorWithoutLogin(eventService.editEvent, event).then((response) => {
                 if (response.status === 200) {
                     closeWindow();
-                    window.location.href = `${process.env.REACT_APP_MAIN_URL}events/event/${event.id}/`
+                    setEvent(response.data);
                 }
             })
         }

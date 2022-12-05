@@ -19,7 +19,6 @@ export default function EventOrganizerComponent ({event, players, funcs}) {
         parent.children(`.event-${$(e.target).attr('id')}-component`).removeClass('disabled');
     }
 
-
     return (
         <div className={"event-organizer-component"}>
             <div className={"elem-1280 elem-1"}>

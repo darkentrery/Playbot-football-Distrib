@@ -9,9 +9,10 @@ import {getMonth, getWeekDay} from "../../utils/dates";
 export default function EventsComponent () {
     const eventService = new EventService();
     const [events, setEvents] = useState(false);
+    const [firstRequest, setFirstRequest] = useState(true);
 
     useEffect(() => {
-        if (events === false) {
+        if (events === false && firstRequest) {
             eventService.getEvents().then((response) => {
                 console.log(response)
                 if (response.status === 200) {
@@ -23,6 +24,7 @@ export default function EventsComponent () {
                         data.push({event: item})
                     })
                     setEvents(data);
+                    setFirstRequest(false);
                 }
             })
         }
@@ -30,7 +32,7 @@ export default function EventsComponent () {
     
     return (
         <div className={"body-events"}>
-            {!events.length && <VisibleNoEvents/>}
+            {!events.length && !firstRequest && <VisibleNoEvents/>}
 
             {events.length !== 0 &&
                 <div className={"events-table"}>
@@ -49,8 +51,8 @@ export default function EventsComponent () {
                     </div>
 
                     {events.length && events.map((item, key) => {
-                        let date = item.date;
                         if (item.date) {
+                            let date = item.date;
                             return (
                                 <div className={"date"} key={key}>
                                     <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
@@ -58,12 +60,13 @@ export default function EventsComponent () {
                             )
                         } else {
                             let event = item.event;
+                            let date = new Date(`${event.date}T${event.time_begin}`);
                             let path = '';
                             if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
                                 <div className={"event"} key={key}>
                                     <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
-                                    <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
+                                    <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие {Date.now() > date ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span></span>
                                     <span className={"elem elem-3 green"}>{event.event_player.length}/{event.count_players}</span>
                                     <span className={"elem elem-4 gray"}>88,9</span>
                                     <span className={"elem elem-5 gray-right-arrow-icon"}></span>
@@ -82,12 +85,13 @@ export default function EventsComponent () {
                             )
                         } else {
                             let event = item.event;
+                            // let date = new Date(`${event.date}T${event.time_begin}`);
                             let path = '';
                             if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
                                 <div className={"event-376"} key={key}>
                                     <div className={"row row-1"}>
-                                        <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}<span className={"gray"}>12:00</span></Link>
+                                        <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}<span className={"gray"}>{event.time_begin.slice(0, 5)}</span></Link>
                                         <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>
                                         <span className={"elem elem-3 orange"}>88,9</span>
                                     </div>

@@ -49,7 +49,7 @@ export default function BoardEventOrganizerComponent ({event, steps, players, fu
             <div className={"board-event-376"}>
                 <div className={"elem elem-1"}>
                     <span className={"el el-1 dark-gray-cup-icon"}>78,8</span>
-                    <span className={"el el-2 dark-gray-avatar-icon"}>4/10</span>
+                    <span className={"el el-2 dark-gray-avatar-icon"}>{players.length}/{event.count_players}</span>
                     <span className={"el el-3 dark-gray-message-icon"}>8</span>
                     <span className={"el el-4 dark-gray-star-icon"}></span>
                 </div>

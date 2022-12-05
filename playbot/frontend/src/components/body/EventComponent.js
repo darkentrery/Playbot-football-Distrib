@@ -2,13 +2,14 @@ import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
 import VisibleBoardEventOrganizer from "../../redux/containers/VisibleBoardEventOrganizer";
-import BaseRoutes from "../../routes/BaseRoutes";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
-export default function EventComponent ({pk, steps, funcs}) {
+export default function EventComponent ({steps, funcs}) {
     const eventService = new EventService();
     const [flagRequest, setFlagRequest] = useState(false);
+    const params = useParams();
+    const pk = params.pk;
 
     useEffect(() => {
         if (!flagRequest) {

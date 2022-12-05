@@ -3,7 +3,6 @@ import EventsComponent from "./EventsComponent";
 
 
 export default function EventsPageComponent ({state, funcs}) {
-    console.log(state)
 
     return (
         <div className={"events-page-component"}>

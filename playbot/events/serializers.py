@@ -31,6 +31,7 @@ class EventSerializer(serializers.ModelSerializer):
 class EditEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
+    organizer = UserSerializer(read_only=True)
 
     class Meta:
         model = Event
