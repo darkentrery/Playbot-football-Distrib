@@ -5,6 +5,7 @@ import MainPageComponent from "./body/MainPageComponent";
 import EventsPageComponent from "./body/EventsPageComponent";
 import EventService from "../services/EventService";
 import VisibleEvent from "../redux/containers/VisibleEvent";
+import VisibleMainPage from "../redux/containers/VisibleMainPage";
 
 
 export default function BodyComponent () {
@@ -30,7 +31,7 @@ export default function BodyComponent () {
         <div className={"body"}>
             <Routes>
                 <Route exact path={BaseRoutes.events} element={<EventsPageComponent/>}/>
-                <Route exact path={BaseRoutes.main} element={<MainPageComponent/>}/>
+                <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
 
                 {/*<Route exact path={'events/event/:pk/'} element={<EventComponent/>}/>*/}
 

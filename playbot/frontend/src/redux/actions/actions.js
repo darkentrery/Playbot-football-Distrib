@@ -22,6 +22,8 @@ export const EVENT = 'EVENT';
 export const PLAYERS = 'PLAYERS';
 export const STEPS = 'STEPS';
 
+export const CITY = 'CITY';
+
 
 export const signUpWindow = (value) => ({
   type: SIGN_UP_WINDOW,
@@ -128,5 +130,10 @@ export const players = (value) => ({
 
 export const steps = (value) => ({
   type: STEPS,
+  value,
+});
+
+export const city = (value) => ({
+  type: CITY,
   value,
 });

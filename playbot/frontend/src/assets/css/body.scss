@@ -2,6 +2,7 @@
 @import "body/no-events";
 @import "body/events";
 @import "body/event";
+@import "body/location";
 
 .main-page .body {
   display: flex;
@@ -58,37 +59,6 @@
       height: 24px;
     }
   }
-}
-
-.main-page .body .location {
-  display: flex;
-  align-items: stretch;
-  margin-bottom: 24px;
-  white-space: nowrap;
-  flex: 0 0 27px;
-
-  .elem {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 16px;
-    padding: 5px 24px;
-    border-radius: 25px;
-  }
-
-  .country {
-    background: #949494;
-    color: #FFFFFF;
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .city {
-    background: #EBEBEB;
-    color: #6C6C6C;
-    font-size: 14px;
-  }
-
 }
 
 .main-page .body .board-create-event {
@@ -242,12 +212,6 @@
     .main-page-component .elem-1280 {
       display: none;
     }
-  }
-
-  .main-page .body .location {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 16px;
   }
 
   .main-page .body .title {

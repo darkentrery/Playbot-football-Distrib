@@ -1,7 +1,7 @@
 import {
     AUTH,
     CANCEL_EVENT_WINDOW,
-    CHOICE_CITY_WINDOW,
+    CHOICE_CITY_WINDOW, CITY,
     CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
@@ -178,10 +178,27 @@ const event = (state = initialEventState, action) => {
   }
 };
 
+const initialLocationState = {
+    city: false,
+}
+
+const location = (state = initialLocationState, action) => {
+  switch (action.type) {
+      case CITY:
+          return {
+              ...state,
+              city: action.value,
+          };
+      default:
+          return state;
+  }
+};
+
 export let rootReducer = combineReducers({
     windows,
     user,
     event,
+    location,
 });
 
 

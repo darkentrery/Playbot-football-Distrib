@@ -1,0 +1,116 @@
+.main-page .body .location-component {
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  margin-bottom: 24px;
+  white-space: nowrap;
+  flex: 0 0 27px;
+
+  .elem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+    padding: 5px 24px;
+    border-radius: 25px;
+  }
+
+  .country {
+    background: #949494;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .city {
+    background: #EBEBEB;
+    color: #6C6C6C;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .confirm-city {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: end;
+    align-items: stretch;
+    height: 128px;
+    width: 261px;
+    top: 36px;
+    left: 164px;
+
+    &.open {
+      display: flex;
+    }
+
+    .corner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 48px;
+      top: 0px;
+
+      background: #FFFFFF;
+      transform: rotate(45deg);
+    }
+
+    .confirm-city-frame {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 118px;
+      background: $whiteColor;
+      box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+
+      .elem-1 {
+        display: flex;
+        flex: 0 0 46px;
+        justify-content: space-between;
+
+        .black-600-18 {
+          align-self: end;
+          margin-left: 24px;
+        }
+
+        .btn-close {
+          align-self: start;
+          margin-top: 16px;
+          margin-right: 16px;
+        }
+      }
+
+      .elem-2 {
+        display: flex;
+        flex: 1 1 auto;
+        margin-top: 24px;
+
+        .btn {
+          margin-left: 24px;
+          margin-right: 8px;
+          flex: 0 0 64px;
+          height: 24px;
+          border-radius: 50px;
+
+        }
+
+        .btn-second {
+          flex: 0 0 141px;
+          height: 24px;
+          margin-right: 24px;
+          border-radius: 50px;
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .main-page .body .location-component {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 16px;
+  }
+}
