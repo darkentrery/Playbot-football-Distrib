@@ -134,7 +134,7 @@ class UpdateCityView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             if user:
-                json = serializer.data
+                json = UserSerializer(instance=request.user).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

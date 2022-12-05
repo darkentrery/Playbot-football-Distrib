@@ -43,6 +43,11 @@ export default function UserComponent ({user, flagDropdown=false, funcs}) {
       funcs.setAuth(false, false);
     }
 
+    const choiceCity = () => {
+        selectMenu();
+        funcs.openChoiceCity();
+    }
+
     return (
         <div className={"elem user"}>
             <div className={"el black-bell-icon"}></div>
@@ -56,9 +61,9 @@ export default function UserComponent ({user, flagDropdown=false, funcs}) {
                     <span className={"dropdown-elem"} onClick={selectMenu}>Профиль</span>
                     <span className={"dropdown-elem"} onClick={selectMenu}>Личные данные</span>
                     <span className={"dropdown-elem"} onClick={logout}>Выйти</span>
-                    <div className={"dropdown-elem d-el-4"} onClick={selectMenu}>
+                    <div className={"dropdown-elem d-el-4"} onClick={choiceCity}>
                         <span className={"label"}>Ваш город</span>
-                        <span className={"city"}>Москва</span>
+                        <span className={"city"}>{user.city}</span>
                     </div>
                 </div>
             </div>

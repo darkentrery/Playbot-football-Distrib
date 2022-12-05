@@ -1,4 +1,4 @@
-import {choiceCityWindow} from "../actions/actions";
+import {auth, choiceCityWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import ChoiceCityComponent from "../../components/ChoiceCityComponent";
 
@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     closeComponent: () => {
       dispatch(choiceCityWindow(false));
     },
+    setAuth: (value, user) => {
+        dispatch(auth(value, user));
+      },
   };
 };
 

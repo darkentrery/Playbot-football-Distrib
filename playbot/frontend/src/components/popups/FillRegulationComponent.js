@@ -1,6 +1,5 @@
 import Modal from "react-modal";
 import React, {useEffect, useRef, useState} from "react";
-import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
@@ -21,10 +20,6 @@ export default function FillRegulationComponent ({isOpen, event, funcs}) {
     const [scorer, setScorer] = useState(false);
     const [untilGoal, setUntilGoal] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
-
-    console.log(event)
-
-
 
     useEffect(() => {
         if (event.id !== undefined) {
@@ -82,7 +77,6 @@ export default function FillRegulationComponent ({isOpen, event, funcs}) {
 
     const fillRegulation = () => {
         authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
-            console.log(response)
             funcs.setEvent(response.data.event);
             funcs.setSteps(response.data.steps);
             closeWindow();

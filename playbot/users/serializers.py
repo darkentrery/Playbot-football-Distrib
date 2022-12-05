@@ -19,9 +19,11 @@ from playbot.users.utils import generate_password, send_email_refresh, send_emai
 
 
 class UserSerializer(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+
     class Meta:
         model = User
-        fields = ["id", "username", "email", "is_active", "telegram_id"]
+        fields = "__all__"
         read_only_field = ['is_active',]
 
 

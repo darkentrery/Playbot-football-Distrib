@@ -1,4 +1,4 @@
-import React, {useState, useContext, useRef, useEffect} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import AuthService from "../services/AuthService";
 import Modal from "react-modal";
 import $ from 'jquery';
@@ -6,7 +6,7 @@ import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
 
 
-export default function ChoiceCityComponent ({isOpen, closeComponent}) {
+export default function ChoiceCityComponent ({isOpen, closeComponent, setAuth}) {
     const authService = new AuthService();
     const cityService = new CityService();
     const [city, setCity] = useState(false);
@@ -34,13 +34,13 @@ export default function ChoiceCityComponent ({isOpen, closeComponent}) {
         closeComponent();
     }
 
-
     const sendForm = async () => {
         if (city) {
             localStorage.city = city;
             await authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
                 console.log(response)
                 closeWindow();
+                setAuth(true, response.data);
             })
         }
     }
