@@ -5,7 +5,7 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function ConfirmPlayersComponent ({players, isOpen, event, funcs}) {
+export default function ConfirmPlayersComponent ({players, isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
     const [selected, setSelected] = useState(players);
 
@@ -82,7 +82,7 @@ export default function ConfirmPlayersComponent ({players, isOpen, event, funcs}
                         )
                     })}
                 </div>
-                <button className={"elem elem-5 btn"} onClick={confirmPlayers}>Продолжить</button>
+                <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers}>Продолжить</button>
             </div>
         </Modal>
     )

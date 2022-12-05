@@ -13,6 +13,7 @@ export default function EventsComponent () {
     useEffect(() => {
         if (events === false) {
             eventService.getEvents().then((response) => {
+                console.log(response)
                 if (response.status === 200) {
                     let data = [];
                     response.data.map((item, key) => {
@@ -63,7 +64,7 @@ export default function EventsComponent () {
                                 <div className={"event"} key={key}>
                                     <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
                                     <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие началось, в 12:00</span></span>
-                                    <span className={"elem elem-3 green"}>10/{event.count_players}</span>
+                                    <span className={"elem elem-3 green"}>{event.event_player.length}/{event.count_players}</span>
                                     <span className={"elem elem-4 gray"}>88,9</span>
                                     <span className={"elem elem-5 gray-right-arrow-icon"}></span>
                                 </div>
@@ -87,7 +88,7 @@ export default function EventsComponent () {
                                 <div className={"event-376"} key={key}>
                                     <div className={"row row-1"}>
                                         <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}<span className={"gray"}>12:00</span></Link>
-                                        <span className={"elem elem-2 red"}>10/{event.count_players}</span>
+                                        <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>
                                         <span className={"elem elem-3 orange"}>88,9</span>
                                     </div>
                                     <div className={"row row-2"}>

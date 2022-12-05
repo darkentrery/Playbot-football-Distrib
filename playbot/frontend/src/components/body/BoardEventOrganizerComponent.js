@@ -59,8 +59,12 @@ export default function BoardEventOrganizerComponent ({event, steps, players, fu
                 <span className={"elem elem-2"}>{event.name}</span>
                 <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''}</span>
                 <div className={"elem elem-4"}>
-                    <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>
-                    <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>
+                    {steps.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
+                    {steps.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
+                    {steps.length === 1 && steps[0]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
+                    {steps.length === 2 && steps[1]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
+                    {steps.length === 3 && steps[2]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
+                    {steps.length === 3 && steps[2]["complete"] === true && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
                 </div>
             </div>
         </div>

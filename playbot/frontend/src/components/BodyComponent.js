@@ -1,11 +1,10 @@
 import {Route, Routes} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import BaseRoutes from "../routes/BaseRoutes";
-import MainPageComponent from "./body/MainPageComponent";
-import EventsPageComponent from "./body/EventsPageComponent";
 import EventService from "../services/EventService";
 import VisibleEvent from "../redux/containers/VisibleEvent";
 import VisibleMainPage from "../redux/containers/VisibleMainPage";
+import VisibleEventsPage from "../redux/containers/VisibleEventsPage";
 
 
 export default function BodyComponent () {
@@ -30,13 +29,12 @@ export default function BodyComponent () {
     return(
         <div className={"body"}>
             <Routes>
-                <Route exact path={BaseRoutes.events} element={<EventsPageComponent/>}/>
+                <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
                 <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
 
                 {/*<Route exact path={'events/event/:pk/'} element={<EventComponent/>}/>*/}
 
                 {eventsPk !== false && eventsPk.length !== 0 && eventsPk.map((item, key) => {
-                    // return (<Route key={key} exact path={'events/' + BaseRoutes.eventLink(item)} element={<EventComponent pk={item}/>}/>)
                     return (<Route key={key} exact path={'events/' + BaseRoutes.eventLink(item)} element={<VisibleEvent pk={item}/>}/>)
                 })}
             </Routes>

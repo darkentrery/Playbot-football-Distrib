@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
     ...state,
     isOpen: state.windows.isOpenEditEvent,
     event: state.event.event,
+    isIPhone: state.app.isIPhone,
   };
 };
 

@@ -19,6 +19,7 @@ class EventSerializer(serializers.ModelSerializer):
     distribution_method = serializers.SlugRelatedField(queryset=DistributionMethod.objects.all(), slug_field="name")
     duration = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="name")
     count_circles = serializers.SlugRelatedField(queryset=CountCircles.objects.all(), slug_field="name")
+    event_player = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Event

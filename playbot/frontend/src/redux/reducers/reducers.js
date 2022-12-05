@@ -6,7 +6,7 @@ import {
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
-    EVENT, FILL_REGULATION_WINDOW,
+    EVENT, FILL_REGULATION_WINDOW, IPHONE,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     SIGN_UP_WINDOW, STEPS,
@@ -194,11 +194,28 @@ const location = (state = initialLocationState, action) => {
   }
 };
 
+const initialAppState = {
+    isIPhone: false,
+}
+
+const app = (state = initialAppState, action) => {
+  switch (action.type) {
+      case IPHONE:
+          return {
+              ...state,
+              isIPhone: action.value,
+          };
+      default:
+          return state;
+  }
+};
+
 export let rootReducer = combineReducers({
     windows,
     user,
     event,
     location,
+    app,
 });
 
 

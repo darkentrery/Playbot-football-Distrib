@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isOpen: state.windows.isOpenChoiceCity,
+    isIPhone: state.app.isIPhone,
   };
 };
 

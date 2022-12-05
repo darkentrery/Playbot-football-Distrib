@@ -133,6 +133,10 @@
     &.elem-10 {
       margin-top: 4px;
       margin-bottom: 40px;
+
+      &.safari-margin {
+        margin-bottom: 70px;
+      }
     }
 
     .input-message {

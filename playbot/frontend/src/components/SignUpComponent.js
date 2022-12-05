@@ -1,18 +1,13 @@
-import React, {useState, useEffect, useContext, useRef} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
-import { isMobile } from 'react-device-detect';
-import {
-    OpenChoiceCityContext,
-    OpenSuccessSignUpContext
-} from "../context/AuthContext";
 import Modal from "react-modal";
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
 
 
-export default function SignUpComponent ({isOpen, closeComponent, openLogin, openSuccessSignUp}) {
+export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp}) {
     const authService = new AuthService();
     const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
@@ -24,14 +19,11 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
     const [allowOffer, setAllowOffer] = useState(false);
     const [data, setData] = useState(false);
     const [loginData, setLoginData] = useState(false);
-    const [isIPhone, setIsIphone] = useState(false);
     const [isDropdown, setIsDropdown] = useState(false);
     const [countryTag, setCountryTag] = useState([]);
     const [countries, setCountries] = useState(false);
     const [banner, setBanner] = useState(false);
     const [enterFlag, setEnterFlag] = useState(false);
-
-    const {openChoiceCity, setOpenChoiceCity} = useContext(OpenChoiceCityContext);
 
     const refUsername = useRef();
     const refPhoneNumber = useRef();
@@ -43,6 +35,7 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
     const refPhoneCode = useRef();
     const refArrowIcon = useRef();
     const refCountryBody = useRef();
+    const refBottom = useRef();
     const refs = [refUsername, refPhoneNumber, refEmail, refPassword, refPasswordConfirm];
     const refsDict = {
         "username": refUsername,
@@ -94,13 +87,12 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
     }
 
     useEffect(() => {
-        if (isOpen && !authService.addIPhoneBottomMargin('.sign-up-l-bottom')) setIsIphone(!isIPhone);
         if (!countries && isOpen) {
             authService.getCountries(setBanner).then((response) => {
                 setCountries(response);
             })
         }
-    }, [isOpen, isIPhone])
+    }, [isOpen])
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -175,7 +167,6 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
         link.download = `Политика конфиденциальности.docx`;
         link.href = docPolicy
         link.click();
-        // URL.revokeObjectURL(link.href);
     }
 
     const openAllowOffer = () => {
@@ -230,7 +221,7 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
                         <div className={"sign-up-l-elem phone-field"} ref={refPhoneNumber}>
                             <div className={"dropdown-country"}>
                                 <span className={"dropdown-label"} ref={refPhoneCode} onClick={openDropdown}>
-                                    <img src={banner} alt=""/>
+                                    <img src={banner ? banner : ''} alt=""/>
                                 </span>
                                 <div className={"down-arrow-icon"} ref={refArrowIcon} onClick={openDropdown}></div>
                                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
@@ -239,7 +230,7 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
                                     <div className={"dropdown-body"} ref={refCountryBody}>
                                         {countries && countries.map((item, key) => {
                                             return (
-                                                <div className={"dropdown-elem"} onClick={choicePhoneCode}>
+                                                <div className={"dropdown-elem"} onClick={choicePhoneCode} key={key}>
                                                     <span className={"country"}>{item[0]}</span>
                                                     <span className={"code"}>{item[1]}</span>
                                                     <img className={"banner"} src={item[2]} alt=""/>
@@ -286,7 +277,7 @@ export default function SignUpComponent ({isOpen, closeComponent, openLogin, ope
                             <button className={"btn btn-reg"} autoFocus={true} onClick={sendForm}>Зарегистрироваться</button>
                         </div>
                     </div>
-                    <div className={"sign-up-l-bottom"}>
+                    <div className={`sign-up-l-bottom ${isIPhone ? 'safari-margin' : ''}`} ref={refBottom}>
                         <div className={"sign-up-l-bottom-elem"}>
                             <span className={"link-sign-up-login"}>
                                 У меня уже есть аккаунт,&nbsp;

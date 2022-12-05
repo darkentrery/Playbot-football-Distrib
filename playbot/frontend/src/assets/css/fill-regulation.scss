@@ -92,6 +92,10 @@
     flex: 0 0 $fieldHeight;
     width: 280px;
     margin-bottom: 40px;
+
+    &.safari-margin {
+      margin-bottom: 70px;
+    }
   }
 }
 

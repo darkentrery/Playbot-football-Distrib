@@ -102,6 +102,10 @@
     &.elem-10 {
       margin-top: 4px;
       margin-bottom: 40px;
+
+      &.safari-margin {
+        margin-bottom: 70px;
+      }
     }
 
     .input-message {
@@ -123,5 +127,9 @@
   .edit-event-component {
     flex: 0 0 100vw;
     height: 100vh;
+
+    .elem.elem-1 {
+      width: 100vw;
+    }
   }
 }

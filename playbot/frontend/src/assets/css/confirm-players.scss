@@ -3,6 +3,7 @@
   height: 717px;
   flex-direction: column;
   align-items: center;
+  justify-content: stretch;
 }
 
 .confirm-players-component .elem {
@@ -53,12 +54,13 @@
   }
 
   &.elem-4 {
-    flex: 0 0 427px;
+    flex: 1 1 auto;
     overflow: auto;
     flex-direction: column;
     margin-top: 33px;
     margin-bottom: 42px;
     width: 280px;
+    //max-height: 427px;
 
     .el {
       display: flex;
@@ -85,6 +87,10 @@
     flex: 0 0 $fieldHeight;
     width: 280px;
     margin-bottom: 40px;
+
+    &.safari-margin {
+      margin-bottom: 70px;
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function ConfirmTeamsComponent ({players, isOpen, event, funcs}) {
+export default function ConfirmTeamsComponent ({players, isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
     const [selected, setSelected] = useState(players);
 

@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isOpen: state.windows.isOpenSignUp,
+    isIPhone: state.app.isIPhone,
   };
 };
 
@@ -24,12 +25,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-
 const VisibleSignUp = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SignUpComponent);
-
 
 
 export default VisibleSignUp;

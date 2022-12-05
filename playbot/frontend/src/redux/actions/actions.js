@@ -24,6 +24,8 @@ export const STEPS = 'STEPS';
 
 export const CITY = 'CITY';
 
+export const IPHONE = 'PHONE';
+
 
 export const signUpWindow = (value) => ({
   type: SIGN_UP_WINDOW,
@@ -135,5 +137,10 @@ export const steps = (value) => ({
 
 export const city = (value) => ({
   type: CITY,
+  value,
+});
+
+export const iphone = (value) => ({
+  type: IPHONE,
   value,
 });

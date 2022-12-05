@@ -35,6 +35,7 @@ function App({state, funcs}) {
     const authService = new AuthService();
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [isUserDropdown, setIsUserDropdown] = useState(false);
+    const [firstRequest, setFirstRequest] = useState(true);
 
     const eventService = new EventService();
 
@@ -45,12 +46,19 @@ function App({state, funcs}) {
             } else {
                 funcs.setAuth(false, false);
             }
+            setFirstRequest(false);
         })
     }
 
     useEffect(() => {
         auth();
     }, [state.user.isAuth])
+
+
+
+    useEffect(() => {
+        funcs.setIsIPhone(authService.deviceDetect());
+    }, [state.app.isIPhone])
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
@@ -66,11 +74,6 @@ function App({state, funcs}) {
         zoom: 10,
         controls: ["zoomControl", "fullscreenControl"],
     };
-
-    // useEffect(() => {
-
-    // }, [openMobileFirstPage])
-
 
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
@@ -124,7 +127,7 @@ function App({state, funcs}) {
               {/*    </Map>*/}
               {/*  </YMaps>*/}
 
-              <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} funcs={funcs}/>
+              <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
               <VisibleSignUp/>
               <VisibleLogin/>
               <VisibleRefreshPassword/>
@@ -140,11 +143,11 @@ function App({state, funcs}) {
               <VisibleCancelEvent/>
 
               <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
-                                       players={state.event.players} funcs={funcs}/>
+                                       players={state.event.players} funcs={funcs} isIPhone={state.app.isIPhone}/>
               <FillRegulationComponent isOpen={state.windows.isOpenFillRegulation} event={state.event.event}
-                                       funcs={funcs}/>
+                                       funcs={funcs} isIPhone={state.app.isIPhone}/>
               <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
-                                     players={state.event.players} funcs={funcs}/>
+                                     players={state.event.players} funcs={funcs} isIPhone={state.app.isIPhone}/>
 
           </Router>
       </div>

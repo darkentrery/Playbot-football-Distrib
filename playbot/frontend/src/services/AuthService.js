@@ -272,6 +272,16 @@ export default class AuthService{
 		return false;
 	}
 
+	deviceDetect() {
+		console.log("Is Iphone", this.isIPhone())
+		console.log("Is PWA", this.isPWA())
+
+		if (isMobile && window.screen.width < 743 && this.isIPhone() && !this.isPWA()) {
+			return true
+		}
+		return false;
+	}
+
 	addIPhoneBottomMargin(classSelector) {
 		console.log("Is Iphone", this.isIPhone())
 		console.log("Is PWA", this.isPWA())

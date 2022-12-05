@@ -7,7 +7,7 @@ import EventService from "../services/EventService";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
 
 
-export default function CreateEventComponent ({isOpen, closeComponent, openSuccessCreateEvent, setEvent}) {
+export default function CreateEventComponent ({isOpen, isIPhone, closeComponent, openSuccessCreateEvent, setEvent}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [name, setName] = useState(false);
@@ -155,7 +155,7 @@ export default function CreateEventComponent ({isOpen, closeComponent, openSucce
                         <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"}></textarea>
                         <span className={"input-message"}></span>
                     </div>
-                    <div className={"elem elem-10"}>
+                    <div className={`elem elem-10 ${isIPhone ? 'safari-margin' : ''}`}>
                         <button className={"btn btn-create-event"} onClick={sendForm}>Создать</button>
                     </div>
                 </div>

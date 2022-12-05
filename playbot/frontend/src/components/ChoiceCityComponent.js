@@ -6,14 +6,13 @@ import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
 
 
-export default function ChoiceCityComponent ({isOpen, closeComponent, setAuth, setCity}) {
+export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity}) {
     const authService = new AuthService();
     const cityService = new CityService();
     const [city, setLocalCity] = useState(false);
     const [data, setData] = useState(false);
     const [citiesTag, setCitiesTag] = useState([]);
     const [cities, setCities] = useState([]);
-    const [isIPhone, setIsIphone] = useState(false);
     const citiesRef = useRef();
 
     useEffect(() => {
@@ -25,10 +24,6 @@ export default function ChoiceCityComponent ({isOpen, closeComponent, setAuth, s
             })
         }
     }, [isOpen])
-
-    useEffect(() => {
-        if (isOpen && !authService.addIPhoneBottomMargin('.bottom')) setIsIphone(!isIPhone);
-    }, [isOpen, isIPhone])
 
     const closeWindow = () => {
         closeComponent();
@@ -127,7 +122,7 @@ export default function ChoiceCityComponent ({isOpen, closeComponent, setAuth, s
                         )
                     })}
                 </div>
-                <div className={"elem bottom"}>
+                <div className={`elem bottom ${isIPhone ? 'safari-margin' : ''}`}>
                     <button className={"btn btn-choice-city"} onClick={sendForm}>Сохранить</button>
                 </div>
             </div>

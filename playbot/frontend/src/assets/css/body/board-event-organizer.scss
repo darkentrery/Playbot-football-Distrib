@@ -197,10 +197,11 @@
       margin-top: 32px;
       flex: 0 0 $fieldHeight;
       align-items: stretch;
-      justify-content: space-between;
+      justify-content: stretch;
+      gap: 10px;
 
       .el {
-        flex: 0 0 146px;
+        flex: 1 1 auto;
         font-weight: 500;
         font-size: 16px;
         line-height: 19px;

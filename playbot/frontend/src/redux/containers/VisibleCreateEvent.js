@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isOpen: state.windows.isOpenCreateEvent,
+    isIPhone: state.app.isIPhone,
   };
 };
 

@@ -130,7 +130,7 @@ class EventPlayer(models.Model):
         verbose_name_plural = "Events Players"
 
     def __str__(self):
-        return f"{self.player.name} - {self.event.name}"
+        return f"{self.player.username} - {self.event.name}"
 
 
 class TeamPlayer(models.Model):

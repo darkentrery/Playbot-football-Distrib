@@ -6,7 +6,7 @@ import {
   successSignUp2Window,
   auth,
   fillRegulationWindow,
-  confirmPlayersWindow, event, steps, confirmTeamsWindow, players, mobileFirstPageWindow, loginWindow
+  confirmPlayersWindow, event, steps, confirmTeamsWindow, players, mobileFirstPageWindow, loginWindow, iphone
 } from "../actions/actions";
 
 
@@ -44,6 +44,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setPlayers: (value) => {
         dispatch(players(value));
+      },
+      setIsIPhone: (value) => {
+        dispatch(iphone(value));
       },
       openFillRegulation: () => {
         dispatch(fillRegulationWindow(true));

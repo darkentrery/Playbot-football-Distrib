@@ -1,38 +1,27 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import { MobileView } from 'react-device-detect';
 import cup from "../assets/icon/white-cup.png";
 import orangePoint from "../assets/icon/orange-point.png";
 import grayPoint from "../assets/icon/gray-point.png";
-import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
-import AuthService from "../services/AuthService";
 
 
 
-export default function MobileFirstPageComponent ({isOpen, funcs}) {
-    const [firstRequest, setFirstRequest] = useState(true);
-
-    const authService = new AuthService();
-
-    if (firstRequest) {
-        authDecoratorWithoutLogin(authService.getData, []).then((response) => {
-            setFirstRequest(false);
-            if (response.status != 200 && !isOpen) {
-                funcs.openMobileFirstPage();
-            }
-            console.log(response)
-        })
-    }
-
+export default function MobileFirstPageComponent ({isOpen, firstRequest, isAuth, funcs}) {
+    useEffect(() => {
+        if (!isAuth && !isOpen && !firstRequest) {
+            funcs.openMobileFirstPage();
+        } else if (isAuth && isOpen) {
+            funcs.closeMobileFirstPage();
+        }
+    }, [isAuth, firstRequest])
     const closeWindow = () => {
         funcs.closeMobileFirstPage();
     }
-
     const toLogin = () => {
         closeWindow();
         funcs.openLogin();
     }
-
     const toSignUp = () => {
         closeWindow();
         funcs.openSignUp();

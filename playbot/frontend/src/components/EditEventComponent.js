@@ -6,7 +6,7 @@ import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
 
 
-export default function EditEventComponent ({isOpen, event, closeComponent, openSuccessEditEvent, setEvent}) {
+export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [id, setId] = useState(false);
@@ -177,7 +177,7 @@ export default function EditEventComponent ({isOpen, event, closeComponent, open
                     <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"} value={notice ? notice : ''}></textarea>
                     <span className={"input-message"}></span>
                 </div>
-                <div className={"elem elem-10"}>
+                <div className={`elem elem-10 ${isIPhone ? 'safari-margin' : ''}`}>
                     <button className={"btn btn-create-event"} onClick={sendForm}>Сохранить</button>
                 </div>
             </div>

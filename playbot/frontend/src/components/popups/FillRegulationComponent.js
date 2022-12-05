@@ -1,12 +1,12 @@
 import Modal from "react-modal";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
 
 
-export default function FillRegulationComponent ({isOpen, event, funcs}) {
+export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [format, setFormat] = useState(false);
@@ -127,7 +127,7 @@ export default function FillRegulationComponent ({isOpen, event, funcs}) {
                     <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
                     <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до гола"} sizingClass={"check-slider-size"}/>
                 </div>
-                <button className={"elem elem-5 btn"} onClick={fillRegulation}>Поделиться на команды</button>
+                <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
             </div>
         </Modal>
     )
