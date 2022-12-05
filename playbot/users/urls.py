@@ -5,6 +5,8 @@ from playbot.users import views
 
 urlpatterns = [
     path("", views.IndexView.as_view(), name='index'),
+    path("events/", views.IndexView.as_view(), name='index-events'),
+    path("events/event/<int>/", views.IndexView.as_view(), name='index-event'),
     path("login/", views.IndexView.as_view(), name='index'),
     path("sign-up/", views.IndexView.as_view(), name='index'),
     re_path(r"^api/login/$", views.LoginView.as_view(), name='login'),

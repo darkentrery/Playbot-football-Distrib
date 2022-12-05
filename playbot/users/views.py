@@ -19,7 +19,7 @@ class IndexView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'index.html'
 
-    def get(self, request):
+    def get(self, request, **kwargs):
         return Response({})
 
 
