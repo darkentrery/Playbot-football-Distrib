@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import $ from "jquery";
 
 
@@ -30,7 +30,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
             <div className={"elem-1280 elem-5"}>
                 {/*<span className={"el el-1"}>Москва, ЦАО, Тверской район, ул. Тверская, 22 стр. 1</span>*/}
                 <span className={"el el-1"}>{event.address}</span>
-                <span className={"el el-2"}>Андрей Иванов</span>
+                <span className={"el el-2"}>{event ? event.organizer.username : ''}</span>
             </div>
             <div className={"elem-1280 elem-6"}>
 
@@ -43,7 +43,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
             <span className={"elem-744 elem-2"}>Информация</span>
             <span className={"elem-744 elem-3 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
             <span className={"elem-744 elem-4"}>Организатор:</span>
-            <span className={"elem-744 elem-5"}>Андрей Иванов</span>
+            <span className={"elem-744 elem-5"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-744 elem-6"}>Адрес:</span>
             <span className={"elem-744 elem-7"}>{event.address}</span>
             <div className={"elem-744 elem-8"}></div>
@@ -54,7 +54,7 @@ export default function EventDescriptionComponent ({event, openEditEvent}) {
             </div>
             <span className={"elem-376 elem-2 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
             <span className={"elem-376 elem-3"}>Организатор:</span>
-            <span className={"elem-376 elem-4"}>Андрей Иванов</span>
+            <span className={"elem-376 elem-4"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-376 elem-5"}>Адрес:</span>
             <span className={"elem-376 elem-6"}>{event.address}</span>
             <div className={"elem-376 elem-7"}></div>

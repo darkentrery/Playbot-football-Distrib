@@ -1,33 +1,30 @@
 import React from "react-dom";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
-import {getMonth, getDay} from "../../utils/dates";
+import {getMonth} from "../../utils/dates";
 
 
 export default function BoardEventOrganizerComponent ({event, steps, players, funcs}) {
     const eventService = new EventService();
-    console.log(event)
     let date = new Date();
     if (event) {
         date = new Date(event.date);
     }
-
-
-    const toConfirmPlayers = () => {
+    const toConfirmPlayers = (e) => {
         funcs.openConfirmPlayers();
+        e.target.blur();
         authDecoratorWithoutLogin(eventService.toConfirmPlayers, event).then((response) => {
             funcs.setSteps(response.data);
         })
     }
-
-    const toFillRegulation = () => {
+    const toFillRegulation = (e) => {
         funcs.openFillRegulation();
+        e.target.blur();
     }
-
-    const toConfirmTeams = () => {
+    const toConfirmTeams = (e) => {
         funcs.openConfirmTeams();
+        e.target.blur();
     }
-
 
     return (
         <div className={"board-event-component"}>

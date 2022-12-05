@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles
 from playbot.users.models import User
+from playbot.users.serializers import UserSerializer
 
 
 class CreateEventSerializer(serializers.ModelSerializer):
@@ -20,6 +21,7 @@ class EventSerializer(serializers.ModelSerializer):
     duration = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="name")
     count_circles = serializers.SlugRelatedField(queryset=CountCircles.objects.all(), slug_field="name")
     event_player = serializers.StringRelatedField(many=True)
+    organizer = UserSerializer(read_only=True)
 
     class Meta:
         model = Event

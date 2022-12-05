@@ -2,6 +2,8 @@ import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
 import VisibleBoardEventOrganizer from "../../redux/containers/VisibleBoardEventOrganizer";
+import BaseRoutes from "../../routes/BaseRoutes";
+import {Link} from "react-router-dom";
 
 
 export default function EventComponent ({pk, steps, funcs}) {
@@ -29,6 +31,7 @@ export default function EventComponent ({pk, steps, funcs}) {
             <div className={"elem-376"}>
                 <div className={"event-mobile-head"}>
                     <div className={"el-1 gray-left-arrow-icon link"}></div>
+                    {/*<Link className={"el-1 gray-left-arrow-icon link"} to={BaseRoutes.events}></Link>*/}
                     <span className={"el-2"}>Событие</span>
                     <div className={"el-3 black-edit-icon link"} onClick={funcs.openEditEvent}></div>
                 </div>
