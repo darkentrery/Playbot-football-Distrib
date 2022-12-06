@@ -15,7 +15,6 @@ import VisibleSuccessSignUp from "./redux/containers/VisibleSuccessSignUp";
 import VisibleSuccessSignUp2 from "./redux/containers/VisibleSuccessSignUp2";
 import VisibleChoiceCity from "./redux/containers/VisibleChoiceCity";
 import {authDecoratorWithoutLogin} from "./services/AuthDecorator";
-import VisibleHead from "./redux/containers/VisibleHead";
 import VisibleSuccessCreateEvent from "./redux/containers/VisibleSuccessCreateEvent";
 import VisibleCreateEvent from "./redux/containers/VisibleCreateEvent";
 import VisibleCreateEventUnAuth from "./redux/containers/VisibleCreateEventUnAuth";
@@ -27,6 +26,7 @@ import ConfirmTeamsComponent from "./components/popups/ConfirmTeamsComponent";
 import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent";
 import $ from "jquery";
 import HeadComponent from "./components/HeadComponent";
+
 
 
 function App({state, funcs}) {
@@ -99,12 +99,6 @@ function App({state, funcs}) {
 
   return (
       <div className="App">
-          {/*<button onClick={funcs.openSignUp} type="button" className="">Register</button>*/}
-          {/*<button onClick={() => setOpenLogin(!openLogin)} type="button" className="">Login</button>*/}
-          {/*<button onClick={getOpenCreateEvent} type="button" className="">Create Event</button>*/}
-          {/*<button onClick={(e) => setOpenCreateEventUnAuth(!openCreateEventUnAuth)} type="button" className="">Create Event UnAuth</button>*/}
-          {/*<button onClick={funcs.openChoiceCity} type="button" className="">Choice City</button>*/}
-          {/*<button onClick={() => setOpenSuccessCreateEvent(!openSuccessCreateEvent)} type="button" className="">Sucess Event</button>*/}
           <Router>
               <main className={"main-page"} onClick={pageClick}>
                   <HeadComponent user={state.user} flagDropdown={isUserDropdown} funcs={funcs}/>
@@ -126,6 +120,7 @@ function App({state, funcs}) {
               {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
               {/*    </Map>*/}
               {/*  </YMaps>*/}
+              <button className={'btn'}>sdafsdaf</button>
 
               <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
               <VisibleSignUp/>
