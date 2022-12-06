@@ -120,7 +120,6 @@ function App({state, funcs}) {
               {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
               {/*    </Map>*/}
               {/*  </YMaps>*/}
-              <button className={'btn'}>sdafsdaf</button>
 
               <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
               <VisibleSignUp/>
