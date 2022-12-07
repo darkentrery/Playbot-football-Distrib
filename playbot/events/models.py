@@ -64,20 +64,6 @@ class CountCircles(models.Model):
 
 
 class Event(models.Model):
-    # class Format(models.TextChoices):
-    #     FIVE = "5x5", _("5x5")
-    #     SIX = "6x6", _("6x6")
-    #     SEVEN = "7x7", _("7x7")
-    #     EIGHT = "8x8", _("8x8")
-    #     NINE = "9x9", _("9x9")
-    #     TEN = "10x10", _("10x10")
-    #     ELEVEN = "11x11", _("11x11")
-    #
-    # class DistributionMethod(models.TextChoices):
-    #     AUTO = "Автоматический", _("Auto")
-    #     HANDLER = "Механический", _("Handler")
-
-
     name = models.CharField(_("Name"), max_length=150)
     date = models.DateField(_("Date Of Game"))
     time_begin = models.TimeField(_("Time Begin"))

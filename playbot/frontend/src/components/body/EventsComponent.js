@@ -66,7 +66,9 @@ export default function EventsComponent () {
                             return (
                                 <div className={"event"} key={key}>
                                     <Link className={"elem elem-1 point-icon"} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
-                                    <span className={"elem elem-2"}>{event.address}<span className={"time"}>Событие {Date.now() > date ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span></span>
+                                    <span className={"elem elem-2"}>{event.address}
+                                        <span className={"time"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
+                                    </span>
                                     <span className={"elem elem-3 green"}>{event.event_player.length}/{event.count_players}</span>
                                     <span className={"elem elem-4 gray"}>88,9</span>
                                     <span className={"elem elem-5 gray-right-arrow-icon"}></span>

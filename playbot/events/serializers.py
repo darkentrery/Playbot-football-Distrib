@@ -14,6 +14,12 @@ class EventPlayerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class EventStepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventStep
+        fields = "__all__"
+
+
 class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
@@ -31,6 +37,7 @@ class EventSerializer(serializers.ModelSerializer):
     count_circles = serializers.SlugRelatedField(queryset=CountCircles.objects.all(), slug_field="name")
     event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     organizer = UserSerializer(read_only=True)
+    event_step = EventStepSerializer(EventStep.objects.all(), many=True, read_only=True)
 
     class Meta:
         model = Event
@@ -50,12 +57,6 @@ class EditEventSerializer(serializers.ModelSerializer):
 class CancelReasonsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CancelReasons
-        fields = "__all__"
-
-
-class EventStepSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EventStep
         fields = "__all__"
 
 
