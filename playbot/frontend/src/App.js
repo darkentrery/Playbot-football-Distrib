@@ -137,11 +137,11 @@ function App({state, funcs}) {
               <VisibleCancelEvent/>
 
               <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
-                                       players={state.event.players} funcs={funcs} isIPhone={state.app.isIPhone}/>
+                                       funcs={funcs} isIPhone={state.app.isIPhone}/>
               <FillRegulationComponent isOpen={state.windows.isOpenFillRegulation} event={state.event.event}
                                        funcs={funcs} isIPhone={state.app.isIPhone}/>
               <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
-                                     players={state.event.players} funcs={funcs} isIPhone={state.app.isIPhone}/>
+                                     funcs={funcs} isIPhone={state.app.isIPhone}/>
 
           </Router>
       </div>

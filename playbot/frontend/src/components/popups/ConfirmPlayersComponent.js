@@ -5,16 +5,21 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function ConfirmPlayersComponent ({players, isOpen, isIPhone, event, funcs}) {
+export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
-    const [selected, setSelected] = useState(players);
+    let players = event.event_player;
+    console.log(players)
+    const [selected, setSelected] = useState([]);
 
     useEffect(() => {
-        let arr = [];
-        players.forEach((item) => {
-            arr.push(item.id.toString());
-        })
-        setSelected(arr)
+        if (event && event.event_step.length >= 1 && event.event_step[0].complete) {
+            console.log(players)
+            let arr = [];
+            players.forEach((item) => {
+                arr.push(item.player.id.toString());
+            })
+            setSelected(arr)
+        }
     }, [players, isOpen])
 
     const closeWindow = () => {
@@ -41,13 +46,11 @@ export default function ConfirmPlayersComponent ({players, isOpen, isIPhone, eve
 
     const confirmPlayers = () => {
         authDecoratorWithoutLogin(eventService.confirmPlayers, {"event": event, "players": selected}).then((response) => {
-            funcs.setPlayers(response.data.players);
-            funcs.setSteps(response.data.steps);
+            funcs.setEvent(response.data);
             closeWindow();
             funcs.openFillRegulation();
         })
     }
-
 
     return (
         <Modal
@@ -72,12 +75,12 @@ export default function ConfirmPlayersComponent ({players, isOpen, isIPhone, eve
                     <div className={"gray-line"}></div>
                 </div>
                 <div className={"elem elem-4 scroll"}>
-                    {players.length !== 0 && players.map((item, key) => {
+                    {event && players.length !== 0 && players.map((item, key) => {
                         return (
                             <div className={"el"} onClick={selectPlayer} key={key} id={item.id}>
-                                <div className={"player-select-icon"}></div>
+                                <div className={`player-select-icon ${event.event_step.length >= 1 && event.event_step[0].complete ? '' : 'inactive'}`}></div>
                                 <div className={"player-avatar-icon"}></div>
-                                <span className={"black-400-13"}>{item.username}</span>
+                                <span className={"black-400-13"}>{item.player.username}</span>
                             </div>
                         )
                     })}

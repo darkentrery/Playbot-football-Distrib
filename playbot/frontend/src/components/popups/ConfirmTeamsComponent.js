@@ -5,17 +5,18 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 
 
-export default function ConfirmTeamsComponent ({players, isOpen, isIPhone, event, funcs}) {
+export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
+    let players = event.event_player;
     const [selected, setSelected] = useState(players);
 
-    useEffect(() => {
-        let arr = [];
-        players.forEach((item) => {
-            arr.push(item.id.toString());
-        })
-        setSelected(arr)
-    }, [players, isOpen])
+    // useEffect(() => {
+    //     let arr = [];
+    //     players.forEach((item) => {
+    //         arr.push(item.id.toString());
+    //     })
+    //     setSelected(arr)
+    // }, [players, isOpen])
 
     const closeWindow = () => {
         funcs.closeConfirmTeams();

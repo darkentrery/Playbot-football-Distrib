@@ -82,8 +82,8 @@ class ToConfirmPlayersView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
         EventStep.objects.update_or_create(step=EventStep.StepName.STEP_1, event=event)
-        items = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
-        return Response(items.data, status=status.HTTP_200_OK)
+        json = EventSerializer(instance=Event.objects.get(id=request.data["id"])).data
+        return Response(json, status=status.HTTP_200_OK)
 
 
 class ConfirmPlayersView(APIView):
@@ -97,13 +97,11 @@ class ConfirmPlayersView(APIView):
             if not (str(player.player.id) in players):
                 player.delete()
 
-        players_id = event.event_player.all().values_list("player", flat=True)
-        items = UserSerializer(User.objects.filter(id__in=players_id), many=True)
         EventStep.objects.update_or_create(step=EventStep.StepName.STEP_1, event=event, defaults={"complete": True})
         EventStep.objects.update_or_create(step=EventStep.StepName.STEP_2, event=event)
-        steps = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
+        json = EventSerializer(instance=Event.objects.get(id=request.data["event"]["id"])).data
 
-        return Response({"players": items.data, "steps": steps.data}, status=status.HTTP_200_OK)
+        return Response(json, status=status.HTTP_200_OK)
 
 
 class GetRegulationView(APIView):
@@ -135,11 +133,10 @@ class SetRegulationView(APIView):
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()
             if event:
-                json = EventSerializer(Event.objects.get(id=id)).data
                 EventStep.objects.update_or_create(step=EventStep.StepName.STEP_2, event=event, defaults={"complete": True})
                 EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event)
-                steps = EventStepSerializer(EventStep.objects.filter(event=event), many=True)
-                return Response({"event": json, "steps": steps.data}, status=status.HTTP_200_OK)
+                json = EventSerializer(Event.objects.get(id=id)).data
+                return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

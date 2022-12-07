@@ -14,7 +14,7 @@ export default function BoardEventOrganizerComponent ({event, funcs}) {
         funcs.openConfirmPlayers();
         e.target.blur();
         authDecoratorWithoutLogin(eventService.toConfirmPlayers, event).then((response) => {
-            funcs.setSteps(response.data);
+            funcs.setEvent(response.data);
         })
     }
     const toFillRegulation = (e) => {
@@ -58,10 +58,10 @@ export default function BoardEventOrganizerComponent ({event, funcs}) {
                 <div className={"elem elem-4"}>
                     {event.event_step.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
                     {event.event_step.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
-                    {event.event_step.length === 1 && event.event_step[0]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
-                    {event.event_step.length === 2 && event.event_step[1]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
-                    {event.event_step.length === 3 && event.event_step[2]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
-                    {event.event_step.length === 3 && event.event_step[2]["complete"] === true && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
+                    {event.event_step.length === 1 && !event.event_step[0]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
+                    {event.event_step.length === 2 && !event.event_step[1]["complete"] && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
+                    {event.event_step.length === 3 && !event.event_step[2]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
+                    {event.event_step.length === 3 && event.event_step[2]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
                 </div>
             </div>
         </div>

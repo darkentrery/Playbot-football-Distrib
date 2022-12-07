@@ -78,8 +78,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
 
     const fillRegulation = () => {
         authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
-            funcs.setEvent(response.data.event);
-            funcs.setSteps(response.data.steps);
+            funcs.setEvent(response.data);
             closeWindow();
             funcs.openConfirmTeams();
         })
