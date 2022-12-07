@@ -8,17 +8,15 @@ import EventService from "../../services/EventService";
 export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
     let players = event.event_player;
-    console.log(players)
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
-        if (event && event.event_step.length >= 1 && event.event_step[0].complete) {
-            console.log(players)
+        if (event && event.event_step.length > 1 && event.event_step[0].complete) {
             let arr = [];
             players.forEach((item) => {
                 arr.push(item.player.id.toString());
             })
-            setSelected(arr)
+            setSelected(arr);
         }
     }, [players, isOpen])
 
@@ -77,7 +75,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
                 <div className={"elem elem-4 scroll"}>
                     {event && players.length !== 0 && players.map((item, key) => {
                         return (
-                            <div className={"el"} onClick={selectPlayer} key={key} id={item.id}>
+                            <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
                                 <div className={`player-select-icon ${event.event_step.length >= 1 && event.event_step[0].complete ? '' : 'inactive'}`}></div>
                                 <div className={"player-avatar-icon"}></div>
                                 <span className={"black-400-13"}>{item.player.username}</span>

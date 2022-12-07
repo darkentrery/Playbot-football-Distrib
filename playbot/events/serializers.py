@@ -63,25 +63,25 @@ class CancelReasonsSerializer(serializers.ModelSerializer):
 class FormatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Format
-        fields = ["name",]
+        fields = "__all__"
 
 
 class DistributionMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = DistributionMethod
-        fields = ["name",]
+        fields = "__all__"
 
 
 class DurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Duration
-        fields = ["name",]
+        fields = "__all__"
 
 
 class CountCirclesSerializer(serializers.ModelSerializer):
     class Meta:
         model = CountCircles
-        fields = ["name",]
+        fields = "__all__"
 
 
 class SetRegulationSerializer(serializers.ModelSerializer):
