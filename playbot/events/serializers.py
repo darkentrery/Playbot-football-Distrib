@@ -1,8 +1,17 @@
 from rest_framework import serializers
 
-from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles
+from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
+    EventPlayer
 from playbot.users.models import User
 from playbot.users.serializers import UserSerializer
+
+
+class EventPlayerSerializer(serializers.ModelSerializer):
+    player = UserSerializer(read_only=True)
+
+    class Meta:
+        model = EventPlayer
+        fields = "__all__"
 
 
 class CreateEventSerializer(serializers.ModelSerializer):
@@ -20,7 +29,7 @@ class EventSerializer(serializers.ModelSerializer):
     distribution_method = serializers.SlugRelatedField(queryset=DistributionMethod.objects.all(), slug_field="name")
     duration = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="name")
     count_circles = serializers.SlugRelatedField(queryset=CountCircles.objects.all(), slug_field="name")
-    event_player = serializers.StringRelatedField(many=True)
+    event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     organizer = UserSerializer(read_only=True)
 
     class Meta:

@@ -5,7 +5,7 @@ import $ from "jquery";
 import EventChatComponent from "./EventChatComponent";
 
 
-export default function EventOrganizerComponent ({event, players, user, funcs}) {
+export default function EventOrganizerComponent ({event, user, funcs}) {
 
     const menuClick = (e) => {
         let parent = $(e.target).parent('.menu').parent('.elem-376');
@@ -26,12 +26,12 @@ export default function EventOrganizerComponent ({event, players, user, funcs}) 
                 <EventChatComponent/>
             </div>
             <div className={"elem-1280 elem-2"}>
-                <EventMembersComponent event={event} players={players}/>
+                <EventMembersComponent event={event}/>
             </div>
 
             <div className={"elem-744"}>
                 <EventDescriptionComponent event={event} user={user} funcs={funcs}/>
-                <EventMembersComponent event={event} players={players}/>
+                <EventMembersComponent event={event}/>
             </div>
             <div className={"elem-744"}>
                 <EventChatComponent/>
@@ -44,7 +44,7 @@ export default function EventOrganizerComponent ({event, players, user, funcs}) 
                     <span className={"el inactive"} id={"chat"} onClick={menuClick}>Обсуждение</span>
                 </div>
                 <EventDescriptionComponent event={event} user={user} funcs={funcs}/>
-                <EventMembersComponent event={event} players={players}/>
+                <EventMembersComponent event={event}/>
                 <EventChatComponent/>
             </div>
         </div>

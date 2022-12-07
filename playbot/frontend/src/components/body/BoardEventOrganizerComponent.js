@@ -4,7 +4,7 @@ import EventService from "../../services/EventService";
 import {getMonth} from "../../utils/dates";
 
 
-export default function BoardEventOrganizerComponent ({event, steps, players, funcs}) {
+export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
     const eventService = new EventService();
     let date = new Date();
     if (event) {
@@ -31,7 +31,7 @@ export default function BoardEventOrganizerComponent ({event, steps, players, fu
             <div className={"board-event-1280"}>
                 <div className={"elem elem-1"}>
                     <span className={"el el-1 dark-gray-cup-icon"}>78,8</span>
-                    <span className={"el el-2 dark-gray-avatar-icon"}>{players.length}/{event.count_players}</span>
+                    <span className={"el el-2 dark-gray-avatar-icon"}>{event.event_player.length}/{event.count_players}</span>
                     <span className={"el el-3 dark-gray-star-icon"}>В избранное</span>
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
@@ -49,7 +49,7 @@ export default function BoardEventOrganizerComponent ({event, steps, players, fu
             <div className={"board-event-376"}>
                 <div className={"elem elem-1"}>
                     <span className={"el el-1 dark-gray-cup-icon"}>78,8</span>
-                    <span className={"el el-2 dark-gray-avatar-icon"}>{players.length}/{event.count_players}</span>
+                    <span className={"el el-2 dark-gray-avatar-icon"}>{event.event_player.length}/{event.count_players}</span>
                     <span className={"el el-3 dark-gray-message-icon"}>8</span>
                     <span className={"el el-4 dark-gray-star-icon"}></span>
                 </div>

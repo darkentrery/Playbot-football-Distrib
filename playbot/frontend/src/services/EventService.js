@@ -156,20 +156,6 @@ export default class EventService{
 			});
 	}
 
-	getPlayers(id){
-		const url = `${API_URL}event-players/${id}/`;
-		return axios.get(url, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
 	getEventSteps(id){
 		const url = `${API_URL}event-steps/${id}/`;
 		return axios.get(url, {headers: {

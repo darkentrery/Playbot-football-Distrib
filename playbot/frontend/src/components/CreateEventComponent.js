@@ -20,7 +20,7 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(4);
     const [notice, setNotice] = useState('');
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [isOpenTime, setIsOpenTime] = useState(false);

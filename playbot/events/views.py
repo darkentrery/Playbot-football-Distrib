@@ -3,7 +3,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles
+from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
+    EventPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, EventStepSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer
@@ -25,6 +26,8 @@ class CreateEventView(APIView):
         if serializer.is_valid():
             event = serializer.save()
             if event:
+                if event.is_player and not event.event_player.filter(player=request.user):
+                    EventPlayer.objects.create(player=request.user, event=event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -56,6 +59,10 @@ class EditEventView(APIView):
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()
             if event:
+                if event.is_player and not event.event_player.filter(player=request.user):
+                    EventPlayer.objects.create(player=request.user, event=event)
+                elif not event.is_player and event.event_player.filter(player=request.user):
+                    EventPlayer.objects.get(player=request.user, event=event).delete()
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -66,16 +73,6 @@ class CancelReasonsView(APIView):
 
     def get(self, request, format='json'):
         items = CancelReasonsSerializer(CancelReasons.objects.all(), many=True)
-        return Response(items.data, status=status.HTTP_200_OK)
-
-
-class EventPlayersView(APIView):
-    permission_classes = (AllowAny,)
-
-    def get(self, request, format='json', **kwargs):
-        id = self.kwargs.get("id")
-        players_id = Event.objects.get(id=id).event_player.all().values_list("player", flat=True)
-        items = UserSerializer(User.objects.filter(id__in=players_id), many=True)
         return Response(items.data, status=status.HTTP_200_OK)
 
 

@@ -16,9 +16,6 @@ export default function EventComponent ({event, user, funcs}) {
             eventService.getEventSteps(pk).then((response) => {
                 funcs.setSteps(response.data);
             })
-            eventService.getPlayers(pk).then((response) => {
-                funcs.setPlayers(response.data);
-            })
             eventService.getEvent(pk).then((response) => {
                 funcs.setEvent(response.data);
             })

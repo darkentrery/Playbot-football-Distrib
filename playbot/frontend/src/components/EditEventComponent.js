@@ -12,7 +12,7 @@ for (let i=4; i<15; i++) {
     countPlayers.push(i);
 }
 
-export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent}) {
+export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent, setPlayers}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [id, setId] = useState(false);
@@ -93,6 +93,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.editEvent, data).then((response) => {
                 setEvent(response.data);
+                setPlayers(response.data.event_player);
                 closeWindow();
                 openSuccessEditEvent();
             })
