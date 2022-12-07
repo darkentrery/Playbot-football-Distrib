@@ -13,9 +13,6 @@ export default function EventComponent ({event, user, funcs}) {
 
     useEffect(() => {
         if (!flagRequest) {
-            eventService.getEventSteps(pk).then((response) => {
-                funcs.setSteps(response.data);
-            })
             eventService.getEvent(pk).then((response) => {
                 funcs.setEvent(response.data);
             })

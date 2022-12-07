@@ -76,15 +76,6 @@ class CancelReasonsView(APIView):
         return Response(items.data, status=status.HTTP_200_OK)
 
 
-class EventStepsView(APIView):
-    permission_classes = (AllowAny,)
-
-    def get(self, request, format='json', **kwargs):
-        id = self.kwargs.get("id")
-        items = EventStepSerializer(EventStep.objects.filter(event_id=id), many=True)
-        return Response(items.data, status=status.HTTP_200_OK)
-
-
 class ToConfirmPlayersView(APIView):
     permission_classes = (IsAuthenticated,)
 

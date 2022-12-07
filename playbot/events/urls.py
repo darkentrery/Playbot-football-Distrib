@@ -9,7 +9,6 @@ urlpatterns = [
     path("get-event/<int:id>/", views.EventView.as_view(), name='event'),
     path("edit/", views.EditEventView.as_view(), name='edit-event'),
     path("get-cancel-reasons/", views.CancelReasonsView.as_view(), name='cancel-reasons'),
-    path("event-steps/<int:id>/", views.EventStepsView.as_view(), name='event-steps'),
     path("to-confirm-players/", views.ToConfirmPlayersView.as_view(), name='to-confirm-players'),
     path("confirm-players/", views.ConfirmPlayersView.as_view(), name='confirm-players'),
     path("get-regulation/<int:id>/", views.GetRegulationView.as_view(), name='get-regulation'),
