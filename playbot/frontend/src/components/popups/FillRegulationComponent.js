@@ -23,12 +23,13 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const [closeDropDown, setCloseDropDown] = useState(false);
 
     useEffect(() => {
-        if (event.id !== undefined) {
+        if (event) {
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];
                 response.data.formats.map((item, key) => {
                     arr.push(item.name);
                 })
+                console.log(arr)
                 setFormat(event.format ? event.format : arr[0]);
                 setFormats(arr);
                 arr = [];

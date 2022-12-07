@@ -3,13 +3,37 @@
     "model": "events.Format",
     "pk": 1,
     "fields": {
+      "name": "2x2",
+      "count": 2
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 2,
+    "fields": {
+      "name": "3x3",
+      "count": 3
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 3,
+    "fields": {
+      "name": "4x4",
+      "count": 4
+    }
+  },
+  {
+    "model": "events.Format",
+    "pk": 4,
+    "fields": {
       "name": "5x5",
       "count": 5
     }
   },
   {
     "model": "events.Format",
-    "pk": 2,
+    "pk": 5,
     "fields": {
       "name": "6x6",
       "count": 6
@@ -17,7 +41,7 @@
   },
   {
     "model": "events.Format",
-    "pk": 3,
+    "pk": 6,
     "fields": {
       "name": "7x7",
       "count": 7
@@ -25,7 +49,7 @@
   },
   {
     "model": "events.Format",
-    "pk": 4,
+    "pk": 7,
     "fields": {
       "name": "8x8",
       "count": 8
@@ -33,7 +57,7 @@
   },
   {
     "model": "events.Format",
-    "pk": 5,
+    "pk": 8,
     "fields": {
       "name": "9x9",
       "count": 9
@@ -41,7 +65,7 @@
   },
   {
     "model": "events.Format",
-    "pk": 6,
+    "pk": 9,
     "fields": {
       "name": "10x10",
       "count": 10
@@ -49,7 +73,7 @@
   },
   {
     "model": "events.Format",
-    "pk": 7,
+    "pk": 10,
     "fields": {
       "name": "11x11",
       "count": 11

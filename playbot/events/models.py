@@ -29,7 +29,7 @@ class Duration(models.Model):
 
 
 class Format(models.Model):
-    name = models.CharField(_("Label"), max_length=150, unique=True)
+    name = models.CharField(_("Label"), max_length=150)
     count = models.IntegerField(_("Count In Team"))
 
     class Meta:
