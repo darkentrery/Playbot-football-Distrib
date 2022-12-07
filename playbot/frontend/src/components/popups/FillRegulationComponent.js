@@ -4,6 +4,7 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
+import {popupCloseDropdown} from "../../utils/manageElements";
 
 
 export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs}) {
@@ -85,11 +86,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     }
 
     const popupClick = (e) => {
-        if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("dropdown-label")) {
-            setCloseDropDown(!closeDropDown);
-        } else if (e.target.className.includes("dropdown-label")) {
-            setCloseDropDown(e.target.id);
-        }
+        popupCloseDropdown(e, setCloseDropDown, closeDropDown);
     }
 
     return (
@@ -99,35 +96,37 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame fill-regulation-component"} onClick={popupClick}>
-                <div className={"elem elem-1"}>
-                    <div onClick={toConfirmPlayers} className={"btn-back"}></div>
-                    <span className={"title-22"}>Заполните регламент</span>
-                    <div onClick={closeWindow} className={"btn-close"}></div>
+            <div className={"popup-fon"} onClick={popupClick}>
+                <div className={"popup-frame fill-regulation-component"}>
+                    <div className={"elem elem-1"}>
+                        <div onClick={toConfirmPlayers} className={"btn-back"}></div>
+                        <span className={"title-22"}>Заполните регламент</span>
+                        <div onClick={closeWindow} className={"btn-close"}></div>
+                    </div>
+                    <div className={"elem elem-2"}>
+                        <span className={"gray-400-16"}>Шаг 1</span>
+                        <span className={"el-center black-600-16"}>Шаг 2</span>
+                        <span className={"gray-400-16"}>Шаг 3</span>
+                    </div>
+                    <div className={"elem elem-3"}>
+                        <div className={"gray-line"}></div>
+                        <div className={"orange-line"}></div>
+                        <div className={"gray-line"}></div>
+                    </div>
+                    <div className={"elem elem-4"}>
+                        <DropDownComponent value={format} setValue={setFormat} leftIcon={'two-people-icon'}
+                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={1} content={formats}/>
+                        <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
+                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
+                        <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
+                                           sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}/>
+                        <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
+                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
+                        <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
+                        <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до гола"} sizingClass={"check-slider-size"}/>
+                    </div>
+                    <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
                 </div>
-                <div className={"elem elem-2"}>
-                    <span className={"gray-400-16"}>Шаг 1</span>
-                    <span className={"el-center black-600-16"}>Шаг 2</span>
-                    <span className={"gray-400-16"}>Шаг 3</span>
-                </div>
-                <div className={"elem elem-3"}>
-                    <div className={"gray-line"}></div>
-                    <div className={"orange-line"}></div>
-                    <div className={"gray-line"}></div>
-                </div>
-                <div className={"elem elem-4"}>
-                    <DropDownComponent value={format} setValue={setFormat} leftIcon={'two-people-icon'}
-                                       sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={1} content={formats}/>
-                    <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
-                                       sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
-                    <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
-                                       sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}/>
-                    <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
-                                       sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
-                    <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
-                    <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до гола"} sizingClass={"check-slider-size"}/>
-                </div>
-                <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
             </div>
         </Modal>
     )

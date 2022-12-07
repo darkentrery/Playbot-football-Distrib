@@ -5,7 +5,13 @@ import "react-datetime/css/react-datetime.css";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
+import {popupCloseDate, popupCloseDropdown, popupCloseTime} from "../utils/manageElements";
 
+
+const countPlayers = [];
+for (let i=4; i<15; i++) {
+    countPlayers.push(i);
+}
 
 export default function CreateEventComponent ({isOpen, isIPhone, closeComponent, openSuccessCreateEvent, setEvent}) {
     const eventService = new EventService();
@@ -72,6 +78,12 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         }
     }
 
+    const inputName = (e) => {
+        let val = e.target.value.slice(0, 20);
+        setName(val);
+        e.target.value = val;
+    }
+
     const inputNotice = (e) => {
         let rows = e.target.value.split('\n');
         if (rows.length > 4) e.target.value = rows.slice(0, 4).join('\n');
@@ -79,23 +91,9 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     }
 
     const popupClick = (e) => {
-        if (isOpenCalendar) {
-            if (!e.target.className.includes("rdt") && !e.target.className.includes("calendar-icon")
-                && !e.target.localName.includes("span")) {
-                setIsOpenCalendar(false);
-            }
-        }
-        if (isOpenTime) {
-            if (!e.target.className.includes("rdt") && !e.target.className.includes("clock-icon")
-                && !e.target.localName.includes("span")) {
-                setIsOpenTime(false);
-            }
-        }
-        if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("dropdown-label")) {
-            setCloseDropDown(!closeDropDown);
-        } else if (e.target.className.includes("dropdown-label")) {
-            setCloseDropDown(e.target.id);
-        }
+        popupCloseDropdown(e, setCloseDropDown, closeDropDown);
+        popupCloseDate(e, isOpenCalendar, setIsOpenCalendar);
+        popupCloseTime(e, isOpenTime, setIsOpenTime);
     }
 
     return(
@@ -105,73 +103,75 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame create-event"} onClick={popupClick}>
-                <div className={"popup-left"}>
-                    <div className={"elem elem-1"}>
-                        <span>Создайте свое событие</span>
-                        <div onClick={closeWindow} className={"btn-close"}></div>
-                    </div>
-                    <div className={"elem div-input elem-2"} ref={refName}>
-                        <input className={"ball-icon input-icon"} type="text" placeholder={"Название *"} onChange={(event) => setName(event.target.value)}/>
-                        <span className={"input-message"}></span>
-                    </div>
-                    <div className={"elem elem-3"} ref={refDateP}>
-                        <ReactDatetimeClass
-                            className={"div-input input"}
-                            timeFormat={false}
-                            dateFormat={"DD.MM.YYYY"}
-                            closeOnSelect={true}
-                            inputProps={{placeholder: 'Дата игры *'}}
-                            onChange={(e) => eventService.choiceDate(e, setDate, refDate)}
-                            ref={refDate}
-                        />
-                        <span className={"input-message"}></span>
-                    </div>
-                    <div className={"elem elem-4"} ref={refTimeP}>
-                        <ReactDatetimeClass
-                            className={"div-input input"}
-                            timeFormat={"HH:mm"}
-                            dateFormat={false}
-                            closeOnSelect={true}
-                            inputProps={{placeholder: 'Время начала игры *'}}
-                            onChange={(e) => eventService.choiceTime(e, setTime, refTime)}
-                            ref={refTime}
-                        />
-                        <span className={"input-message"}></span>
-                    </div>
-                    <div className={"elem div-input"} ref={refAddress}>
-                        <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} onChange={(event) => setAddress(event.target.value)}/>
-                        <span className={"input-message"}></span>
-                    </div>
-                    <div className={"elem elem-6"}>
-                        <span>Максимальное кол. игроков *</span>
-                    </div>
-                    <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"dropdown-size"} flagClose={closeDropDown} id={1}/>
-                    <div className={"elem elem-8"}>
-                        <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={(e) => setIsPlayer(!isPlayer)}></div>
-                        <span>Организатор события не играет</span>
-                    </div>
-                    <div className={"elem elem-9"} ref={refNotice}>
-                        <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"}></textarea>
-                        <span className={"input-message"}></span>
-                    </div>
-                    <div className={`elem elem-10 ${isIPhone ? 'safari-margin' : ''}`}>
-                        <button className={"btn btn-create-event"} onClick={sendForm}>Создать</button>
-                    </div>
-                </div>
-                <div className={"popup-right popup-img create-event-img"}>
-                    <div className={"elem-1"}>
-                        <div onClick={closeWindow} className={"btn-close"}></div>
-                    </div>
-                    <div className={"elem-2"}>
-                        <div className={"point point-icon"}>
-                            <span>Создавай футбольные активности в любом месте и в любое время</span>
+            <div className={"popup-fon"} onClick={popupClick}>
+                <div className={"popup-frame create-event"}>
+                    <div className={"popup-left"}>
+                        <div className={"elem elem-1"}>
+                            <span>Создайте свое событие</span>
+                            <div onClick={closeWindow} className={"btn-close"}></div>
                         </div>
-                        <div className={"point point-icon"}>
-                            <span>Устанавливай свои правила игры</span>
+                        <div className={"elem div-input elem-2"} ref={refName}>
+                            <input className={"ball-icon input-icon"} type="text" placeholder={"Название *"} onChange={inputName}/>
+                            <span className={"input-message"}></span>
                         </div>
-                        <div className={"point point-icon"}>
-                            <span>Фиксируй статистику матча</span>
+                        <div className={"elem elem-3"} ref={refDateP}>
+                            <ReactDatetimeClass
+                                className={"div-input input"}
+                                timeFormat={false}
+                                dateFormat={"DD.MM.YYYY"}
+                                closeOnSelect={true}
+                                inputProps={{placeholder: 'Дата игры *'}}
+                                onChange={(e) => eventService.choiceDate(e, setDate, refDate)}
+                                ref={refDate}
+                            />
+                            <span className={"input-message"}></span>
+                        </div>
+                        <div className={"elem elem-4"} ref={refTimeP}>
+                            <ReactDatetimeClass
+                                className={"div-input input"}
+                                timeFormat={"HH:mm"}
+                                dateFormat={false}
+                                closeOnSelect={true}
+                                inputProps={{placeholder: 'Время начала игры *'}}
+                                onChange={(e) => eventService.choiceTime(e, setTime, refTime)}
+                                ref={refTime}
+                            />
+                            <span className={"input-message"}></span>
+                        </div>
+                        <div className={"elem div-input"} ref={refAddress}>
+                            <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} onChange={(event) => setAddress(event.target.value)}/>
+                            <span className={"input-message"}></span>
+                        </div>
+                        <div className={"elem elem-6"}>
+                            <span>Максимальное кол. игроков *</span>
+                        </div>
+                        <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"dropdown-size"} flagClose={closeDropDown} id={1} content={countPlayers}/>
+                        <div className={"elem elem-8"}>
+                            <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={(e) => setIsPlayer(!isPlayer)}></div>
+                            <span>Организатор события не играет</span>
+                        </div>
+                        <div className={"elem elem-9"} ref={refNotice}>
+                            <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"}></textarea>
+                            <span className={"input-message"}></span>
+                        </div>
+                        <div className={`elem elem-10 ${isIPhone ? 'safari-margin' : ''}`}>
+                            <button className={"btn btn-create-event"} onClick={sendForm}>Создать</button>
+                        </div>
+                    </div>
+                    <div className={"popup-right popup-img create-event-img"}>
+                        <div className={"elem-1"}>
+                            <div onClick={closeWindow} className={"btn-close"}></div>
+                        </div>
+                        <div className={"elem-2"}>
+                            <div className={"point point-icon"}>
+                                <span>Создавай футбольные активности в любом месте и в любое время</span>
+                            </div>
+                            <div className={"point point-icon"}>
+                                <span>Устанавливай свои правила игры</span>
+                            </div>
+                            <div className={"point point-icon"}>
+                                <span>Фиксируй статистику матча</span>
+                            </div>
                         </div>
                     </div>
                 </div>

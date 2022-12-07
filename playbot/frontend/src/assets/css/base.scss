@@ -84,8 +84,11 @@ a {
   align-items: center;
   width: 100vw;
   height: 100vh;
-
   background: rgba(27, 27, 27, 0.7);
+
+  .popup-fon {
+    background: 0;
+  }
 }
 
 .popup-frame {
