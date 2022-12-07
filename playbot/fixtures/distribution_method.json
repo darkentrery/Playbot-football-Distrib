@@ -10,7 +10,7 @@
     "model": "events.DistributionMethod",
     "pk": 2,
     "fields": {
-      "name": "Механический"
+      "name": "Вручную"
     }
   }
 ]

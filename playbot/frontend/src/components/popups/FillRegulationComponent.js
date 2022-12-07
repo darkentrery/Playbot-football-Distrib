@@ -27,9 +27,8 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];
                 response.data.formats.map((item, key) => {
-                    arr.push(item.name);
+                    if (item.count * 2 <= event.event_player.length) arr.push(item.name);
                 })
-                console.log(arr)
                 setFormat(event.format ? event.format : arr[0]);
                 setFormats(arr);
                 arr = [];
@@ -116,12 +115,12 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                     <div className={"elem elem-4"}>
                         <DropDownComponent value={format} setValue={setFormat} leftIcon={'two-people-icon'}
                                            sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={1} content={formats}/>
-                        <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
-                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
-                        <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
-                                           sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}/>
                         <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
                                            sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
+                        <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
+                                           sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}/>
+                        <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
+                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
                         <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
                         <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до гола"} sizingClass={"check-slider-size"}/>
                     </div>

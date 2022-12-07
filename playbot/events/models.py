@@ -17,7 +17,7 @@ class CancelReasons(models.Model):
 
 
 class Duration(models.Model):
-    name = models.CharField(_("Label"), max_length=150, unique=True)
+    name = models.CharField(_("Label"), max_length=150)
     duration = models.IntegerField(_("Duration"))
 
     class Meta:
@@ -52,7 +52,7 @@ class DistributionMethod(models.Model):
 
 
 class CountCircles(models.Model):
-    name = models.CharField(_("Label"), max_length=150, unique=True)
+    name = models.CharField(_("Label"), max_length=150)
     count = models.IntegerField(_("Count Of Circles"))
 
     class Meta:

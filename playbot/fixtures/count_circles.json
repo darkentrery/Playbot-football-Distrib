@@ -3,13 +3,21 @@
     "model": "events.CountCircles",
     "pk": 1,
     "fields": {
+      "name": "1 круг",
+      "count": 1
+    }
+  },
+  {
+    "model": "events.CountCircles",
+    "pk": 2,
+    "fields": {
       "name": "2 круга",
       "count": 2
     }
   },
   {
     "model": "events.CountCircles",
-    "pk": 2,
+    "pk": 3,
     "fields": {
       "name": "3 круга",
       "count": 3
@@ -17,7 +25,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 3,
+    "pk": 4,
     "fields": {
       "name": "4 круга",
       "count": 4
@@ -25,7 +33,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 4,
+    "pk": 5,
     "fields": {
       "name": "5 кругов",
       "count": 5
@@ -33,7 +41,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 5,
+    "pk": 6,
     "fields": {
       "name": "6 кругов",
       "count": 6
@@ -41,7 +49,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 6,
+    "pk": 7,
     "fields": {
       "name": "7 кругов",
       "count": 7
@@ -49,7 +57,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 7,
+    "pk": 8,
     "fields": {
       "name": "8 кругов",
       "count": 8
@@ -57,7 +65,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 8,
+    "pk": 9,
     "fields": {
       "name": "9 кругов",
       "count": 9
@@ -65,7 +73,7 @@
   },
   {
     "model": "events.CountCircles",
-    "pk": 9,
+    "pk": 10,
     "fields": {
       "name": "10 кругов",
       "count": 10
