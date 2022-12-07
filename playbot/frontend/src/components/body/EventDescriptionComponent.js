@@ -45,7 +45,7 @@ export default function EventDescriptionComponent ({event, user, funcs}) {
                 <span className={"el gray-copy-icon link"} onClick={copyLink}>Копировать ссылку</span>
             </div>
             <span className={"elem-1280 elem-2"}>Информация</span>
-            <span className={"elem-1280 elem-3 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
+            <span className={"elem-1280 elem-3 dark-gray-comment-icon"}>{event.notice}</span>
             <div className={"elem-1280 elem-4"}>
                 <span className={"el el-1"}>Адрес:</span>
                 <span className={"el el-2"}>Организатор:</span>
@@ -83,7 +83,7 @@ export default function EventDescriptionComponent ({event, user, funcs}) {
                 <span className={"el gray-copy-icon link"} onClick={copyLink}></span>
             </div>
             <span className={"elem-744 elem-2"}>Информация</span>
-            <span className={"elem-744 elem-3 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
+            <span className={"elem-744 elem-3 dark-gray-comment-icon"}>{event.notice}</span>
             <span className={"elem-744 elem-4"}>Организатор:</span>
             <span className={"elem-744 elem-5"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-744 elem-6"}>Адрес:</span>
@@ -94,7 +94,7 @@ export default function EventDescriptionComponent ({event, user, funcs}) {
                 <span className={"el el-1"}>Информация</span>
                 <span className={"el gray-copy-icon link"} onClick={copyLink}></span>
             </div>
-            <span className={"elem-376 elem-2 dark-gray-comment-icon"}>Всем привет! После игры просьба не расходиться, будет фотосессия.</span>
+            <span className={"elem-376 elem-2 dark-gray-comment-icon"}>{event.notice}</span>
             <span className={"elem-376 elem-3"}>Организатор:</span>
             <span className={"elem-376 elem-4"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-376 elem-5"}>Адрес:</span>

@@ -1,7 +1,7 @@
 import React from "react-dom";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
-import {getMonth} from "../../utils/dates";
+import {getMonth, getWeekDay} from "../../utils/dates";
 
 
 export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
@@ -35,7 +35,7 @@ export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
                     <span className={"el el-3 dark-gray-star-icon"}>В избранное</span>
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
-                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''}</span>
+                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
                 <div className={"elem elem-4"}>
                     {steps.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
                     {steps.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
@@ -54,7 +54,7 @@ export default function BoardEventOrganizerComponent ({event, steps, funcs}) {
                     <span className={"el el-4 dark-gray-star-icon"}></span>
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
-                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''}</span>
+                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
                 <div className={"elem elem-4"}>
                     {steps.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
                     {steps.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
