@@ -1,20 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import AuthService from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import $ from 'jquery';
+import {InputComponent} from "./inputComponent/InputComponent";
 
 
 export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [typePassword, setTypePassword] = useState(true);
+    const [rightIcon, setRightIcon] = useState('eye-icon');
     const [data, setData] = useState(false);
-    const refEmail = useRef();
-    const refPassword = useRef();
 
     useEffect(() => {
         let bodyFormData = new FormData();
+        setEmailError('');
+        setPasswordError('');
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
         setData(bodyFormData);
@@ -38,10 +43,10 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     }
 
     const sendForm = async () => {
-        let errors = authService.loginRequestValidation(email, password, refEmail, refPassword);
+        let errors = authService.loginRequestValidation(email, password, setEmailError, setPasswordError);
         if (!errors.length) {
             await authService.login(data).then((response) => {
-                errors = authService.loginResponseValidation(response, refEmail, refPassword);
+                errors = authService.loginResponseValidation(response, setEmailError, setPasswordError);
                 if (!errors.length) {
                     setAuth(true, response.data);
                     closeWindow();
@@ -51,12 +56,12 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     }
 
     const hiddenPassword = (event) => {
-        if ($(event.target).attr('class').includes("off")) {
-            $(event.target).removeClass('off');
-            $(event.target).parent('div').find('input').attr('type', 'password');
+        if (typePassword) {
+            setTypePassword(false);
+            setRightIcon('eye-icon off');
         } else {
-            $(event.target).addClass('off');
-            $(event.target).parent('div').find('input').attr('type', 'text');
+            setTypePassword(true);
+            setRightIcon('eye-icon');
         }
     }
 
@@ -80,15 +85,11 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                         <div className={"login-l-elem login-l-head-elem"}>
                             <div className={"login-title"}>Вход</div>
                         </div>
-                        <div className={"login-l-elem div-input"} ref={refEmail}>
-                            <input className={"name-icon"} type="text" placeholder={"Номер телефона или e-mail"} onChange={(event) => setEmail(event.target.value)}/>
-                            <span className={"input-message"}></span>
-                        </div>
-                        <div className={"login-l-elem div-input password-elem"} ref={refPassword}>
-                            <input className={"password-icon password-input"} type="password" placeholder={"Пароль"} onChange={(event) => setPassword(event.target.value)}/>
-                            <span className={"input-message"}></span>
-                            <div className={"eye-icon right-input-icon"} onClick={hiddenPassword}></div>
-                        </div>
+                        <InputComponent leftIcon={'name-icon'} value={email} setValue={setEmail} errorText={emailError}
+                                        placeholder={"Номер телефона или e-mail"} className={'login-l-elem'}/>
+                        <InputComponent leftIcon={"password-icon"} rightIcon={rightIcon} password={typePassword}
+                                        className={"login-l-elem"} placeholder={"Пароль"} errorText={passwordError}
+                                        value={password} setValue={setPassword} rightOnClick={hiddenPassword}/>
                         <div className={"login-l-elem"}>
                             <button className={"btn btn-login"} autoFocus={true} onClick={sendForm}>Войти</button>
                         </div>

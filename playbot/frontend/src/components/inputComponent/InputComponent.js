@@ -11,6 +11,7 @@ export const InputComponent = ({
     errorText='',
     password=false,
     onChange=(value) => {return value;},
+    rightOnClick=() => {},
 
 }) => {
 
@@ -19,16 +20,12 @@ export const InputComponent = ({
         setValue(value);
     }
 
-    const hiddenPassword = () => {
-
-    }
-
     return (
         <div className={`input-component ${className}`}>
             <input className={`${leftIcon} ${errorText ? 'error' : ''}`} type={password ? 'password' : 'text'}
-                   placeholder={placeholder} value={value} onChange={onChangeValue}/>
+                   placeholder={placeholder} value={value ? value : ''} onChange={onChangeValue}/>
             <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>
-            <div className={`right-input-icon ${rightIcon}`} onClick={hiddenPassword}></div>
+            <div className={`right-input-icon ${rightIcon}`} onClick={rightOnClick}></div>
         </div>
     )
 }

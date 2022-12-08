@@ -60,53 +60,35 @@ export default class AuthService{
 			});
 	}
 
-	loginRequestValidation(email, password, refEmail, refPassword) {
-		$(refEmail.current).children('input').removeClass('error');
-		$(refEmail.current).children('span').removeClass('error');
-		$(refEmail.current).children('span').html('');
-		$(refPassword.current).children('input').removeClass('error');
-		$(refPassword.current).children('span').removeClass('error');
-		$(refPassword.current).children('span').html('');
+	loginRequestValidation(email, password, setEmailError, setPasswordError) {
 		let errors = [];
 		if (!email) {
 			errors.push("email");
-			$(refEmail.current).children('input').addClass('error');
-			$(refEmail.current).children('span').addClass('error');
-			$(refEmail.current).children('span').html('Заполните поле!');
+			setEmailError('Заполните поле!');
 		}
 		if (!password) {
 			errors.push("password");
-			$(refPassword.current).children('input').addClass('error');
-			$(refPassword.current).children('span').addClass('error');
-			$(refPassword.current).children('span').html('Заполните поле!');
+			setPasswordError('Заполните поле!');
 		}
 		return errors;
 	}
 
-	loginResponseValidation(response, refEmail, refPassword) {
+	loginResponseValidation(response, setEmailError, setPasswordError) {
 		let errors = [];
 		if (response.status !== 200) {
 			console.log(response.data.detail)
 			if (response.data.detail === "No exists number!") {
 				errors.push("email");
-				$(refEmail.current).children('input').addClass('error');
-				$(refEmail.current).children('span').addClass('error');
-				$(refEmail.current).children('span').html('Пользователь с таким номером не зарегистрирован!');
+				setEmailError('Пользователь с таким номером не зарегистрирован!');
 			} else if (response.data.detail === "No exists email!") {
 				errors.push("email");
-				$(refEmail.current).children('input').addClass('error');
-				$(refEmail.current).children('span').addClass('error');
-				$(refEmail.current).children('span').html('Пользователь с таким email не зарегистрирован!');
+				setEmailError('Пользователь с таким email не зарегистрирован!');
 			} else if (response.data.detail === "Is not active!") {
 				errors.push("email");
-				$(refEmail.current).children('input').addClass('error');
-				$(refEmail.current).children('span').addClass('error');
-				$(refEmail.current).children('span').html('Активируйте ваш аккаунт по ссылке из письма!');
+				setEmailError('Активируйте ваш аккаунт по ссылке из письма!');
 			} else {
 				errors.push("password");
-				$(refPassword.current).children('input').addClass('error');
-				$(refPassword.current).children('span').addClass('error');
-				$(refPassword.current).children('span').html('Неверный пароль!');
+				setPasswordError('Неверный пароль!');
 			}
 		}
 		return errors;
