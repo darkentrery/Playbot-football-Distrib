@@ -92,5 +92,5 @@ class SetRegulationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ["format", "distribution_method", "duration", "count_circles", "scorer", "until_goal",]
+        fields = ["format", "distribution_method", "duration", "count_circles", "scorer", "until_goal", "until_goal_count"]
 

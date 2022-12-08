@@ -1,0 +1,37 @@
+.input-component {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+
+  input[type=text], [type=password]{
+    flex: 0 0 $fieldHeight;
+    border: 0.8px solid #949494;
+    border-radius: 8px;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
+
+    &.error {
+      border: 0.8px solid #EC5B56;
+    }
+  }
+
+  .input-message {
+    flex: 0 0 12px;
+    margin-top: 4px;
+    font-size: 10px;
+    &.error {
+      color: #EC5B56;
+    }
+  }
+
+  .right-input-icon {
+    position: absolute;
+    align-self: end;
+    margin-right: 14px;
+    top: $fieldHeight/2 - 10px;
+  }
+}

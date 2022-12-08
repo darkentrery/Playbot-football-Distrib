@@ -3,6 +3,10 @@
   height: 603px;
   flex-direction: column;
   align-items: center;
+
+  &.until-goal {
+    height: 642px;
+  }
 }
 
 .fill-regulation-component .elem {
@@ -79,12 +83,34 @@
             left: $dropDownLeftIconLeft;
             top: 18px;
           }
+
+          .dropdown-label {
+            background-position: right 16px center;
+          }
         }
       }
     }
 
     .check-slider-size {
       margin-bottom: 13px;
+
+      .question-mark-icon {
+        background-position: right center;
+        flex: 0 0 150px;
+      }
+    }
+
+    .until-goal-input {
+      &.input-component {
+        input[type=text], [type=password]{
+          padding-right: 17px;
+          padding-left: 17px;
+        }
+      }
+
+      &.hidden {
+        display: none;
+      }
     }
   }
 
@@ -105,6 +131,10 @@
   .fill-regulation-component {
     flex: 0 0 100vw;
     height: 100vh;
+
+    &.until-goal {
+      height: 100vh;
+    }
   }
 }
 

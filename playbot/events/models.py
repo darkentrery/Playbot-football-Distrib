@@ -83,6 +83,7 @@ class Event(models.Model):
     duration = models.ForeignKey(Duration, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)
     scorer = models.BooleanField(_("Is Scorer of Goal"), default=False)
     until_goal = models.BooleanField(_("Play Until Goal"), default=False)
+    until_goal_count = models.IntegerField(_("Count of Goal Until Play"), blank=True, null=True)
 
     class Meta:
         verbose_name = "Event"

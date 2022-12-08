@@ -5,6 +5,7 @@ import EventService from "../../services/EventService";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
 import {popupCloseDropdown} from "../../utils/manageElements";
+import {InputComponent} from "../inputComponent/InputComponent";
 
 
 export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs}) {
@@ -20,17 +21,18 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const [durations, setDurations] = useState([]);
     const [scorer, setScorer] = useState(false);
     const [untilGoal, setUntilGoal] = useState(false);
+    const [untilGoalCount, setUntilGoalCount] = useState('');
     const [closeDropDown, setCloseDropDown] = useState(false);
+    const [errorText, setErrorText] = useState('');
 
     useEffect(() => {
         if (event) {
+            if (event.until_goal_count) setUntilGoalCount(event.until_goal_count);
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];
                 response.data.formats.map((item, key) => {
-                    console.log(item, event.event_player)
                     if (item.count * 2 <= event.event_player.length) arr.push(item.name);
                 })
-                console.log(arr)
                 setFormat(event.format ? event.format : arr[0]);
                 setFormats(arr);
                 arr = [];
@@ -55,7 +57,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                 setUntilGoal(event.until_goal);
             })
         }
-    }, [isOpen])
+    }, [isOpen, event])
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -66,8 +68,14 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
         bodyFormData.append('duration', duration);
         bodyFormData.append('scorer', scorer);
         bodyFormData.append('until_goal', untilGoal);
+        if (!untilGoal) setUntilGoalCount('');
+        if (untilGoalCount === '') {
+            bodyFormData.append('until_goal_count', null);
+        } else {
+            bodyFormData.append('until_goal_count', untilGoalCount);
+        }
         setData(bodyFormData);
-    }, [format, mode, countCircle, duration, scorer, untilGoal])
+    }, [format, mode, countCircle, duration, scorer, untilGoal, untilGoalCount])
 
     const closeWindow = () => {
         funcs.closeFillRegulation();
@@ -79,11 +87,22 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     }
 
     const fillRegulation = () => {
-        authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
-            funcs.setEvent(response.data);
-            closeWindow();
-            funcs.openConfirmTeams();
-        })
+        if (untilGoal && untilGoalCount === '') {
+            setErrorText('Введите количество голов!');
+        } else {
+            authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
+                funcs.setEvent(response.data);
+                closeWindow();
+                funcs.openConfirmTeams();
+            })
+        }
+    }
+
+    const inputDigit = (value) => {
+        setErrorText('');
+        value = value.replace(/\D/g, '');
+        if (value.length >= 1 && value[0] === '0') value = value.slice(1,);
+        return value;
     }
 
     const popupClick = (e) => {
@@ -98,7 +117,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             ariaHideApp={false}
         >
             <div className={"popup-fon"} onClick={popupClick}>
-                <div className={"popup-frame fill-regulation-component"}>
+                <div className={`popup-frame fill-regulation-component ${untilGoal ? 'until-goal' : ''}`}>
                     <div className={"elem elem-1"}>
                         <div onClick={toConfirmPlayers} className={"btn-back"}></div>
                         <span className={"title-22"}>Заполните регламент</span>
@@ -120,11 +139,14 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                         <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
                                            sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
                         <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
-                                           sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}/>
+                                           sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
+                                           rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}/>
                         <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
                                            sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
                         <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
-                        <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до гола"} sizingClass={"check-slider-size"}/>
+                        <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"} sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}/>
+                        <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}
+                                        setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>
                     </div>
                     <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
                 </div>
