@@ -47,33 +47,6 @@
         }
       }
 
-      &.div-input {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: stretch;
-
-        input[type=text]{
-          position: relative;
-          flex: 0 0 36px;
-          border: 0;
-          border-radius: 0;
-
-          font-family: "Raleway", sans-serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 120%;
-
-          &:active {
-            outline: 0;
-          }
-          &:focus {
-            outline: 0;
-          }
-        }
-      }
-
       &.cities {
         flex: 1 1 480px;
         margin-top: 16px;

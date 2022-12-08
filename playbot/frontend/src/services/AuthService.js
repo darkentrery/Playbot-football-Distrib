@@ -76,7 +76,6 @@ export default class AuthService{
 	loginResponseValidation(response, setEmailError, setPasswordError) {
 		let errors = [];
 		if (response.status !== 200) {
-			console.log(response.data.detail)
 			if (response.data.detail === "No exists number!") {
 				errors.push("email");
 				setEmailError('Пользователь с таким номером не зарегистрирован!');

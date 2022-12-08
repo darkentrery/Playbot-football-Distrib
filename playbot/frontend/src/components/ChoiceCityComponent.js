@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import CityService from "../services/CityService";
+import {SearchComponent} from "./searchComponent/SearchComponent";
 
 
 export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity}) {
@@ -11,15 +12,16 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
     const cityService = new CityService();
     const [city, setLocalCity] = useState(false);
     const [data, setData] = useState(false);
-    const [citiesTag, setCitiesTag] = useState([]);
     const [cities, setCities] = useState([]);
+    const [citiesView, setCitiesView] = useState([]);
     const citiesRef = useRef();
 
     useEffect(() => {
         if (isOpen) {
             cityService.getCities().then((response) => {
                 if (response.status == 200) {
-                    setCities(response.data.cities)
+                    setCities(response.data.cities);
+                    setCitiesView(response.data.cities);
                 }
             })
         }
@@ -33,7 +35,6 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
         if (city) {
             setCity(city);
             await authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
-                console.log(response)
                 closeWindow();
                 setAuth(true, response.data);
             })
@@ -46,44 +47,11 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
         setData(bodyFormData);
     }, [city])
 
-    const searchCity = (event) => {
-        let children = citiesRef.current.children;
-        let val = event.target.value;
-        let newCities = [];
-        let allCities = [];
-
-        if (citiesTag.length < children.length) {
-            for (let i=0; i<children.length; i++) {
-                allCities.push(children[i])
-            }
-            setCitiesTag(allCities);
-        }
-        citiesTag.forEach(elem => {
-            $(elem).attr('class', 'scroll-elem');
+    useEffect(() => {
+        $('.choice-city').find('.scroll-elem').each((elem) => {
+            $('.choice-city').find('.scroll-elem')[elem].className = 'scroll-elem';
         })
-        setLocalCity(false);
-        if (citiesTag.length) {
-            citiesTag.forEach(elem => {
-                if ($(elem).html().toLowerCase().includes(val.toLowerCase())) newCities.push(elem);
-            })
-        } else {
-            for (let i=0; i<children.length; i++) {
-                if ($(children[i]).html().toLowerCase().includes(val.toLowerCase())) newCities.push(children[i]);
-            }
-        }
-
-        $(citiesRef.current).html('');
-        newCities.forEach(elem => {
-            $(citiesRef.current).append(elem);
-        })
-        $('.scroll-elem').on('click', function () {
-            citiesTag.forEach(elem => {
-                $(elem).attr('class', 'scroll-elem');
-            })
-            $(this).attr('class', 'scroll-elem checked');
-            setLocalCity($(this).html());
-        })
-    }
+    }, [citiesView])
 
     const choiceCity = (event) => {
         let children = citiesRef.current.children;
@@ -109,12 +77,9 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
                 <div className={"elem under-head"}>
                     <span>Для корректного отображения событий укажите город</span>
                 </div>
-                <div className={"elem search div-input"}>
-                    <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={searchCity}/>
-                    <div className={"line"}></div>
-                </div>
+                <SearchComponent className={"elem search"} arrayFirst={cities} setArraySecond={setCitiesView}/>
                 <div className={"elem cities div-scroll"} ref={citiesRef}>
-                    {cities && cities.map((item, key) => {
+                    {citiesView && citiesView.map((item, key) => {
                         return(
                             <div className={"scroll-elem"} onClick={choiceCity} key={key}>
                                 {item}

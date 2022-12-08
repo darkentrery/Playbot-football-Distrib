@@ -54,6 +54,10 @@
   }
 
   &.elem-4 {
+
+  }
+
+  &.elem-5 {
     flex: 1 1 auto;
     overflow: auto;
     flex-direction: column;
@@ -83,7 +87,7 @@
     }
   }
 
-  &.elem-5 {
+  &.elem-6 {
     flex: 0 0 $fieldHeight;
     width: 280px;
     margin-bottom: 40px;
