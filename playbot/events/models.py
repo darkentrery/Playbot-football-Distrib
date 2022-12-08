@@ -144,6 +144,7 @@ class EventStep(models.Model):
     complete = models.BooleanField(_("Step Is Complete"), default=False)
 
     class Meta:
+        ordering = ["id",]
         unique_together = ["step", "event"]
         verbose_name = "Event Step"
         verbose_name_plural = "Events Steps"

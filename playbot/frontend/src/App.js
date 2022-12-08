@@ -106,14 +106,6 @@ function App({state, funcs}) {
                   <BottomComponent/>
               </main>
 
-              {/*<ul>*/}
-              {/*  <li>*/}
-              {/*      <Link to={AuthRoutes.login}><h3>Login</h3></Link>*/}
-              {/*  </li>*/}
-              {/*  <li>*/}
-              {/*      <Link to={AuthRoutes.signUp} ><h3>Sign Up</h3></Link>*/}
-              {/*  </li>*/}
-              {/*</ul>*/}
               {/*<YMaps>*/}
               {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}
               {/*      /!*<Placemark geometry={[55.684758, 37.738521]} />*!/*/}

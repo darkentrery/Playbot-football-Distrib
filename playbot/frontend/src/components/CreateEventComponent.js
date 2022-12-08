@@ -6,6 +6,8 @@ import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
 import {popupCloseDate, popupCloseDropdown, popupCloseTime} from "../utils/manageElements";
+import {getLocations} from "../services/LocationService";
+import $ from "jquery";
 
 
 const countPlayers = [];
@@ -20,6 +22,9 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
+    const [city, setCity] = useState(false);
+    const [point, setPoint] = useState(false);
+    const [suggests, setSuggests] = useState([]);
     const [count, setCount] = useState(4);
     const [notice, setNotice] = useState('');
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
@@ -34,6 +39,7 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     const refNotice = useRef();
     const refDateP = useRef();
     const refTimeP = useRef();
+    const refYmap = useRef();
     const refs = {
         "name": refName,
         "date": refDateP,
@@ -90,6 +96,48 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         setNotice(e.target.value);
     }
 
+    const getAddress = (e) => {
+        setAddress(e.target.value);
+        if (e.target.value) {
+            getLocations(e.target.value).then((response) => {
+                if (response.status === 200) {
+                    let geoObjects = response.data.response.GeoObjectCollection.featureMember;
+                    let array = [];
+                    geoObjects.map((item) => {
+                        let addressComponents = item.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components;
+                        let city = '';
+                        addressComponents.map((item) => {
+                            if (item.kind === 'locality') city = item.name;
+                        })
+                        if (city) array.push(item);
+                    })
+                    console.log(array)
+                    setSuggests(array);
+                }
+            })
+        } else {
+            setSuggests([]);
+        }
+    }
+
+    const choiceAddress = (e) => {
+        let suggest = suggests[e.target.id].GeoObject;
+        let point = suggest.Point.pos;
+        let address = suggest.metaDataProperty.GeocoderMetaData.Address.formatted;
+        let addressComponents = suggest.metaDataProperty.GeocoderMetaData.Address.Components;
+        let city = '';
+        addressComponents.map((item) => {
+            if (item.kind === 'locality') city = item.name;
+        })
+        setAddress(address);
+        setCity(city);
+        setPoint(point);
+        setSuggests([]);
+        console.log(point, address, city)
+        console.log(suggest)
+    }
+
+
     const popupClick = (e) => {
         popupCloseDropdown(e, setCloseDropDown, closeDropDown);
         popupCloseDate(e, isOpenCalendar, setIsOpenCalendar);
@@ -138,9 +186,17 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
                             />
                             <span className={"input-message"}></span>
                         </div>
-                        <div className={"elem div-input"} ref={refAddress}>
-                            <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} onChange={(event) => setAddress(event.target.value)}/>
+                        <div className={"elem elem-5 div-input"} ref={refAddress}>
+                            <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} value={address ? address : ''} onChange={getAddress}/>
                             <span className={"input-message"}></span>
+                            <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
+                                {suggests.length !== 0 && suggests.map((item, key) => {
+                                    let address = item.GeoObject.metaDataProperty.GeocoderMetaData;
+                                    return (
+                                        <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{address.Address.formatted}</span>
+                                    )
+                                })}
+                            </div>
                         </div>
                         <div className={"elem elem-6"}>
                             <span>Максимальное кол. игроков *</span>

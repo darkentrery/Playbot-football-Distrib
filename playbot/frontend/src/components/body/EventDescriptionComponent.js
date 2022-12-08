@@ -56,6 +56,8 @@ export default function EventDescriptionComponent ({event, user, funcs}) {
                 <span className={"el el-2"}>{event ? event.organizer.username : ''}</span>
             </div>
             <div className={"elem-1280 elem-6"}>
+
+
                 {/*<MapContainer center={center} zoom={13} scrollWheelZoom={false}>*/}
                 {/*    <TileLayer*/}
                 {/*      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/}
