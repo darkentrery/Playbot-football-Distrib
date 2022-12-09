@@ -4,8 +4,13 @@ import Modal from "react-modal";
 import ReactDatetimeClass from "react-datetime";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
-import {popupCloseDate, popupCloseDropdown, popupCloseTime} from "../utils/manageElements";
+import {
+    popupCloseDropdown,
+    popupCloseDropdownWithDate,
+    popupCloseDropdownWithTime,
+} from "../utils/manageElements";
 import {getLocations} from "../services/LocationService";
+import $ from "jquery";
 
 
 const countPlayers = [];
@@ -30,6 +35,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
     const [isOpenTime, setIsOpenTime] = useState(false);
     const [isPlayer, setIsPlayer] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
+    const [incorrectDate, setIncorrectDate] = useState(false);
     const refName = useRef();
     const refCount = useRef();
     const refDate = useRef();
@@ -58,6 +64,11 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         setCount(event.count_players);
         if (event && event.is_player == true) setIsPlayer(true);
         setNotice(event.notice);
+        let table = $('.edit-event-component').find('.elem.elem-3').find('table')
+        console.log(table)
+        if (table.length) {
+
+        }
     }, [event, isOpen])
 
     useEffect(() => {
@@ -108,6 +119,17 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         }
     }
 
+    const renderDay = (props, currentDate, selectedDate) => {
+        let date = new Date(currentDate.format("YYYY-MM-DD"));
+        if (date < Date.now()) {
+            props.className = "calendar-day inactive";
+        } else {
+            props.className = "calendar-day";
+        }
+
+        return <td {...props}>{currentDate.date()}</td>;
+    }
+
     const inputName = (e) => {
         let val = e.target.value.slice(0, 20);
         setName(val);
@@ -151,10 +173,14 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         setSuggests([]);
     }
 
+    useEffect(() => {
+        if (refDate.current) refDate.current.setState({inputValue: ''});
+    }, [incorrectDate])
+
     const popupClick = (e) => {
         popupCloseDropdown(e, setCloseDropDown, closeDropDown);
-        popupCloseDate(e, isOpenCalendar, setIsOpenCalendar);
-        popupCloseTime(e, isOpenTime, setIsOpenTime);
+        popupCloseDropdownWithDate(e, isOpenCalendar, setIsOpenCalendar);
+        popupCloseDropdownWithTime(e, isOpenTime, setIsOpenTime);
         setSuggests([]);
     }
 
@@ -182,9 +208,10 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
                             dateFormat={"DD.MM.YYYY"}
                             closeOnSelect={true}
                             inputProps={{placeholder: 'Дата игры *'}}
-                            onChange={(e) => eventService.choiceDate(e, setDate, refDate)}
+                            onChange={(e) => eventService.choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
                             ref={refDate}
                             value={date ? date : ''}
+                            renderDay={renderDay}
                         />
                         <span className={"input-message"}></span>
                     </div>

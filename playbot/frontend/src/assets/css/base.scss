@@ -549,5 +549,23 @@ input[type="checkbox"] {
 }
 
 
+.calendar-day {
+  &.inactive {
+    color: #949494;
+    cursor: default;
+
+    &:hover {
+    background: 0;
+  }
+
+  }
+
+  &:hover {
+    background: rgba(227, 225, 225, 0.63);
+    border-radius: 8px;
+  }
+}
+
+
 
 

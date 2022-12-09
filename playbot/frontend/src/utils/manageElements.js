@@ -1,5 +1,5 @@
 
-export const popupCloseDate = (e, isOpenCalendar, setIsOpenCalendar) => {
+export const popupCloseDropdownWithDate = (e, isOpenCalendar, setIsOpenCalendar) => {
     if (isOpenCalendar) {
         if (!e.target.className.includes("rdt") && !e.target.className.includes("calendar-icon")
             && !e.target.localName.includes("span")) {
@@ -8,7 +8,7 @@ export const popupCloseDate = (e, isOpenCalendar, setIsOpenCalendar) => {
     }
 }
 
-export const popupCloseTime = (e, isOpenTime, setIsOpenTime) => {
+export const popupCloseDropdownWithTime = (e, isOpenTime, setIsOpenTime) => {
     if (isOpenTime) {
         if (!e.target.className.includes("rdt") && !e.target.className.includes("clock-icon")
             && !e.target.localName.includes("span")) {

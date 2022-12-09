@@ -161,7 +161,7 @@ export default class EventService{
 		return val;
 	}
 
-	choiceDate(e, setDate, refDate){
+	choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate){
         if (typeof e == "string") {
             let val = e.replace(/\D/g, '');
             val = val.slice(0, 8);
@@ -182,7 +182,14 @@ export default class EventService{
 			}
             refDate.current.setState({inputValue: formatVal})
         } else {
-            setDate(e.format("YYYY-MM-DD"));
+			let date = new Date(e.format("YYYY-MM-DD"));
+			if (date < Date.now()) {
+				refDate.current.setState({open: true});
+				setDate(false);
+				setIncorrectDate(!incorrectDate);
+			} else {
+				setDate(e.format("YYYY-MM-DD"));
+			}
         }
     }
 
