@@ -7,7 +7,6 @@ import EventService from "../services/EventService";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
 import {popupCloseDate, popupCloseDropdown, popupCloseTime} from "../utils/manageElements";
 import {getLocations} from "../services/LocationService";
-import $ from "jquery";
 
 
 const countPlayers = [];
@@ -101,10 +100,11 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
 
     const getAddress = (e) => {
         setAddress(e.target.value);
+        setCity(false);
+        setPoint(false);
         if (e.target.value && e.target.value.length > 6) {
             getLocations(e.target.value).then((response) => {
                 if (response.status === 200) {
-                    console.log(response.data)
                     let geoObjects = response.data.results;
                     let array = [];
                     geoObjects.map((item) => {
@@ -149,7 +149,6 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         setCity(city);
         setPoint(point);
         setSuggests([]);
-        console.log(point, address, city)
     }
 
 

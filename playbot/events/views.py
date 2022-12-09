@@ -61,6 +61,7 @@ class EditEventView(APIView):
 
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
+        City.objects.update_or_create(name=request.data["city"])
         serializer = EditEventSerializer(event, data=request.data)
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()

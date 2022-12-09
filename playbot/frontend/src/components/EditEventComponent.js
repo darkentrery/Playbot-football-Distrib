@@ -5,6 +5,7 @@ import ReactDatetimeClass from "react-datetime";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import DropDownComponent from "./dropDownComponent/DropDownComponent";
 import {popupCloseDate, popupCloseDropdown, popupCloseTime} from "../utils/manageElements";
+import {getLocations} from "../services/LocationService";
 
 
 const countPlayers = [];
@@ -20,6 +21,9 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
+    const [city, setCity] = useState(false);
+    const [point, setPoint] = useState(false);
+    const [suggests, setSuggests] = useState([]);
     const [count, setCount] = useState(1);
     const [notice, setNotice] = useState('');
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
@@ -44,14 +48,16 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
     }
 
     useEffect(() => {
-        if (!id) setId(event.id);
-        if (!name) setName(event.name);
-        if (!date && event.date) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
-        if (!time && event.time_begin) setTime(event.time_begin.slice(0, 5));
-        if (!address) setAddress(event.address);
-        if (event && event.count_players) setCount(event.count_players);
+        setId(event.id);
+        setName(event.name);
+        setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
+        setTime(event.time_begin.slice(0, 5));
+        setAddress(event.address);
+        setPoint(event.geo_point);
+        setCity(event.city.name);
+        setCount(event.count_players);
         if (event && event.is_player == true) setIsPlayer(true);
-        if (!notice) setNotice(event.notice);
+        setNotice(event.notice);
     }, [event, isOpen])
 
     useEffect(() => {
@@ -73,10 +79,13 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         bodyFormData.append('count_players', count);
         bodyFormData.append('is_player', isPlayer);
         bodyFormData.append('notice', notice);
+        bodyFormData.append('city', city);
+        bodyFormData.append('geo_point', point);
         setData(bodyFormData)
-    }, [name, date, time, address, count, isPlayer, notice]);
+    }, [name, date, time, address, count, isPlayer, notice, point, city]);
 
     const closeWindow = () => {
+        setId(false);
         setName(false);
         setDate(false);
         setTime(false);
@@ -89,11 +98,10 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
     }
 
     const sendForm = async () => {
-        let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
+        let errors = eventService.createEventRequestValidation(name, date, time, address, city, point, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.editEvent, data).then((response) => {
                 setEvent(response.data);
-                setPlayers(response.data.event_player);
                 closeWindow();
                 openSuccessEditEvent();
             })
@@ -112,10 +120,42 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         setNotice(e.target.value);
     }
 
+    const getAddress = (e) => {
+        setAddress(e.target.value);
+        setCity(false);
+        setPoint(false);
+        if (e.target.value && e.target.value.length > 6) {
+            getLocations(e.target.value).then((response) => {
+                if (response.status === 200) {
+                    let geoObjects = response.data.results;
+                    let array = [];
+                    geoObjects.map((item) => {
+                        if (item.components.city) array.push(item);
+                    })
+                    setSuggests(array);
+                }
+            })
+        } else {
+            setSuggests([]);
+        }
+    }
+
+    const choiceAddress = (e) => {
+        let suggest = suggests[e.target.id];
+        let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
+        let address = suggest.formatted;
+        let city = suggest.components.city;
+        setAddress(address);
+        setCity(city);
+        setPoint(point);
+        setSuggests([]);
+    }
+
     const popupClick = (e) => {
         popupCloseDropdown(e, setCloseDropDown, closeDropDown);
         popupCloseDate(e, isOpenCalendar, setIsOpenCalendar);
         popupCloseTime(e, isOpenTime, setIsOpenTime);
+        setSuggests([]);
     }
 
     return (
@@ -161,9 +201,16 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
                         />
                         <span className={"input-message"}></span>
                     </div>
-                    <div className={"elem div-input"} ref={refAddress}>
-                        <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} value={address ? address : ''} onChange={(event) => setAddress(event.target.value)}/>
+                    <div className={"elem elem-5 div-input"} ref={refAddress}>
+                        <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} value={address ? address : ''} onChange={getAddress}/>
                         <span className={"input-message"}></span>
+                        <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
+                            {suggests.length !== 0 && suggests.map((item, key) => {
+                                return (
+                                    <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
+                                )
+                            })}
+                        </div>
                     </div>
                     <div className={"elem elem-6"}>
                         <span>Максимальное кол. игроков *</span>
