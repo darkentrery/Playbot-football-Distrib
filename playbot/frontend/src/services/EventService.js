@@ -209,7 +209,7 @@ export default class EventService{
 		}
 	}
 
-	createEventRequestValidation(name, date, time, address, notice, refs){
+	createEventRequestValidation(name, date, time, address, city, point, notice, refs){
 		let errors = [];
 		["name", "address", "notice", "date", "time"].forEach(elem => {
 			$(refs[elem].current).find('input').removeClass('error');
@@ -220,7 +220,7 @@ export default class EventService{
 		if (!name) errors.push("name");
 		if (!date) errors.push("date");
 		if (!time) errors.push("time");
-		if (!address) errors.push("address");
+		if (!address || !city || !point) errors.push("address");
 
 		errors.forEach(error => {
 			$(refs[error].current).children('span').addClass('error');

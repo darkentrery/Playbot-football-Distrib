@@ -39,7 +39,6 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     const refNotice = useRef();
     const refDateP = useRef();
     const refTimeP = useRef();
-    const refYmap = useRef();
     const refs = {
         "name": refName,
         "date": refDateP,
@@ -58,8 +57,10 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         bodyFormData.append('count_players', count);
         bodyFormData.append('is_player', isPlayer);
         bodyFormData.append('notice', notice);
+        bodyFormData.append('city', city);
+        bodyFormData.append('geo_point', point);
         setData(bodyFormData)
-    }, [name, date, time, address, count, isPlayer, notice]);
+    }, [name, date, time, address, count, isPlayer, notice, city, point]);
 
     const closeWindow = () => {
         setName(false);
@@ -69,12 +70,14 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         setCount(1);
         setIsPlayer(false);
         setNotice('');
+        setCity(false);
+        setPoint(false);
         setData(false);
         closeComponent();
     }
 
     const sendForm = async () => {
-        let errors = eventService.createEventRequestValidation(name, date, time, address, notice, refs);
+        let errors = eventService.createEventRequestValidation(name, date, time, address, city, point, notice, refs);
         if (!errors.length) {
             authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
                 setEvent(response.data);
@@ -98,21 +101,29 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
 
     const getAddress = (e) => {
         setAddress(e.target.value);
-        if (e.target.value) {
+        if (e.target.value && e.target.value.length > 6) {
             getLocations(e.target.value).then((response) => {
                 if (response.status === 200) {
-                    let geoObjects = response.data.response.GeoObjectCollection.featureMember;
+                    console.log(response.data)
+                    let geoObjects = response.data.results;
                     let array = [];
                     geoObjects.map((item) => {
-                        let addressComponents = item.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components;
-                        let city = '';
-                        addressComponents.map((item) => {
-                            if (item.kind === 'locality') city = item.name;
-                        })
-                        if (city) array.push(item);
+                        if (item.components.city) array.push(item);
+
                     })
-                    console.log(array)
                     setSuggests(array);
+                    // let geoObjects = response.data.response.GeoObjectCollection.featureMember;
+                    // let array = [];
+                    // geoObjects.map((item) => {
+                    //     let addressComponents = item.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components;
+                    //     let city = '';
+                    //     addressComponents.map((item) => {
+                    //         if (item.kind === 'locality') city = item.name;
+                    //     })
+                    //     if (city) array.push(item);
+                    // })
+                    // console.log(array)
+                    // setSuggests(array);
                 }
             })
         } else {
@@ -121,20 +132,24 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     }
 
     const choiceAddress = (e) => {
-        let suggest = suggests[e.target.id].GeoObject;
-        let point = suggest.Point.pos;
-        let address = suggest.metaDataProperty.GeocoderMetaData.Address.formatted;
-        let addressComponents = suggest.metaDataProperty.GeocoderMetaData.Address.Components;
-        let city = '';
-        addressComponents.map((item) => {
-            if (item.kind === 'locality') city = item.name;
-        })
+        //For Yandex Map
+        // let suggest = suggests[e.target.id].GeoObject;
+        // let point = suggest.Point.pos;
+        // let address = suggest.metaDataProperty.GeocoderMetaData.Address.formatted;
+        // let addressComponents = suggest.metaDataProperty.GeocoderMetaData.Address.Components;
+        // let city = '';
+        // addressComponents.map((item) => {
+        //     if (item.kind === 'locality') city = item.name;
+        // })
+        let suggest = suggests[e.target.id];
+        let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
+        let address = suggest.formatted;
+        let city = suggest.components.city;
         setAddress(address);
         setCity(city);
         setPoint(point);
         setSuggests([]);
         console.log(point, address, city)
-        console.log(suggest)
     }
 
 
@@ -142,6 +157,7 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         popupCloseDropdown(e, setCloseDropDown, closeDropDown);
         popupCloseDate(e, isOpenCalendar, setIsOpenCalendar);
         popupCloseTime(e, isOpenTime, setIsOpenTime);
+        setSuggests([]);
     }
 
     return(
@@ -191,9 +207,9 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
                             <span className={"input-message"}></span>
                             <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
                                 {suggests.length !== 0 && suggests.map((item, key) => {
-                                    let address = item.GeoObject.metaDataProperty.GeocoderMetaData;
+                                    // let address = item.GeoObject.metaDataProperty.GeocoderMetaData;
                                     return (
-                                        <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{address.Address.formatted}</span>
+                                        <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
                                     )
                                 })}
                             </div>

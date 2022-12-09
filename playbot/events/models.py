@@ -70,7 +70,7 @@ class Event(models.Model):
     time_end = models.TimeField(_("Time End"), blank=True, null=True)
     count_players = models.IntegerField(_("Count Of Players"))
     address = models.CharField(_("Address"), max_length=150)
-    # geo = models.PointField(_("Geo Points"))
+    geo_point = models.CharField(_("Geo Point"), max_length=50, blank=True, null=True)
     cancel = models.BooleanField(_("Cancel"), default=False)
     cancel_reasons = models.ForeignKey(CancelReasons, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)
     format = models.ForeignKey(Format, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)

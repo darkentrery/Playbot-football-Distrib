@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from playbot.cities.models import City
+from playbot.cities.serializers import CitySerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer
 from playbot.users.models import User
@@ -24,10 +26,11 @@ class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
+    city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer"]
+        fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer", "city", "geo_point"]
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -38,6 +41,7 @@ class EventSerializer(serializers.ModelSerializer):
     event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     organizer = UserSerializer(read_only=True)
     event_step = EventStepSerializer(EventStep.objects.all(), many=True, read_only=True)
+    city = CitySerializer(read_only=True)
 
     class Meta:
         model = Event
@@ -48,6 +52,7 @@ class EditEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = UserSerializer(read_only=True)
+    city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
 
     class Meta:
         model = Event

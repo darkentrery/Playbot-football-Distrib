@@ -3,6 +3,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from playbot.cities.models import City
+from playbot.cities.serializers import CitySerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
@@ -22,6 +24,10 @@ class CreateEventView(APIView):
     def post(self, request, format='json'):
         data = request.data
         data.update({"organizer": request.user.pk})
+        City.objects.update_or_create(name=request.data["city"])
+        # city = CitySerializer(data={"name": request.data["city"]})
+        # if city.is_valid():
+        #     city.save()
         serializer = CreateEventSerializer(data=request.data)
         if serializer.is_valid():
             event = serializer.save()
