@@ -1,5 +1,5 @@
 import {
-  editEventWindow, loginWindow,
+  editEventWindow, hiddenMap, loginWindow,
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventOrganizerComponent from "../../components/body/EventOrganizerComponent";
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     ...state,
     event: state.event.event,
     user: state.user,
+    hiddenMap: state.event.hiddenMap,
   };
 };
 
@@ -21,7 +22,13 @@ const mapDispatchToProps = (dispatch) => {
       },
       openLogin: () => {
         dispatch(loginWindow(true));
-      }
+      },
+      showMap: () => {
+        dispatch(hiddenMap(false));
+      },
+      removeMap: () => {
+        dispatch(hiddenMap(true));
+      },
     }
   };
 };

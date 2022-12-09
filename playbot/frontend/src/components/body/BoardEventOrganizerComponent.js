@@ -16,14 +16,17 @@ export default function BoardEventOrganizerComponent ({event, funcs}) {
         authDecoratorWithoutLogin(eventService.toConfirmPlayers, event).then((response) => {
             funcs.setEvent(response.data);
         })
+        funcs.removeMap();
     }
     const toFillRegulation = (e) => {
         funcs.openFillRegulation();
         e.target.blur();
+        funcs.removeMap();
     }
     const toConfirmTeams = (e) => {
         funcs.openConfirmTeams();
         e.target.blur();
+        funcs.removeMap();
     }
 
     return (

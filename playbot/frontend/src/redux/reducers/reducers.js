@@ -6,7 +6,7 @@ import {
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
-    EVENT, FILL_REGULATION_WINDOW, IPHONE,
+    EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     SIGN_UP_WINDOW, STEPS,
@@ -153,6 +153,7 @@ const initialEventState = {
     event: false,
     players: [],
     steps: [],
+    hiddenMap: false,
 
 }
 
@@ -172,6 +173,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               steps: action.value,
+          };
+      case HIDDEN_MAP:
+          return {
+              ...state,
+              hiddenMap: action.value,
           };
       default:
           return state;

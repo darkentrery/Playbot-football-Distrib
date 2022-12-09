@@ -2,7 +2,7 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow
+  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, hiddenMap
 } from "../actions/actions";
 import {connect} from "react-redux";
 import BoardEventOrganizerComponent from "../../components/body/BoardEventOrganizerComponent";
@@ -41,6 +41,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       openConfirmTeams: () => {
         dispatch(confirmTeamsWindow(true));
+      },
+      showMap: () => {
+        dispatch(hiddenMap(false));
+      },
+      removeMap: () => {
+        dispatch(hiddenMap(true));
       },
     }
   };

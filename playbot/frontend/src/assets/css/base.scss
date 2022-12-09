@@ -22,19 +22,19 @@ span {
 }
 
 textarea {
-    background-color: transparent;
-    resize: none;
-    outline: none;
-    border: 0.8px solid #949494;
-    border-radius: 10px;
-    padding: 16px;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  border: 0.8px solid #949494;
+  border-radius: 10px;
+  padding: 16px;
 
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 120%;
-    color: #1B1B1B;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  color: #1B1B1B;
 }
 
 input[type=text], [type=password] {
@@ -85,6 +85,7 @@ a {
   width: 100vw;
   height: 100vh;
   background: rgba(27, 27, 27, 0.7);
+  z-index: 999;
 
   .popup-fon {
     background: 0;

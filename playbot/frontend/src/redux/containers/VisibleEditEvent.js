@@ -1,4 +1,4 @@
-import {event, editEventWindow, successEditEventWindow, players} from "../actions/actions";
+import {event, editEventWindow, successEditEventWindow, players, hiddenMap} from "../actions/actions";
 import {connect} from "react-redux";
 import EditEventComponent from "../../components/EditEventComponent";
 
@@ -23,9 +23,9 @@ const mapDispatchToProps = (dispatch) => {
     setEvent: (value) => {
       dispatch(event(value));
     },
-    setPlayers: (value) => {
-      dispatch(players(value));
-    },
+    showMap: () => {
+        dispatch(hiddenMap(false));
+      },
   };
 };
 

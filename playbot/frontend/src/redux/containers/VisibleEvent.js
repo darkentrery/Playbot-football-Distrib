@@ -2,7 +2,7 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow
+  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow, hiddenMap
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventComponent from "../../components/body/EventComponent";
@@ -46,6 +46,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       openConfirmTeams: () => {
         dispatch(confirmTeamsWindow(true));
+      },
+      showMap: () => {
+        dispatch(hiddenMap(false));
+      },
+      removeMap: () => {
+        dispatch(hiddenMap(true));
       },
     }
   };

@@ -13,7 +13,7 @@ for (let i=4; i<15; i++) {
     countPlayers.push(i);
 }
 
-export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent, setPlayers}) {
+export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [id, setId] = useState(false);
@@ -50,11 +50,11 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
     useEffect(() => {
         setId(event.id);
         setName(event.name);
-        setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
-        setTime(event.time_begin.slice(0, 5));
+        if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
+        if (event.time_begin) setTime(event.time_begin.slice(0, 5));
         setAddress(event.address);
         setPoint(event.geo_point);
-        setCity(event.city.name);
+        if (event.city) setCity(event.city.name);
         setCount(event.count_players);
         if (event && event.is_player == true) setIsPlayer(true);
         setNotice(event.notice);

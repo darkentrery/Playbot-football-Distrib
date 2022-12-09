@@ -44,6 +44,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
 
     const closeWindow = () => {
         funcs.closeConfirmPlayers();
+        funcs.showMap();
     }
 
     const selectPlayer = (e) => {
@@ -69,6 +70,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
             funcs.setEvent(response.data);
             closeWindow();
             funcs.openFillRegulation();
+            funcs.removeMap();
         })
     }
 

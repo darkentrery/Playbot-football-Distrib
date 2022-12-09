@@ -20,11 +20,13 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
     const closeWindow = () => {
         funcs.closeConfirmTeams();
+        funcs.showMap();
     }
 
     const toFillRegulation = () => {
         closeWindow();
         funcs.openFillRegulation();
+        funcs.removeMap();
     }
 
     const confirmTeams = () => {

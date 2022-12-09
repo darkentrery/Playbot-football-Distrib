@@ -108,6 +108,19 @@
       border: 1px solid $grayColor;
       border-radius: 8px;
       max-height: 200px;
+      justify-content: stretch;
+
+      .leaflet-container {
+        flex: 1 1 auto;
+      }
+
+      .leaflet-bottom.leaflet-right {
+        display: none;
+      }
+
+      &.hidden {
+        display: none !important;
+      }
     }
   }
 }
@@ -224,6 +237,19 @@
         flex: 0 0 77px;
         border: 1px solid $grayColor;
         border-radius: 8px;
+        justify-content: stretch;
+
+        .leaflet-container {
+          flex: 1 1 auto;
+        }
+
+        .leaflet-bottom.leaflet-right {
+          display: none;
+        }
+
+        &.hidden {
+          display: none !important;
+        }
       }
     }
   }
@@ -322,6 +348,19 @@
         flex: 0 0 97px !important;
         border: 1px solid $grayColor;
         border-radius: 8px;
+        justify-content: stretch;
+
+        .leaflet-container {
+          flex: 1 1 auto;
+        }
+
+        .leaflet-bottom.leaflet-right {
+          display: none;
+        }
+
+        &.hidden {
+          display: none !important;
+        }
       }
     }
   }

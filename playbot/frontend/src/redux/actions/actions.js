@@ -19,6 +19,7 @@ export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 export const AUTH = 'AUTH';
 
 export const EVENT = 'EVENT';
+export const HIDDEN_MAP = 'HIDDEN_MAP';
 export const PLAYERS = 'PLAYERS';
 export const STEPS = 'STEPS';
 
@@ -127,6 +128,11 @@ export const event = (value) => ({
 
 export const players = (value) => ({
   type: PLAYERS,
+  value,
+});
+
+export const hiddenMap = (value) => ({
+  type: HIDDEN_MAP,
   value,
 });
 

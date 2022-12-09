@@ -79,11 +79,13 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
 
     const closeWindow = () => {
         funcs.closeFillRegulation();
+        funcs.showMap();
     }
 
     const toConfirmPlayers = () => {
         closeWindow();
         funcs.openConfirmPlayers();
+        funcs.removeMap();
     }
 
     const fillRegulation = () => {

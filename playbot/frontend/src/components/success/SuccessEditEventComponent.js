@@ -2,10 +2,11 @@ import SuccessComponent from "./SuccessComponent";
 import {useNavigate} from "react-router-dom";
 
 
-export default function SuccessEditEventComponent ({isOpen, event, closeComponent}) {
+export default function SuccessEditEventComponent ({isOpen, event, closeComponent, showMap}) {
     const navigate = useNavigate();
     const clickSuccess = () => {
-        navigate(`events/event/${event.id}/`)
+        navigate(`events/event/${event.id}/`);
+        showMap();
     }
 
     return(

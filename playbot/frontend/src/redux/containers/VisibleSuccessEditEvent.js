@@ -1,4 +1,4 @@
-import {successEditEventWindow} from "../actions/actions";
+import {hiddenMap, successEditEventWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import SuccessEditEventComponent from "../../components/success/SuccessEditEventComponent";
 
@@ -16,6 +16,10 @@ const mapDispatchToProps = (dispatch) => {
     closeComponent: () => {
       dispatch(successEditEventWindow(false));
     },
+    showMap: () => {
+      dispatch(hiddenMap(false));
+    },
+
   };
 };
 

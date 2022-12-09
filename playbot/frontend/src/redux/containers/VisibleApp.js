@@ -6,7 +6,7 @@ import {
   successSignUp2Window,
   auth,
   fillRegulationWindow,
-  confirmPlayersWindow, event, steps, confirmTeamsWindow, players, mobileFirstPageWindow, loginWindow, iphone
+  confirmPlayersWindow, event, steps, confirmTeamsWindow, players, mobileFirstPageWindow, loginWindow, iphone, hiddenMap
 } from "../actions/actions";
 
 
@@ -71,6 +71,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       closeMobileFirstPage: () => {
         dispatch(mobileFirstPageWindow(false));
+      },
+      removeMap: () => {
+        dispatch(hiddenMap(true));
+      },
+      showMap: () => {
+        dispatch(hiddenMap(false));
       },
     }
   };
