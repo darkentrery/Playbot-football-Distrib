@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import $ from "jquery";
 
 
-export default function RefreshPasswordComponent ({isOpen, closeComponent, openSuccess, openLogin}) {
+export default function RefreshPasswordComponent ({isOpen, closeComponent, openSuccess, openLogin, showMap}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [data, setData] = useState(false);
@@ -21,6 +21,11 @@ export default function RefreshPasswordComponent ({isOpen, closeComponent, openS
         setEmail(false);
         setData(false);
         closeComponent();
+    }
+
+    const toMenu = () => {
+        closeWindow();
+        showMap();
     }
 
     const toLogin = () => {
@@ -66,7 +71,7 @@ export default function RefreshPasswordComponent ({isOpen, closeComponent, openS
                 <div className={"refresh-body"}>
                     <div className={"refresh-elem refresh-head-elem"}>
                         <div onClick={toLogin} className={"btn-back refresh-back"}></div>
-                        <div onClick={closeWindow} className={"btn-close refresh-close"}></div>
+                        <div onClick={toMenu} className={"btn-close refresh-close"}></div>
                     </div>
                     <div className={"refresh-elem refresh-elem-2"}>
                         <div className={"refresh-title"}>Забыли пароль?</div>

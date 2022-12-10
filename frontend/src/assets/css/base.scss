@@ -1,10 +1,12 @@
 html {
-  -webkit-text-size-adjust: none
+  -webkit-text-size-adjust: none;
+  touch-action: pan-y;
 }
 
 body {
   -webkit-text-size-adjust: none;
   margin: 0;
+  touch-action: pan-y;
 }
 
 span {

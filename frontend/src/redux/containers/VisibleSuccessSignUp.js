@@ -1,4 +1,4 @@
-import {successSignUpWindow} from "../actions/actions";
+import {hiddenMap, successSignUpWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import SuccessSignUpComponent from "../../components/success/SuccessSignUpComponent";
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     closeComponent: () => {
       dispatch(successSignUpWindow(false));
+    },
+    showMap: () => {
+      dispatch(hiddenMap(false));
     },
   };
 };

@@ -1,4 +1,4 @@
-import {loginWindow, refreshPasswordWindow, signUpWindow, auth} from "../actions/actions";
+import {loginWindow, refreshPasswordWindow, signUpWindow, auth, hiddenMap} from "../actions/actions";
 import {connect} from "react-redux";
 import LoginComponent from "../../components/LoginComponent";
 
@@ -24,6 +24,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setAuth: (value, user) => {
       dispatch(auth(value, user));
+    },
+    showMap: () => {
+      dispatch(hiddenMap(false));
     },
   };
 };

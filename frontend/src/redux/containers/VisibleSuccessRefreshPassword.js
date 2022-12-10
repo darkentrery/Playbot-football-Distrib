@@ -1,4 +1,4 @@
-import {successRefreshPasswordWindow} from "../actions/actions";
+import {hiddenMap, successRefreshPasswordWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import SuccessRefreshPasswordComponent from "../../components/success/SuccessRefreshPasswordComponent";
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     closeComponent: () => {
       dispatch(successRefreshPasswordWindow(false));
+    },
+    showMap: () => {
+      dispatch(hiddenMap(false));
     },
   };
 };

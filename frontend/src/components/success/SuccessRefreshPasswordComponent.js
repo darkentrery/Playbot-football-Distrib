@@ -1,16 +1,20 @@
 import SuccessComponent from "./SuccessComponent";
 
 
-export default function SuccessRefreshPasswordComponent ({isOpen, closeComponent}) {
+export default function SuccessRefreshPasswordComponent ({isOpen, closeComponent, showMap}) {
+    const close = () => {
+        closeComponent();
+        showMap();
+    }
 
     return(
         <SuccessComponent
             isOpen={isOpen}
-            closeSuccess={closeComponent}
+            closeSuccess={close}
             title={"Пароль отправлен"}
             text={"Мы отправили новый пароль на твою почту"}
             buttonLabel={"Спасибо"}
-            // clickSuccess={}
+            clickSuccess={close}
         />
     )
 }

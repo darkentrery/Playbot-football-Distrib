@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import HeadComponent from "../../components/HeadComponent";
+import {hiddenMap} from "../actions/actions";
 
 
 const mapStateToProps = (state) => {
@@ -11,7 +12,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    funcs: {
+      showMap: () => {
+        dispatch(hiddenMap(false));
+      },
+      removeMap: () => {
+        dispatch(hiddenMap(true));
+      },
+    },
   };
 };
 

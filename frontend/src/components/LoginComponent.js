@@ -6,7 +6,7 @@ import $ from 'jquery';
 import {InputComponent} from "./inputComponent/InputComponent";
 
 
-export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth}) {
+export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth, showMap}) {
     const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
@@ -32,6 +32,11 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         closeComponent();
     }
 
+    const toMenu = () => {
+        closeWindow();
+        showMap();
+    }
+
     const toSignUp = () => {
         closeWindow();
         openSignUp();
@@ -50,6 +55,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                 if (!errors.length) {
                     setAuth(true, response.data);
                     closeWindow();
+                    showMap();
                 }
             })
         }
@@ -80,7 +86,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                 <div className={"popup-left"}>
                     <div className={"login-l-body"}>
                         <div className={"login-l-elem close"}>
-                            <div onClick={closeWindow} className={"btn-close login-close"}></div>
+                            <div onClick={toMenu} className={"btn-close login-close"}></div>
                         </div>
                         <div className={"login-l-elem login-l-head-elem"}>
                             <div className={"login-title"}>Вход</div>
@@ -108,7 +114,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                 <div className={"popup-right"}>
                     <div className={"popup-img login-img"}>
                         <div className={"first"}>
-                            <div onClick={closeWindow} className={"btn-close login-close"}></div>
+                            <div onClick={toMenu} className={"btn-close login-close"}></div>
                         </div>
                         <div className={"second"}>
                             <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

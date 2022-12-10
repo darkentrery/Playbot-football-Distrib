@@ -2,16 +2,20 @@
 import SuccessComponent from "./SuccessComponent";
 
 
-export default function SuccessSignUpComponent ({isOpen, closeComponent}) {
+export default function SuccessSignUpComponent ({isOpen, closeComponent, showMap}) {
+    const close = () => {
+        closeComponent();
+        showMap();
+    }
 
     return(
         <SuccessComponent
             isOpen={isOpen}
-            closeSuccess={closeComponent}
+            closeSuccess={close}
             title={"Подтверди свои данные"}
             text={"Мы отправили инструкции для последущих действий на твою почту"}
             buttonLabel={"Продолжить"}
-            // clickSuccess={}
+            clickSuccess={close}
         />
     )
 }

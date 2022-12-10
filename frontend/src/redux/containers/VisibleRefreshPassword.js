@@ -1,4 +1,4 @@
-import {loginWindow, refreshPasswordWindow, successRefreshPasswordWindow} from "../actions/actions";
+import {hiddenMap, loginWindow, refreshPasswordWindow, successRefreshPasswordWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import RefreshPasswordComponent from "../../components/RefreshPasswordComponent";
 
@@ -22,15 +22,16 @@ const mapDispatchToProps = (dispatch) => {
     openLogin: () => {
       dispatch(loginWindow(true));
     },
+    showMap: () => {
+      dispatch(hiddenMap(false));
+    },
   };
 };
-
 
 const VisibleRefreshPassword = connect(
   mapStateToProps,
   mapDispatchToProps
 )(RefreshPasswordComponent);
-
 
 
 export default VisibleRefreshPassword;

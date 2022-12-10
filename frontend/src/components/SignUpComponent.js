@@ -7,7 +7,7 @@ import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
 
 
-export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp}) {
+export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
     const authService = new AuthService();
     const [username, setUsername] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(false);
@@ -124,6 +124,11 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         closeComponent();
     }
 
+    const toMenu = () => {
+        closeWindow();
+        showMap();
+    }
+
     const toLogin = () => {
         closeWindow();
         openLogin();
@@ -185,12 +190,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                 if (!errors.size) {
                     closeWindow();
                     openSuccessSignUp();
-                    // if (isMobile) {
-                    //     authService.login(loginData).then((response) => {
-                    //         setOpenChoiceCity(!openChoiceCity);
-                    //         setOpenSuccessSignUp(!openSuccessSignUp);
-                    //     })
-                    // }
                 }
             })
         }
@@ -212,7 +211,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                     <div className={"sign-up-l-body"}>
                         <div className={"sign-up-l-elem head"}>
                             <span className={"sign-up-title"}>Регистрация</span>
-                            <div onClick={closeWindow} className={"btn-close sign-up-close left"}></div>
+                            <div onClick={toMenu} className={"btn-close sign-up-close left"}></div>
                         </div>
                         <div className={"sign-up-l-elem div-input"} ref={refUsername}>
                             <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>
@@ -295,7 +294,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                 <div className={"popup-right"}>
                     <div className={"popup-img sign-up-img"}>
                         <div className={"first"}>
-                            <div onClick={closeWindow} className={"btn-close sign-up-close"}></div>
+                            <div onClick={toMenu} className={"btn-close sign-up-close"}></div>
                         </div>
                         <div className={"second"}>
                             <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
