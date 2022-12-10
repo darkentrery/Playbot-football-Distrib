@@ -10,7 +10,6 @@ import {
     popupCloseDropdownWithTime,
 } from "../utils/manageElements";
 import {getLocations} from "../services/LocationService";
-import $ from "jquery";
 
 
 const countPlayers = [];
@@ -62,13 +61,8 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         setPoint(event.geo_point);
         if (event.city) setCity(event.city.name);
         setCount(event.count_players);
-        if (event && event.is_player == true) setIsPlayer(true);
+        if (event && event.is_player) setIsPlayer(true);
         setNotice(event.notice);
-        let table = $('.edit-event-component').find('.elem.elem-3').find('table')
-        console.log(table)
-        if (table.length) {
-
-        }
     }, [event, isOpen])
 
     useEffect(() => {
@@ -242,7 +236,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
                     <div className={"elem elem-6"}>
                         <span>Максимальное кол. игроков *</span>
                     </div>
-                    <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1}/>
+                    <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
                     <div className={"elem elem-8"}>
                         <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={(e) => setIsPlayer(!isPlayer)}></div>
                         <span>Организатор события не играет</span>

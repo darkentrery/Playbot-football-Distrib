@@ -10,6 +10,9 @@
   padding-left: 40px;
   box-sizing: border-box;
 
+  &.other-reason {
+    height: 502px;
+  }
 }
 
 .cancel-event-component .elem {
@@ -46,6 +49,12 @@
   }
 
   &.elem-4 {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &.elem-5 {
     margin-bottom: 32px;
     flex: 0 0 $fieldHeight;
     width: 330px;
@@ -56,11 +65,15 @@
   .cancel-event-component {
     flex: 0 0 100vw;
     height: 100vh;
+
+    &.other-reason {
+      height: 100vh;
+    }
   }
 
   .cancel-event-component .elem {
 
-    &.elem-4 {
+    &.elem-5 {
       margin-bottom: 32px;
       flex: 0 0 $fieldHeight;
       width: auto;

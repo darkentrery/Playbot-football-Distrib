@@ -62,6 +62,8 @@ class EditEventView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
         City.objects.update_or_create(name=request.data["city"])
+        if request.data.get("cancel_reasons"):
+            CancelReasons.objects.update_or_create(name=request.data["cancel_reasons"])
         serializer = EditEventSerializer(event, data=request.data)
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()
@@ -79,7 +81,7 @@ class CancelReasonsView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json'):
-        items = CancelReasonsSerializer(CancelReasons.objects.all(), many=True)
+        items = CancelReasonsSerializer(CancelReasons.objects.filter(id__in=[1, 2, 3]), many=True)
         return Response(items.data, status=status.HTTP_200_OK)
 
 

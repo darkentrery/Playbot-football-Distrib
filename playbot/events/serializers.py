@@ -42,6 +42,7 @@ class EventSerializer(serializers.ModelSerializer):
     organizer = UserSerializer(read_only=True)
     event_step = EventStepSerializer(EventStep.objects.all(), many=True, read_only=True)
     city = CitySerializer(read_only=True)
+    cancel_reasons = serializers.SlugRelatedField(queryset=CancelReasons.objects.all(), slug_field="name")
 
     class Meta:
         model = Event
@@ -53,6 +54,7 @@ class EditEventSerializer(serializers.ModelSerializer):
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = UserSerializer(read_only=True)
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
+    cancel_reasons = serializers.SlugRelatedField(queryset=CancelReasons.objects.all(), slug_field="name", required=False)
 
     class Meta:
         model = Event
