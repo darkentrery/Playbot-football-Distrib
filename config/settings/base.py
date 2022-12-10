@@ -13,6 +13,8 @@ ROOT_DIR = environ.Path(__file__) - 3
 
 APPS_DIR = ROOT_DIR.path("playbot")
 
+FRONT_DIR = ROOT_DIR.path("frontend")
+
 env = environ.Env()
 
 env.read_env(str(ROOT_DIR.path(".env")))
@@ -116,8 +118,8 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     str(APPS_DIR.path("static")),
-    str(APPS_DIR.path("frontend/build/static")),
-    str(APPS_DIR.path("frontend/build")),
+    str(FRONT_DIR.path("build/static")),
+    str(FRONT_DIR.path("build")),
 ]
 
 STATICFILES_FINDERS = [
@@ -134,7 +136,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         "DIRS": [
             str(APPS_DIR.path("templates")),
-            str(APPS_DIR.path("frontend/build")),
+            str(FRONT_DIR.path("build")),
         ],
         # 'APP_DIRS': True,
         'OPTIONS': {
