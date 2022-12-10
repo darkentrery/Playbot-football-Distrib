@@ -29,6 +29,25 @@ export default function BoardEventOrganizerComponent ({event, funcs}) {
         funcs.removeMap();
     }
 
+    const toCancelEvent = () => {
+        funcs.openCancelEvent();
+        funcs.removeMap();
+    }
+
+    const ButtonBlock = () => {
+        return (
+            <div className={"elem elem-4"}>
+                {!event.cancel && event.event_step.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
+                {!event.cancel && event.event_step.length === 0 && <button className={"el el-2 btn-second"} onClick={toCancelEvent}>Отменить игру</button>}
+                {!event.cancel && event.event_step.length === 1 && !event.event_step[0]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
+                {!event.cancel && event.event_step.length === 2 && !event.event_step[1]["complete"] && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
+                {!event.cancel && event.event_step.length === 3 && !event.event_step[2]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
+                {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
+                {event.cancel && <span>Событие отменено</span>}
+            </div>
+        )
+    }
+
     return (
         <div className={"board-event-component"}>
             <div className={"board-event-1280"}>
@@ -39,14 +58,7 @@ export default function BoardEventOrganizerComponent ({event, funcs}) {
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
                 <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
-                <div className={"elem elem-4"}>
-                    {event.event_step.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
-                    {event.event_step.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
-                    {event.event_step.length === 1 && event.event_step[0]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
-                    {event.event_step.length === 2 && event.event_step[1]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
-                    {event.event_step.length === 3 && event.event_step[2]["complete"] === false && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
-                    {event.event_step.length === 3 && event.event_step[2]["complete"] === true && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
-                </div>
+                <ButtonBlock/>
             </div>
 
             <div className={"board-event-376"}>
@@ -58,14 +70,7 @@ export default function BoardEventOrganizerComponent ({event, funcs}) {
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
                 <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
-                <div className={"elem elem-4"}>
-                    {event.event_step.length === 0 && <button className={"el el-1 btn"} onClick={toConfirmPlayers}>Начать игру</button>}
-                    {event.event_step.length === 0 && <button className={"el el-2 btn-second"} onClick={funcs.openCancelEvent}>Отменить игру</button>}
-                    {event.event_step.length === 1 && !event.event_step[0]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
-                    {event.event_step.length === 2 && !event.event_step[1]["complete"] && <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
-                    {event.event_step.length === 3 && !event.event_step[2]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
-                    {event.event_step.length === 3 && event.event_step[2]["complete"] && <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
-                </div>
+                <ButtonBlock/>
             </div>
         </div>
     )

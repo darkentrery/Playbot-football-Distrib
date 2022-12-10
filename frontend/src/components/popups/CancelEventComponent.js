@@ -5,7 +5,7 @@ import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
-export default function CancelEventComponent ({isOpen, event, closeComponent, setEvent}) {
+export default function CancelEventComponent ({isOpen, event, closeComponent, setEvent, showMap}) {
     const eventService = new EventService();
     const [reason, setReason] = useState(false);
     const [reasons, setReasons] = useState(false);
@@ -13,6 +13,7 @@ export default function CancelEventComponent ({isOpen, event, closeComponent, se
     const closeWindow = () => {
         setReason(false);
         closeComponent();
+        showMap();
     }
 
     const choiceReason = (e) => {
@@ -35,6 +36,7 @@ export default function CancelEventComponent ({isOpen, event, closeComponent, se
         if (reason) {
             event.cancel = true;
             event.cancel_reasons = reason;
+            event.city = event.city.name;
             authDecoratorWithoutLogin(eventService.editEvent, event).then((response) => {
                 if (response.status === 200) {
                     closeWindow();
