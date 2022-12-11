@@ -6,14 +6,14 @@ import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
 import {getMonth, getWeekDay} from "../../utils/dates";
 
 
-export default function EventsComponent () {
+export default function EventsComponent ({city, user}) {
     const eventService = new EventService();
     const [events, setEvents] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
     useEffect(() => {
         if (events === false && firstRequest) {
-            eventService.getEvents().then((response) => {
+            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
                 console.log(response)
                 if (response.status === 200) {
                     let data = [];
@@ -29,6 +29,25 @@ export default function EventsComponent () {
             })
         }
     }, [events])
+
+    useEffect(() => {
+        if (user) {
+            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
+                console.log(response)
+                if (response.status === 200) {
+                    let data = [];
+                    response.data.map((item, key) => {
+                        if (key === 0 || item.date !== response.data[key - 1].date) {
+                            data.push({date: new Date(item.date)})
+                        }
+                        data.push({event: item})
+                    })
+                    setEvents(data);
+                    setFirstRequest(false);
+                }
+            })
+        }
+    }, [user])
     
     return (
         <div className={"body-events"}>

@@ -15,7 +15,7 @@ export default function MainPageComponent ({state, funcs}) {
 
             <TitleComponent label={"Список событий"} to={BaseRoutes.events}/>
             <LocationComponent state={state} funcs={funcs}/>
-            <EventsComponent/>
+            <EventsComponent city={state.location.city} user={state.user.user}/>
 
             <div className={"elem-1280"}>
                 <TitleComponent label={"Лучшие игроки"} to={BaseRoutes.main}/>

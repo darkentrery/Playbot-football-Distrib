@@ -25,9 +25,9 @@ export default class EventService{
 			});
 	}
 
-	getEvents(){
+	getEvents(city){
 		const url = `${API_URL}get-events/`;
-		return axios.get(url, {headers: {
+		return axios.post(url, {"city": city}, {headers: {
 			'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
 		}})

@@ -8,22 +8,22 @@ import VisibleEventsPage from "../redux/containers/VisibleEventsPage";
 
 
 export default function BodyComponent () {
-    const eventService = new EventService();
-    const [eventsPk, setEventsPk] = useState(false);
+    // const eventService = new EventService();
+    // const [eventsPk, setEventsPk] = useState(false);
 
-    useEffect(() => {
-        if (eventsPk === false) {
-            eventService.getEvents().then((response) => {
-                if (response.status === 200) {
-                    let data = [];
-                    response.data.map((item, key) => {
-                        data.push(item.id)
-                    })
-                    setEventsPk(data);
-                }
-            })
-        }
-    }, [eventsPk])
+    // useEffect(() => {
+    //     if (eventsPk === false) {
+    //         eventService.getEvents().then((response) => {
+    //             if (response.status === 200) {
+    //                 let data = [];
+    //                 response.data.map((item, key) => {
+    //                     data.push(item.id)
+    //                 })
+    //                 setEventsPk(data);
+    //             }
+    //         })
+    //     }
+    // }, [eventsPk])
 
 
     return(

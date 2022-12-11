@@ -42,8 +42,9 @@ class CreateEventView(APIView):
 class EventsView(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request, format='json'):
-        events = EventSerializer(Event.objects.all().order_by("date", "time_begin"), many=True)
+    def post(self, request, format='json'):
+        city = request.data["city"]
+        events = EventSerializer(Event.objects.filter(city__name=city).order_by("date", "time_begin"), many=True)
         return Response(events.data, status=status.HTTP_200_OK)
 
 
@@ -117,7 +118,6 @@ class GetRegulationView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        id = self.kwargs.get("id")
         formats = FormatSerializer(Format.objects.all(), many=True)
         distribution_method = DistributionMethodSerializer(DistributionMethod.objects.all(), many=True)
         duration = DurationSerializer(Duration.objects.all(), many=True)

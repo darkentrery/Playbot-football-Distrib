@@ -185,7 +185,7 @@ const event = (state = initialEventState, action) => {
 };
 
 const initialLocationState = {
-    city: false,
+    city: "Москва",
 }
 
 const location = (state = initialLocationState, action) => {

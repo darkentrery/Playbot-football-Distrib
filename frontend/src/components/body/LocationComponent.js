@@ -6,7 +6,7 @@ import AuthService from "../../services/AuthService";
 export default function LocationComponent ({state, funcs}) {
     const authService = new AuthService();
     const [isOpen, setIsOpen] = useState(false);
-    const [city, setCity] = useState('Москва');
+    const [city, setCity] = useState(false);
     let user = state.user;
     let location = state.location;
     const refCity = useRef();
