@@ -15,3 +15,5 @@ playbot/fixtures/format.json`
 `sudo nano /etc/nginx/sites-available/playbot_football.conf`
 
 `sudo systemctl restart nginx`
+
+`sudo systemctl daemon-reload && sudo systemctl restart gunicorn`
