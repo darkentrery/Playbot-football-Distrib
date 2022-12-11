@@ -530,6 +530,7 @@ input[type="checkbox"] {
 }
 
 .scroll {
+  overflow: auto;
   &::-webkit-scrollbar {
     width: 5px;
   }

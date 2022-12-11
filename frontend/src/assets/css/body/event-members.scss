@@ -10,40 +10,61 @@
   padding-top: 28px;
   padding-bottom: 34px;
 
-  .elem {
+  .players-list {
     display: flex;
-    margin-top: 16px;
-    flex: 0 0 52px;
+    flex-direction: column;
+    flex: 1 1 auto;
+    max-height: 560px;
+    padding-right: 8px;
+    box-sizing: border-box;
+    row-gap: 16px;
 
-     .el {
-       display: flex;
-     }
+    &.no-exists {
+      align-items: center;
+      row-gap: 8px;
+      flex: 0 0 182px;
+      padding: 0;
 
-    .el-1 {
-      flex: 1 1 auto;
-      flex-direction: column;
-      padding-left: 57px;
-      justify-content: space-around;
-
-      .name {
-        font-weight: 700;
-        font-size: 13px;
+      .socer-player-icon {
+        margin-bottom: 8px;
+        margin-top: 41px;
       }
-
-      .role {
-        font-size: 12px;
-      }
-
     }
 
-    .el-2 {
-      flex: 0 0 42px;
-      height: 19px;
-      background: $whiteColor;
-      border-radius: 15px;
-      justify-content: center;
-      align-items: center;
-      margin-top: 10px;
+    .elem {
+      display: flex;
+      flex: 0 0 52px;
+
+      .el {
+        display: flex;
+      }
+
+      .el-1 {
+        flex: 1 1 auto;
+        flex-direction: column;
+        padding-left: 57px;
+        justify-content: space-around;
+
+        .name {
+          font-weight: 700;
+          font-size: 13px;
+        }
+
+        .role {
+          font-size: 12px;
+        }
+
+      }
+
+      .el-2 {
+        flex: 0 0 42px;
+        height: 19px;
+        background: $whiteColor;
+        border-radius: 15px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
     }
   }
 

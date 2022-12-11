@@ -38,7 +38,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
 
     const MapBody = () => {
         return !position ? null : (
-            <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
+            <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

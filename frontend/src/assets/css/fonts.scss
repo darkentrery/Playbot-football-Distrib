@@ -15,41 +15,53 @@
 .gray-400-16 {
   font-weight: 400;
   font-size: 16px;
-  color: #949494;
+  color: $grayColor;
 }
 
 .gray-400-12 {
   font-weight: 400;
   font-size: 12px;
-  color: #949494;
+  color: $grayColor;
 }
 
 .black-600-16 {
   font-weight: 600;
   font-size: 16px;
-  color: #1B1B1B;
+  color: $blackColor;
 }
 
 .black-400-13 {
   font-weight: 400;
   font-size: 13px;
-  color: #1B1B1B;
+  color: $blackColor;
 }
 
 .black-600-18 {
   font-weight: 600;
   font-size: 18px;
-  color: #1B1B1B;
+  color: $blackColor;
 }
 
 .black-500-12 {
   font-weight: 500 !important;
   font-size: 12px !important;
-  color: #1B1B1B !important;
+  color: $blackColor !important;
 }
 
 .white-500-12 {
   font-weight: 500 !important;
   font-size: 12px !important;
   color: $whiteColor !important;
+}
+
+.dark-gray-600-32 {
+  font-weight: 600 !important;
+  font-size: 32px !important;
+  color: $darkGrayColor !important;
+}
+
+.dark-gray-400-14 {
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: $darkGrayColor !important;
 }
