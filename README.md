@@ -8,6 +8,10 @@ playbot/fixtures/format.json`
 
 `ssh-add ~/github_key`
 
+`cd /home/site/Playbot_football && git pull`
+
+`cd frontend && npm run build`
+
 `sudo systemctl daemon-reload`
 
 `sudo systemctl restart gunicorn`

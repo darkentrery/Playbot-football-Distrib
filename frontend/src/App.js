@@ -50,6 +50,16 @@ function App({state, funcs}) {
         })
     }
 
+    var lastY = 1;
+    document.addEventListener("touchmove", function (event) {
+        let lastS = document.documentElement.scrollTop;
+        if(lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        lastY = event.touches[0].clientY;
+    },{passive: false});
+
     useEffect(() => {
         auth();
     }, [state.user.isAuth])
