@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 export default function SuccessEditEventComponent ({isOpen, event, closeComponent, showMap}) {
     const navigate = useNavigate();
     const clickSuccess = () => {
+        closeComponent();
         navigate(`events/event/${event.id}/`);
         showMap();
     }
@@ -12,11 +13,11 @@ export default function SuccessEditEventComponent ({isOpen, event, closeComponen
     return(
         <SuccessComponent
             isOpen={isOpen}
-            closeSuccess={closeComponent}
+            closeSuccess={clickSuccess}
             title={"Событие изменено"}
             text={"Теперь дождитесь, когда соберется необходимое количество игроков и начинайте игру"}
             buttonLabel={"Перейти на страницу события"}
-            clickSuccess={clickSuccess}
+            // clickSuccess={clickSuccess}
         />
     )
 }

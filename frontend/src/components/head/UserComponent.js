@@ -20,7 +20,6 @@ export default function UserComponent ({user, flagDropdown=false, funcs}) {
 
     const openDropdown = () => {
         let arrow = $(refuserHead.current).children('.arrow-icon');
-        // if (arrow.hasClass('down-arrow-icon')) {
         if (!isDropdown) {
             arrow.removeClass('down-arrow-icon');
             arrow.addClass('up-arrow-icon');
@@ -45,6 +44,7 @@ export default function UserComponent ({user, flagDropdown=false, funcs}) {
 
     const choiceCity = () => {
         selectMenu();
+        funcs.removeMap();
         funcs.openChoiceCity();
     }
 

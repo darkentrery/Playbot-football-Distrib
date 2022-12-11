@@ -17,7 +17,7 @@ for (let i=4; i<15; i++) {
     countPlayers.push(i);
 }
 
-export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent}) {
+export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent, showMap}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [id, setId] = useState(false);
@@ -100,6 +100,11 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         setNotice('');
         setData(false);
         closeComponent();
+    }
+
+    const toMenu = () => {
+        closeWindow();
+        showMap();
     }
 
     const sendForm = async () => {
@@ -189,7 +194,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
                 <div className={"popup-frame edit-event-component"}>
                     <div className={"elem elem-1"}>
                         <span>Редактирование события</span>
-                        <div onClick={closeWindow} className={"btn-close"}></div>
+                        <div onClick={toMenu} className={"btn-close"}></div>
                     </div>
                     <div className={"elem div-input elem-2"} ref={refName}>
                         <input className={"ball-icon input-icon"} type="text" placeholder={"Название *"} value={name ? name : ''} onChange={inputName}/>

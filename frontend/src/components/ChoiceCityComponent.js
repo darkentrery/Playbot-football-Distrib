@@ -7,7 +7,7 @@ import CityService from "../services/CityService";
 import {SearchComponent} from "./searchComponent/SearchComponent";
 
 
-export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity}) {
+export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, showMap}) {
     const authService = new AuthService();
     const cityService = new CityService();
     const [city, setLocalCity] = useState(false);
@@ -29,6 +29,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
 
     const closeWindow = () => {
         closeComponent();
+        showMap();
     }
 
     const sendForm = async () => {

@@ -24,8 +24,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(event(value));
     },
     showMap: () => {
-        dispatch(hiddenMap(false));
-      },
+      dispatch(hiddenMap(false));
+    },
   };
 };
 
