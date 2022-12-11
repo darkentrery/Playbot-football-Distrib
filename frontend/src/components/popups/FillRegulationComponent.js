@@ -12,6 +12,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [format, setFormat] = useState(false);
+    const [formatError, setFormatError] = useState(false);
     const [formats, setFormats] = useState([]);
     const [mode, setMode] = useState(false);
     const [modes, setModes] = useState([]);
@@ -33,6 +34,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                 response.data.formats.map((item, key) => {
                     if (item.count * 2 <= event.event_player.length) arr.push(item.name);
                 })
+                if (!arr.length) arr.push(false);
                 setFormat(event.format ? event.format : arr[0]);
                 setFormats(arr);
                 arr = [];
@@ -92,11 +94,17 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
         if (untilGoal && untilGoalCount === '') {
             setErrorText('Введите количество голов!');
         } else {
-            authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
-                funcs.setEvent(response.data);
-                closeWindow();
-                funcs.openConfirmTeams();
-            })
+            console.log(format, formatError)
+            if (format) {
+                authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
+                    funcs.setEvent(response.data);
+                    closeWindow();
+                    funcs.openConfirmTeams();
+                    funcs.removeMap();
+                })
+            } else {
+                setFormatError('Выберите формат!');
+            }
         }
     }
 
@@ -136,8 +144,10 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                         <div className={"gray-line"}></div>
                     </div>
                     <div className={"elem elem-4"}>
-                        <DropDownComponent value={format} setValue={setFormat} leftIcon={'two-people-icon'}
-                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={1} content={formats}/>
+                        <DropDownComponent
+                            value={format} setValue={setFormat} leftIcon={'two-people-icon'} sizingClass={"dropdown-size-format"}
+                            flagClose={closeDropDown} id={1} content={formats} errorText={formatError} setErrorText={setFormatError}
+                        />
                         <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
                                            sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
                         <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
