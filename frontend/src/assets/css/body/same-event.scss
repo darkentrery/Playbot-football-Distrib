@@ -1,0 +1,68 @@
+.same-event-component {
+  display: flex;
+  height: 250px;
+  width: 373px;
+  border-radius: 8px;
+  background: $whiteColor;
+  flex-direction: column;
+
+  .elem {
+    display: flex;
+    box-sizing: border-box;
+
+    &.elem-1 {
+      flex: 0 0 182px;
+      padding-right: 32px;
+      padding-left: 32px;
+      padding-top: 26px;
+      padding-bottom: 24px;
+      flex-direction: column;
+
+      .el {
+        display: flex;
+      }
+
+      .el-1 {
+        flex: 0 0 29px;
+        justify-content: space-between;
+
+        .time {
+          display: flex;
+          flex: 0 0 183px;
+          border-radius: 25px;
+          background: $lightGrayColor;
+          align-items: center;
+          column-gap: 10px;
+          padding-left: 14.5px;
+        }
+
+        .star-icon {
+          flex: 0 0 20px;
+          background-position: center bottom;
+        }
+      }
+
+      .el-2 {
+        margin-top: 20px;
+        margin-bottom: 16px;
+
+      }
+    }
+
+    &.elem-2 {
+      flex: 0 0 68px;
+      border-top: 1px solid #E1E1E1;
+      padding-left: 35px;
+      padding-right: 30px;
+      justify-content: space-between;
+      align-items: center;
+
+      .el {
+        padding-left: 28px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

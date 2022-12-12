@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
 import {Link, useParams} from "react-router-dom";
 import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
+import {SameEventComponent} from "./SameEventComponent";
 
 
 export default function EventComponent ({event, user, funcs}) {
@@ -40,6 +41,7 @@ export default function EventComponent ({event, user, funcs}) {
             </div>
             <VisibleBoardEvent/>
             <VisibleEventOrganizer/>
+            <SameEventComponent event={event}/>
         </div>
     )
 }
