@@ -23,20 +23,22 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
         })
     }
 
+    const joinUnAuth = () => {
+        funcs.removeMap();
+        funcs.openUnAuthJoin();
+    }
+
     const leaveEvent = () => {
         funcs.removeMap();
         funcs.openLeaveEvent();
-        // eventService.leaveEvent(event).then((response) => {
-        //     if (response.status === 200) funcs.setEvent(response.data);
-        // })
     }
-
-
 
     return (
         <div className={`buttons-board-player-component ${className}`}>
-            {user.user !== false && !ids.includes(user.user.id) && <button className={"el el-1 btn"} onClick={joinToEvent}>Присоединиться к игре</button>}
-            {user.user !== false && ids.includes(user.user.id) && <button className={"el el-1 btn-second"} onClick={leaveEvent}>Покинуть событие</button>}
+            {!user.isAuth && !ids.includes(user.user.id) && <button className={"el el-1 btn"} onClick={joinUnAuth}>Присоединиться к игре</button>}
+            {user.isAuth && !ids.includes(user.user.id) && <button className={"el el-1 btn"} onClick={joinToEvent}>Присоединиться к игре</button>}
+            {user.isAuth && ids.includes(user.user.id) && <button className={"el el-1 btn-second"} onClick={leaveEvent}>Покинуть событие</button>}
+            {user.isAuth && !ids.includes(user.user.id) && <button className={"el el-1 btn"} onClick={joinToEvent}>Присоединиться к игре</button>}
         </div>
     )
 }

@@ -14,7 +14,7 @@ import {
     SUCCESS_EDIT_EVENT_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
     SUCCESS_SIGN_UP2_WINDOW,
-    SUCCESS_SIGN_UP_WINDOW
+    SUCCESS_SIGN_UP_WINDOW, UN_AUTH_JOIN_WINDOW
 } from "../actions/actions";
 import { combineReducers } from 'redux';
 
@@ -37,6 +37,7 @@ const initialState = {
     isOpenConfirmTeams: false,
     isOpenMobileFirstPage: false,
     isOpenLeaveEvent: false,
+    isOpenUnAuthJoin: false,
 }
 
 
@@ -131,6 +132,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenLeaveEvent: action.value
+          };
+      case UN_AUTH_JOIN_WINDOW:
+          return {
+              ...state,
+              isOpenUnAuthJoin: action.value
           };
       default:
           return state;

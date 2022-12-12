@@ -26,7 +26,7 @@ export default function SuccessComponent ({
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame success-event"}>
+            <div className={"popup-frame success-component"}>
                 <div className={"elem elem-1"}>
                     <span className={"title-22"}>{title}</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>

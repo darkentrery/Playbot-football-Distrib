@@ -2,7 +2,14 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, hiddenMap, leaveEventWindow
+  confirmPlayersWindow,
+  players,
+  steps,
+  fillRegulationWindow,
+  confirmTeamsWindow,
+  hiddenMap,
+  leaveEventWindow,
+  loginWindow, unAuthJoinWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
 import BoardEventComponent from "../../components/body/BoardEventComponent";
@@ -51,6 +58,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openLeaveEvent: () => {
         dispatch(leaveEventWindow(true));
+      },
+      openUnAuthJoin: () => {
+        dispatch(unAuthJoinWindow(true));
       },
     }
   };

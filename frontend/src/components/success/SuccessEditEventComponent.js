@@ -1,4 +1,4 @@
-import SuccessComponent from "./SuccessComponent";
+import SuccessComponent from "../successComponent/SuccessComponent";
 import {useNavigate} from "react-router-dom";
 
 

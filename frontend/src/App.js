@@ -27,6 +27,7 @@ import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent
 import $ from "jquery";
 import HeadComponent from "./components/HeadComponent";
 import VisibleLeaveEvent from "./redux/containers/VisibleLeaveEvent";
+import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
 
 
 
@@ -139,6 +140,7 @@ function App({state, funcs}) {
               <VisibleEditEvent/>
               <VisibleCancelEvent/>
               <VisibleLeaveEvent/>
+              <VisibleUnAuthJoin/>
 
               <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
                                        funcs={funcs} isIPhone={state.app.isIPhone}/>

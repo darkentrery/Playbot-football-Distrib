@@ -1,4 +1,4 @@
-import SuccessComponent from "./SuccessComponent";
+import SuccessComponent from "../successComponent/SuccessComponent";
 
 
 export default function SuccessSignUp2Component ({isOpen, closeComponent}) {

@@ -1,5 +1,5 @@
 
-import SuccessComponent from "./SuccessComponent";
+import SuccessComponent from "../successComponent/SuccessComponent";
 
 
 export default function SuccessSignUpComponent ({isOpen, closeComponent, showMap}) {

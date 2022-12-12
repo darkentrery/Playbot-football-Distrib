@@ -16,6 +16,7 @@ export const FILL_REGULATION_WINDOW = 'FILL_REGULATION_WINDOW';
 export const CONFIRM_TEAMS_WINDOW = 'CONFIRM_TEAMS_WINDOW';
 export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 export const LEAVE_EVENT_WINDOW = 'LEAVE_EVENT_WINDOW';
+export const UN_AUTH_JOIN_WINDOW = 'UN_AUTH_JOIN_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -116,6 +117,11 @@ export const mobileFirstPageWindow = (value) => ({
 
 export const leaveEventWindow = (value) => ({
   type: LEAVE_EVENT_WINDOW,
+  value,
+});
+
+export const unAuthJoinWindow = (value) => ({
+  type: UN_AUTH_JOIN_WINDOW,
   value,
 });
 
