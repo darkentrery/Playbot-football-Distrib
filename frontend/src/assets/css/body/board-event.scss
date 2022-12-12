@@ -215,4 +215,10 @@
       }
     }
   }
+
+  .buttons-board-player-component {
+    .el {
+      flex: 1 1 auto !important;
+    }
+  }
 }

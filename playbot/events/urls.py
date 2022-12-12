@@ -14,4 +14,5 @@ urlpatterns = [
     path("get-regulation/<int:id>/", views.GetRegulationView.as_view(), name='get-regulation'),
     path("set-regulation/", views.SetRegulationView.as_view(), name='set-regulation'),
     path("join-player/", views.JoinPlayerView.as_view(), name='join-player'),
+    path("leave-event/", views.LeaveEventView.as_view(), name='leave-event'),
 ]

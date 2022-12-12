@@ -6,7 +6,7 @@ import {
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
-    EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE,
+    EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     SIGN_UP_WINDOW, STEPS,
@@ -36,6 +36,7 @@ const initialState = {
     isOpenFillRegulation: false,
     isOpenConfirmTeams: false,
     isOpenMobileFirstPage: false,
+    isOpenLeaveEvent: false,
 }
 
 
@@ -125,6 +126,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenMobileFirstPage: action.value
+          };
+      case LEAVE_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenLeaveEvent: action.value
           };
       default:
           return state;

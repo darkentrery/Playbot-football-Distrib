@@ -1,10 +1,10 @@
+import {CancelComponent} from "./CancelComponent";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {useEffect, useState} from "react";
 import EventService from "../../services/EventService";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import {CancelComponent} from "./CancelComponent";
 
 
-export const CancelEventComponent = ({isOpen, event, funcs}) => {
+export const LeaveEventComponent = ({isOpen, event, funcs}) => {
     const eventService = new EventService();
     const [reason, setReason] = useState(false);
     const [reasons, setReasons] = useState(false);
@@ -23,10 +23,7 @@ export const CancelEventComponent = ({isOpen, event, funcs}) => {
     }
 
     const sendForm = () => {
-        event.cancel = true;
-        event.cancel_reasons = reason;
-        event.city = event.city.name;
-        authDecoratorWithoutLogin(eventService.editEvent, event).then((response) => {
+        authDecoratorWithoutLogin(eventService.leaveEvent, {"event": event, "reason": reason}).then((response) => {
             if (response.status === 200) {
                 closeWindow();
                 funcs.setEvent(response.data);
@@ -34,7 +31,7 @@ export const CancelEventComponent = ({isOpen, event, funcs}) => {
         })
     }
 
-    return(
+    return (
         <CancelComponent
             isOpen={isOpen}
             closeComponent={closeWindow}
@@ -43,8 +40,8 @@ export const CancelEventComponent = ({isOpen, event, funcs}) => {
             setReason={setReason}
             reasons={reasons}
             onClick={sendForm}
-            title={"Отмена игры"}
-            text={"Укажите причину, по которой вы хотите отменить игру:"}
+            title={"Покинуть событие"}
+            text={"Укажите причину, по которой вы хотите покуинуть событие:"}
             buttonText={"Отменить игру"}
         />
     )

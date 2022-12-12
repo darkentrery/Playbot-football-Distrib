@@ -1,12 +1,12 @@
-import {cancelEventWindow, event, hiddenMap} from "../actions/actions";
+import {event, hiddenMap, leaveEventWindow} from "../actions/actions";
 import {connect} from "react-redux";
-import {CancelEventComponent} from "../../components/popups/CancelEventComponent";
+import {LeaveEventComponent} from "../../components/popups/LeaveEventComponent";
 
 
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isOpen: state.windows.isOpenCancelEvent,
+    isOpen: state.windows.isOpenLeaveEvent,
     event: state.event.event,
   };
 };
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     funcs: {
       closeComponent: () => {
-        dispatch(cancelEventWindow(false));
+        dispatch(leaveEventWindow(false));
       },
       setEvent: (value) => {
         dispatch(event(value));
@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const VisibleCancelEvent = connect(
+const VisibleLeaveEvent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CancelEventComponent);
+)(LeaveEventComponent);
 
-export default VisibleCancelEvent;
+export default VisibleLeaveEvent;

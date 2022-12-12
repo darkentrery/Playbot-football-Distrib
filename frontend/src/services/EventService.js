@@ -171,6 +171,21 @@ export default class EventService{
 			});
 	}
 
+	leaveEvent(data){
+		const url = `${API_URL}leave-event/`;
+		return axios.post(url, data, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	replaceAt (val, i) {
 		val = val.substring(0, i) + '' + val.substring(i + 1);
 		return val;

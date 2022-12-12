@@ -9,6 +9,7 @@ from playbot.events.models import Event, CancelReasons, EventStep, Format, Distr
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer
+from playbot.history.models import UserEventAction
 
 
 class CreateEventView(APIView):
@@ -151,6 +152,21 @@ class JoinPlayerView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data.get("id"))
         EventPlayer.objects.update_or_create(player=request.user, event=event)
+        UserEventAction.objects.create(user=request.user, event=event)
+        event = EventSerializer(instance=event)
+        return Response(event.data, status=status.HTTP_200_OK)
+
+
+class LeaveEventView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["event"]["id"])
+        reason, create = CancelReasons.objects.update_or_create(name=request.data["reason"])
+        event_player = EventPlayer.objects.filter(player=request.user, event=event)
+        if event_player.exists():
+            event_player.delete()
+        UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)
 
