@@ -156,6 +156,21 @@ export default class EventService{
 			});
 	}
 
+	joinPlayer(event){
+		const url = `${API_URL}join-player/`;
+		return axios.post(url, event, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	replaceAt (val, i) {
 		val = val.substring(0, i) + '' + val.substring(i + 1);
 		return val;

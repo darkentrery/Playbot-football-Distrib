@@ -34,15 +34,15 @@ class CreateEventSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    format = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
-    distribution_method = serializers.SlugRelatedField(queryset=DistributionMethod.objects.all(), slug_field="name")
-    duration = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="name")
-    count_circles = serializers.SlugRelatedField(queryset=CountCircles.objects.all(), slug_field="name")
+    format = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    distribution_method = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    duration = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    count_circles = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     organizer = UserSerializer(read_only=True)
     event_step = EventStepSerializer(EventStep.objects.all(), many=True, read_only=True)
     city = CitySerializer(read_only=True)
-    cancel_reasons = serializers.SlugRelatedField(queryset=CancelReasons.objects.all(), slug_field="name")
+    cancel_reasons = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     class Meta:
         model = Event

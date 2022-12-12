@@ -90,6 +90,12 @@
   }
 }
 
+.buttons-board-player-component {
+  .el {
+    flex: 0 0 266px !important;
+  }
+}
+
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .main-page .body .event-component .board-event-component .board-event-1280 {
     flex: 0 0 249px;

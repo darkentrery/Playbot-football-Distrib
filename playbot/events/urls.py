@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from playbot.events import views
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path("confirm-players/", views.ConfirmPlayersView.as_view(), name='confirm-players'),
     path("get-regulation/<int:id>/", views.GetRegulationView.as_view(), name='get-regulation'),
     path("set-regulation/", views.SetRegulationView.as_view(), name='set-regulation'),
+    path("join-player/", views.JoinPlayerView.as_view(), name='join-player'),
 ]

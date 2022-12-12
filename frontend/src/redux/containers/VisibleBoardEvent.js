@@ -5,13 +5,14 @@ import {
   confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, hiddenMap
 } from "../actions/actions";
 import {connect} from "react-redux";
-import BoardEventOrganizerComponent from "../../components/body/BoardEventOrganizerComponent";
+import BoardEventComponent from "../../components/body/BoardEventComponent";
 
 
 const mapStateToProps = (state) => {
   return {
     ...state,
     event: state.event.event,
+    user: state.user,
   };
 };
 
@@ -52,9 +53,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const VisibleBoardEventOrganizer = connect(
+const VisibleBoardEvent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(BoardEventOrganizerComponent);
+)(BoardEventComponent);
 
-export default VisibleBoardEventOrganizer;
+export default VisibleBoardEvent;

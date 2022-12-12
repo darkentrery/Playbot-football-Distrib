@@ -1,8 +1,8 @@
 import EventService from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
-import VisibleBoardEventOrganizer from "../../redux/containers/VisibleBoardEventOrganizer";
 import {Link, useParams} from "react-router-dom";
+import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
 
 
 export default function EventComponent ({event, user, funcs}) {
@@ -29,7 +29,6 @@ export default function EventComponent ({event, user, funcs}) {
         funcs.removeMap();
     }
 
-
     return (
         <div className={"event-component"}>
             <div className={"elem-376"}>
@@ -39,7 +38,7 @@ export default function EventComponent ({event, user, funcs}) {
                     <div className={"el-3 black-edit-icon link"} onClick={editEvent}></div>
                 </div>
             </div>
-            {event && user.isAuth && event.organizer.id === user.user.id && <VisibleBoardEventOrganizer/>}
+            <VisibleBoardEvent/>
             <VisibleEventOrganizer/>
         </div>
     )

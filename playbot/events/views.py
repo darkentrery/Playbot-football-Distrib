@@ -4,14 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from playbot.cities.models import City
-from playbot.cities.serializers import CitySerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
-    CancelReasonsSerializer, EventStepSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
+    CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer
-from playbot.users.models import User
-from playbot.users.serializers import UserSerializer
 
 
 class CreateEventView(APIView):
@@ -25,9 +22,6 @@ class CreateEventView(APIView):
         data = request.data
         data.update({"organizer": request.user.pk})
         City.objects.update_or_create(name=request.data["city"])
-        # city = CitySerializer(data={"name": request.data["city"]})
-        # if city.is_valid():
-        #     city.save()
         serializer = CreateEventSerializer(data=request.data)
         if serializer.is_valid():
             event = serializer.save()
@@ -149,6 +143,17 @@ class SetRegulationView(APIView):
                 json = EventSerializer(Event.objects.get(id=id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class JoinPlayerView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data.get("id"))
+        EventPlayer.objects.update_or_create(player=request.user, event=event)
+        event = EventSerializer(instance=event)
+        return Response(event.data, status=status.HTTP_200_OK)
+
 
 
 
