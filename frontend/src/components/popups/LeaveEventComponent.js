@@ -1,4 +1,4 @@
-import {CancelComponent} from "./CancelComponent";
+import {CancelComponent} from "../cancelComponent/CancelComponent";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {useEffect, useState} from "react";
 import EventService from "../../services/EventService";

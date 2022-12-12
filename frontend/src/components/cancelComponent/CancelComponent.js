@@ -62,7 +62,7 @@ export const CancelComponent = ({
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={`popup-frame cancel-event-component ${otherReason ? 'other-reason' : ''}`}>
+            <div className={`popup-frame cancel-component ${otherReason ? 'other-reason' : ''}`}>
                 <div className={"elem elem-1"}>
                     <span className={"title-22"}>{title}</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>

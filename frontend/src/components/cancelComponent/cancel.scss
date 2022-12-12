@@ -1,4 +1,4 @@
-.cancel-event-component {
+.cancel-component {
   flex: 0 0 410px;
   height: 452px;
   flex-direction: column;
@@ -15,7 +15,7 @@
   }
 }
 
-.cancel-event-component .elem {
+.cancel-component .elem {
   display: flex;
 
   &.elem-1 {
@@ -62,7 +62,7 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px) {
-  .cancel-event-component {
+  .cancel-component {
     flex: 0 0 100vw;
     height: 100vh;
 
@@ -71,7 +71,7 @@
     }
   }
 
-  .cancel-event-component .elem {
+  .cancel-component .elem {
 
     &.elem-5 {
       margin-bottom: 32px;

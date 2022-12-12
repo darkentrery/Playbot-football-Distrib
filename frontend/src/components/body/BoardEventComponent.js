@@ -10,8 +10,6 @@ export default function BoardEventComponent ({event, user, funcs}) {
     if (event) {
         date = new Date(event.date);
     }
-    console.log()
-
 
     return (
         <div className={"board-event-component"}>
@@ -22,7 +20,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
                     <span className={"el el-3 dark-gray-star-icon"}>В избранное</span>
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
-                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
+                <span className={"elem elem-3"}>{event && event.event_step.length >= 1 ? 'Событие началось.' : ''} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
                 {event && user.isAuth && event.organizer.id === user.user.id && <ButtonsBoardOrganizerComponent event={event} funcs={funcs}/>}
                 {event && !user.isAuth && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
                 {event && user.isAuth && event.organizer.id !== user.user.id && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
@@ -36,7 +34,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
                     <span className={"el el-4 dark-gray-star-icon"}></span>
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
-                <span className={"elem elem-3"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
+                <span className={"elem elem-3"}>{event && event.event_step.length >= 1 ? 'Событие началось.' : ''} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
                 {event && user.isAuth && event.organizer.id === user.user.id && <ButtonsBoardOrganizerComponent event={event} funcs={funcs}/>}
                 {event && !user.isAuth && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
                 {event && user.isAuth && event.organizer.id !== user.user.id && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}

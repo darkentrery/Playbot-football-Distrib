@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import {CancelComponent} from "./CancelComponent";
+import {CancelComponent} from "../cancelComponent/CancelComponent";
 
 
 export const CancelEventComponent = ({isOpen, event, funcs}) => {
