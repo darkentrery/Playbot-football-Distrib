@@ -205,14 +205,14 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    # name = serializers.CharField(max_length=128, write_only=True, required=True)
     phone_number = serializers.CharField(max_length=128, write_only=True, required=False)
+    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     # email = serializers.EmailField(required=True, write_only=True, max_length=128)
     # password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ("username", "phone_number", "email", "password")
+        fields = ("username", "phone_number", "email", "password", "city")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -260,15 +260,12 @@ class SignUpTelegramSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("telegram_id",)
-        # extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         password = "1234"
         if password is not None:
             instance.set_password(password)
-            # instance.email = "aaaa@aaaa.com"
-            # instance.username = instance.email
         instance.save()
         return instance
 

@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import docPolicy from "../assets/documents/policy.docx";
 import docOffer from "../assets/documents/offer.docx";
 import $ from "jquery";
+import {getLocationsByCoords} from "../services/LocationService";
 
 
 export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
@@ -14,6 +15,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const [phoneCode, setPhoneCode] = useState("+7");
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
+    const [city, setCity] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
@@ -23,7 +25,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const [countryTag, setCountryTag] = useState([]);
     const [countries, setCountries] = useState(false);
     const [banner, setBanner] = useState(false);
-    const [enterFlag, setEnterFlag] = useState(false);
 
     const refUsername = useRef();
     const refPhoneNumber = useRef();
@@ -97,12 +98,26 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     useEffect(() => {
         let bodyFormData = new FormData();
         let bodyLoginFormData = new FormData();
+        navigator.geolocation.getCurrentPosition((response) => {
+            let coords = [response.coords.latitude, response.coords.longitude];
+            if (!city) {
+                getLocationsByCoords(coords).then((response) => {
+                    if (response.data.results.length !== 0) {
+                        let components = response.data.results[0].components;
+                        if (components.city) setCity(components.city);
+                    }
+                })
+            }
+        }, (error) => {
+           console.log(error)
+        });
         bodyFormData.append('username', username);
         if (phoneNumber) {
             bodyFormData.append('phone_number', `${phoneCode}${phoneNumber}`);
         }
         bodyFormData.append('email', email);
         bodyFormData.append('password', password);
+        bodyFormData.append('city', city);
         bodyLoginFormData.append('email', email);
         bodyLoginFormData.append('password', password);
         setData(bodyFormData);
@@ -119,6 +134,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         setAllowOffer(false);
         setData(false);
         setIsDropdown(false);
+        setCity(false);
         refArrowIcon.current.className = "down-arrow-icon";
         $(refPhoneNumber.current).removeClass('open');
         closeComponent();
