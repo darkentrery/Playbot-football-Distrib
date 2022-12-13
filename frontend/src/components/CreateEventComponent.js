@@ -74,17 +74,6 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
             'geo_point': point,
         };
         setData(bodyFormData);
-        // let bodyFormData = new FormData();
-        // bodyFormData.append('name', name);
-        // bodyFormData.append('date', date);
-        // bodyFormData.append('time_begin', time);
-        // bodyFormData.append('address', address);
-        // bodyFormData.append('count_players', count);
-        // bodyFormData.append('is_player', isPlayer);
-        // bodyFormData.append('notice', notice);
-        // bodyFormData.append('city', city);
-        // bodyFormData.append('geo_point', point);
-        // setData(bodyFormData)
     }, [name, date, time, address, count, isPlayer, notice, city, point]);
 
     const closeWindow = () => {

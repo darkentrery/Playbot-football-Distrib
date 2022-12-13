@@ -254,10 +254,18 @@ export default class EventService{
 			$(refs[elem].current).children('span').html('');
 		});
 
-		if (!name) errors.push("name");
-		if (!date) errors.push("date");
-		if (!time) errors.push("time");
-		if (!address || !city || !point) errors.push("address");
+		if (!name) {
+			errors.push("name");
+		}
+		if (!date) {
+			errors.push("date");
+		}
+		if (!time) {
+			errors.push("time");
+		}
+		if (!address || !city || !point) {
+			errors.push("address");
+		}
 
 		errors.forEach(error => {
 			$(refs[error].current).children('span').addClass('error');

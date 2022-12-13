@@ -1,0 +1,200 @@
+.form-event-component {
+  display: flex;
+  flex: 0 0 411px;
+  height: 702px;
+  flex-direction: column;
+  align-items: center;
+  background: $whiteColor;
+
+  .elem {
+    display: flex;
+    flex: 0 0 $fieldHeight;
+    width: $createEventFieldWidth;
+    align-items: stretch;
+    justify-content: stretch;
+
+    &.elem-1 {
+      flex: 0 0 24px;
+      justify-content: end;
+      margin-top: 24px;
+      width: 411px;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 32px;
+
+      .btn-close {
+        flex: 0 0 24px;
+        align-self: end;
+        margin-top: -28px;
+        margin-right: 28px;
+      }
+
+      span {
+        font-weight: 600;
+        font-size: 22px;
+      }
+    }
+
+    &.elem-2 {
+      input {
+        background-position: 16px center;
+      }
+    }
+
+    &.elem-3 {
+      justify-content: start;
+      flex-direction: column;
+
+      .error {
+        input {
+          border: 0.8px solid #EC5B56;
+        }
+      }
+
+      input {
+        padding-left: 48px;
+        padding-right: 20px;
+        background: url("../../assets/icon/calendar2.png") no-repeat;
+        background-size: 20px;
+        background-position: 16px center;
+      }
+    }
+
+    &.elem-4 {
+      justify-content: start;
+      flex-direction: column;
+
+      input {
+        padding-left: 48px;
+        padding-right: 20px;
+        background: url("../../assets/icon/gray-clock.png") no-repeat;
+        background-size: 20px;
+        background-position: 16px center;
+      }
+    }
+
+    &.elem-5 {
+      position: relative;
+
+      .suggests {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: $createEventFieldWidth;
+        height: auto;
+        top: $fieldHeight;
+        border: 0.8px solid #949494;
+        border-radius: 8px;
+        background: $whiteColor;
+        z-index: 99999;
+        max-height: 250px;
+        align-items: stretch;
+        box-sizing: border-box;
+        overflow: auto;
+        //background-position: left 14px center;
+        gap: 5px;
+
+        .suggest-item {
+          display: flex;
+          align-items: center;
+          flex: 1 0 28px;
+          padding-left: 10px;
+          padding-right: 10px;
+          cursor: pointer;
+
+          &:hover {
+            background: #F8F8F8;
+            border-radius: 8px;
+          }
+        }
+
+        &.hidden {
+          display: none;
+        }
+
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+        &::-webkit-scrollbar-track {
+          border: 1px solid transparent;
+          background-clip: content-box;
+          border-radius: 2px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: rgba(35, 32, 33, 0.12);
+          border-radius: 2px;
+        }
+      }
+    }
+
+    &.elem-6 {
+      flex: 0 0 19px;
+    }
+
+    &.elem-7 {
+      flex-direction: column;
+      margin-top: 8px;
+    }
+
+    &.elem-8 {
+      flex: 0 0 24px;
+      margin-top: 4px;
+      margin-bottom: 24px;
+      align-items: center;
+
+      .slider-uncheck-icon {
+        flex: 0 0 40px;
+      }
+
+      .slider-check-icon {
+        flex: 0 0 40px;
+      }
+
+      span {
+        margin-left: 16px;
+      }
+    }
+
+    &.elem-9 {
+      flex: 1 1 auto;
+      flex-direction: column;
+      textarea {
+        box-sizing: border-box;
+        flex: 1 0 69px;
+      }
+    }
+
+    &.elem-10 {
+      margin-top: 4px;
+      margin-bottom: 40px;
+
+      &.safari-margin {
+        margin-bottom: 70px;
+      }
+    }
+
+    .input-message {
+      flex: 0 0 12px;
+      margin-top: 4px;
+      font-size: 10px;
+      &.error {
+        color: #EC5B56;
+      }
+    }
+
+    input {
+      box-sizing: border-box;
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .form-event-component {
+    flex: 0 0 100vw;
+    height: 100vh;
+
+    .elem.elem-1 {
+      width: 100vw;
+    }
+  }
+}
