@@ -12,3 +12,20 @@ class City(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Address(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="address")
+    country = models.CharField(_("Country"), max_length=150)
+    region = models.CharField(_("Region"), max_length=150, blank=True, null=True)
+    state = models.CharField(_("State"), max_length=150, blank=True, null=True)
+    street = models.CharField(_("Street"), max_length=150, blank=True, null=True)
+    house_number = models.CharField(_("House Number"), max_length=150, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Address"
+        verbose_name_plural = "Addresses"
+
+    def __str__(self):
+        return f"{self.country} - {self.city.name}"
+

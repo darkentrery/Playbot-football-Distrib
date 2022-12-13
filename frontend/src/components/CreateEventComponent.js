@@ -53,17 +53,38 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
     }
 
     useEffect(() => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('name', name);
-        bodyFormData.append('date', date);
-        bodyFormData.append('time_begin', time);
-        bodyFormData.append('address', address);
-        bodyFormData.append('count_players', count);
-        bodyFormData.append('is_player', isPlayer);
-        bodyFormData.append('notice', notice);
-        bodyFormData.append('city', city);
-        bodyFormData.append('geo_point', point);
-        setData(bodyFormData)
+        let newDate;
+        if (date) {
+            let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
+            if (match !== null) {
+                newDate = `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}`;
+            } else {
+                newDate = date;
+            }
+        }
+        let bodyFormData = {
+            'name': name,
+            'date': newDate,
+            'time_begin': time,
+            'address': address,
+            'count_players': count,
+            'is_player': isPlayer,
+            'notice': notice,
+            'city': city,
+            'geo_point': point,
+        };
+        setData(bodyFormData);
+        // let bodyFormData = new FormData();
+        // bodyFormData.append('name', name);
+        // bodyFormData.append('date', date);
+        // bodyFormData.append('time_begin', time);
+        // bodyFormData.append('address', address);
+        // bodyFormData.append('count_players', count);
+        // bodyFormData.append('is_player', isPlayer);
+        // bodyFormData.append('notice', notice);
+        // bodyFormData.append('city', city);
+        // bodyFormData.append('geo_point', point);
+        // setData(bodyFormData)
     }, [name, date, time, address, count, isPlayer, notice, city, point]);
 
     const closeWindow = () => {
@@ -114,7 +135,6 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         setNotice(e.target.value);
     }
     useEffect(() => {
-        console.log(refDate.current)
         if (refDate.current) refDate.current.setState({inputValue: ''});
     }, [incorrectDate])
 
@@ -130,7 +150,6 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
                     let array = [];
                     geoObjects.map((item) => {
                         if (item.components.city) array.push(item);
-
                     })
                     setSuggests(array);
                     // let geoObjects = response.data.response.GeoObjectCollection.featureMember;
@@ -163,10 +182,18 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
         //     if (item.kind === 'locality') city = item.name;
         // })
         let suggest = suggests[e.target.id];
+        let components = suggest.components;
         let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
-        let address = suggest.formatted;
         let city = suggest.components.city;
-        setAddress(address);
+        let newAddress = {
+            "country": components.country,
+            "city": components.city,
+        };
+        if (components.region) newAddress["region"] = components.region;
+        if (components.state) newAddress["state"] = components.state;
+        if (components.road) newAddress["street"] = components.road;
+        if (components.house_number) newAddress["house_number"] = components.house_number;
+        setAddress(newAddress);
         setCity(city);
         setPoint(point);
         setSuggests([]);
@@ -225,7 +252,9 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
                             <span className={"input-message"}></span>
                         </div>
                         <div className={"elem elem-5 div-input"} ref={refAddress}>
-                            <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} value={address ? address : ''} onChange={getAddress}/>
+                            <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"}
+                                   value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
+                                   onChange={getAddress}/>
                             <span className={"input-message"}></span>
                             <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
                                 {suggests.length !== 0 && suggests.map((item, key) => {

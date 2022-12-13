@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from playbot.cities.models import City
-from playbot.cities.serializers import CitySerializer
+from playbot.cities.models import City, Address
+from playbot.cities.serializers import CitySerializer, AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer
 from playbot.users.models import User
@@ -27,6 +27,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
 
     class Meta:
         model = Event
@@ -43,6 +44,7 @@ class EventSerializer(serializers.ModelSerializer):
     event_step = EventStepSerializer(EventStep.objects.all(), many=True, read_only=True)
     city = CitySerializer(read_only=True)
     cancel_reasons = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    address = AddressSerializer(read_only=True)
 
     class Meta:
         model = Event
@@ -55,6 +57,7 @@ class EditEventSerializer(serializers.ModelSerializer):
     organizer = UserSerializer(read_only=True)
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
     cancel_reasons = serializers.SlugRelatedField(queryset=CancelReasons.objects.all(), slug_field="name", required=False)
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
 
     class Meta:
         model = Event

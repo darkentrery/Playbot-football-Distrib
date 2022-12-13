@@ -6,7 +6,9 @@ import "leaflet/dist/leaflet.css"
 
 export default function EventDescriptionComponent ({event, user, hiddenMap, funcs}) {
     const [position, setPosition] = useState(false);
+    const [address, setAddress] = useState(false);
     const markerRef = useRef(false);
+
 
     useEffect(() => {
         if (event.geo_point) {
@@ -16,6 +18,13 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             }
             setPosition(point);
         }
+        let address = {
+            country: event.address && event.address.country ? event.address.country : '',
+            city: event.address && event.address.city ? ', ' + event.address.city : '',
+            street: event.address && event.address.street ? ', ' + event.address.street : '',
+            house_number: event.address && event.address.house_number ? ', ' + event.address.house_number : '',
+        }
+        setAddress(`${address.country}${address.city}${address.street}${address.house_number}`);
     }, [event])
 
     const LocationMarker = () => {
@@ -80,7 +89,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
                 <span className={"el el-2"}>Организатор:</span>
             </div>
             <div className={"elem-1280 elem-5"}>
-                <span className={"el el-1"}>{event.address}</span>
+                <span className={"el el-1"}>{address}</span>
                 <span className={"el el-2"}>{event ? event.organizer.username : ''}</span>
             </div>
             <div className={`elem-1280 elem-6 ${hiddenMap ? 'hidden' : ''}`}>
@@ -95,7 +104,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             <span className={"elem-744 elem-4"}>Организатор:</span>
             <span className={"elem-744 elem-5"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-744 elem-6"}>Адрес:</span>
-            <span className={"elem-744 elem-7"}>{event.address}</span>
+            <span className={"elem-744 elem-7"}>{address}</span>
             <div className={`elem-744 elem-8 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
             </div>
@@ -108,7 +117,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             <span className={"elem-376 elem-3"}>Организатор:</span>
             <span className={"elem-376 elem-4"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-376 elem-5"}>Адрес:</span>
-            <span className={"elem-376 elem-6"}>{event.address}</span>
+            <span className={"elem-376 elem-6"}>{address}</span>
             <div className={`elem-376 elem-7 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
             </div>

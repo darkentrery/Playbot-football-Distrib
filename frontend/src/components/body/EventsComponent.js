@@ -21,6 +21,13 @@ export default function EventsComponent ({city, user}) {
                         if (key === 0 || item.date !== response.data[key - 1].date) {
                             data.push({date: new Date(item.date)})
                         }
+                        let address = {
+                            country: item.address && item.address.country ? item.address.country : '',
+                            city: item.address && item.address.city ? ', ' + item.address.city : '',
+                            street: item.address && item.address.street ? ', ' + item.address.street : '',
+                            house_number: item.address && item.address.house_number ? ', ' + item.address.house_number : '',
+                        }
+                        item.address = `${address.country}${address.city}${address.street}${address.house_number}`;
                         data.push({event: item})
                     })
                     setEvents(data);
@@ -40,6 +47,13 @@ export default function EventsComponent ({city, user}) {
                         if (key === 0 || item.date !== response.data[key - 1].date) {
                             data.push({date: new Date(item.date)})
                         }
+                        let address = {
+                            country: item.address && item.address.country ? item.address.country : '',
+                            city: item.address && item.address.city ? ', ' + item.address.city : '',
+                            street: item.address && item.address.street ? ', ' + item.address.street : '',
+                            house_number: item.address && item.address.house_number ? ', ' + item.address.house_number : '',
+                        }
+                        item.address = `${address.country}${address.city}${address.street}${address.house_number}`;
                         data.push({event: item})
                     })
                     setEvents(data);

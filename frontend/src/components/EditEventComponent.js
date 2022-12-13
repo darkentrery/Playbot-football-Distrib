@@ -57,7 +57,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         setName(event.name);
         if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
         if (event.time_begin) setTime(event.time_begin.slice(0, 5));
-        setAddress(event.address);
+        if (event.address) setAddress(event.address);
         setPoint(event.geo_point);
         if (event.city) setCity(event.city.name);
         setCount(event.count_players);
@@ -66,27 +66,28 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
     }, [event, isOpen])
 
     useEffect(() => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('id', id);
-        bodyFormData.append('name', name);
-
+        let newDate;
         if (date) {
             let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
             if (match !== null) {
-                bodyFormData.append('date', `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}`);
+                newDate = `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}`;
             } else {
-                bodyFormData.append('date', date);
+                newDate = date;
             }
         }
-
-        bodyFormData.append('time_begin', time);
-        bodyFormData.append('address', address);
-        bodyFormData.append('count_players', count);
-        bodyFormData.append('is_player', isPlayer);
-        bodyFormData.append('notice', notice);
-        bodyFormData.append('city', city);
-        bodyFormData.append('geo_point', point);
-        setData(bodyFormData)
+        let bodyFormData = {
+            'id': id,
+            'name': name,
+            'date': newDate,
+            'time_begin': time,
+            'address': address,
+            'count_players': count,
+            'is_player': isPlayer,
+            'notice': notice,
+            'city': city,
+            'geo_point': point,
+        };
+        setData(bodyFormData);
     }, [name, date, time, address, count, isPlayer, notice, point, city]);
 
     const closeWindow = () => {
@@ -163,10 +164,18 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
 
     const choiceAddress = (e) => {
         let suggest = suggests[e.target.id];
+        let components = suggest.components;
         let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
-        let address = suggest.formatted;
         let city = suggest.components.city;
-        setAddress(address);
+        let newAddress = {
+            "country": components.country,
+            "city": components.city,
+        };
+        if (components.region) newAddress["region"] = components.region;
+        if (components.state) newAddress["state"] = components.state;
+        if (components.road) newAddress["street"] = components.road;
+        if (components.house_number) newAddress["house_number"] = components.house_number;
+        setAddress(newAddress);
         setCity(city);
         setPoint(point);
         setSuggests([]);
@@ -228,7 +237,9 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
                         <span className={"input-message"}></span>
                     </div>
                     <div className={"elem elem-5 div-input"} ref={refAddress}>
-                        <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"} value={address ? address : ''} onChange={getAddress}/>
+                        <input className={"map-point-icon input-icon"} type="text" placeholder={"Адрес проведения *"}
+                               value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
+                               onChange={getAddress}/>
                         <span className={"input-message"}></span>
                         <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
                             {suggests.length !== 0 && suggests.map((item, key) => {

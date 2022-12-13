@@ -9,9 +9,7 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
     if (event) {
         date = new Date(event.date);
     }
-    console.log(date)
     let activatDate = date.setHours(date.getHours() - 1)
-    console.log(activatDate)
 
     const toConfirmPlayers = (e) => {
         if (Date.now() >= activatDate) {

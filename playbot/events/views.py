@@ -3,7 +3,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from playbot.cities.models import City
+from playbot.cities.models import City, Address
+from playbot.cities.serializers import AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
@@ -22,7 +23,16 @@ class CreateEventView(APIView):
     def post(self, request, format='json'):
         data = request.data
         data.update({"organizer": request.user.pk})
-        City.objects.update_or_create(name=request.data["city"])
+        city, creat = City.objects.update_or_create(name=request.data["address"]["city"])
+        address, creat = Address.objects.update_or_create(
+            country=request.data["address"]["country"],
+            city=city,
+            region=request.data["address"].get("region"),
+            state=request.data["address"].get("state"),
+            street=request.data["address"].get("street"),
+            house_number=request.data["address"].get("house_number"),
+        )
+        request.data["address"] = address.id
         serializer = CreateEventSerializer(data=request.data)
         if serializer.is_valid():
             event = serializer.save()
@@ -57,9 +67,18 @@ class EditEventView(APIView):
 
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
-        City.objects.update_or_create(name=request.data["city"])
-        if request.data.get("cancel_reasons"):
-            CancelReasons.objects.update_or_create(name=request.data["cancel_reasons"])
+        city, creat = City.objects.update_or_create(name=request.data["address"]["city"])
+        address, creat = Address.objects.update_or_create(
+            country=request.data["address"]["country"],
+            city=city,
+            region=request.data["address"].get("region"),
+            state=request.data["address"].get("state"),
+            street=request.data["address"].get("street"),
+            house_number=request.data["address"].get("house_number"),
+        )
+        request.data["address"] = address.id
+        # if request.data.get("cancel_reasons"):
+        #     CancelReasons.objects.update_or_create(name=request.data["cancel_reasons"])
         serializer = EditEventSerializer(event, data=request.data)
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()

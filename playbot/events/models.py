@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 # from django.contrib.gis.db import models
-from playbot.cities.models import City
+from playbot.cities.models import City, Address
 from playbot.users.models import User
 
 
@@ -69,7 +69,7 @@ class Event(models.Model):
     time_begin = models.TimeField(_("Time Begin"))
     time_end = models.TimeField(_("Time End"), blank=True, null=True)
     count_players = models.IntegerField(_("Count Of Players"))
-    address = models.CharField(_("Address"), max_length=150)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="event", blank=True, null=True)
     geo_point = models.CharField(_("Geo Point"), max_length=50, blank=True, null=True)
     cancel = models.BooleanField(_("Cancel"), default=False)
     cancel_reasons = models.ForeignKey(CancelReasons, on_delete=models.SET_NULL, related_name="event", blank=True, null=True)
