@@ -213,7 +213,7 @@ export default class EventService{
             refDate.current.setState({inputValue: formatVal})
         } else {
 			let date = new Date(e.format("YYYY-MM-DD"));
-			if (date < Date.now()) {
+			if (date.setDate(date.getDate() + 1) < Date.now()) {
 				refDate.current.setState({open: true});
 				setDate(false);
 				setIncorrectDate(!incorrectDate);

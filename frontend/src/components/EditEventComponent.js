@@ -120,7 +120,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
 
     const renderDay = (props, currentDate, selectedDate) => {
         let date = new Date(currentDate.format("YYYY-MM-DD"));
-        if (date < Date.now()) {
+        if (date.setDate(date.getDate() + 1) < Date.now()) {
             props.className = "calendar-day inactive";
         } else {
             props.className = "calendar-day";
