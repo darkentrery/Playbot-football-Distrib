@@ -7,23 +7,35 @@ const BaseRoutes = {
 	},
 
 	get main () {
-		return "/"
+		return "/";
 	},
 
 	get description () {
-		return "events/description/"
+		return "events/description/";
 	},
 
 	get members () {
-		return "events/members/"
+		return "events/members/";
 	},
 
 	get chat () {
-		return "events/chat/"
+		return "events/chat/";
 	},
 
 	eventLink (pk) {
-		return `event/${pk}/`
+		return `event/${pk}/`;
+	},
+
+	get event () {
+		return `events/event/:pk/`;
+	},
+
+	get allowPolicy () {
+		return "allow-policy/";
+	},
+
+	get allowOffer () {
+		return "allow-offer/";
 	},
 
 

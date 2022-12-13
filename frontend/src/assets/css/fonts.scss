@@ -12,18 +12,6 @@
   font-style: normal;
 }
 
-.gray-400-16 {
-  font-weight: 400;
-  font-size: 16px;
-  color: $grayColor;
-}
-
-.gray-400-12 {
-  font-weight: 400;
-  font-size: 12px;
-  color: $grayColor;
-}
-
 .black-600-16 {
   font-weight: 600;
   font-size: 16px;
@@ -72,6 +60,12 @@
   color: $whiteColor !important;
 }
 
+.white-400-14 {
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: $whiteColor !important;
+}
+
 .dark-gray-600-32 {
   font-weight: 600 !important;
   font-size: 32px !important;
@@ -88,4 +82,16 @@
   font-weight: 400 !important;
   font-size: 12px !important;
   color: $darkGrayColor !important;
+}
+
+.gray-400-16 {
+  font-weight: 400;
+  font-size: 16px;
+  color: $grayColor;
+}
+
+.gray-400-12 {
+  font-weight: 400;
+  font-size: 12px;
+  color: $grayColor;
 }

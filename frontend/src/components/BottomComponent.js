@@ -43,11 +43,13 @@ export default function BottomComponent () {
                 </div>
                 <div className={"el el-2"}>
                     <div className={"col col-1"}>
-                        <span>Главная</span>
+                        <Link className={"white-400-14"} to={BaseRoutes.main}>Главная</Link>
+                        {/*<span>Главная</span>*/}
                         <span>Статистика</span>
                     </div>
                     <div className={"col col-2"}>
-                        <span>События</span>
+                        <Link className={"white-400-14"} to={BaseRoutes.events}>События</Link>
+                        {/*<span>События</span>*/}
                         <span>Для рекламодателей</span>
                     </div>
                     <div className={"col col-3"}>
@@ -80,11 +82,13 @@ export default function BottomComponent () {
                 <div className={"ell ell-2"}>
                     <div className={"el el-1"}>
                         <div className={"col col-1"}>
-                            <span>Главная</span>
+                            <Link className={"white-400-14"} to={BaseRoutes.main}>Главная</Link>
+                            {/*<span>Главная</span>*/}
                             <span>Статистика</span>
                         </div>
                         <div className={"col col-2"}>
-                            <span>События</span>
+                            <Link className={"white-400-14"} to={BaseRoutes.events}>События</Link>
+                            {/*<span>События</span>*/}
                             <span>Для рекламодателей</span>
                         </div>
                         <div className={"col col-3"}>
@@ -102,8 +106,10 @@ export default function BottomComponent () {
 
             <div className={"elem-bottom"}>
                 <div className={"el-1"}>
-                    <span className={"policy"} onClick={openAllowPolicy}>Правила пользования</span>
-                    <span className={"offer"} onClick={openAllowOffer}>Пользовательское соглашение</span>
+                    {/*<span className={"policy"} onClick={openAllowPolicy}>Правила пользования</span>*/}
+                    <Link className={"policy"} to={BaseRoutes.allowPolicy}>Правила пользования</Link>
+                    <Link className={"offer"} to={BaseRoutes.allowOffer}>Пользовательское соглашение</Link>
+                    {/*<span className={"offer"} onClick={openAllowOffer}>Пользовательское соглашение</span>*/}
                 </div>
                 <div className={"el-2"}>
                     <div className={"note-orange-icon"}></div>

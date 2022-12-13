@@ -20,7 +20,7 @@ export const SameEventComponent = ({
                     </div>
                     <div className={"star-icon"}></div>
                 </div>
-                <span className={"el el-2 black-600-20"}>Дворовый турнир Тверская</span>
+                <span className={"el el-2 black-600-20"}>{event.name}</span>
                 <span className={"el el-3 black-400-16"}>ЦАО, ул. Тверская, 22 стр. 1</span>
             </div>
             <div className={"elem elem-2"}>

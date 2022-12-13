@@ -62,6 +62,10 @@ a {
   &:-webkit-any-link:active {
     color: #949494;
   }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .green {
