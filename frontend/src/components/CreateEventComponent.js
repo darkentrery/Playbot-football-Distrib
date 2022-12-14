@@ -11,13 +11,14 @@ import {
 import {FormEventComponent} from "./formEventComponent/FormEventComponent";
 
 
-export default function CreateEventComponent ({isOpen, isIPhone, closeComponent, openSuccessCreateEvent, setEvent}) {
+export default function CreateEventComponent ({isOpen, isIPhone, user, closeComponent, openSuccessCreateEvent, setEvent}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [isOpenTime, setIsOpenTime] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
+    const [addressFocus, setAddressFocus] = useState(false);
 
     const closeWindow = () => {
         setData(false);
@@ -60,6 +61,9 @@ export default function CreateEventComponent ({isOpen, isIPhone, closeComponent,
                         suggests={suggests}
                         isOpen={isOpen}
                         setSuggests={setSuggests}
+                        addressFocus={addressFocus}
+                        setAddressFocus={setAddressFocus}
+                        user={user}
                     />
                     <div className={"popup-right popup-img create-event-img"}>
                         <div className={"elem-1"}>

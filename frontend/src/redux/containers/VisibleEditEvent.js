@@ -1,4 +1,4 @@
-import {event, editEventWindow, successEditEventWindow, players, hiddenMap} from "../actions/actions";
+import {event, editEventWindow, successEditEventWindow, hiddenMap} from "../actions/actions";
 import {connect} from "react-redux";
 import EditEventComponent from "../../components/EditEventComponent";
 

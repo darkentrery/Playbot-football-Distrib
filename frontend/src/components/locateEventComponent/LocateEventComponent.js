@@ -11,6 +11,7 @@ export const LocateEventComponent = ({
     setAddress,
     setPoint,
     setIsOpenMap,
+    address,
 }) => {
     const [position, setPosition] = useState(null);
     const [zoom, setZoom] = useState(13);
@@ -83,8 +84,8 @@ export const LocateEventComponent = ({
     return (
         <div className={`locate-event-component ${className}`}>
             <div className={"locate-menu"}>
+                <span>{address ? address.city : ''}</span>
                 <div className={"btn-close"} onClick={closeLocate}></div>
-
             </div>
             <MapBody/>
         </div>

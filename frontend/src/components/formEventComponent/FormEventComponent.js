@@ -261,7 +261,8 @@ export const FormEventComponent = ({
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>
             <LocateEventComponent className={`elem elem-11 ${isOpenMap ? '' : 'hidden'}`} city={user.city}
-                                  setCity={setCity} setAddress={setAddress} setPoint={setPoint} setIsOpenMap={setIsOpenMap}/>
+                                  setCity={setCity} setAddress={setAddress} setPoint={setPoint} setIsOpenMap={setIsOpenMap}
+                                  address={address}/>
         </div>
     )
 }

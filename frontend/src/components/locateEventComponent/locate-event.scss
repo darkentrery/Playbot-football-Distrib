@@ -12,11 +12,14 @@
     flex: 0 0 50px;
     background: $whiteColor;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
 
-    .btn-close {
-      margin-right: 18px;
-    }
+    //.btn-close {
+    //  margin-right: 18px;
+    //}
   }
 
   .leaflet-container {
@@ -43,6 +46,6 @@
   //}
 
   &.hidden {
-    display: none;
+    display: none !important;
   }
 }
