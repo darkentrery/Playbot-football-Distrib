@@ -4,6 +4,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime} from "../../utils/dates";
 import {getLocations} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
+import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 
 
 export const FormEventComponent = ({
@@ -19,6 +20,9 @@ export const FormEventComponent = ({
     titleText,
     suggests,
     setSuggests,
+    addressFocus=false,
+    setAddressFocus = () => {},
+    user,
 }) => {
     const [id, setId] = useState(false);
     const [name, setName] = useState(false);
@@ -29,15 +33,13 @@ export const FormEventComponent = ({
     const [point, setPoint] = useState(false);
     const [count, setCount] = useState(false);
     const [notice, setNotice] = useState('');
-    const [isOpenCalendar, setIsOpenCalendar] = useState(false);
-    const [isOpenTime, setIsOpenTime] = useState(false);
     const [isPlayer, setIsPlayer] = useState(false);
     const [incorrectDate, setIncorrectDate] = useState(false);
     const [nameError, setNameError] = useState(false);
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
     const [addressError, setAddressError] = useState(false);
-    const [noticeError, setNoticeError] = useState(false);
+    const [isOpenMap, setIsOpenMap] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
     const refDate = useRef();
     const refTime = useRef();
@@ -45,6 +47,7 @@ export const FormEventComponent = ({
     const refNotice = useRef();
     const refDateP = useRef();
     const refTimeP = useRef();
+    const refAddressInput = useRef();
 
     const closeWindow = () => {
         setId(false);
@@ -181,6 +184,15 @@ export const FormEventComponent = ({
         setSuggests([]);
     }
 
+    const onFocusAddress = () => {
+        setAddressFocus(true);
+    }
+
+    const openMap = () => {
+        setIsOpenMap(true);
+    }
+
+
     return (
         <div className={`form-event-component ${className}`}>
             <div className={"elem elem-1"}>
@@ -219,8 +231,12 @@ export const FormEventComponent = ({
             <div className={`elem elem-5 div-input`} ref={refAddress}>
                 <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}
                        value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
-                       onChange={getAddress}/>
+                       onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>
                 <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>
+                <span
+                    className={`suggest-map gray-400-12 ${addressFocus ? '' : 'hidden'} ${suggests.length ? 'suggests-exists' : ''}`}
+                    onClick={openMap}
+                >Укажите на карте</span>
                 <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
                     {suggests.length !== 0 && suggests.map((item, key) => {
                         return (
@@ -239,11 +255,13 @@ export const FormEventComponent = ({
             </div>
             <div className={"elem elem-9"} ref={refNotice}>
                 <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"} value={notice ? notice : ''}></textarea>
-                <span className={`input-message ${noticeError ? 'error' : ''}`}>{noticeError}</span>
+                {/*<span className={`input-message ${noticeError ? 'error' : ''}`}>{noticeError}</span>*/}
             </div>
             <div className={`elem elem-10 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>
+            <LocateEventComponent className={`elem elem-11 ${isOpenMap ? '' : 'hidden'}`} city={user.city}
+                                  setCity={setCity} setAddress={setAddress} setPoint={setPoint} setIsOpenMap={setIsOpenMap}/>
         </div>
     )
 }

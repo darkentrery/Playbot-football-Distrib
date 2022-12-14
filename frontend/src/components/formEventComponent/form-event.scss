@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   background: $whiteColor;
+  position: relative;
 
   .elem {
     display: flex;
@@ -82,15 +83,50 @@
     &.elem-5 {
       position: relative;
 
+      .suggest-map {
+        position: absolute;
+        display: flex;
+        border: 0.8px solid $grayColor;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        width: $createEventFieldWidth;
+        top: $fieldHeight;
+        justify-content: stretch;
+        align-items: center;
+        height: 28px;
+        background: $whiteColor;
+        cursor: pointer;
+        padding-left: 10px;
+        box-sizing: border-box;
+
+        &:hover {
+          background: #F8F8F8;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+
+        &.suggests-exists {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        &.hidden {
+          display: none;
+        }
+      }
+
       .suggests {
         position: absolute;
         display: flex;
         flex-direction: column;
         width: $createEventFieldWidth;
         height: auto;
-        top: $fieldHeight;
-        border: 0.8px solid #949494;
-        border-radius: 8px;
+        top: $fieldHeight + 28px;
+        border: 0.8px solid $grayColor;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
         background: $whiteColor;
         z-index: 99999;
         max-height: 250px;
@@ -180,6 +216,10 @@
       &.safari-margin {
         margin-bottom: 70px;
       }
+    }
+
+    &.elem-11 {
+      position: absolute;
     }
 
     .input-message {

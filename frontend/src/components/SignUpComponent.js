@@ -198,7 +198,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     }
 
     const sendForm = () => {
-        console.log(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer);
         let errors = authService.signUpRequestValidation(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
         if (!errors.length){
             authService.signUp(data).then((response) => {

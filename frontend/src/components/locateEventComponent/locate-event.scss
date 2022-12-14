@@ -1,0 +1,48 @@
+.locate-event-component {
+  display: flex;
+  width: 400px !important;
+  height: 600px;
+  justify-content: stretch;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 999;
+
+  .locate-menu {
+    display: flex;
+    flex: 0 0 50px;
+    background: $whiteColor;
+    align-items: center;
+    justify-content: end;
+
+    .btn-close {
+      margin-right: 18px;
+    }
+  }
+
+  .leaflet-container {
+    flex: 1 1 auto;
+  }
+
+  .fake-marker {
+    position: absolute;
+    background: url("https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png");
+    width: 25px;
+    height: 41px;
+    z-index: 999999;
+    top: 300px;
+    left: 165px;
+    background-size: 25px 41px;
+  }
+
+  .leaflet-bottom.leaflet-right {
+    display: none;
+  }
+  //
+  //.leaflet-control-container {
+  //  display: none;
+  //}
+
+  &.hidden {
+    display: none;
+  }
+}

@@ -24,3 +24,9 @@ export const popupCloseDropdown = (e, setCloseDropDown, closeDropDown) => {
         setCloseDropDown(e.target.id);
     }
 }
+
+export const popupCloseSuggestMap = (e, setAddressFocus, addressFocus) => {
+    if (!e.target.className.includes("suggest-map") && !e.target.className.includes("map-point-icon")) {
+        setAddressFocus(false);
+    }
+}

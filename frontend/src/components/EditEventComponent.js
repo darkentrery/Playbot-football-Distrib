@@ -5,18 +5,19 @@ import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import {
     popupCloseDropdown,
     popupCloseDropdownWithDate,
-    popupCloseDropdownWithTime,
+    popupCloseDropdownWithTime, popupCloseSuggestMap,
 } from "../utils/manageElements";
 import {FormEventComponent} from "./formEventComponent/FormEventComponent";
 
 
-export default function EditEventComponent ({isOpen, isIPhone, event, closeComponent, openSuccessEditEvent, setEvent, showMap}) {
+export default function EditEventComponent ({isOpen, isIPhone, event, user, closeComponent, openSuccessEditEvent, setEvent, showMap}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [isOpenTime, setIsOpenTime] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
+    const [addressFocus, setAddressFocus] = useState(false);
 
     const closeWindow = () => {
         setData(false);
@@ -40,6 +41,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
         popupCloseDropdown(e, setCloseDropDown, closeDropDown);
         popupCloseDropdownWithDate(e, isOpenCalendar, setIsOpenCalendar);
         popupCloseDropdownWithTime(e, isOpenTime, setIsOpenTime);
+        popupCloseSuggestMap(e, setAddressFocus, addressFocus);
         setSuggests([]);
     }
 
@@ -64,6 +66,9 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
                     suggests={suggests}
                     isOpen={isOpen}
                     setSuggests={setSuggests}
+                    addressFocus={addressFocus}
+                    setAddressFocus={setAddressFocus}
+                    user={user}
                 />
             </div>
         </Modal>
