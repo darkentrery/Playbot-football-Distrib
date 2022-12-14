@@ -25,10 +25,10 @@ export default function CreateEventUnAuthComponent ({isOpen, closeComponent, ope
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame create-event create-event-un-auth"}>
+            <div className={"popup-frame create-event-component create-event-un-auth"}>
                 <div className={"popup-left"}>
                     <div className={"elem elem-1"}>
-                        <span>Создайте свое событие</span>
+                        <span className={"black-600-22"}>Создайте свое событие</span>
                     </div>
                     <div className={"elem event-inactive"}></div>
                     <div className={"elem elem-10"}>
