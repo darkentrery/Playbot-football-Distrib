@@ -4,13 +4,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime} from "../../utils/dates";
 import {getLocations} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
-import EventService from "../../services/EventService";
 
-
-const countPlayers = [];
-for (let i=4; i<15; i++) {
-    countPlayers.push(i);
-}
 
 export const FormEventComponent = ({
     isOpen,
@@ -33,7 +27,7 @@ export const FormEventComponent = ({
     const [address, setAddress] = useState(false);
     const [city, setCity] = useState(false);
     const [point, setPoint] = useState(false);
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(false);
     const [notice, setNotice] = useState('');
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [isOpenTime, setIsOpenTime] = useState(false);
@@ -44,6 +38,7 @@ export const FormEventComponent = ({
     const [timeError, setTimeError] = useState(false);
     const [addressError, setAddressError] = useState(false);
     const [noticeError, setNoticeError] = useState(false);
+    const [countPlayers, setCountPlayers] = useState([]);
     const refDate = useRef();
     const refTime = useRef();
     const refAddress = useRef();
@@ -76,6 +71,11 @@ export const FormEventComponent = ({
             if (event && event.is_player) setIsPlayer(true);
             setNotice(event.notice);
         }
+        let array = [];
+        for (let i=4; i<15; i++) {
+            array.push(i);
+        }
+        setCountPlayers(array);
     }, [event, isOpen])
 
     useEffect(() => {
@@ -205,7 +205,7 @@ export const FormEventComponent = ({
             </div>
             <div className={"elem elem-4"} ref={refTimeP}>
                 <ReactDatetimeClass
-                    className={"div-input input"}
+                    className={`div-input input ${timeError ? 'error' : ''}`}
                     timeFormat={"HH:mm"}
                     dateFormat={false}
                     closeOnSelect={true}
@@ -242,7 +242,7 @@ export const FormEventComponent = ({
                 <span className={`input-message ${noticeError ? 'error' : ''}`}>{noticeError}</span>
             </div>
             <div className={`elem elem-10 ${isIPhone ? 'safari-margin' : ''}`}>
-                <button className={"btn btn-create-event"} onClick={sendForm}>Сохранить</button>
+                <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>
         </div>
     )

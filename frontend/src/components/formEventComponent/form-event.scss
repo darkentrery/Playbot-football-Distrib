@@ -64,6 +64,12 @@
       justify-content: start;
       flex-direction: column;
 
+      .error {
+        input {
+          border: 0.8px solid #EC5B56;
+        }
+      }
+
       input {
         padding-left: 48px;
         padding-right: 20px;
@@ -91,7 +97,6 @@
         align-items: stretch;
         box-sizing: border-box;
         overflow: auto;
-        //background-position: left 14px center;
         gap: 5px;
 
         .suggest-item {
@@ -167,6 +172,10 @@
     &.elem-10 {
       margin-top: 4px;
       margin-bottom: 40px;
+
+      .btn-form-event {
+        flex: 1 1 auto;
+      }
 
       &.safari-margin {
         margin-bottom: 70px;

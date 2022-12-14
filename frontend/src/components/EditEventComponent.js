@@ -51,21 +51,20 @@ export default function EditEventComponent ({isOpen, isIPhone, event, closeCompo
             ariaHideApp={false}
         >
             <div className={"popup-fon"} onClick={popupClick}>
-                <div className={"edit-event-component"}>
-                    <FormEventComponent
-                        event={event}
-                        onClick={sendForm}
-                        data={data}
-                        setData={setData}
-                        titleText={"Редактировать событие"}
-                        closeDropDown={closeDropDown}
-                        isIPhone={isIPhone}
-                        clickClose={toMenu}
-                        suggests={suggests}
-                        isOpen={isOpen}
-                        setSuggests={setSuggests}
-                    />
-                </div>
+                <FormEventComponent
+                    className={"edit-event-component"}
+                    event={event}
+                    onClick={sendForm}
+                    data={data}
+                    setData={setData}
+                    titleText={"Редактировать событие"}
+                    closeDropDown={closeDropDown}
+                    isIPhone={isIPhone}
+                    clickClose={toMenu}
+                    suggests={suggests}
+                    isOpen={isOpen}
+                    setSuggests={setSuggests}
+                />
             </div>
         </Modal>
     )
