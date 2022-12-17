@@ -66,11 +66,24 @@ ROOT_URLCONF = "config.urls"
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+ASGI_APPLICATION = "config.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        # "BACKEND": "channels.layers.InMemoryChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(env("REDIS_HOST"), env.int("REDIS_PORT"))],
+        },
+    },
+}
+
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 ALLOWED_HOSTS = env.tuple('DJANGO_ALLOWED_HOSTS')
 
 DJANGO_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,6 +101,7 @@ THIRD_PARTY_APPS = [
     # 'oauth2_provider',
     "corsheaders",
     'social_django',
+    # 'channels',
     # 'social_django_mongoengine',
 ]
 
@@ -96,6 +110,7 @@ LOCAL_APPS = [
     "playbot.events.apps.EventsConfig",
     "playbot.cities.apps.CitiesConfig",
     "playbot.history.apps.HistoryConfig",
+    "playbot.chats.apps.ChatsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

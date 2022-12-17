@@ -35,4 +35,10 @@ services:
     env_file:
       - ./.env
 
+  redis_playbot:
+    image: redis:6
+    container_name: redis_playbot
+    ports:
+      - "6379:6379"
+
 

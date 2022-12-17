@@ -2,7 +2,7 @@ import EventMembersComponent from "./EventMembersComponent";
 import EventDescriptionComponent from "./EventDescriptionComponent";
 import React from "react";
 import $ from "jquery";
-import EventChatComponent from "./EventChatComponent";
+import {EventChatComponent} from "./EventChatComponent";
 
 
 export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}) {
@@ -23,7 +23,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
         <div className={"event-organizer-component"}>
             <div className={"elem-1280 elem-1"}>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
-                <EventChatComponent/>
+                <EventChatComponent event={event} user={user}/>
             </div>
             <div className={"elem-1280 elem-2"}>
                 <EventMembersComponent event={event}/>
@@ -34,7 +34,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                 <EventMembersComponent event={event}/>
             </div>
             <div className={"elem-744"}>
-                <EventChatComponent/>
+                <EventChatComponent event={event} user={user}/>
             </div>
 
             <div className={"elem-376"}>
@@ -45,7 +45,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                 </div>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
                 <EventMembersComponent event={event}/>
-                <EventChatComponent/>
+                <EventChatComponent event={event} user={user}/>
             </div>
         </div>
     )
