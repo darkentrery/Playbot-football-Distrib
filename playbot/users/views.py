@@ -1,12 +1,10 @@
 from django.views.generic import TemplateView
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.cities.models import City
@@ -114,20 +112,6 @@ class RefreshPasswordView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RefreshViewSet(GenericAPIView):
-    permission_classes = (AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
-
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
-
-
 class UpdateCityView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -139,28 +123,6 @@ class UpdateCityView(APIView):
                 json = UserSerializer(instance=request.user).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class DataView(APIView):
-    permission_classes = (IsAuthenticated,)
-    # authentication_classes = [JWTAuthentication,]
-
-    def get(self, request, format='json'):
-
-        return Response({"data": "success!"}, status=status.HTTP_200_OK)
-
-
-class ValidView(APIView):
-    permission_classes = (AllowAny,)
-    # authentication_classes = [JWTAuthentication,]
-
-    def get(self, request, format='json'):
-        if request.user.is_authenticated:
-            authenticated = True
-        else:
-            authenticated = False
-
-        return Response({"authenticated": authenticated}, status=status.HTTP_200_OK)
 
 
 class IsAuthView(APIView):

@@ -2,14 +2,15 @@ import React from "react-dom";
 import {getMonth, getWeekDay} from "../../utils/dates";
 import {ButtonsBoardOrganizerComponent} from "./ButtonsBoardOrganizerComponent";
 import {ButtonsBoardPlayerComponent} from "./ButtonsBoardPlayerComponent";
+import {useEffect, useState} from "react";
 
 
 export default function BoardEventComponent ({event, user, funcs}) {
+    const [date, setDate] = useState(new Date());
 
-    let date = new Date();
-    if (event) {
-        date = new Date(event.date);
-    }
+    useEffect(() => {
+        if (event) setDate(new Date(event.date));
+    }, [event])
 
     return (
         <div className={"board-event-component"}>

@@ -7,7 +7,15 @@ const BaseRoutes = {
 	},
 
 	get main () {
-		return "/";
+		return "";
+	},
+
+	get statistic () {
+		return "statistic/";
+	},
+
+	get faq () {
+		return "faq/";
 	},
 
 	get description () {

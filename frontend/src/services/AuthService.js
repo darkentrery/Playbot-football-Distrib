@@ -2,7 +2,6 @@ import axios from 'axios';
 import {csrftoken} from "./CsrfService";
 import $ from "jquery";
 import {isMobile} from "react-device-detect";
-import BaseRoutes from "../routes/BaseRoutes";
 
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -276,21 +275,6 @@ export default class AuthService{
 			return false
 		}
 		return true;
-	}
-
-	getData(){
-		const url = `${API_URL}data/`;
-		return axios.get(url, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
 	}
 
 	 confirmSignUp(pathName){

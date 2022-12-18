@@ -1,13 +1,31 @@
 from urllib.parse import parse_qs
 
 from channels.db import database_sync_to_async
-from django.contrib.auth import get_user_model
 from django.http import HttpRequest
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
+from rest_framework_simplejwt.views import TokenRefreshView
 
 
-# User = get_user_model()
+class GetNewAccessToken(TokenRefreshView):
+
+    def get_token(self, refresh_token):
+        serializer = self.get_serializer(data={"refresh": refresh_token})
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+        return serializer.data
+
+    def get_serializer_context(self):
+        """
+        Extra context provided to the serializer class.
+        """
+        return {
+            'view': self
+        }
 
 
 @database_sync_to_async
@@ -32,7 +50,14 @@ def get_user(scope):
         auth = JWTAuthentication()
         user, validate_token = auth.authenticate(request)
     except AuthenticationFailed:
-        pass
+        try:
+            new_tokens = GetNewAccessToken().get_token(scope["refresh"])
+            request.META["HTTP_AUTHORIZATION"] = f"Bearer {new_tokens['access']}"
+            auth = JWTAuthentication()
+            user, validate_token = auth.authenticate(request)
+            print(new_tokens)
+        except AuthenticationFailed:
+            pass
     return user or AnonymousUser()
 
 
@@ -45,5 +70,6 @@ class TokenAuthMiddleware:
         query_params = parse_qs(scope["query_string"].decode())
         token = query_params["Authorization"][0]
         scope["token"] = token
+        scope["refresh"] = query_params["Refresh"][0]
         scope["user"] = await get_user(scope)
         return await self.app(scope, receive, send)

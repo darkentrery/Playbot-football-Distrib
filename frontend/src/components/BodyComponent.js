@@ -15,6 +15,8 @@ export default function BodyComponent () {
             <Routes>
                 <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
                 <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
+                <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
+                <Route exact path={BaseRoutes.faq} element={<VisibleMainPage/>}/>
                 <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
                 <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
                 <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>

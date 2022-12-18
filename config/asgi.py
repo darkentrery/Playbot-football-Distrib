@@ -11,7 +11,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-from playbot.chats.middleware import TokenAuthMiddleware
+from playbot.chats.middlewares import TokenAuthMiddleware
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prodaction')
 

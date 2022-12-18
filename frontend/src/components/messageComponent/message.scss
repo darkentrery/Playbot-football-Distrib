@@ -13,7 +13,8 @@
 
   .elem-1 {
     display: flex;
-    flex: 0 0 35px;
+    flex: 0 0 40px;
+    background-size: 40px 53px;
 
     &.hidden {
       display: none;
@@ -57,7 +58,8 @@
 
   .elem-3 {
     display: flex;
-    flex: 0 0 35px;
+    flex: 0 0 40px;
+    background-size: 40px 53px;
 
     &.hidden {
       display: none;
