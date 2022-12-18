@@ -1,4 +1,3 @@
-import Modal from "react-modal";
 import React, {useEffect, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
@@ -6,6 +5,7 @@ import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
 import {popupCloseDropdown} from "../../utils/manageElements";
 import {InputComponent} from "../inputComponent/InputComponent";
+import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
 
 
 export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs}) {
@@ -120,50 +120,27 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     }
 
     return (
-        <Modal
-            isOpen={isOpen}
-            className={"popup-fon"}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-        >
-            <div className={"popup-fon"} onClick={popupClick}>
-                <div className={`popup-frame fill-regulation-component ${untilGoal ? 'until-goal' : ''}`}>
-                    <div className={"elem elem-1"}>
-                        <div onClick={toConfirmPlayers} className={"btn-back"}></div>
-                        <span className={"title-22"}>Заполните регламент</span>
-                        <div onClick={closeWindow} className={"btn-close"}></div>
-                    </div>
-                    <div className={"elem elem-2"}>
-                        <span className={"gray-400-16"}>Шаг 1</span>
-                        <span className={"el-center black-600-16"}>Шаг 2</span>
-                        <span className={"gray-400-16"}>Шаг 3</span>
-                    </div>
-                    <div className={"elem elem-3"}>
-                        <div className={"gray-line"}></div>
-                        <div className={"orange-line"}></div>
-                        <div className={"gray-line"}></div>
-                    </div>
-                    <div className={"elem elem-4"}>
-                        <DropDownComponent
-                            value={format} setValue={setFormat} leftIcon={'two-people-icon'} sizingClass={"dropdown-size-format"}
-                            flagClose={closeDropDown} id={1} content={formats} errorText={formatError} setErrorText={setFormatError}
-                        />
-                        <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
-                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
-                        <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
-                                           sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
-                                           rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}/>
-                        <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
-                                           sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
-                        <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
-                        <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"} sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}/>
-                        <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}
-                                        setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>
-                    </div>
-                    <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
-                </div>
+        <ReglamentComponent className={`fill-regulation-component ${untilGoal ? 'until-goal' : ''}`} closeWindow={closeWindow} isOpen={isOpen} step={2}
+                            title={"Заполните регламент"} popupClick={popupClick} clickBack={toConfirmPlayers}>
+            <div className={"elem elem-4"}>
+                <DropDownComponent
+                    value={format} setValue={setFormat} leftIcon={'two-people-icon'} sizingClass={"dropdown-size-format"}
+                    flagClose={closeDropDown} id={1} content={formats} errorText={formatError} setErrorText={setFormatError}
+                />
+                <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
+                                   sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
+                <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
+                                   sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
+                                   rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}/>
+                <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
+                                   sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
+                <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
+                <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"} sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}/>
+                <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}
+                                setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>
             </div>
-        </Modal>
+            <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
+        </ReglamentComponent>
     )
 
 }

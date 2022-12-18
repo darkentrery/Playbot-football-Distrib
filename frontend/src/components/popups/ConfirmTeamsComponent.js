@@ -3,12 +3,14 @@ import React, {useEffect, useState} from "react";
 import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
+import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
 
 
 export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs}) {
     const eventService = new EventService();
     let players = event.event_player;
     const [selected, setSelected] = useState(players);
+    const headItems = [["Формат игры:", "5 x 5"], ["Кол. игроков:", "40"], ["Кол. кругов:", "2"], ["Время матча:", "10 минут"], ["Общее время:", "80 минут"]];
 
     // useEffect(() => {
     //     let arr = [];
@@ -35,34 +37,18 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
 
     return (
-        <Modal
-            isOpen={isOpen}
-            className={"popup-fon"}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-        >
-            <div className={"popup-frame confirm-teams-component"}>
-                <div className={"elem elem-1"}>
-                    <div onClick={toFillRegulation} className={"btn-back"}></div>
-                    <span className={"title-22"}>Подтвердите команды</span>
-                    <div onClick={closeWindow} className={"btn-close"}></div>
-                </div>
-                <div className={"elem elem-2"}>
-                    <span className={"gray-400-16"}>Шаг 1</span>
-                    <span className={"el-center gray-400-16"}>Шаг 2</span>
-                    <span className={"black-600-16"}>Шаг 3</span>
-                </div>
-                <div className={"elem elem-3"}>
-                    <div className={"gray-line"}></div>
-                    <div className={"gray-line"}></div>
-                    <div className={"orange-line"}></div>
-                </div>
-                <div className={"elem elem-4 scroll"}>
-
-                </div>
-                <button className={"elem elem-5 btn"} onClick={confirmTeams}>Продолжить</button>
+        <ReglamentComponent isOpen={isOpen} className={`confirm-teams-component`} title={"Подтверди составы"}
+                            clickBack={toFillRegulation} closeWindow={closeWindow} step={3}>
+            <div className={"elem elem-4"}>
+                {headItems.map((item, key) => (
+                    <div className={"el"} key={key}>
+                        <span className={"black-300-13"}>{item[0]}</span>
+                        <span className={"black-600-13"}>{item[1]}</span>
+                    </div>
+                ))}
             </div>
-        </Modal>
+            <button className={"elem elem-5 btn"} onClick={confirmTeams}>Продолжить</button>
+        </ReglamentComponent>
     )
 
 }

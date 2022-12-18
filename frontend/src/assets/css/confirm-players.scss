@@ -1,9 +1,8 @@
 .confirm-players-component {
-  flex: 0 0 540px;
-  height: 717px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: stretch;
+  &.reglament-component {
+    flex: 0 0 540px;
+    height: 717px;
+  }
 }
 
 .confirm-players-component .elem {
@@ -25,36 +24,8 @@
     }
   }
 
-  &.elem-2 {
-    flex: 0 0 19px;
-    margin-top: 24px;
-    width: auto;
-    justify-content: space-between;
-
-    .el-center {
-      margin-left: 52px;
-      margin-right: 52px;
-    }
-  }
-
-  &.elem-3 {
-    flex: 0 0 4px;
-    margin-top: 14px;
-    width: 288px;
-
-    .orange-line {
-      flex: 0 0 96px;
-      background: #D19C6C;
-    }
-
-    .gray-line {
-      flex: 0 0 96px;
-      background: #BABABA;
-    }
-  }
-
   &.elem-4 {
-
+    margin-top: 10px;
   }
 
   &.elem-5 {
@@ -100,7 +71,9 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .confirm-players-component {
-    flex: 0 0 100vw;
-    height: 100vh;
+    &.reglament-component {
+      flex: 0 0 100vw;
+      height: 100vh;
+    }
   }
 }

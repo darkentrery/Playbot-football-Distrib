@@ -1,9 +1,9 @@
-import Modal from "react-modal";
 import React, {useEffect, useState} from "react";
 import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
 import {SearchComponent} from "../searchComponent/SearchComponent";
+import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
 
 
 export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs}) {
@@ -75,42 +75,21 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     }
 
     return (
-        <Modal
-            isOpen={isOpen}
-            className={"popup-fon"}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-        >
-            <div className={"popup-frame confirm-players-component"}>
-                <div className={"elem elem-1"}>
-                    <span className={"title-22"}>Подтвердите игроков</span>
-                    <div onClick={closeWindow} className={"btn-close"}></div>
-                </div>
-                <div className={"elem elem-2"}>
-                    <span className={"black-600-16"}>Шаг 1</span>
-                    <span className={"el-center gray-400-16"}>Шаг 2</span>
-                    <span className={"gray-400-16"}>Шаг 3</span>
-                </div>
-                <div className={"elem elem-3"}>
-                    <div className={"orange-line"}></div>
-                    <div className={"gray-line"}></div>
-                    <div className={"gray-line"}></div>
-                </div>
-                <SearchComponent className={""} arrayFirst={players1} setArraySecond={setPlayers2}/>
-                <div className={"elem elem-5 scroll"}>
-                    {event && playersView.length !== 0 && playersView.map((item, key) => {
-                        return (
-                            <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
-                                <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
-                                <div className={"player-avatar-icon"}></div>
-                                <span className={"black-400-13"}>{item.player.username}</span>
-                            </div>
-                        )
-                    })}
-                </div>
-                <button className={`elem elem-6 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers}>Продолжить</button>
+        <ReglamentComponent className={`confirm-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={1} title={"Подтвердите игроков"}>
+            <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
+            <div className={"elem elem-5 scroll"}>
+                {event && playersView.length !== 0 && playersView.map((item, key) => {
+                    return (
+                        <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
+                            <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
+                            <div className={"player-avatar-icon"}></div>
+                            <span className={"black-400-13"}>{item.player.username}</span>
+                        </div>
+                    )
+                })}
             </div>
-        </Modal>
+            <button className={`elem elem-6 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers}>Продолжить</button>
+        </ReglamentComponent>
     )
 
 }
