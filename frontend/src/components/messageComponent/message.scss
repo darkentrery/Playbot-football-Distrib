@@ -1,0 +1,86 @@
+.message-component {
+  display: flex;
+  flex: 0 0 113px;
+  gap: 20px;
+  padding-right: 180px;
+  box-sizing: border-box;
+
+  &.right {
+    justify-content: end;
+    padding-right: 0;
+    padding-left: 180px;
+  }
+
+  .elem-1 {
+    display: flex;
+    flex: 0 0 35px;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .elem-2 {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    .el-1 {
+      flex: 0 0 19px;
+    }
+
+    .el-2 {
+      display: flex;
+      background: #F8F8F8;
+      border-radius: 15px;
+      box-sizing: border-box;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 19px;
+      padding-bottom: 19px;
+      align-self: stretch;
+    }
+
+    .el-3 {
+      flex: 0 0 19px;
+      align-self: end;
+    }
+
+    &.right {
+      align-items: end;
+
+      .el-2 {
+        justify-content: end;
+      }
+    }
+  }
+
+  .elem-3 {
+    display: flex;
+    flex: 0 0 35px;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .message-component {
+    padding-right: 0;
+
+    &.right {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .message-component {
+    padding-right: 0;
+
+    &.right {
+      padding-left: 0;
+    }
+  }
+}

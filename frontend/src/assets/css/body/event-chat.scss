@@ -18,6 +18,13 @@
       color: $grayColor;
     }
 
+    &.elem-2 {
+      flex-direction: column;
+      align-items: stretch;
+      max-height: 370px;
+      gap: 16px;
+    }
+
     &.elem-3 {
       flex: 0 0 76px;
       margin-top: 24px;
@@ -26,7 +33,7 @@
       padding: 24px;
       align-items: center;
       box-sizing: border-box;
-      flex-direction: column;
+      gap: 10px;
 
       .el {
         display: flex;

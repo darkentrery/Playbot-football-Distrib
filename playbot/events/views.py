@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from playbot.chats.models import Chat
 from playbot.cities.models import City, Address
 from playbot.cities.serializers import AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
@@ -37,6 +38,7 @@ class CreateEventView(APIView):
         if serializer.is_valid():
             event = serializer.save()
             if event:
+                Chat.objects.update_or_create(event=event)
                 if event.is_player and not event.event_player.filter(player=request.user):
                     EventPlayer.objects.create(player=request.user, event=event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
