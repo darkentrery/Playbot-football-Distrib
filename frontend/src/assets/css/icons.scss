@@ -453,6 +453,15 @@
   background-position: left center;
 }
 
+.pencil-icon {
+  background: url("../icon/pencil.png");
+  background-repeat: no-repeat;
+  background-size: 12px;
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+}
+
 .gray-copy-icon {
   background: url("../icon/gray-copy.png");
   background-repeat: no-repeat;

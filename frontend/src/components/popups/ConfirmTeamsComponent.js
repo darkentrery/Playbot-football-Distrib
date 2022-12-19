@@ -35,6 +35,10 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
     }
 
+    const repeateDivide = () => {
+
+    }
+
 
     return (
         <ReglamentComponent isOpen={isOpen} className={`confirm-teams-component`} title={"Подтверди составы"}
@@ -47,8 +51,37 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                     </div>
                 ))}
             </div>
-            <button className={"elem elem-5 btn"} onClick={confirmTeams}>Продолжить</button>
+            <div className={`elem elem-5-1280`}>
+                <div className={"el el-1"}>
+                    <span className={"black-700-13 team-name"}>Команда 1<div className={"pencil-icon"}></div></span>
+                    <span className={"black-400-13"}>1. Андрей Иванов</span>
+                </div>
+                <div className={"el el-2"}>
+                    <span className={"black-700-13 team-name"}>Команда 1<div className={"pencil-icon"}></div></span>
+                    <span className={"black-400-13"}>1. Андрей Иванов</span>
+                </div>
+            </div>
+            <div className={`elem elem-5-1280 bottom`}>
+                <div className={"el el-1"}>
+                    <span className={"black-700-13 team-name"}>Команда 1<div className={"pencil-icon"}></div></span>
+                    <span className={"black-400-13"}>1. Андрей Иванов</span>
+                </div>
+                <div className={"el el-2"}>
+                    <span className={"black-700-13 team-name"}>Команда 1<div className={"pencil-icon"}></div></span>
+                    <span className={"black-400-13"}>1. Андрей Иванов</span>
+                </div>
+            </div>
+
+            <div className={`elem elem-5-376 scroll`}>
+                <div className={"el"}>
+                    <span className={"black-700-13 team-name"}>Команда 1<div className={"pencil-icon"}></div></span>
+                    <span className={"black-400-13"}>1. Андрей Иванов</span>
+                </div>
+            </div>
+            <div className={`elem elem-7 ${isIPhone ? 'safari-margin' : ''}`}>
+                <button className={"btn white-500-16"} onClick={confirmTeams}>Подтвердить и начать</button>
+                <span className={"orange-400-14 link"} onClick={repeateDivide}>Поделиться заново</span>
+            </div>
         </ReglamentComponent>
     )
-
 }
