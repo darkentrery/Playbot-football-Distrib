@@ -9,15 +9,16 @@ export const EventChatComponent = ({event, user}) => {
     const [message, setMessage] = useState("");
     const [messageHistory, setMessageHistory] = useState([]);
     const [firstLoad, setFirstLoad] = useState(true);
+    const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
-    const { sendJsonMessage } = useWebSocket(user.isAuth ? `ws://127.0.0.1:8000/ws/${event.id}/` : null, {
+    const { sendJsonMessage } = useWebSocket(user.isAuth ? `${SOCKET_URL}${event.id}/` : null, {
         queryParams: {
             Authorization: user.isAuth ? `Bearer ${localStorage.getItem("access_token")}` : "",
             Refresh: user.isAuth ? `${localStorage.getItem("refresh_token")}` : "",
         },
     });
 
-    const { readyState } = useWebSocket(user.isAuth ? `ws://127.0.0.1:8000/ws/${event.id}/` : null, {
+    const { readyState } = useWebSocket(user.isAuth ? `${SOCKET_URL}${event.id}/` : null, {
         queryParams: {
             Authorization: user.isAuth ? `Bearer ${localStorage.getItem("access_token")}` : "",
             Refresh: user.isAuth ? `${localStorage.getItem("refresh_token")}` : "",

@@ -64,6 +64,14 @@ class EditEventSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CancelEventSerializer(serializers.ModelSerializer):
+    cancel_reasons = serializers.SlugRelatedField(queryset=CancelReasons.objects.all(), slug_field="name", required=False)
+
+    class Meta:
+        model = Event
+        fields = ["cancel", "cancel_reasons",]
+
+
 class CancelReasonsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CancelReasons

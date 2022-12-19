@@ -83,6 +83,21 @@ export default class EventService{
 			});
 	}
 
+	cancelEvent(event){
+		const url = `${API_URL}cancel-event/`;
+		return axios.post(url, event, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	toConfirmPlayers(event){
 		const url = `${API_URL}to-confirm-players/`;
 		return axios.post(url, event, {headers: {

@@ -10,7 +10,7 @@ from playbot.events.models import Event, CancelReasons, EventStep, Format, Distr
     EventPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
-    CountCirclesSerializer, SetRegulationSerializer
+    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer
 from playbot.history.models import UserEventAction
 
 
@@ -24,8 +24,8 @@ class CreateEventView(APIView):
     def post(self, request, format='json'):
         data = request.data
         data.update({"organizer": request.user.pk})
-        city, creat = City.objects.update_or_create(name=request.data["address"]["city"])
-        address, creat = Address.objects.update_or_create(
+        city, creat = City.objects.get_or_create(name=request.data["address"]["city"])
+        address, creat = Address.objects.get_or_create(
             country=request.data["address"]["country"],
             city=city,
             region=request.data["address"].get("region"),
@@ -39,6 +39,7 @@ class CreateEventView(APIView):
             event = serializer.save()
             if event:
                 Chat.objects.update_or_create(event=event)
+                UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
                 if event.is_player and not event.event_player.filter(player=request.user):
                     EventPlayer.objects.create(player=request.user, event=event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
@@ -70,7 +71,7 @@ class EditEventView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
         city, creat = City.objects.update_or_create(name=request.data["address"]["city"])
-        address, creat = Address.objects.update_or_create(
+        address, creat = Address.objects.get_or_create(
             country=request.data["address"]["country"],
             city=city,
             region=request.data["address"].get("region"),
@@ -79,8 +80,6 @@ class EditEventView(APIView):
             house_number=request.data["address"].get("house_number"),
         )
         request.data["address"] = address.id
-        # if request.data.get("cancel_reasons"):
-        #     CancelReasons.objects.update_or_create(name=request.data["cancel_reasons"])
         serializer = EditEventSerializer(event, data=request.data)
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()
@@ -100,6 +99,22 @@ class CancelReasonsView(APIView):
     def get(self, request, format='json'):
         items = CancelReasonsSerializer(CancelReasons.objects.filter(id__in=[1, 2, 3]), many=True)
         return Response(items.data, status=status.HTTP_200_OK)
+
+
+class CancelEventView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["id"])
+        reason, create = CancelReasons.objects.get_or_create(name=request.data["cancel_reasons"])
+        serializer = CancelEventSerializer(event, data=request.data)
+        if serializer.is_valid() and event.organizer == request.user:
+            event = serializer.save()
+            if event:
+                UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.CANCEL)
+                json = EventSerializer(Event.objects.get(id=event.id)).data
+                return Response(json, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ToConfirmPlayersView(APIView):
