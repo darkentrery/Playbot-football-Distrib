@@ -32,6 +32,10 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
         funcs.removeMap();
     }
 
+    const toEventMenu = () => {
+
+    }
+
     const toCancelEvent = () => {
         funcs.openCancelEvent();
         funcs.removeMap();
@@ -50,7 +54,7 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
             {!event.cancel && event.event_step.length === 3 && !event.event_step[2]["complete"] &&
                 <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
             {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] &&
-                <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подробности события</button>}
+                <button className={"el el-3 btn"} onClick={toEventMenu}>Перейти в меню игры</button>}
             {event.cancel && <span>Событие отменено</span>}
         </div>
     )

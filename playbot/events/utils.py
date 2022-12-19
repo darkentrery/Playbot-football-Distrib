@@ -1,4 +1,23 @@
+from playbot.events.models import Team
 from playbot.users.models import User
+
+
+def create_teams(event):
+    count_players = event.event_player.all().count()
+    base_count = event.format.count
+    count_teams = count_players // base_count
+    above_count = count_players - count_teams * base_count
+    players_in_team = []
+    for i in range(count_teams):
+        if above_count:
+            players_in_team.append(base_count + 1)
+            above_count -= 1
+        else:
+            players_in_team.append(base_count)
+    for team in event.teams.all():
+        team.delete()
+    for player in players_in_team:
+        Team.objects.create(name=f"Команда {event.next_number}", event=event, count_players=player, number=event.next_number)
 
 
 def auto_distribution(event):

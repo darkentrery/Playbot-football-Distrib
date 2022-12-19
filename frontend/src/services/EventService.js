@@ -157,6 +157,21 @@ export default class EventService{
 			});
 	}
 
+	confirmTeams(data){
+		const url = `${API_URL}confirm-teams/`;
+		return axios.post(url, data, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	getCancelReasons(){
 		const url = `${API_URL}get-cancel-reasons/`;
 		return axios.get(url, {headers: {

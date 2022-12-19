@@ -86,4 +86,14 @@ const choiceTime = (e, setTime, refTime) => {
     }
 }
 
-export {getMonth, getWeekDay, choiceDate, choiceTime}
+const getMinutesStr = (value) => {
+    let label = "минут";
+    if (value.slice(value.length - 1) === "1" && !value.includes("11")) {
+        label = "минута";
+    } else if (["2", "3", "4"].includes(value.slice(value.length - 1)) && !value.includes("12") && !value.includes("13") && !value.includes("14")) {
+        label = "минуты";
+    }
+    return label;
+}
+
+export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr}

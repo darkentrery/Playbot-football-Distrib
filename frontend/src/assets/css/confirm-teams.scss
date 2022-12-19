@@ -43,7 +43,6 @@
     .el {
       display: flex;
       flex-direction: column;
-      flex: 1 1 auto;
       gap: 16px;
       box-sizing: border-box;
       padding-bottom: 16px;
@@ -56,14 +55,15 @@
     }
 
     .el-1 {
-      border-right: 2px solid #F2F2F2;
       padding-left: 8px;
       padding-right: 12px;
+      flex: 1 1 auto;
     }
 
     .el-2 {
       padding-left: 20px;
-
+      border-left: 2px solid #F2F2F2;
+      flex: 0 0 246px;
     }
 
   }

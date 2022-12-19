@@ -94,13 +94,14 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
         if (untilGoal && untilGoalCount === '') {
             setErrorText('Введите количество голов!');
         } else {
-            console.log(format, formatError)
             if (format) {
                 authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
                     funcs.setEvent(response.data);
                     closeWindow();
-                    funcs.openConfirmTeams();
                     funcs.removeMap();
+                    if (response.data.distribution_method === "Автоматический") {
+                        funcs.openConfirmTeams();
+                    }
                 })
             } else {
                 setFormatError('Выберите формат!');
