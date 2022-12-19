@@ -1,5 +1,4 @@
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -7,8 +6,11 @@ from playbot.cities.models import City
 
 
 class User(AbstractUser):
+    class Gender(models.TextChoices):
+        MALE = "Муж.", _("Муж.")
+        FEMALE = "Жен.", _("Жен.")
+
     email = models.EmailField(_("Email Address"), unique=True, blank=True, null=True)
-    # username_validator = UnicodeUsernameValidator()
     first_name = models.CharField(_("First Name"), max_length=150, blank=True)
     username = models.CharField(_("Username"), max_length=150, unique=True, blank=True, null=True)
     last_name = models.CharField(_("Last Name"), max_length=150, blank=True)
@@ -16,6 +18,8 @@ class User(AbstractUser):
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
+    rank = models.FloatField(_("Rank"), default=0)
+    gender = models.CharField(_("Gender"), max_length=50, choices=Gender.choices, default=Gender.MALE)
     is_active = models.BooleanField(
         _("active"),
         default=False,

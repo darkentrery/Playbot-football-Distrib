@@ -28,6 +28,8 @@ class CustomUserAdmin(UserAdmin):
                     "telegram_id",
                     "city",
                     "confirm_slug",
+                    "gender",
+                    "rank",
                 )
             },
         ),

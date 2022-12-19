@@ -8,7 +8,7 @@ from playbot.users.models import User
 
 class Chat(models.Model):
     online = models.ManyToManyField(to=User, blank=True, related_name="chats")
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="chats", unique=True)
+    event = models.OneToOneField(Event, on_delete=models.CASCADE, related_name="chats")
 
     class Meta:
         verbose_name = "Chat"

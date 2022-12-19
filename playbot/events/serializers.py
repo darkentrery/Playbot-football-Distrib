@@ -3,7 +3,7 @@ from rest_framework import serializers
 from playbot.cities.models import City, Address
 from playbot.cities.serializers import CitySerializer, AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer
+    EventPlayer, Team
 from playbot.users.models import User
 from playbot.users.serializers import UserSerializer
 
@@ -19,6 +19,12 @@ class EventPlayerSerializer(serializers.ModelSerializer):
 class EventStepSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventStep
+        fields = "__all__"
+
+
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
         fields = "__all__"
 
 
@@ -45,6 +51,7 @@ class EventSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     cancel_reasons = serializers.SlugRelatedField(slug_field="name", read_only=True)
     address = AddressSerializer(read_only=True)
+    teams = TeamSerializer(Team.objects.all(), many=True, read_only=True)
 
     class Meta:
         model = Event

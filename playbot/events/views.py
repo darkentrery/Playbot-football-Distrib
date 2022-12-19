@@ -1,3 +1,5 @@
+from itertools import permutations
+
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -7,11 +9,13 @@ from playbot.chats.models import Chat
 from playbot.cities.models import City, Address
 from playbot.cities.serializers import AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer
+    EventPlayer, Team, TeamPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer
+from playbot.events.utils import auto_distribution
 from playbot.history.models import UserEventAction
+from playbot.users.models import User
 
 
 class CreateEventView(APIView):
@@ -175,6 +179,33 @@ class SetRegulationView(APIView):
         if serializer.is_valid() and event.organizer == request.user:
             event = serializer.save()
             if event:
+                count_players = event.event_player.all().count()
+                base_count = event.format.count
+                count_teams = count_players // base_count
+                above_count = count_players - count_teams * base_count
+                players_in_team = []
+                for i in range(count_teams):
+                    if above_count:
+                        players_in_team.append(base_count + 1)
+                        above_count -= 1
+                    else:
+                        players_in_team.append(base_count)
+                for team in event.teams.all():
+                    team.delete()
+                for player in players_in_team:
+                    Team.objects.create(name=f"Команда {event.next_number}", event=event, count_players=player, number=event.next_number)
+
+                if event.distribution_method.name == "Автоматический":
+                    teams = auto_distribution(event)
+                    for team in teams:
+                        for player in team["players"]:
+                            TeamPlayer.objects.create(player_id=player[0], team_id=team["id"])
+
+                    pass
+
+
+
+
                 EventStep.objects.update_or_create(step=EventStep.StepName.STEP_2, event=event, defaults={"complete": True})
                 EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event)
                 json = EventSerializer(Event.objects.get(id=id)).data

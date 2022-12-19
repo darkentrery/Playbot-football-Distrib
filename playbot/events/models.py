@@ -92,11 +92,20 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    @property
+    def next_number(self):
+        if self.teams.all().exists():
+            last_number = self.teams.all().order_by("-number").first().number
+            return last_number + 1
+        else:
+            return 1
+
 
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="team")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="teams")
     count_players = models.IntegerField(_("Count Of Players"))
+    number = models.IntegerField(_("Team Number"), default=1)
 
     class Meta:
         unique_together = ["name", "event"]
@@ -121,8 +130,8 @@ class EventPlayer(models.Model):
 
 
 class TeamPlayer(models.Model):
-    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="team_player")
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team_player")
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="team_players")
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team_players")
 
     class Meta:
         unique_together = ["player", "team"]
