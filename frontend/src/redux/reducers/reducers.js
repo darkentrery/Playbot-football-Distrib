@@ -2,7 +2,7 @@ import {
     AUTH,
     CANCEL_EVENT_WINDOW,
     CHOICE_CITY_WINDOW, CITY,
-    CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
+    CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
@@ -14,7 +14,7 @@ import {
     SUCCESS_EDIT_EVENT_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
     SUCCESS_SIGN_UP2_WINDOW,
-    SUCCESS_SIGN_UP_WINDOW, UN_AUTH_JOIN_WINDOW
+    SUCCESS_SIGN_UP_WINDOW, TEAM, UN_AUTH_JOIN_WINDOW
 } from "../actions/actions";
 import { combineReducers } from 'redux';
 
@@ -34,6 +34,7 @@ const initialState = {
     isOpenCancelEvent: false,
     isOpenConfirmPlayers: false,
     isOpenFillRegulation: false,
+    isOpenConfirmTeamPlayers: false,
     isOpenConfirmTeams: false,
     isOpenMobileFirstPage: false,
     isOpenLeaveEvent: false,
@@ -118,6 +119,11 @@ const windows = (state = initialState, action) => {
               ...state,
               isOpenFillRegulation: action.value
           };
+      case CONFIRM_TEAM_PLAYERS_WINDOW:
+          return {
+              ...state,
+              isOpenConfirmTeamPlayers: action.value
+          };
       case CONFIRM_TEAMS_WINDOW:
           return {
               ...state,
@@ -166,7 +172,7 @@ const initialEventState = {
     players: [],
     steps: [],
     hiddenMap: false,
-
+    team: false,
 }
 
 const event = (state = initialEventState, action) => {
@@ -185,6 +191,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               steps: action.value,
+          };
+      case TEAM:
+          return {
+              ...state,
+              team: action.value,
           };
       case HIDDEN_MAP:
           return {

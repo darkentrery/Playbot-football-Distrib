@@ -12,7 +12,7 @@ from playbot.events.models import Event, CancelReasons, EventStep, Format, Distr
     EventPlayer, Team, TeamPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
-    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer
+    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer
 from playbot.events.utils import auto_distribution, create_teams
 from playbot.history.models import UserEventAction
 from playbot.users.models import User
@@ -194,6 +194,23 @@ class SetRegulationView(APIView):
                 EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event)
                 json = EventSerializer(Event.objects.get(id=id)).data
                 return Response(json, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ConfirmTeamPlayersView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        team = Team.objects.get(id=request.data["team"]["id"])
+        serializer = EditTeamNameSerializer(instance=team, data=request.data["team"])
+        if serializer.is_valid() and team.event.organizer == request.user:
+            team = serializer.save()
+            for player in team.team_players.all():
+                player.delete()
+            for id in request.data["players"]:
+                TeamPlayer.objects.create(team=team, player_id=id)
+            json = EventSerializer(instance=team.event).data
+            return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

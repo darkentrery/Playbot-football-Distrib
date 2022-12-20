@@ -38,6 +38,12 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class EditTeamNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ["name",]
+
+
 class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
@@ -61,11 +67,16 @@ class EventSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     cancel_reasons = serializers.SlugRelatedField(slug_field="name", read_only=True)
     address = AddressSerializer(read_only=True)
-    teams = TeamSerializer(Team.objects.all(), many=True, read_only=True)
+    # teams = TeamSerializer(Team.objects.all().order_by("-number"), many=True, read_only=True)
+    teams = serializers.SerializerMethodField(method_name="get_teams")
 
     class Meta:
         model = Event
         fields = "__all__"
+
+    def get_teams(self, instance):
+        teams = instance.teams.all().order_by("number")
+        return TeamSerializer(teams, many=True, read_only=True).data
 
 
 class EditEventSerializer(serializers.ModelSerializer):

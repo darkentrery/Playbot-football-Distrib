@@ -1,0 +1,16 @@
+.team-name-component {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  .hidden {
+    display: none;
+  }
+
+  .input {
+    border: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+}

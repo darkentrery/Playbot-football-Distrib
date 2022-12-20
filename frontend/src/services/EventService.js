@@ -157,6 +157,21 @@ export default class EventService{
 			});
 	}
 
+	confirmTeamPlayers(data){
+		const url = `${API_URL}confirm-team-players/`;
+		return axios.post(url, data, {headers: {
+			'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+		}})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				return error.response;
+			});
+	}
+
 	confirmTeams(data){
 		const url = `${API_URL}confirm-teams/`;
 		return axios.post(url, data, {headers: {

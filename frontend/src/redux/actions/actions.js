@@ -13,6 +13,7 @@ export const EDIT_EVENT_WINDOW = 'EDIT_EVENT_WINDOW';
 export const CANCEL_EVENT_WINDOW = 'CANCEL_EVENT_WINDOW';
 export const CONFIRM_PLAYERS_WINDOW = 'CONFIRM_PLAYERS_WINDOW';
 export const FILL_REGULATION_WINDOW = 'FILL_REGULATION_WINDOW';
+export const CONFIRM_TEAM_PLAYERS_WINDOW = 'CONFIRM_TEAM_PLAYERS_WINDOW';
 export const CONFIRM_TEAMS_WINDOW = 'CONFIRM_TEAMS_WINDOW';
 export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 export const LEAVE_EVENT_WINDOW = 'LEAVE_EVENT_WINDOW';
@@ -24,6 +25,7 @@ export const EVENT = 'EVENT';
 export const HIDDEN_MAP = 'HIDDEN_MAP';
 export const PLAYERS = 'PLAYERS';
 export const STEPS = 'STEPS';
+export const TEAM = 'TEAM';
 
 export const CITY = 'CITY';
 
@@ -105,6 +107,11 @@ export const fillRegulationWindow = (value) => ({
   value,
 });
 
+export const confirmTeamPlayersWindow = (value) => ({
+  type: CONFIRM_TEAM_PLAYERS_WINDOW,
+  value,
+});
+
 export const confirmTeamsWindow = (value) => ({
   type: CONFIRM_TEAMS_WINDOW,
   value,
@@ -135,6 +142,11 @@ export const auth = (value, user) => ({
 
 export const event = (value) => ({
   type: EVENT,
+  value,
+});
+
+export const team = (value) => ({
+  type: TEAM,
   value,
 });
 

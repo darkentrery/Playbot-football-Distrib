@@ -6,7 +6,16 @@ import {
   successSignUp2Window,
   auth,
   fillRegulationWindow,
-  confirmPlayersWindow, event, steps, confirmTeamsWindow, players, mobileFirstPageWindow, loginWindow, iphone, hiddenMap
+  confirmPlayersWindow,
+  event,
+  steps,
+  confirmTeamsWindow,
+  players,
+  mobileFirstPageWindow,
+  loginWindow,
+  iphone,
+  hiddenMap,
+  team, confirmTeamPlayersWindow
 } from "../actions/actions";
 
 
@@ -42,6 +51,9 @@ const mapDispatchToProps = (dispatch) => {
       setSteps: (value) => {
         dispatch(steps(value));
       },
+      setTeam: (value) => {
+        dispatch(team(value));
+      },
       setPlayers: (value) => {
         dispatch(players(value));
       },
@@ -59,6 +71,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       closeConfirmPlayers: () => {
         dispatch(confirmPlayersWindow(false));
+      },
+      openConfirmTeamPlayers: () => {
+        dispatch(confirmTeamPlayersWindow(true));
+      },
+      closeConfirmTeamPlayers: () => {
+        dispatch(confirmTeamPlayersWindow(false));
       },
       openConfirmTeams: () => {
         dispatch(confirmTeamsWindow(true));

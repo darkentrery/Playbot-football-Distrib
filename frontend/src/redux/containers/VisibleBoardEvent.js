@@ -9,7 +9,7 @@ import {
   confirmTeamsWindow,
   hiddenMap,
   leaveEventWindow,
-  loginWindow, unAuthJoinWindow
+  loginWindow, unAuthJoinWindow, confirmTeamPlayersWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
 import BoardEventComponent from "../../components/body/BoardEventComponent";
@@ -46,6 +46,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       openFillRegulation: () => {
         dispatch(fillRegulationWindow(true));
+      },
+      openConfirmTeamPlayers: () => {
+        dispatch(confirmTeamPlayersWindow(true));
+      },
+      closeConfirmTeamPlayers: () => {
+        dispatch(confirmTeamPlayersWindow(false));
       },
       openConfirmTeams: () => {
         dispatch(confirmTeamsWindow(true));

@@ -14,6 +14,7 @@ urlpatterns = [
     path("confirm-players/", views.ConfirmPlayersView.as_view(), name='confirm-players'),
     path("get-regulation/<int:id>/", views.GetRegulationView.as_view(), name='get-regulation'),
     path("set-regulation/", views.SetRegulationView.as_view(), name='set-regulation'),
+    path("confirm-team-players/", views.ConfirmTeamPlayersView.as_view(), name='confirm-team-players'),
     path("confirm-teams/", views.ConfirmTeamsView.as_view(), name='confirm-teams'),
     path("join-player/", views.JoinPlayerView.as_view(), name='join-player'),
     path("leave-event/", views.LeaveEventView.as_view(), name='leave-event'),

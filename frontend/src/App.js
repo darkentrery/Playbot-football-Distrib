@@ -28,6 +28,7 @@ import $ from "jquery";
 import HeadComponent from "./components/HeadComponent";
 import VisibleLeaveEvent from "./redux/containers/VisibleLeaveEvent";
 import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
+import VisibleConfirmTeamPlayers from "./redux/containers/VisibleConfirmTeamPlayers";
 
 
 
@@ -148,6 +149,7 @@ function App({state, funcs}) {
                                        funcs={funcs} isIPhone={state.app.isIPhone}/>
               <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
                                      funcs={funcs} isIPhone={state.app.isIPhone}/>
+              <VisibleConfirmTeamPlayers/>
 
           </Router>
       </div>

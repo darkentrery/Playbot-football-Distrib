@@ -27,7 +27,11 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
         funcs.removeMap();
     }
     const toConfirmTeams = (e) => {
-        funcs.openConfirmTeams();
+        if (event.distribution_method === "Автоматический") {
+            funcs.openConfirmTeams();
+        } else {
+            funcs.openConfirmTeamPlayers();
+        }
         e.target.blur();
         funcs.removeMap();
     }

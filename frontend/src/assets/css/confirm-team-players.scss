@@ -1,0 +1,68 @@
+.confirm-team-players-component {
+  &.reglament-component {
+    flex: 0 0 540px;
+    height: 717px;
+  }
+}
+
+.confirm-team-players-component .elem {
+  display: flex;
+
+  &.elem-4 {
+    margin-top: 10px;
+  }
+
+  &.elem-5 {
+    display: flex;
+    width: 280px;
+    margin-top: 18px;
+  }
+
+  &.elem-6 {
+    flex: 1 1 auto;
+    overflow: auto;
+    flex-direction: column;
+    margin-top: 18px;
+    margin-bottom: 28px;
+    width: 280px;
+
+    .el {
+      display: flex;
+      flex: 0 0 52px;
+      align-items: center;
+      cursor: pointer;
+
+      .player-select-icon {
+        flex: 0 0 20px;
+        height: 20px;
+      }
+
+      .player-avatar-icon {
+        flex: 0 0 32px;
+        height: 42px;
+        margin-left: 20px;
+        margin-right: 14px;
+        background-size: 32px 42px;
+      }
+    }
+  }
+
+  &.elem-7 {
+    flex: 0 0 $fieldHeight;
+    width: 280px;
+    margin-bottom: 40px;
+
+    &.safari-margin {
+      margin-bottom: 70px;
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .confirm-team-players-component {
+    &.reglament-component {
+      flex: 0 0 100vw;
+      height: 100vh;
+    }
+  }
+}

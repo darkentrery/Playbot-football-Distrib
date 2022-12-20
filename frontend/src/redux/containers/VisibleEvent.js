@@ -2,7 +2,7 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow, hiddenMap
+  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow, hiddenMap, team
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventComponent from "../../components/body/EventComponent";
@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setEvent: (value) => {
         dispatch(event(value));
+      },
+      setTeam: (value) => {
+        dispatch(team(value));
       },
       setPlayers: (value) => {
         dispatch(players(value));

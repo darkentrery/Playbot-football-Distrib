@@ -101,6 +101,9 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                     funcs.removeMap();
                     if (response.data.distribution_method === "Автоматический") {
                         funcs.openConfirmTeams();
+                    } else {
+                        funcs.setTeam(response.data.teams[0]);
+                        funcs.openConfirmTeamPlayers();
                     }
                 })
             } else {

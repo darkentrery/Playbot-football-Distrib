@@ -33,9 +33,13 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
         funcs.showMap();
     }
 
-    const toFillRegulation = () => {
+    const toBack = () => {
         closeWindow();
-        funcs.openFillRegulation();
+        if (event.distribution_method === "Автоматический") {
+            funcs.openFillRegulation();
+        } else {
+            funcs.openConfirmTeamPlayers();
+        }
         funcs.removeMap();
     }
 
@@ -46,7 +50,6 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 funcs.closeConfirmTeams();
                 funcs.showMap();
             }
-            console.log(response.data)
         })
     }
 
@@ -56,7 +59,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
     return (
         <ReglamentComponent isOpen={isOpen} className={`confirm-teams-component`} title={"Подтверди составы"}
-                            clickBack={toFillRegulation} closeWindow={closeWindow} step={3}>
+                            clickBack={toBack} closeWindow={closeWindow} step={3}>
             <div className={"elem elem-4"}>
                 {headItems !== false && headItems.map((item, key) => (
                     <div className={"el"} key={key}>

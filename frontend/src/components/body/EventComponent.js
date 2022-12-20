@@ -16,6 +16,15 @@ export default function EventComponent ({event, user, funcs}) {
         if (!flagRequest) {
             eventService.getEvent(pk).then((response) => {
                 funcs.setEvent(response.data);
+                if (response.data.teams.length !== 0) {
+                    for (let team of response.data.teams) {
+                        if (team.team_players.length === 0) {
+                            funcs.setTeam(team);
+                            break;
+                        }
+                        funcs.setTeam(team);
+                    }
+                }
             })
         }
         setFlagRequest(true);
