@@ -1,4 +1,4 @@
-.main-page .body .location-component {
+.body .location-component {
   display: flex;
   position: relative;
   align-items: stretch;
@@ -108,7 +108,7 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .main-page .body .location-component {
+  .body .location-component {
     margin-right: 20px;
     margin-left: 20px;
     margin-bottom: 16px;

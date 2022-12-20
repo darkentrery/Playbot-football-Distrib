@@ -29,6 +29,13 @@ import HeadComponent from "./components/HeadComponent";
 import VisibleLeaveEvent from "./redux/containers/VisibleLeaveEvent";
 import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
 import VisibleConfirmTeamPlayers from "./redux/containers/VisibleConfirmTeamPlayers";
+import BaseRoutes from "./routes/BaseRoutes";
+import VisibleEventsPage from "./redux/containers/VisibleEventsPage";
+import {GeneralInformationComponent} from "./components/generalInformationComponent/GeneralInformationComponent";
+import VisibleMainPage from "./redux/containers/VisibleMainPage";
+import VisibleEvent from "./redux/containers/VisibleEvent";
+import {AllowPolicyComponent} from "./components/body/AllowPolicyComponent";
+import {AllowOfferComponent} from "./components/body/AllowOfferComponent";
 
 
 
@@ -37,7 +44,7 @@ function App({state, funcs}) {
 
     const authService = new AuthService();
     const [confirmSignUp, setConfirmSignUp] = useState(false);
-    const [isUserDropdown, setIsUserDropdown] = useState(false);
+    // const [isUserDropdown, setIsUserDropdown] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
     const eventService = new EventService();
@@ -100,12 +107,12 @@ function App({state, funcs}) {
     // console.log(navigator)
     // console.log(document.referrer)
 
-    const pageClick = (e) => {
-        if (!$(e.target).hasClass('dropdown-icon') && !$(e.target).hasClass('dropdown-label')
-            && !$(e.target).hasClass('arrow-icon') && !$(e.target).hasClass('dropdown-head')) {
-            setIsUserDropdown(!isUserDropdown);
-        }
-    }
+    // const pageClick = (e) => {
+    //     if (!$(e.target).hasClass('dropdown-icon') && !$(e.target).hasClass('dropdown-label')
+    //         && !$(e.target).hasClass('arrow-icon') && !$(e.target).hasClass('dropdown-head')) {
+    //         setIsUserDropdown(!isUserDropdown);
+    //     }
+    // }
 
 
 
@@ -113,11 +120,21 @@ function App({state, funcs}) {
   return (
       <div className="App">
           <Router>
-              <main className={"main-page"} onClick={pageClick}>
-                  <HeadComponent user={state.user} flagDropdown={isUserDropdown} funcs={funcs}/>
-                  <BodyComponent/>
-                  <BottomComponent/>
-              </main>
+              <Routes>
+                  <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
+                  <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
+                  <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
+                  <Route exact path={BaseRoutes.faq} element={<VisibleMainPage/>}/>
+                  <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
+                  <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
+                  <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
+                  <Route exact path={BaseRoutes.eventInfo} element={<GeneralInformationComponent/>}/>
+              </Routes>
+              {/*<main className={"main-page"} onClick={pageClick}>*/}
+              {/*    <HeadComponent user={state.user} flagDropdown={isUserDropdown} funcs={funcs}/>*/}
+              {/*    <BodyComponent/>*/}
+              {/*    <BottomComponent/>*/}
+              {/*</main>*/}
 
               {/*<YMaps>*/}
               {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}

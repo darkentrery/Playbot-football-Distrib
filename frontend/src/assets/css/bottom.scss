@@ -1,4 +1,4 @@
-.main-page .bottom {
+.bottom {
   display: flex;
   flex: 0 0 $bottomHeight;
   flex-direction: column;
@@ -169,7 +169,7 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .main-page .bottom .elem-bottom {
+  .bottom .elem-bottom {
     justify-content: space-between;
 
     .el-2 {
@@ -181,11 +181,11 @@
     }
   }
 
-  .main-page .bottom .elem-1280 {
+  .bottom .elem-1280 {
     display: none;
   }
 
-  .main-page .bottom .elem-744 {
+  .bottom .elem-744 {
     display: flex;
     flex: 1 1 auto;
     background: #1B1B1B;
@@ -306,7 +306,7 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px) {
-  .main-page .bottom {
+  .bottom {
     .elem-1280 {
       display: none;
     }
@@ -315,7 +315,7 @@
     }
   }
 
-  .main-page .bottom .elem-376 {
+  .bottom .elem-376 {
     display: flex;
     flex: 0 0 56px;
     justify-content: space-between;

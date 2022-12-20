@@ -79,7 +79,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
                     <span>Для корректного отображения событий укажите город</span>
                 </div>
                 <SearchComponent className={"elem search"} arrayFirst={cities} setArraySecond={setCitiesView}/>
-                <div className={"elem cities div-scroll"} ref={citiesRef}>
+                <div className={"elem cities div-scroll scroll"} ref={citiesRef}>
                     {citiesView && citiesView.map((item, key) => {
                         return(
                             <div className={"scroll-elem"} onClick={choiceCity} key={key}>

@@ -4,6 +4,7 @@ import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer"
 import {Link, useParams} from "react-router-dom";
 import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
 import {SameEventComponent} from "./SameEventComponent";
+import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
 
 
 export default function EventComponent ({event, user, funcs}) {
@@ -40,17 +41,19 @@ export default function EventComponent ({event, user, funcs}) {
     }
 
     return (
-        <div className={"event-component"}>
-            <div className={"elem-376"}>
-                <div className={"event-mobile-head"}>
-                    <Link className={"el-1 gray-left-arrow-icon link"} to={".."}></Link>
-                    <span className={"el-2"}>Событие</span>
-                    <div className={"el-3 black-edit-icon link"} onClick={editEvent}></div>
+        <VisibleMainWrapper>
+            <div className={"event-component"}>
+                <div className={"elem-376"}>
+                    <div className={"event-mobile-head"}>
+                        <Link className={"el-1 gray-left-arrow-icon link"} to={".."}></Link>
+                        <span className={"el-2"}>Событие</span>
+                        <div className={"el-3 black-edit-icon link"} onClick={editEvent}></div>
+                    </div>
                 </div>
+                <VisibleBoardEvent/>
+                <VisibleEventOrganizer/>
+                <SameEventComponent event={event}/>
             </div>
-            <VisibleBoardEvent/>
-            <VisibleEventOrganizer/>
-            <SameEventComponent event={event}/>
-        </div>
+        </VisibleMainWrapper>
     )
 }

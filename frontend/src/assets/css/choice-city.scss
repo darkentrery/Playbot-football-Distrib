@@ -59,6 +59,7 @@
       &.bottom {
         justify-content: center;
         margin-bottom: 40px;
+        margin-top: 40px;
         flex: 0 0 $fieldHeight;
       }
 
@@ -70,5 +71,5 @@
 }
 
 .btn-choice-city {
-  flex: 0 0 calc($choiceCityWidth - 80px);
+  flex: 0 0 $fieldHeight;
 }

@@ -93,12 +93,9 @@ export default function EventsComponent ({city, user}) {
                             )
                         } else {
                             let event = item.event;
-                            let date = new Date(`${event.date}T${event.time_begin}`);
-                            let path = '';
-                            if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
                                 <div className={"event"} key={key}>
-                                    <Link className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`} to={path + BaseRoutes.eventLink(event.id)}>{event.name}</Link>
+                                    <Link className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`} to={BaseRoutes.eventLink(event.id)}>{event.name}</Link>
                                     <span className={"elem elem-2"}>{event.address}
                                         <span className={"time"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
                                     </span>
@@ -120,13 +117,10 @@ export default function EventsComponent ({city, user}) {
                             )
                         } else {
                             let event = item.event;
-                            // let date = new Date(`${event.date}T${event.time_begin}`);
-                            let path = '';
-                            if (!window.location.pathname.includes("events")) path = 'events/'
                             return (
                                 <div className={"event-376"} key={key}>
                                     <div className={"row row-1"}>
-                                        <Link className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`} to={path + BaseRoutes.eventLink(event.id)}>{event.name}
+                                        <Link className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`} to={BaseRoutes.eventLink(event.id)}>{event.name}
                                             <span className={"gray"}>{event.time_begin.slice(0, 5)}</span>
                                         </Link>
                                         <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>

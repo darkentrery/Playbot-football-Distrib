@@ -41,7 +41,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                 <div className={"menu"}>
                     <span className={"el active"} id={"description"} onClick={menuClick}>Информация</span>
                     <span className={"el inactive"} id={"members"} onClick={menuClick}>Участники</span>
-                    <span className={"el inactive"} id={"chat"} onClick={menuClick}>Обсуждение</span>
+                    <span className={"el inactive"} id={"chat"} onClick={menuClick}>Чат</span>
                 </div>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
                 <EventMembersComponent event={event}/>

@@ -1,6 +1,8 @@
 import React from "react-dom";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import EventService from "../../services/EventService";
+import BaseRoutes from "../../routes/BaseRoutes";
+import {Link} from "react-router-dom";
 
 
 export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
@@ -58,7 +60,9 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
             {!event.cancel && event.event_step.length === 3 && !event.event_step[2]["complete"] &&
                 <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
             {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] &&
-                <button className={"el el-3 btn"} onClick={toEventMenu}>Перейти в меню игры</button>}
+                // <button className={"el el-3 btn"} onClick={toEventMenu}>Перейти в меню игры</button>
+                <Link className={`el el-3 btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>
+            }
             {event.cancel && <span>Событие отменено</span>}
         </div>
     )

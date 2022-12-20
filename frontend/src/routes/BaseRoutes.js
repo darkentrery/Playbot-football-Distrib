@@ -3,47 +3,55 @@
 const BaseRoutes = {
 
 	get events () {
-		return "events/";
+		return "/events/";
 	},
 
 	get main () {
-		return "";
+		return "/";
 	},
 
 	get statistic () {
-		return "statistic/";
+		return "/statistic/";
 	},
 
 	get faq () {
-		return "faq/";
+		return "/faq/";
 	},
 
 	get description () {
-		return "events/description/";
+		return "/events/description/";
 	},
 
 	get members () {
-		return "events/members/";
+		return "/events/members/";
 	},
 
 	get chat () {
-		return "events/chat/";
+		return "/events/chat/";
 	},
 
 	eventLink (pk) {
-		return `event/${pk}/`;
+		return `/events/event/${pk}/`;
 	},
 
 	get event () {
-		return `events/event/:pk/`;
+		return `/events/event/:pk/`;
 	},
 
 	get allowPolicy () {
-		return "allow-policy/";
+		return "/allow-policy/";
 	},
 
 	get allowOffer () {
-		return "allow-offer/";
+		return "/allow-offer/";
+	},
+
+	get eventInfo () {
+		return `/events/event/:pk/info/`;
+	},
+
+	eventInfoLink (pk) {
+		return `/events/event/${pk}/info/`;
 	},
 
 

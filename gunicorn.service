@@ -10,6 +10,7 @@ WorkingDirectory=/home/python/Playbot_football
 Environment="PATH=/home/python/Playbot_football/venv/bin"
 ExecStart=/home/python/Playbot_football/venv/bin/gunicorn \
           --access-logfile - \
+          -k uvicorn.workers.UvicornWorker \
           --workers 5 \
           --timeout 600 \
           --bind unix:/run/gunicorn.sock \

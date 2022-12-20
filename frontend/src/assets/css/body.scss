@@ -5,7 +5,7 @@
 @import "body/location";
 @import "body/same-event";
 
-.main-page .body {
+.body {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -18,14 +18,14 @@
   overflow: auto;
 }
 
-.main-page .body .main-page-component {
+.body .main-page-component {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   align-items: stretch;
 }
 
-.main-page .body .title {
+.body .title {
   display: flex;
   align-items: center;
   flex: 0 0 29px;
@@ -62,18 +62,18 @@
   }
 }
 
-.main-page .body .board-create-event {
+.body .board-create-event {
   display: flex;
   flex: 0 0 478px;
   justify-content: stretch;
   align-items: stretch;
 }
 
-.main-page .body .board-create-event .board-create-event-376 {
+.body .board-create-event .board-create-event-376 {
   display: none;
 }
 
-.main-page .body .board-create-event .board-create-event-1280 {
+.body .board-create-event .board-create-event-1280 {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -151,7 +151,7 @@
   }
 }
 
-.main-page .body .board-events-1280 {
+.body .board-events-1280 {
   display: flex;
   flex: 0 0 140px;
   height: 140px;
@@ -160,11 +160,11 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .main-page .body .board-create-event .board-create-event-1280 {
+  .body .board-create-event .board-create-event-1280 {
     display: none;
   }
 
-  .main-page .body .board-create-event {
+  .body .board-create-event {
     display: flex;
     flex: 0 0 60px;
     justify-content: stretch;
@@ -172,11 +172,11 @@
     margin: 20px;
   }
 
-  .main-page .body .board-events-1280 {
+  .body .board-events-1280 {
     display: none;
   }
 
-  .main-page .body .board-create-event .board-create-event-376 {
+  .body .board-create-event .board-create-event-376 {
     display: flex;
     flex: 1 1 auto;
 
@@ -206,7 +206,7 @@
     }
   }
 
-  .main-page .body {
+  .body {
     padding: 0;
     max-height: calc(100vh - $bottomHeight);
 
@@ -215,7 +215,7 @@
     }
   }
 
-  .main-page .body .title {
+  .body .title {
     display: none;
   }
 }
