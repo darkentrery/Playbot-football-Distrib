@@ -16,6 +16,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     const [playersView, setPlayersView] = useState([]);
     const [teamName, setTeamName] = useState(false);
     const buttonRef = useRef();
+    const [buttonLock, setButtonLock] = useState(false);
 
     useEffect(() => {
         if (event) {
@@ -99,28 +100,34 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     }
 
     const confirmPlayers = () => {
-        team.name = teamName;
-        setTeamName(false);
-        buttonRef.current.blur();
-        authDecoratorWithoutLogin(eventService.confirmTeamPlayers, {"team": team, "players": selected}).then((response) => {
-            if (response.status === 200) {
-                funcs.setEvent(response.data);
-                closeWindow();
-                if (team.number < event.teams.length) {
-                    for (let t of response.data.teams) {
-                        if (t.number === team.number + 1) {
-                            funcs.setTeam(t);
-                            break;
+        if (!buttonLock) {
+            team.name = teamName;
+            setTeamName(false);
+            setButtonLock(true);
+            authDecoratorWithoutLogin(eventService.confirmTeamPlayers, {
+                "team": team,
+                "players": selected
+            }).then((response) => {
+                if (response.status === 200) {
+                    funcs.setEvent(response.data);
+                    closeWindow();
+                    if (team.number < event.teams.length) {
+                        for (let t of response.data.teams) {
+                            if (t.number === team.number + 1) {
+                                funcs.setTeam(t);
+                                break;
+                            }
                         }
+                        funcs.openConfirmTeamPlayers();
+                    } else {
+                        funcs.openConfirmTeams();
                     }
-                    funcs.openConfirmTeamPlayers();
-                } else {
-                    funcs.openConfirmTeams();
+                    funcs.removeMap();
+                    buttonRef.current.blur();
+                    setButtonLock(false);
                 }
-                funcs.removeMap();
-
-            }
-        })
+            })
+        }
     }
 
     return (

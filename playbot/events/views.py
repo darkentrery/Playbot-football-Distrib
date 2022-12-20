@@ -218,7 +218,11 @@ class ConfirmTeamsView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        event = Event.objects.get(id=request.data["id"])
+        event = Event.objects.get(id=request.data["event"]["id"])
+        for team in request.data["event"]["teams"]:
+            serializer = EditTeamNameSerializer(instance=Team.objects.get(id=team["id"]), data=team)
+            if serializer.is_valid() and event.organizer == request.user:
+                serializer.save()
         EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event, defaults={"complete": True})
         json = EventSerializer(instance=event).data
         return Response(json, status=status.HTTP_200_OK)
