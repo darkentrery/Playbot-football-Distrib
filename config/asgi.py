@@ -2,9 +2,9 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-from playbot.chats.middlewares import TokenAuthMiddleware
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prodaction')
+
+from playbot.chats.middlewares import TokenAuthMiddleware
 
 from config import routing  # noqa isort:skip
 
