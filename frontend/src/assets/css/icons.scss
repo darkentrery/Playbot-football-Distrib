@@ -245,7 +245,7 @@
   background-repeat: no-repeat;
   background-size: 78px 46px;
   width: 78px;
-  height: 46px !important;
+  height: 46px;
   cursor: pointer;
 }
 
@@ -264,6 +264,14 @@
   background-size: 94px 27px;
   width: 94px;
   height: 27px;
+}
+
+.black-title-korobka-icon {
+  background: url("../icon/black-title-korobka.png");
+  background-repeat: no-repeat;
+  background-size: 47px auto;
+  background-position: center center;
+  width: 47px;
 }
 
 .black-point-icon {
@@ -390,6 +398,14 @@
   background: url("../icon/gray-left-arrow.png") no-repeat;
   background-size: 6.5px 10px;
   background-position: center center;
+}
+
+.black-left-arrow-icon {
+  background: url("../icon/black-left-arrow.png") no-repeat;
+  background-size: 6.5px 10px;
+  background-position: center center;
+  height: 10px;
+  width: 6.5px;
 }
 
 .radio-select-icon {
