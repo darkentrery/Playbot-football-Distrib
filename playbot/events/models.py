@@ -142,6 +142,26 @@ class TeamPlayer(models.Model):
         return f"{self.player.name} - {self.team.name}"
 
 
+class EventGame(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_games")
+    team_1 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="event_games_teams_1")
+    score_1 = models.IntegerField(_("Score 1 Team"), default=0)
+    team_2 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="event_games_teams_2")
+    score_2 = models.IntegerField(_("Score 2 Team"), default=0)
+    time_begin = models.TimeField(_("Time Begin"), blank=True, null=True)
+    time_end = models.TimeField(_("Time End"), blank=True, null=True)
+    number = models.IntegerField(_("Number"), default=1)
+
+    class Meta:
+        unique_together = ["event", "team_1", "team_2"]
+        verbose_name = "Event Game"
+        verbose_name_plural = "Event Games"
+        ordering = ["number",]
+
+    def __str__(self):
+        return f"{self.event.name} - {self.number}"
+
+
 class EventStep(models.Model):
     class StepName(models.TextChoices):
         STEP_1 = "Step 1", _("Step 1")

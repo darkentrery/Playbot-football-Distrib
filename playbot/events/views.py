@@ -1,5 +1,3 @@
-from itertools import permutations
-
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -7,15 +5,13 @@ from rest_framework.views import APIView
 
 from playbot.chats.models import Chat
 from playbot.cities.models import City, Address
-from playbot.cities.serializers import AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer
-from playbot.events.utils import auto_distribution, create_teams
+from playbot.events.utils import auto_distribution, create_teams, create_event_games
 from playbot.history.models import UserEventAction
-from playbot.users.models import User
 
 
 class CreateEventView(APIView):
@@ -180,6 +176,7 @@ class SetRegulationView(APIView):
             event = serializer.save()
             if event:
                 create_teams(event)
+                create_event_games(event)
                 if event.distribution_method.name == "Автоматический":
                     teams = auto_distribution(event)
                     for team in teams:

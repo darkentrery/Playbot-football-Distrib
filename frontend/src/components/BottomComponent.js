@@ -32,7 +32,7 @@ export default function BottomComponent () {
 
 
     return(
-        <div className={"bottom"}>
+        <div className={"bottom-component"}>
             <div className={"elem-1280"}>
                 <div className={"el el-1"}>
                     <div className={"logo"}>

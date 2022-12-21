@@ -1,4 +1,5 @@
-from playbot.events.models import Team
+from itertools import combinations
+from playbot.events.models import Team, EventGame
 from playbot.users.models import User
 
 
@@ -18,6 +19,37 @@ def create_teams(event):
         team.delete()
     for player in players_in_team:
         Team.objects.create(name=f"Команда {event.next_number}", event=event, count_players=player, number=event.next_number)
+
+
+def create_event_games(event):
+    teams_id = list(event.teams.all().values_list("id", flat=True))
+    combs = [i for i in combinations(teams_id, 2)]
+    order_combs = []
+    if len(teams_id) > 3:
+        while len(order_combs) < len(combs):
+            for comb in combs:
+                if not order_combs:
+                    order_combs.append(comb)
+                    continue
+                elif not (comb in order_combs):
+                    if len(teams_id) == 4:
+                        if len(order_combs) == 1 and len(set(comb + order_combs[-1])) == 4:
+                            order_combs.append(comb)
+                            continue
+                        elif len(order_combs) > 1 and not (comb[0] in order_combs[-2] and comb[0] in order_combs[-1]) and not (comb[1] in order_combs[-2] and comb[1] in order_combs[-1]):
+                            order_combs.append(comb)
+                            continue
+                    else:
+                        if len(set(comb + order_combs[-1])) == 4:
+                            order_combs.append(comb)
+                            continue
+    else:
+        order_combs = combs
+
+    for game in event.event_games.all():
+        game.delete()
+    for i, comb in enumerate(order_combs):
+        EventGame.objects.create(number=i + 1, team_1_id=comb[0], team_2_id=comb[1], event=event)
 
 
 def auto_distribution(event):
