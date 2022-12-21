@@ -1,10 +1,22 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import EventService from "../../services/EventService";
 
 
-export const EventWrapperComponent = ({
-    children,
-}) => {
+export const EventWrapperComponent = ({children, event, user, funcs}) => {
+    const eventService = new EventService();
+    const [flagRequest, setFlagRequest] = useState(false);
+    const params = useParams();
+    const pk = params.pk;
+
+    useEffect(() => {
+        if (!flagRequest) {
+            eventService.getEvent(pk).then((response) => {
+                funcs.setEvent(response.data);
+            })
+        }
+        setFlagRequest(true);
+    }, [flagRequest])
 
 
     return (

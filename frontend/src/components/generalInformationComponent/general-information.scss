@@ -1,3 +1,272 @@
 .general-information-component {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1 1 auto;
+  gap: 32px;
+
+  .table {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .table-head {
+      display: flex;
+      background: $lightGrayColor;
+      padding-left: 25px;
+      gap: 15px;
+      align-items: center;
+      flex: 0 0 48px;
+
+      .socer-player-icon {
+        background-size: 20px;
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+}
+
+.general-information-component .table .table-body {
+  display: flex;
+  flex-direction: column;
+  background: $whiteColor;
+
+  .reglament-row {
+    display: flex;
+    flex: 0 0 94px;
+    align-self: stretch;
+    box-sizing: border-box;
+    gap: 36px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 24px;
+
+    .el {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+  }
+
+  .game-row {
+    display: flex;
+    flex: 0 0 40px;
+    align-items: center;
+    padding: 8px 24px 8px 10px;
+    box-sizing: border-box;
+
+    .elem-1 {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+
+      .el {
+        display: flex;
+
+        &.el-1 {
+          margin-right: 15px;
+        }
+        &.el-3 {
+          margin-right: 25px;
+          margin-left: 25px;
+        }
+      }
+    }
+
+    .elem-2 {
+      flex: 0 0 118px;
+      padding: 0 24px;
+      border-radius: 50px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: #E6E6E6;
+    }
+  }
+
+  .tournament-row {
+    display: flex;
+    flex: 0 0 40px;
+    align-items: center;
+    padding: 8px 24px 8px 10px;
+    box-sizing: border-box;
+    gap: 12px;
+
+    .elem {
+      display: flex;
+      justify-content: center;
+    }
+    .elem-1 {
+      flex: 0 0 20px;
+      justify-content: start;
+    }
+    .elem-2 {
+      flex: 0 0 75px;
+      justify-content: start;
+    }
+    .elem-3 {
+      flex: 0 0 100px;
+    }
+    .elem-4 {
+      flex: 0 0 100px;
+    }
+    .elem-5 {
+      flex: 0 0 100px;
+      gap: 5.5px;
+
+      .ball-icon {
+        width: 20px;
+      }
+    }
+    .elem-6 {
+      flex: 0 0 100px;
+    }
+    &.gray-bottom {
+      box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  .player-row {
+    display: flex;
+    flex: 0 0 40px;
+    align-items: center;
+    padding: 8px 24px 8px 10px;
+    box-sizing: border-box;
+    gap: 12px;
+
+    .elem {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .elem-1 {
+      flex: 0 0 20px;
+      justify-content: start;
+    }
+    .elem-2 {
+      flex: 1 0 175px;
+      justify-content: start;
+
+      &.player-avatar-icon {
+        background-size: auto 32px;
+        height: 32px;
+        padding-left: 40px;
+        box-sizing: border-box;
+      }
+    }
+    .elem-3 {
+      flex: 0 0 86px;
+    }
+    .elem-4 {
+      flex: 0 0 75px;
+    }
+    .elem-5 {
+      flex: 0 0 105px;
+      gap: 5.5px;
+    }
+    .elem-6 {
+      flex: 0 0 62px;
+    }
+    &.gray-bottom {
+      box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .general-information-component {
+    gap: 16px;
+
+    .table {
+      .table-body {
+        .reglament-row {
+          flex: 0 0 125px;
+          padding: 16px 20px;
+          justify-content: start;
+          gap: 25px 40px;
+
+          .el {
+            gap: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .general-information-component .table .table-body {
+    .game-row {
+      padding: 8px 6px 8px 20px;
+    }
+    .tournament-row {
+      padding: 8px 21px 8px 20px;
+
+      .elem-1 {
+        flex: 0 0 20px;
+        justify-content: start;
+      }
+      .elem-2 {
+        flex: 1 0 100px;
+        justify-content: start;
+      }
+      .elem-3 {
+        flex: 0 0 22px;
+      }
+      .elem-4 {
+        flex: 0 0 73px;
+      }
+      .elem-5 {
+        flex: 0 0 65px;
+        gap: 5.5px;
+
+        .ball-icon {
+          width: 20px;
+        }
+      }
+      .elem-6 {
+        flex: 0 0 14px;
+      }
+      &.gray-bottom {
+        box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
+      }
+    }
+    .player-row {
+      padding: 8px 17px 8px 12px;
+      flex: 0 0 48px;
+
+      .elem-1 {
+        flex: 0 0 20px;
+        justify-content: start;
+      }
+      .elem-2 {
+        flex: 1 0 121px;
+        justify-content: start;
+
+        &.player-avatar-icon {
+          background-size: auto 32px;
+          height: 32px;
+          padding-left: 30px;
+          box-sizing: border-box;
+        }
+      }
+      .elem-3 {
+        flex: 0 0 27px;
+      }
+      .elem-4 {
+        flex: 0 0 36px;
+      }
+      .elem-5 {
+        flex: 0 0 26px;
+        gap: 5.5px;
+      }
+      .elem-6 {
+        flex: 0 0 74px;
+      }
+    }
+  }
 
 }

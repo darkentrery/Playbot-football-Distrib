@@ -38,7 +38,7 @@
     flex-direction: column;
     background: #F9F9F9;
     padding: 28px 40px 74px 40px;
-    gap: 32px;
+    //gap: 32px;
   }
 
   .event-wrapper-body .navigate-bar-376 {
@@ -49,6 +49,7 @@
     display: flex;
     flex: 0 0 35px;
     gap: 25px;
+    margin-bottom: 24px;
 
     .nav-link {
       display: flex;

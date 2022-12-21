@@ -36,6 +36,7 @@ import VisibleMainPage from "./redux/containers/VisibleMainPage";
 import VisibleEvent from "./redux/containers/VisibleEvent";
 import {AllowPolicyComponent} from "./components/body/AllowPolicyComponent";
 import {AllowOfferComponent} from "./components/body/AllowOfferComponent";
+import VisibleGeneralInformation from "./redux/containers/VisibleGeneralInformation";
 
 
 
@@ -128,7 +129,7 @@ function App({state, funcs}) {
                   <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
                   <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
                   <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
-                  <Route exact path={BaseRoutes.eventInfo} element={<GeneralInformationComponent/>}/>
+                  <Route exact path={BaseRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
               </Routes>
               {/*<main className={"main-page"} onClick={pageClick}>*/}
               {/*    <HeadComponent user={state.user} flagDropdown={isUserDropdown} funcs={funcs}/>*/}
