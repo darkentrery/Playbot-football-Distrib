@@ -1,6 +1,9 @@
 import React from "react-dom";
 import {useEffect, useState} from "react";
 import EventService from "../../services/EventService";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import BaseRoutes from "../../routes/BaseRoutes";
+import {Link} from "react-router-dom";
 
 
 export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => {
@@ -18,7 +21,7 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
     }, [event])
 
     const joinToEvent = () => {
-        eventService.joinPlayer(event).then((response) => {
+        authDecoratorWithoutLogin(eventService.joinPlayer, event).then((response) => {
             if (response.status === 200) funcs.setEvent(response.data);
         })
     }
@@ -33,10 +36,6 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
         funcs.openLeaveEvent();
     }
 
-    const toMenu = () => {
-
-    }
-
     return (
         <div className={`buttons-board-player-component ${className}`}>
             {!user.isAuth && !ids.includes(user.user.id) && event && event.event_step.length < 1 &&
@@ -46,7 +45,7 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
             {user.isAuth && ids.includes(user.user.id) && event && event.event_step.length < 1 &&
                 <button className={"el el-1 btn-second"} onClick={leaveEvent}>Покинуть событие</button>}
             {event && event.event_step.length >= 1 &&
-                <button className={"el el-1 btn"} onClick={toMenu}>Перейти в меню игры</button>}
+                <Link className={`el el-1 btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
         </div>
     )
 }

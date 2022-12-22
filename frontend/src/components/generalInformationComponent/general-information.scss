@@ -69,9 +69,15 @@
         &.el-1 {
           margin-right: 15px;
         }
+        &.el-2 {
+          flex: 0 0 80px;
+        }
         &.el-3 {
           margin-right: 25px;
           margin-left: 25px;
+        }
+        &.el-4 {
+          flex: 0 0 80px;
         }
       }
     }
@@ -81,6 +87,10 @@
       padding: 0 24px;
       border-radius: 50px;
       height: 24px;
+
+      &.hidden {
+        display: none;
+      }
     }
 
     &:hover {

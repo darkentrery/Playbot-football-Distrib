@@ -35,7 +35,7 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
             <div className={"event-wrapper-body"}>
                 <div className={"navigate-bar-1280"}>
                     <Link className={`nav-link black-400-14 active`} to={".."}>Иформация</Link>
-                    <Link className={`nav-link A7-gray-400-14`} to={".."}>Плеер</Link>
+                    {user.isAuth && event && user.user.id === event.organizer.id && <Link className={`nav-link middle-gray-400-12`} to={".."}>Плеер</Link>}
                     <Link className={`nav-link A7-gray-400-14`} to={".."}>Составы команд</Link>
                 </div>
                 <div className={"navigate-bar-376"}>
@@ -45,7 +45,7 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
                     </div>
                     <div className={"elem elem-2"}>
                         <Link className={`nav-link white-600-12 active`} to={".."}>Иформация</Link>
-                        <Link className={`nav-link middle-gray-400-12`} to={".."}>Плеер</Link>
+                        {user.isAuth && event && user.user.id === event.organizer.id && <Link className={`nav-link middle-gray-400-12`} to={".."}>Плеер</Link>}
                         <Link className={`nav-link middle-gray-400-12`} to={".."}>Составы команд</Link>
                     </div>
                 </div>

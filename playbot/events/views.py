@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -6,7 +8,7 @@ from rest_framework.views import APIView
 from playbot.chats.models import Chat
 from playbot.cities.models import City, Address
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer
+    EventPlayer, Team, TeamPlayer, EventGame
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer
@@ -248,6 +250,20 @@ class LeaveEventView(APIView):
         UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)
+
+
+class BeginEventGameView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        game = EventGame.objects.get(id=request.data["game"]["id"])
+        if game.event.organizer == request.user:
+            game.time_begin = datetime.datetime.now().time()
+            game.save()
+            event = EventSerializer(instance=game.event)
+            return Response(event.data, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

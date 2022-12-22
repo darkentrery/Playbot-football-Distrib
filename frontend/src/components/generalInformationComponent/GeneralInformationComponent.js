@@ -1,6 +1,8 @@
 import VisibleEventWrapper from "../../redux/containers/VisibleEventWrapper";
 import React, {useEffect, useState} from "react";
 import {getMinutesStr} from "../../utils/dates";
+import EventService from "../../services/EventService";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
 export const GeneralInformationComponent = ({event, user, funcs}) => {
@@ -37,7 +39,26 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         )
     }
 
-    const GameRow = ({gray=false, value1, value2, value3, value4}) => {
+    const GameRow = ({gray=false, value1, value2, value4, game, flagBegin}) => {
+        const eventService = new EventService();
+        const [value3, setValue3] = useState(false);
+        useEffect(() => {
+            if (game) {
+                if (!game.time_begin) {
+                    setValue3(<div className={"gray-cross-icon"}></div>);
+                } else if (game.time_begin && !game.time_end) {
+                    setValue3(<div className={"point-icon"}></div>);
+                } else if (game.time_end) {
+                    setValue3(`${game.score_1} : ${game.score_2}`);
+                }
+            }
+        }, [game])
+        const beginGame = () => {
+            authDecoratorWithoutLogin(eventService.beginEventGame, {"game": game}).then((response) => {
+                funcs.setEvent(response.data);
+            })
+        }
+
         return (
             <div className={"game-row"}>
                 <div className={"elem-1"}>
@@ -46,21 +67,22 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <span className={`el el-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                     <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 </div>
-                <span className={"elem-2 btn white-500-12"}>Начать игру</span>
+                {user.isAuth && event && event.organizer.id === user.user.id &&
+                    <span className={`elem-2 btn white-500-12 ${flagBegin ? '' : 'hidden'}`} onClick={beginGame}>Начать игру</span>}
             </div>
         )
     }
 
-    const TournamentRow = ({gray=false, value1, value2, value3, value4, value5, value6}) => {
+    const TournamentRow = ({gray=false, value1, value2, value3, value4, value5, value6, flagFinish=false}) => {
         return (
             <div className={`tournament-row ${gray ? 'gray-bottom': ''}`}>
-                <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
-                <span className={`elem elem-2 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value2}</span>
-                <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
-                <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
+                <span className={`elem elem-1 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value1}.</span>
+                <span className={`elem elem-2 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value2}</span>
+                <span className={`elem elem-3 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value3}</span>
+                <span className={`elem elem-4 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value4}</span>
                 {gray ? <span className={`elem elem-5 gray-400-13`}><div className={"ball-icon"}></div>{value5}</span>
-                    : <span className={`elem elem-5 black-400-13`}>{value5}</span>}
-                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value6}</span>
+                    : <span className={`elem elem-5 ${flagFinish ? 'black-700-13' : 'black-400-13'}`}>{value5}</span>}
+                <span className={`elem elem-6 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value6}</span>
             </div>
         )
     }
@@ -92,13 +114,23 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     </div>
                 </EventTable>
                 <EventTable event={event} title={"Игры"} className={"black-foot-with-ball-icon"}>
-                    <GameRow gray={true} value1={"1"} value2={"Команда 1"} value3={<div className={"gray-cross-icon"}></div>} value4={"Команда 1"}/>
-
+                    {event && event.event_games.map((game, key) => (
+                        <GameRow
+                            gray={game.time_end ? true : false}
+                            value1={game.number}
+                            value2={game.team_1.name}
+                            // value3={game.time_end ? `${game.score_1} : ${game.score_2}` : <div className={"gray-cross-icon"}></div>}
+                            value4={game.team_2.name} key={key}
+                            game={game}
+                            flagBegin={(key === 0 && !game.time_begin) || (key > 0 && event.event_games[key - 1].time_end && !game.time_begin) ? true : false}
+                        />
+                    ))}
                 </EventTable>
                 <EventTable event={event} title={"Турнирная таблица"} className={"black-event-table-icon"}>
                     <TournamentRow gray={true} value1={"№"} value2={"Команда"} value3={"И"} value4={"В / Н / П"} value5={"З-П"} value6={"О"}/>
                     {event && event.teams.map((team, key) => (
-                        <TournamentRow value1={team.number} value2={team.name} value3={"И"} value4={"В / Н / П"} value5={"З-П"} value6={"О"} key={key}/>
+                        <TournamentRow value1={team.number} value2={team.name} value3={team.played} value4={`${team.wins} / ${team.nothing} / ${team.loss}`} value5={"З-П"} value6={"О"} key={key}
+                        flagFinish={team.played ? true : false}/>
                     ))}
                 </EventTable>
                 <EventTable event={event} title={"Игроки"} className={"socer-player-icon"}>

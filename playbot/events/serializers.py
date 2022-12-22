@@ -32,6 +32,10 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
 
 class TeamSerializer(serializers.ModelSerializer):
     team_players = TeamPlayerSerializer(TeamPlayer.objects.all(), many=True, read_only=True)
+    wins = serializers.IntegerField(read_only=True)
+    loss = serializers.IntegerField(read_only=True)
+    nothing = serializers.IntegerField(read_only=True)
+    played = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Team

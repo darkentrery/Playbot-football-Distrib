@@ -115,6 +115,51 @@ class Team(models.Model):
     def __str__(self):
         return f"{self.name} - {self.event.name}"
 
+    @property
+    def wins(self):
+        wins = 0
+        for game in self.event_games_teams_1.all():
+            if game.time_end and game.score_1 > game.score_2:
+                wins += 1
+        for game in self.event_games_teams_2.all():
+            if game.time_end and game.score_2 > game.score_1:
+                wins += 1
+        return wins
+
+    @property
+    def loss(self):
+        loss = 0
+        for game in self.event_games_teams_1.all():
+            if game.time_end and game.score_1 < game.score_2:
+                loss += 1
+        for game in self.event_games_teams_2.all():
+            if game.time_end and game.score_2 < game.score_1:
+                loss += 1
+        return loss
+
+    @property
+    def nothing(self):
+        nothing = 0
+        for game in self.event_games_teams_1.all():
+            if game.time_end and game.score_1 == game.score_2:
+                nothing += 1
+        for game in self.event_games_teams_2.all():
+            if game.time_end and game.score_2 == game.score_1:
+                nothing += 1
+        return nothing
+
+    @property
+    def played(self):
+        played = 0
+        for game in self.event_games_teams_1.all():
+            if game.time_end:
+                played += 1
+        for game in self.event_games_teams_2.all():
+            if game.time_end:
+                played += 1
+        return played
+
+
 
 class EventPlayer(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_player")

@@ -18,4 +18,5 @@ urlpatterns = [
     path("confirm-teams/", views.ConfirmTeamsView.as_view(), name='confirm-teams'),
     path("join-player/", views.JoinPlayerView.as_view(), name='join-player'),
     path("leave-event/", views.LeaveEventView.as_view(), name='leave-event'),
+    path("begin-event-game/", views.BeginEventGameView.as_view(), name='begin-event-game'),
 ]
