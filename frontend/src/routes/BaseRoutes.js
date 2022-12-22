@@ -54,6 +54,14 @@ const BaseRoutes = {
 		return `/events/event/${pk}/info/`;
 	},
 
+	get eventInfoTeams () {
+		return `/events/event/:pk/teams/`;
+	},
+
+	eventInfoTeamsLink (pk) {
+		return `/events/event/${pk}/teams/`;
+	},
+
 
 }
 export default BaseRoutes;

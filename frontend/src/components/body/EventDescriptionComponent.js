@@ -9,7 +9,6 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
     const [address, setAddress] = useState(false);
     const markerRef = useRef(false);
 
-
     useEffect(() => {
         if (event.geo_point) {
             let point = {

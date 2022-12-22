@@ -217,6 +217,11 @@
         line-height: 19px;
         padding: 10px;
       }
+      .el-3 {
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 
