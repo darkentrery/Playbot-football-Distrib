@@ -5,6 +5,7 @@ import {Link, useParams} from "react-router-dom";
 import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
 import {SameEventComponent} from "./SameEventComponent";
 import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
+import BaseRoutes from "../../routes/BaseRoutes";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -50,8 +51,8 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             <div className={"event-component"}>
                 <div className={"elem-376"}>
                     <div className={"event-mobile-head"}>
-                        <Link className={"el-1 gray-left-arrow-icon link"} to={".."}></Link>
-                        <span className={"el-2"}>Событие</span>
+                        <Link className={"el-1 gray-left-arrow-icon link"} to={BaseRoutes.main}></Link>
+                        <Link className={"el-2"} to={BaseRoutes.main}>Событие</Link>
                         <div className={"el-3 black-edit-icon link"} onClick={editEvent}></div>
                     </div>
                 </div>

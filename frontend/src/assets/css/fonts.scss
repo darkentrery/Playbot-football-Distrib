@@ -12,6 +12,12 @@
   font-style: normal;
 }
 
+.black-700-18 {
+  font-weight: 700;
+  font-size: 18px;
+  color: $blackColor;
+}
+
 .black-700-13 {
   font-weight: 700;
   font-size: 13px;
@@ -94,6 +100,12 @@
   font-weight: 300 !important;
   font-size: 13px !important;
   color: $blackColor !important;
+}
+
+.white-700-40 {
+  font-weight: 700 !important;
+  font-size: 40px !important;
+  color: $whiteColor !important;
 }
 
 .white-600-12 {

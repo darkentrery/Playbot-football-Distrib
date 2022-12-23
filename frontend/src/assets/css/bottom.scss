@@ -320,6 +320,8 @@
     flex: 0 0 56px;
     justify-content: space-between;
     align-items: center;
+    border-top: 1px solid #F3F3F3;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9);
 
     .elem {
       display: flex;
