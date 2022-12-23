@@ -192,6 +192,13 @@ export const FormEventComponent = ({
         setIsOpenMap(true);
     }
 
+    const changeIsPlayer = () => {
+        if (event && event.count_players === event.event_player.length && !isPlayer) {
+            return
+        }
+        setIsPlayer(!isPlayer);
+    }
+
 
     return (
         <div className={`form-event-component ${className}`}>
@@ -238,11 +245,9 @@ export const FormEventComponent = ({
                     onClick={openMap}
                 >Укажите на карте</span>
                 <div className={`suggests ${suggests.length ? '' : 'hidden'}`}>
-                    {suggests.length !== 0 && suggests.map((item, key) => {
-                        return (
-                            <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
-                        )
-                    })}
+                    {suggests.length !== 0 && suggests.map((item, key) => (
+                        <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
+                    ))}
                 </div>
             </div>
             <div className={"elem elem-6"}>
@@ -250,7 +255,7 @@ export const FormEventComponent = ({
             </div>
             <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
             <div className={"elem elem-8"}>
-                <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={(e) => setIsPlayer(!isPlayer)}></div>
+                <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={changeIsPlayer}></div>
                 <span>Организатор события не играет</span>
             </div>
             <div className={"elem elem-9"} ref={refNotice}>

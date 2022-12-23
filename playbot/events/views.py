@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from playbot.chats.models import Chat
 from playbot.cities.models import City, Address
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer
@@ -94,6 +94,9 @@ class EditEventView(APIView):
                     EventPlayer.objects.create(player=request.user, event=event)
                 elif not event.is_player and event.event_player.filter(player=request.user):
                     EventPlayer.objects.get(player=request.user, event=event).delete()
+                    if event.first_order_queue:
+                        EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
+                        EventQueue.objects.get(player=event.first_order_queue).delete()
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -236,7 +239,10 @@ class JoinPlayerView(APIView):
 
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data.get("id"))
-        EventPlayer.objects.update_or_create(player=request.user, event=event)
+        if event.event_player.all().count() < event.count_players:
+            EventPlayer.objects.update_or_create(player=request.user, event=event)
+        else:
+            EventQueue.objects.update_or_create(player=request.user, event=event, number=event.next_queue_number)
         UserEventAction.objects.create(user=request.user, event=event)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)
@@ -251,6 +257,12 @@ class LeaveEventView(APIView):
         event_player = EventPlayer.objects.filter(player=request.user, event=event)
         if event_player.exists():
             event_player.delete()
+            if event.first_order_queue:
+                EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
+                EventQueue.objects.get(player=event.first_order_queue).delete()
+        else:
+            if event.event_queues.filter(player=request.user).exists():
+                EventQueue.objects.get(player=request.user, event=event).delete()
         UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)

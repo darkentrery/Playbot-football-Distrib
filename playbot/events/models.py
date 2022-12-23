@@ -100,6 +100,21 @@ class Event(models.Model):
         else:
             return 1
 
+    @property
+    def next_queue_number(self):
+        if self.event_queues.all().exists():
+            last_number = self.event_queues.all().order_by("-number").first().number
+            return last_number + 1
+        else:
+            return 1
+
+    @property
+    def first_order_queue(self):
+        user = None
+        if self.event_queues.all().exists():
+            user = self.event_queues.all().order_by("number").first().player
+        return user
+
 
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)
@@ -169,6 +184,20 @@ class EventPlayer(models.Model):
         unique_together = ["player", "event"]
         verbose_name = "Event Player"
         verbose_name_plural = "Events Players"
+
+    def __str__(self):
+        return f"{self.player.username} - {self.event.name}"
+
+
+class EventQueue(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_queues")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_queues")
+    number = models.PositiveIntegerField(_("Number"), default=1)
+
+    class Meta:
+        unique_together = [["player", "event"], ["number", "event"]]
+        verbose_name = "Event Queue"
+        verbose_name_plural = "Events Queues"
 
     def __str__(self):
         return f"{self.player.username} - {self.event.name}"

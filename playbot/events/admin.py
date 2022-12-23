@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from playbot.events.models import Event, CancelReasons, Team, EventPlayer, TeamPlayer, EventStep, Duration, Format, \
-    DistributionMethod, CountCircles, EventGame
+    DistributionMethod, CountCircles, EventGame, EventQueue
 
 
 class TeamInline(admin.TabularInline):
@@ -52,6 +52,15 @@ class EventGameInline(admin.TabularInline):
     ]
 
 
+class EventQueueInline(admin.TabularInline):
+    model = EventQueue
+    extra = 0
+    list_display = [
+        "player",
+        "number",
+    ]
+
+
 @admin.register(CancelReasons)
 class CancelReasonsAdmin(admin.ModelAdmin):
     list_display = [
@@ -78,6 +87,7 @@ class EventAdmin(admin.ModelAdmin):
         EventPlayerInline,
         EventStepInline,
         EventGameInline,
+        EventQueueInline,
     ]
 
 
@@ -168,4 +178,12 @@ class EventGameAdmin(admin.ModelAdmin):
         "score_2",
         "time_begin",
         "time_end",
+    ]
+
+
+@admin.register(EventQueue)
+class EventQueueAdmin(admin.ModelAdmin):
+    list_display = [
+        "player",
+        "number",
     ]

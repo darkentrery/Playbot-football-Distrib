@@ -43,7 +43,6 @@ const DropDownComponent = ({
 
     useEffect(() => {
         if (flagClose != id) closeDropdown();
-        console.log(errorText, flagClose)
     }, [flagClose])
 
     return (

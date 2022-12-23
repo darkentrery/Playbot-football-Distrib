@@ -24,7 +24,8 @@ class ChatConsumer(JsonWebsocketConsumer):
         self.user = self.scope["user"]
         event_id = self.scope["url_route"]["kwargs"]["event_id"]
         self.chat = Chat.objects.get(event_id=event_id)
-        if not self.user.is_authenticated or not EventPlayer.objects.filter(event_id=event_id, player=self.user).exists():
+        if not self.user.is_authenticated or (not EventPlayer.objects.filter(event_id=event_id, player=self.user).exists()
+                                              and self.chat.event.organizer != self.user):
             return
         self.accept()
 
