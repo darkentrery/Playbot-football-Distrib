@@ -26,6 +26,7 @@ export const HIDDEN_MAP = 'HIDDEN_MAP';
 export const PLAYERS = 'PLAYERS';
 export const STEPS = 'STEPS';
 export const TEAM = 'TEAM';
+export const SAME_EVENTS = 'SAME_EVENTS';
 
 export const CITY = 'CITY';
 
@@ -162,6 +163,11 @@ export const hiddenMap = (value) => ({
 
 export const steps = (value) => ({
   type: STEPS,
+  value,
+});
+
+export const sameEvents = (value) => ({
+  type: SAME_EVENTS,
   value,
 });
 

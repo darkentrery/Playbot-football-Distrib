@@ -7,18 +7,23 @@ import {SameEventComponent} from "./SameEventComponent";
 import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
 
 
-export default function EventComponent ({event, user, funcs}) {
+export default function EventComponent ({event, sameEvents, user, funcs}) {
     const eventService = new EventService();
     const [flagRequest, setFlagRequest] = useState(false);
     const params = useParams();
     const pk = params.pk;
 
     useEffect(() => {
+        setFlagRequest(false);
+    }, [pk])
+
+    useEffect(() => {
         if (!flagRequest) {
             eventService.getEvent(pk).then((response) => {
-                funcs.setEvent(response.data);
-                if (response.data.teams.length !== 0) {
-                    for (let team of response.data.teams) {
+                funcs.setEvent(response.data.event);
+                funcs.setSameEvents(response.data.same_events);
+                if (response.data.event.teams.length !== 0) {
+                    for (let team of response.data.event.teams) {
                         if (team.team_players.length === 0) {
                             funcs.setTeam(team);
                             break;
@@ -52,7 +57,15 @@ export default function EventComponent ({event, user, funcs}) {
                 </div>
                 <VisibleBoardEvent/>
                 <VisibleEventOrganizer/>
-                <SameEventComponent event={event}/>
+                {sameEvents.length !== 0 &&
+                <div className={"same-events-component"}>
+                    <span className={"elem elem-1 black-600-20"}>Похожие события</span>
+                    <div className={"elem elem-2"}>
+                        {sameEvents.map((event, key) => (
+                            <SameEventComponent className={`same-event-${key}`} event={event} key={key}/>
+                        ))}
+                    </div>
+                </div>}
             </div>
         </VisibleMainWrapper>
     )

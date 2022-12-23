@@ -27,7 +27,7 @@ export const EventChatComponent = ({event, user}) => {
             console.log("Connected!");
         },
         onClose: () => {
-
+            setMessageHistory([]);
             console.log("Disconnected!");
         },
         onMessage: (e) => {

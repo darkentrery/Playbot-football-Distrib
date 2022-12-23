@@ -38,7 +38,7 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
 
     return (
         <div className={`buttons-board-player-component ${className}`}>
-            {!user.isAuth && !ids.includes(user.user.id) && event && event.event_step.length < 1 &&
+            {!user.isAuth && event && event.event_step.length < 1 &&
                 <button className={"el el-1 btn"} onClick={joinUnAuth}>Присоединиться к игре</button>}
             {user.isAuth && !ids.includes(user.user.id) && event && event.event_step.length < 1 &&
                 <button className={"el el-1 btn"} onClick={joinToEvent}>Присоединиться к игре</button>}

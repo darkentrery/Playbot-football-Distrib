@@ -8,7 +8,7 @@ import {
     EDIT_EVENT_WINDOW,
     EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
-    REFRESH_PASSWORD_WINDOW,
+    REFRESH_PASSWORD_WINDOW, SAME_EVENTS,
     SIGN_UP_WINDOW, STEPS,
     SUCCESS_CREATE_EVENT_WINDOW,
     SUCCESS_EDIT_EVENT_WINDOW,
@@ -173,6 +173,7 @@ const initialEventState = {
     steps: [],
     hiddenMap: false,
     team: false,
+    sameEvents: [],
 }
 
 const event = (state = initialEventState, action) => {
@@ -201,6 +202,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               hiddenMap: action.value,
+          };
+      case SAME_EVENTS:
+          return {
+              ...state,
+              sameEvents: action.value,
           };
       default:
           return state;

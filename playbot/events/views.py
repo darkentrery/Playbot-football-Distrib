@@ -54,7 +54,7 @@ class EventsView(APIView):
 
     def post(self, request, format='json'):
         city = request.data["city"]
-        events = EventSerializer(Event.objects.filter(city__name=city).order_by("date", "time_begin"), many=True)
+        events = EventSerializer(Event.objects.filter(city__name=city, time_end=None).order_by("date", "time_begin"), many=True)
         return Response(events.data, status=status.HTTP_200_OK)
 
 
@@ -62,9 +62,13 @@ class EventView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        id = self.kwargs.get("id")
-        event = EventSerializer(Event.objects.get(id=id)).data
-        return Response(event, status=status.HTTP_200_OK)
+        event = Event.objects.get(id=self.kwargs.get("id"))
+        json = EventSerializer(instance=event).data
+        same_events = Event.objects.filter(city=event.city).exclude(id=event.id)
+        count = min(3, same_events.count())
+        same_events = same_events[:count]
+        same_events = EventSerializer(same_events, many=True).data
+        return Response({"event": json, "same_events": same_events}, status=status.HTTP_200_OK)
 
 
 class EditEventView(APIView):

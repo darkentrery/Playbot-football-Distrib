@@ -97,6 +97,9 @@
 .buttons-board-player-component {
   .el {
     flex: 0 0 266px !important;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -134,8 +137,7 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .body .event-component {
-    margin-right: 16px;
-    margin-left: 16px;
+    padding: 0 16px 25px 16px;
   }
 
   .body .event-component .board-event-component .board-event-1280 {
