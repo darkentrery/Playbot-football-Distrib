@@ -1,19 +1,12 @@
+import {PlayerRowComponent} from "../playerRowComponent/PlayerRowComponent";
 
 export default function EventMembersComponent ({event}) {
     const ExistsPlayers = () => {
         return (
             <div className={"players-list scroll"}>
-                {event.event_player.map((item, key) => {
-                return (
-                    <div className={"elem"} key={key}>
-                        <div className={"el el-1 player-avatar-icon"}>
-                            <span className={"name"}>{item.player.username}</span>
-                            <span className={"role"}>Форвард</span>
-                        </div>
-                        <span className={"el el-2"}>88,6</span>
-                    </div>
-                    )
-                })}
+                {event.event_player.map((item, key) => (
+                    <PlayerRowComponent player={item.player} key={key}/>
+                ))}
             </div>
         )
     }

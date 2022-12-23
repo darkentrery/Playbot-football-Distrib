@@ -6,6 +6,7 @@
     align-items: stretch;
     justify-content: start;
     height: $choiceCityHeight;
+    box-sizing: border-box;
 
     .elem {
       display: flex;
@@ -17,6 +18,8 @@
         justify-content: space-between;
         margin-top: 40px;
         flex: 0 0 26px;
+        padding: 0;
+
         span {
           font-family: 'Raleway', sans-serif;
           font-style: normal;

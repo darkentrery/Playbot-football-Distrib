@@ -4,27 +4,26 @@
   display: flex;
   flex: 0 0 96px;
   align-items: center;
+  padding: 0 60px;
+  gap: 40px;
 
   .elem {
     display: flex;
     flex: 1 1 auto;
-    margin-right: 40px;
     flex-direction: column;
     align-items: center;
 
     &.elem-1 {
-      margin-left: $marginSides;
       flex: 0 0 78px;
     }
 
     &.elem-2 {
-      flex: 0 0 406px;
       flex-direction: row;
+      gap: 40px;
+      justify-content: start;
 
       .menu-point {
         display: flex;
-        flex: 1 1 auto;
-        margin-right: 40px;
         flex-direction: column;
         align-items: center;
         cursor: pointer;
@@ -33,15 +32,25 @@
           background: 0;
           color: #949494 !important;
         }
-
         &.black-point-icon {
           margin-top: 8px;
           height: 27px;
           background-position: center 21px;
         }
-
         &:hover {
           text-decoration: underline;
+        }
+        &.menu-point-1 {
+          flex: 0 0 65px;
+        }
+        &.menu-point-2 {
+          flex: 0 0 70px;
+        }
+        &.menu-point-3 {
+          flex: 0 0 90px;
+        }
+        &.menu-point-4 {
+          flex: 0 0 35px;
         }
       }
     }
@@ -50,6 +59,10 @@
       flex: 0 0 28px;
       height: 28px;
       cursor: pointer;
+
+      &.hidden {
+        display: none;
+      }
     }
 
     &.un-auth-user {
@@ -75,13 +88,16 @@
       }
     }
   }
+
+  .main-search-component {
+    flex: 0 0 303px;
+  }
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .head .elem-2 {
-    flex: 0 0 395px !important;
+  .head {
+    padding: 0 30px;
   }
-
   .head .un-auth-user {
     flex: 0 0 18px !important;
 

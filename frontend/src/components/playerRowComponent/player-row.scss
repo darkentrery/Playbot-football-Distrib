@@ -1,0 +1,32 @@
+.player-row-component {
+  display: flex;
+  flex: 0 0 52px;
+
+  .el {
+    display: flex;
+  }
+
+  .el-1 {
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding-left: 57px;
+    justify-content: space-around;
+
+    .name {
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .role {
+      font-size: 12px;
+    }
+  }
+  .el-2 {
+    flex: 0 0 42px;
+    height: 19px;
+    background: $whiteColor;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+}
