@@ -9,12 +9,11 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
     const [flagRequest, setFlagRequest] = useState(false);
     const params = useParams();
     const pk = params.pk;
-    console.log(window.location)
 
     useEffect(() => {
         if (!flagRequest) {
             eventService.getEvent(pk).then((response) => {
-                funcs.setEvent(response.data);
+                funcs.setEvent(response.data.event);
             })
         }
         setFlagRequest(true);

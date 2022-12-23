@@ -70,15 +70,16 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
                             <div onClick={closeWindow} className={"btn-close"}></div>
                         </div>
                         <div className={"elem-2"}>
-                            <div className={"point point-icon"}>
-                                <span>Создавай футбольные активности в любом месте и в любое время</span>
-                            </div>
-                            <div className={"point point-icon"}>
-                                <span>Устанавливай свои правила игры</span>
-                            </div>
-                            <div className={"point point-icon"}>
-                                <span>Фиксируй статистику матча</span>
-                            </div>
+                            {/*<div className={"point point-icon black-400-16"}>*/}
+                            {/*    Создавай футбольные активности в любом месте и в любое время*/}
+                            {/*    <span>Создавай футбольные активности в любом месте и в любое время</span>*/}
+                            {/*</div>*/}
+                            {/*<div className={"point point-icon"}>*/}
+                            {/*    <span>Устанавливай свои правила игры</span>*/}
+                            {/*</div>*/}
+                            {/*<div className={"point point-icon"}>*/}
+                            {/*    <span>Фиксируй статистику матча</span>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>

@@ -62,6 +62,13 @@
       margin-left: 24px;
       margin-bottom: 5px;
       background-position: 0 6px;
+      height: auto;
+      justify-content: stretch;
+
+      span {
+        display: flex;
+        flex: 1 1 auto;
+      }
     }
   }
 
