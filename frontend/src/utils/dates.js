@@ -31,14 +31,19 @@ const getWeekDay = (date) => {
   return weekDay[date.getDay()];
 }
 
+const replaceAt = (val, i) => {
+    val = val.substring(0, i) + '' + val.substring(i + 1);
+    return val;
+}
+
 const choiceDate =(e, setDate, refDate, setIncorrectDate, incorrectDate) => {
     if (typeof e == "string") {
         let val = e.replace(/\D/g, '');
         val = val.slice(0, 8);
-        if (Number(val.slice(0, 1)) > 3) val = this.replaceAt(val, 0);
-        if (Number(val.slice(0, 2)) > 31) val = this.replaceAt(val, 1);
-        if (Number(val.slice(2, 3)) > 1) val = this.replaceAt(val, 2);
-        if (Number(val.slice(2, 4)) > 12) val = this.replaceAt(val, 3);
+        if (Number(val.slice(0, 1)) > 3) val = replaceAt(val, 0);
+        if (Number(val.slice(0, 2)) > 31) val = replaceAt(val, 1);
+        if (Number(val.slice(2, 3)) > 1) val = replaceAt(val, 2);
+        if (Number(val.slice(2, 4)) > 12) val = replaceAt(val, 3);
         let formatVal = val;
         if (val.length > 2 && val.length < 5) {
             formatVal = `${val.slice(0, 2)}.${val.slice(2, 4)}`;
@@ -67,10 +72,10 @@ const choiceTime = (e, setTime, refTime) => {
     if (typeof e == "string") {
         let val = e.replace(/\D/g, '');
         val = val.slice(0, 4);
-        if (Number(val.slice(0, 1)) > 2) val = this.replaceAt(val, 0);
-        if (Number(val.slice(0, 2)) > 24) val = this.replaceAt(val, 1);
-        if (Number(val.slice(2, 3)) > 6) val = this.replaceAt(val, 2);
-        if (Number(val.slice(2, 4)) > 60) val = this.replaceAt(val, 3);
+        if (Number(val.slice(0, 1)) > 2) val = replaceAt(val, 0);
+        if (Number(val.slice(0, 2)) > 24) val = replaceAt(val, 1);
+        if (Number(val.slice(2, 3)) > 6) val = replaceAt(val, 2);
+        if (Number(val.slice(2, 4)) > 60) val = replaceAt(val, 3);
         let formatVal = val;
         if (val.length > 2 && val.length < 5) {
             formatVal = `${val.slice(0, 2)}:${val.slice(2, 4)}`;

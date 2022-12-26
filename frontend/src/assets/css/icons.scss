@@ -72,6 +72,11 @@
   z-index: 99999;
 }
 
+.calendar2-icon {
+  background: url("../icon/calendar2.png") no-repeat;
+  background-size: 20px;
+}
+
 .clock-icon {
   background: url("../icon/clock.png") no-repeat;
   background-size: 24px;
@@ -141,6 +146,13 @@
 .map-point-icon {
   background: url("../icon/map-point.png") no-repeat;
   background-size: 20px;
+}
+
+.map-paper-icon {
+  background: url("../icon/map-paper.png") no-repeat;
+  background-size: 15px 14.5px;
+  height: 14.5px;
+  width: 15px;
 }
 
 .foot-icon {

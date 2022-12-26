@@ -20,19 +20,20 @@ export const MainSearchComponent = ({
 
 
     useEffect(() => {
-        eventService.getEvents(user && user.city ? user.city : city).then((response) => {
-            console.log(response.data);
-            if (response.status === 200) {
-                setEvents(response.data);
-                let array = [];
-                response.data.map((event) => {
-                    event.event_player.map((player) => {
-                        if (!array.includes(player.player)) array.push(player.player);
+        if (isOpen) {
+            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
+                if (response.status === 200) {
+                    setEvents(response.data);
+                    let array = [];
+                    response.data.map((event) => {
+                        event.event_player.map((player) => {
+                            if (!array.includes(player.player)) array.push(player.player);
+                        })
                     })
-                })
-                setPlayers(array);
-            }
-        })
+                    setPlayers(array);
+                }
+            })
+        }
     }, [isOpen])
 
     const search = (e) => {

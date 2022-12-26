@@ -2,6 +2,10 @@
   flex: 0 0 411px;
   height: 674px;
   border-radius: 10px;
+  .elem.elem-1 {
+    align-self: stretch;
+    width: auto;
+  }
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
@@ -11,7 +15,7 @@
     border-radius: 0;
 
     .elem.elem-1 {
-      width: 100vw;
+      align-self: stretch;
     }
   }
 }
