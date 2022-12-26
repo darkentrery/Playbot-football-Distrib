@@ -48,7 +48,7 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
             ariaHideApp={false}
         >
             <div className={"popup-fon"} onClick={popupClick}>
-                <div className={"popup-frame create-event-component"}>
+                <div className={`popup-frame create-event-component ${data && data.is_paid ? 'isPaid' : ''}`}>
                     <FormEventComponent
                         className={"popup-left"}
                         onClick={sendForm}
@@ -70,17 +70,11 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
                             <div onClick={closeWindow} className={"btn-close"}></div>
                         </div>
                         <div className={"elem-2"}>
-                            {/*<div className={"point point-icon black-400-16"}>*/}
-                            {/*    Создавай футбольные активности в любом месте и в любое время*/}
-                            {/*    <span>Создавай футбольные активности в любом месте и в любое время</span>*/}
-                            {/*</div>*/}
-                            {/*<div className={"point point-icon"}>*/}
-                            {/*    <span>Устанавливай свои правила игры</span>*/}
-                            {/*</div>*/}
-                            {/*<div className={"point point-icon"}>*/}
-                            {/*    <span>Фиксируй статистику матча</span>*/}
-                            {/*</div>*/}
+                            <div className={"point point-big point-icon"}></div>
+                            <div className={"point point-icon"}></div>
+                            <div className={"point point-icon"}></div>
                         </div>
+                        <span className={"elem-3 black-600-24"}>Создавай футбольные активности в любом месте и в любое время</span>
                     </div>
                 </div>
             </div>

@@ -84,6 +84,10 @@ class Event(models.Model):
     scorer = models.BooleanField(_("Is Scorer of Goal"), default=False)
     until_goal = models.BooleanField(_("Play Until Goal"), default=False)
     until_goal_count = models.IntegerField(_("Count of Goal Until Play"), blank=True, null=True)
+    format_label = models.ForeignKey(Format, on_delete=models.SET_NULL, related_name="event_labels", blank=True, null=True)
+    is_paid = models.BooleanField(_("Is Paid"), default=False)
+    price = models.FloatField(_("Price"), default=0)
+    currency  = models.CharField(_("Currency"), max_length=50, default="RUB")
 
     class Meta:
         verbose_name = "Event"

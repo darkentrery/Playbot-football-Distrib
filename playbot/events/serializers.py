@@ -71,10 +71,13 @@ class CreateEventSerializer(serializers.ModelSerializer):
     organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
     address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
+    format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
+
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer", "city", "geo_point"]
+        fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer",
+                  "city", "geo_point", "format_label", "is_paid", "price"]
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -92,6 +95,7 @@ class EventSerializer(serializers.ModelSerializer):
     teams = serializers.SerializerMethodField(method_name="get_teams")
     event_games = EventGameSerializer(EventGame.objects.all(), many=True, read_only=True)
     event_queues = EventQueueSerializer(EventQueue.objects.all(), many=True, read_only=True)
+    format_label = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     class Meta:
         model = Event
@@ -109,6 +113,7 @@ class EditEventSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
     cancel_reasons = serializers.SlugRelatedField(queryset=CancelReasons.objects.all(), slug_field="name", required=False)
     address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
+    format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
 
     class Meta:
         model = Event

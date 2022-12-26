@@ -6,6 +6,13 @@
   width: 872px;
   height: 718px;
 
+  &.isPaid {
+    height: 772px;
+    .form-event-component {
+      height: 772px;
+    }
+  }
+
   .popup-left {
     flex: 0 0 411px;
 
@@ -20,6 +27,8 @@
     flex: 1 1 auto;
     flex-direction: column;
     align-items: stretch;
+    padding-left: 62px;
+    box-sizing: border-box;
   }
   .create-event-img {
     background: url(../../icon/signUpImg2.png) no-repeat;
@@ -39,28 +48,27 @@
   }
   .elem-2 {
     display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    margin-top: 44px;
-    width: $createEventRightPointWidth;
-    align-items: stretch;
+    flex: 0 0 16px;
+    margin-top: 5px;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 12px;
 
     .point {
-      display: flex;
-      padding-left: 24px;
-      margin-left: 24px;
-      margin-bottom: 5px;
-      background-position: 0 6px;
-      height: auto;
-      justify-content: stretch;
+      height: 8px;
+      width: 8px;
 
-      span {
-        display: flex;
-        flex: 1 1 auto;
+      &.point-big {
+        height: 16px;
+        width: 16px;
+        background-size: 16px;
       }
     }
   }
   .elem-3 {
+    max-width: 250px;
+  }
+  .elem-4 {
     display: flex;
     flex: 0 0 38px;
     margin-top: 44px;
@@ -68,7 +76,7 @@
     margin-left: 61px;
     width: $createEventRightPointWidth;
   }
-  .elem-4 {
+  .elem-5 {
     display: flex;
     width: $createEventRightPointWidth;
     margin-left: 61px;
@@ -122,16 +130,22 @@
     width: 696px;
     height: 772px;
 
-    .popup-right {
-      .elem-3 {
-        margin-left: 30px;
-
+    &.isPaid {
+      height: 836px;
+      .form-event-component {
+        height: 836px;
       }
+    }
+    .popup-right {
+      padding-left: 40px;
+
       .elem-4 {
         margin-left: 30px;
       }
+      .elem-5 {
+        margin-left: 30px;
+      }
     }
-
     .popup-left {
       flex: 0 0 348px;
     }
@@ -147,6 +161,12 @@
   .create-event-component {
     width: 100vw;
     height: 100vh;
+    &.isPaid {
+      height: 100vh;
+      .form-event-component {
+        height: 100vh;
+      }
+    }
   }
   .create-event-component .popup-right {
     display: none;

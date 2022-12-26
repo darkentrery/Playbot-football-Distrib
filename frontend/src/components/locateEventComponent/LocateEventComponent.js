@@ -18,13 +18,13 @@ export const LocateEventComponent = ({
 
 
     useEffect(() => {
-        if (city) {
+        if (city && !className.includes("hidden")) {
             getLocations(city).then((response) => {
                 if (response.data.results.length) setPosition(response.data.results[0].geometry);
                 console.log(position)
             })
         }
-    }, [city])
+    }, [city, className])
 
     useEffect(() => {
         if (position) {

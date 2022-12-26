@@ -32,9 +32,9 @@ export const FormEventComponent = ({
     const [address, setAddress] = useState(false);
     const [city, setCity] = useState(false);
     const [point, setPoint] = useState(false);
-    const [count, setCount] = useState(false);
+    const [count, setCount] = useState(4);
     const [notice, setNotice] = useState('');
-    const [format, setFormat] = useState('');
+    const [format, setFormat] = useState(false);
     const [isPlayer, setIsPlayer] = useState(false);
     const [incorrectDate, setIncorrectDate] = useState(false);
     const [nameError, setNameError] = useState(false);
@@ -45,6 +45,7 @@ export const FormEventComponent = ({
     const [isOpenMap, setIsOpenMap] = useState(false);
     const [isPaid, setIsPaid] = useState(false);
     const [price, setPrice] = useState(false);
+    const [currency, setCurrency] = useState('RUB');
     const [priceError, setPriceError] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
     const refDate = useRef();
@@ -52,6 +53,8 @@ export const FormEventComponent = ({
     const refAddress = useRef();
     const refNotice = useRef();
     const refAddressInput = useRef();
+    const currencies = ["RUB", "KZT", "UAH", "AZN", "GEL", "AMD"]
+    const formats = ["2x2", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11",];
 
     const closeWindow = () => {
         setId(false);
@@ -59,9 +62,13 @@ export const FormEventComponent = ({
         setDate(false);
         setTime(false);
         setAddress(false);
-        setCount(1);
+        setCount(4);
         setIsPlayer(false);
         setNotice('');
+        setFormat(false);
+        setIsPaid(false);
+        setPrice(false);
+        setCurrency('RUB')
         clickClose();
     }
 
@@ -77,6 +84,10 @@ export const FormEventComponent = ({
             setCount(event.count_players);
             if (event && event.is_player) setIsPlayer(true);
             setNotice(event.notice);
+            setFormat(event.format_label);
+            setCurrency(event.currency);
+            if (event && event.is_paid) setIsPaid(event.is_paid);
+            setPrice(event.price);
         }
         let array = [];
         for (let i=4; i<15; i++) {
@@ -110,9 +121,13 @@ export const FormEventComponent = ({
             'notice': notice,
             'city': city,
             'geo_point': point,
+            'is_paid': isPaid,
+            'price': price,
+            'format_label': format,
+            'currency': currency,
         };
         setData(bodyFormData);
-    }, [name, date, time, address, count, isPlayer, notice, point, city]);
+    }, [name, date, time, address, count, isPlayer, notice, point, city, isPaid, price, format, currency]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
@@ -160,13 +175,15 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && address && city && point) {
+        if (name && date && time && address && city && point && (!isPaid || isPaid && price) && format) {
             onClick(data);
         }
         if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
         if (!address || !city || !point) setAddressError("Заполните поле!");
+        if (isPaid && !price) setPriceError("Заполните поле!");
+        if (!format) setFormatError("Заполните поле!");
     }
 
     const choiceAddress = (e) => {
@@ -196,12 +213,22 @@ export const FormEventComponent = ({
         setIsOpenMap(true);
     }
 
+    const inputDigit = (value) => {
+        setPriceError('');
+        value = value.replace(/\D/g, '');
+        if (value.length >= 1 && value[0] === '0') value = value.slice(1,);
+        return value;
+    }
+
     const changeIsPlayer = () => {
         if (event && event.count_players === event.event_player.length && !isPlayer) {
             setIsPlayer(false);
         }
     }
 
+    const changeIsPaid = () => {
+        setPrice(false);
+    }
 
     return (
         <div className={`form-event-component scroll ${className}`}>
@@ -223,53 +250,54 @@ export const FormEventComponent = ({
                     ))}
                 </div>
             </div>
-            <InputComponent className={"elem elem-4"} value={format} setValue={setFormat} errorText={formatError}
-                            leftIcon={"football-field-icon"} placeholder={"Формат площадки *"}/>
+            <DropDownComponent
+                    value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
+                    flagClose={closeDropDown} id={3} content={formats} errorText={formatError} setErrorText={setFormatError}
+                    placeholder={"Формат площадки*"}
+                />
+            {/*<InputComponent className={"elem elem-4"} value={format} setValue={setFormat} errorText={formatError}*/}
+            {/*                leftIcon={"football-field-icon"} placeholder={"Формат площадки *"}/>*/}
             <div className={"elem elem-5"}>
-                {/*<div className={"datetime"}>*/}
-                    <ReactDatetimeClass
-                        className={`div-input date ${dateError ? 'error' : ''}`}
-                        timeFormat={false}
-                        dateFormat={"DD.MM.YYYY"}
-                        closeOnSelect={true}
-                        inputProps={{placeholder: 'Дата игры *'}}
-                        onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
-                        ref={refDate}
-                        value={date ? date : ''}
-                        renderDay={renderDay}
-                    />
-                    <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
-                    <ReactDatetimeClass
-                        className={`div-input time ${timeError ? 'error' : ''}`}
-                        timeFormat={"HH:mm"}
-                        dateFormat={false}
-                        closeOnSelect={true}
-                        inputProps={{placeholder: 'Время начала *'}}
-                        onChange={(e) => choiceTime(e, setTime, refTime)}
-                        ref={refTime}
-                        value={time ? time : ''}
-                    />
-                {/*</div>*/}
+                <ReactDatetimeClass
+                    className={`div-input date ${dateError ? 'error' : ''}`}
+                    timeFormat={false}
+                    dateFormat={"DD.MM.YYYY"}
+                    closeOnSelect={true}
+                    inputProps={{placeholder: 'Дата игры *'}}
+                    onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
+                    ref={refDate}
+                    value={date ? date : ''}
+                    renderDay={renderDay}
+                />
+                <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
+                <ReactDatetimeClass
+                    className={`div-input time ${timeError ? 'error' : ''}`}
+                    timeFormat={"HH:mm"}
+                    dateFormat={false}
+                    closeOnSelect={true}
+                    inputProps={{placeholder: 'Время начала *'}}
+                    onChange={(e) => choiceTime(e, setTime, refTime)}
+                    ref={refTime}
+                    value={time ? time : ''}
+                />
                 <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
-
             </div>
             <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
             <div className={"elem elem-6"}>
                 <span>Максимальное кол. игроков *</span>
             </div>
             <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
-            {/*<div className={"elem elem-8"}>*/}
-            {/*    <div className={`${isPlayer ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={changeIsPlayer}></div>*/}
-            {/*    <span>Организатор события не играет</span>*/}
-            {/*</div>*/}
             <CheckSliderComponent value={isPlayer} setValue={setIsPlayer} text={"Организатор события не играет"}
                                   sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
-            <CheckSliderComponent value={isPaid} setValue={setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"}/>
-            <InputComponent className={`elem elem-10 ${isPaid ? '' : 'hidden'}`} value={price}
-                            setValue={setPrice} placeholder={"Количество голов"} onChange={() => {}} errorText={priceError}/>
+            <CheckSliderComponent value={isPaid} setValue={setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
+            <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
+                <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={inputDigit}
+                                errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
+                <DropDownComponent value={currency} setValue={setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
+            </div>
+
             <div className={"elem elem-11"} ref={refNotice}>
                 <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"} value={notice ? notice : ''}></textarea>
-                {/*<span className={`input-message ${noticeError ? 'error' : ''}`}>{noticeError}</span>*/}
             </div>
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>

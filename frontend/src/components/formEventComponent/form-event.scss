@@ -124,9 +124,11 @@
       }
     }
     &.elem-4 {
-      .football-field-icon {
-        width: auto;
-        background-position: 16px center;
+      .dropdown {
+        .football-field-icon {
+          width: 20px;
+          background-size: 20px 12.5px;
+        }
       }
     }
     &.elem-5 {
@@ -205,7 +207,38 @@
       &.hidden {
         display: none;
       }
+      .price {
+        flex: 1 1 auto;
+        .gray-wallet-icon {
+          border-radius: 8px 0 0 8px;
+          background-position: 16px center;
+          padding-left: 48px;
+        }
+      }
+      .currency-dropdown.dropdown-component {
+        flex: 0 0 74px;
 
+        .dropdown {
+          .dropdown-label {
+            border-radius: 0 8px 8px 0;
+            padding-left: 12px;
+            background: #F3F3F3;
+            color: $grayColor;
+          }
+          .right-icon {
+            right: 10px;
+          }
+          .dropdown-menu {
+            border-radius: 0 0 8px 8px;
+            max-height: 150px;
+            .dropdown-elem {
+              color: #595959;
+              font-size: 14px;
+              flex: 0 0 32px;
+            }
+          }
+        }
+      }
     }
     &.elem-11 {
       flex: 1 1 auto;
@@ -274,6 +307,13 @@
     .elem.datetime-message {
       display: none;
     }
+    .elem.elem-10 {
+      .price {
+        .gray-wallet-icon {
+          width: 182px;
+        }
+      }
+    }
   }
 }
 
@@ -320,6 +360,13 @@
     }
     .elem.datetime-message {
       display: none;
+    }
+    .elem.elem-10 {
+      .price {
+        .gray-wallet-icon {
+          width: 222px;
+        }
+      }
     }
   }
 }

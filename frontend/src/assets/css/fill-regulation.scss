@@ -24,7 +24,6 @@
         .dropdown {
           .left-icon {
             left: $dropDownLeftIconLeft;
-            top: 16px;
           }
         }
       }
@@ -35,7 +34,9 @@
         .dropdown {
           .left-icon {
             left: $dropDownLeftIconLeft;
-            top: 18px;
+          }
+          .right-icon {
+            width: 16px;
           }
 
           .dropdown-label {

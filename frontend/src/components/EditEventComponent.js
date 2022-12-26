@@ -54,7 +54,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
         >
             <div className={"popup-fon"} onClick={popupClick}>
                 <FormEventComponent
-                    className={"edit-event-component"}
+                    className={`edit-event-component ${data && data.is_paid ? 'isPaid' : ''}`}
                     event={event}
                     onClick={sendForm}
                     data={data}

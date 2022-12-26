@@ -30,7 +30,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     ];
 
     useEffect(() => {
-        if (event && event.event_step.length) {
+        if (event && event.event_step.length && event.count_circles) {
             let count_circles = event.count_circles.replace(/\D/g, "");
             let duration = event.duration.replace(/\D/g, "");
             let durationLabel = getMinutesStr(duration);

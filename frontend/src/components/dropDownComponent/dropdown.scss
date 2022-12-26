@@ -16,10 +16,17 @@
 
     .left-icon {
       position: absolute;
+      height: $fieldHeight;
       left: $dropDownLeftIconLeft;
-      top: $dropDownLeftIconTop;
+      background-position: center;
     }
-
+    .right-icon {
+      position: absolute;
+      right: 20px;
+      height: $fieldHeight;
+      width: 10px;
+      background-position: center;
+    }
     .dropdown-label {
       display: flex;
       flex: 0 0 $dropDownLabelHeight;

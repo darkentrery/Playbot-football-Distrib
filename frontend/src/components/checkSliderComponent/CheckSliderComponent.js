@@ -9,17 +9,15 @@ export const CheckSliderComponent = ({
     textIcon='',
     onClick=() => {},
 }) => {
-    const [isCheck, setIsCheck] = useState(value);
 
     const clickCheck = () => {
-        setValue(!isCheck);
-        setIsCheck(!isCheck);
+        setValue(!value);
         onClick();
     }
 
     return (
         <div className={`check-slider-component ${sizingClass}`}>
-            <div className={`${isCheck ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={clickCheck}></div>
+            <div className={`${value ? 'slider-check-icon' : 'slider-uncheck-icon'}`} onClick={clickCheck}></div>
             <span className={textIcon}>{text}</span>
         </div>
     )
