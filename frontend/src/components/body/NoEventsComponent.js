@@ -12,7 +12,7 @@ export default function NoEventsComponent ({isAuth, openCreateEvent, openCreateE
     }
 
     return (
-        <div className={"body-no-events"}>
+        <div className={"body-no-events-component"}>
             <div className={"elem elem-1 spanish-man-icon"}></div>
             <div className={"elem elem-2"}>
                 <span className={"el el-1"}>Стань первым, кто создаст событие!</span>
