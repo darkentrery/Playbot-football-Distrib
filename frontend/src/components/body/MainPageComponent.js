@@ -22,7 +22,7 @@ export default function MainPageComponent ({state, funcs}) {
                 <div className={"elem-1280"}>
                     <TitleComponent label={"Лучшие игроки"} to={BaseRoutes.main}/>
                     <LocationComponent state={state} funcs={funcs}/>
-                    <BestPlayersComponent/>
+                    <BestPlayersComponent city={state.user.isAuth && state.user.user.city ? state.user.user.city : state.location.city}/>
                 </div>
             </div>
         </VisibleMainWrapper>

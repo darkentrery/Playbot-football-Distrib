@@ -73,14 +73,22 @@ function App({state, funcs}) {
     },{passive: false});
 
     useEffect(() => {
+        let isSubscribe = true;
         auth();
-    }, [state.user.isAuth])
-
-
-
-    useEffect(() => {
         funcs.setIsIPhone(authService.deviceDetect());
-    }, [state.app.isIPhone])
+        return () => isSubscribe = false;
+
+    }, [])
+
+    // useEffect(() => {
+    //     auth();
+    // }, [state.user.isAuth])
+    //
+    //
+    //
+    // useEffect(() => {
+    //     funcs.setIsIPhone(authService.deviceDetect());
+    // }, [state.app.isIPhone])
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {

@@ -134,6 +134,15 @@ class IsAuthView(APIView):
         return Response(json, status=status.HTTP_200_OK)
 
 
+class GetUsersView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        serializer = UserSerializer(User.objects.filter(city__name=self.kwargs.get("city")), many=True)
+        json = serializer.data
+        return Response(json, status=status.HTTP_200_OK)
+
+
 
 
 

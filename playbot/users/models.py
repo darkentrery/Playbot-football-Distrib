@@ -40,4 +40,8 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.email}" or f"{self.username}"
 
+    @property
+    def all_games(self):
+        return self.event_player.all().count()
+
 

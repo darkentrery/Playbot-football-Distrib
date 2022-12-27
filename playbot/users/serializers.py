@@ -20,6 +20,7 @@ from playbot.users.utils import generate_password, send_email_refresh, send_emai
 
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+    all_games = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
