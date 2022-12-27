@@ -10,32 +10,26 @@ import BaseRoutes from "../../routes/BaseRoutes";
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
     const eventService = new EventService();
-    const [flagRequest, setFlagRequest] = useState(false);
     const params = useParams();
     const pk = params.pk;
 
     useEffect(() => {
-        setFlagRequest(false);
-    }, [pk])
-
-    useEffect(() => {
-        if (!flagRequest) {
-            eventService.getEvent(pk).then((response) => {
-                funcs.setEvent(response.data.event);
-                funcs.setSameEvents(response.data.same_events);
-                if (response.data.event.teams.length !== 0) {
-                    for (let team of response.data.event.teams) {
-                        if (team.team_players.length === 0) {
-                            funcs.setTeam(team);
-                            break;
-                        }
+        let isSubscribe = true;
+        eventService.getEvent(pk).then((response) => {
+            funcs.setEvent(response.data.event);
+            funcs.setSameEvents(response.data.same_events);
+            if (response.data.event.teams.length !== 0) {
+                for (let team of response.data.event.teams) {
+                    if (team.team_players.length === 0) {
                         funcs.setTeam(team);
+                        break;
                     }
+                    funcs.setTeam(team);
                 }
-            })
-        }
-        setFlagRequest(true);
-    }, [flagRequest])
+            }
+        })
+        return () => isSubscribe = false;
+    }, [pk])
 
     const editEvent = () => {
         if (event && user.isAuth && event.organizer.id === user.user.id) {

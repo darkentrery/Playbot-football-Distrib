@@ -19,7 +19,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
     }, [event])
 
     const menuClick = (e) => {
-        let parent = $(e.target).parent('.menu').parent('.elem-376');
+        let parent = $(e.target).parent('.menu').parent('.event-organizer-elem-376');
         $(e.target).parent('.menu').children('span').addClass('inactive');
         $(e.target).parent('.menu').children('span').removeClass('active');
         $(e.target).removeClass('inactive');
@@ -32,23 +32,23 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
 
     return (
         <div className={"event-organizer-component"}>
-            <div className={"elem-1280 elem-1"}>
+            <div className={"event-organizer-elem-1280 elem-1"}>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
                 {event && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
             </div>
-            <div className={"elem-1280 elem-2"}>
+            <div className={"event-organizer-elem-1280 elem-2"}>
                 <EventMembersComponent event={event}/>
             </div>
 
-            <div className={"elem-744"}>
+            <div className={"event-organizer-elem-744"}>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
+            </div>
+            <div className={"event-organizer-elem-744"}>
+                {event && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
                 <EventMembersComponent event={event}/>
             </div>
-            <div className={"elem-744"}>
-                {event && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
-            </div>
 
-            <div className={"elem-376"}>
+            <div className={"event-organizer-elem-376"}>
                 <div className={"menu"}>
                     <span className={"el active"} id={"description"} onClick={menuClick}>Информация</span>
                     <span className={"el inactive"} id={"members"} onClick={menuClick}>Участники</span>
