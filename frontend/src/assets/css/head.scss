@@ -1,11 +1,20 @@
 @import "head/user";
 
-.head {
+.head-component {
   display: flex;
   flex: 0 0 96px;
-  align-items: center;
+  align-items: stretch;
   padding: 0 60px;
   gap: 40px;
+  justify-content: center;
+
+  .head-wrapper {
+    max-width: 1160px;
+    display: flex;
+    gap: 40px;
+    flex: 1 1 auto;
+    align-items: center;
+  }
 
   .elem {
     display: flex;
@@ -95,10 +104,10 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .head {
+  .head-component {
     padding: 0 30px;
   }
-  .head .un-auth-user {
+  .head-component .un-auth-user {
     flex: 0 0 18px !important;
 
     span {
@@ -108,11 +117,11 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .head {
+  .head-component {
     display: none;
   }
 
-  .head .elem {
+  .head-component .elem {
     display: none;
   }
 }

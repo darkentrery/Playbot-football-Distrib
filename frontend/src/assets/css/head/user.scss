@@ -1,4 +1,4 @@
-.head .user {
+.head-component .user {
   flex: 0 0 280px !important;
   flex-direction: row !important;
 
@@ -91,7 +91,7 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .head .user {
+  .head-component .user {
     flex: 0 0 73px !important;
     box-sizing: border-box;
 

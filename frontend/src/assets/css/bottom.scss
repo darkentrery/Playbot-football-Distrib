@@ -2,6 +2,15 @@
   display: flex;
   flex: 0 0 $bottomHeight;
   flex-direction: column;
+  align-items: center;
+  background: $blackColor;
+
+  .bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 1160px;
+    width: 100%;
+  }
 
   .elem-744 {
     display: none;
@@ -13,7 +22,7 @@
 
   .elem-1280 {
     display: flex;
-    flex: 1 1 auto;
+    flex: 0 0 168px;
     background: #1B1B1B;
 
     .el {
@@ -187,7 +196,7 @@
 
   .bottom-component .elem-744 {
     display: flex;
-    flex: 1 1 auto;
+    flex: 0 0 267px;
     background: #1B1B1B;
     flex-direction: column;
 
@@ -307,6 +316,8 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px) {
   .bottom-component {
+    align-items: stretch;
+    background: $whiteColor;
     .elem-1280 {
       display: none;
     }
@@ -337,27 +348,19 @@
         font-weight: 600;
         color: #D19C6C;
       }
-
       &.disabled {
         font-size: 11px;
         color: #949494;
         margin-top: 6px;
       }
-
       &.elem-1 {
         margin-left: $marginSides;
       }
-
       &.elem-2 {
-
       }
-
       &.elem-3 {
         margin-right: $marginSides;
-
       }
-
     }
   }
-
 }

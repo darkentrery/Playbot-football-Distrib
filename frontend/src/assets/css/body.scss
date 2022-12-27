@@ -8,15 +8,23 @@
 
 .body {
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
   flex: 1 1 auto;
-  align-items: stretch;
+  //align-items: center;
+  justify-content: center;
   padding-left: $paddingSidesBody;
   padding-right: $paddingSidesBody;
   padding-top: $paddingTopBody;
   padding-bottom: $paddingBottomBody;
-  background: #F3F3F3;
+  background: $lightGrayColor;
   overflow: auto;
+
+  .body-wrapper {
+    display: flex;
+    max-width: 1160px;
+    justify-content: stretch;
+    width: 100%;
+  }
 }
 
 .body .main-page-component {
@@ -158,6 +166,12 @@
   height: 140px;
   border-radius: 8px;
   margin-bottom: 32px;
+}
+
+@media screen and (min-width: 1280px){
+  .body {
+
+  }
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
