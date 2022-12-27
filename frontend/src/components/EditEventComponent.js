@@ -69,6 +69,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
                     addressFocus={addressFocus}
                     setAddressFocus={setAddressFocus}
                     user={user}
+                    isEdit={true}
                 />
             </div>
         </Modal>

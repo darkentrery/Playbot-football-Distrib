@@ -24,6 +24,7 @@ export const FormEventComponent = ({
     addressFocus=false,
     setAddressFocus = () => {},
     user,
+    isEdit=false,
 }) => {
     const [id, setId] = useState(false);
     const [name, setName] = useState(false);
@@ -227,7 +228,7 @@ export const FormEventComponent = ({
     }
 
     const changeIsPaid = () => {
-        setPrice(false);
+        if (!isEdit) setPrice(false);
     }
 
     return (
@@ -289,11 +290,11 @@ export const FormEventComponent = ({
             <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
             <CheckSliderComponent value={isPlayer} setValue={setIsPlayer} text={"Организатор события не играет"}
                                   sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
-            <CheckSliderComponent value={isPaid} setValue={setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
+            <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
             <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
-                <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={inputDigit}
+                <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? (value) => {return price;} : inputDigit}
                                 errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
-                <DropDownComponent value={currency} setValue={setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
+                <DropDownComponent value={currency} setValue={isEdit ? (value) => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
             </div>
 
             <div className={"elem elem-11"} ref={refNotice}>

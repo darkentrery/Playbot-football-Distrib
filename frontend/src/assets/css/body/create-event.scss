@@ -36,6 +36,8 @@
 }
 
 .create-event-component .popup-right {
+  transition: transform 0.5s 4s, opacity 0.5s 4s;
+
   .elem-1 {
     display: flex;
     flex: 0 0 24px;
@@ -67,13 +69,12 @@
   }
   .elem-3 {
     max-width: 250px;
+    transition: transform 0.5s 4s;
   }
   .elem-4 {
     display: flex;
     flex: 0 0 38px;
-    margin-top: 44px;
-    margin-bottom: 32px;
-    margin-left: 61px;
+    margin-top: 32px;
     width: $createEventRightPointWidth;
   }
   .elem-5 {
@@ -115,9 +116,10 @@
 
 .event-inactive {
   flex: 1 1 auto !important;
-  background: url("../../icon/event-inactive.png");
+  background: url("../../fons/unauth-create-event.png");
   background-repeat: no-repeat;
   background-size: contain;
+  margin-top: 32px;
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
@@ -140,7 +142,6 @@
       padding-left: 40px;
 
       .elem-4 {
-        margin-left: 30px;
       }
       .elem-5 {
         margin-left: 30px;
@@ -152,8 +153,8 @@
   }
 
   .event-inactive {
-    background: url("../../icon/event-inactive-376.png");
-    background-size: cover;
+    background: url("../../fons/unauth-create-event-744.png") no-repeat;
+    background-size: contain;
   }
 }
 

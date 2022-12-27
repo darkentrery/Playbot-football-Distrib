@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import "react-datetime/css/react-datetime.css";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
@@ -9,6 +9,7 @@ import {
     popupCloseDropdownWithTime,
 } from "../utils/manageElements";
 import {FormEventComponent} from "./formEventComponent/FormEventComponent";
+import $ from "jquery";
 
 
 export default function CreateEventComponent ({isOpen, isIPhone, user, closeComponent, openSuccessCreateEvent, setEvent}) {
@@ -19,6 +20,17 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
     const [isOpenTime, setIsOpenTime] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [addressFocus, setAddressFocus] = useState(false);
+    const slideContent = [
+        "Создавай футбольные активности в любом месте и в любое время",
+        "Устанавливай свои правила игры",
+        "Фиксируй статистику матча",
+    ];
+    const [contentNumber, setContentNumber] = useState(0);
+    const slideRef1 = useRef();
+    const slideRef2 = useRef();
+    const slideRef3 = useRef();
+    const [transform, setTransform] = useState(false);
+    const refs = [slideRef1, slideRef2, slideRef3];
 
     const closeWindow = () => {
         setData(false);
@@ -39,6 +51,51 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
         popupCloseDropdownWithTime(e, isOpenTime, setIsOpenTime);
         setSuggests([]);
     }
+
+    const draw = (timePassed) => {
+        $('.popup-right').attr('style', `transform: translate(${timePassed / 4 + 'px'}); opacity: ${1 - timePassed/500};`);
+    }
+
+    useEffect(() => {
+        if (isOpen) {
+            const interval = setInterval(() => {
+                let start = Date.now();
+                let timer = setInterval(function() {
+                    let timePassed = Date.now() - start;
+                    if (timePassed >= 500) {
+                        clearInterval(timer);
+                        return;
+                    }
+                    draw(timePassed);
+                }, 20);
+                if (contentNumber === 2) {
+                    setContentNumber(0);
+                } else {
+                    setContentNumber(contentNumber + 1);
+                }
+                setTransform(!transform);
+            }, 5000)
+            return () => clearInterval(interval);
+        }
+    })
+
+    const Slide = ({content, ref}) => {
+        return (
+            <div className={"popup-right popup-img create-event-img"} ref={ref}>
+                <div className={"elem-1"}>
+                    <div onClick={closeWindow} className={"btn-close"}></div>
+                </div>
+                <div className={"elem-2"}>
+                    <div className={"point point-big point-icon"}></div>
+                    <div className={"point point-icon"}></div>
+                    <div className={"point point-icon"}></div>
+                </div>
+                <span className={`elem-3 black-600-24 ${transform ? 'move' : ''}`}>{content}</span>
+            </div>
+        )
+    }
+
+    const sliders = [<Slide content={slideContent[0]} ref={refs[0]}/>, <Slide content={slideContent[1]} ref={refs[1]}/>, <Slide content={slideContent[2]} ref={refs[2]}/>]
 
     return(
         <Modal
@@ -65,17 +122,19 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
                         setAddressFocus={setAddressFocus}
                         user={user}
                     />
-                    <div className={"popup-right popup-img create-event-img"}>
-                        <div className={"elem-1"}>
-                            <div onClick={closeWindow} className={"btn-close"}></div>
-                        </div>
-                        <div className={"elem-2"}>
-                            <div className={"point point-big point-icon"}></div>
-                            <div className={"point point-icon"}></div>
-                            <div className={"point point-icon"}></div>
-                        </div>
-                        <span className={"elem-3 black-600-24"}>Создавай футбольные активности в любом месте и в любое время</span>
-                    </div>
+                    {sliders[contentNumber]}
+                    {/*<Slide content={slideContent[contentNumber]}/>*/}
+                    {/*<div className={"popup-right popup-img create-event-img"}>*/}
+                    {/*    <div className={"elem-1"}>*/}
+                    {/*        <div onClick={closeWindow} className={"btn-close"}></div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={"elem-2"}>*/}
+                    {/*        <div className={"point point-big point-icon"}></div>*/}
+                    {/*        <div className={"point point-icon"}></div>*/}
+                    {/*        <div className={"point point-icon"}></div>*/}
+                    {/*    </div>*/}
+                    {/*    <span className={"elem-3 black-600-24"}>{slideContent[contentNumber]}</span>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </Modal>

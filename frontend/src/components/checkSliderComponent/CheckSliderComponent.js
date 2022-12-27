@@ -3,7 +3,7 @@ import React, {useState} from "react";
 
 export const CheckSliderComponent = ({
     value=false,
-    setValue,
+    setValue = () => {},
     text,
     sizingClass='',
     textIcon='',
