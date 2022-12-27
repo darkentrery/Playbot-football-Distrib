@@ -43,21 +43,33 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
         funcs.removeMap();
     }
 
+    const toResults = () => {
+
+    }
+
+    const repeatEvent = () => {
+
+    }
+
     return (
         <div className={"elem elem-4"}>
-            {!event.cancel && event.event_step.length === 0 &&
+            {!event.cancel && event.event_step.length === 0 && !event.time_end &&
                 <button className={`el el-1 btn ${Date.now() < activatDate ? 'disabled' : ''}`} onClick={toConfirmPlayers}>Начать игру</button>}
-            {!event.cancel && event.event_step.length === 0 &&
+            {!event.cancel && event.event_step.length === 0 && !event.time_end &&
                 <button className={"el el-2 btn-second"} onClick={toCancelEvent}>Отменить игру</button>}
-            {!event.cancel && event.event_step.length === 1 && !event.event_step[0]["complete"] &&
+            {!event.cancel && event.event_step.length === 1 && !event.event_step[0]["complete"] && !event.time_end &&
                 <button className={"el el-3 btn-second"} onClick={toConfirmPlayers}>Подтвердить игроков</button>}
-            {!event.cancel && event.event_step.length === 2 && !event.event_step[1]["complete"] &&
+            {!event.cancel && event.event_step.length === 2 && !event.event_step[1]["complete"] && !event.time_end &&
                 <button className={"el el-3 btn-second"} onClick={toFillRegulation}>Заполнить регламент</button>}
-            {!event.cancel && event.event_step.length === 3 && !event.event_step[2]["complete"] &&
+            {!event.cancel && event.event_step.length === 3 && !event.event_step[2]["complete"] && !event.time_end &&
                 <button className={"el el-3 btn-second"} onClick={toConfirmTeams}>Подтвердите команды</button>}
-            {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] &&
+            {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] && !event.time_end &&
                 <Link className={`el el-3 btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
             {event.cancel && <span>Событие отменено</span>}
+            {event.time_end &&
+                <button className={`el el-3 btn`} onClick={repeatEvent}>Повторить событие</button>}
+            {event.time_end &&
+                <button className={"el el-2 btn-second"} onClick={toResults}>Итоги события</button>}
         </div>
     )
 }

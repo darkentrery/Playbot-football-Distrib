@@ -3,11 +3,18 @@
 @import "event-members";
 @import "event-chat";
 
-.body .elem-376 {
+.event-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: stretch;
+}
+
+.event-component .elem-376 {
   display: none;
 }
 
-.body .event-organizer-component {
+.event-organizer-component {
   display: flex;
   flex: 1 1 auto;
   margin-top: 32px;
@@ -37,7 +44,7 @@
   }
 }
 
-.body .same-events-component {
+.same-events-component {
   display: flex;
   flex-direction: column;
   margin-top: 55px;
@@ -56,7 +63,7 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .body .event-organizer-component {
+  .event-organizer-component {
     flex-direction: column;
 
     .elem-1280 {
@@ -68,7 +75,7 @@
     }
   }
 
-  .body .same-events-component {
+  .same-events-component {
     gap: 20px;
 
     .elem {
@@ -76,7 +83,6 @@
       gap: 16px;
     }
     .elem-2 {
-
     }
     .same-event-2 {
       display: none;
@@ -85,7 +91,11 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .body .elem-376 {
+  .event-component {
+    padding: 0 16px 25px 16px;
+  }
+
+  .event-component .elem-376 {
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
@@ -115,12 +125,11 @@
         flex: 0 0 16px;
         height: 16px;
         margin-right: 4px;
-
       }
     }
   }
 
-  .body .event-organizer-component {
+  .event-organizer-component {
     margin-top: 24px;
     flex: 1 1 auto;
 
@@ -168,7 +177,7 @@
     }
   }
 
-  .body .same-events-component {
+  .same-events-component {
     margin-top: 0px;
     gap: 20px;
 
