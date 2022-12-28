@@ -149,7 +149,8 @@ function App({state, funcs}) {
               {/*    </Map>*/}
               {/*  </YMaps>*/}
 
-              <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
+              <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone}
+                                        firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
               <VisibleSignUp/>
               <VisibleLogin/>
               <VisibleRefreshPassword/>

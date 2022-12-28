@@ -1,8 +1,11 @@
 .popup-mobile-first {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: stretch;
   flex: 1 1 auto;
+  align-items: center;
+  padding: 24px 32px 32px 32px;
+  box-sizing: border-box;
 
 
   background: url("../icon/mobile-first-page.png") no-repeat;
@@ -12,90 +15,44 @@
 
   .elem {
     display: flex;
-    width: 100%;
     justify-content: center;
+    text-align: center;
 
-    &.first {
+    &.elem-1 {
       flex: 0 0 19px;
-      margin-top: 24px;
-      .link-skip {
-        font-family: 'Raleway', sans-serif;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 19px;
-        display: flex;
-        align-items: center;
-        color: #FFFFFF;
-      }
+      margin-bottom: 118px;
     }
-    &.second {
-      flex: 1 1 254px;
-      align-items: end;
-      padding-bottom: 16px;
-      .cup {
-        height: 113px;
-      }
+    &.elem-2 {
+      flex: 0 0 48px;
+      max-width: 250px;
+      margin-bottom: 32px;
     }
-    &.third {
-      flex: 0 0 49px;
-      span {
-        text-align: center;
-        align-items: center;
-        font-family: 'Raleway', sans-serif;
-        font-style: normal;
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 120%;
-        color: #FFFFFF;
-      }
+    &.elem-3 {
+      flex: 0 0 112px;
+      margin-bottom: 24px;
+      width: 112px;
     }
-    &.fourth {
-      flex: 0 0 50px;
-      span {
-        flex: 0 1 279px;
-        text-align: center;
-        align-items: center;
-        font-family: 'Raleway', sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 120%;
-        color: #FFFFFF;
-      }
+    &.elem-4 {
+      flex: 0 0 74px;
+      margin-bottom: 24px;
     }
-    &.fifth {
-      flex: 1 1 176px;
-      padding-top: 52px;
+    &.elem-5 {
+      flex: 1 1 auto;
+      gap: 8px;
+
       .point {
-        height: 12px;
-        margin: 4px;
+        display: flex;
+        flex: 0 0 12px;
       }
     }
-    &.sixth {
-      flex: 0 0 $fieldHeight;
-    }
-    &.seventh {
-      flex: 0 0 19px;
-      margin-bottom: 50px;
-      margin-top: 24px;
+    &.elem-6 {
+      flex: 0 0 48px;
+      align-self: stretch;
 
-      .link-reg {
-        font-family: 'Raleway', sans-serif;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 19px;
-        text-align: center;
-        align-items: center;
-        color: #D19C6C;
+      &.safari-margin {
+        margin-bottom: 50px;
       }
     }
   }
-}
-
-.btn-login-mobile {
-  width: 312px;
-  height: $fieldHeight;
 }
 

@@ -126,6 +126,18 @@
   color: $whiteColor !important;
 }
 
+.white-600-20 {
+  font-weight: 600;
+  font-size: 20px;
+  color: $whiteColor;
+}
+
+.white-600-16 {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: $whiteColor !important;
+}
+
 .white-600-12 {
   font-weight: 600 !important;
   font-size: 12px !important;
@@ -141,6 +153,12 @@
 .white-500-12 {
   font-weight: 500 !important;
   font-size: 12px !important;
+  color: $whiteColor !important;
+}
+
+.white-400-20 {
+  font-weight: 400 !important;
+  font-size: 20px !important;
   color: $whiteColor !important;
 }
 

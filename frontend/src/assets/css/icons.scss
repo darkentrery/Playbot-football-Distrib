@@ -229,6 +229,16 @@
   width: 8px;
 }
 
+.gray-point-icon {
+  background: url("../icon/gray-point.png") no-repeat;
+  background-size: 12px;
+}
+
+.orange-point-icon {
+  background: url("../icon/orange-point.png") no-repeat;
+  background-size: 12px;
+}
+
 .player-avatar-icon {
   background: url("../icon/player-avatar.png");
   background-repeat: no-repeat;
@@ -489,6 +499,24 @@
   background-repeat: no-repeat;
   background-size: 16px;
   background-position: left center;
+}
+
+.white-cup-icon {
+  background: url("../icon/white-cup.png");
+  background-repeat: no-repeat;
+  background-size: 112px;
+}
+
+.white-heands-icon {
+  background: url("../icon/white-heands.png");
+  background-repeat: no-repeat;
+  background-size: 112px;
+}
+
+.white-run-people-icon {
+  background: url("../icon/white-run-people.png");
+  background-repeat: no-repeat;
+  background-size: 111px 98px;
 }
 
 .dark-gray-avatar-icon {
