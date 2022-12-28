@@ -207,7 +207,7 @@ class ConfirmTeamPlayersView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        team = Team.objects.get(id=request.data["team"]["id"])
+        team = Team.objects.get(id=request.data["team"].pop("id"))
         serializer = EditTeamNameSerializer(instance=team, data=request.data["team"])
         if serializer.is_valid() and team.event.organizer == request.user:
             team = serializer.save()
@@ -277,6 +277,19 @@ class BeginEventGameView(APIView):
             game.time_begin = datetime.datetime.now().time()
             game.save()
             event = EventSerializer(instance=game.event)
+            return Response(event.data, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EndEventView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["id"])
+        if event.organizer == request.user:
+            event.time_end = datetime.datetime.now().time()
+            event.save()
+            event = EventSerializer(instance=event)
             return Response(event.data, status=status.HTTP_200_OK)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 

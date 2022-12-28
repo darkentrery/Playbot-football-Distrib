@@ -22,7 +22,8 @@ export default function BoardEventComponent ({event, user, funcs}) {
                 <span className={"el el-3 el-376 dark-gray-star-icon black-400-16"}></span>
             </div>
             <span className={"elem elem-2"}>{event.name}</span>
-            <span className={"elem elem-3"}>{event && event.event_step.length >= 1 ? 'Событие началось.' : ''} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>
+            {event && !event.time_end && <span className={"elem elem-3"}>{event && event.event_step.length >= 1 ? 'Событие началось.' : ''} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_begin.slice(0, 5) : ''} {getWeekDay(date)}</span>}
+            {event && event.time_end && <span className={"elem elem-3"}>{'Событие закончилось.'} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {event ? event.time_end.slice(0, 5) : ''} {getWeekDay(date)}</span>}
             {event && user.isAuth && event.organizer.id === user.user.id && <ButtonsBoardOrganizerComponent event={event} funcs={funcs}/>}
             {event && !user.isAuth && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
             {event && user.isAuth && event.organizer.id !== user.user.id && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}

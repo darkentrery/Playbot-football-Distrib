@@ -19,4 +19,5 @@ urlpatterns = [
     path("join-player/", views.JoinPlayerView.as_view(), name='join-player'),
     path("leave-event/", views.LeaveEventView.as_view(), name='leave-event'),
     path("begin-event-game/", views.BeginEventGameView.as_view(), name='begin-event-game'),
+    path("end-event/", views.EndEventView.as_view(), name='end-event'),
 ]

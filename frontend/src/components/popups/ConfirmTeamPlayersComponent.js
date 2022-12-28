@@ -25,6 +25,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
                 team.team_players.map((player, p) => {
                     arraySelect.push(player.player.id.toString());
                 })
+                console.log(arraySelect)
                 setSelected(arraySelect);
             }
             let array = [];
@@ -63,6 +64,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
         funcs.closeConfirmTeamPlayers();
         funcs.showMap();
         setTeamName(false);
+        setButtonLock(false);
     }
 
     const selectPlayer = (e) => {
@@ -100,6 +102,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     }
 
     const confirmPlayers = () => {
+        console.log(buttonLock)
         if (!buttonLock) {
             team.name = teamName;
             setTeamName(false);
@@ -120,6 +123,12 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
                         }
                         funcs.openConfirmTeamPlayers();
                     } else {
+                        for (let t of response.data.teams) {
+                            if (t.number === team.number) {
+                                funcs.setTeam(t);
+                                break;
+                            }
+                        }
                         funcs.openConfirmTeams();
                     }
                     funcs.removeMap();

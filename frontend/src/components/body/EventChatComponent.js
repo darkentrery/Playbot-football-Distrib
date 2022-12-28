@@ -52,7 +52,7 @@ export const EventChatComponent = ({event, user}) => {
         if (chatRef.current && chatRef.current.children.length && firstLoad) {
             let children = chatRef.current.children;
             children[children.length - 1].scrollIntoView(false);
-            $('.head')[0].scrollIntoView();
+            $('.head-component')[0].scrollIntoView();
             setFirstLoad(false);
         }
     }, [messageHistory])

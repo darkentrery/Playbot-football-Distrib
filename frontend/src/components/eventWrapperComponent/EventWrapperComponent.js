@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import EventService from "../../services/EventService";
 import BaseRoutes from "../../routes/BaseRoutes";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
 export const EventWrapperComponent = ({children, event, user, funcs}) => {
@@ -19,6 +20,16 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
         setFlagRequest(true);
     }, [flagRequest])
 
+    const endEvent = () => {
+        authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
+            if (response.status === 200) {
+                console.log(response.status)
+                funcs.setEvent(response.data);
+            }
+        })
+
+    }
+
     return (
         <main className={`event-wrapper-component`}>
             <div className={"event-wrapper-head-1280"}>
@@ -30,7 +41,7 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
                     <div className={"note-orange-icon"}></div>
                     <span className={"orange-400-14 link"}>Включить Playbot,FM </span>
                 </div>}
-                {!window.location.pathname.includes('teams') && <span className={"elem elem-3 gray-400-14 link"}>Завершить событие</span>}
+                {!window.location.pathname.includes('teams') && <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span>}
             </div>
             <div className={"event-wrapper-body"}>
                 <div className={"navigate-bar-1280"}>
