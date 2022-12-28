@@ -19,7 +19,6 @@ export const SearchComponent = ({
     return (
         <div className={`search-component ${className}`}>
             <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={search}/>
-            <div className={"line"}></div>
         </div>
     )
 }

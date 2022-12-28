@@ -80,13 +80,9 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
                 </div>
                 <SearchComponent className={"elem search"} arrayFirst={cities} setArraySecond={setCitiesView}/>
                 <div className={"elem cities div-scroll scroll"} ref={citiesRef}>
-                    {citiesView && citiesView.map((item, key) => {
-                        return(
-                            <div className={"scroll-elem"} onClick={choiceCity} key={key}>
-                                {item}
-                            </div>
-                        )
-                    })}
+                    {citiesView && citiesView.map((item, key) => (
+                        <div className={"scroll-elem"} onClick={choiceCity} key={key}>{item}</div>
+                    ))}
                 </div>
                 <div className={`elem bottom ${isIPhone ? 'safari-margin' : ''}`}>
                     <button className={"btn btn-choice-city"} onClick={sendForm}>Сохранить</button>

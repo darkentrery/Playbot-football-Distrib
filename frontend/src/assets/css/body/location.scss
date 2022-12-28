@@ -1,33 +1,33 @@
-.body .location-component {
+.location-component {
   display: flex;
   position: relative;
   align-items: stretch;
   margin-bottom: 24px;
   white-space: nowrap;
   flex: 0 0 27px;
+  gap: 16px;
 
   .elem {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 16px;
     padding: 5px 24px;
     border-radius: 25px;
-  }
-
-  .country {
-    background: #949494;
-    color: #FFFFFF;
-    font-size: 14px;
-    font-weight: 600;
     cursor: pointer;
-  }
+    gap: 12px;
 
-  .city {
-    background: #EBEBEB;
-    color: #6C6C6C;
-    font-size: 14px;
-    cursor: pointer;
+    .icon {
+      display: flex;
+      flex: 0 0 8px;
+      align-self: stretch;
+    }
+
+    &.country {
+      background: #949494;
+    }
+    &.city {
+      background: #EBEBEB;
+    }
   }
 
   .confirm-city {
@@ -105,10 +105,19 @@
     }
   }
 
+  .search-city {
+    position: absolute;
+    width: 256px;
+    height: 417px;
+    top: 44px;
+    left: 110px;
+    z-index: 99999;
+  }
+
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .body .location-component {
+  .location-component {
     margin-right: 20px;
     margin-left: 20px;
     margin-bottom: 16px;

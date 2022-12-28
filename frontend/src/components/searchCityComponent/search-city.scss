@@ -1,0 +1,31 @@
+.search-city-component {
+  display: flex;
+  flex-direction: column;
+  background: $whiteColor;
+  padding: 0 8px 3px 0;
+  box-sizing: border-box;
+
+  &.hidden {
+    display: none;
+  }
+  .search-component {
+    padding: 5px 20px;
+  }
+  .search-list {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 17px 0 20px;
+
+    .scroll-elem {
+      display: flex;
+      flex: 0 0 44px;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background: #dcdbdb;
+      }
+    }
+  }
+}
