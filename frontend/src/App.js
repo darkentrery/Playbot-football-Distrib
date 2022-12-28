@@ -38,6 +38,7 @@ import {AllowPolicyComponent} from "./components/body/AllowPolicyComponent";
 import {AllowOfferComponent} from "./components/body/AllowOfferComponent";
 import VisibleGeneralInformation from "./redux/containers/VisibleGeneralInformation";
 import VisibleTeamsInformation from "./redux/containers/VisibleTeamsInformation";
+import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
 
 
 
@@ -163,6 +164,7 @@ function App({state, funcs}) {
               <VisibleCreateEvent/>
               <VisibleCreateEventUnAuth/>
               <VisibleEditEvent/>
+              <VisibleRepeatEvent/>
               <VisibleCancelEvent/>
               <VisibleLeaveEvent/>
               <VisibleUnAuthJoin/>

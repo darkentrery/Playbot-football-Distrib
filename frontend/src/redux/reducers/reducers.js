@@ -8,7 +8,7 @@ import {
     EDIT_EVENT_WINDOW,
     EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
-    REFRESH_PASSWORD_WINDOW, SAME_EVENTS,
+    REFRESH_PASSWORD_WINDOW, REPEAT_EVENT_WINDOW, SAME_EVENTS,
     SIGN_UP_WINDOW, STEPS,
     SUCCESS_CREATE_EVENT_WINDOW,
     SUCCESS_EDIT_EVENT_WINDOW,
@@ -31,6 +31,7 @@ const initialState = {
     isOpenCreateEvent: false,
     isOpenCreateEventUnAuth: false,
     isOpenEditEvent: false,
+    isOpenRepeatEvent: false,
     isOpenCancelEvent: false,
     isOpenConfirmPlayers: false,
     isOpenFillRegulation: false,
@@ -83,6 +84,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenSuccessEditEvent: action.value
+          };
+      case REPEAT_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenRepeatEvent: action.value
           };
       case CHOICE_CITY_WINDOW:
           return {

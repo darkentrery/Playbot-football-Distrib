@@ -48,7 +48,8 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
     }
 
     const repeatEvent = () => {
-
+        funcs.openRepeatEvent();
+        funcs.removeMap();
     }
 
     return (

@@ -10,6 +10,7 @@ export const CHOICE_CITY_WINDOW = 'CHOICE_CITY_WINDOW';
 export const CREATE_EVENT_WINDOW = 'CREATE_EVENT_WINDOW';
 export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
 export const EDIT_EVENT_WINDOW = 'EDIT_EVENT_WINDOW';
+export const REPEAT_EVENT_WINDOW = 'REPEAT_EVENT_WINDOW';
 export const CANCEL_EVENT_WINDOW = 'CANCEL_EVENT_WINDOW';
 export const CONFIRM_PLAYERS_WINDOW = 'CONFIRM_PLAYERS_WINDOW';
 export const FILL_REGULATION_WINDOW = 'FILL_REGULATION_WINDOW';
@@ -90,6 +91,11 @@ export const createEventUnAuthWindow = (value) => ({
 
 export const editEventWindow = (value) => ({
   type: EDIT_EVENT_WINDOW,
+  value,
+});
+
+export const repeatEventWindow = (value) => ({
+  type: REPEAT_EVENT_WINDOW,
   value,
 });
 
