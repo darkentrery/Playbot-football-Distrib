@@ -21,11 +21,7 @@ export const MainWrapperComponent = ({
     return (
         <main className={"main-wrapper-component"} onClick={pageClick}>
             <HeadComponent user={state.user} flagDropdown={isUserDropdown} funcs={funcs}/>
-            <div className={"body"}>
-                <div className={"body-wrapper"}>
-                    {children}
-                </div>
-            </div>
+            <div className={"body scroll"}>{children}</div>
             <BottomComponent/>
         </main>
     )

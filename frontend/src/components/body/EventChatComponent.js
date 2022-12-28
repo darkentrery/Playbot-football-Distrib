@@ -81,7 +81,7 @@ export const EventChatComponent = ({event, user}) => {
 
     return (
         <div className={"event-chat-component disabled"}>
-            <span className={"elem elem-1"}>Обсуждение<span className={"count"}>&nbsp;&nbsp;0</span></span>
+            <span className={"elem elem-1"}>Чат<span className={"count"}>&nbsp;&nbsp;0</span></span>
             <div className={"elem elem-2 scroll"} ref={chatRef}>
                 {messageHistory.map((message, key) => (
                     <MessageComponent user={user.user} message={message} key={key}/>

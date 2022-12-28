@@ -26,10 +26,11 @@
     gap: 24px;
   }
   .elem-1 {
-
   }
   .elem-2 {
-
+    .same-event-component {
+      flex: 1 1 373px;
+    }
   }
 }
 
@@ -101,7 +102,7 @@
       font-weight: 700;
     }
     .elem-2 {
-
+      margin-bottom: 25px;
     }
     .same-event-1 {
       display: none;

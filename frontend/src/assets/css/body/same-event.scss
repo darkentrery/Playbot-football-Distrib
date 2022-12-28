@@ -1,7 +1,8 @@
 .same-event-component {
   display: flex;
   height: 250px;
-  width: 373px;
+  //width: 373px;
+  flex: 0 0 373px;
   border-radius: 8px;
   background: $whiteColor;
   flex-direction: column;

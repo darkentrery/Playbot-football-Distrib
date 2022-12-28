@@ -8,26 +8,16 @@
 
 .body {
   display: flex;
-  //flex-direction: column;
   flex: 1 1 auto;
-  //align-items: center;
-  justify-content: center;
+  justify-content: stretch;
   padding-left: $paddingSidesBody;
   padding-right: $paddingSidesBody;
   padding-top: $paddingTopBody;
   padding-bottom: $paddingBottomBody;
   background: $lightGrayColor;
-  overflow: auto;
-
-  .body-wrapper {
-    display: flex;
-    max-width: 1160px;
-    justify-content: stretch;
-    width: 100%;
-  }
 }
 
-.body .main-page-component {
+.main-page-component {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -170,7 +160,8 @@
 
 @media screen and (min-width: 1280px){
   .body {
-
+    padding-right: calc((100vw - 1160px)/2);
+    padding-left: calc((100vw - 1160px)/2);
   }
 }
 
