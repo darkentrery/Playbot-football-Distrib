@@ -70,7 +70,7 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
             {event.time_end &&
                 <button className={`el el-3 btn`} onClick={repeatEvent}>Повторить событие</button>}
             {event.time_end &&
-                <button className={"el el-2 btn-second"} onClick={toResults}>Итоги события</button>}
+                <Link className={`el el-2 btn-second`} to={BaseRoutes.eventInfoLink(event.id)}>Итоги события</Link>}
         </div>
     )
 }

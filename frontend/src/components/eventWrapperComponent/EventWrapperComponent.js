@@ -41,7 +41,8 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
                     <div className={"note-orange-icon"}></div>
                     <span className={"orange-400-14 link"}>Включить Playbot,FM </span>
                 </div>}
-                {!window.location.pathname.includes('teams') && <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span>}
+                {!window.location.pathname.includes('teams') && event && !event.time_end &&
+                    <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span>}
             </div>
             <div className={"event-wrapper-body"}>
                 <div className={"navigate-bar-1280"}>

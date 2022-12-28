@@ -57,16 +57,11 @@
       font-size: 16px;
       line-height: 19px;
 
-      //&.el-1 {
-      //  margin-right: 16px;
-      //}
-
+      &:hover {
+        text-decoration: none;
+      }
       &.el-3 {
         flex: 0 0 266px;
-
-        &:hover {
-          text-decoration: none;
-        }
       }
     }
   }

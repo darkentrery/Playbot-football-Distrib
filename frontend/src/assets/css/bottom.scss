@@ -174,10 +174,10 @@
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .bottom-component .elem-bottom {
     justify-content: space-between;
+    padding: 0 32px;
 
     .el-2 {
       flex: 0 0 150px;
-      margin-right: $marginSides;
     }
     .el-3 {
       display: none;
@@ -271,7 +271,6 @@
               text-decoration: underline;
             }
           }
-
           .col {
             display: flex;
             flex-direction: column;
@@ -280,19 +279,14 @@
             &.col-1 {
               padding-right: 48px;
               border-right: 1px solid #949494;
-
             }
-
             &.col-2 {
               margin-left: 48px;
               margin-right: 48px;
-
             }
-
             &.col-3 {
               padding-left: 48px;
               border-left: 1px solid #949494;
-
             }
           }
         }
@@ -312,6 +306,7 @@
   .bottom-component {
     align-items: stretch;
     background: $whiteColor;
+
     .elem-1280 {
       display: none;
     }

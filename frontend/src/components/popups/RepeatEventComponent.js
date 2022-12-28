@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import {
     popupCloseDropdown,
@@ -18,6 +18,7 @@ export const RepeatEventComponent = ({isOpen, isIPhone, event, user, closeCompon
     const [isOpenTime, setIsOpenTime] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [addressFocus, setAddressFocus] = useState(false);
+    const [newEvent, setNewEvent] = useState(false);
 
     const closeWindow = () => {
         setData(false);
@@ -28,6 +29,16 @@ export const RepeatEventComponent = ({isOpen, isIPhone, event, user, closeCompon
         closeWindow();
         showMap();
     }
+
+    useEffect(() => {
+        if (!newEvent) {
+            let e = {...event};
+            e.date = null;
+            e.time_begin = null;
+            e.event_player = [];
+            setNewEvent(e);
+        }
+    }, [isOpen])
 
     const sendForm = async () => {
         authDecoratorWithoutLogin(eventService.createEvent, data).then((response) => {
@@ -55,7 +66,7 @@ export const RepeatEventComponent = ({isOpen, isIPhone, event, user, closeCompon
             <div className={"popup-fon"} onClick={popupClick}>
                 <FormEventComponent
                     className={`edit-event-component ${data && data.is_paid ? 'isPaid' : ''}`}
-                    event={event}
+                    event={newEvent}
                     onClick={sendForm}
                     data={data}
                     setData={setData}
