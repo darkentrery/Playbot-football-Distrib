@@ -40,6 +40,7 @@ import VisibleGeneralInformation from "./redux/containers/VisibleGeneralInformat
 import VisibleTeamsInformation from "./redux/containers/VisibleTeamsInformation";
 import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
 import {RulesPageComponent} from "./components/body/RulesPageComponent";
+import {FaqPageComponent} from "./components/body/FaqPageComponent";
 
 
 
@@ -136,7 +137,7 @@ function App({state, funcs}) {
                   <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
                   <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
                   <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
-                  <Route exact path={BaseRoutes.faq} element={<VisibleMainPage/>}/>
+                  <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
                   <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
                   <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
                   <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>

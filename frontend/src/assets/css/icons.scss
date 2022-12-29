@@ -24,6 +24,21 @@
   width: 16px;
 }
 
+.black-plus-icon {
+  background: url("../icon/black-plus.png");
+  background-repeat: no-repeat;
+  background-size: 23.5px;
+  background-position: center;
+}
+
+.orange-minus-icon {
+  background: url("../icon/orange-minus.png");
+  background-repeat: no-repeat;
+  background-size: 3.5px 30px;
+  background-position: center;
+  transform: rotate(90deg);
+}
+
 .email-icon {
   background: url("../icon/email.png") no-repeat;
   background-size: 16px 12px;
