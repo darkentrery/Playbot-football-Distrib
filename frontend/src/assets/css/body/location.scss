@@ -108,7 +108,7 @@
   .search-city {
     position: absolute;
     width: 256px;
-    height: 417px;
+    max-height: 417px;
     top: 44px;
     left: 110px;
     z-index: 99999;

@@ -1,7 +1,6 @@
 .rules-pattern-component {
   display: flex;
   flex-direction: column;
-  gap: 32px;
   align-items: stretch;
 
   .block {
@@ -9,9 +8,11 @@
   }
   .block-1 {
     flex: 0 0 140px;
-    border-radius: 0px 8px 8px 0px;
+    //border-radius: 0px 8px 8px 0px;
+    border-radius: 8px;
     align-items: center;
     padding-left: 48px;
+    margin-bottom: 32px;
 
   }
   .block-2 {
@@ -30,20 +31,59 @@
       .paragraph {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 28px;
+
+        .point-list {
+          display: flex;
+          flex-direction: column;
+          gap: 28px;
+          list-style-type: disc;
+          padding-left: 24px;
+        }
+        .digit-point-list-without-gap {
+          display: flex;
+          flex-direction: column;
+          list-style-type: decimal;
+          padding-left: 24px;
+        }
       }
 
     }
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px) {
+@media screen and (min-width: 744px) and (max-width: 1279px) {
   .rules-pattern-component {
     .block-1 {
-      display: none;
+      flex: 0 0 80px;
+
+      .white-700-40 {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px) {
+  .rules-pattern-component {
+    .top-376-component {
+      margin: 0 20px;
+    }
+
+    .block-1 {
+      flex: 0 0 60px;
+      justify-content: center;
+      margin: 0 16px 16px 16px;
+
+      .white-700-40 {
+        font-size: 18px;
+      }
     }
     .block-2 {
-      border-radius: 0;
+      .rules-block {
+        border-radius: 0;
+        padding: 20px 15px;
+      }
     }
   }
 

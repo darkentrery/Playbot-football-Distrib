@@ -1,0 +1,27 @@
+.top-376-component {
+  display: none;
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .top-376-component {
+    display: flex;
+    flex: 0 0 64px;
+    box-sizing: border-box;
+    padding-left: 4px;
+    align-items: stretch;
+    justify-content: space-between;
+
+    .elem-1 {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+
+      .el-1 {
+        display: flex;
+        flex: 0 0 6.5px;
+        height: 10px;
+      }
+    }
+  }
+}
+

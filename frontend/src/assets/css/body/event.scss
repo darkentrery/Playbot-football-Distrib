@@ -55,37 +55,12 @@
     padding: 0 16px 25px 16px;
   }
 
-  .event-component .elem-376 {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-
-    .event-mobile-head {
-        display: flex;
-        flex: 0 0 17px;
-        margin-top: 24px;
-        margin-bottom: 24px;
-        align-items: center;
-        justify-content: stretch;
-
-      .el-1 {
-        flex: 0 0 6.5px;
-        height: 10px;
-        margin-left: 8px;
-        margin-right: 18px;
-      }
-
-      .el-2 {
-        flex: 1 1 auto;
-        font-weight: 500;
-        font-size: 14px;
-      }
-
-      .el-3 {
-        flex: 0 0 16px;
-        height: 16px;
-        margin-right: 4px;
-      }
+  .event-component .top-376-component {
+    .elem-2 {
+      display: flex;
+      flex: 0 0 16px;
+      height: 100%;
+      margin-right: 4px;
     }
   }
 

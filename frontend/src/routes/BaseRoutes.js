@@ -62,6 +62,10 @@ const BaseRoutes = {
 		return `/events/event/${pk}/teams/`;
 	},
 
+	get rules () {
+		return `/rules/`;
+	},
+
 
 }
 export default BaseRoutes;

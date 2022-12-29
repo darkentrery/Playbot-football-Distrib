@@ -107,7 +107,7 @@ export default function BottomComponent () {
             <div className={"elem-bottom"}>
                 <div className={"el-1"}>
                     {/*<span className={"policy"} onClick={openAllowPolicy}>Правила пользования</span>*/}
-                    <Link className={"policy"} to={BaseRoutes.allowPolicy}>Правила пользования</Link>
+                    <Link className={"policy"} to={BaseRoutes.rules}>Правила пользования</Link>
                     <Link className={"offer"} to={BaseRoutes.allowOffer}>Пользовательское соглашение</Link>
                     {/*<span className={"offer"} onClick={openAllowOffer}>Пользовательское соглашение</span>*/}
                 </div>

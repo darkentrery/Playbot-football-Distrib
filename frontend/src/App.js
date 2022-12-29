@@ -39,6 +39,7 @@ import {AllowOfferComponent} from "./components/body/AllowOfferComponent";
 import VisibleGeneralInformation from "./redux/containers/VisibleGeneralInformation";
 import VisibleTeamsInformation from "./redux/containers/VisibleTeamsInformation";
 import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
+import {RulesPageComponent} from "./components/body/RulesPageComponent";
 
 
 
@@ -141,6 +142,7 @@ function App({state, funcs}) {
                   <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
                   <Route exact path={BaseRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
                   <Route exact path={BaseRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
+                  <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
               </Routes>
 
               {/*<YMaps>*/}

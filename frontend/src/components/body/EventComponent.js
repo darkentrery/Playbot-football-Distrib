@@ -6,6 +6,7 @@ import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
 import {SameEventComponent} from "./SameEventComponent";
 import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
 import BaseRoutes from "../../routes/BaseRoutes";
+import {Top376Component} from "../top376Component/Top376Component";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -43,13 +44,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     return (
         <VisibleMainWrapper>
             <div className={"event-component"}>
-                <div className={"elem-376"}>
-                    <div className={"event-mobile-head"}>
-                        <Link className={"el-1 gray-left-arrow-icon link"} to={BaseRoutes.main}></Link>
-                        <Link className={"el-2"} to={BaseRoutes.main}>Событие</Link>
-                        <div className={"el-3 black-edit-icon link"} onClick={editEvent}></div>
-                    </div>
-                </div>
+                <Top376Component label={"Событие"} to={BaseRoutes.main} child={<div className={"elem-2 black-edit-icon link"} onClick={editEvent}></div>}/>
                 <VisibleBoardEvent/>
                 <VisibleEventOrganizer/>
                 {sameEvents.length !== 0 &&
