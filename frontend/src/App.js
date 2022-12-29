@@ -41,6 +41,7 @@ import VisibleTeamsInformation from "./redux/containers/VisibleTeamsInformation"
 import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
 import {RulesPageComponent} from "./components/body/RulesPageComponent";
 import {FaqPageComponent} from "./components/body/FaqPageComponent";
+import VisibleGamePlayer from "./redux/containers/VisibleGamePlayer";
 
 
 
@@ -143,6 +144,7 @@ function App({state, funcs}) {
                   <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
                   <Route exact path={BaseRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
                   <Route exact path={BaseRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
+                  <Route exact path={BaseRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
                   <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
               </Routes>
 

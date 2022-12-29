@@ -7,7 +7,7 @@ export const TeamsInformationComponent = ({event, user, funcs}) => {
         <VisibleEventWrapper>
             <div className={"teams-information-component"}>
                 {event && event.teams.length !== 0 &&
-                <div className={"team-row-1280"}>
+                <div className={"team-row-1280 team-row-1280-1"}>
                     <div className={"elem elem-1"}>
                         <span className={"el black-700-13"}>{event.teams[0].name}</span>
                         {event.teams[0].team_players.map((player, p) => (

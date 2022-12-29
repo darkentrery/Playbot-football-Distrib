@@ -44,16 +44,14 @@ export default function BottomComponent () {
                 <div className={"el el-2"}>
                     <div className={"col col-1"}>
                         <Link className={"white-400-14"} to={BaseRoutes.main}>Главная</Link>
-                        {/*<span>Главная</span>*/}
                         <span>Статистика</span>
                     </div>
                     <div className={"col col-2"}>
                         <Link className={"white-400-14"} to={BaseRoutes.events}>События</Link>
-                        {/*<span>События</span>*/}
                         <span>Для рекламодателей</span>
                     </div>
                     <div className={"col col-3"}>
-                        <span>FAQ</span>
+                        <Link className={"white-400-14"} to={BaseRoutes.faq}>FAQ</Link>
                         <span>Контакты</span>
                     </div>
                 </div>
@@ -83,16 +81,14 @@ export default function BottomComponent () {
                     <div className={"el el-1"}>
                         <div className={"col col-1"}>
                             <Link className={"white-400-14"} to={BaseRoutes.main}>Главная</Link>
-                            {/*<span>Главная</span>*/}
                             <span>Статистика</span>
                         </div>
                         <div className={"col col-2"}>
                             <Link className={"white-400-14"} to={BaseRoutes.events}>События</Link>
-                            {/*<span>События</span>*/}
                             <span>Для рекламодателей</span>
                         </div>
                         <div className={"col col-3"}>
-                            <span>FAQ</span>
+                            <Link className={"white-400-14"} to={BaseRoutes.faq}>FAQ</Link>
                             <span>Контакты</span>
                         </div>
                     </div>

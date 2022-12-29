@@ -1,7 +1,9 @@
 @use "sass:math";
+@import "fonts";
 @import "buttons";
 @import "icons";
 @import "fons";
+@import "font-styles";
 
 @import "base";
 @import "head";
@@ -39,5 +41,6 @@
 @import "../../components/playerRowComponent/player-row";
 @import "../../components/searchCityComponent/search-city";
 @import "../../components/top376Component/top-376";
+@import "../../components/gamePlayerComponent/game-player";
 
 

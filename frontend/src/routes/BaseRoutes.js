@@ -62,6 +62,14 @@ const BaseRoutes = {
 		return `/events/event/${pk}/teams/`;
 	},
 
+	get eventGamePlayer () {
+		return `/events/event/:pk/player-game/:gameId/`;
+	},
+
+	eventGamePlayerLink (pk, gameId) {
+		return `/events/event/${pk}/player-game/${gameId}/`;
+	},
+
 	get rules () {
 		return `/rules/`;
 	},

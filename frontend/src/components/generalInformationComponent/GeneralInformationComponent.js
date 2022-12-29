@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {getMinutesStr} from "../../utils/dates";
 import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import BaseRoutes from "../../routes/BaseRoutes";
+import {Link} from "react-router-dom";
 
 
 export const GeneralInformationComponent = ({event, user, funcs}) => {
@@ -39,7 +41,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         )
     }
 
-    const GameRow = ({gray=false, value1, value2, value4, game, flagBegin}) => {
+    const GameRow = ({gray=false, value1, value2, value4, game, flagBegin, pk}) => {
         const eventService = new EventService();
         const [value3, setValue3] = useState(false);
         useEffect(() => {
@@ -68,7 +70,8 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 </div>
                 {user.isAuth && event && event.organizer.id === user.user.id &&
-                    <span className={`elem-2 btn white-500-12 ${flagBegin ? '' : 'hidden'}`} onClick={beginGame}>Начать игру</span>}
+                    <Link className={`elem-2 btn white-500-12 ${flagBegin ? '' : 'hidden'}`} to={BaseRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
+                    {/*<span className={`elem-2 btn white-500-12 ${flagBegin ? '' : 'hidden'}`} onClick={beginGame}>Начать игру</span>}*/}
             </div>
         )
     }
@@ -123,6 +126,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                             value4={game.team_2.name} key={key}
                             game={game}
                             flagBegin={(key === 0 && !game.time_begin) || (key > 0 && event.event_games[key - 1].time_end && !game.time_begin) ? true : false}
+                            pk={event.id}
                         />
                     ))}
                 </EventTable>

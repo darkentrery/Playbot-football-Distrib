@@ -14,6 +14,9 @@
     border-top: 2px solid #F2F2F2;
     flex: 1 1 auto;
 
+    &.team-row-1280-1 {
+      border: 0;
+    }
     .elem {
       display: flex;
       flex-direction: column;

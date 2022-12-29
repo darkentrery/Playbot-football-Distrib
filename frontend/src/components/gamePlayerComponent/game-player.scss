@@ -1,0 +1,129 @@
+.game-player-component {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .manage {
+    display: flex;
+    border: 1px solid #EDEDED;
+    background: $whiteColor;
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: stretch;
+
+    .elem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+    .elem-1 {
+      flex: 0 0 87px;
+      gap: 40px;
+    }
+    .elem-2 {
+      flex: 0 0 72px;
+      background: #F9F9F9;
+      gap: 4px;
+
+      .clock-digit {
+        display: flex;
+        flex: 0 0 32px;
+        background: #EBEBEB;
+        border-radius: 8px;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        height: 38px;
+
+        span {
+          z-index: 1;
+        }
+        .second-fon {
+          position: absolute;
+          background: $lightGrayColor;
+          top: -1px;
+          height: 36px;
+          width: 32px;
+          border-radius: 8px;
+        }
+      }
+      .clock-middle-icon {
+        display: flex;
+        align-self: stretch;
+        margin: 0 8px;
+        flex: 0 0 4px;
+      }
+    }
+    .elem-3 {
+      flex: 0 0 102px;
+      gap: 64px;
+
+      .btn {
+        flex: 0 0 98px;
+        height: 48px;
+      }
+      .icon {
+        display: flex;
+        background-size: 13.5px;
+        align-self: stretch;
+        flex: 0 0 13.5px;
+      }
+    }
+  }
+
+  .teams {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+    .elem-1 {
+      display: flex;
+      background: $lightGrayColor;
+      padding: 0 24px;
+      align-items: center;
+      justify-content: space-between;
+      flex: 0 0 48px;
+
+      .icon {
+        display: flex;
+        align-self: stretch;
+        flex: 0 0 10px;
+      }
+    }
+    .elem-2 {
+      display: flex;
+      padding: 23px 10px 37px 10px;
+      background: $whiteColor;
+
+      .team {
+        display: flex;
+        flex: 0 0 50%;
+        gap: 4px;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-left: 30px;
+
+        .player {
+          display: flex;
+          gap: 16px;
+          flex: 0 0 36px;
+          align-items: center;
+
+          .player-avatar-icon {
+            display: flex;
+            background-size: auto 36px;
+            align-self: stretch;
+            flex: 0 0 25px;
+
+          }
+        }
+      }
+      .team-1 {
+        border-right: 1px solid #D9D9D9;;
+      }
+      .team-2 {
+      }
+    }
+  }
+}

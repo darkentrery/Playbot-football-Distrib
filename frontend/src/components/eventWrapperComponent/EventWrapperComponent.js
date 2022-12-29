@@ -3,13 +3,17 @@ import {Link, useParams} from "react-router-dom";
 import EventService from "../../services/EventService";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import {Top376Component} from "../top376Component/Top376Component";
 
 
 export const EventWrapperComponent = ({children, event, user, funcs}) => {
     const eventService = new EventService();
     const [flagRequest, setFlagRequest] = useState(false);
+    const [gameId, setGameId] = useState(0);
+    const [game, setGame] = useState(false);
     const params = useParams();
     const pk = params.pk;
+    const currentId = params.gameId;
 
     useEffect(() => {
         if (!flagRequest) {
@@ -20,6 +24,20 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
         setFlagRequest(true);
     }, [flagRequest])
 
+    useEffect(() => {
+        if (event) {
+            if (event.event_games.length !== 0) setGameId(event.event_games[0].id);
+            for (let game of event.event_games) {
+                if (game.time_end) setGameId(game.id);
+            }
+            if (currentId) {
+                event.event_games.map((g) => {
+                    if (g.id == currentId) setGame(g);
+                })
+            }
+        }
+    }, [event, currentId])
+
     const endEvent = () => {
         authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
             if (response.status === 200) {
@@ -27,7 +45,6 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
                 funcs.setEvent(response.data);
             }
         })
-
     }
 
     return (
@@ -46,19 +63,38 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
             </div>
             <div className={"event-wrapper-body"}>
                 <div className={"navigate-bar-1280"}>
-                    <Link className={`nav-link black-400-14 ${window.location.pathname.includes('info') ? 'active' : ''}`} to={BaseRoutes.eventInfoLink(pk)}>Иформация</Link>
-                    {user.isAuth && event && user.user.id === event.organizer.id && <Link className={`nav-link middle-gray-400-12`} to={".."}>Плеер</Link>}
-                    <Link className={`nav-link A7-gray-400-14 ${window.location.pathname.includes('teams') ? 'active' : ''}`} to={BaseRoutes.eventInfoTeamsLink(pk)}>Составы команд</Link>
+                    <Link
+                        className={`nav-link ${window.location.pathname.includes('info') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
+                        to={BaseRoutes.eventInfoLink(pk)}
+                    >Иформация</Link>
+                    {user.isAuth && event && user.user.id === event.organizer.id && <Link
+                        className={`nav-link ${window.location.pathname.includes('player-game') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
+                        to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
+                    >Плеер</Link>}
+                    <Link
+                        className={`nav-link ${window.location.pathname.includes('teams') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
+                        to={BaseRoutes.eventInfoTeamsLink(pk)}
+                    >Составы команд</Link>
+                    {game && !game.time_end ? <span className={"nav-link end-game-link orange-400-14"}>Завершить игру</span> : ''}
                 </div>
+
                 <div className={"navigate-bar-376"}>
-                    <Link className={`elem elem-1`} to={BaseRoutes.eventLink(pk)}>
-                        <div className={"black-left-arrow-icon"}></div>
-                        <span className={"black-500-14"}>Подробности события</span>
-                    </Link>
+                    <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}
+                                     child={game && !game.time_end ? <span className={"elem-2 black-500-14"}>Завершить игру</span> : ''}/>
+
                     <div className={"elem elem-2"}>
-                        <Link className={`nav-link  ${window.location.pathname.includes('info') ? 'white-600-12 active' : 'middle-gray-400-12'}`} to={BaseRoutes.eventInfoLink(pk)}>Иформация</Link>
-                        {user.isAuth && event && user.user.id === event.organizer.id && <Link className={`nav-link middle-gray-400-12`} to={".."}>Плеер</Link>}
-                        <Link className={`nav-link ${window.location.pathname.includes('teams') ? 'white-600-12 active' : 'middle-gray-400-12'}`} to={BaseRoutes.eventInfoTeamsLink(pk)}>Составы команд</Link>
+                        <Link
+                            className={`nav-link  ${window.location.pathname.includes('info') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
+                            to={BaseRoutes.eventInfoLink(pk)}
+                        >Иформация</Link>
+                        {user.isAuth && event && user.user.id === event.organizer.id && <Link
+                            className={`nav-link ${window.location.pathname.includes('player-game') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
+                            to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
+                        >Плеер</Link>}
+                        <Link
+                            className={`nav-link ${window.location.pathname.includes('teams') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
+                            to={BaseRoutes.eventInfoTeamsLink(pk)}
+                        >Составы команд</Link>
                     </div>
                 </div>
                 {children}

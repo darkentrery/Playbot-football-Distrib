@@ -19,13 +19,12 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     const [buttonLock, setButtonLock] = useState(false);
 
     useEffect(() => {
-        if (event) {
+        if (event && isOpen) {
             let arraySelect = [];
             if (team) {
                 team.team_players.map((player, p) => {
                     arraySelect.push(player.player.id.toString());
                 })
-                console.log(arraySelect)
                 setSelected(arraySelect);
             }
             let array = [];
@@ -102,7 +101,6 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     }
 
     const confirmPlayers = () => {
-        console.log(buttonLock)
         if (!buttonLock) {
             team.name = teamName;
             setTeamName(false);
