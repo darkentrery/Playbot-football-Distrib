@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 # from django.contrib.gis.db import models
 from playbot.cities.models import City, Address
@@ -179,7 +180,6 @@ class Team(models.Model):
         return played
 
 
-
 class EventPlayer(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_player")
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_player")
@@ -239,6 +239,17 @@ class EventGame(models.Model):
     def __str__(self):
         return f"{self.event.name} - {self.number}"
 
+    @property
+    def current_duration(self):
+        duration = 0
+        for period in self.game_periods.all():
+            duration += period.duration
+        return int(duration)
+
+    @property
+    def rest_time(self):
+        return self.event.duration.duration * 60 - self.current_duration
+
 
 class EventStep(models.Model):
     class StepName(models.TextChoices):
@@ -258,6 +269,48 @@ class EventStep(models.Model):
 
     def __str__(self):
         return f"{self.event.name} - {self.step}"
+
+
+class Goal(models.Model):
+    game = models.ForeignKey(EventGame, on_delete=models.CASCADE, related_name="goals")
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="goals")
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")
+    time = models.DateTimeField(_("Goal Time"), default=timezone.now)
+    game_time = models.FloatField(_("Game Time"))
+
+    class Meta:
+        ordering = ["time",]
+        unique_together = ["game", "time"]
+        verbose_name = "Goal"
+        verbose_name_plural = "Goals"
+
+    def __str__(self):
+        return f"{self.game.event.name} - {self.team.name}"
+
+
+class GamePeriod(models.Model):
+    game = models.ForeignKey(EventGame, on_delete=models.CASCADE, related_name="game_periods")
+    time_begin = models.DateTimeField(_("Time Begin"), default=timezone.now)
+    time_end = models.DateTimeField(_("Time End"), blank=True, null=True)
+
+    class Meta:
+        ordering = ["time_begin",]
+        unique_together = [["game", "time_begin"], ["game", "time_end"]]
+        verbose_name = "Game Period"
+        verbose_name_plural = "Game Periods"
+
+    def __str__(self):
+        return f"{self.game.event.name} - {self.time_begin}"
+
+    @property
+    def duration(self):
+        duration = (timezone.now() - self.time_begin).total_seconds()
+        if self.time_end:
+            duration = (self.time_end - self.time_begin).total_seconds()
+        return int(duration)
+
+
+
 
 
 

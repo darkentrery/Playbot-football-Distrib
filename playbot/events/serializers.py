@@ -3,7 +3,7 @@ from rest_framework import serializers
 from playbot.cities.models import City, Address
 from playbot.cities.serializers import CitySerializer, AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame, EventQueue
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod
 from playbot.users.models import User
 from playbot.users.serializers import UserSerializer
 
@@ -50,9 +50,30 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class GoalSerializer(serializers.ModelSerializer):
+    team = TeamSerializer(read_only=True)
+    player = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Goal
+        fields = "__all__"
+
+
+class GamePeriodSerializer(serializers.ModelSerializer):
+    duration = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GamePeriod
+        fields = "__all__"
+
+
 class EventGameSerializer(serializers.ModelSerializer):
     team_1 = TeamSerializer(read_only=True)
     team_2 = TeamSerializer(read_only=True)
+    goals = GoalSerializer(Goal.objects.all(), many=True, read_only=True)
+    game_periods = GamePeriodSerializer(GamePeriod.objects.all(), many=True, read_only=True)
+    current_duration = serializers.IntegerField(read_only=True)
+    rest_time = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = EventGame
