@@ -27,7 +27,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const [errorText, setErrorText] = useState('');
 
     useEffect(() => {
-        if (event) {
+        if (event && isOpen) {
             if (event.until_goal_count) setUntilGoalCount(event.until_goal_count);
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];

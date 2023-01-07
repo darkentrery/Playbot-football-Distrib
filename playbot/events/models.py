@@ -223,9 +223,7 @@ class TeamPlayer(models.Model):
 class EventGame(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_games")
     team_1 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="event_games_teams_1")
-    score_1 = models.IntegerField(_("Score 1 Team"), default=0)
     team_2 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="event_games_teams_2")
-    score_2 = models.IntegerField(_("Score 2 Team"), default=0)
     time_begin = models.TimeField(_("Time Begin"), blank=True, null=True)
     time_end = models.TimeField(_("Time End"), blank=True, null=True)
     number = models.IntegerField(_("Number"), default=1)
@@ -248,7 +246,20 @@ class EventGame(models.Model):
 
     @property
     def rest_time(self):
-        return self.event.duration.duration * 60 - self.current_duration
+        rest_time = self.event.duration.duration * 60 - self.current_duration
+        return rest_time if rest_time > 0 else 0
+
+    @property
+    def is_play(self):
+        return self.game_periods.filter(time_end=None).exists()
+
+    @property
+    def score_1(self):
+        return self.goals.filter(team=self.team_1).count()
+
+    @property
+    def score_2(self):
+        return self.goals.filter(team=self.team_2).count()
 
 
 class EventStep(models.Model):
@@ -274,7 +285,7 @@ class EventStep(models.Model):
 class Goal(models.Model):
     game = models.ForeignKey(EventGame, on_delete=models.CASCADE, related_name="goals")
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="goals")
-    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals", blank=True, null=True)
     time = models.DateTimeField(_("Goal Time"), default=timezone.now)
     game_time = models.FloatField(_("Game Time"))
 

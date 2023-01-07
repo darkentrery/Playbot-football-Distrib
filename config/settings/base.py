@@ -35,7 +35,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
-TIME_ZONE = "America/New_York"
+TIME_ZONE = "UTC"
 
 # LANGUAGE_CODE = "en-us"
 

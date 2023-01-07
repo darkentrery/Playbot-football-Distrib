@@ -193,9 +193,7 @@ class EventGameAdmin(admin.ModelAdmin):
     list_display = [
         "number",
         "team_1",
-        "score_1",
         "team_2",
-        "score_2",
         "time_begin",
         "time_end",
     ]

@@ -20,4 +20,8 @@ urlpatterns = [
     path("leave-event/", views.LeaveEventView.as_view(), name='leave-event'),
     path("begin-event-game/", views.BeginEventGameView.as_view(), name='begin-event-game'),
     path("end-event/", views.EndEventView.as_view(), name='end-event'),
+    path("begin-game-period/", views.BeginGamePeriodView.as_view(), name='begin-game-period'),
+    path("end-game-period/", views.EndGamePeriodView.as_view(), name='end-game-period'),
+    path("end-game/", views.EndGameView.as_view(), name='end-game'),
+    path("create-goal/", views.CreateGoalView.as_view(), name='create-goal'),
 ]

@@ -1,20 +1,33 @@
 import VisibleEventWrapper from "../../redux/containers/VisibleEventWrapper";
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import {eventService} from "../../services/EventService";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
 export const GamePlayerComponent = ({event, user, funcs}) => {
     const params = useParams();
     const gameId = params.gameId;
     const [game, setGame] = useState(false);
+    const [timer, setTimer] = useState('0000');
+    const [restTime, setRestTime] = useState(false);
+    const [isOpen1, setIsOpen1] = useState(false);
+    const [isOpen2, setIsOpen2] = useState(false);
 
     useEffect(() => {
         if (event && !game) {
             event.event_games.map((g) => {
-                if (g.id == gameId) setGame(g);
+                if (g.id == gameId) {
+                    setGame(g);
+                    let seconds = g.rest_time % 60;
+                    let minutes = ((g.rest_time - seconds) / 60).toString();
+                    setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
+                    setRestTime(g.rest_time);
+                }
             })
         }
         console.log(game)
+        console.log(timer)
     }, [gameId, event])
 
 
@@ -27,7 +40,89 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
         )
     }
 
+    useEffect(() => {
+        if (game && game.is_play && !game.time_end) {
+            let start = Date.now();
+            let interval = setInterval(() => {
+                let timePassed = Date.now() - start;
+                if (timePassed >= 1000 && restTime - 1 >= 0) {
+                    let seconds = (restTime - 1) % 60;
+                    let minutes = (((restTime - 1) - seconds) / 60).toString();
+                    setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
+                    setRestTime(restTime - 1);
+                } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id) {
+                    authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
+                        console.log(response.data)
+                        if (response.status === 200) setGame(response.data);
+                    })
+                }
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    })
 
+    const beginGamePeriod = () => {
+        authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
+            console.log(response.data)
+            if (response.status === 200) setGame(response.data);
+        })
+    }
+
+    const endGamePeriod = () => {
+        authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
+            console.log(response.data)
+            if (response.status === 200) setGame(response.data);
+        })
+    }
+
+    const createGoal = (teamId, player=false) => {
+        let data = {
+            game: game.id,
+            team: teamId,
+            time: new Date().toISOString(),
+            game_time: event.duration.duration * 60 - restTime,
+        }
+        if (player) data.player = player;
+        authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
+            console.log(response.data)
+            if (response.status === 200) setGame(response.data);
+        })
+
+    }
+
+    const goal1 = () => {
+        if (event.scorer) {
+            if (!isOpen2) setIsOpen1(!isOpen1);
+        } else {
+            createGoal(game.team_1.id);
+        }
+    }
+
+    const goal2 = () => {
+        if (event.scorer) {
+            if (!isOpen1) setIsOpen2(!isOpen2);
+        } else {
+            createGoal(game.team_2.id);
+        }
+    }
+
+    const PlayersList = ({className='', isOpen, team, setIsOpen}) => {
+        const goal = (player) => {
+          createGoal(team.id, player.player.id);
+          setIsOpen(false);
+        }
+        return (
+            <div className={`players-list ${className} ${isOpen ? '' : 'hidden'}`}>
+                <div className={"list scroll"}>
+                    {team.team_players.map((player, key) => (
+                        <div className={"el black-400-13"} key={key}
+                             onClick={() => {goal(player)}}
+                        >{player.player.username}</div>
+                    ))}
+                </div>
+            </div>
+        )
+    }
 
     return (
         <VisibleEventWrapper>
@@ -39,16 +134,31 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
                         <span className={"black-400-16"}>{game.team_2.name}</span>
                     </div>
                     <div className={"elem elem-2"}>
-                        <ClockDigit value={1}/>
-                        <ClockDigit value={1}/>
+                        <ClockDigit value={timer[0]}/>
+                        <ClockDigit value={timer[1]}/>
                         <div className={"clock-middle-icon"}></div>
-                        <ClockDigit value={1}/>
-                        <ClockDigit value={1}/>
+                        <ClockDigit value={timer[2]}/>
+                        <ClockDigit value={timer[3]}/>
                     </div>
                     <div className={"elem elem-3"}>
-                        <span className={`btn white-600-14 ${game.time_begin ? '' : 'lock'}`}><div className={"icon white-ball-icon"}></div>Гол</span>
-                        <span className={`btn white-600-14`}><div className={"icon white-play-icon"}></div></span>
-                        <span className={`btn white-600-14 ${game.time_begin ? '' : 'lock'}`}><div className={"icon white-ball-icon"}></div>Гол</span>
+                        <div className={"btn-block"}>
+                            <span className={`btn white-600-14 ${game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal1 : () => {}}>
+                                <div className={"icon white-ball-icon"}></div>Гол
+                            </span>
+                            <PlayersList className={"player-list-1"} isOpen={isOpen1} team={game.team_1} setIsOpen={setIsOpen1}/>
+                        </div>
+                        {game.is_play && <span className={`btn white-600-14`} onClick={endGamePeriod}>
+                            <div className={"icon white-pause-icon"}></div>
+                        </span>}
+                        {!game.is_play && <span className={`btn white-600-14 ${game.time_end ? 'lock' : ''}`} onClick={game.time_end ? () => {} : beginGamePeriod}>
+                            <div className={"icon white-play-icon"}></div>
+                        </span>}
+                        <div className={"btn-block"}>
+                            <span className={`btn white-600-14 ${game.time_begin && game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal2 : () => {}}>
+                                <div className={"icon white-ball-icon"}></div>Гол
+                            </span>
+                            <PlayersList className={"player-list-2"} isOpen={isOpen2} team={game.team_2} setIsOpen={setIsOpen2}/>
+                        </div>
                     </div>
 
                 </div>

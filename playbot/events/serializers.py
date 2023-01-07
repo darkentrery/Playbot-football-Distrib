@@ -59,6 +59,16 @@ class GoalSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CreateGoalSerializer(serializers.ModelSerializer):
+    game = serializers.PrimaryKeyRelatedField(queryset=EventGame.objects.all(), write_only=True)
+    team = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all(), write_only=True)
+    player = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, write_only=True)
+
+    class Meta:
+        model = Goal
+        fields = ["game", "team", "player", "time", "game_time"]
+
+
 class GamePeriodSerializer(serializers.ModelSerializer):
     duration = serializers.IntegerField(read_only=True)
 
@@ -70,10 +80,13 @@ class GamePeriodSerializer(serializers.ModelSerializer):
 class EventGameSerializer(serializers.ModelSerializer):
     team_1 = TeamSerializer(read_only=True)
     team_2 = TeamSerializer(read_only=True)
+    score_1 = serializers.IntegerField(read_only=True)
+    score_2 = serializers.IntegerField(read_only=True)
     goals = GoalSerializer(Goal.objects.all(), many=True, read_only=True)
     game_periods = GamePeriodSerializer(GamePeriod.objects.all(), many=True, read_only=True)
     current_duration = serializers.IntegerField(read_only=True)
     rest_time = serializers.IntegerField(read_only=True)
+    is_play = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = EventGame
@@ -86,6 +99,36 @@ class EditTeamNameSerializer(serializers.ModelSerializer):
         fields = ["name",]
 
 
+class CancelReasonsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CancelReasons
+        fields = "__all__"
+
+
+class FormatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Format
+        fields = "__all__"
+
+
+class DistributionMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DistributionMethod
+        fields = "__all__"
+
+
+class DurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Duration
+        fields = "__all__"
+
+
+class CountCirclesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CountCircles
+        fields = "__all__"
+
+
 class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
@@ -93,7 +136,6 @@ class CreateEventSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
     address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
-
 
     class Meta:
         model = Event
@@ -104,7 +146,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     format = serializers.SlugRelatedField(slug_field="name", read_only=True)
     distribution_method = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    duration = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    duration = DurationSerializer(read_only=True)
     count_circles = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     organizer = UserSerializer(read_only=True)
@@ -147,36 +189,6 @@ class CancelEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["cancel", "cancel_reasons",]
-
-
-class CancelReasonsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CancelReasons
-        fields = "__all__"
-
-
-class FormatSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Format
-        fields = "__all__"
-
-
-class DistributionMethodSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DistributionMethod
-        fields = "__all__"
-
-
-class DurationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Duration
-        fields = "__all__"
-
-
-class CountCirclesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CountCircles
-        fields = "__all__"
 
 
 class SetRegulationSerializer(serializers.ModelSerializer):

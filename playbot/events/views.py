@@ -1,5 +1,6 @@
 import datetime
 
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -8,10 +9,11 @@ from rest_framework.views import APIView
 from playbot.chats.models import Chat
 from playbot.cities.models import City, Address
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame, EventQueue
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
-    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer
+    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer, EventGameSerializer, \
+    CreateGoalSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games
 from playbot.history.models import UserEventAction
 
@@ -274,7 +276,7 @@ class BeginEventGameView(APIView):
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["game"]["id"])
         if game.event.organizer == request.user:
-            game.time_begin = datetime.datetime.now().time()
+            game.time_begin = timezone.now().time()
             game.save()
             event = EventSerializer(instance=game.event)
             return Response(event.data, status=status.HTTP_200_OK)
@@ -287,10 +289,75 @@ class EndEventView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
         if event.organizer == request.user:
-            event.time_end = datetime.datetime.now().time()
+            event.time_end = timezone.now().time()
             event.save()
             event = EventSerializer(instance=event)
             return Response(event.data, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BeginGamePeriodView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        game = EventGame.objects.get(id=request.data["id"])
+        if game.event.organizer == request.user:
+            if not game.game_periods.filter(time_end=None).exists():
+                period = GamePeriod.objects.create(game=game)
+                if not game.time_begin:
+                    game.time_begin = period.time_begin.time()
+                    game.save()
+                json = EventGameSerializer(instance=game).data
+                return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EndGamePeriodView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        game = EventGame.objects.get(id=request.data["id"])
+        if game.event.organizer == request.user:
+            if game.game_periods.filter(time_end=None).exists():
+                period = game.game_periods.filter(time_end=None).last()
+                period.time_end = timezone.now()
+                period.save()
+                json = EventGameSerializer(instance=game).data
+                return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EndGameView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        game = EventGame.objects.get(id=request.data["id"])
+        if game.event.organizer == request.user:
+            if game.game_periods.filter(time_end=None).exists():
+                period = game.game_periods.filter(time_end=None).last()
+                time = timezone.now() - datetime.timedelta(seconds=game.current_duration - game.event.duration.duration * 60)
+                period.time_end = time
+                period.save()
+                game.time_end = time.time()
+                game.save()
+                json = EventGameSerializer(instance=game).data
+                return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreateGoalView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        game = EventGame.objects.get(id=request.data.get("game"))
+        if game.event.organizer == request.user:
+            serializer = CreateGoalSerializer(data=request.data)
+            if serializer.is_valid():
+                goal = serializer.save()
+                if goal:
+                    json = EventGameSerializer(instance=goal.game).data
+                    return Response(json, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 

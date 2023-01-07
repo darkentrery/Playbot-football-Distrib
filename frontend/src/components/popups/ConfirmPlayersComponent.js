@@ -15,7 +15,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     const [playersView, setPlayersView] = useState([]);
 
     useEffect(() => {
-        if (event) {
+        if (event && isOpen) {
             setPlayers(event.event_player);
             setPlayersView(event.event_player);
             let array = [];
@@ -24,7 +24,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
             })
             setPlayers1(array);
         }
-        if (event && event.event_step.length > 1 && event.event_step[0].complete) {
+        if (event && event.event_step.length > 1 && event.event_step[0].complete && isOpen) {
             let arr = [];
             playersView.forEach((item) => {
                 arr.push(item.player.id.toString());

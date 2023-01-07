@@ -30,9 +30,9 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     ];
 
     useEffect(() => {
-        if (event && event.event_step.length && event.count_circles) {
+        if (event && event.event_step.length && event.count_circles && isOpen) {
             let count_circles = event.count_circles.replace(/\D/g, "");
-            let duration = event.duration.replace(/\D/g, "");
+            let duration = event.duration.duration.toString();
             let durationLabel = getMinutesStr(duration);
             let totalDuration = count_circles * duration;
             let totalDurationLabel = getMinutesStr(totalDuration.toString());
@@ -48,7 +48,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 teamNames[i][1](team.name);
             })
         }
-    }, [event])
+    }, [event, isOpen])
 
     const closeWindow = () => {
         funcs.closeConfirmTeams();
@@ -78,7 +78,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
         })
     }
 
-    const repeateDivide = () => {
+    const repeatDivide = () => {
 
     }
 
@@ -154,7 +154,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             </div>
             <div className={`elem elem-7 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn white-500-16"} onClick={confirmTeams}>Подтвердить и начать</button>
-                <span className={"orange-400-14 link"} onClick={repeateDivide}>Поделиться заново</span>
+                <span className={"orange-400-14 link"} onClick={repeatDivide}>Поделиться заново</span>
             </div>
         </ReglamentComponent>
     )
