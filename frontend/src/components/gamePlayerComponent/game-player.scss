@@ -124,6 +124,23 @@
         }
       }
     }
+    .elem-4 {
+      flex: 0 0 72px;
+      background: #F9F9F9;
+      gap: 12px;
+      flex-direction: column;
+      padding: 9px 0 13px 0;
+      box-sizing: border-box;
+
+      .el-1 {
+        height: 14px;
+      }
+      .el-2 {
+        flex: 0 0 24px;
+        border-radius: 50px;
+        padding: 0px 22px;
+      }
+    }
   }
 
   .teams {

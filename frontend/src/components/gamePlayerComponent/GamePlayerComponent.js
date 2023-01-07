@@ -1,8 +1,9 @@
 import VisibleEventWrapper from "../../redux/containers/VisibleEventWrapper";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {eventService} from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import BaseRoutes from "../../routes/BaseRoutes";
 
 
 export const GamePlayerComponent = ({event, user, funcs}) => {
@@ -15,7 +16,7 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
     const [isOpen2, setIsOpen2] = useState(false);
 
     useEffect(() => {
-        if (event && !game) {
+        if (event) {
             event.event_games.map((g) => {
                 if (g.id == gameId) {
                     setGame(g);
@@ -133,13 +134,17 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
                         <span className={"black-800-32"}>{game.score_1} - {game.score_2}</span>
                         <span className={"black-400-16"}>{game.team_2.name}</span>
                     </div>
-                    <div className={"elem elem-2"}>
+                    {!game.time_end && <div className={"elem elem-2"}>
                         <ClockDigit value={timer[0]}/>
                         <ClockDigit value={timer[1]}/>
                         <div className={"clock-middle-icon"}></div>
                         <ClockDigit value={timer[2]}/>
                         <ClockDigit value={timer[3]}/>
-                    </div>
+                    </div>}
+                    {game.time_end !== null && <div className={"elem elem-4"}>
+                        <span className={"el-1 black-400-12-italic"}>Игра завершена. Результаты сохранены</span>
+                        <Link className={"btn el-2 white-500-12"} to={BaseRoutes.eventGamePlayerLink(event.id, game.id + 1)}>Начать  следующую игру</Link>
+                    </div>}
                     <div className={"elem elem-3"}>
                         <div className={"btn-block"}>
                             <span className={`btn white-600-14 ${game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal1 : () => {}}>
