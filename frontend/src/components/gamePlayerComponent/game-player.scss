@@ -87,6 +87,7 @@
           padding: 6px 8px;
           box-sizing: border-box;
           justify-content: stretch;
+          z-index: 3;
 
           &.hidden {
             display: none;
@@ -139,6 +140,74 @@
         flex: 0 0 24px;
         border-radius: 50px;
         padding: 0px 22px;
+      }
+    }
+
+    .elem-5 {
+      padding: 18px 0 21px 0;
+      border-top: 1px solid #EDEDED;
+      position: relative;
+      gap: 8px;
+      flex-direction: column;
+      align-items: stretch;
+
+      .goal-row {
+        display: flex;
+        flex: 0 0 32px;
+        gap: 8px;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+
+        &.goal-row-1 {
+          justify-content: end;
+          padding-right: calc(50% - 12px);
+          .gray-line {
+            right: calc(50% - 12px);
+          }
+          .icon {
+            margin-left: 10px;
+          }
+        }
+        &.goal-row-2 {
+          justify-content: start;
+          padding-left: calc(50% - 12px);
+          .gray-line {
+            left: calc(50% - 12px);
+          }
+          .icon {
+            margin-right: 10px;
+          }
+        }
+        .gray-line {
+          width: 34px;
+          height: 1px;
+          position: absolute;
+          top: 50%;
+          background: #EDEDED;
+        }
+        .black-ball-icon {
+          display: flex;
+          flex: 0 0 13px;
+          height: 13px;
+          background-size: contain;
+        }
+        .icon {
+          display: flex;
+          align-self: stretch;
+          height: 100%;
+          flex: 0 0 24px;
+          background-size: auto 32px;
+          z-index: 2;
+        }
+      }
+      &:before {
+        content: " ";
+        background: #EDEDED;
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        left: 50%;
       }
     }
   }
@@ -194,6 +263,35 @@
         border-right: 1px solid #D9D9D9;;
       }
       .team-2 {
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .game-player-component {
+    gap: 16px;
+    .manage {
+      .elem-3 {
+        gap: 20px;
+      }
+    }
+
+    .teams {
+      .elem-2 {
+        flex-direction: column;
+        background: $lightGrayColor;
+        gap: 12px;
+        padding: 0;
+
+        .team {
+          background: $whiteColor;
+          padding: 15px 20px 8px;
+          flex: 1 1 auto;
+        }
+        .team-1 {
+          border: 0;
+        }
       }
     }
   }

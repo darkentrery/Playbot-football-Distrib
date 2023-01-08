@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {eventService} from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import BaseRoutes from "../../routes/BaseRoutes";
+import $ from "jquery";
 
 
 export const GamePlayerComponent = ({event, user, funcs}) => {
@@ -28,7 +29,6 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
             })
         }
         console.log(game)
-        console.log(timer)
     }, [gameId, event])
 
 
@@ -107,6 +107,15 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
         }
     }
 
+    const fonClick = (e) => {
+        if (isOpen1 && !$(e.target).closest('.block-1').length) {
+            setIsOpen1(false);
+        }
+        if (isOpen2 && !$(e.target).closest('.block-2').length) {
+            setIsOpen2(false);
+        }
+    }
+
     const PlayersList = ({className='', isOpen, team, setIsOpen}) => {
         const goal = (player) => {
           createGoal(team.id, player.player.id);
@@ -125,9 +134,34 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
         )
     }
 
+    const GoalRow = ({goal, teamId1, teamId2}) => {
+        let seconds = goal.game_time % 60;
+        let minutes = (goal.game_time - seconds) / 60;
+        minutes = minutes < 10 ? '0' + minutes.toString() : minutes;
+        seconds = seconds < 10 ? '0' + seconds.toString() : seconds;
+        return (
+            <div className={`goal-row ${goal.team.id === teamId1 ? 'goal-row-1' : 'goal-row-2'}`}>
+                {goal.team.id === teamId1 && <>
+                    {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
+                    <div className={"black-ball-icon"}></div>
+                    <span className={"black-400-13"}>{minutes}:{seconds}'</span>
+                    <div className={"icon player-avatar-icon"}></div>
+                    <div className={"gray-line"}></div>
+                </>}
+                {goal.team.id === teamId2 && <>
+                    <div className={"icon player-avatar-icon"}></div>
+                    <span className={"black-400-13"}>{minutes}:{seconds}'</span>
+                    <div className={"black-ball-icon"}></div>
+                    {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
+                    <div className={"gray-line"}></div>
+                </>}
+            </div>
+        )
+    }
+
     return (
         <VisibleEventWrapper>
-            {game && <div className={`game-player-component`}>
+            {game && <div className={`game-player-component`} onClick={fonClick}>
                 <div className={"manage"}>
                     <div className={"elem elem-1"}>
                         <span className={"black-400-16"}>{game.team_1.name}</span>
@@ -146,7 +180,7 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
                         <Link className={"btn el-2 white-500-12"} to={BaseRoutes.eventGamePlayerLink(event.id, game.id + 1)}>Начать  следующую игру</Link>
                     </div>}
                     <div className={"elem elem-3"}>
-                        <div className={"btn-block"}>
+                        <div className={"btn-block block-1"}>
                             <span className={`btn white-600-14 ${game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal1 : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
@@ -158,14 +192,18 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
                         {!game.is_play && <span className={`btn white-600-14 ${game.time_end ? 'lock' : ''}`} onClick={game.time_end ? () => {} : beginGamePeriod}>
                             <div className={"icon white-play-icon"}></div>
                         </span>}
-                        <div className={"btn-block"}>
+                        <div className={"btn-block block-2"}>
                             <span className={`btn white-600-14 ${game.time_begin && game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal2 : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
                             <PlayersList className={"player-list-2"} isOpen={isOpen2} team={game.team_2} setIsOpen={setIsOpen2}/>
                         </div>
                     </div>
-
+                    {game.goals.lenght !== 0 && <div className={"elem elem-5"}>
+                        {game.goals.map((goal, key) => (
+                            <GoalRow goal={goal} teamId1={game.team_1.id} teamId2={game.team_2.id} key={key}/>
+                        ))}
+                    </div>}
                 </div>
                 <div className={`teams`}>
                     <div className={"elem-1"}>
