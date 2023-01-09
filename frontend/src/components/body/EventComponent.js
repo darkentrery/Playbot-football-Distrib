@@ -43,20 +43,21 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
 
     return (
         <VisibleMainWrapper>
-            <div className={"event-component"}>
-                <Top376Component label={"Событие"} to={BaseRoutes.main} child={<div className={"elem-2 black-edit-icon link"} onClick={editEvent}></div>}/>
+            {event && <div className={"event-component"}>
+                <Top376Component label={"Событие"} to={BaseRoutes.main}
+                                 child={<div className={"elem-2 black-edit-icon link"} onClick={editEvent}></div>}/>
                 <VisibleBoardEvent/>
                 <VisibleEventOrganizer/>
                 {sameEvents.length !== 0 &&
-                <div className={"same-events-component"}>
-                    <span className={"elem elem-1 black-600-20"}>Похожие события</span>
-                    <div className={"elem elem-2"}>
-                        {sameEvents.map((event, key) => (
-                            <SameEventComponent className={`same-event-${key}`} event={event} key={key}/>
-                        ))}
-                    </div>
-                </div>}
-            </div>
+                    <div className={"same-events-component"}>
+                        <span className={"elem elem-1 black-600-20"}>Похожие события</span>
+                        <div className={"elem elem-2"}>
+                            {sameEvents.map((event, key) => (
+                                <SameEventComponent className={`same-event-${key}`} event={event} key={key}/>
+                            ))}
+                        </div>
+                    </div>}
+            </div>}
         </VisibleMainWrapper>
     )
 }

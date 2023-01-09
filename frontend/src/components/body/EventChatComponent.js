@@ -8,6 +8,8 @@ export const EventChatComponent = ({event, user}) => {
     const chatRef = useRef();
     const [message, setMessage] = useState("");
     const [messageHistory, setMessageHistory] = useState([]);
+    const [lastEvent, setLastEvent] = useState(false);
+    const [lastR, setLastR] = useState(0);
     const [firstLoad, setFirstLoad] = useState(true);
     const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
@@ -76,7 +78,26 @@ export const EventChatComponent = ({event, user}) => {
     }
 
     const changeMessage = (e) => {
-        setMessage(e.target.value);
+        if (!lastEvent.ctrlKey && lastEvent.keyCode === 13) {
+            sendForm();
+        } else {
+            setMessage(e.target.value);
+        }
+    }
+
+    const keyMessageDown = (e) => {
+        setLastEvent(e);
+        if (e.ctrlKey && e.keyCode === 13) {
+            setMessage(message.slice(0, e.target.selectionStart) + '\r\n' + message.slice(e.target.selectionStart, message.length));
+            setLastR(e.target.selectionStart);
+        }
+    }
+
+    const keyMessageUp = (e) => {
+        if (e.ctrlKey && e.keyCode === 13) {
+            e.target.selectionStart = lastR + 1;
+            e.target.selectionEnd = lastR + 1;
+        }
     }
 
     return (
@@ -84,11 +105,17 @@ export const EventChatComponent = ({event, user}) => {
             <span className={"elem elem-1"}>Чат<span className={"count"}>&nbsp;&nbsp;0</span></span>
             <div className={"elem elem-2 scroll"} ref={chatRef}>
                 {messageHistory.map((message, key) => (
-                    <MessageComponent user={user.user} message={message} key={key}/>
+                    <MessageComponent
+                        user={user.user}
+                        previousId={key !== 0 ? messageHistory[key - 1].from_user.id : false}
+                        message={message}
+                        key={key}
+                    />
                 ))}
             </div>
             <div className={"elem elem-3"}>
-                <textarea className={"el el-1 scroll"} placeholder={"Введите текст сообщения"} value={message} onChange={changeMessage}></textarea>
+                <textarea className={"el el-1 scroll"} placeholder={"Введите текст сообщения"} value={message}
+                          onChange={changeMessage} onKeyDown={keyMessageDown} onKeyUp={keyMessageUp}></textarea>
                 <button className={"el btn-second"} onClick={sendForm}>Отправить</button>
             </div>
         </div>

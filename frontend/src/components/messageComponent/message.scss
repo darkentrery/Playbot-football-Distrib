@@ -1,6 +1,6 @@
 .message-component {
   display: flex;
-  flex: 0 0 113px;
+  //flex: 0 0 113px;
   gap: 20px;
   padding-right: 180px;
   box-sizing: border-box;
@@ -24,12 +24,10 @@
   .elem-2 {
     display: flex;
     flex-direction: column;
-    flex: 1 1 auto;
 
     .el-1 {
       flex: 0 0 19px;
     }
-
     .el-2 {
       display: flex;
       background: #F8F8F8;
@@ -39,19 +37,18 @@
       padding-right: 24px;
       padding-top: 19px;
       padding-bottom: 19px;
-      align-self: stretch;
+      flex-direction: column;
     }
-
     .el-3 {
       flex: 0 0 19px;
       align-self: end;
     }
-
     &.right {
       align-items: end;
 
       .el-2 {
         justify-content: end;
+        text-align: right;
       }
     }
   }

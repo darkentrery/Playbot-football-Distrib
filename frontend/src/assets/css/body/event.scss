@@ -1,9 +1,3 @@
-@import "board-event";
-@import "event-description";
-@import "event-members";
-@import "event-chat";
-@import "event-organizer";
-
 .event-component {
   display: flex;
   flex-direction: column;
@@ -29,7 +23,7 @@
   }
   .elem-2 {
     .same-event-component {
-      flex: 1 1 373px;
+      flex: 0 0 373px;
     }
   }
 }
@@ -87,3 +81,9 @@
     }
   }
 }
+
+@import "board-event";
+@import "event-description";
+@import "event-members";
+@import "event-chat";
+@import "event-organizer";

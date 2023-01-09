@@ -78,7 +78,7 @@
           display: block;
           position: absolute;
           height: 20px;
-          bottom: 0;
+          top: 0;
           right: 0;
         }
       }
@@ -147,9 +147,6 @@
   .event-description-component {
     padding: 20px 24px;
 
-    //.elem-1280 {
-    //  display: none !important;
-    //}
     .elem-1280 {
       &.elem-1 {
         margin-bottom: 24px;
@@ -274,7 +271,7 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .event-description-component {
-    padding: 0px;
+    padding: 0;
 
     &.disabled {
       display: none;
@@ -335,17 +332,15 @@
         margin-bottom: 24px !important;
         justify-content: space-between;
         flex-direction: row;
+        gap: 30px;
 
         .el {
           display: flex;
-          align-items: center;
           box-sizing: border-box;
         }
         .gray-copy-icon {
           flex: 0 0 20px;
-          font-family: 'Roboto', sans-serif;
-          font-style: normal;
-          line-height: 19px;
+          background-position: center top;
         }
       }
       &.elem-7 {

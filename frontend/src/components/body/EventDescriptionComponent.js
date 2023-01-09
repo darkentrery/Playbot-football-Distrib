@@ -83,7 +83,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
                 {/*<span className={"el gray-copy-icon link"} onClick={copyLink}>Копировать ссылку</span>*/}
             </div>}
             <span className={"elem-1280 elem-2 black-700-20"}>Информация</span>
-            <span className={"elem-1280 elem-3 dark-gray-comment-icon"}>{event.notice}</span>
+            {event.notice && <span className={"elem-1280 elem-3 dark-gray-comment-icon"}>{event.notice}</span>}
             <div className={"elem-1280 elem-4"}>
                 <span className={"el el-1 black-400-13"}>Адрес:</span>
                 <span className={"el el-2 black-400-13"}>Организатор:</span>
@@ -115,7 +115,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
                 <span className={"el el-1 black-700-16"}>Информация</span>
                 {/*<span className={"el gray-copy-icon link"} onClick={copyLink}></span>*/}
             </div>
-            <span className={"elem-376 elem-2 dark-gray-comment-icon black-400-16"}>{event.notice}</span>
+            {event.notice && <span className={"elem-376 elem-2 dark-gray-comment-icon black-400-16"}>{event.notice}</span>}
             <span className={"elem-376 elem-3 black-400-13"}>Организатор:</span>
             <span className={"elem-376 elem-4 black-600-16"}>{event ? event.organizer.username : ''}</span>
             <span className={"elem-376 elem-5 black-400-13"}>Адрес:</span>

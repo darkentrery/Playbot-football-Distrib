@@ -10,21 +10,6 @@ export default class EventService{
 
     constructor(){}
 
-	postRequest(url, data){
-		url = `${API_URL}${url}`;
-		return axios.post(url, data, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
     getCreateEvent(){
 		const url = `${API_URL}create/`;
 		return axios.get(url, {headers: {
@@ -274,11 +259,6 @@ export default class EventService{
 			.catch((error) => {
 				return error.response;
 			});
-	}
-
-	beginGamePeriod(data){
-		console.log(this.postRequest)
-		return this.postRequest('begin-game-period/', data);
 	}
 
 	createEventRequestValidation(name, date, time, address, city, point, notice, refs){
