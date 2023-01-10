@@ -34,7 +34,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
         <div className={"event-organizer-component"}>
             <div className={"event-organizer-elem-1280 elem-1"}>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
-                {event && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
+                {event && !event.cancel && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
             </div>
             <div className={"event-organizer-elem-1280 elem-2"}>
                 <EventMembersComponent event={event}/>
@@ -44,7 +44,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
             </div>
             <div className={"event-organizer-elem-744"}>
-                {event && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
+                {event && !event.cancel && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
                 <EventMembersComponent event={event}/>
             </div>
 
@@ -56,7 +56,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                 </div>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
                 <EventMembersComponent event={event}/>
-                {event && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
+                {event && !event.cancel && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
             </div>
         </div>
     )

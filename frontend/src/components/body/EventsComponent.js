@@ -1,4 +1,4 @@
-import EventService from "../../services/EventService";
+import {eventService} from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
@@ -7,20 +7,21 @@ import {getMonth, getWeekDay} from "../../utils/dates";
 
 
 export default function EventsComponent ({city, user}) {
-    const eventService = new EventService();
-    const [events, setEvents] = useState(false);
-    const [firstRequest, setFirstRequest] = useState(true);
+    const [events, setEvents] = useState([]);
+    const [firstRequest, setFirstRequest] = useState(0);
 
     useEffect(() => {
-        if (events === false && firstRequest) {
-            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
-                console.log(response)
+        if (events.length === 0 && firstRequest === 0 && user) {
+            setFirstRequest(1);
+            eventService.getEvents(user && user.city ? {'city': user.city} : {'city': city}).then((response) => {
                 if (response.status === 200) {
                     let data = [];
                     response.data.map((item, key) => {
                         if (key === 0 || item.date !== response.data[key - 1].date) {
-                            data.push({date: new Date(item.date)})
+                            data.push({date: item.date, events: []});
                         }
+                    })
+                    response.data.map((item) => {
                         let address = {
                             country: item.address && item.address.country ? item.address.country : '',
                             city: item.address && item.address.city ? ', ' + item.address.city : '',
@@ -28,44 +29,59 @@ export default function EventsComponent ({city, user}) {
                             house_number: item.address && item.address.house_number ? ', ' + item.address.house_number : '',
                         }
                         item.address = `${address.country}${address.city}${address.street}${address.house_number}`;
-                        data.push({event: item})
+                        data.map((row) => {
+                            if (row.date === item.date && !item.cancel) row.events.push(item);
+                        })
                     })
+                    console.log(data)
                     setEvents(data);
-                    setFirstRequest(false);
-                }
-            })
-        }
-    }, [events])
-
-    useEffect(() => {
-        if (user) {
-            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
-                console.log(response)
-                if (response.status === 200) {
-                    let data = [];
-                    response.data.map((item, key) => {
-                        if (key === 0 || item.date !== response.data[key - 1].date) {
-                            data.push({date: new Date(item.date)})
-                        }
-                        let address = {
-                            country: item.address && item.address.country ? item.address.country : '',
-                            city: item.address && item.address.city ? ', ' + item.address.city : '',
-                            street: item.address && item.address.street ? ', ' + item.address.street : '',
-                            house_number: item.address && item.address.house_number ? ', ' + item.address.house_number : '',
-                        }
-                        item.address = `${address.country}${address.city}${address.street}${address.house_number}`;
-                        data.push({event: item})
-                    })
-                    setEvents(data);
-                    setFirstRequest(false);
+                    setFirstRequest(2);
                 }
             })
         }
     }, [user])
+
+    const EventRow = ({event}) => {
+        return (<>
+            <Link className={"event"} to={BaseRoutes.eventLink(event.id)}>
+                <span className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}</span>
+                <span className={"elem elem-2"}>{event.address}
+                    <span className={"time"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
+                </span>
+                <span className={"elem elem-3 green"}>{event.event_player.length}/{event.count_players}</span>
+                <span className={"elem elem-4 gray"}>88,9</span>
+                <span className={"elem elem-5 gray-right-arrow-icon"}></span>
+            </Link>
+            <Link className={"event-376"} to={BaseRoutes.eventLink(event.id)}>
+                <div className={"row row-1"}>
+                    <span className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}
+                        <span className={"gray"}>{event.time_begin.slice(0, 5)}</span>
+                    </span>
+                    <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>
+                    <span className={"elem elem-3 orange"}>88,9</span>
+                </div>
+                <div className={"row row-2"}>
+                    <span className={"elem elem-1 map-point-icon"}>{event.address}</span>
+                </div>
+            </Link>
+        </>)
+    }
+
+    const DateBlock = ({item}) => {
+        if (item.events.length !== 0) {
+            let date = new Date(item.date);
+            return (<>
+                <div className={"date"}>
+                    <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
+                </div>
+                {item.events.map((row, r) => (<EventRow event={row} key={r}/>))}
+            </>)
+        }
+    }
     
     return (
         <div className={"body-events"}>
-            {!events.length && !firstRequest && <VisibleNoEvents/>}
+            {!events.length && firstRequest === 2 && <VisibleNoEvents/>}
 
             {events.length !== 0 &&
                 <div className={"events-table"}>
@@ -83,56 +99,7 @@ export default function EventsComponent ({city, user}) {
                         <span className={"elem elem-3"}>Рейтинг</span>
                     </div>
 
-                    {events.length && events.map((item, key) => {
-                        if (item.date) {
-                            let date = item.date;
-                            return (
-                                <div className={"date"} key={key}>
-                                    <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
-                                </div>
-                            )
-                        } else {
-                            let event = item.event;
-                            return (
-                                <div className={"event"} key={key}>
-                                    <Link className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`} to={BaseRoutes.eventLink(event.id)}>{event.name}</Link>
-                                    <span className={"elem elem-2"}>{event.address}
-                                        <span className={"time"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
-                                    </span>
-                                    <span className={"elem elem-3 green"}>{event.event_player.length}/{event.count_players}</span>
-                                    <span className={"elem elem-4 gray"}>88,9</span>
-                                    <span className={"elem elem-5 gray-right-arrow-icon"}></span>
-                                </div>
-                            )
-                        }
-                    })}
-
-                    {events.length && events.map((item, key) => {
-                        let date = item.date;
-                        if (item.date) {
-                            return (
-                                <div className={"date-376"} key={key}>
-                                    <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
-                                </div>
-                            )
-                        } else {
-                            let event = item.event;
-                            return (
-                                <div className={"event-376"} key={key}>
-                                    <div className={"row row-1"}>
-                                        <Link className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`} to={BaseRoutes.eventLink(event.id)}>{event.name}
-                                            <span className={"gray"}>{event.time_begin.slice(0, 5)}</span>
-                                        </Link>
-                                        <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>
-                                        <span className={"elem elem-3 orange"}>88,9</span>
-                                    </div>
-                                    <div className={"row row-2"}>
-                                        <span className={"elem elem-1 map-point-icon"}>{event.address}</span>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })}
+                    {events.map((item, key) => (<DateBlock item={item} key={key}/>))}
                 </div>
             }
         </div>

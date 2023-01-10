@@ -46,23 +46,17 @@ import VisibleGamePlayer from "./redux/containers/VisibleGamePlayer";
 
 
 function App({state, funcs}) {
-    console.log(state)
-
     const authService = new AuthService();
     const [confirmSignUp, setConfirmSignUp] = useState(false);
-    // const [isUserDropdown, setIsUserDropdown] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
-    const eventService = new EventService();
-
-    const auth = async () => {
-        await authDecoratorWithoutLogin(authService.isAuth, []).then((response) => {
+    const auth = () => {
+        authDecoratorWithoutLogin(authService.isAuth, []).then((response) => {
             if (response.status == 200) {
                 funcs.setAuth(true, response.data);
             } else {
                 funcs.setAuth(false, false);
             }
-            setFirstRequest(false);
         })
     }
 
@@ -77,12 +71,15 @@ function App({state, funcs}) {
     },{passive: false});
 
     useEffect(() => {
-        let isSubscribe = true;
-        auth();
-        funcs.setIsIPhone(authService.deviceDetect());
-        return () => isSubscribe = false;
-
-    }, [])
+        console.log(state)
+        if (firstRequest) {
+            // let isSubscribe = true;
+            setFirstRequest(false);
+            auth();
+            funcs.setIsIPhone(authService.deviceDetect());
+            // return () => isSubscribe = false;
+        }
+    }, [state.user])
 
 
     useEffect(() => {
@@ -112,70 +109,60 @@ function App({state, funcs}) {
     // console.log(navigator)
     // console.log(document.referrer)
 
-    // const pageClick = (e) => {
-    //     if (!$(e.target).hasClass('dropdown-icon') && !$(e.target).hasClass('dropdown-label')
-    //         && !$(e.target).hasClass('arrow-icon') && !$(e.target).hasClass('dropdown-head')) {
-    //         setIsUserDropdown(!isUserDropdown);
-    //     }
-    // }
+    return (
+        <div className="App">
+            <Router>
+                <Routes>
+                      <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
+                      <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
+                      <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
+                      <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
+                      <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
+                      <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
+                      <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
+                      <Route exact path={BaseRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
+                      <Route exact path={BaseRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
+                      <Route exact path={BaseRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
+                      <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
+                </Routes>
 
+                  {/*<YMaps>*/}
+                  {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}
+                  {/*      /!*<Placemark geometry={[55.684758, 37.738521]} />*!/*/}
+                  {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
+                  {/*    </Map>*/}
+                  {/*  </YMaps>*/}
 
+                <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone}
+                                            firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
+                <VisibleSignUp/>
+                <VisibleLogin/>
+                <VisibleRefreshPassword/>
+                <VisibleSuccessRefreshPassword/>
+                <VisibleSuccessSignUp/>
+                <VisibleSuccessSignUp2/>
+                <VisibleChoiceCity/>
+                <VisibleSuccessCreateEvent/>
+                <VisibleSuccessEditEvent/>
+                <VisibleCreateEvent/>
+                <VisibleCreateEventUnAuth/>
+                <VisibleEditEvent/>
+                <VisibleRepeatEvent/>
+                <VisibleCancelEvent/>
+                <VisibleLeaveEvent/>
+                <VisibleUnAuthJoin/>
 
+                <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
+                                           funcs={funcs} isIPhone={state.app.isIPhone}/>
+                <FillRegulationComponent isOpen={state.windows.isOpenFillRegulation} event={state.event.event}
+                                           funcs={funcs} isIPhone={state.app.isIPhone}/>
+                <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
+                                         funcs={funcs} isIPhone={state.app.isIPhone}/>
+                <VisibleConfirmTeamPlayers/>
 
-  return (
-      <div className="App">
-          <Router>
-              <Routes>
-                  <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
-                  <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
-                  <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
-                  <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
-                  <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
-                  <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
-                  <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
-                  <Route exact path={BaseRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
-                  <Route exact path={BaseRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
-                  <Route exact path={BaseRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
-                  <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
-              </Routes>
-
-              {/*<YMaps>*/}
-              {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}
-              {/*      /!*<Placemark geometry={[55.684758, 37.738521]} />*!/*/}
-              {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
-              {/*    </Map>*/}
-              {/*  </YMaps>*/}
-
-              <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone}
-                                        firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
-              <VisibleSignUp/>
-              <VisibleLogin/>
-              <VisibleRefreshPassword/>
-              <VisibleSuccessRefreshPassword/>
-              <VisibleSuccessSignUp/>
-              <VisibleSuccessSignUp2/>
-              <VisibleChoiceCity/>
-              <VisibleSuccessCreateEvent/>
-              <VisibleSuccessEditEvent/>
-              <VisibleCreateEvent/>
-              <VisibleCreateEventUnAuth/>
-              <VisibleEditEvent/>
-              <VisibleRepeatEvent/>
-              <VisibleCancelEvent/>
-              <VisibleLeaveEvent/>
-              <VisibleUnAuthJoin/>
-
-              <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
-                                       funcs={funcs} isIPhone={state.app.isIPhone}/>
-              <FillRegulationComponent isOpen={state.windows.isOpenFillRegulation} event={state.event.event}
-                                       funcs={funcs} isIPhone={state.app.isIPhone}/>
-              <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
-                                     funcs={funcs} isIPhone={state.app.isIPhone}/>
-              <VisibleConfirmTeamPlayers/>
-
-          </Router>
-      </div>
-  );
+            </Router>
+        </div>
+    );
 }
 
 export default App;

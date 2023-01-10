@@ -74,7 +74,7 @@ export const FormEventComponent = ({
     }
 
     useEffect(() => {
-        if (event) {
+        if (event && isOpen) {
             setId(event.id);
             setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
@@ -91,7 +91,7 @@ export const FormEventComponent = ({
             setPrice(event.price);
         }
         let array = [];
-        for (let i=4; i<15; i++) {
+        for (let i=4; i<51; i++) {
             array.push(i);
         }
         setCountPlayers(array);
