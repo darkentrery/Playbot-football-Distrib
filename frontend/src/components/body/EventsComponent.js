@@ -11,9 +11,9 @@ export default function EventsComponent ({city, user}) {
     const [firstRequest, setFirstRequest] = useState(0);
 
     useEffect(() => {
-        if (events.length === 0 && firstRequest === 0 && user) {
+        if (user) {
             setFirstRequest(1);
-            eventService.getEvents(user && user.city ? {'city': user.city} : {'city': city}).then((response) => {
+            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
                 if (response.status === 200) {
                     let data = [];
                     response.data.map((item, key) => {

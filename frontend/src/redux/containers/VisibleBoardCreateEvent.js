@@ -1,4 +1,4 @@
-import {createEventUnAuthWindow, createEventWindow} from "../actions/actions";
+import {createEventUnAuthWindow, createEventWindow, event} from "../actions/actions";
 import {connect} from "react-redux";
 import BoardCreateEventComponent from "../../components/body/BoardCreateEventComponent";
 
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     openCreateEventUnAuth: () => {
       dispatch(createEventUnAuthWindow(true));
+    },
+    setEvent: (value) => {
+      dispatch(event(value));
     },
   };
 };

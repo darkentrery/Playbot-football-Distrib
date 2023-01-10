@@ -36,7 +36,7 @@ export const FormEventComponent = ({
     const [count, setCount] = useState(4);
     const [notice, setNotice] = useState('');
     const [format, setFormat] = useState(false);
-    const [isPlayer, setIsPlayer] = useState(false);
+    const [isNotPlayer, setIsNotPlayer] = useState(false);
     const [incorrectDate, setIncorrectDate] = useState(false);
     const [nameError, setNameError] = useState(false);
     const [dateError, setDateError] = useState(false);
@@ -64,7 +64,7 @@ export const FormEventComponent = ({
         setTime(false);
         setAddress(false);
         setCount(4);
-        setIsPlayer(false);
+        setIsNotPlayer(false);
         setNotice('');
         setFormat(false);
         setIsPaid(false);
@@ -83,7 +83,7 @@ export const FormEventComponent = ({
             setPoint(event.geo_point);
             if (event.city) setCity(event.city.name);
             setCount(event.count_players);
-            if (event && event.is_player) setIsPlayer(true);
+            if (event) setIsNotPlayer(!event.is_player);
             setNotice(event.notice);
             setFormat(event.format_label);
             setCurrency(event.currency);
@@ -118,7 +118,7 @@ export const FormEventComponent = ({
             'time_begin': time,
             'address': address,
             'count_players': count,
-            'is_player': isPlayer,
+            'is_player': !isNotPlayer,
             'notice': notice,
             'city': city,
             'geo_point': point,
@@ -128,7 +128,7 @@ export const FormEventComponent = ({
             'currency': currency,
         };
         setData(bodyFormData);
-    }, [name, date, time, address, count, isPlayer, notice, point, city, isPaid, price, format, currency]);
+    }, [name, date, time, address, count, isNotPlayer, notice, point, city, isPaid, price, format, currency]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
@@ -222,8 +222,9 @@ export const FormEventComponent = ({
     }
 
     const changeIsPlayer = () => {
-        if (event && event.count_players === event.event_player.length && !isPlayer) {
-            setIsPlayer(false);
+        console.log(event)
+        if (event && event.count_players === event.event_player.length && isNotPlayer) {
+            setIsNotPlayer(true);
         }
     }
 
@@ -288,13 +289,13 @@ export const FormEventComponent = ({
                 <span>Максимальное кол. игроков *</span>
             </div>
             <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
-            <CheckSliderComponent value={isPlayer} setValue={setIsPlayer} text={"Организатор события не играет"}
+            <CheckSliderComponent value={isNotPlayer} setValue={setIsNotPlayer} text={"Организатор события не играет"}
                                   sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
             <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
             <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
                 <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? (value) => {return price;} : inputDigit}
                                 errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
-                <DropDownComponent value={currency} setValue={isEdit ? (value) => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
+                <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
             </div>
 
             <div className={"elem elem-11"} ref={refNotice}>

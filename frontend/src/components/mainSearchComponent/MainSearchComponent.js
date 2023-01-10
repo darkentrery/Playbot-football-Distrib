@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import EventService from "../../services/EventService";
+import {eventService} from "../../services/EventService";
 import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 import {PlayerRowComponent} from "../playerRowComponent/PlayerRowComponent";
 
@@ -11,7 +11,6 @@ export const MainSearchComponent = ({
     user,
     city,
 }) => {
-    const eventService = new EventService();
     const [events, setEvents] = useState([]);
     const [players, setPlayers] = useState([]);
     const [eventsView, setEventsView] = useState([]);

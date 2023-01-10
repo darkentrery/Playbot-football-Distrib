@@ -25,6 +25,13 @@
   align-items: stretch;
 }
 
+.events-page-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: stretch;
+}
+
 .body .title {
   display: flex;
   align-items: center;

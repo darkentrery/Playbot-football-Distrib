@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
 import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import EventService from "../../services/EventService";
+import {eventService} from "../../services/EventService";
 import {SearchComponent} from "../searchComponent/SearchComponent";
 import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
 
 
 export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs}) {
-    const eventService = new EventService();
     const [players, setPlayers] = useState([]);
     const [selected, setSelected] = useState([]);
     const [players1, setPlayers1] = useState([]);
@@ -66,30 +65,32 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     }
 
     const confirmPlayers = () => {
-        authDecoratorWithoutLogin(eventService.confirmPlayers, {"event": event, "players": selected}).then((response) => {
-            funcs.setEvent(response.data);
-            closeWindow();
-            funcs.openFillRegulation();
-            funcs.removeMap();
-        })
+        if (selected.length >= 4) {
+            authDecoratorWithoutLogin(eventService.confirmPlayers, {
+                "event": event,
+                "players": selected
+            }).then((response) => {
+                funcs.setEvent(response.data);
+                closeWindow();
+                funcs.openFillRegulation();
+                funcs.removeMap();
+            })
+        }
     }
 
     return (
         <ReglamentComponent className={`confirm-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={1} title={"Подтвердите игроков"}>
             <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
             <div className={"elem elem-5 scroll"}>
-                {event && playersView.length !== 0 && playersView.map((item, key) => {
-                    return (
+                {event && playersView.length !== 0 && playersView.map((item, key) => (
                         <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
                             <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
                             <div className={"player-avatar-icon"}></div>
                             <span className={"black-400-13"}>{item.player.username}</span>
                         </div>
-                    )
-                })}
+                ))}
             </div>
             <button className={`elem elem-6 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers}>Продолжить</button>
         </ReglamentComponent>
     )
-
 }

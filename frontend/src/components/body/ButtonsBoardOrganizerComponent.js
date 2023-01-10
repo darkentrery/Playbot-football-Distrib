@@ -7,10 +7,11 @@ import {Link} from "react-router-dom";
 
 export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
     const eventService = new EventService();
-    let date = new Date();
-    if (event) {
-        date = new Date(event.date);
-    }
+    let date = new Date(event.date);
+    // if (event) {
+    //     date = new Date(event.date);
+    // }
+    console.log(event)
     let activatDate = date.setHours(date.getHours() - 1)
 
     const toConfirmPlayers = (e) => {

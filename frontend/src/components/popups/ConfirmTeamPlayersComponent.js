@@ -140,21 +140,21 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     return (
         <ReglamentComponent className={`confirm-team-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={3}
                             title={"Выбери состав"} clickBack={clickBack}>
-            <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
-            <TeamNameComponent className={"elem elem-5"} value={teamName} setValue={setTeamName}/>
-            <div className={"elem elem-6 scroll"}>
-                {event && playersView.length !== 0 && playersView.map((item, key) => {
-                    return (
-                        <div className={"el"} onClick={selectPlayer} key={key} id={item.id}>
-                            <div className={`player-select-icon ${selected.includes(item.id.toString()) ? '' : 'inactive'}`}></div>
-                            <div className={"player-avatar-icon"}></div>
-                            <span className={"black-400-13"}>{item.username}</span>
-                        </div>
-                    )
-                })}
-            </div>
-            <button className={`elem elem-7 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers} ref={buttonRef}>{
+            {event && <>
+                <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
+                <TeamNameComponent className={"elem elem-5"} value={teamName} setValue={setTeamName}/>
+                <div className={"elem elem-6 scroll"}>
+                {event && playersView.length !== 0 && playersView.map((item, key) => (
+                    <div className={"el"} onClick={selectPlayer} key={key} id={item.id}>
+                        <div className={`player-select-icon ${selected.includes(item.id.toString()) ? '' : 'inactive'}`}></div>
+                        <div className={"player-avatar-icon"}></div>
+                        <span className={"black-400-13"}>{item.username}</span>
+                    </div>
+                ))}
+                </div>
+                <button className={`elem elem-7 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers} ref={buttonRef}>{
                 team && team.number < event.teams.length ? 'Следующая команда' : 'Далее'}</button>
+            </>}
         </ReglamentComponent>
     )
 

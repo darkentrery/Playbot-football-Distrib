@@ -25,19 +25,19 @@ export default class EventService{
 			});
 	}
 
-	getEvents(city){
-		const url = `${API_URL}get-events/`;
-		return axios.post(url, {"city": city}, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
+	// getEvents(city){
+	// 	const url = `${API_URL}get-events/`;
+	// 	return axios.post(url, {"city": city}, {headers: {
+	// 		'Content-Type': 'application/json',
+    //         'X-CSRFToken': csrftoken,
+	// 	}})
+	// 		.then((response) => {
+	// 			return response;
+	// 		})
+	// 		.catch((error) => {
+	// 			return error.response;
+	// 		});
+	// }
 
 	getEvent(id){
 		const url = `${API_URL}get-event/${id}/`;
@@ -308,7 +308,7 @@ const postRequest =(url, data) => {
 }
 
 const getRequest =(url, data=false) => {
-	if (data) {
+	if (data && typeof data === "string") {
 		url = `${API_URL}${url}${data}/`;
 	} else {
 		url = `${API_URL}${url}`;
@@ -326,9 +326,10 @@ const getRequest =(url, data=false) => {
 }
 
 export const eventService = {
+	confirmPlayers(data) { return postRequest('confirm-players/', data); },
 	beginGamePeriod(data) { return postRequest('begin-game-period/', data); },
 	endGamePeriod(data) { return postRequest('end-game-period/', data); },
 	endGame(data) { return postRequest('end-game/', data); },
 	createGoal(data) { return postRequest('create-goal/', data); },
-	getEvents(data) { return postRequest('get-events/', data); },
+	getEvents(data) { return getRequest('get-events/', data); },
 }

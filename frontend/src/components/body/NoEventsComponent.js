@@ -1,10 +1,11 @@
 import React from "react";
 
 
-export default function NoEventsComponent ({isAuth, openCreateEvent, openCreateEventUnAuth}) {
+export default function NoEventsComponent ({isAuth, openCreateEvent, openCreateEventUnAuth, setEvent}) {
 
     const getOpenCreateEvent = () => {
         if (isAuth) {
+            setEvent(false);
             openCreateEvent();
         } else {
             openCreateEventUnAuth();
