@@ -18,9 +18,9 @@ export const popupCloseDropdownWithTime = (e, isOpenTime, setIsOpenTime) => {
 }
 
 export const popupCloseDropdown = (e, setCloseDropDown, closeDropDown) => {
-    if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("dropdown-label")) {
+    if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("dropdown-label") && !e.target.className.includes("right-icon")) {
         setCloseDropDown(!closeDropDown);
-    } else if (e.target.className.includes("dropdown-label")) {
+    } else if (e.target.className.includes("dropdown-label") || e.target.className.includes("right-icon")) {
         setCloseDropDown(e.target.id);
     }
 }

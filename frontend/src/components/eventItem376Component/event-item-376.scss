@@ -8,18 +8,24 @@
   gap: 12px;
   justify-content: stretch;
 
+  &:hover {
+    text-decoration: none;
+  }
   .row {
     display: flex;
     flex: 1 1 auto;
 
+    &.row-1 {
+      align-items: stretch;
+    }
+    &.row-2 {
+      flex: 0 0 16px;
+    }
     .elem {
       display: flex;
-      //margin-right: 20px;
-      //font-size: 13px;
       box-sizing: border-box;
 
       &.elem-1 {
-        //padding-left: 16px;
         flex: 1 0 163px;
         flex-direction: column;
         align-items: start;
@@ -27,7 +33,7 @@
         &.point-icon {
           padding-left: 20px;
           background-position: left 4px;
-          height: $col-1-Width;
+          height: 100%;
         }
 
         &.star-icon {

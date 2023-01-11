@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {eventService} from "../../services/EventService";
 import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 import {PlayerRowComponent} from "../playerRowComponent/PlayerRowComponent";
+import $ from "jquery";
 
 
 export const MainSearchComponent = ({
@@ -29,6 +30,13 @@ export const MainSearchComponent = ({
                             if (!array.includes(player.player)) array.push(player.player);
                         })
                     })
+                    array = array.filter((item, i) => {
+                        if (i === 0) {
+                            return true;
+                        } else {
+                            return item.id !== array[i - 1].id
+                        }
+                    })
                     setPlayers(array);
                 }
             })
@@ -49,9 +57,18 @@ export const MainSearchComponent = ({
         setPlayersView(array);
     }
 
+    document.addEventListener('click', (e) => {
+        if ($(e.target).closest('.main-search-component').length === 0) {
+            if (playersView.length !== 0 || eventsView.length !== 0) {
+                setPlayersView([]);
+                setEventsView([]);
+            }
+        }
+    })
+
     return (
         <div className={`main-search-component ${className} ${isOpen ? '' : 'hidden'}`}>
-            <input className={"search-field"} type="text" placeholder={"Введите событие или игрока"} onChange={search} ref={ref}/>
+            <input className={"search-field"} type="text" onChange={search} ref={ref}/>
             <div className={"btn-close"} onClick={() => setIsOpen(false)}></div>
             <div className={"orange-search-icon"}></div>
             <div className={`dropdown-menu-wrapper ${playersView.length === 0 && eventsView.length === 0 || !ref.current.value ? 'hidden' : ''}`}>

@@ -22,6 +22,7 @@ class Duration(models.Model):
     duration = models.IntegerField(_("Duration"))
 
     class Meta:
+        ordering = ["duration",]
         verbose_name = "Duration"
         verbose_name_plural = "Durations"
 

@@ -132,7 +132,7 @@ class DurationAdmin(admin.ModelAdmin):
         "name",
         "duration",
     ]
-    actions = ["set_times",]
+    actions = ["set_times", "change_times"]
 
     @admin.action()
     def set_times(self, request, queryset):
@@ -143,6 +143,12 @@ class DurationAdmin(admin.ModelAdmin):
                 Duration.objects.create(name=f"{i} минуты", duration=i)
             else:
                 Duration.objects.create(name=f"{i} минут", duration=i)
+
+    @admin.action()
+    def change_times(self, request, queryset):
+        for duration in Duration.objects.all():
+            duration.name = f"{duration.duration}'"
+            duration.save()
 
 
 @admin.register(Format)

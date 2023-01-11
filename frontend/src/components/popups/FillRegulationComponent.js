@@ -25,35 +25,36 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const [untilGoalCount, setUntilGoalCount] = useState('');
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [errorText, setErrorText] = useState('');
+    const [modeError, setModeError] = useState('');
 
     useEffect(() => {
         if (event && isOpen) {
             if (event.until_goal_count) setUntilGoalCount(event.until_goal_count);
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];
-                response.data.formats.map((item, key) => {
+                response.data.formats.map((item) => {
                     if (item.count * 2 <= event.event_player.length) arr.push(item.name);
                 })
                 if (!arr.length) arr.push(false);
                 setFormat(event.format ? event.format : arr[0]);
                 setFormats(arr);
                 arr = [];
-                response.data.distribution_method.map((item, key) => {
+                response.data.distribution_method.map((item) => {
                     arr.push(item.name);
                 })
-                setMode(event.distribution_method ? event.distribution_method : arr[0]);
+                setMode(event.distribution_method ? event.distribution_method : false);
                 setModes(arr);
                 arr = [];
-                response.data.count_circles.map((item, key) => {
+                response.data.count_circles.map((item) => {
                     arr.push(item.name);
                 })
                 setCountCircle(event.count_circles ? event.count_circles : arr[0]);
                 setCountCircles(arr);
                 arr = [];
-                response.data.duration.map((item, key) => {
+                response.data.duration.map((item) => {
                     arr.push(item.name);
                 })
-                setDuration(event.duration ? event.duration : arr[0]);
+                setDuration(event.duration ? event.duration.name : arr[0]);
                 setDurations(arr);
                 setScorer(event.scorer);
                 setUntilGoal(event.until_goal);
@@ -94,7 +95,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
         if (untilGoal && untilGoalCount === '') {
             setErrorText('Введите количество голов!');
         } else {
-            if (format) {
+            if (format && mode) {
                 authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
                     funcs.setEvent(response.data);
                     closeWindow();
@@ -107,7 +108,8 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                     }
                 })
             } else {
-                setFormatError('Выберите формат!');
+                if (!format) setFormatError('Выберите формат!');
+                if (!mode) setModeError('Выберите способ распределения!');
             }
         }
     }
@@ -137,7 +139,9 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                                    sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
                                    rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}/>
                 <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
-                                   sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}/>
+                                   sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}
+                                   placeholder={"Способ распределения"} errorText={modeError} setErrorText={setModeError}
+                />
                 <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
                 <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"} sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}/>
                 <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}

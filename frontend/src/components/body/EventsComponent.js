@@ -4,6 +4,7 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
 import {getMonth, getWeekDay} from "../../utils/dates";
+import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 
 
 export default function EventsComponent ({city, user}) {
@@ -52,18 +53,19 @@ export default function EventsComponent ({city, user}) {
                 <span className={"elem elem-4 gray"}>88,9</span>
                 <span className={"elem elem-5 gray-right-arrow-icon"}></span>
             </Link>
-            <Link className={"event-376"} to={BaseRoutes.eventLink(event.id)}>
-                <div className={"row row-1"}>
-                    <span className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}
-                        <span className={"gray"}>{event.time_begin.slice(0, 5)}</span>
-                    </span>
-                    <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>
-                    <span className={"elem elem-3 orange"}>88,9</span>
-                </div>
-                <div className={"row row-2"}>
-                    <span className={"elem elem-1 map-point-icon"}>{event.address}</span>
-                </div>
-            </Link>
+            <EventItem376Component event={event}/>
+            {/*<Link className={"event-376"} to={BaseRoutes.eventLink(event.id)}>*/}
+            {/*    <div className={"row row-1"}>*/}
+            {/*        <span className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}*/}
+            {/*            <span className={"gray"}>{event.time_begin.slice(0, 5)}</span>*/}
+            {/*        </span>*/}
+            {/*        <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>*/}
+            {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
+            {/*    </div>*/}
+            {/*    <div className={"row row-2"}>*/}
+            {/*        <span className={"elem elem-1 map-point-icon"}>{event.address}</span>*/}
+            {/*    </div>*/}
+            {/*</Link>*/}
         </>)
     }
 
