@@ -20,5 +20,5 @@ urlpatterns = [
     path("confirm-sign-up/<slug>/", views.ConfirmSignUpView.as_view(), name='confirm-sign-up'),
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
     path("api/is-auth/", views.IsAuthView.as_view(), name='is-auth'),
-    path("api/get-users/<city>/", views.GetUsersView.as_view(), name='get-users'),
+    path("api/get-users/", views.GetUsersView.as_view(), name='get-users'),
 ]

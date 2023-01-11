@@ -1,22 +1,19 @@
 import {useEffect, useState} from "react";
-import AuthService from "../../services/AuthService";
+import {authService} from "../../services/AuthService";
 
 
-export default function BestPlayersComponent ({city}) {
-    const authService = new AuthService();
+export default function BestPlayersComponent () {
     const [players, setPlayers] = useState([]);
 
     useEffect(() => {
-        if (city) {
-            let isSubscribe = true;
-            authService.getUsers(city).then((response) => {
-                if (response.status === 200) {
-                    setPlayers(response.data);
-                }
-            })
-            return () => isSubscribe = false;
-        }
-    }, [city])
+        let isSubscribe = true;
+        authService.getUsers().then((response) => {
+            if (response.status === 200) {
+                setPlayers(response.data);
+            }
+        })
+        return () => isSubscribe = false;
+    }, [])
 
     return (
         <div className={"best-players-component"}>
@@ -30,7 +27,7 @@ export default function BestPlayersComponent ({city}) {
             </div>
             {players.length !== 0 && players.map((player, key) => (
                 <div className={"player"} key={key}>
-                    <span className={"elem elem-1 player-avatar-icon black-400-13"}>1. <span className={"name"}>{player.username}</span></span>
+                    <span className={"elem elem-1 player-avatar-icon black-400-13"}>{key + 1}. <span className={"name"}>{player.username}</span></span>
                     <span className={"elem elem-2 black-400-13"}>354<span className={"green"}>&nbsp;+11</span></span>
                     <span className={"elem elem-3 black-400-13 green"}>10/10</span>
                     <span className={"elem elem-4 black-400-13 gray"}>88,9</span>
