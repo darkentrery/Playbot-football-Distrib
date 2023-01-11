@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
-import "react-datetime/css/react-datetime.css";
 import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
 import EventService from "../services/EventService";
 import {

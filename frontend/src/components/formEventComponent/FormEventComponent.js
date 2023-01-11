@@ -6,6 +6,7 @@ import {getLocations} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
+import "react-datetime/css/react-datetime.css";
 
 
 export const FormEventComponent = ({
@@ -49,6 +50,7 @@ export const FormEventComponent = ({
     const [currency, setCurrency] = useState('RUB');
     const [priceError, setPriceError] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
+    const [isTimeOpen, setIsTimeOpen] = useState(false);
     const refDate = useRef();
     const refTime = useRef();
     const refAddress = useRef();
@@ -133,6 +135,14 @@ export const FormEventComponent = ({
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
     }, [incorrectDate])
+
+    useEffect(() => {
+        if (refTime.current.state.open) {
+            setIsTimeOpen(true);
+        } else {
+            setIsTimeOpen(false);
+        }
+    }, [refTime.current.state])
 
     const renderDay = (props, currentDate, selectedDate) => {
         let date = new Date(currentDate.format("YYYY-MM-DD"));
@@ -222,7 +232,6 @@ export const FormEventComponent = ({
     }
 
     const changeIsPlayer = () => {
-        console.log(event)
         if (event && event.count_players === event.event_player.length && isNotPlayer) {
             setIsNotPlayer(true);
         }
@@ -283,6 +292,7 @@ export const FormEventComponent = ({
                     value={time ? time : ''}
                 />
                 <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
+                <div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>
             </div>
             <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
             <div className={"elem elem-6"}>
