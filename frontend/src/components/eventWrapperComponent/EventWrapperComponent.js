@@ -6,11 +6,10 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {Top376Component} from "../top376Component/Top376Component";
 
 
-export const EventWrapperComponent = ({children, event, user, funcs}) => {
+export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     const eventService = new EventService();
     const [flagRequest, setFlagRequest] = useState(false);
     const [gameId, setGameId] = useState(0);
-    const [game, setGame] = useState(false);
     const params = useParams();
     const pk = params.pk;
     const currentId = params.gameId;
@@ -30,11 +29,11 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
             for (let game of event.event_games) {
                 if (game.time_end) setGameId(game.id);
             }
-            if (currentId) {
-                event.event_games.map((g) => {
-                    if (g.id == currentId) setGame(g);
-                })
-            }
+            // if (currentId) {
+            //     event.event_games.map((g) => {
+            //         if (g.id == currentId) setGame(g);
+            //     })
+            // }
         }
     }, [event, currentId])
 
@@ -45,6 +44,10 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
                 funcs.setEvent(response.data);
             }
         })
+    }
+
+    const endGame = () => {
+        funcs.openEndGame();
     }
 
     return (
@@ -75,12 +78,13 @@ export const EventWrapperComponent = ({children, event, user, funcs}) => {
                         className={`nav-link ${window.location.pathname.includes('teams') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventInfoTeamsLink(pk)}
                     >Составы команд</Link>
-                    {game && game.time_begin && !game.time_end ? <span className={"nav-link end-game-link orange-400-14"}>Завершить игру</span> : ''}
+                    {game && game.time_begin && !game.time_end ? <span className={"nav-link end-game-link orange-400-14"} onClick={endGame}>Завершить игру</span> : ''}
                 </div>
 
                 <div className={"navigate-bar-376"}>
                     <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}
-                                     child={game && game.time_begin && !game.time_end ? <span className={"elem-2 black-500-14"}>Завершить игру</span> : ''}/>
+                                     child={game && game.time_begin && !game.time_end ? <span className={"elem-2 black-500-14"} onClick={endGame}>Завершить игру</span> : ''}
+                    />
 
                     <div className={"elem elem-2"}>
                         <Link

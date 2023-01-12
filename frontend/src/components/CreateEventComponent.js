@@ -59,14 +59,14 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
         if (isOpen) {
             const interval = setInterval(() => {
                 let start = Date.now();
-                let timer = setInterval(function() {
-                    let timePassed = Date.now() - start;
-                    if (timePassed >= 500) {
-                        clearInterval(timer);
-                        return;
-                    }
-                    draw(timePassed);
-                }, 20);
+                // let timer = setInterval(function() {
+                //     let timePassed = Date.now() - start;
+                //     if (timePassed >= 500) {
+                //         clearInterval(timer);
+                //         return;
+                //     }
+                //     // draw(timePassed);
+                // }, 20);
                 if (contentNumber === 2) {
                     setContentNumber(0);
                 } else {
@@ -78,23 +78,25 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
         }
     })
 
-    const Slide = ({content, ref}) => {
+    const Slide = ({i}) => {
+        const content = slideContent[i];
+        const ref = refs[i];
         return (
             <div className={"popup-right popup-img create-event-img"} ref={ref}>
                 <div className={"elem-1"}>
                     <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <div className={"elem-2"}>
-                    <div className={"point point-big point-icon"}></div>
-                    <div className={"point point-icon"}></div>
-                    <div className={"point point-icon"}></div>
+                    <div className={`point point-icon ${i === 0 ? 'point-big' : ''}`}></div>
+                    <div className={`point point-icon ${i === 1 ? 'point-big' : ''}`}></div>
+                    <div className={`point point-icon ${i === 2 ? 'point-big' : ''}`}></div>
                 </div>
                 <span className={`elem-3 black-600-24 ${transform ? 'move' : ''}`}>{content}</span>
             </div>
         )
     }
 
-    const sliders = [<Slide content={slideContent[0]} ref={refs[0]}/>, <Slide content={slideContent[1]} ref={refs[1]}/>, <Slide content={slideContent[2]} ref={refs[2]}/>]
+    const sliders = [<Slide i={0}/>, <Slide i={1}/>, <Slide i={2}/>]
 
     return(
         <Modal

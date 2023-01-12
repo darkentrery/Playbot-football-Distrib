@@ -36,9 +36,6 @@
         justify-content: center;
         height: 38px;
 
-        span {
-          z-index: 1;
-        }
         .second-fon {
           position: absolute;
           background: $lightGrayColor;
@@ -46,6 +43,8 @@
           height: 36px;
           width: 32px;
           border-radius: 8px;
+          display: flex;
+          justify-content: center;
         }
       }
       .clock-middle-icon {
@@ -156,14 +155,13 @@
         flex: 0 0 32px;
         gap: 8px;
         align-items: center;
-        z-index: 1;
         position: relative;
 
         &.goal-row-1 {
           justify-content: end;
           padding-right: calc(50% - 12px);
           .gray-line {
-            right: calc(50% - 12px);
+            right: calc(50% + 12px);
           }
           .icon {
             margin-left: 10px;
@@ -173,14 +171,14 @@
           justify-content: start;
           padding-left: calc(50% - 12px);
           .gray-line {
-            left: calc(50% - 12px);
+            left: calc(50% + 12px);
           }
           .icon {
             margin-right: 10px;
           }
         }
         .gray-line {
-          width: 34px;
+          width: 12px;
           height: 1px;
           position: absolute;
           top: 50%;
@@ -198,7 +196,6 @@
           height: 100%;
           flex: 0 0 24px;
           background-size: auto 32px;
-          z-index: 2;
         }
       }
       &:before {

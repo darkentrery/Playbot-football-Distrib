@@ -5,8 +5,8 @@ import {
     CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
-    EDIT_EVENT_WINDOW,
-    EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
+    EDIT_EVENT_WINDOW, END_GAME_WINDOW,
+    EVENT, FILL_REGULATION_WINDOW, GAME, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW, REPEAT_EVENT_WINDOW, SAME_EVENTS,
     SIGN_UP_WINDOW, STEPS, SUCCESS_CANCEL_EVENT_WINDOW,
@@ -41,6 +41,7 @@ const initialState = {
     isOpenMobileFirstPage: false,
     isOpenLeaveEvent: false,
     isOpenUnAuthJoin: false,
+    isOpenEndGame: false,
 }
 
 
@@ -156,6 +157,11 @@ const windows = (state = initialState, action) => {
               ...state,
               isOpenUnAuthJoin: action.value
           };
+      case END_GAME_WINDOW:
+          return {
+              ...state,
+              isOpenEndGame: action.value
+          };
       default:
           return state;
   }
@@ -186,6 +192,7 @@ const initialEventState = {
     hiddenMap: false,
     team: false,
     sameEvents: [],
+    game: false,
 }
 
 const event = (state = initialEventState, action) => {
@@ -209,6 +216,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               team: action.value,
+          };
+      case GAME:
+          return {
+              ...state,
+              game: action.value,
           };
       case HIDDEN_MAP:
           return {

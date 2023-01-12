@@ -7,10 +7,9 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import $ from "jquery";
 
 
-export const GamePlayerComponent = ({event, user, funcs}) => {
+export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const params = useParams();
     const gameId = params.gameId;
-    const [game, setGame] = useState(false);
     const [timer, setTimer] = useState('0000');
     const [restTime, setRestTime] = useState(false);
     const [isOpen1, setIsOpen1] = useState(false);
@@ -20,7 +19,7 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
         if (event) {
             event.event_games.map((g) => {
                 if (g.id == gameId) {
-                    setGame(g);
+                    funcs.setGame(g);
                     let seconds = g.rest_time % 60;
                     let minutes = ((g.rest_time - seconds) / 60).toString();
                     setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
@@ -35,8 +34,7 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
     const ClockDigit = ({value}) => {
         return (
             <div className={"clock-digit"}>
-                <span className={"black-500-28"}>{value}</span>
-                <div className={"second-fon"}></div>
+                <span className={"second-fon black-500-28"}>{value}</span>
             </div>
         )
     }
@@ -54,7 +52,7 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
                 } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id) {
                     authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
                         console.log(response.data)
-                        if (response.status === 200) setGame(response.data);
+                        if (response.status === 200) funcs.setGame(response.data);
                     })
                 }
             }, 1000);
@@ -65,14 +63,14 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
     const beginGamePeriod = () => {
         authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
             console.log(response.data)
-            if (response.status === 200) setGame(response.data);
+            if (response.status === 200) funcs.setGame(response.data);
         })
     }
 
     const endGamePeriod = () => {
         authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
             console.log(response.data)
-            if (response.status === 200) setGame(response.data);
+            if (response.status === 200) funcs.setGame(response.data);
         })
     }
 
@@ -86,7 +84,7 @@ export const GamePlayerComponent = ({event, user, funcs}) => {
         if (player) data.player = player;
         authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
             console.log(response.data)
-            if (response.status === 200) setGame(response.data);
+            if (response.status === 200) funcs.setGame(response.data);
         })
 
     }

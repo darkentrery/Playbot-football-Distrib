@@ -20,6 +20,7 @@ export const CONFIRM_TEAMS_WINDOW = 'CONFIRM_TEAMS_WINDOW';
 export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 export const LEAVE_EVENT_WINDOW = 'LEAVE_EVENT_WINDOW';
 export const UN_AUTH_JOIN_WINDOW = 'UN_AUTH_JOIN_WINDOW';
+export const END_GAME_WINDOW = 'END_GAME_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -28,6 +29,7 @@ export const HIDDEN_MAP = 'HIDDEN_MAP';
 export const PLAYERS = 'PLAYERS';
 export const STEPS = 'STEPS';
 export const TEAM = 'TEAM';
+export const GAME = 'GAME';
 export const SAME_EVENTS = 'SAME_EVENTS';
 
 export const CITY = 'CITY';
@@ -145,6 +147,11 @@ export const unAuthJoinWindow = (value) => ({
   value,
 });
 
+export const endGameWindow = (value) => ({
+  type: END_GAME_WINDOW,
+  value,
+});
+
 
 export const auth = (value, user) => ({
   type: AUTH,
@@ -160,6 +167,11 @@ export const event = (value) => ({
 
 export const team = (value) => ({
   type: TEAM,
+  value,
+});
+
+export const game = (value) => ({
+  type: GAME,
   value,
 });
 

@@ -2,7 +2,15 @@ import {
   event,
   editEventWindow,
   cancelEventWindow,
-  confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow, hiddenMap, team
+  confirmPlayersWindow,
+  players,
+  steps,
+  fillRegulationWindow,
+  confirmTeamsWindow,
+  loginWindow,
+  hiddenMap,
+  team,
+  endGameWindow, game
 } from "../actions/actions";
 import {connect} from "react-redux";
 import {EventWrapperComponent} from "../../components/eventWrapperComponent/EventWrapperComponent";
@@ -13,6 +21,7 @@ const mapStateToProps = (state) => {
     ...state,
     event: state.event.event,
     user: state.user,
+    game: state.event.game,
   };
 };
 
@@ -54,6 +63,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       removeMap: () => {
         dispatch(hiddenMap(true));
+      },
+      openEndGame: () => {
+        dispatch(endGameWindow(true));
       },
     }
   };

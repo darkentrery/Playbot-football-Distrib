@@ -1,14 +1,15 @@
 import Modal from "react-modal";
 
 
-export default function SuccessComponent ({
+export const YesNoComponent = ({
     isOpen,
     closeSuccess,
     title,
     text,
-    buttonLabel,
+    buttonLabel1="Да",
+    buttonLabel2="Нет",
     clickSuccess = () => {},
-}) {
+}) => {
 
     const closeWindow = () => {
         closeSuccess();
@@ -26,7 +27,8 @@ export default function SuccessComponent ({
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame success-component"}>
+            <div className={"popup-frame yes-no-component"}>
+                <div onClick={closeWindow} className={"btn-close elem-376"}></div>
                 <div className={"elem elem-1"}>
                     <span className={"title-22"}>{title}</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>
@@ -35,7 +37,8 @@ export default function SuccessComponent ({
                     <span>{text}</span>
                 </div>
                 <div className={"elem elem-3"}>
-                    <button className={"btn btn-success-event"} onClick={clickButton}>{buttonLabel}</button>
+                    <button className={"btn"} onClick={clickButton}>{buttonLabel1}</button>
+                    <button className={"btn-second"} onClick={closeWindow}>{buttonLabel2}</button>
                 </div>
             </div>
         </Modal>

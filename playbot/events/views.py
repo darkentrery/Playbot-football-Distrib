@@ -333,15 +333,15 @@ class EndGameView(APIView):
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
         if game.event.organizer == request.user:
+            time = timezone.now() - datetime.timedelta(seconds=game.current_duration - game.event.duration.duration * 60)
             if game.game_periods.filter(time_end=None).exists():
                 period = game.game_periods.filter(time_end=None).last()
-                time = timezone.now() - datetime.timedelta(seconds=game.current_duration - game.event.duration.duration * 60)
                 period.time_end = time
                 period.save()
-                game.time_end = time.time()
-                game.save()
-                json = EventGameSerializer(instance=game).data
-                return Response(json, status=status.HTTP_200_OK)
+            game.time_end = time.time()
+            game.save()
+            json = EventGameSerializer(instance=game).data
+            return Response(json, status=status.HTTP_200_OK)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 

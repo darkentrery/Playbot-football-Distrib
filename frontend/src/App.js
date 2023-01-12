@@ -44,6 +44,7 @@ import {FaqPageComponent} from "./components/body/FaqPageComponent";
 import VisibleGamePlayer from "./redux/containers/VisibleGamePlayer";
 import {SuccessCancelEventComponent} from "./components/success/SuccessCancelEventComponent";
 import VisibleSuccessCancelEvent from "./redux/containers/VisibleSuccessCancelEvent";
+import VisibleEndGame from "./redux/containers/VisibleEndGame";
 
 
 
@@ -162,6 +163,7 @@ function App({state, funcs}) {
                 <ConfirmTeamsComponent isOpen={state.windows.isOpenConfirmTeams} event={state.event.event}
                                          funcs={funcs} isIPhone={state.app.isIPhone}/>
                 <VisibleConfirmTeamPlayers/>
+                <VisibleEndGame/>
 
             </Router>
         </div>
