@@ -1,4 +1,4 @@
-import {cancelEventWindow, event, hiddenMap} from "../actions/actions";
+import {cancelEventWindow, event, hiddenMap, successCancelEventWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import {CancelEventComponent} from "../../components/popups/CancelEventComponent";
 
@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     funcs: {
       closeComponent: () => {
         dispatch(cancelEventWindow(false));
+      },
+      openSuccessCancelEvent: () => {
+        dispatch(successCancelEventWindow(true));
       },
       setEvent: (value) => {
         dispatch(event(value));

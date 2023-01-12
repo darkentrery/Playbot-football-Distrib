@@ -9,7 +9,7 @@ import {
     EVENT, FILL_REGULATION_WINDOW, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
     LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
     REFRESH_PASSWORD_WINDOW, REPEAT_EVENT_WINDOW, SAME_EVENTS,
-    SIGN_UP_WINDOW, STEPS,
+    SIGN_UP_WINDOW, STEPS, SUCCESS_CANCEL_EVENT_WINDOW,
     SUCCESS_CREATE_EVENT_WINDOW,
     SUCCESS_EDIT_EVENT_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
@@ -27,6 +27,7 @@ const initialState = {
     isOpenSuccessSignUp2: false,
     isOpenSuccessCreateEvent: false,
     isOpenSuccessEditEvent: false,
+    isOpenSuccessCancelEvent: false,
     isOpenChoiceCity: false,
     isOpenCreateEvent: false,
     isOpenCreateEventUnAuth: false,
@@ -84,6 +85,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenSuccessEditEvent: action.value
+          };
+      case SUCCESS_CANCEL_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenSuccessCancelEvent: action.value
           };
       case REPEAT_EVENT_WINDOW:
           return {

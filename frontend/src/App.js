@@ -42,6 +42,8 @@ import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
 import {RulesPageComponent} from "./components/body/RulesPageComponent";
 import {FaqPageComponent} from "./components/body/FaqPageComponent";
 import VisibleGamePlayer from "./redux/containers/VisibleGamePlayer";
+import {SuccessCancelEventComponent} from "./components/success/SuccessCancelEventComponent";
+import VisibleSuccessCancelEvent from "./redux/containers/VisibleSuccessCancelEvent";
 
 
 
@@ -144,6 +146,7 @@ function App({state, funcs}) {
                 <VisibleChoiceCity/>
                 <VisibleSuccessCreateEvent/>
                 <VisibleSuccessEditEvent/>
+                <VisibleSuccessCancelEvent/>
                 <VisibleCreateEvent/>
                 <VisibleCreateEventUnAuth/>
                 <VisibleEditEvent/>

@@ -6,6 +6,7 @@ export const SUCCESS_SIGN_UP_WINDOW = 'SUCCESS_SIGN_UP_WINDOW';
 export const SUCCESS_SIGN_UP2_WINDOW = 'SUCCESS_SIGN_UP2_WINDOW';
 export const SUCCESS_CREATE_EVENT_WINDOW = 'SUCCESS_CREATE_EVENT_WINDOW';
 export const SUCCESS_EDIT_EVENT_WINDOW = 'SUCCESS_EDIT_EVENT_WINDOW';
+export const SUCCESS_CANCEL_EVENT_WINDOW = 'SUCCESS_CANCEL_EVENT_WINDOW';
 export const CHOICE_CITY_WINDOW = 'CHOICE_CITY_WINDOW';
 export const CREATE_EVENT_WINDOW = 'CREATE_EVENT_WINDOW';
 export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
@@ -71,6 +72,11 @@ export const successCreateEventWindow = (value) => ({
 
 export const successEditEventWindow = (value) => ({
   type: SUCCESS_EDIT_EVENT_WINDOW,
+  value,
+});
+
+export const successCancelEventWindow = (value) => ({
+  type: SUCCESS_CANCEL_EVENT_WINDOW,
   value,
 });
 

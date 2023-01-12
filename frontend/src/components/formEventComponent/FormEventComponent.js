@@ -234,8 +234,8 @@ export const FormEventComponent = ({
     }
 
     const changeIsPlayer = () => {
-        if (event && event.count_players === event.event_player.length && isNotPlayer) {
-            setIsNotPlayer(true);
+        if (event && event.count_players === event.event_player.length) {
+            setIsNotPlayer(isNotPlayer);
         }
     }
 

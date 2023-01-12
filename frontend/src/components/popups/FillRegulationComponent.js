@@ -137,16 +137,23 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                                    sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
                 <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
                                    sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
-                                   rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'} tooltipText={"Текст подсказки"}
+                                   rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}
+                                   tooltipText={"Количество кругов - параметр, который определяет сколько раз команды встретятся между собой в рамках события"}
                 />
                 <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
                                    sizingClass={"dropdown-size-mode"} flagClose={closeDropDown} id={2} content={modes}
                                    placeholder={"Способ распределения"} errorText={modeError} setErrorText={setModeError}
-                                   tooltipText={"Текст подсказки"} rightFirstIcon={'question-mark-icon'} rightSecondIcon={'question-mark-icon'}
+                                   tooltipText={"Способ распределения:\n" +
+                                       "\n" +
+                                       "Автоматический - делит игроков на команды автоматически исходя из рейтинга, пола и позиции. \n" +
+                                       "\n" +
+                                       "Механический - администратор сам делит пользователей на команды"}
+                                   rightFirstIcon={'question-mark-icon'} rightSecondIcon={'question-mark-icon'}
                 />
                 <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
                 <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"}
-                                      sizingClass={"check-slider-size"} textIcon={"question-mark-icon"} tooltipText={"Текст подсказки"}
+                                      sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}
+                                      tooltipText={"Играть до Х голов - формат игры при котором игра автоматически завершается, как только одна из команд забьет указанное количество мячей."}
                 />
                 <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}
                                 setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>

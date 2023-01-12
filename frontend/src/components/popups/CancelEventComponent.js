@@ -28,8 +28,9 @@ export const CancelEventComponent = ({isOpen, event, funcs}) => {
         event.city = event.city.name;
         authDecoratorWithoutLogin(eventService.cancelEvent, event).then((response) => {
             if (response.status === 200) {
-                closeWindow();
+                funcs.closeComponent();
                 funcs.setEvent(response.data);
+                funcs.openSuccessCancelEvent();
             }
         })
     }

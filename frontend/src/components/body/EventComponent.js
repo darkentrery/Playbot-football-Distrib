@@ -15,6 +15,9 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     const pk = params.pk;
 
     useEffect(() => {
+        funcs.setEvent(false);
+        funcs.setSameEvents([]);
+        funcs.setTeam(false);
         let isSubscribe = true;
         eventService.getEvent(pk).then((response) => {
             funcs.setEvent(response.data.event);
