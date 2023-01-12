@@ -3,14 +3,17 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {eventService} from "../../services/EventService";
 
 
-export const EndGameComponent = ({isOpen, game, closeComponent, setGame}) => {
+export const EndGameComponent = ({isOpen, game, closeComponent, setGame, setEvent}) => {
     const clickSuccess = () => {
       closeComponent();
     }
     const clickEndGame = () => {
         authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
             console.log(response.data)
-            if (response.status === 200) setGame(response.data);
+            if (response.status === 200) {
+                setGame(response.data.game);
+                setEvent(response.data.event);
+            }
         })
     }
     

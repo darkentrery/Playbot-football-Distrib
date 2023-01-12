@@ -1,4 +1,4 @@
-import {endGameWindow, game} from "../actions/actions";
+import {endGameWindow, event, game} from "../actions/actions";
 import {connect} from "react-redux";
 import {EndGameComponent} from "../../components/popups/EndGameComponent";
 
@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setGame: (value) => {
       dispatch(game(value));
+    },
+    setEvent: (value) => {
+      dispatch(event(value));
     },
   };
 };
