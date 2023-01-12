@@ -137,13 +137,17 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                                    sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
                 <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
                                    sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
-                                   rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}/>
+                                   rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'} tooltipText={"Текст подсказки"}
+                />
                 <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
-                                   sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={2} content={modes}
+                                   sizingClass={"dropdown-size-mode"} flagClose={closeDropDown} id={2} content={modes}
                                    placeholder={"Способ распределения"} errorText={modeError} setErrorText={setModeError}
+                                   tooltipText={"Текст подсказки"} rightFirstIcon={'question-mark-icon'} rightSecondIcon={'question-mark-icon'}
                 />
                 <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
-                <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"} sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}/>
+                <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"}
+                                      sizingClass={"check-slider-size"} textIcon={"question-mark-icon"} tooltipText={"Текст подсказки"}
+                />
                 <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}
                                 setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>
             </div>

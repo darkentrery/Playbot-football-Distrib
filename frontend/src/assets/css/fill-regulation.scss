@@ -45,13 +45,28 @@
         }
       }
     }
+    .dropdown-size-mode {
+      &.dropdown-component {
+        .dropdown {
+          .left-icon {
+            left: $dropDownLeftIconLeft;
+          }
+          .right-icon {
+            width: 16px;
+          }
+
+          .dropdown-label {
+            background-position: right 16px center;
+          }
+        }
+      }
+    }
 
     .check-slider-size {
       margin-bottom: 13px;
 
       .question-mark-icon {
-        background-position: right center;
-        flex: 0 0 150px;
+        flex: 0 0 16px;
       }
     }
 

@@ -89,6 +89,22 @@
         border-radius: 2px;
       }
     }
+    .tooltip-text {
+      position: absolute;
+      z-index: 1;
+      border-radius: 8px;
+      border: 1px solid gray;
+      background: $whiteColor;
+      display: flex;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      right: 0;
+      bottom: 50px;
+
+      &.hidden {
+        display: none;
+      }
+    }
   }
 
   .input-message {

@@ -137,12 +137,14 @@ export const FormEventComponent = ({
     }, [incorrectDate])
 
     useEffect(() => {
-        if (refTime.current.state.open) {
-            setIsTimeOpen(true);
-        } else {
-            setIsTimeOpen(false);
+        if (refTime.current) {
+            if (refTime.current.state.open) {
+                setIsTimeOpen(true);
+            } else {
+                setIsTimeOpen(false);
+            }
         }
-    }, [refTime.current.state])
+    },)
 
     const renderDay = (props, currentDate, selectedDate) => {
         let date = new Date(currentDate.format("YYYY-MM-DD"));

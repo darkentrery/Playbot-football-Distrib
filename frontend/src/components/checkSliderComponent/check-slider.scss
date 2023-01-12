@@ -2,16 +2,36 @@
   display: flex;
   flex: 0 0 24px;
   align-items: center;
+  gap: 16px;
+  position: relative;
 
   .slider-uncheck-icon {
     flex: 0 0 40px;
   }
-
   .slider-check-icon {
     flex: 0 0 40px;
   }
+  .icon {
+    display: flex;
+    cursor: pointer;
+    margin-left: -6px;
+    align-self: stretch;
+    background-position: center;
+  }
+  .tooltip-text {
+    position: absolute;
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid gray;
+    background: $whiteColor;
+    display: flex;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    right: 0;
+    bottom: 30px;
 
-  span {
-    margin-left: 16px;
+    &.hidden {
+      display: none;
+    }
   }
 }
