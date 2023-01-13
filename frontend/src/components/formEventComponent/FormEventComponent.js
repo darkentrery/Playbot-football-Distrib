@@ -268,8 +268,6 @@ export const FormEventComponent = ({
                     flagClose={closeDropDown} id={3} content={formats} errorText={formatError} setErrorText={setFormatError}
                     placeholder={"Формат площадки*"}
                 />
-            {/*<InputComponent className={"elem elem-4"} value={format} setValue={setFormat} errorText={formatError}*/}
-            {/*                leftIcon={"football-field-icon"} placeholder={"Формат площадки *"}/>*/}
             <div className={"elem elem-5"}>
                 <ReactDatetimeClass
                     className={`div-input date ${dateError ? 'error' : ''}`}
@@ -294,7 +292,7 @@ export const FormEventComponent = ({
                     value={time ? time : ''}
                 />
                 <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
-                <div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>
+                {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
             </div>
             <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
             <div className={"elem elem-6"}>
@@ -305,7 +303,7 @@ export const FormEventComponent = ({
                                   sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
             <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
             <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
-                <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? (value) => {return price;} : inputDigit}
+                <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? () => {return price;} : inputDigit}
                                 errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
                 <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
             </div>

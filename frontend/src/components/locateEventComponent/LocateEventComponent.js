@@ -33,7 +33,6 @@ export const LocateEventComponent = ({
                     let components = response.data.results[0].components;
                     if (components.city) {
                         let point = `${position.lat} ${position.lng}`;
-                        let newCity = components.city;
                         let newAddress = {
                             "country": components.country,
                             "city": components.city,
@@ -85,7 +84,8 @@ export const LocateEventComponent = ({
         <div className={`locate-event-component ${className}`}>
             <div className={"locate-menu"}>
                 <span>{address ? address.city : ''}</span>
-                <div className={"btn-close"} onClick={closeLocate}></div>
+                {/*<div className={"btn-close"} onClick={closeLocate}></div>*/}
+                <span className={"btn"} onClick={closeLocate}>Ok</span>
             </div>
             <MapBody/>
         </div>

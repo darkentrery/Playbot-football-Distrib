@@ -3,7 +3,7 @@
   flex: 0 0 411px;
   height: 718px;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   background: $whiteColor;
   position: relative;
   padding: 40px;
@@ -13,7 +13,6 @@
   .elem {
     display: flex;
     flex: 0 0 $fieldHeight;
-    width: $createEventFieldWidth;
     align-items: stretch;
     justify-content: stretch;
 
@@ -213,9 +212,6 @@
       .slider-check-icon {
         flex: 0 0 40px;
       }
-      span {
-        margin-left: 16px;
-      }
     }
     &.elem-9 {
 
@@ -271,13 +267,14 @@
       .btn-form-event {
         flex: 1 1 auto;
       }
-
       &.safari-margin {
         margin-bottom: 70px;
       }
     }
     &.elem-13 {
       position: absolute;
+      top: 0;
+      left: 0;
     }
     .input-message {
       flex: 0 0 12px;
@@ -342,8 +339,7 @@
   .form-event-component {
     flex: 0 0 100vw;
     height: 100vh;
-    padding: 24px 40px 20px 40px;
-    align-items: center;
+    padding: 24px calc(50vw - 148px) 20px calc(50vw - 148px);
     overflow-y: auto;
     overflow-x: hidden;
 
