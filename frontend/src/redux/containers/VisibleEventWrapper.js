@@ -10,10 +10,10 @@ import {
   loginWindow,
   hiddenMap,
   team,
-  endGameWindow, game
+  endGameWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
-import {EventWrapperComponent} from "../../components/eventWrapperComponent/EventWrapperComponent";
+import {EventWrapperComponent} from "../../components/wrappers/eventWrapperComponent/EventWrapperComponent";
 
 
 const mapStateToProps = (state) => {

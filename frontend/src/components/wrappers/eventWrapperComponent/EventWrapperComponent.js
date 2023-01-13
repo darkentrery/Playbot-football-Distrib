@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import EventService from "../../services/EventService";
-import BaseRoutes from "../../routes/BaseRoutes";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import {Top376Component} from "../top376Component/Top376Component";
+import EventService from "../../../services/EventService";
+import BaseRoutes from "../../../routes/BaseRoutes";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import {Top376Component} from "../../top376Component/Top376Component";
 
 
 export const EventWrapperComponent = ({children, event, user, game, funcs}) => {

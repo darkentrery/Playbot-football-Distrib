@@ -1,5 +1,5 @@
-import HeadComponent from "../HeadComponent";
-import BottomComponent from "../BottomComponent";
+import HeadComponent from "../../HeadComponent";
+import BottomComponent from "../../BottomComponent";
 import React, {useState} from "react";
 import $ from "jquery";
 

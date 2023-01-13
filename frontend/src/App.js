@@ -39,12 +39,17 @@ import {AllowOfferComponent} from "./components/body/AllowOfferComponent";
 import VisibleGeneralInformation from "./redux/containers/VisibleGeneralInformation";
 import VisibleTeamsInformation from "./redux/containers/VisibleTeamsInformation";
 import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
-import {RulesPageComponent} from "./components/body/RulesPageComponent";
-import {FaqPageComponent} from "./components/body/FaqPageComponent";
+import {RulesPageComponent} from "./components/pages/RulesPageComponent";
+import {FaqPageComponent} from "./components/pages/FaqPageComponent";
 import VisibleGamePlayer from "./redux/containers/VisibleGamePlayer";
 import {SuccessCancelEventComponent} from "./components/success/SuccessCancelEventComponent";
 import VisibleSuccessCancelEvent from "./redux/containers/VisibleSuccessCancelEvent";
 import VisibleEndGame from "./redux/containers/VisibleEndGame";
+import EventRoutes from "./routes/EventRoutes";
+import ProfileRoutes from "./routes/ProfileRoutes";
+import {
+    ProfileMyEventsPageComponent
+} from "./components/pages/profileMyEventsPageComponent/ProfileMyEventsPageComponent";
 
 
 
@@ -116,17 +121,18 @@ function App({state, funcs}) {
         <div className="App">
             <Router>
                 <Routes>
-                      <Route exact path={BaseRoutes.events} element={<VisibleEventsPage/>}/>
-                      <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
-                      <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
-                      <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
-                      <Route exact path={BaseRoutes.event} element={<VisibleEvent/>}/>
-                      <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
-                      <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
-                      <Route exact path={BaseRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
-                      <Route exact path={BaseRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
-                      <Route exact path={BaseRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
-                      <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
+                    <Route exact path={EventRoutes.events} element={<VisibleEventsPage/>}/>
+                    <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
+                    <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
+                    <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
+                    <Route exact path={EventRoutes.event} element={<VisibleEvent/>}/>
+                    <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>
+                    <Route exact path={BaseRoutes.allowOffer} element={<AllowOfferComponent/>}/>
+                    <Route exact path={EventRoutes.eventInfo} element={<VisibleGeneralInformation/>}/>
+                    <Route exact path={EventRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
+                    <Route exact path={EventRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
+                    <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
+                    <Route exact path={ProfileRoutes.profileMyEvents} element={<ProfileMyEventsPageComponent/>}/>
                 </Routes>
 
                   {/*<YMaps>*/}

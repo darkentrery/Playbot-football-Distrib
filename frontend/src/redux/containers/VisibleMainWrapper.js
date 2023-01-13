@@ -8,7 +8,7 @@ import {
   signUpWindow, steps,
   successSignUp2Window, team
 } from "../actions/actions";
-import {MainWrapperComponent} from "../../components/mainWrapperComponent/MainWrapperComponent";
+import {MainWrapperComponent} from "../../components/wrappers/mainWrapperComponent/MainWrapperComponent";
 
 
 const mapStateToProps = (state) => {

@@ -6,17 +6,11 @@ const BaseRoutes = {
 		return "/events/";
 	},
 
-	get main () {
-		return "/";
-	},
+	get main () {return "/";},
 
-	get statistic () {
-		return "/statistic/";
-	},
+	get statistic () {return "/statistic/";},
 
-	get faq () {
-		return "/faq/";
-	},
+	get faq () {return "/faq/";},
 
 	get description () {
 		return "/events/description/";
@@ -38,13 +32,9 @@ const BaseRoutes = {
 		return `/events/event/:pk/`;
 	},
 
-	get allowPolicy () {
-		return "/allow-policy/";
-	},
+	get allowPolicy () {return "/allow-policy/";},
 
-	get allowOffer () {
-		return "/allow-offer/";
-	},
+	get allowOffer () {return "/allow-offer/";},
 
 	get eventInfo () {
 		return `/events/event/:pk/info/`;
@@ -70,9 +60,7 @@ const BaseRoutes = {
 		return `/events/event/${pk}/player-game/${gameId}/`;
 	},
 
-	get rules () {
-		return `/rules/`;
-	},
+	get rules () {return `/rules/`;},
 
 
 }

@@ -10,6 +10,11 @@
 @import "body";
 @import "bottom";
 
+@import "../../components/wrappers/eventWrapperComponent/event-wrapper";
+@import "../../components/wrappers/mainWrapperComponent/main-wrapper";
+@import "../../components/wrappers/profileWrapperComponent/profile-wrapper";
+@import "../../components/reglamentComponent/reglament";
+
 @import "sign-up";
 @import "login";
 @import "refresh-password";
@@ -31,17 +36,16 @@
 @import "../../components/formEventComponent/form-event";
 @import "../../components/locateEventComponent/locate-event";
 @import "../../components/messageComponent/message";
-@import "../../components/reglamentComponent/reglament";
 @import "../../components/teamNameComponent/team-name";
-@import "../../components/eventWrapperComponent/event-wrapper";
-@import "../../components/generalInformationComponent/general-information";
-@import "../../components/mainWrapperComponent/main-wrapper";
-@import "../../components/teamsInformationComponent/teams-information";
 @import "../../components/mainSearchComponent/main-search";
 @import "../../components/eventItem376Component/event-item-376";
 @import "../../components/playerRowComponent/player-row";
 @import "../../components/searchCityComponent/search-city";
 @import "../../components/top376Component/top-376";
+
+@import "../../components/generalInformationComponent/general-information";
+@import "../../components/teamsInformationComponent/teams-information";
+@import "../../components/pages/profileMyEventsPageComponent/profile-page";
 @import "../../components/gamePlayerComponent/game-player";
 
 
