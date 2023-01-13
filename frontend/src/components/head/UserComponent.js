@@ -1,39 +1,22 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import userIcon from "../../assets/icon/player-avatar.png";
-import $ from "jquery";
-import AuthService from "../../services/AuthService";
+import {authService} from "../../services/AuthService";
+import {Link} from "react-router-dom";
+import ProfileRoutes from "../../routes/ProfileRoutes";
 
 
-export default function UserComponent ({user, flagDropdown=false, funcs}) {
-    const authService = new AuthService();
+export default function UserComponent ({user, funcs}) {
     const [isDropdown, setIsDropdown] = useState(false);
-    const refuserHead = useRef();
 
     useEffect(() => {
-        if (isDropdown) {
-            let arrow = $(refuserHead.current).children('.arrow-icon');
-            arrow.removeClass('up-arrow-icon');
-            arrow.addClass('down-arrow-icon');
-            setIsDropdown(!isDropdown);
-        }
-    }, [flagDropdown])
+        console.log(user)
+    }, [user])
 
     const openDropdown = () => {
-        let arrow = $(refuserHead.current).children('.arrow-icon');
-        if (!isDropdown) {
-            arrow.removeClass('down-arrow-icon');
-            arrow.addClass('up-arrow-icon');
-        } else {
-            arrow.removeClass('up-arrow-icon');
-            arrow.addClass('down-arrow-icon');
-        }
         setIsDropdown(!isDropdown);
     }
 
     const selectMenu = () => {
-        let arrow = $(refuserHead.current).children('.arrow-icon');
-        arrow.removeClass('up-arrow-icon');
-        arrow.addClass('down-arrow-icon');
         setIsDropdown(false);
     }
 
@@ -48,17 +31,28 @@ export default function UserComponent ({user, flagDropdown=false, funcs}) {
         funcs.openChoiceCity();
     }
 
+    document.addEventListener('click', function (e) {
+        if (isDropdown) {
+            if (!e.target.className.includes("dropdown-elem") && !e.target.className.includes("label") && !e.target.className.includes("city")
+                && !e.target.className.includes("dropdown-user") && !e.target.className.includes("dropdown-head")
+                && !e.target.className.includes("dropdown-label") && !e.target.className.includes("arrow-icon")
+                && !e.target.className.includes("dropdown-icon")) {
+               setIsDropdown(false);
+            }
+        }
+    })
+
     return (
         <div className={"elem user"}>
             <div className={"el black-bell-icon"}></div>
             <div className={"el dropdown-user"}>
-                <div className={"dropdown-head"} onClick={openDropdown} ref={refuserHead}>
+                <div className={"dropdown-head"} onClick={openDropdown}>
                     <img className={"dropdown-icon"} src={userIcon} alt=""/>
                     <span className={"dropdown-label"}>{user.username}</span>
-                    <div className={"arrow-icon down-arrow-icon"}></div>
+                    <div className={`arrow-icon ${isDropdown ? 'up-arrow-icon' : 'down-arrow-icon'}`}></div>
                 </div>
                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
-                    <span className={"dropdown-elem"} onClick={selectMenu}>Профиль</span>
+                    <Link className={"dropdown-elem"} to={ProfileRoutes.profileMyEventsLink(user.id)}>Профиль</Link>
                     <span className={"dropdown-elem"} onClick={selectMenu}>Личные данные</span>
                     <span className={"dropdown-elem"} onClick={logout}>Выйти</span>
                     <div className={"dropdown-elem d-el-4"} onClick={choiceCity}>

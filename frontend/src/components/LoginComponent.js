@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AuthService from "../services/AuthService";
+import AuthService, {authService} from "../services/AuthService";
 import TelegramLoginComponent from "./TelegramLoginComponent";
 import Modal from "react-modal";
 import $ from 'jquery';
@@ -7,7 +7,7 @@ import {InputComponent} from "./inputComponent/InputComponent";
 
 
 export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth, showMap}) {
-    const authService = new AuthService();
+    const authServicee = new AuthService();
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
     const [emailError, setEmailError] = useState('');
@@ -47,13 +47,13 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         openRefreshPassword();
     }
 
-    const sendForm = async () => {
-        let errors = authService.loginRequestValidation(email, password, setEmailError, setPasswordError);
+    const sendForm = () => {
+        let errors = authServicee.loginRequestValidation(email, password, setEmailError, setPasswordError);
         if (!errors.length) {
-            await authService.login(data).then((response) => {
-                errors = authService.loginResponseValidation(response, setEmailError, setPasswordError);
+            authService.login(data).then((response) => {
+                errors = authServicee.loginResponseValidation(response, setEmailError, setPasswordError);
                 if (!errors.length) {
-                    setAuth(true, response.data);
+                    setAuth(true, response.data.user);
                     closeWindow();
                     showMap();
                 }
@@ -61,7 +61,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         }
     }
 
-    const hiddenPassword = (event) => {
+    const hiddenPassword = () => {
         if (typePassword) {
             setTypePassword(false);
             setRightIcon('eye-icon off');

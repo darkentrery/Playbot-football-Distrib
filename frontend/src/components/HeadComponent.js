@@ -6,7 +6,7 @@ import VisibleUnAuthUser from "../redux/containers/VisibleUnAuthUser";
 import {MainSearchComponent} from "./mainSearchComponent/MainSearchComponent";
 
 
-export default function HeadComponent ({user, city, flagDropdown=false, funcs}) {
+export default function HeadComponent ({user, city, funcs}) {
     const [isOpenSearch, setIsOpenSearch] = useState(false);
 
     return(
@@ -34,7 +34,7 @@ export default function HeadComponent ({user, city, flagDropdown=false, funcs}) 
             <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} user={user.user} city={city}/>
             <div className={`elem search-black-icon ${isOpenSearch ? 'hidden' : ''}`} onClick={() => setIsOpenSearch(!isOpenSearch)}></div>
 
-            {user.isAuth && <UserComponent user={user.user} flagDropdown={flagDropdown} funcs={funcs}/>}
+            {user.isAuth && <UserComponent user={user.user} funcs={funcs}/>}
             {!user.isAuth && <VisibleUnAuthUser/>}
         </div>
     )

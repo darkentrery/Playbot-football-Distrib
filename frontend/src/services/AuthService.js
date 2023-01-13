@@ -395,4 +395,18 @@ const getRequest =(url, data=false) => {
 
 export const authService = {
 	getUsers() { return getRequest('get-users/'); },
+	login(user) {
+		return postRequest('login/', user).then((response) => {
+			if (response.status === 200) {
+				localStorage.setItem("access_token", response.data.access);
+				localStorage.setItem("refresh_token", response.data.refresh);
+				localStorage.setItem("date_token", Date.now());
+			}
+			return response;
+		});
+	},
+	logout() {
+		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token");
+	},
 }
