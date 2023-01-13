@@ -31,7 +31,7 @@ import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
 import VisibleConfirmTeamPlayers from "./redux/containers/VisibleConfirmTeamPlayers";
 import BaseRoutes from "./routes/BaseRoutes";
 import VisibleEventsPage from "./redux/containers/VisibleEventsPage";
-import {GeneralInformationComponent} from "./components/generalInformationComponent/GeneralInformationComponent";
+import {GeneralInformationComponent} from "./components/pages/generalInformationComponent/GeneralInformationComponent";
 import VisibleMainPage from "./redux/containers/VisibleMainPage";
 import VisibleEvent from "./redux/containers/VisibleEvent";
 import {AllowPolicyComponent} from "./components/body/AllowPolicyComponent";

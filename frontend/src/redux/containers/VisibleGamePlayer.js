@@ -13,7 +13,7 @@ import {
   endGameWindow, game
 } from "../actions/actions";
 import {connect} from "react-redux";
-import {GamePlayerComponent} from "../../components/gamePlayerComponent/GamePlayerComponent";
+import {GamePlayerComponent} from "../../components/pages/gamePlayerComponent/GamePlayerComponent";
 
 
 const mapStateToProps = (state) => {

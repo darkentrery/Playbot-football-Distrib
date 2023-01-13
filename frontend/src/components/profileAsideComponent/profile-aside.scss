@@ -1,0 +1,68 @@
+.profile-aside-component {
+  display: flex;
+  flex: 0 0 378px;
+  background: $whiteColor;
+  box-shadow: 0px 2px 10px rgba(215, 215, 215, 0.25);
+  flex-direction: column;
+
+  .elem {
+    display: flex;
+    border-top: 1px solid #E4E4E4;
+    flex: 0 0 76px;
+    align-items: stretch;
+    box-sizing: border-box;
+    &.elem-1 {
+      flex: 0 0 506px;
+      padding: 46px 60px 28px 60px;
+      gap: 12px;
+      align-items: center;
+      flex-direction: column;
+    }
+    &.elem-2 {
+
+    }
+    &.elem-3 {
+
+    }
+    &.elem-4 {
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15px 0 15px 60px;
+    }
+    &.elem-5 {
+      flex: 0 0 465px;
+      padding: 16px 60px 0 60px;
+      gap: 12px;
+      flex-direction: column;
+      .title-regards {
+        margin-bottom: 8px;
+        margin-top: 20px;
+      }
+    }
+    .item {
+      display: flex;
+      flex: 0 0 50%;
+      box-sizing: border-box;
+      flex-direction: column;
+      justify-content: space-between;
+      &.item-left {
+        border-right: 1px solid #E4E4E4;
+        padding: 15px 0 15px 60px;
+      }
+      &.item-right {
+        padding: 15px 0 15px 25px;
+      }
+      .icon {
+        display: flex;
+        flex: 0 0 30px;
+        padding-left: 26px;
+        background-position: left center;
+
+        &.socer-player-icon {
+          height: 30px;
+          background-size: 20px;
+        }
+      }
+    }
+  }
+}

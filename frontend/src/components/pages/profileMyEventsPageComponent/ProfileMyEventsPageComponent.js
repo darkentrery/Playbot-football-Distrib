@@ -1,13 +1,14 @@
-import {ProfileWrapperComponent} from "../../wrappers/profileWrapperComponent/ProfileWrapperComponent";
+import VisibleProfileWrapper from "../../../redux/containers/VisibleProfileWrapper";
 
 
 export const ProfileMyEventsPageComponent = () => {
 
     return (
-        <ProfileWrapperComponent>
-            <div className={`profile-my-events--page-component`}>
+        <VisibleProfileWrapper>
+            <div className={`profile-my-events-page-component`}>
+
 
             </div>
-        </ProfileWrapperComponent>
+        </VisibleProfileWrapper>
     )
 }

@@ -1,9 +1,9 @@
-import VisibleEventWrapper from "../../redux/containers/VisibleEventWrapper";
+import VisibleEventWrapper from "../../../redux/containers/VisibleEventWrapper";
 import React, {useEffect, useState} from "react";
-import {getMinutesStr} from "../../utils/dates";
-import EventService from "../../services/EventService";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import BaseRoutes from "../../routes/BaseRoutes";
+import {getMinutesStr} from "../../../utils/dates";
+import EventService from "../../../services/EventService";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import BaseRoutes from "../../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 
 

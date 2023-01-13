@@ -8,10 +8,6 @@ import ProfileRoutes from "../../routes/ProfileRoutes";
 export default function UserComponent ({user, funcs}) {
     const [isDropdown, setIsDropdown] = useState(false);
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
-
     const openDropdown = () => {
         setIsDropdown(!isDropdown);
     }

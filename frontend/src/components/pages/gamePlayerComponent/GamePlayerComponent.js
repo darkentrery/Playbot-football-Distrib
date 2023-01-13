@@ -1,9 +1,9 @@
-import VisibleEventWrapper from "../../redux/containers/VisibleEventWrapper";
+import VisibleEventWrapper from "../../../redux/containers/VisibleEventWrapper";
 import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {eventService} from "../../services/EventService";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import BaseRoutes from "../../routes/BaseRoutes";
+import {eventService} from "../../../services/EventService";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import BaseRoutes from "../../../routes/BaseRoutes";
 import $ from "jquery";
 
 
