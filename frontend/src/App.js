@@ -47,6 +47,7 @@ import {
 } from "./components/pages/profileMyEventsPageComponent/ProfileMyEventsPageComponent";
 import VisibleMyEventsPage from "./redux/containers/VisibleMyEventsPage";
 import VisibleFavorites from "./redux/containers/VisibleFavorites";
+import VisibleProfilePersonalData from "./redux/containers/VisibleProfilePersonalData";
 
 
 
@@ -131,6 +132,7 @@ function App({state, funcs}) {
                     <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
                     <Route exact path={ProfileRoutes.profileMyEvents} element={<VisibleMyEventsPage/>}/>
                     <Route exact path={ProfileRoutes.profileFavorites} element={<VisibleFavorites/>}/>
+                    <Route exact path={ProfileRoutes.profilePersonalData} element={<VisibleProfilePersonalData/>}/>
                 </Routes>
 
                   {/*<YMaps>*/}

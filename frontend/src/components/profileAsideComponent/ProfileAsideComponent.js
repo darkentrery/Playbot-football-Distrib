@@ -16,7 +16,7 @@ export const ProfileAsideComponent = ({player}) => {
                 <div className={"central-line"}></div>
                 <div className={"central-circle"}></div>
                 <div className={"central-point"}></div>
-                {numbers.map((num) => (<div className={`circle circle-${num}`}></div>))}
+                {numbers.map((num) => (<div className={`circle circle-${num}`} key={num}></div>))}
             </div>
         )
     }

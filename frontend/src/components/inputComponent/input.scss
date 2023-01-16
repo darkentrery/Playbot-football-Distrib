@@ -13,6 +13,8 @@
     padding-left: 40px;
     padding-right: 40px;
     box-sizing: border-box;
+    width: 100%;
+    background-position: 16px center;
 
     &.error {
       border: 0.8px solid #EC5B56;
@@ -30,8 +32,9 @@
 
   .right-input-icon {
     position: absolute;
-    align-self: end;
-    margin-right: 14px;
-    top: $fieldHeight/2 - 10px;
+    top: 0;
+    height: calc(100% - 16px);
+    background-position: center;
+    right: 14px;
   }
 }

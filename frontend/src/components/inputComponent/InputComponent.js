@@ -12,7 +12,6 @@ export const InputComponent = ({
     password=false,
     onChange=(value) => {return value;},
     rightOnClick=() => {},
-
 }) => {
 
     const onChangeValue = (e) => {
