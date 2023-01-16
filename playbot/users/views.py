@@ -143,6 +143,15 @@ class GetUsersView(APIView):
         return Response(json, status=status.HTTP_200_OK)
 
 
+class GetUserView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        serializer = UserSerializer(instance=User.objects.get(pk=kwargs.get("pk")))
+        json = serializer.data
+        return Response(json, status=status.HTTP_200_OK)
+
+
 
 
 

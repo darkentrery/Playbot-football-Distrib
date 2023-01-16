@@ -36,11 +36,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 25px;
 
         &.active {
           border: 1px solid $orangeColor;
           border-radius: 25px;
+          padding: 0 25px;
         }
       }
       .active {
@@ -71,6 +71,33 @@
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .profile-wrapper-component {
     min-height: calc(100vh - 96px - 323px);
+
+    .my-profile {
+      padding: 24px 20px 24px 24px;
+      gap: 16px;
+
+      .title-elem {
+        flex: 0 0 24px;
+        margin-bottom: 16px;
+        .black-700-28 {
+          font-size: 22px;
+        }
+        .btn-second {
+          flex: 0 0 146px;
+          padding: 5px 19px;
+          font-size: 12px;
+          .black-ball-icon {
+            display: none;
+          }
+        }
+      }
+      .navigate-bar-1280 {
+        gap: 31px;
+        .nav-link {
+          font-size: 12px;
+        }
+      }
+    }
   }
 }
 

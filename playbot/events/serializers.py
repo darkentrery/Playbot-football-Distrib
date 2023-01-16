@@ -5,7 +5,16 @@ from playbot.cities.serializers import CitySerializer, AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod
 from playbot.users.models import User
-from playbot.users.serializers import UserSerializer
+
+
+class UserSerializer(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+    all_games = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = "__all__"
+        read_only_field = ['is_active',]
 
 
 class EventPlayerSerializer(serializers.ModelSerializer):

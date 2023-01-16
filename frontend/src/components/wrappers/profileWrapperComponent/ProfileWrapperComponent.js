@@ -1,10 +1,10 @@
 import HeadComponent from "../../HeadComponent";
 import BottomComponent from "../../BottomComponent";
-import React from "react";
+import React, {useEffect} from "react";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
 import {Link, useParams} from "react-router-dom";
-import BaseRoutes from "../../../routes/BaseRoutes";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
+import {authService} from "../../../services/AuthService";
 
 
 export const ProfileWrapperComponent = ({
@@ -15,15 +15,33 @@ export const ProfileWrapperComponent = ({
     const params = useParams();
     const pk = params.pk;
 
+    useEffect(() => {
+        authService.getUser(pk.toString()).then((response) => {
+            if (response.status === 200) {
+                console.log(response)
+                funcs.setPlayer(response.data);
+            }
+        })
+    }, [pk])
+
+    const getOpenCreateEvent = () => {
+        if (state.user.isAuth) {
+            funcs.setEvent(false);
+            funcs.openCreateEvent();
+        } else {
+            funcs.openCreateEventUnAuth();
+        }
+    }
+
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={"profile-wrapper-component scroll"}>
-                <ProfileAsideComponent/>
+                <ProfileAsideComponent player={state.event.player}/>
                 <div className={"my-profile"}>
                     <div className={"title-elem"}>
                         <span className={"black-700-28"}>Мой профиль</span>
-                        <span className={"btn-second"}><div className={"black-ball-icon"}></div>Создать событие</span>
+                        <span className={"btn-second"} onClick={getOpenCreateEvent}><div className={"black-ball-icon"}></div>Создать событие</span>
                     </div>
                     <div className={"navigate-bar-1280"}>
                         <Link

@@ -14,13 +14,25 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
+from playbot.events.models import EventPlayer, Event
+from playbot.events.serializers import EventSerializer
 from playbot.users.models import User
 from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
+
+
+class EventPlayerSerializer(serializers.ModelSerializer):
+    event = EventSerializer(read_only=True)
+
+    class Meta:
+        model = EventPlayer
+        fields = "__all__"
 
 
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     all_games = serializers.IntegerField(read_only=True)
+    event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
+    event = EventSerializer(Event.objects.all(), many=True, read_only=True)
 
     class Meta:
         model = User

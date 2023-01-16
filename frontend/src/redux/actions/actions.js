@@ -27,6 +27,7 @@ export const AUTH = 'AUTH';
 export const EVENT = 'EVENT';
 export const HIDDEN_MAP = 'HIDDEN_MAP';
 export const PLAYERS = 'PLAYERS';
+export const PLAYER = 'PLAYER';
 export const STEPS = 'STEPS';
 export const TEAM = 'TEAM';
 export const GAME = 'GAME';
@@ -177,6 +178,11 @@ export const game = (value) => ({
 
 export const players = (value) => ({
   type: PLAYERS,
+  value,
+});
+
+export const player = (value) => ({
+  type: PLAYER,
   value,
 });
 

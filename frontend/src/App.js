@@ -1,12 +1,9 @@
 import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
 import React, {useState, useEffect, useRef} from "react";
 import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
-import EventService from "./services/EventService";
 
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
 import AuthService from "./services/AuthService";
-import BodyComponent from "./components/BodyComponent";
-import BottomComponent from "./components/BottomComponent";
 import VisibleSignUp from "./redux/containers/VisibleSignUp";
 import VisibleLogin from "./redux/containers/VisibleLogin";
 import VisibleRefreshPassword from "./redux/containers/VisibleRefreshPassword";
@@ -24,8 +21,6 @@ import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
 import FillRegulationComponent from "./components/popups/FillRegulationComponent";
 import ConfirmTeamsComponent from "./components/popups/ConfirmTeamsComponent";
 import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent";
-import $ from "jquery";
-import HeadComponent from "./components/HeadComponent";
 import VisibleLeaveEvent from "./redux/containers/VisibleLeaveEvent";
 import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
 import VisibleConfirmTeamPlayers from "./redux/containers/VisibleConfirmTeamPlayers";
@@ -50,6 +45,8 @@ import ProfileRoutes from "./routes/ProfileRoutes";
 import {
     ProfileMyEventsPageComponent
 } from "./components/pages/profileMyEventsPageComponent/ProfileMyEventsPageComponent";
+import VisibleMyEventsPage from "./redux/containers/VisibleMyEventsPage";
+import VisibleFavorites from "./redux/containers/VisibleFavorites";
 
 
 
@@ -132,7 +129,8 @@ function App({state, funcs}) {
                     <Route exact path={EventRoutes.eventInfoTeams} element={<VisibleTeamsInformation/>}/>
                     <Route exact path={EventRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
                     <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
-                    <Route exact path={ProfileRoutes.profileMyEvents} element={<ProfileMyEventsPageComponent/>}/>
+                    <Route exact path={ProfileRoutes.profileMyEvents} element={<VisibleMyEventsPage/>}/>
+                    <Route exact path={ProfileRoutes.profileFavorites} element={<VisibleFavorites/>}/>
                 </Routes>
 
                   {/*<YMaps>*/}

@@ -18,12 +18,6 @@
       align-items: center;
       flex-direction: column;
     }
-    &.elem-2 {
-
-    }
-    &.elem-3 {
-
-    }
     &.elem-4 {
       flex-direction: column;
       justify-content: space-between;
@@ -34,9 +28,169 @@
       padding: 16px 60px 0 60px;
       gap: 12px;
       flex-direction: column;
+
+      .football-field {
+        display: flex;
+        flex: 0 0 132px;
+        background: $whiteColor;
+        border: 1px solid #CACACA;
+        border-radius: 8px;
+        width: 262px;
+        position: relative;
+
+        .gate {
+          position: absolute;
+          width: 18px;
+          height: 54px;
+          border: 1px solid #CACACA;
+          top: calc(50% - 27px);
+          box-sizing: border-box;
+          &.gate-1 {
+            left: 0;
+            border-left: 0;
+          }
+          &.gate-2 {
+            right: 0;
+            border-right: 0;
+          }
+        }
+        .over-gate {
+          position: absolute;
+          width: 44px;
+          height: 92px;
+          border: 1px solid #CACACA;
+          top: calc(50% - 46px);
+          box-sizing: border-box;
+          &.over-gate-1 {
+            left: 0;
+            border-left: 0;
+          }
+          &.over-gate-2 {
+            right: 0;
+            border-right: 0;
+          }
+        }
+        .gate-circle {
+          position: absolute;
+          width: 20px;
+          height: 40px;
+          border: 1px solid #CACACA;
+          top: calc(50% - 20px);
+          box-sizing: border-box;
+          &.gate-circle-1 {
+            left: 44px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-left: 0;
+          }
+          &.gate-circle-2 {
+            right: 44px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-right: 0;
+          }
+        }
+        .central-line {
+          position: absolute;
+          left: 50%;
+          height: 100%;
+          width: 1px;
+          border-left: 1px solid #CACACA;
+          box-sizing: border-box;
+        }
+        .central-circle {
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          left: calc(50% - 30px);
+          top: calc(50% - 30px);
+          border: 1px solid #CACACA;
+          border-radius: 30px;
+          transform: matrix(-1, 0, 0, 1, 0, 0);
+          box-sizing: border-box;
+        }
+        .central-point {
+          position: absolute;
+          background: #CACACA;
+          width: 5px;
+          height: 5px;
+          left: calc(50% - 2.5px);
+          top: calc(50% - 2.5px);
+        }
+        .circle {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          border-radius: 7px;
+          border: 2px solid #BCBCBC;
+          box-sizing: border-box;
+          &.fill {
+            background: #D9D9D9;
+            border: 0;
+          }
+          &.orange-fill {
+            background: #D19C6C;
+            border: 0;
+          }
+          &.circle-1 {
+            top: 36px;
+            left: 56px;
+          }
+          &.circle-2 {
+            top: 12px;
+            left: 89px;
+          }
+          &.circle-3 {
+            top: 40px;
+            right: calc(50% - 7px);
+          }
+          &.circle-4 {
+            top: 12px;
+            right: 89px;
+          }
+          &.circle-5 {
+            top: 36px;
+            right: 56px;
+          }
+          &.circle-6 {
+            top: calc(50% - 7px);
+            right: 22px;
+          }
+          &.circle-7 {
+            bottom: 36px;
+            right: 56px;
+          }
+          &.circle-8 {
+            bottom: 12px;
+            right: 89px;
+          }
+          &.circle-9 {
+            bottom: 40px;
+            right: calc(50% - 7px);
+          }
+          &.circle-10 {
+            bottom: 12px;
+            left: 89px;
+          }
+          &.circle-11 {
+            bottom: 36px;
+            left: 56px;
+          }
+        }
+      }
       .title-regards {
         margin-bottom: 8px;
         margin-top: 20px;
+      }
+      .regards {
+        display: flex;
+        gap: 24px;
+        flex: 0 0 40px;
+        align-items: stretch;
+        .icon {
+          display: flex;
+          flex: 0 0 32px;
+        }
       }
     }
     .item {
@@ -44,13 +198,13 @@
       flex: 0 0 50%;
       box-sizing: border-box;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       &.item-left {
         border-right: 1px solid #E4E4E4;
-        padding: 15px 0 15px 60px;
+        padding: 0 0 0 60px;
       }
       &.item-right {
-        padding: 15px 0 15px 25px;
+        padding: 0 0 0 25px;
       }
       .icon {
         display: flex;
@@ -61,6 +215,30 @@
         &.socer-player-icon {
           height: 30px;
           background-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .profile-aside-component {
+    flex: 0 0 324px;
+    .elem {
+      &.elem-1 {
+        padding: 33px 33px;
+        flex: 0 0 498px;
+      }
+      &.elem-4 {
+        padding: 15px 0 15px 20px;
+      }
+      &.elem-5 {
+        flex: 0 0 405px;
+        padding: 16px 0 0 24px;
+      }
+      .item {
+        &.item-left {
+          padding: 0 0 0 25px;
         }
       }
     }

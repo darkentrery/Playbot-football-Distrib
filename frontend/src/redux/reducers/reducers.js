@@ -7,7 +7,7 @@ import {
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW, END_GAME_WINDOW,
     EVENT, FILL_REGULATION_WINDOW, GAME, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
-    LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYERS,
+    LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYER, PLAYERS,
     REFRESH_PASSWORD_WINDOW, REPEAT_EVENT_WINDOW, SAME_EVENTS,
     SIGN_UP_WINDOW, STEPS, SUCCESS_CANCEL_EVENT_WINDOW,
     SUCCESS_CREATE_EVENT_WINDOW,
@@ -188,6 +188,7 @@ const user = (state = initialAuthState, action) => {
 const initialEventState = {
     event: false,
     players: [],
+    player: false,
     steps: [],
     hiddenMap: false,
     team: false,
@@ -206,6 +207,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               players: action.value,
+          };
+      case PLAYER:
+          return {
+              ...state,
+              player: action.value,
           };
       case STEPS:
           return {

@@ -1,32 +1,23 @@
 import {connect} from "react-redux";
 import {
   auth,
-  choiceCityWindow,
-  confirmPlayersWindow,
-  confirmTeamPlayersWindow,
-  confirmTeamsWindow,
-  createEventUnAuthWindow,
-  createEventWindow,
-  event,
-  fillRegulationWindow,
-  hiddenMap,
-  iphone,
-  loginWindow,
-  mobileFirstPageWindow,
-  player,
-  players,
-  signUpWindow,
-  steps,
-  successSignUp2Window,
-  team
+  choiceCityWindow, confirmPlayersWindow, confirmTeamPlayersWindow, confirmTeamsWindow,
+  event, fillRegulationWindow,
+  hiddenMap, iphone,
+  loginWindow, mobileFirstPageWindow, player, players,
+  signUpWindow, steps,
+  successSignUp2Window, team
 } from "../actions/actions";
-import {ProfileWrapperComponent} from "../../components/wrappers/profileWrapperComponent/ProfileWrapperComponent";
+import {
+  ProfileMyEventsPageComponent
+} from "../../components/pages/profileMyEventsPageComponent/ProfileMyEventsPageComponent";
 
 
 const mapStateToProps = (state) => {
   return {
     ...state,
-    state: state,
+    player: state.event.player,
+    user: state.event.user,
   };
 };
 
@@ -102,20 +93,14 @@ const mapDispatchToProps = (dispatch) => {
       showMap: () => {
         dispatch(hiddenMap(false));
       },
-      openCreateEvent: () => {
-        dispatch(createEventWindow(true));
-      },
-      openCreateEventUnAuth: () => {
-        dispatch(createEventUnAuthWindow(true));
-      },
     },
   };
 };
 
 
-const VisibleProfileWrapper = connect(
+const VisibleMyEventsPage = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileWrapperComponent);
+)(ProfileMyEventsPageComponent);
 
-export default VisibleProfileWrapper;
+export default VisibleMyEventsPage;

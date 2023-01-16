@@ -395,6 +395,7 @@ const getRequest =(url, data=false) => {
 
 export const authService = {
 	getUsers() { return getRequest('get-users/'); },
+	getUser(pk) { return getRequest('get-user/', pk); },
 	login(user) {
 		return postRequest('login/', user).then((response) => {
 			if (response.status === 200) {
