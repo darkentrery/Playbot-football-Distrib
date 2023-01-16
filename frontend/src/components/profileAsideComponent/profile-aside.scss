@@ -17,6 +17,27 @@
       gap: 12px;
       align-items: center;
       flex-direction: column;
+      .emblem-component {
+        margin-bottom: 8px;
+      }
+      .scale {
+        display: flex;
+        flex: 0 0 6px;
+        box-sizing: border-box;
+        border: 1px solid #D19C6C;
+        border-radius: 3px;
+        align-self: stretch;
+        position: relative;
+
+        .fill-scale {
+          position: absolute;
+          left: 0;
+          background: #D19C6C;
+          height: 4px;
+          border-radius: 2px;
+          top: 0;
+        }
+      }
     }
     &.elem-4 {
       flex-direction: column;

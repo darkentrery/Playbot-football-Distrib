@@ -1,0 +1,216 @@
+.emblem-component {
+  display: flex;
+  position: relative;
+  flex: 0 0 372px;
+  align-self: stretch;
+  box-sizing: border-box;
+
+  .pentagon-1 {
+    position: absolute;
+    width: 100%;
+    background: #D19C6C;
+    top: 60px;
+    height: calc(100% - 60px);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 189px;
+    border-bottom-right-radius: 189px;
+
+    &:before {
+      content: '';
+      padding-top: 60px;
+      background: linear-gradient(to right bottom, transparent 48%, #D19C6C 50%) left / 50.025% 100% no-repeat,
+                  linear-gradient(to left bottom, transparent 48%, #D19C6C 50%) right / 50.025% 100% no-repeat;
+      position: absolute;
+      top: -60px;
+      left: 6px;
+      right: 6px;
+    }
+  }
+
+  .pentagon-2 {
+    position: absolute;
+    width: calc(100% - 10px);
+    background: #D9D9D9;
+    top: 62.5px;
+    height: calc(100% - 67.5px);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 184px;
+    border-bottom-right-radius: 184px;
+    left: 5px;
+
+    &:before {
+      content: '';
+      padding-top: 57.5px;
+      background: linear-gradient(to right bottom, transparent 48%, #D9D9D9 50%) left / 50.025% 100% no-repeat,
+                  linear-gradient(to left bottom, transparent 48%, #D9D9D9 50%) right / 50.025% 100% no-repeat;
+      position: absolute;
+      top: -57.5px;
+      left: 6px;
+      right: 6px;
+    }
+  }
+
+  .pentagon-3 {
+    position: absolute;
+    width: calc(100% - 20px);
+    background: #D19C6C;
+    top: 65px;
+    height: calc(100% - 75px);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 179px;
+    border-bottom-right-radius: 179px;
+    left: 10px;
+
+    &:before {
+      content: '';
+      padding-top: 55px;
+      background: linear-gradient(to right bottom, transparent 48%, #D19C6C 50%) left / 50.025% 100% no-repeat,
+                  linear-gradient(to left bottom, transparent 48%, #D19C6C 50%) right / 50.025% 100% no-repeat;
+      position: absolute;
+      top: -55px;
+      left: 6px;
+      right: 6px;
+    }
+  }
+
+  .pentagon-4 {
+    position: absolute;
+    width: calc(100% - 30px);
+    background: #D9D9D9;
+    top: 67.5px;
+    height: calc(100% - 82.5px);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 174px;
+    border-bottom-right-radius: 174px;
+    left: 15px;
+
+    &:before {
+      content: '';
+      padding-top: 52.5px;
+      background: linear-gradient(to right bottom, transparent 48%, #D9D9D9 50%) left / 50.025% 100% no-repeat,
+                  linear-gradient(to left bottom, transparent 48%, #D9D9D9 50%) right / 50.025% 100% no-repeat;
+      position: absolute;
+      top: -52.5px;
+      left: 6px;
+      right: 6px;
+    }
+  }
+
+  .bottom-logo {
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    border-radius: 16.5px;
+    border: 3px solid #D19C6C;
+    box-sizing: border-box;
+    left: calc(50% - 16.5px);
+    background: #F7F4ED;
+    bottom: 0;
+
+    .logo-korobka-icon {
+      background-size: 23px auto;
+      background-position: center;
+      height: 27px;
+      width: 27px;
+    }
+  }
+
+  .bottom-line {
+    position: absolute;
+    background: #D19C6C;
+    height: 3px;
+    border-radius: 1.5px;
+    width: 100px;
+    left: calc(50% - 50px);
+    bottom: 45px;
+  }
+
+  .statistic {
+    position: absolute;
+    display: flex;
+    height: 68px;
+    width: 140px;
+    box-sizing: border-box;
+    top: 248px;
+    left: calc(50% - 70px);
+
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 3px;
+      border-radius: 1.5px;
+      background: #D19C6C;
+      left: calc(50% - 1.5px);
+    }
+    .elem {
+      display: flex;
+      flex: 0 0 50%;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0;
+      border: 0;
+      align-items: start;
+      span {
+        font-family: "Druk Cyr", sans-serif;
+        letter-spacing: 0.04em;
+      }
+    }
+    .elem-2 {
+      padding-left: 25px;
+    }
+  }
+
+  .player-name {
+    position: absolute;
+    font-family: "Druk Cyr", sans-serif;
+    letter-spacing: 0.04em;
+    width: 100%;
+    left: 0;
+    top: 200px;
+    text-align: center;
+  }
+
+  .left-label {
+    position: absolute;
+    width: 63px;
+    height: 125px;
+    display: flex;
+    background: #F7F4ED;
+    left: 28px;
+    top: 59px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    gap: 6px;
+    justify-content: end;
+    flex-direction: column;
+
+    &:before {
+      content: '';
+      padding-top: 30px;
+      background: linear-gradient(to right bottom, transparent 48%, #F7F4ED 50%) left / 100% 100% no-repeat;
+      position: absolute;
+      top: -30px;
+      left: 0;
+      right: 0;
+    }
+    .elem-1 {
+      font-family: "Druk Cyr", sans-serif;
+      text-align: center;
+    }
+    .elem-2 {
+      align-self: stretch;
+      display: flex;
+      flex: 0 0 5px;
+      background: $blackColor;
+      border-radius: 2.5px;
+      margin-bottom: 25px;
+    }
+  }
+}

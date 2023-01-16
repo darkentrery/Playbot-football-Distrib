@@ -1,3 +1,4 @@
+import {EmblemComponent} from "../emblemComponent/EmblemComponent";
 
 
 export const ProfileAsideComponent = ({player}) => {
@@ -16,27 +17,18 @@ export const ProfileAsideComponent = ({player}) => {
                 <div className={"central-circle"}></div>
                 <div className={"central-point"}></div>
                 {numbers.map((num) => (<div className={`circle circle-${num}`}></div>))}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
-                {/*<div className={"circle circle-1"}></div>*/}
             </div>
         )
     }
+
     return (
         <div className={`profile-aside-component`}>
             <div className={"elem elem-1"}>
-
+                {player && <EmblemComponent player={player}/>}
                 <span className={"black-400-14"}>Заполненность профиля <span className={"black-600-14"}>55</span>%</span>
-
+                <div className={"scale"}>
+                    <div className={"fill-scale"} style={{width: 50}}></div>
+                </div>
             </div>
             <div className={"elem elem-2"}>
                 <div className={"item item-left"}>
