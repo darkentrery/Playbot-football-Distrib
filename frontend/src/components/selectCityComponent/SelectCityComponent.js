@@ -1,34 +1,45 @@
-import React, { useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {SearchComponent} from "../searchComponent/SearchComponent";
+import {cityService} from "../../services/CityService";
+import $ from "jquery";
 
 
-const DropDownComponent = ({
+export const SelectCityComponent = ({
     value=false,
     setValue,
+    className='',
     rightFirstIcon='down-arrow-icon',
     rightSecondIcon='up-arrow-icon',
-    leftIcon='foot-icon',
-    content=[1, 2, 3, 4],
-    sizingClass='dropdown-size',
-    flagClose=true,
-    id=1,
+    leftIcon='map-point-icon',
     errorText=false,
     setErrorText = () => {},
     placeholder=null,
-    tooltipText=false,
 }) => {
     const [isDropdown, setIsDropdown] = useState(false);
-    const [isTooltip, setIsTooltip] = useState(false);
+    const [cities, setCities] = useState([]);
+    const [citiesView, setCitiesView] = useState([]);
     const refLabel = useRef();
     const refRightIcon = useRef();
-    // let firstValue = value ? value : content[0];
-    let firstValue = content[0];
+    let firstValue = '';
     if (!value && placeholder) {
         firstValue = placeholder;
-    } else if (!value && !placeholder) {
-        firstValue = content[0];
     } else if (value) {
         firstValue = value;
     }
+
+    useEffect(() => {
+        let isSubscribe = true;
+        if (isDropdown) {
+            cityService.getCities().then((response) => {
+                console.log(response.data.cities)
+                if (response.status == 200) {
+                    setCities(response.data.cities);
+                    setCitiesView(response.data.cities);
+                }
+            })
+        }
+        return () => isSubscribe = false;
+    }, [isDropdown])
 
     const openDropdown = (e) => {
         setIsDropdown(!isDropdown);
@@ -45,40 +56,33 @@ const DropDownComponent = ({
         setErrorText(false);
     }
 
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (e) => {
         if (isDropdown) {
-            if (e.target !== refLabel.current && e.target !== refRightIcon.current) {
+            console.log($(e.target).closest('.select-city-component'))
+            if (e.target !== refLabel.current && e.target !== refRightIcon.current && !$(e.target).closest('.select-city-component').length) {
                 closeDropdown();
             }
         }
     })
 
-    const onHoverRight = () => {
-      if (tooltipText) setIsTooltip(true);
-    }
-
-    const onLeaveRight = () => {
-        if (tooltipText) setIsTooltip(false);
-    }
-
     return (
-        <div className={`dropdown-component ${sizingClass}`}>
+        <div className={`select-city-component ${className}`}>
             <div className={`dropdown`}>
                 <div className={`left-icon ${leftIcon}`}></div>
                 <span className={`dropdown-label ${errorText ? 'error' : ''} ${value ? '' : 'gray-400-14'}`}
                       ref={refLabel} onClick={openDropdown}>{value ? value : firstValue}</span>
                 <div className={`right-icon ${isDropdown ? rightSecondIcon : rightFirstIcon}`} ref={refRightIcon}
-                     onClick={openDropdown} onMouseOver={onHoverRight} onMouseLeave={onLeaveRight}></div>
+                     onClick={openDropdown}></div>
                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
-                    {content && content.map((item, key) => (
+                    <SearchComponent arrayFirst={cities} setArraySecond={setCitiesView}/>
+                    <div className={"items-list"}>
+                        {citiesView && citiesView.map((item, key) => (
                         <span className={"dropdown-elem"} onClick={choiceElement} key={key}>{item}</span>
                     ))}
+                    </div>
                 </div>
-                <span className={isTooltip ? 'tooltip-text' : 'tooltip-text hidden'}>{tooltipText}</span>
             </div>
             <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>
         </div>
     )
 }
-
-export default DropDownComponent

@@ -91,6 +91,31 @@ const choiceTime = (e, setTime, refTime) => {
     }
 }
 
+const choiceBirthDate =(e, setDate, refDate) => {
+    if (typeof e == "string") {
+        let val = e.replace(/\D/g, '');
+        val = val.slice(0, 8);
+        if (Number(val.slice(0, 1)) > 3) val = replaceAt(val, 0);
+        if (Number(val.slice(0, 2)) > 31) val = replaceAt(val, 1);
+        if (Number(val.slice(2, 3)) > 1) val = replaceAt(val, 2);
+        if (Number(val.slice(2, 4)) > 12) val = replaceAt(val, 3);
+        let formatVal = val;
+        if (val.length > 2 && val.length < 5) {
+            formatVal = `${val.slice(0, 2)}.${val.slice(2, 4)}`;
+        } else if (val.length > 4) {
+            formatVal = `${val.slice(0, 2)}.${val.slice(2, 4)}.${val.slice(4, 8)}`;
+        }
+        if (val.length === 8) {
+            setDate(formatVal);
+        } else {
+            setDate(false);
+        }
+        refDate.current.setState({inputValue: formatVal})
+    } else {
+        setDate(e.format("YYYY-MM-DD"));
+    }
+}
+
 const getMinutesStr = (value) => {
     let label = "минут";
     if (value.slice(value.length - 1) === "1" && !value.includes("11")) {
@@ -101,4 +126,4 @@ const getMinutesStr = (value) => {
     return label;
 }
 
-export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr}
+export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate}

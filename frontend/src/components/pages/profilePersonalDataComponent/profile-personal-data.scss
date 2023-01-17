@@ -47,6 +47,9 @@
     gap: 14px;
     flex-direction: column;
 
+    #input__photo {
+      display: none;
+    }
     .upload-photo {
       display: flex;
       background: $lightGrayColor;
@@ -62,6 +65,10 @@
         display: flex;
         flex: 0 0 40px;
         align-self: stretch;
+        &.my-photo {
+          width: 40px;
+          height: 40px;
+        }
       }
       .el-2 {
         display: flex;
@@ -92,6 +99,60 @@
       &.elem-1 {
         .avatar-icon {
           cursor: auto;
+        }
+      }
+      &.elem-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        .input-message {
+          flex: 0 0 12px;
+          margin-top: 4px;
+          font-size: 10px;
+          &.error {
+            color: #EC5B56;
+          }
+        }
+        .date input {
+          background: url("../../../assets/icon/calendar3.png") no-repeat;
+          background-size: 14px 12px;
+          background-position: 16px center;
+        }
+      }
+      &.elem-6 {
+        .map-point-icon {
+          width: 16px;
+          background-size: 16px;
+        }
+      }
+      &.elem-8 {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+        height: 17px;
+      }
+      &.elem-9 {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+        height: 17px;
+        &.hidden {
+          display: none;
+        }
+      }
+      &.elem-10 {
+        &.hidden {
+          display: none;
+        }
+      }
+      &.elem-11 {
+        flex: 0 1 592px;
+        height: 99px;
+        padding-left: 44px;
+        font-size: 14px;
+        &.map-point-icon {
+          background-position: 18px 16px;
         }
       }
     }

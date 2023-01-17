@@ -39,6 +39,7 @@ textarea {
   border: 0.8px solid #949494;
   border-radius: 10px;
   padding: 16px;
+  box-sizing: border-box;
 
   font-family: 'Raleway', sans-serif;
   font-style: normal;
@@ -57,6 +58,7 @@ input[type=text], [type=password] {
   font-size: 14px;
   line-height: 120%;
   -webkit-appearance: none;
+  box-sizing: border-box;
 }
 
 a {

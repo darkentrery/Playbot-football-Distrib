@@ -12,7 +12,7 @@
 
 .phone-icon {
   background: url("../icon/phone.png") no-repeat;
-  background-size: 16px 15px;
+  background-size: 15px 16px;
   background-position: 14px center;
 }
 
@@ -55,6 +55,13 @@
   background: url("../icon/orange-lock.png") no-repeat;
   background-size: 12px 15px;
   background-position: center;
+}
+
+.gender-man-icon {
+  background: url("../icon/gender-man.png") no-repeat;
+  background-size: 12px;
+  background-position: center;
+  width: 12px;
 }
 
 .eye-icon {
@@ -203,6 +210,14 @@
   background: url("../icon/white-plus.png");
   background-repeat: no-repeat;
   background-size: 20px;
+}
+
+.orange-plus-icon {
+  background: url("../icon/orange-plus.png");
+  background-repeat: no-repeat;
+  background-size: 9px;
+  background-position: center;
+  width: 9px;
 }
 
 .gray-cross-icon {
