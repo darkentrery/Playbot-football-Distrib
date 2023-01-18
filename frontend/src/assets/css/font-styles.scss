@@ -76,6 +76,12 @@
   color: $blackColor;
 }
 
+.black-600-12 {
+  font-weight: 600;
+  font-size: 12px;
+  color: $blackColor;
+}
+
 .black-500-28 {
   font-weight: 500;
   font-size: 28px;
@@ -107,9 +113,9 @@
 }
 
 .black-500-12 {
-  font-weight: 500 !important;
-  font-size: 12px !important;
-  color: $blackColor !important;
+  font-weight: 500;
+  font-size: 12px;
+  color: $blackColor;
 }
 
 .black-400-16 {
@@ -131,9 +137,9 @@
 }
 
 .black-300-13 {
-  font-weight: 300 !important;
-  font-size: 13px !important;
-  color: $blackColor !important;
+  font-weight: 300;
+  font-size: 13px;
+  color: $blackColor;
 }
 
 .black-400-12-italic {
@@ -198,27 +204,39 @@
 }
 
 .dark-gray-600-32 {
-  font-weight: 600 !important;
-  font-size: 32px !important;
-  color: $darkGrayColor !important;
+  font-weight: 600;
+  font-size: 32px;
+  color: $darkGrayColor;
 }
 
 .dark-gray-500-16 {
-  font-weight: 500 !important;
-  font-size: 16px !important;
-  color: $darkGrayColor !important;
+  font-weight: 500;
+  font-size: 16px;
+  color: $darkGrayColor;
 }
 
 .dark-gray-400-14 {
-  font-weight: 400 !important;
-  font-size: 14px !important;
-  color: $darkGrayColor !important;
+  font-weight: 400;
+  font-size: 14px;
+  color: $darkGrayColor;
 }
 
 .dark-gray-400-12 {
-  font-weight: 400 !important;
-  font-size: 12px !important;
-  color: $darkGrayColor !important;
+  font-weight: 400;
+  font-size: 12px;
+  color: $darkGrayColor;
+}
+
+.gray-700-20 {
+  font-weight: 700;
+  font-size: 20px;
+  color: $grayColor;
+}
+
+.gray-600-12 {
+  font-weight: 600;
+  font-size: 12px;
+  color: $grayColor;
 }
 
 .gray-400-16 {
@@ -246,9 +264,9 @@
 }
 
 .orange-400-14 {
-  font-weight: 400 !important;
-  font-size: 14px !important;
-  color: $orangeColor !important;
+  font-weight: 400;
+  font-size: 14px;
+  color: $orangeColor;
 }
 
 .middle-gray-400-14 {

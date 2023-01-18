@@ -65,6 +65,7 @@
 @media screen and (min-width: 1280px){
   .profile-wrapper-component {
     min-height: calc(100vh - 96px - 224px);
+    padding: 0 calc((100vw - 1280px) / 2);
   }
 }
 

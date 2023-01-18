@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     state: state,
+    player: state.event.player,
   };
 };
 
