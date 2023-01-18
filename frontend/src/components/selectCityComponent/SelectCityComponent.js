@@ -31,7 +31,6 @@ export const SelectCityComponent = ({
         let isSubscribe = true;
         if (isDropdown) {
             cityService.getCities().then((response) => {
-                console.log(response.data.cities)
                 if (response.status == 200) {
                     setCities(response.data.cities);
                     setCitiesView(response.data.cities);
@@ -50,7 +49,6 @@ export const SelectCityComponent = ({
     }
 
     const choiceElement = (e) => {
-        // refLabel.current.innerHTML = e.target.innerHTML;
         setIsDropdown(!isDropdown);
         setValue(e.target.innerHTML);
         setErrorText(false);
@@ -58,7 +56,6 @@ export const SelectCityComponent = ({
 
     document.addEventListener('click', (e) => {
         if (isDropdown) {
-            console.log($(e.target).closest('.select-city-component'))
             if (e.target !== refLabel.current && e.target !== refRightIcon.current && !$(e.target).closest('.select-city-component').length) {
                 closeDropdown();
             }

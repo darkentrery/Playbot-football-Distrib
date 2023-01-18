@@ -360,10 +360,10 @@ export default class AuthService{
 	}
 }
 
-const postRequest =(url, data) => {
+const postRequest = (url, data, contentType='application/json') => {
 	url = `${API_URL}${url}`;
 	return axios.post(url, data, {headers: {
-		'Content-Type': 'application/json',
+		'Content-Type': contentType,
 		'X-CSRFToken': csrftoken,
 		'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
 	}})
@@ -375,7 +375,7 @@ const postRequest =(url, data) => {
 		});
 }
 
-const getRequest =(url, data=false) => {
+const getRequest = (url, data=false) => {
 	if (data && typeof data === "string") {
 		url = `${API_URL}${url}${data}/`;
 	} else {
@@ -396,6 +396,7 @@ const getRequest =(url, data=false) => {
 export const authService = {
 	getUsers() { return getRequest('get-users/'); },
 	getUser(pk) { return getRequest('get-user/', pk); },
+	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
 	login(user) {
 		return postRequest('login/', user).then((response) => {
 			if (response.status === 200) {

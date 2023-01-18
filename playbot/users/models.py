@@ -5,6 +5,17 @@ from django.utils.translation import gettext_lazy as _
 from playbot.cities.models import City
 
 
+class Position(models.Model):
+    name = models.CharField(_("Position"), max_length=150, unique=True)
+
+    class Meta:
+        verbose_name = "Position"
+        verbose_name_plural = "Positions"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class User(AbstractUser):
     class Gender(models.TextChoices):
         MALE = "Муж.", _("Муж.")
@@ -20,6 +31,11 @@ class User(AbstractUser):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
     rank = models.FloatField(_("Rank"), default=0)
     gender = models.CharField(_("Gender"), max_length=50, choices=Gender.choices, default=Gender.MALE)
+    position_1 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_1", blank=True, null=True)
+    position_2 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_2", blank=True, null=True)
+    birthday = models.DateField(_("Birthday"), blank=True, null=True)
+    photo = models.ImageField(upload_to="photos", verbose_name="Photo", blank=True, null=True)
+    about_self = models.TextField(_("About Self"), blank=True, null=True)
     is_active = models.BooleanField(
         _("active"),
         default=False,

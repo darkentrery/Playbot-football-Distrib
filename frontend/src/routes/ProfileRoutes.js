@@ -5,6 +5,8 @@ const ProfileRoutes = {
 	profileFavoritesLink (pk) {return `/profile/${pk}/favorites/`;},
     get profilePersonalData () {return `/profile/:pk/personal-data/`;},
 	profilePersonalDataLink (pk) {return `/profile/${pk}/personal-data/`;},
+    get previewPlayer () {return `/profile/:pk/preview/`;},
+	previewPlayerLink (pk) {return `/profile/${pk}/preview/`;},
 }
 
 export default ProfileRoutes;

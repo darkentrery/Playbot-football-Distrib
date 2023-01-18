@@ -22,4 +22,5 @@ urlpatterns = [
     path("api/is-auth/", views.IsAuthView.as_view(), name='is-auth'),
     path("api/get-users/", views.GetUsersView.as_view(), name='get-users'),
     path("api/get-user/<int:pk>/", views.GetUserView.as_view(), name='get-user'),
+    path("api/update-user/", views.UpdateUserView.as_view(), name='update-user'),
 ]

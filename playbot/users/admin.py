@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from playbot.users.models import User
+from playbot.users.models import User, Position
 
 
 @admin.register(User)
@@ -30,6 +30,11 @@ class CustomUserAdmin(UserAdmin):
                     "confirm_slug",
                     "gender",
                     "rank",
+                    "birthday",
+                    "position_1",
+                    "position_2",
+                    "photo",
+                    "about_self",
                 )
             },
         ),
@@ -47,3 +52,10 @@ class CustomUserAdmin(UserAdmin):
         ),
         (("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
+
+
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+    ]

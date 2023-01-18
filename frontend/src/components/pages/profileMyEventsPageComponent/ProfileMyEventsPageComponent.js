@@ -38,6 +38,13 @@ export const ProfileMyEventsPageComponent = ({
         )
     }
 
+    const EventRow = ({event}) => {
+        return (<>
+            <EventRow1280 event={event}/>
+            <EventItem376Component event={event}/>
+        </>)
+    }
+
     return (
         <VisibleProfileWrapper>
             <div className={`profile-my-events-page-component`}>
@@ -61,14 +68,8 @@ export const ProfileMyEventsPageComponent = ({
                     <div className={"elem elem-3 gray-cup-icon"}></div>
                 </div>
                 {player && <div className={"table-body"}>
-                    {!isOrganizer && player.event_player.map((event, key) => (<>
-                        <EventRow1280 event={event.event} key={key}/>
-                        <EventItem376Component event={event.event} key={key}/>
-                    </>))}
-                    {isOrganizer && player.event.map((event, key) => (<>
-                        <EventRow1280 event={event} key={key}/>
-                        <EventItem376Component event={event} key={key}/>
-                    </>))}
+                    {!isOrganizer && player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
+                    {isOrganizer && player.event.map((event, key) => (<EventRow event={event} key={key}/>))}
                 </div>}
             </div>
         </VisibleProfileWrapper>

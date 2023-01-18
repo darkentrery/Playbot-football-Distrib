@@ -10,7 +10,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from playbot.cities.models import City
 from playbot.users.models import User
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
-    SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer
+    SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer
 
 
 class IndexView(APIView):
@@ -150,6 +150,21 @@ class GetUserView(APIView):
         serializer = UserSerializer(instance=User.objects.get(pk=kwargs.get("pk")))
         json = serializer.data
         return Response(json, status=status.HTTP_200_OK)
+
+
+class UpdateUserView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        id = int(request.data.get("id")[0])
+        if request.user.id == id:
+            serializer = UpdateUserSerializer(instance=request.user, data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    json = UserSerializer(instance=request.user).data
+                    return Response(json, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

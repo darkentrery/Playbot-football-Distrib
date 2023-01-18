@@ -16,7 +16,7 @@ from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.events.models import EventPlayer, Event
 from playbot.events.serializers import EventSerializer
-from playbot.users.models import User
+from playbot.users.models import User, Position
 from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
 
 
@@ -28,16 +28,34 @@ class EventPlayerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class PositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Position
+        fields = "__all__"
+
+
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     all_games = serializers.IntegerField(read_only=True)
     event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     event = EventSerializer(Event.objects.all(), many=True, read_only=True)
+    position_1 = PositionSerializer(read_only=True)
+    position_2 = PositionSerializer(read_only=True)
 
     class Meta:
         model = User
         fields = "__all__"
         read_only_field = ['is_active',]
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+    position_1 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
+    position_2 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
+
+    class Meta:
+        model = User
+        fields = ["username", "birthday", "email", "gender", "phone_number", "city", "position_1", "position_2", "photo", "about_self"]
 
 
 class CustomTokenObtainSerializer(serializers.Serializer):

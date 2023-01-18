@@ -1,0 +1,79 @@
+[
+  {
+    "model": "users.Position",
+    "pk": 1,
+    "fields": {
+      "name": "Позиция 1"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 2,
+    "fields": {
+      "name": "Позиция 2"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 3,
+    "fields": {
+      "name": "Позиция 3"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 4,
+    "fields": {
+      "name": "Позиция 4"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 5,
+    "fields": {
+      "name": "Позиция 5"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 6,
+    "fields": {
+      "name": "Позиция 6"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 7,
+    "fields": {
+      "name": "Позиция 7"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 8,
+    "fields": {
+      "name": "Позиция 8"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 9,
+    "fields": {
+      "name": "Позиция 9"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 10,
+    "fields": {
+      "name": "Позиция 10"
+    }
+  },
+  {
+    "model": "users.Position",
+    "pk": 11,
+    "fields": {
+      "name": "Позиция 11"
+    }
+  }
+]
