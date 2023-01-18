@@ -16,12 +16,14 @@ export const ProfileWrapperComponent = ({
     const pk = params.pk;
 
     useEffect(() => {
-        authService.getUser(pk.toString()).then((response) => {
-            if (response.status === 200) {
-                console.log(response)
-                funcs.setPlayer(response.data);
-            }
-        })
+        if (!state.event.player || (state.event.player && state.event.player.id !== pk)) {
+            authService.getUser(pk.toString()).then((response) => {
+                if (response.status === 200) {
+                    console.log(response)
+                    funcs.setPlayer(response.data);
+                }
+            })
+        }
     }, [pk])
 
     const getOpenCreateEvent = () => {

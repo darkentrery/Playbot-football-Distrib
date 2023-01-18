@@ -58,6 +58,17 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         fields = ["username", "birthday", "email", "gender", "phone_number", "city", "position_1", "position_2", "photo", "about_self"]
 
 
+class UpdatePasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["password",]
+
+    def update(self, instance, validated_data):
+        instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
+
+
 class CustomTokenObtainSerializer(serializers.Serializer):
     username_field = get_user_model().USERNAME_FIELD
     token_class = None

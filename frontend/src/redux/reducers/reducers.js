@@ -1,20 +1,41 @@
 import {
     AUTH,
     CANCEL_EVENT_WINDOW,
-    CHOICE_CITY_WINDOW, CITY,
-    CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
+    CHOICE_CITY_WINDOW,
+    CITY,
+    CONFIRM_PLAYERS_WINDOW,
+    CONFIRM_TEAM_PLAYERS_WINDOW,
+    CONFIRM_TEAMS_WINDOW,
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
-    EDIT_EVENT_WINDOW, END_GAME_WINDOW,
-    EVENT, FILL_REGULATION_WINDOW, GAME, HIDDEN_MAP, IPHONE, LEAVE_EVENT_WINDOW,
-    LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW, PLAYER, PLAYERS,
-    REFRESH_PASSWORD_WINDOW, REPEAT_EVENT_WINDOW, SAME_EVENTS,
-    SIGN_UP_WINDOW, STEPS, SUCCESS_CANCEL_EVENT_WINDOW,
+    EDIT_EVENT_WINDOW,
+    END_GAME_WINDOW,
+    EVENT,
+    FILL_REGULATION_WINDOW,
+    GAME,
+    HIDDEN_MAP,
+    IPHONE,
+    LEAVE_EVENT_WINDOW,
+    LOGIN_WINDOW,
+    MOBILE_FIRST_PAGE_WINDOW,
+    PLAYER,
+    PLAYERS,
+    REFRESH_PASSWORD_WINDOW,
+    REPEAT_EVENT_WINDOW,
+    SAME_EVENTS,
+    SIGN_UP_WINDOW,
+    STEPS,
+    SUCCESS_CANCEL_EVENT_WINDOW,
     SUCCESS_CREATE_EVENT_WINDOW,
     SUCCESS_EDIT_EVENT_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
     SUCCESS_SIGN_UP2_WINDOW,
-    SUCCESS_SIGN_UP_WINDOW, SUCCESS_UPDATE_USER_WINDOW, TEAM, UN_AUTH_JOIN_WINDOW
+    SUCCESS_SIGN_UP_WINDOW,
+    SUCCESS_UPDATE_PASSWORD_WINDOW,
+    SUCCESS_UPDATE_USER_WINDOW,
+    TEAM,
+    UN_AUTH_JOIN_WINDOW,
+    UPDATE_PASSWORD_WINDOW
 } from "../actions/actions";
 import { combineReducers } from 'redux';
 
@@ -29,6 +50,7 @@ const initialState = {
     isOpenSuccessEditEvent: false,
     isOpenSuccessCancelEvent: false,
     isOpenSuccessUpdateUser: false,
+    isOpenSuccessUpdatePassword: false,
     isOpenChoiceCity: false,
     isOpenCreateEvent: false,
     isOpenCreateEventUnAuth: false,
@@ -43,6 +65,7 @@ const initialState = {
     isOpenLeaveEvent: false,
     isOpenUnAuthJoin: false,
     isOpenEndGame: false,
+    isOpenUpdatePassword: false,
 }
 
 
@@ -97,6 +120,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenSuccessUpdateUser: action.value
+          };
+      case SUCCESS_UPDATE_PASSWORD_WINDOW:
+          return {
+              ...state,
+              isOpenSuccessUpdatePassword: action.value
           };
       case REPEAT_EVENT_WINDOW:
           return {
@@ -167,6 +195,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenEndGame: action.value
+          };
+      case UPDATE_PASSWORD_WINDOW:
+          return {
+              ...state,
+              isOpenUpdatePassword: action.value
           };
       default:
           return state;

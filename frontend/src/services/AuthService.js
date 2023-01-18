@@ -397,6 +397,7 @@ export const authService = {
 	getUsers() { return getRequest('get-users/'); },
 	getUser(pk) { return getRequest('get-user/', pk); },
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
+	updatePassword(data) { return postRequest('update-password/', data); },
 	login(user) {
 		return postRequest('login/', user).then((response) => {
 			if (response.status === 200) {

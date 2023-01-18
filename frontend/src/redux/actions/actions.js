@@ -8,6 +8,7 @@ export const SUCCESS_CREATE_EVENT_WINDOW = 'SUCCESS_CREATE_EVENT_WINDOW';
 export const SUCCESS_EDIT_EVENT_WINDOW = 'SUCCESS_EDIT_EVENT_WINDOW';
 export const SUCCESS_CANCEL_EVENT_WINDOW = 'SUCCESS_CANCEL_EVENT_WINDOW';
 export const SUCCESS_UPDATE_USER_WINDOW = 'SUCCESS_UPDATE_USER_WINDOW';
+export const SUCCESS_UPDATE_PASSWORD_WINDOW = 'SUCCESS_UPDATE_PASSWORD_WINDOW';
 export const CHOICE_CITY_WINDOW = 'CHOICE_CITY_WINDOW';
 export const CREATE_EVENT_WINDOW = 'CREATE_EVENT_WINDOW';
 export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
@@ -22,6 +23,7 @@ export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 export const LEAVE_EVENT_WINDOW = 'LEAVE_EVENT_WINDOW';
 export const UN_AUTH_JOIN_WINDOW = 'UN_AUTH_JOIN_WINDOW';
 export const END_GAME_WINDOW = 'END_GAME_WINDOW';
+export const UPDATE_PASSWORD_WINDOW = 'UPDATE_PASSWORD_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -86,6 +88,11 @@ export const successCancelEventWindow = (value) => ({
 
 export const successUpdateUserWindow = (value) => ({
   type: SUCCESS_UPDATE_USER_WINDOW,
+  value,
+});
+
+export const successUpdatePasswordWindow = (value) => ({
+  type: SUCCESS_UPDATE_PASSWORD_WINDOW,
   value,
 });
 
@@ -156,6 +163,11 @@ export const unAuthJoinWindow = (value) => ({
 
 export const endGameWindow = (value) => ({
   type: END_GAME_WINDOW,
+  value,
+});
+
+export const updatePasswordWindow = (value) => ({
+  type: UPDATE_PASSWORD_WINDOW,
   value,
 });
 

@@ -1,34 +1,25 @@
 @use "sass:math";
 @import "fonts";
-@import "buttons";
 @import "icons";
 @import "fons";
 @import "font-styles";
+@import "buttons";
 
 @import "base";
 @import "head";
 @import "body";
 @import "bottom";
 
+//Wrappers
 @import "../../components/wrappers/eventWrapperComponent/event-wrapper";
 @import "../../components/wrappers/mainWrapperComponent/main-wrapper";
 @import "../../components/wrappers/profileWrapperComponent/profile-wrapper";
 @import "../../components/reglamentComponent/reglament";
 
-@import "sign-up";
-@import "login";
-@import "refresh-password";
-@import "body/create-event";
-@import "mobile-first-page";
-@import "choice-city";
+//Components
 @import "../../components/successComponent/success";
 @import "../../components/yesNoComponent/yes-no";
-@import "edit-event";
 @import "../../components/cancelComponent/cancel";
-@import "confirm-players";
-@import "fill-regulation";
-@import "confirm-teams";
-@import "confirm-team-players";
 @import "../../components/dropDownComponent/dropdown";
 @import "../../components/checkSliderComponent/check-slider";
 @import "../../components/inputComponent/input";
@@ -46,6 +37,22 @@
 @import "../../components/emblemComponent/emblem";
 @import "../../components/selectCityComponent/select-city";
 
+
+//Popups
+@import "sign-up";
+@import "login";
+@import "refresh-password";
+@import "body/create-event";
+@import "mobile-first-page";
+@import "choice-city";
+@import "confirm-players";
+@import "fill-regulation";
+@import "confirm-teams";
+@import "confirm-team-players";
+@import "edit-event";
+@import "../../components/popups/updatePasswordComponent/update-password";
+
+//Pages
 @import "../../components/pages/generalInformationComponent/general-information";
 @import "../../components/teamsInformationComponent/teams-information";
 @import "../../components/pages/profileMyEventsPageComponent/profile-my-events-page";

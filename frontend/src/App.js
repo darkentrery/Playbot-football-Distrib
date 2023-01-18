@@ -50,6 +50,8 @@ import VisibleFavorites from "./redux/containers/VisibleFavorites";
 import VisibleProfilePersonalData from "./redux/containers/VisibleProfilePersonalData";
 import VisiblePreviewPlayer from "./redux/containers/VisiblePreviewPlayer";
 import VisibleSuccessUpdateUser from "./redux/containers/VisibleSuccessUpdateUser";
+import VisibleUpdatePassword from "./redux/containers/VisibleUpdatePassword";
+import VisibleSuccessUpdatePassword from "./redux/containers/VisibleSuccessUpdatePassword";
 
 
 
@@ -165,6 +167,8 @@ function App({state, funcs}) {
                 <VisibleCancelEvent/>
                 <VisibleLeaveEvent/>
                 <VisibleUnAuthJoin/>
+                <VisibleUpdatePassword/>
+                <VisibleSuccessUpdatePassword/>
 
                 <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
                                            funcs={funcs} isIPhone={state.app.isIPhone}/>

@@ -86,6 +86,10 @@ export const ProfilePersonalDataComponent = ({
         setAboutSelf(e.target.value);
     }
 
+    const updatePassword = () => {
+        funcs.openUpdatePassword();
+    }
+
     const updateUser = () => {
         if (!update) {
             cleanData();
@@ -94,9 +98,9 @@ export const ProfilePersonalDataComponent = ({
                 if (response.status === 200) {
                     funcs.openSuccessUpdateUser();
                     funcs.setPlayer(response.data);
+                    funcs.setAuth(true, response.data);
                     setUpdate(false);
                 }
-                console.log(response)
             })
         }
     }
@@ -177,11 +181,10 @@ export const ProfilePersonalDataComponent = ({
                     <textarea className={"elem elem-11 map-point-icon"} name="" id="" cols="30" rows="10" onChange={inputAbout}
                               placeholder={"Пара слов о себе"} value={aboutSelf ? aboutSelf : ''}
                     ></textarea>
-
                 </div>
                 <div className={"change-password"}>
                     <div className={"orange-lock-icon"}></div>
-                    <span className={"orange-400-14 link"}>Сменить пароль</span>
+                    <span className={"orange-400-14 link"} onClick={updatePassword}>Сменить пароль</span>
                 </div>
             </div>
         </VisibleProfileWrapper>

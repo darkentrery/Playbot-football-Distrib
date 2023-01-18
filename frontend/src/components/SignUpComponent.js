@@ -242,15 +242,13 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                                     <input className={"search-icon"} type="text" placeholder={"Найти страну"}
                                            onChange={(event) => authService.searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode)}/>
                                     <div className={"dropdown-body"} ref={refCountryBody}>
-                                        {countries && countries.map((item, key) => {
-                                            return (
-                                                <div className={"dropdown-elem"} onClick={choicePhoneCode} key={key}>
-                                                    <span className={"country"}>{item[0]}</span>
-                                                    <span className={"code"}>{item[1]}</span>
-                                                    <img className={"banner"} src={item[2]} alt=""/>
-                                                </div>
-                                            )
-                                        })}
+                                        {countries && countries.map((item, key) => (
+                                            <div className={"dropdown-elem"} onClick={choicePhoneCode} key={key}>
+                                                <span className={"country"}>{item[0]}</span>
+                                                <span className={"code"}>{item[1]}</span>
+                                                <img className={"banner"} src={item[2]} alt=""/>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
