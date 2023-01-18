@@ -6,7 +6,7 @@ import {
   hiddenMap, iphone,
   loginWindow, mobileFirstPageWindow, player, players,
   signUpWindow, steps,
-  successSignUp2Window, team
+  successSignUp2Window, successUpdateUserWindow, team
 } from "../actions/actions";
 import {
   ProfilePersonalDataComponent
@@ -86,6 +86,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       closeMobileFirstPage: () => {
         dispatch(mobileFirstPageWindow(false));
+      },
+      openSuccessUpdateUser: () => {
+        dispatch(successUpdateUserWindow(true));
       },
       removeMap: () => {
         dispatch(hiddenMap(true));

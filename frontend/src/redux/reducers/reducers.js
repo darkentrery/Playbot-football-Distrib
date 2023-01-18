@@ -14,7 +14,7 @@ import {
     SUCCESS_EDIT_EVENT_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
     SUCCESS_SIGN_UP2_WINDOW,
-    SUCCESS_SIGN_UP_WINDOW, TEAM, UN_AUTH_JOIN_WINDOW
+    SUCCESS_SIGN_UP_WINDOW, SUCCESS_UPDATE_USER_WINDOW, TEAM, UN_AUTH_JOIN_WINDOW
 } from "../actions/actions";
 import { combineReducers } from 'redux';
 
@@ -28,6 +28,7 @@ const initialState = {
     isOpenSuccessCreateEvent: false,
     isOpenSuccessEditEvent: false,
     isOpenSuccessCancelEvent: false,
+    isOpenSuccessUpdateUser: false,
     isOpenChoiceCity: false,
     isOpenCreateEvent: false,
     isOpenCreateEventUnAuth: false,
@@ -91,6 +92,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenSuccessCancelEvent: action.value
+          };
+      case SUCCESS_UPDATE_USER_WINDOW:
+          return {
+              ...state,
+              isOpenSuccessUpdateUser: action.value
           };
       case REPEAT_EVENT_WINDOW:
           return {

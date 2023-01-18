@@ -92,6 +92,7 @@ export const ProfilePersonalDataComponent = ({
             setUpdate(true);
             authDecoratorWithoutLogin(authService.updateUser, data).then((response) => {
                 if (response.status === 200) {
+                    funcs.openSuccessUpdateUser();
                     funcs.setPlayer(response.data);
                     setUpdate(false);
                 }

@@ -49,6 +49,7 @@ import VisibleMyEventsPage from "./redux/containers/VisibleMyEventsPage";
 import VisibleFavorites from "./redux/containers/VisibleFavorites";
 import VisibleProfilePersonalData from "./redux/containers/VisibleProfilePersonalData";
 import VisiblePreviewPlayer from "./redux/containers/VisiblePreviewPlayer";
+import VisibleSuccessUpdateUser from "./redux/containers/VisibleSuccessUpdateUser";
 
 
 
@@ -156,6 +157,7 @@ function App({state, funcs}) {
                 <VisibleSuccessCreateEvent/>
                 <VisibleSuccessEditEvent/>
                 <VisibleSuccessCancelEvent/>
+                <VisibleSuccessUpdateUser/>
                 <VisibleCreateEvent/>
                 <VisibleCreateEventUnAuth/>
                 <VisibleEditEvent/>
