@@ -1,4 +1,5 @@
 import {EmblemComponent} from "../emblemComponent/EmblemComponent";
+import {EmblemSmallComponent} from "../emblemSmallComponent/EmblemSmallComponent";
 
 
 export const ProfileAsideComponent = ({player}) => {
@@ -29,6 +30,9 @@ export const ProfileAsideComponent = ({player}) => {
                 <div className={"scale"}>
                     <div className={"fill-scale"} style={{width: 50}}></div>
                 </div>
+            </div>
+            <div className={"elem elem-376"}>
+                <EmblemSmallComponent player={player}/>
             </div>
             <div className={"elem elem-2"}>
                 <div className={"item item-left"}>

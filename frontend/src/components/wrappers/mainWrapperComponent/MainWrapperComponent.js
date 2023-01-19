@@ -12,7 +12,7 @@ export const MainWrapperComponent = ({
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={"body scroll"}>{children}</div>
-            <BottomComponent/>
+            <BottomComponent user={state.user.user}/>
         </main>
     )
 }

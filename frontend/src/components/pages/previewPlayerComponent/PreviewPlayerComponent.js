@@ -115,7 +115,7 @@ export const PreviewPlayerComponent = ({
                     </div>
                 </div>}
             </div>
-            <BottomComponent/>
+            <BottomComponent user={state.user.user}/>
         </main>
     )
 }

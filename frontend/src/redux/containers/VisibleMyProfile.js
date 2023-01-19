@@ -8,9 +8,7 @@ import {
   signUpWindow, steps,
   successSignUp2Window, team
 } from "../actions/actions";
-import {
-  ProfileMyEventsPageComponent
-} from "../../components/pages/profileMyEventsPageComponent/ProfileMyEventsPageComponent";
+import {MyProfileComponent} from "../../components/pages/myProfileComponent/MyProfileComponent";
 
 
 const mapStateToProps = (state) => {
@@ -101,9 +99,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-const VisibleMyEventsPage = connect(
+const VisibleMyProfile = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileMyEventsPageComponent);
+)(MyProfileComponent);
 
-export default VisibleMyEventsPage;
+export default VisibleMyProfile;

@@ -4,6 +4,7 @@
   background: #F9F9F9;
   box-sizing: border-box;
   flex: 1 1 auto;
+  overflow: auto;
 
   .my-profile {
     display: flex;
@@ -62,6 +63,10 @@
   }
 }
 
+.profile-wrapper-component-376 {
+  display: none;
+}
+
 @media screen and (min-width: 1280px){
   .profile-wrapper-component {
     min-height: calc(100vh - 96px - 224px);
@@ -104,6 +109,13 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .profile-wrapper-component {
-    max-height: calc(100vh - $bottomHeight);;
+    display: none;
+  }
+  .profile-wrapper-component-376 {
+    max-height: calc(100vh - $bottomHeight);
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: stretch;
+    overflow: auto;
   }
 }

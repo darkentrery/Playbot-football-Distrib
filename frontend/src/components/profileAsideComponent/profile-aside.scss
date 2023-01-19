@@ -11,6 +11,10 @@
     flex: 0 0 76px;
     align-items: stretch;
     box-sizing: border-box;
+
+    &.elem-376 {
+      display: none;
+    }
     &.elem-1 {
       flex: 0 0 506px;
       padding: 46px 60px 28px 60px;
@@ -261,6 +265,46 @@
       .item {
         &.item-left {
           padding: 0 0 0 25px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .profile-aside-component {
+    flex: 1 1 auto;
+    box-shadow: none;
+
+    .elem {
+      &.elem-1 {
+        display: none;
+      }
+      &.elem-376 {
+        display: flex;
+        flex: 0 0 190px;
+        box-sizing: border-box;
+        padding: 0 20px 17px 20px;
+        border: 0;
+      }
+      &.elem-4 {
+        display: none;
+      }
+      &.elem-5 {
+        padding: 18px 40px 0 40px;
+        .title-regards {
+          align-self: center;
+        }
+        .regards {
+          justify-content: center;
+        }
+      }
+      .item {
+        &.item-left {
+          padding: 0 0 0 40px;
+        }
+        &.item-right {
+          padding: 0 0 0 40px;
         }
       }
     }

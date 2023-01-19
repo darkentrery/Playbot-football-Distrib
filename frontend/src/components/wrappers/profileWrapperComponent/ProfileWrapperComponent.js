@@ -38,7 +38,7 @@ export const ProfileWrapperComponent = ({
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
-            <div className={"profile-wrapper-component scroll"}>
+            <div className={"profile-wrapper-component"}>
                 <ProfileAsideComponent player={state.event.player}/>
                 <div className={"my-profile"}>
                     <div className={"title-elem"}>
@@ -62,7 +62,10 @@ export const ProfileWrapperComponent = ({
                     {children}
                 </div>
             </div>
-            <BottomComponent/>
+            <div className={"profile-wrapper-component-376"}>
+                {children}
+            </div>
+            <BottomComponent user={state.user.user}/>
         </main>
     )
 }

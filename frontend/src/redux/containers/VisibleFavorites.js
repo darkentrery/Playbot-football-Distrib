@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     player: state.event.player,
-    user: state.event.user,
+    user: state.user.user,
   };
 };
 

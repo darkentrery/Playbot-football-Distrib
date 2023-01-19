@@ -4,9 +4,10 @@ import BaseRoutes from "../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import React from "react";
 import $ from "jquery";
+import ProfileRoutes from "../routes/ProfileRoutes";
 
 
-export default function BottomComponent () {
+export default function BottomComponent ({user}) {
 
     const openAllowPolicy = () => {
         let link = document.createElement("a");
@@ -119,9 +120,15 @@ export default function BottomComponent () {
             </div>
 
             <div className={"elem-376"}>
-                <Link className={"elem elem-1 orange-cup-icon active"} to={BaseRoutes.main} onClick={clickMenu}>События</Link>
-                <Link className={"elem elem-2 orange-statistic-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Статистика</Link>
-                <Link className={"elem elem-3 orange-avatar-icon disabled"} to={BaseRoutes.main} onClick={clickMenu}>Профиль</Link>
+                <Link className={"elem elem-1 orange-cup-icon active"}
+                      to={BaseRoutes.main} onClick={clickMenu}
+                >События</Link>
+                <Link className={"elem elem-2 orange-statistic-icon disabled"}
+                      to={BaseRoutes.main} onClick={clickMenu}
+                >Статистика</Link>
+                <Link className={"elem elem-3 orange-avatar-icon disabled"}
+                      to={user ? ProfileRoutes.myProfileLink(user.id) : BaseRoutes.main} onClick={clickMenu}
+                >Профиль</Link>
             </div>
         </div>
     )

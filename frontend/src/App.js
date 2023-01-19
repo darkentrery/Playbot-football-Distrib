@@ -52,6 +52,7 @@ import VisiblePreviewPlayer from "./redux/containers/VisiblePreviewPlayer";
 import VisibleSuccessUpdateUser from "./redux/containers/VisibleSuccessUpdateUser";
 import VisibleUpdatePassword from "./redux/containers/VisibleUpdatePassword";
 import VisibleSuccessUpdatePassword from "./redux/containers/VisibleSuccessUpdatePassword";
+import VisibleMyProfile from "./redux/containers/VisibleMyProfile";
 
 
 
@@ -138,6 +139,7 @@ function App({state, funcs}) {
                     <Route exact path={ProfileRoutes.profileFavorites} element={<VisibleFavorites/>}/>
                     <Route exact path={ProfileRoutes.profilePersonalData} element={<VisibleProfilePersonalData/>}/>
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
+                    <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>
                 </Routes>
 
                   {/*<YMaps>*/}
