@@ -17,7 +17,7 @@ export const MyProfileComponent = ({
                     <div className={"settings-icon"}></div>
                 </div>
                 <Profile376MenuComponent pk={user.id}/>
-                <ProfileAsideComponent player={user}/>
+                <ProfileAsideComponent player={user} funcs={funcs}/>
             </div>}
         </VisibleProfileWrapper>
     )

@@ -39,7 +39,7 @@ export const ProfileWrapperComponent = ({
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={"profile-wrapper-component"}>
-                <ProfileAsideComponent player={state.event.player}/>
+                <ProfileAsideComponent player={state.event.player} funcs={funcs}/>
                 <div className={"my-profile"}>
                     <div className={"title-elem"}>
                         <span className={"black-700-28"}>Мой профиль</span>

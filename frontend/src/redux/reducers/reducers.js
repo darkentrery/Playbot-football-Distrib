@@ -22,7 +22,7 @@ import {
     PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     REPEAT_EVENT_WINDOW,
-    SAME_EVENTS,
+    SAME_EVENTS, SHOW_EMBLEM_WINDOW,
     SIGN_UP_WINDOW,
     STEPS,
     SUCCESS_CANCEL_EVENT_WINDOW,
@@ -66,6 +66,7 @@ const initialState = {
     isOpenUnAuthJoin: false,
     isOpenEndGame: false,
     isOpenUpdatePassword: false,
+    isOpenShowEmblem: false,
 }
 
 
@@ -200,6 +201,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenUpdatePassword: action.value
+          };
+      case SHOW_EMBLEM_WINDOW:
+          return {
+              ...state,
+              isOpenShowEmblem: action.value
           };
       default:
           return state;

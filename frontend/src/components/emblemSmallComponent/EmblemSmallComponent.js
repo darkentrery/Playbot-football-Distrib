@@ -1,6 +1,11 @@
 
 
-export const EmblemSmallComponent = ({player}) => {
+export const EmblemSmallComponent = ({player, funcs}) => {
+
+    const showEmblem = () => {
+        funcs.openShowEmblem();
+    }
+
     return (
         <div className={"emblem-small-component"}>
             <span className={"gray-400-13"}>Заполненность профиля <span className={"gray-600-13"}>55</span>%</span>
@@ -8,12 +13,11 @@ export const EmblemSmallComponent = ({player}) => {
                 <div className={"fill-scale"} style={{width: 50}}></div>
             </div>
             <div className={"info-card"}>
-                <div className={"emblem-small"}>
+                <div className={"emblem-small"} onClick={showEmblem}>
                     <div className={"pentagon-1"}></div>
                     <div className={"pentagon-2"}></div>
                     <div className={"gor-line"}></div>
                     <span className={"black-600-18 digit"}>100</span>
-
                 </div>
                 <div className={"info"}>
                     <span className={"black-600-18"}>{player.username}</span>

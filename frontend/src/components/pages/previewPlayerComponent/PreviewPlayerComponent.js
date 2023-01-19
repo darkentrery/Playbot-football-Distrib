@@ -63,7 +63,7 @@ export const PreviewPlayerComponent = ({
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={"profile-wrapper-component scroll"}>
-                <ProfileAsideComponent player={player}/>
+                <ProfileAsideComponent player={player} funcs={funcs}/>
                 {player && <div className={"preview-player-component"}>
                     <div className={"top-menu"}>
                         <span className={about ? 'black-700-20' : 'gray-700-20 link'} onClick={() => setAbout(true)}>Об игроке</span>

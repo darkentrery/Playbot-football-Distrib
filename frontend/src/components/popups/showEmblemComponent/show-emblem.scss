@@ -1,0 +1,25 @@
+.show-emblem-component {
+  display: flex;
+  width: 100vw;
+  height: 60px;
+  align-self: start;
+  box-sizing: border-box;
+  padding: 18px 22px;
+  justify-content: end;
+  gap: 38px;
+  position: relative;
+
+  .upload-icon {
+    display: flex;
+    align-self: stretch;
+    flex: 0 0 18px;
+  }
+  .emblem {
+    position: absolute;
+    height: 372px;
+    width: 258px;
+    top: 80px;
+    left: calc(50% - 129px);
+  }
+
+}

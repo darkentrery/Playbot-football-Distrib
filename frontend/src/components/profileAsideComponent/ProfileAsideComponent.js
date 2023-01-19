@@ -2,7 +2,7 @@ import {EmblemComponent} from "../emblemComponent/EmblemComponent";
 import {EmblemSmallComponent} from "../emblemSmallComponent/EmblemSmallComponent";
 
 
-export const ProfileAsideComponent = ({player}) => {
+export const ProfileAsideComponent = ({player, funcs}) => {
 
     const FootballField = ({player}) => {
         const numbers = [1, 2, 3, 4, 5, 6, 7, 8 ,9 ,10 ,11];
@@ -32,7 +32,7 @@ export const ProfileAsideComponent = ({player}) => {
                 </div>
             </div>
             <div className={"elem elem-376"}>
-                <EmblemSmallComponent player={player}/>
+                <EmblemSmallComponent player={player} funcs={funcs}/>
             </div>
             <div className={"elem elem-2"}>
                 <div className={"item item-left"}>
