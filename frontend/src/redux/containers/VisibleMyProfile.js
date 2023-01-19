@@ -4,7 +4,7 @@ import {
   choiceCityWindow, confirmPlayersWindow, confirmTeamPlayersWindow, confirmTeamsWindow, createEventWindow,
   event, fillRegulationWindow,
   hiddenMap, iphone,
-  loginWindow, mobileFirstPageWindow, player, players, showEmblemWindow,
+  loginWindow, mobileFirstPageWindow, player, players, showEmblemWindow, showMenuWindow,
   signUpWindow, steps,
   successSignUp2Window, team
 } from "../actions/actions";
@@ -30,6 +30,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openShowEmblem: () => {
         dispatch(showEmblemWindow(true));
+      },
+      openShowMenu: () => {
+        dispatch(showMenuWindow(true));
       },
       openSuccessSignUp2: () => {
         dispatch(successSignUp2Window(true));

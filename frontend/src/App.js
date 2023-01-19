@@ -54,6 +54,7 @@ import VisibleUpdatePassword from "./redux/containers/VisibleUpdatePassword";
 import VisibleSuccessUpdatePassword from "./redux/containers/VisibleSuccessUpdatePassword";
 import VisibleMyProfile from "./redux/containers/VisibleMyProfile";
 import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
+import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 
 
 
@@ -173,6 +174,7 @@ function App({state, funcs}) {
                 <VisibleUpdatePassword/>
                 <VisibleSuccessUpdatePassword/>
                 <VisibleShowEmblem/>
+                <VisibleShowMenu/>
 
                 <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
                                            funcs={funcs} isIPhone={state.app.isIPhone}/>

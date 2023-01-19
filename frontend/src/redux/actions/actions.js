@@ -25,6 +25,7 @@ export const UN_AUTH_JOIN_WINDOW = 'UN_AUTH_JOIN_WINDOW';
 export const END_GAME_WINDOW = 'END_GAME_WINDOW';
 export const UPDATE_PASSWORD_WINDOW = 'UPDATE_PASSWORD_WINDOW';
 export const SHOW_EMBLEM_WINDOW = 'SHOW_EMBLEM_WINDOW';
+export const SHOW_MENU_WINDOW = 'SHOW_MENU_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -174,6 +175,11 @@ export const updatePasswordWindow = (value) => ({
 
 export const showEmblemWindow = (value) => ({
   type: SHOW_EMBLEM_WINDOW,
+  value,
+});
+
+export const showMenuWindow = (value) => ({
+  type: SHOW_MENU_WINDOW,
   value,
 });
 
