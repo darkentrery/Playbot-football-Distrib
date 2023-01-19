@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {
   auth,
-  choiceCityWindow, confirmPlayersWindow, confirmTeamPlayersWindow, confirmTeamsWindow,
+  choiceCityWindow, confirmPlayersWindow, confirmTeamPlayersWindow, confirmTeamsWindow, createEventWindow,
   event, fillRegulationWindow,
   hiddenMap, iphone,
   loginWindow, mobileFirstPageWindow, player, players,
@@ -35,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openChoiceCity: () => {
         dispatch(choiceCityWindow(true));
+      },
+      openCreateEvent: () => {
+        dispatch(createEventWindow(true));
       },
       setAuth: (value, user) => {
         dispatch(auth(value, user));

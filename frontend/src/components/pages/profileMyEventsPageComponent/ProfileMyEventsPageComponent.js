@@ -4,6 +4,7 @@ import {useState} from "react";
 import EventRoutes from "../../../routes/EventRoutes";
 import {Link} from "react-router-dom";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
+import {NoEventsProfileComponent} from "../../noEventsProfileComponent/NoEventsProfileComponent";
 
 
 export const ProfileMyEventsPageComponent = ({
@@ -68,8 +69,14 @@ export const ProfileMyEventsPageComponent = ({
                     <div className={"elem elem-3 gray-cup-icon"}></div>
                 </div>
                 {player && <div className={"table-body"}>
-                    {!isOrganizer && player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
-                    {isOrganizer && player.event.map((event, key) => (<EventRow event={event} key={key}/>))}
+                    {!isOrganizer && player.event_player.length !== 0 && player.event_player.map((event, key) => (
+                        <EventRow event={event.event} key={key}/>)
+                    )}
+                    {isOrganizer && player.event.length !== 0 && player.event.map((event, key) => (
+                        <EventRow event={event} key={key}/>
+                    ))}
+                    {!isOrganizer && player.event_player.length === 0 && <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
+                    {isOrganizer && player.event.length === 0 && <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
                 </div>}
             </div>
         </VisibleProfileWrapper>
