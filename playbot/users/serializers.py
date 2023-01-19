@@ -41,6 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
     event = EventSerializer(Event.objects.all(), many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
     position_2 = PositionSerializer(read_only=True)
+    favorite_events = EventSerializer(Event.objects.all(), many=True, read_only=True)
 
     class Meta:
         model = User

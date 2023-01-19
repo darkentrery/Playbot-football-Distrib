@@ -3,6 +3,8 @@ import {getMonth, getWeekDay} from "../../utils/dates";
 import {ButtonsBoardOrganizerComponent} from "./ButtonsBoardOrganizerComponent";
 import {ButtonsBoardPlayerComponent} from "./ButtonsBoardPlayerComponent";
 import {useEffect, useState} from "react";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import {eventService} from "../../services/EventService";
 
 
 export default function BoardEventComponent ({event, user, funcs}) {
@@ -11,6 +13,15 @@ export default function BoardEventComponent ({event, user, funcs}) {
     useEffect(() => {
         if (event) setDate(new Date(event.date));
     }, [event])
+
+    const addToFavorites = () => {
+        authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                funcs.setAuth(true, response.data);
+            }
+        })
+    }
 
     return (
         <div className={"board-event-component"}>
@@ -21,8 +32,8 @@ export default function BoardEventComponent ({event, user, funcs}) {
                     <span className={"el el-1 dark-gray-cup-icon black-400-16"}>78,8</span>
                     <span
                         className={"el el-2 dark-gray-avatar-icon black-400-16"}>{event.event_player.length}/{event.count_players}</span>
-                    <span className={"el el-3 el-1280 dark-gray-star-icon black-400-16"}>В избранное</span>
-                    <span className={"el el-3 el-376 dark-gray-star-icon black-400-16"}></span>
+                    <span className={"el el-3 el-1280 dark-gray-star-icon black-400-16"} onClick={addToFavorites}>В избранное</span>
+                    <span className={"el el-3 el-376 dark-gray-star-icon black-400-16"} onClick={addToFavorites}></span>
                 </div>
                 <span className={"elem elem-2"}>{event.name}</span>
                 {!event.time_end && <span className={"elem elem-3"}>{event.event_step.length >= 1 ? 'Событие началось.' : ''} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {event.time_begin.slice(0, 5)} {getWeekDay(date)}</span>}

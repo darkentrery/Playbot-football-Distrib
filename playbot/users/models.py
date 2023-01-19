@@ -36,6 +36,7 @@ class User(AbstractUser):
     birthday = models.DateField(_("Birthday"), blank=True, null=True)
     photo = models.ImageField(upload_to="photos", verbose_name="Photo", blank=True, null=True)
     about_self = models.TextField(_("About Self"), blank=True, null=True)
+    favorite_events = models.ManyToManyField("events.Event", related_name="in_favorites", blank=True)
     is_active = models.BooleanField(
         _("active"),
         default=False,

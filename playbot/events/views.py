@@ -16,6 +16,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     CreateGoalSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games
 from playbot.history.models import UserEventAction
+from playbot.users.serializers import UserSerializer
 
 
 class CreateEventView(APIView):
@@ -363,6 +364,18 @@ class CreateGoalView(APIView):
                     return Response({"event": event, "game": game}, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AddToFavoritesView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["id"])
+        if not request.user.favorite_events.filter(id=event.id).exists():
+            request.user.favorite_events.add(event)
+            json = UserSerializer(instance=request.user).data
+            return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Already in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

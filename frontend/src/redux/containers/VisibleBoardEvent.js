@@ -4,12 +4,13 @@ import {
   cancelEventWindow,
   confirmPlayersWindow,
   players,
+  auth,
   steps,
   fillRegulationWindow,
   confirmTeamsWindow,
   hiddenMap,
   leaveEventWindow,
-  loginWindow, unAuthJoinWindow, confirmTeamPlayersWindow, repeatEventWindow
+  unAuthJoinWindow, confirmTeamPlayersWindow, repeatEventWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
 import BoardEventComponent from "../../components/body/BoardEventComponent";
@@ -31,6 +32,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openRepeatEvent: () => {
         dispatch(repeatEventWindow(true));
+      },
+      setAuth: (value, user) => {
+        dispatch(auth(value, user));
       },
       setEvent: (value) => {
         dispatch(event(value));

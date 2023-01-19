@@ -67,8 +67,8 @@ export const ProfileFavoritesComponent = ({
                     <div className={"elem elem-3 gray-cup-icon"}></div>
                 </div>
                 {player && <div className={"table-body"}>
-                    {!isOrganizer && player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
-                    {isOrganizer && player.event.map((event, key) => (<EventRow event={event} key={key}/>))}
+                    {!isOrganizer && player.favorite_events.map((event, key) => (<EventRow event={event} key={key}/>))}
+                    {isOrganizer && player.favorite_events.map((event, key) => (<EventRow event={event} key={key}/>))}
                 </div>}
             </div>
         </VisibleProfileWrapper>

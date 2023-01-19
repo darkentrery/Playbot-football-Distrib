@@ -24,4 +24,5 @@ urlpatterns = [
     path("end-game-period/", views.EndGamePeriodView.as_view(), name='end-game-period'),
     path("end-game/", views.EndGameView.as_view(), name='end-game'),
     path("create-goal/", views.CreateGoalView.as_view(), name='create-goal'),
+    path("add-to-favorites/", views.AddToFavoritesView.as_view(), name='add-to-favorites'),
 ]

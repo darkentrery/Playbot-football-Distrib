@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.db import models
+from django.forms import CheckboxSelectMultiple
 
 from playbot.users.models import User, Position
 
@@ -35,6 +37,7 @@ class CustomUserAdmin(UserAdmin):
                     "position_2",
                     "photo",
                     "about_self",
+                    "favorite_events",
                 )
             },
         ),
@@ -51,6 +54,11 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
         (("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+        "favorite_events",
     )
 
 

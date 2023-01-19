@@ -95,7 +95,7 @@ export const PreviewPlayerComponent = ({
                                 <span className={"black-600-14"}>Ближайшие</span>
                                 <div className={"gray-down-arrow-icon"}></div>
                             </div>
-                            {player.event.map((event, key) => (<EventRow event={event} key={key}/>))}
+                            {player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
                         </div>
 
                     </div>

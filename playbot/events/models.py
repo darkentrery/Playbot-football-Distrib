@@ -89,7 +89,7 @@ class Event(models.Model):
     format_label = models.ForeignKey(Format, on_delete=models.SET_NULL, related_name="event_labels", blank=True, null=True)
     is_paid = models.BooleanField(_("Is Paid"), default=False)
     price = models.FloatField(_("Price"), default=0)
-    currency  = models.CharField(_("Currency"), max_length=50, default="RUB")
+    currency = models.CharField(_("Currency"), max_length=50, default="RUB")
 
     class Meta:
         verbose_name = "Event"
