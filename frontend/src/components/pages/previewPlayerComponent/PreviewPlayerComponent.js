@@ -1,11 +1,13 @@
 import HeadComponent from "../../HeadComponent";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
 import {Link, useParams} from "react-router-dom";
-import ProfileRoutes from "../../../routes/ProfileRoutes";
 import BottomComponent from "../../BottomComponent";
 import React, {useEffect, useState} from "react";
 import {authService} from "../../../services/AuthService";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
+import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
+import {Top376Component} from "../../top376Component/Top376Component";
+import BaseRoutes from "../../../routes/BaseRoutes";
 
 
 export const PreviewPlayerComponent = ({
@@ -17,6 +19,9 @@ export const PreviewPlayerComponent = ({
     const params = useParams();
     const pk = params.pk;
     const [about, setAbout] = useState(true);
+    const [profileLink, setSetProfileLink] = useState(true);
+    const [eventsLink, setEventsLink] = useState(false);
+    const [sameLink, setSameLink] = useState(false);
 
     useEffect(() => {
         authService.getUser(pk.toString()).then((response) => {
@@ -60,6 +65,80 @@ export const PreviewPlayerComponent = ({
         </>)
     }
 
+    const About = ({player}) => {
+        return (
+            <div className={"about"}>
+                <div className={"elem elem-1"}>
+                    <span className={"black-400-13 icon calendar3-icon"}>Дата рождения:</span>
+                    <span className={"black-600-13"}>{player.birthday}</span>
+                </div>
+                <div className={"elem elem-2"}>
+                    <span className={"black-400-13 icon map-point-icon"}>Город:</span>
+                    <span className={"black-600-13"}>{player.city}</span>
+                </div>
+                <div className={"elem elem-3"}>
+                    <span className={"black-400-13 icon gender-man-icon"}>Пол:</span>
+                    <span
+                        className={"black-600-13"}>{player.gender === 'Муж.' ? 'Мужской' : 'Женский'}</span>
+                </div>
+                <div className={"elem elem-4"}>
+                    <span className={"black-400-13 icon file-icon"}>О себе:</span>
+                    <span className={"black-400-13"}>{player.about_self}</span>
+                </div>
+            </div>
+        )
+    }
+
+    const EventsTable = ({player}) => {
+        return (
+            <div className={"events-table"}>
+                <div className={"table-head"}>
+                    <span className={"black-600-14"}>Ближайшие</span>
+                    <div className={"gray-down-arrow-icon"}></div>
+                </div>
+                {player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
+            </div>
+        )
+    }
+
+    const SamePlayers = ({player, hidden=false}) => {
+        return (
+            <div className={`same-players ${hidden ? 'hidden' : ''}`}>
+                <div className={"same-players-head"}>
+                    <span className={"el-1 black-700-20"}>Игроки</span>
+                    <span className={"gray-600-12"}>Похожие игроки</span>
+                    <div className={"gray-down-arrow-icon"}></div>
+                </div>
+                <div className={"same-player"}>
+                    <div className={"elem-1"}>
+                        <span className={"black-700-13"}>Наталья Разломова</span>
+                        <span className={"black-400-13"}>Наталья Разломова</span>
+                    </div>
+                    <span className={"elem-2 black-400-13"}>88,9</span>
+                </div>
+            </div>
+        )
+    }
+
+    const toProfile = () => {
+        setSetProfileLink(true);
+        setEventsLink(false);
+        setSameLink(false);
+    }
+
+    const toEvents = () => {
+        setSetProfileLink(false);
+        setEventsLink(true);
+        setSameLink(false);
+    }
+
+    const toSame = () => {
+        setSetProfileLink(false);
+        setEventsLink(false);
+        setSameLink(true);
+    }
+
+
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
@@ -72,49 +151,27 @@ export const PreviewPlayerComponent = ({
                     </div>
                     <div className={`about-player ${about ? '' : 'hidden'}`}>
                         <span className={"black-700-20 label-1280"}>Об игроке</span>
-                        <div className={"about"}>
-                            <div className={"elem elem-1"}>
-                                <span className={"black-400-13 icon calendar3-icon"}>Дата рождения:</span>
-                                <span className={"black-600-13"}>{player.birthday}</span>
-                            </div>
-                            <div className={"elem elem-2"}>
-                                <span className={"black-400-13 icon map-point-icon"}>Город:</span>
-                                <span className={"black-600-13"}>{player.city}</span>
-                            </div>
-                            <div className={"elem elem-3"}>
-                                <span className={"black-400-13 icon gender-man-icon"}>Пол:</span>
-                                <span className={"black-600-13"}>{player.gender === 'Муж.' ? 'Мужской' : 'Женский'}</span>
-                            </div>
-                            <div className={"elem elem-4"}>
-                                <span className={"black-400-13 icon file-icon"}>О себе:</span>
-                                <span className={"black-400-13"}>{player.about_self}</span>
-                            </div>
-                        </div>
+                        <About player={player}/>
                         <span className={"black-700-20"}>События</span>
-                        <div className={"events-table"}>
-                            <div className={"table-head"}>
-                                <span className={"black-600-14"}>Ближайшие</span>
-                                <div className={"gray-down-arrow-icon"}></div>
-                            </div>
-                            {player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
-                        </div>
-
+                        <EventsTable player={player}/>
                     </div>
-                    <div className={`same-players ${about ? 'hidden' : ''}`}>
-                        <div className={"same-players-head"}>
-                            <span className={"el-1 black-700-20"}>Игроки</span>
-                            <span className={"gray-600-12"}>Похожие игроки</span>
-                            <div className={"gray-down-arrow-icon"}></div>
-                        </div>
-                        <div className={"same-player"}>
-                            <div className={"elem-1"}>
-                                <span className={"black-700-13"}>Наталья Разломова</span>
-                                <span className={"black-400-13"}>Наталья Разломова</span>
-                            </div>
-                            <span className={"elem-2 black-400-13"}>88,9</span>
-                        </div>
-                    </div>
+                    <SamePlayers player={player} hidden={about}/>
                 </div>}
+            </div>
+            <div className={"preview-player-component-376"}>
+                {player && <>
+                    <Top376Component className={"top-bar"} label={player.username} to={BaseRoutes.main}/>
+                    <div className={"profile-376-menu-component"}>
+                        <span className={`nav-link ${profileLink ? 'white-600-12 active' : 'middle-gray-400-12'}`} onClick={toProfile}>Профиль</span>
+                        <span className={`nav-link ${eventsLink ? 'white-600-12 active' : 'middle-gray-400-12'}`} onClick={toEvents}>События</span>
+                        <span className={`nav-link ${sameLink ? 'white-600-12 active' : 'middle-gray-400-12'}`} onClick={toSame}>Похожие игроки</span>
+                    </div>
+                    {profileLink && <ProfileAsideComponent player={player} funcs={funcs}>
+                        <About player={player}/>
+                    </ProfileAsideComponent>}
+                    {eventsLink && <EventsTable player={player}/>}
+                    {sameLink && <SamePlayers player={player}/>}
+                </>}
             </div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
         </main>

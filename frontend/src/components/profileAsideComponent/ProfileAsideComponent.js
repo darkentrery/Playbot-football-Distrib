@@ -2,7 +2,7 @@ import {EmblemComponent} from "../emblemComponent/EmblemComponent";
 import {EmblemSmallComponent} from "../emblemSmallComponent/EmblemSmallComponent";
 
 
-export const ProfileAsideComponent = ({player, funcs}) => {
+export const ProfileAsideComponent = ({player, funcs, children}) => {
 
     const FootballField = ({player}) => {
         const numbers = [1, 2, 3, 4, 5, 6, 7, 8 ,9 ,10 ,11];
@@ -61,6 +61,7 @@ export const ProfileAsideComponent = ({player, funcs}) => {
             <div className={"elem elem-5"}>
                 <span className={"black-400-13"}>Позиция на поле: </span>
                 {player && <FootballField player={player}/>}
+                {children}
                 <span className={"black-600-18 title-regards"}>Достижения</span>
                 <div className={"regards"}>
                     <div className={"icon orange-regard-icon"}></div>
