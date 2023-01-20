@@ -21,7 +21,6 @@ export const MainSearchComponent = ({
 
     useEffect(() => {
         if (isOpen) {
-            console.log(user)
             eventService.getEvents(user && user.city ? user.city : city).then((response) => {
                 if (response.status === 200) {
                     setEvents(response.data);
