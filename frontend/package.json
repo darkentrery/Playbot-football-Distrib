@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "webpack --mode development --entry ./src/index.js --output-path ./static/frontend",
-    "build": "react-scripts build"
+    "build": "set NODE_OPTIONS=--max_old_space_size=6000 && react-scripts build"
   },
   "homepage": "http://localhost:8000",
   "eslintConfig": {
