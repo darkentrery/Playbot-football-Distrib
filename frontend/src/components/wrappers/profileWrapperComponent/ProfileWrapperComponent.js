@@ -9,6 +9,7 @@ import {authService} from "../../../services/AuthService";
 
 export const ProfileWrapperComponent = ({
     state,
+    app,
     children,
     funcs,
 }) => {
@@ -65,7 +66,7 @@ export const ProfileWrapperComponent = ({
             <div className={"profile-wrapper-component-376"}>
                 {children}
             </div>
-            <BottomComponent user={state.user.user}/>
+            <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
         </main>
     )
 }

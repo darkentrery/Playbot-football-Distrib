@@ -7,7 +7,7 @@ import $ from "jquery";
 import ProfileRoutes from "../routes/ProfileRoutes";
 
 
-export default function BottomComponent ({user}) {
+export default function BottomComponent ({user, isIPhone}) {
 
     const openAllowPolicy = () => {
         let link = document.createElement("a");
@@ -119,7 +119,7 @@ export default function BottomComponent ({user}) {
                 </div>
             </div>
 
-            <div className={"elem-376"}>
+            <div className={`elem-376 ${isIPhone ? 'safari-margin' : ''}`}>
                 <Link className={"elem elem-1 orange-cup-icon active"}
                       to={BaseRoutes.main} onClick={clickMenu}
                 >События</Link>

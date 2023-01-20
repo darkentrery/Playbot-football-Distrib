@@ -7,11 +7,9 @@
   .elem-744 {
     display: none;
   }
-
   .elem-376 {
     display: none;
   }
-
   .elem-1280 {
     display: flex;
     flex: 0 0 168px;
@@ -34,13 +32,11 @@
           align-items: center;
           justify-content: space-between;
         }
-
         span {
           font-size: 12px;
           color: #949494;
         }
       }
-
       &.el-2 {
         flex: 1 1 auto;
         flex-direction: row;
@@ -75,7 +71,6 @@
           }
         }
       }
-
       &.el-3 {
         flex: 0 0 195px;
         align-items: end;
@@ -94,7 +89,6 @@
       }
     }
   }
-
   .elem-bottom {
     display: flex;
     flex: 0 0 56px;
@@ -150,7 +144,6 @@
         }
       }
     }
-
     .el-3 {
       display: flex;
       flex: 0 0 118px;
@@ -183,11 +176,9 @@
       display: none;
     }
   }
-
   .bottom-component .elem-1280 {
     display: none;
   }
-
   .bottom-component .elem-744 {
     display: flex;
     flex: 0 0 267px;
@@ -198,7 +189,6 @@
       display: flex;
       justify-content: space-between;
     }
-
     .ell-1 {
       flex: 0 0 126px;
 
@@ -219,7 +209,6 @@
             align-items: center;
             justify-content: space-between;
           }
-
           span {
             font-size: 12px;
             color: #949494;
@@ -313,42 +302,44 @@
     .elem-bottom {
       display: none;
     }
-  }
-
-  .bottom-component .elem-376 {
-    display: flex;
-    flex: 0 0 56px;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #F3F3F3;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9);
-
-    .elem {
+    .elem-376 {
       display: flex;
-      flex: 0 0 50px;
-      justify-content: center;
-      cursor: pointer;
-      background-position: center top;
-      align-items: end;
-      padding-top: 18px;
+      flex: 0 0 56px;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #F3F3F3;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9);
 
-      &.active {
-        font-size: 11px;
-        font-weight: 600;
-        color: #D19C6C;
+      &.safari-margin {
+       margin-bottom: 70px;
       }
-      &.disabled {
-        font-size: 11px;
-        color: #949494;
-        margin-top: 6px;
-      }
-      &.elem-1 {
-        margin-left: $marginSides;
-      }
-      &.elem-2 {
-      }
-      &.elem-3 {
-        margin-right: $marginSides;
+      .elem {
+        display: flex;
+        flex: 0 0 50px;
+        justify-content: center;
+        cursor: pointer;
+        background-position: center top;
+        align-items: end;
+        padding-top: 18px;
+
+        &.active {
+          font-size: 11px;
+          font-weight: 600;
+          color: #D19C6C;
+        }
+        &.disabled {
+          font-size: 11px;
+          color: #949494;
+          margin-top: 6px;
+        }
+        &.elem-1 {
+          margin-left: $marginSides;
+        }
+        &.elem-2 {
+        }
+        &.elem-3 {
+          margin-right: $marginSides;
+        }
       }
     }
   }

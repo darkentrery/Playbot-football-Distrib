@@ -10,6 +10,7 @@ import {EventItem376Component} from "../../eventItem376Component/EventItem376Com
 
 export const PreviewPlayerComponent = ({
     state,
+    app,
     player,
     funcs,
 }) => {
@@ -115,7 +116,7 @@ export const PreviewPlayerComponent = ({
                     </div>
                 </div>}
             </div>
-            <BottomComponent user={state.user.user}/>
+            <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
         </main>
     )
 }

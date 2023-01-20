@@ -5,6 +5,7 @@ import EventRoutes from "../../../routes/EventRoutes";
 import {Link} from "react-router-dom";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
 import {NoEventsProfileComponent} from "../../noEventsProfileComponent/NoEventsProfileComponent";
+import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 
 
 export const ProfileMyEventsPageComponent = ({
@@ -48,13 +49,15 @@ export const ProfileMyEventsPageComponent = ({
 
     return (
         <VisibleProfileWrapper>
-            <div className={`profile-my-events-page-component`}>
+            {player && user && <div className={`profile-my-events-page-component`}>
+                <Profile376MenuComponent pk={user.id}/>
                 <div className={"table-bar"}>
                     <div className={"elem elem-1"}>
                         <span className={"black-600-14"}>Все события</span>
                         <div className={"gray-down-arrow-icon"}></div>
                     </div>
-                    <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer} sizingClass={"elem elem-2"}/>
+                    <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer}
+                                          sizingClass={"elem elem-2"}/>
                 </div>
                 <div className={"table-head-1280"}>
                     <span className={"elem elem-1 gray-400-13"}>Название</span>
@@ -75,10 +78,12 @@ export const ProfileMyEventsPageComponent = ({
                     {isOrganizer && player.event.length !== 0 && player.event.map((event, key) => (
                         <EventRow event={event} key={key}/>
                     ))}
-                    {!isOrganizer && player.event_player.length === 0 && <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
-                    {isOrganizer && player.event.length === 0 && <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
+                    {!isOrganizer && player.event_player.length === 0 &&
+                        <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
+                    {isOrganizer && player.event.length === 0 &&
+                        <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
                 </div>}
-            </div>
+            </div>}
         </VisibleProfileWrapper>
     )
 }

@@ -4,6 +4,7 @@ import {useState} from "react";
 import EventRoutes from "../../../routes/EventRoutes";
 import {Link} from "react-router-dom";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
+import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 
 
 export const ProfileFavoritesComponent = ({
@@ -47,7 +48,8 @@ export const ProfileFavoritesComponent = ({
 
     return (
         <VisibleProfileWrapper>
-            <div className={`profile-favorites-component`}>
+            {player && <div className={`profile-favorites-component`}>
+                <Profile376MenuComponent pk={user.id}/>
                 <div className={"table-bar"}>
                     <div className={"elem elem-1"}>
                         <span className={"black-600-14"}>События</span>
@@ -70,7 +72,7 @@ export const ProfileFavoritesComponent = ({
                     {!isOrganizer && player.favorite_events.map((event, key) => (<EventRow event={event} key={key}/>))}
                     {isOrganizer && player.favorite_events.map((event, key) => (<EventRow event={event} key={key}/>))}
                 </div>}
-            </div>
+            </div>}
         </VisibleProfileWrapper>
     )
 }

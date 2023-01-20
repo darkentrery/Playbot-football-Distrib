@@ -5,6 +5,7 @@ import React from "react";
 
 export const MainWrapperComponent = ({
     state,
+    app,
     children,
     funcs,
 }) => {
@@ -12,7 +13,7 @@ export const MainWrapperComponent = ({
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={"body scroll"}>{children}</div>
-            <BottomComponent user={state.user.user}/>
+            <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
         </main>
     )
 }
