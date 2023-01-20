@@ -24,6 +24,20 @@
   width: 16px;
 }
 
+.yellow-warning-icon {
+  background: url("../icon/yellow-warning.png");
+  background-repeat: no-repeat;
+  background-size: 24px 22px;
+  background-position: center;
+}
+
+.red-warning-icon {
+  background: url("../icon/red-warning.png");
+  background-repeat: no-repeat;
+  background-size: 24px 22px;
+  background-position: center;
+}
+
 .black-plus-icon {
   background: url("../icon/black-plus.png");
   background-repeat: no-repeat;
@@ -562,6 +576,12 @@
   background: url("../icon/orange-right-arrow.png") no-repeat;
   background-size: 24px;
   background-position: center center;
+}
+
+.yellow-right-arrow-line-icon {
+  background: url("../icon/yellow-right-arrow-line.png") no-repeat;
+  background-size: 17px 12px;
+  background-position: center;
 }
 
 .gray-right-arrow-icon {

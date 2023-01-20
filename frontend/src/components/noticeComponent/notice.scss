@@ -1,0 +1,43 @@
+.notice-component {
+  display: flex;
+  background: $whiteColor;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  width: 374px;
+  box-sizing: border-box;
+  padding: 18px 18px 24px 24px;
+  gap: 54px;
+  justify-content: space-between;
+
+  &.hidden {
+    display: none;
+  }
+  .elem-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .links {
+      display: flex;
+      gap: 16px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: none;
+      }
+      span {
+        white-space: nowrap;
+      }
+      .yellow-right-arrow-line-icon {
+        display: flex;
+        flex: 0 0 17px;
+      }
+    }
+  }
+  .btn-close {
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    background-size: 12px;
+  }
+}
