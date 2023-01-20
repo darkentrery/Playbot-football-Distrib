@@ -32,6 +32,7 @@ export default function HeadComponent ({user, city, funcs}) {
             </div>
 
             <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} user={user.user} city={city}/>
+
             <div className={`elem search-black-icon ${isOpenSearch ? 'hidden' : ''}`} onClick={() => setIsOpenSearch(!isOpenSearch)}></div>
 
             {user.isAuth && <UserComponent user={user.user} funcs={funcs}/>}

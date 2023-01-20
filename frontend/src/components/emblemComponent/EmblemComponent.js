@@ -3,13 +3,14 @@
 export const EmblemComponent = ({className='', player}) => {
     return (
         <div className={`emblem-component ${className}`}>
-            <div className={"pentagon-1"}></div>
-            <div className={"pentagon-2"}></div>
-            <div className={"pentagon-3"}></div>
-            <div className={"pentagon-4"}></div>
-            <div className={"bottom-logo"}>
-                <div className={"logo-korobka-icon"}></div>
-            </div>
+            <div className={"emblem-fon"}></div>
+            {/*<div className={"pentagon-1"}></div>*/}
+            {/*<div className={"pentagon-2"}></div>*/}
+            {/*<div className={"pentagon-3"}></div>*/}
+            {/*<div className={"pentagon-4"}></div>*/}
+            {/*<div className={"bottom-logo"}>*/}
+            {/*    <div className={"logo-korobka-icon"}></div>*/}
+            {/*</div>*/}
             <div className={"bottom-line"}></div>
             <div className={"statistic"}>
                 <div className={"elem elem-1"}>

@@ -3,6 +3,7 @@ import userIcon from "../../assets/icon/player-avatar.png";
 import {authService} from "../../services/AuthService";
 import {Link} from "react-router-dom";
 import ProfileRoutes from "../../routes/ProfileRoutes";
+import {UserNoticesComponent} from "../userNoticesComponent/UserNoticesComponent";
 
 
 export default function UserComponent ({user, funcs}) {
@@ -39,8 +40,8 @@ export default function UserComponent ({user, funcs}) {
     })
 
     return (
-        <div className={"elem user"}>
-            <div className={"el black-bell-icon"}></div>
+        <div className={"user-component"}>
+            <UserNoticesComponent user={user}/>
             <div className={"el dropdown-user"}>
                 <div className={"dropdown-head"} onClick={openDropdown}>
                     <img className={"dropdown-icon"} src={userIcon} alt=""/>
@@ -49,7 +50,7 @@ export default function UserComponent ({user, funcs}) {
                 </div>
                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
                     <Link className={"dropdown-elem"} to={ProfileRoutes.profileMyEventsLink(user.id)}>Профиль</Link>
-                    <span className={"dropdown-elem"} onClick={selectMenu}>Личные данные</span>
+                    <Link className={"dropdown-elem"} to={ProfileRoutes.profilePersonalDataLink(user.id)}>Личные данные</Link>
                     <span className={"dropdown-elem"} onClick={logout}>Выйти</span>
                     <div className={"dropdown-elem d-el-4"} onClick={choiceCity}>
                         <span className={"label"}>Ваш город</span>

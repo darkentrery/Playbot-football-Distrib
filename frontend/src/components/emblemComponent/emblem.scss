@@ -5,6 +5,10 @@
   align-self: stretch;
   box-sizing: border-box;
 
+  .emblem-fon {
+    width: 100%;
+  }
+
   .pentagon-1 {
     position: absolute;
     width: 100%;
@@ -183,8 +187,8 @@
     width: 63px;
     height: 125px;
     display: flex;
-    background: #F7F4ED;
-    left: 28px;
+    //background: #F7F4ED;
+    left: 32px;
     top: 59px;
     padding: 0 6px;
     box-sizing: border-box;
@@ -192,15 +196,15 @@
     justify-content: end;
     flex-direction: column;
 
-    &:before {
-      content: '';
-      padding-top: 30px;
-      background: linear-gradient(to right bottom, transparent 48%, #F7F4ED 50%) left / 100% 100% no-repeat;
-      position: absolute;
-      top: -30px;
-      left: 0;
-      right: 0;
-    }
+    //&:before {
+    //  content: '';
+    //  padding-top: 30px;
+    //  background: linear-gradient(to right bottom, transparent 48%, #F7F4ED 50%) left / 100% 100% no-repeat;
+    //  position: absolute;
+    //  top: -30px;
+    //  left: 0;
+    //  right: 0;
+    //}
     .elem-1 {
       font-family: "Druk Cyr", sans-serif;
       text-align: center;

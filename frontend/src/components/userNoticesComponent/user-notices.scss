@@ -1,0 +1,115 @@
+.user-notices-component {
+  display: flex;
+  height: 52px;
+  flex: 0 0 52px;
+  cursor: pointer;
+  position: relative;
+  align-items: stretch;
+  justify-content: center;
+  box-sizing: border-box;
+
+  &.active {
+    background: $lightGrayColor;
+    border-radius: 26px;
+  }
+  .black-bell-icon {
+    flex: 1 1 auto;
+    display: flex;
+    background-position: center;
+  }
+  .notice-count {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: #EC5B56;
+    top: 23px;
+    left: 27px;
+    text-align: center;
+  }
+  .dropdown-menu-376 {
+    display: none;
+  }
+  .dropdown-menu {
+    display: none;
+    flex-direction: column;
+    width: 311px;
+    align-items: stretch;
+    border-radius: 0;
+    border: none;
+    background: $whiteColor;
+    position: absolute;
+    right: -20px;
+    top: 75px;
+    z-index: 5;
+
+    .dropdown-elem {
+      display: flex;
+      flex: 0 0 103px;
+      border-radius: 0;
+      padding: 19px 24px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    &.open {
+      display: flex;
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .user-notices-component {
+    height: 32px;
+    flex: 0 0 32px;
+
+    &.active {
+      background: none;
+      border-radius: 0;
+    }
+    .notice-count {
+      top: 16px;
+      left: 19px;
+    }
+    .dropdown-menu {
+      display: none;
+    }
+    .dropdown-menu-376 {
+      display: none;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      align-items: stretch;
+      border-radius: 0;
+      border: none;
+      background: $whiteColor;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 5;
+
+      .dropdown-elem {
+        display: flex;
+        flex: 0 0 66px;
+        border-radius: 0;
+        padding: 12px 24px;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+      &.open {
+        display: flex;
+      }
+      .top-bar {
+        display: flex;
+        box-sizing: border-box;
+        padding: 24px;
+        justify-content: space-between;
+
+        .btn-close {
+          display: flex;
+          flex: 0 0 16px;
+        }
+      }
+    }
+
+  }
+}

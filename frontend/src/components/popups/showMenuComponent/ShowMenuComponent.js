@@ -74,9 +74,9 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                 </div>
                 <div className={"menu-bottom"}>
                     <div className={"elem-1"}>
-                        <span className={"gray-400-12"}>Правила пользования</span>
+                        <Link className={"gray-400-12"} to={BaseRoutes.rules} onClick={closeWindow}>Правила пользования</Link>
                         <div className={"vert-line"}></div>
-                        <span className={"gray-400-12"}>Пользовательское соглашение</span>
+                        <Link className={"gray-400-12"} to={BaseRoutes.allowOffer} onClick={closeWindow}>Пользовательское соглашение</Link>
                     </div>
                     <span className={"gray-400-12"}>© 2022 Коробка. Все права защищены</span>
                 </div>

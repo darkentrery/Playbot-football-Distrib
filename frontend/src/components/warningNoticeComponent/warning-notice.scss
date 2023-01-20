@@ -14,3 +14,9 @@
     background: #FFF3F2;
   }
 }
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .warning-notice-component {
+    border-radius: 0;
+  }
+}
