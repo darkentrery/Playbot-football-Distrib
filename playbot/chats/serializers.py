@@ -2,7 +2,12 @@ from rest_framework import serializers
 
 from playbot.chats.models import Chat, Message
 from playbot.users.models import User
-from playbot.users.serializers import UserSerializer
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "photo"]
 
 
 class MessageSerializer(serializers.ModelSerializer):

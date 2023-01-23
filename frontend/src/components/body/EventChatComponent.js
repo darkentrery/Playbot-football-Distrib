@@ -36,7 +36,9 @@ export const EventChatComponent = ({event, user}) => {
             const data = JSON.parse(e.data);
             switch (data.type) {
                 case "history_messages":
-                    setMessageHistory(data.message.messages);
+                    if (!messageHistory.length) {
+                        setMessageHistory(data.message.messages);
+                    }
                     console.log(data.message.messages)
                     break;
                 case 'chat_message_echo':
