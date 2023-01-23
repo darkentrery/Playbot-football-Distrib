@@ -53,10 +53,10 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     return (
         <main className={`event-wrapper-component`}>
             <div className={"event-wrapper-head-1280"}>
-                <div className={"elem elem-1"}>
+                <Link className={"elem elem-1"} to={BaseRoutes.main}>
                     <div className={"logo-korobka-icon"}></div>
                     <div className={"black-title-korobka-icon"}></div>
-                </div>
+                </Link>
                 {!window.location.pathname.includes('teams') && <div className={"elem elem-2"}>
                     <div className={"note-orange-icon"}></div>
                     <span className={"orange-400-14 link"}>Включить Playbot,FM </span>

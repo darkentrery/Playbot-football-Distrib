@@ -11,7 +11,7 @@ export default function HeadComponent ({user, city, funcs}) {
 
     return(
         <div className={"head-component"}>
-            <div className={"elem elem-1 logo-korobka-icon"}></div>
+            <Link className={"elem elem-1 logo-korobka-icon"} to={BaseRoutes.main}></Link>
             <div className={"elem elem-2"}>
                 <Link
                     className={`menu-point menu-point-1 black-point-icon ${window.location.pathname === `${BaseRoutes.main}` ? '' : 'inactive'}`}

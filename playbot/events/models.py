@@ -230,7 +230,6 @@ class EventGame(models.Model):
     number = models.IntegerField(_("Number"), default=1)
 
     class Meta:
-        unique_together = ["event", "team_1", "team_2"]
         verbose_name = "Event Game"
         verbose_name_plural = "Event Games"
         ordering = ["number",]

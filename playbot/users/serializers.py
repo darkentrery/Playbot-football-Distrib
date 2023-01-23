@@ -16,6 +16,8 @@ from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.events.models import EventPlayer, Event
 from playbot.events.serializers import EventSerializer
+from playbot.notices.models import Notice
+from playbot.notices.serializers import UserNoticeSerializer
 from playbot.users.models import User, Position
 from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
 
@@ -42,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
     position_1 = PositionSerializer(read_only=True)
     position_2 = PositionSerializer(read_only=True)
     favorite_events = EventSerializer(Event.objects.all(), many=True, read_only=True)
+    user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
 
     class Meta:
         model = User

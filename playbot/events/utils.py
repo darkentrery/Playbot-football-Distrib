@@ -48,8 +48,10 @@ def create_event_games(event):
 
     for game in event.event_games.all():
         game.delete()
-    for i, comb in enumerate(order_combs):
-        EventGame.objects.create(number=i + 1, team_1_id=comb[0], team_2_id=comb[1], event=event)
+    for j in range(event.count_circles.count):
+        for i, comb in enumerate(order_combs):
+            number = j * len(order_combs) + i + 1
+            EventGame.objects.create(number=number, team_1_id=comb[0], team_2_id=comb[1], event=event)
 
 
 def auto_distribution(event):

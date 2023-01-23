@@ -17,7 +17,8 @@ export const EventItem376Component = ({event}) => {
     return (
         <Link className={`event-item-376-component`} to={BaseRoutes.eventLink(event.id)}>
             <div className={"row row-1"}>
-                <div className={`elem elem-1 black-400-13 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}
+                {event.event_step.length >= 1 && <div className={"pulse-yellow-point"}></div>}
+                <div className={`elem elem-1 black-400-13`}>{event.name}
                     <span className={"gray-400-13"}>{event.time_begin.slice(0, 5)}</span>
                 </div>
                 <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>

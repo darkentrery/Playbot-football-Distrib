@@ -17,6 +17,11 @@
 
     &.row-1 {
       align-items: stretch;
+      gap: 12px;
+
+      .pulse-yellow-point {
+        margin-top: 5px;
+      }
     }
     &.row-2 {
       flex: 0 0 16px;
@@ -29,6 +34,7 @@
         flex: 1 0 163px;
         flex-direction: column;
         align-items: start;
+        margin-right: 12px;
 
         &.point-icon {
           padding-left: 20px;
@@ -49,15 +55,12 @@
       }
       &.elem-2 {
         flex: 0 0 35px;
+        margin-right: 12px;
       }
       &.elem-3 {
         flex: 0 0 30px;
         flex-direction: row;
       }
-    }
-
-    &.row-1 {
-      gap: 24px;
     }
   }
 }

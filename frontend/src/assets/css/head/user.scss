@@ -8,11 +8,6 @@
     align-items: center;
     cursor: pointer;
   }
-  //.black-bell-icon {
-  //  flex: 0 0 20px;
-  //  height: 24px;
-  //  margin-right: 50px;
-  //}
   .dropdown-user {
     flex: 0 0 180px;
     flex-direction: column;
@@ -90,12 +85,9 @@
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .user-component {
-    flex: 0 0 73px !important;
+    flex: 0 0 102px;
     box-sizing: border-box;
-
-    .black-bell-icon {
-      margin-right: 25px;
-    }
+    gap: 23px;
 
     .dropdown-user {
       flex: 0 0 28px;

@@ -45,27 +45,20 @@ export default function EventsComponent ({city, user}) {
     const EventRow = ({event}) => {
         return (<>
             <Link className={"event"} to={BaseRoutes.eventLink(event.id)}>
-                <span className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}</span>
-                <span className={"elem elem-2"}>{event.address}
-                    <span className={"time"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
+                <span className={`elem elem-1 black-400-13`}>
+                    {event.event_step.length >= 1 && <div className={"pulse-yellow-point"}></div>}
+                    {event.name}
                 </span>
-                <span className={"elem elem-3 green"}>{event.event_player.length}/{event.count_players}</span>
-                <span className={"elem elem-4 gray"}>88,9</span>
-                <span className={"elem elem-5 gray-right-arrow-icon"}></span>
+                <span className={"elem elem-2 black-400-13"}>
+                    {event.address}
+                    <span className={"gray-400-13"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
+                </span>
+                <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>
+                <span className={"elem elem-4 black-400-13 green"}>{event.event_player.length}/{event.count_players}</span>
+                <span className={"elem elem-5 black-400-13 gray"}>88,9</span>
+                <span className={"elem elem-6 black-400-13 gray-right-arrow-icon"}></span>
             </Link>
             <EventItem376Component event={event}/>
-            {/*<Link className={"event-376"} to={BaseRoutes.eventLink(event.id)}>*/}
-            {/*    <div className={"row row-1"}>*/}
-            {/*        <span className={`elem elem-1 ${event.event_step.length >= 1 ? 'point-icon' : ''}`}>{event.name}*/}
-            {/*            <span className={"gray"}>{event.time_begin.slice(0, 5)}</span>*/}
-            {/*        </span>*/}
-            {/*        <span className={"elem elem-2 red"}>{event.event_player.length}/{event.count_players}</span>*/}
-            {/*        <span className={"elem elem-3 orange"}>88,9</span>*/}
-            {/*    </div>*/}
-            {/*    <div className={"row row-2"}>*/}
-            {/*        <span className={"elem elem-1 map-point-icon"}>{event.address}</span>*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
         </>)
     }
 
@@ -74,7 +67,7 @@ export default function EventsComponent ({city, user}) {
             let date = new Date(item.date);
             return (<>
                 <div className={"date"}>
-                    <span className={"bold"}>{date.getDate()} {getMonth(date)} <span>({getWeekDay(date)})</span></span>
+                    <span className={"black-600-16"}>{date.getDate()} {getMonth(date)} <span className={"black-400-16"}>({getWeekDay(date)})</span></span>
                 </div>
                 {item.events.map((row, r) => (<EventRow event={row} key={r}/>))}
             </>)
@@ -82,23 +75,24 @@ export default function EventsComponent ({city, user}) {
     }
     
     return (
-        <div className={"body-events"}>
+        <div className={"events-component"}>
             {!events.length && firstRequest === 2 && <VisibleNoEvents/>}
 
             {events.length !== 0 &&
                 <div className={"events-table"}>
                     <div className={"table-head"}>
-                        <span className={"elem elem-1"}>Название</span>
-                        <span className={"elem elem-2"}>Место проведения и дата начала</span>
-                        <span className={"elem elem-3"}>Кол-во участников</span>
-                        <span className={"elem elem-4"}>Средний рейтинг</span>
-                        <span className={"elem elem-5 gray-right-arrow-icon"}></span>
+                        <span className={"elem elem-1 gray-400-13"}>Название</span>
+                        <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
+                        <span className={"elem elem-3 gray-400-13"}>Стоимость  участия</span>
+                        <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
+                        <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
+                        <span className={"elem elem-6"}></span>
                     </div>
 
                     <div className={"table-head-376"}>
-                        <span className={"elem elem-1"}>Событие</span>
-                        <span className={"elem elem-2"}>Кол-во уч.</span>
-                        <span className={"elem elem-3"}>Рейтинг</span>
+                        <span className={"elem elem-1 gray-400-13"}>Событие</span>
+                        <span className={"elem elem-2 avatar-icon disabled"}></span>
+                        <span className={"elem elem-3 gray-cup-icon"}></span>
                     </div>
 
                     {events.map((item, key) => (<DateBlock item={item} key={key}/>))}

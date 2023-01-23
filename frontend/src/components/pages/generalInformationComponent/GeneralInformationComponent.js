@@ -1,10 +1,9 @@
 import VisibleEventWrapper from "../../../redux/containers/VisibleEventWrapper";
 import React, {useEffect, useState} from "react";
 import {getMinutesStr} from "../../../utils/dates";
-import EventService from "../../../services/EventService";
-import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import BaseRoutes from "../../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
+import EventRoutes from "../../../routes/EventRoutes";
+
 
 
 export const GeneralInformationComponent = ({event, user, funcs}) => {
@@ -42,7 +41,6 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
     }
 
     const GameRow = ({gray=false, value1, value2, value4, game, flagBegin, pk}) => {
-        const eventService = new EventService();
         const [value3, setValue3] = useState(false);
         useEffect(() => {
             if (game) {
@@ -55,11 +53,6 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 }
             }
         }, [game])
-        const beginGame = () => {
-            authDecoratorWithoutLogin(eventService.beginEventGame, {"game": game}).then((response) => {
-                funcs.setEvent(response.data);
-            })
-        }
 
         return (
             <div className={"game-row"}>
@@ -70,8 +63,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 </div>
                 {user.isAuth && event && event.organizer.id === user.user.id &&
-                    <Link className={`elem-2 btn white-500-12 ${flagBegin ? '' : 'hidden'}`} to={BaseRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
-                    {/*<span className={`elem-2 btn white-500-12 ${flagBegin ? '' : 'hidden'}`} onClick={beginGame}>Начать игру</span>}*/}
+                    <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`} to={EventRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
             </div>
         )
     }
