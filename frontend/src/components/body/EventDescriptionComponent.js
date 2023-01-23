@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css"
 export default function EventDescriptionComponent ({event, user, hiddenMap, funcs}) {
     const [position, setPosition] = useState(false);
     const [address, setAddress] = useState(false);
+    const [isTooltip, setIsTooltip] = useState(false);
     const markerRef = useRef(false);
 
     useEffect(() => {
@@ -58,10 +59,10 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
 
     const copyLink = () => {
         window.navigator.clipboard.writeText(window.location.href);
-        if ($('.tooltip').hasClass('hidden')) {
-            $('.tooltip').removeClass('hidden');
+        if (!isTooltip) {
+            setIsTooltip(true);
             setTimeout(() => {
-                $('.tooltip').addClass('hidden');
+                setIsTooltip(false);
             }, 1000)
         }
     }
@@ -128,7 +129,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             <div className={`elem-376 elem-9 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
             </div>
-            <span className={"tooltip hidden"}>Ссылка успешно скопирована!</span>
+            <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>Ссылка успешно скопирована!</span>
         </div>
     )
 }

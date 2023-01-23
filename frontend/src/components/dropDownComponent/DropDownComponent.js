@@ -39,7 +39,6 @@ const DropDownComponent = ({
     }
 
     const choiceElement = (e) => {
-        // refLabel.current.innerHTML = e.target.innerHTML;
         setIsDropdown(!isDropdown);
         setValue(e.target.innerHTML);
         setErrorText(false);

@@ -125,7 +125,7 @@
 }
 
 .tooltip {
-  position: absolute;
+  position: fixed;
   display: flex;
   width: 230px;
   top: 30vh;
@@ -137,6 +137,7 @@
   align-items: center;
   white-space: nowrap;
   justify-content: center;
+  z-index: 500;
 
   &.hidden {
     display: none;

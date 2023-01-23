@@ -168,22 +168,34 @@ export const FormEventComponent = ({
     }
 
     const getAddress = (e) => {
-        setAddress(e.target.value);
-        setCity(false);
-        setPoint(false);
-        if (e.target.value && e.target.value.length > 6) {
-            getLocations(e.target.value).then((response) => {
-                if (response.status === 200) {
-                    let geoObjects = response.data.results;
-                    let array = [];
-                    geoObjects.map((item) => {
-                        if (item.components.city) array.push(item);
-                    })
-                    setSuggests(array);
-                }
-            })
+        if (isEdit) {
+
         } else {
-            setSuggests([]);
+            setAddress(e.target.value);
+            setCity(false);
+            setPoint(false);
+            if (e.target.value && e.target.value.length > 6) {
+                getLocations(e.target.value).then((response) => {
+                    if (response.status === 200) {
+                        let geoObjects = response.data.results;
+                        let array = [];
+                        geoObjects.map((item) => {
+                            if (item.components.city) array.push(item);
+                        })
+                        setSuggests(array);
+                    }
+                })
+            } else {
+                setSuggests([]);
+            }
+        }
+    }
+
+    const changeCount = (value) => {
+        if (isEdit && event.event_player.length >= value) {
+           return;
+        } else {
+            setCount(value);
         }
     }
 
@@ -249,13 +261,13 @@ export const FormEventComponent = ({
                 <span>{titleText}</span>
                 <div onClick={closeWindow} className={"btn-close"}></div>
             </div>
-            <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={inputName}
+            <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
                             placeholder={"Название *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
             <div className={`elem elem-3 div-input`} ref={refAddress}>
                 <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}
                        value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
                        onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>
-                <div className={"map-paper-icon"} onClick={openMap}></div>
+                <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>
                 <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>
                 <div className={`suggests scroll ${suggests.length ? '' : 'hidden'}`}>
                     {suggests.length !== 0 && suggests.map((item, key) => (
@@ -298,7 +310,7 @@ export const FormEventComponent = ({
             <div className={"elem elem-6"}>
                 <span>Максимальное кол. игроков *</span>
             </div>
-            <DropDownComponent value={count} setValue={setCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
+            <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
             <CheckSliderComponent value={isNotPlayer} setValue={setIsNotPlayer} text={"Организатор события не играет"}
                                   sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
             <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
