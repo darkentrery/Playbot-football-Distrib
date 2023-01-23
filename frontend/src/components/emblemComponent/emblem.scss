@@ -143,15 +143,15 @@
     top: 248px;
     left: calc(50% - 70px);
 
-    &:before {
-      content: '';
-      position: absolute;
-      height: 100%;
-      width: 3px;
-      border-radius: 1.5px;
-      background: #D19C6C;
-      left: calc(50% - 1.5px);
-    }
+    //&:before {
+    //  content: '';
+    //  position: absolute;
+    //  height: 100%;
+    //  width: 3px;
+    //  border-radius: 1.5px;
+    //  background: #D19C6C;
+    //  left: calc(50% - 1.5px);
+    //}
     .elem {
       display: flex;
       flex: 0 0 50%;

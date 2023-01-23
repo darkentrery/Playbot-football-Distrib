@@ -39,6 +39,9 @@ class PositionSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     all_games = serializers.IntegerField(read_only=True)
+    count_goals = serializers.IntegerField(read_only=True)
+    wins = serializers.IntegerField(read_only=True)
+    loss = serializers.IntegerField(read_only=True)
     event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     event = EventSerializer(Event.objects.all(), many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
