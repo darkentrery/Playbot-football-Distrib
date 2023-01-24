@@ -23,22 +23,22 @@ export const EmblemSmallComponent = ({player, funcs}) => {
                     <span className={"black-600-18"}>{player.username}</span>
                     <div className={"cells"}>
                         <div className={"cell"}>
-                            <span className={"black-700-28"}>11</span>
+                            <span className={"black-700-28"}>{player.wins}</span>
                             <span className={"black-600-18"}>ПОБ</span>
                         </div>
                         <div className={"border"}></div>
                         <div className={"cell"}>
-                            <span className={"black-700-28"}>11</span>
+                            <span className={"black-700-28"}>{player.all_games}</span>
                             <span className={"black-600-18"}>ИГР</span>
                         </div>
                         <div className={"border"}></div>
                         <div className={"cell"}>
-                            <span className={"black-700-28"}>11</span>
+                            <span className={"black-700-28"}>{player.loss}</span>
                             <span className={"black-600-18"}>ПОР</span>
                         </div>
                         <div className={"border"}></div>
                         <div className={"cell"}>
-                            <span className={"black-700-28"}>11</span>
+                            <span className={"black-700-28"}>{player.count_goals}</span>
                             <span className={"black-600-18"}>ГОЛ</span>
                         </div>
                     </div>

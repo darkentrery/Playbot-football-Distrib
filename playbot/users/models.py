@@ -86,4 +86,28 @@ class User(AbstractUser):
             nothing += team_player.team.nothing
         return nothing
 
+    @property
+    def total_time(self):
+        time = 0
+        for team_player in self.team_players.all():
+            for event_game in team_player.team.event_games_teams_1.all():
+                time += event_game.current_duration
+            for event_game in team_player.team.event_games_teams_2.all():
+                time += event_game.current_duration
+        return time
+
+    @property
+    def all_rivals(self):
+        users_id = []
+        for team_player in self.team_players.all():
+            for event_game in team_player.team.event_games_teams_1.all():
+                if event_game.current_duration:
+                    users_id += list(event_game.team_2.team_players.all().values_list("player_id", flat=True))
+            for event_game in team_player.team.event_games_teams_2.all():
+                if event_game.current_duration:
+                    users_id += list(event_game.team_1.team_players.all().values_list("player_id", flat=True))
+        return len(set(users_id))
+
+
+
 

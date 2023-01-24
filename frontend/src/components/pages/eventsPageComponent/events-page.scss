@@ -1,0 +1,34 @@
+.events-page-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: stretch;
+
+  .board-events-1280 {
+    display: flex;
+    flex: 0 0 140px;
+    border-radius: 8px;
+    margin-bottom: 32px;
+    align-items: center;
+    padding-left: 48px;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px) {
+  .events-page-component {
+    .board-events-1280 {
+      .white-700-40 {
+        font-size: 32px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .events-page-component {
+    .board-events-1280 {
+      display: none;
+    }
+  }
+}

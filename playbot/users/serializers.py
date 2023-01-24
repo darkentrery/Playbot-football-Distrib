@@ -48,6 +48,8 @@ class UserSerializer(serializers.ModelSerializer):
     position_2 = PositionSerializer(read_only=True)
     favorite_events = EventSerializer(Event.objects.all(), many=True, read_only=True)
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
+    total_time = serializers.IntegerField(read_only=True)
+    all_rivals = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
