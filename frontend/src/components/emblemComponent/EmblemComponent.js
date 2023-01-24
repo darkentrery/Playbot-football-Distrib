@@ -1,9 +1,12 @@
 
 
 export const EmblemComponent = ({className='', player}) => {
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
     return (
         <div className={`emblem-component ${className}`}>
-            <div className={"emblem-fon"}></div>
+            <div className={"emblem-fon"}>
+                <img className={"emblem-photo"} src={serverUrl + player.photo} alt=""/>
+            </div>
             {/*<div className={"pentagon-1"}></div>*/}
             {/*<div className={"pentagon-2"}></div>*/}
             {/*<div className={"pentagon-3"}></div>*/}

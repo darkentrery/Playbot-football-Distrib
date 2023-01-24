@@ -1,3 +1,4 @@
+from django.core.files.base import ContentFile
 from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -12,6 +13,7 @@ from playbot.users.models import User
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer
+from playbot.users.utils import get_face
 
 
 class IndexView(APIView):
@@ -163,7 +165,12 @@ class UpdateUserView(APIView):
             if serializer.is_valid():
                 user = serializer.save()
                 if user:
-                    json = UserSerializer(instance=request.user).data
+                    if request.data.get("photo"):
+                        photo = get_face(user.photo.url)
+                        if photo:
+                            user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photo), save=True)
+                            # user.save()
+                    json = UserSerializer(instance=user).data
                     return Response(json, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

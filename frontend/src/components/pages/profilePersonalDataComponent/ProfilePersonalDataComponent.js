@@ -33,6 +33,7 @@ export const ProfilePersonalDataComponent = ({
     const [data, setData] = useState(false);
     const positions = ["Позиция 1", "Позиция 2", "Позиция 3", "Позиция 4", "Позиция 5", "Позиция 6", "Позиция 7", "Позиция 8", "Позиция 9", "Позиция 10", "Позиция 11"];
     const refDate = useRef();
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
         let currentPhoto = null;
@@ -106,7 +107,6 @@ export const ProfilePersonalDataComponent = ({
         }
     }
 
-
     return (
         <VisibleProfileWrapper>
             {player && user && <div className={"profile-personal-data-component"}>
@@ -128,7 +128,7 @@ export const ProfilePersonalDataComponent = ({
                         {photo && typeof photo !== "string" &&
                             <img alt="not fount" className={"el-1 my-photo"} src={URL.createObjectURL(photo)}/>}
                         {photo && typeof photo === "string" &&
-                            <img alt="not fount" className={"el-1 my-photo"} src={'http://127.0.0.1:8000' + photo}/>}
+                            <img alt="not fount" className={"el-1 my-photo"} src={serverUrl + photo}/>}
                         <div className={"el-2"}>
                             <span className={"gray-400-14"}>Файл загружен</span>
                             <span className={"orange-400-14"}>Выбрать файл</span>

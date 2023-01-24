@@ -6,7 +6,21 @@
   box-sizing: border-box;
 
   .emblem-fon {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+
+    .emblem-photo {
+      display: flex;
+      flex: 0 0 150px;
+      width: 150px;
+      margin-left: 65px;
+      margin-top: 50px;
+      box-sizing: border-box;
+      filter: alpha(Opacity=75);
+      opacity: 0.75;
+    }
   }
 
   .pentagon-1 {
