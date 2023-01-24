@@ -10,6 +10,7 @@ from playbot.users.models import User
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     all_games = serializers.IntegerField(read_only=True)
+    rank = serializers.FloatField(read_only=True)
 
     class Meta:
         model = User

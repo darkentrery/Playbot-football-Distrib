@@ -18,7 +18,7 @@ from playbot.events.models import EventPlayer, Event
 from playbot.events.serializers import EventSerializer
 from playbot.notices.models import Notice
 from playbot.notices.serializers import UserNoticeSerializer
-from playbot.users.models import User, Position
+from playbot.users.models import User, Position, RankHistory
 from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
 
 
@@ -36,6 +36,21 @@ class PositionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class RankHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RankHistory
+        fields = "__all__"
+
+
+class SamePlayerSerializer(serializers.ModelSerializer):
+    position_1 = PositionSerializer(read_only=True)
+    rank = serializers.FloatField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "rank", "position_1"]
+
+
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     all_games = serializers.IntegerField(read_only=True)
@@ -50,6 +65,9 @@ class UserSerializer(serializers.ModelSerializer):
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
     total_time = serializers.IntegerField(read_only=True)
     all_rivals = serializers.IntegerField(read_only=True)
+    rank = serializers.FloatField(read_only=True)
+    ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
+    same_players = SamePlayerSerializer(User, many=True, read_only=True)
 
     class Meta:
         model = User

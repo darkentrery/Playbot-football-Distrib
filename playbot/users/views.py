@@ -9,7 +9,7 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.cities.models import City
-from playbot.users.models import User
+from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer
@@ -84,6 +84,7 @@ class SignUpView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             if user:
+                RankHistory.objects.create(user=user)
                 json = UserSerializer(instance=user).data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

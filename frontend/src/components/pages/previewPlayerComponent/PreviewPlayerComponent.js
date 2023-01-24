@@ -5,9 +5,9 @@ import BottomComponent from "../../BottomComponent";
 import React, {useEffect, useState} from "react";
 import {authService} from "../../../services/AuthService";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
-import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 import {Top376Component} from "../../top376Component/Top376Component";
 import BaseRoutes from "../../../routes/BaseRoutes";
+import ProfileRoutes from "../../../routes/ProfileRoutes";
 
 
 export const PreviewPlayerComponent = ({
@@ -109,13 +109,15 @@ export const PreviewPlayerComponent = ({
                     <span className={"gray-600-12"}>Похожие игроки</span>
                     <div className={"gray-down-arrow-icon"}></div>
                 </div>
-                <div className={"same-player"}>
-                    <div className={"elem-1"}>
-                        <span className={"black-700-13"}>Наталья Разломова</span>
-                        <span className={"black-400-13"}>Наталья Разломова</span>
-                    </div>
-                    <span className={"elem-2 black-400-13"}>88,9</span>
-                </div>
+                {player.same_players.map((user, key) => (
+                    <Link className={"same-player"} key={key} to={ProfileRoutes.previewPlayerLink(user.id)}>
+                        <div className={"elem-1"}>
+                            <span className={"black-700-13"}>{user.username}</span>
+                            <span className={"black-400-13"}>Наталья Разломова</span>
+                        </div>
+                        <span className={"elem-2 black-400-13"}>{user.rank.toFixed(1).replace('.', ',')}</span>
+                    </Link>
+                ))}
             </div>
         )
     }
@@ -158,6 +160,7 @@ export const PreviewPlayerComponent = ({
                     <SamePlayers player={player} hidden={about}/>
                 </div>}
             </div>
+
             <div className={"preview-player-component-376"}>
                 {player && <>
                     <Top376Component className={"top-bar"} label={player.username} to={BaseRoutes.main}/>

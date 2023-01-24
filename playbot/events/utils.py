@@ -140,3 +140,23 @@ def auto_distribution(event):
                         break
 
     return teams
+
+
+def next_rank(user, game):
+    opponent_team = game.team_1
+    if game.team_1.team_players.filter(player__id=user.id).exists():
+        opponent_team = game.team_2
+
+    time_sum = 0
+    for team_player in user.team_players.all():
+        for event_game in team_player.team.event_games_teams_1.all():
+            time_sum += event_game.current_duration * event_game.event.format.rate
+        for event_game in team_player.team.event_games_teams_2.all():
+            time_sum += event_game.current_duration * event_game.event.format.rate
+    time_sum *= 0.001
+    avr_opponents = 0
+    for opponent in opponent_team.team_players.all():
+        avr_opponents += opponent.player.rank
+    avr_opponents /= opponent_team.team_players.all().count()
+    rank = (5 + time_sum + user.all_rivals * 0.01 + avr_opponents / user.rank) * user.involvement * (100 - user.penalty)
+    return rank

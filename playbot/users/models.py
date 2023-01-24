@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from playbot.cities.models import City
@@ -29,7 +30,7 @@ class User(AbstractUser):
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
-    rank = models.FloatField(_("Rank"), default=0)
+    # rank = models.FloatField(_("Rank"), default=0)
     gender = models.CharField(_("Gender"), max_length=50, choices=Gender.choices, default=Gender.MALE)
     position_1 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_1", blank=True, null=True)
     position_2 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_2", blank=True, null=True)
@@ -37,6 +38,8 @@ class User(AbstractUser):
     photo = models.ImageField(upload_to="photos", verbose_name="Photo", blank=True, null=True)
     about_self = models.TextField(_("About Self"), blank=True, null=True)
     favorite_events = models.ManyToManyField("events.Event", related_name="in_favorites", blank=True)
+    penalty = models.PositiveIntegerField(_("Penalty"), default=0)
+    involvement = models.PositiveIntegerField(_("Involvement"), default=0)
     is_active = models.BooleanField(
         _("active"),
         default=False,
@@ -87,6 +90,13 @@ class User(AbstractUser):
         return nothing
 
     @property
+    def wins_percent(self):
+        percent = 0
+        if self.all_games:
+            percent = 100 * self.wins / self.all_games
+        return percent
+
+    @property
     def total_time(self):
         time = 0
         for team_player in self.team_players.all():
@@ -107,6 +117,40 @@ class User(AbstractUser):
                 if event_game.current_duration:
                     users_id += list(event_game.team_1.team_players.all().values_list("player_id", flat=True))
         return len(set(users_id))
+
+    @property
+    def rank(self):
+        if self.ranks_history.all().exists():
+            return self.ranks_history.all().first().rank
+        else:
+            return 0
+
+    @property
+    def same_players(self):
+        players_id = []
+        players = User.objects.filter(gender=self.gender)
+        for player in players:
+            if self.wins_percent - 5 <= player.wins_percent <= self.wins_percent + 5:
+                players_id.append([player.id, player.wins_percent])
+        players_id.sort(key=lambda x: x[1], reverse=True)
+        players_id = [id[0] for id in players_id]
+        players = User.objects.filter(id__in=players_id)
+        count = 10 if players.count() >= 10 else players.count()
+        return players[:count]
+
+
+class RankHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")
+    rank = models.FloatField(_("Rank"), default=5)
+    create = models.DateTimeField(_("Time Create"), default=timezone.now)
+
+    class Meta:
+        ordering = ["create",]
+        verbose_name = "Rank History"
+        verbose_name_plural = "Ranks History"
+
+    def __str__(self):
+        return f"{self.user.email}" or f"{self.user.username}"
 
 
 

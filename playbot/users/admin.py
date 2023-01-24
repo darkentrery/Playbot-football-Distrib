@@ -1,9 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.db import models
-from django.forms import CheckboxSelectMultiple
 
-from playbot.users.models import User, Position
+from playbot.users.models import User, Position, RankHistory
+
+
+class RankHistoryInline(admin.TabularInline):
+    model = RankHistory
+    extra = 0
+    list_display = [
+        "rank",
+        "create",
+    ]
 
 
 @admin.register(User)
@@ -31,10 +38,11 @@ class CustomUserAdmin(UserAdmin):
                     "city",
                     "confirm_slug",
                     "gender",
-                    "rank",
                     "birthday",
                     "position_1",
                     "position_2",
+                    "penalty",
+                    "involvement",
                     "photo",
                     "about_self",
                     "favorite_events",
@@ -60,10 +68,20 @@ class CustomUserAdmin(UserAdmin):
         "user_permissions",
         "favorite_events",
     )
+    inlines = [RankHistoryInline,]
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     list_display = [
         "name",
+    ]
+
+
+@admin.register(RankHistory)
+class RankHistoryAdmin(admin.ModelAdmin):
+    list_display = [
+        "user",
+        "rank",
+        "create",
     ]

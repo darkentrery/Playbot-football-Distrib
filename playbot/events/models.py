@@ -33,6 +33,7 @@ class Duration(models.Model):
 class Format(models.Model):
     name = models.CharField(_("Label"), max_length=150)
     count = models.IntegerField(_("Count In Team"))
+    rate = models.FloatField(_("Rate For Rank"), default=1)
 
     class Meta:
         verbose_name = "Format"
