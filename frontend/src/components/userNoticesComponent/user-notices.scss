@@ -36,7 +36,7 @@
     width: 311px;
     align-items: stretch;
     border-radius: 0;
-    border: none;
+    border: 1px solid $lightGrayColor;
     background: $whiteColor;
     position: absolute;
     right: -20px;
@@ -50,6 +50,10 @@
       padding: 19px 24px;
       box-sizing: border-box;
       cursor: pointer;
+
+      &:hover {
+        background: $lightGrayColor;
+      }
     }
     &.open {
       display: flex;

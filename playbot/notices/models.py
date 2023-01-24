@@ -35,6 +35,7 @@ class UserNotice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_notices", blank=True)
     notice = models.ForeignKey(Notice, on_delete=models.CASCADE, related_name="user_notices", blank=True)
     time_read = models.DateTimeField(_("Time Read"), blank=True, null=True)
+    show = models.BooleanField(_("Show Notice On Window"), default=True)
 
     class Meta:
         verbose_name = "User Notice"

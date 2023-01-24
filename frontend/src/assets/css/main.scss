@@ -10,12 +10,6 @@
 @import "body";
 @import "bottom";
 
-//Wrappers
-@import "../../components/wrappers/eventWrapperComponent/event-wrapper";
-@import "../../components/wrappers/mainWrapperComponent/main-wrapper";
-@import "../../components/wrappers/profileWrapperComponent/profile-wrapper";
-@import "../../components/reglamentComponent/reglament";
-
 //Components
 @import "../../components/successComponent/success";
 @import "../../components/yesNoComponent/yes-no";
@@ -42,7 +36,7 @@
 @import "../../components/warningNoticeComponent/warning-notice";
 @import "../../components/noticeComponent/notice";
 @import "../../components/userNoticesComponent/user-notices";
-
+@import "../../components/noticeListComponent/notice-list";
 
 //Popups
 @import "sign-up";
@@ -70,5 +64,11 @@
 @import "../../components/pages/gamePlayerComponent/game-player";
 @import "../../components/pages/myProfileComponent/my-profile";
 @import "../../components/pages/eventsPageComponent/events-page";
+
+//Wrappers
+@import "../../components/wrappers/eventWrapperComponent/event-wrapper";
+@import "../../components/wrappers/mainWrapperComponent/main-wrapper";
+@import "../../components/wrappers/profileWrapperComponent/profile-wrapper";
+@import "../../components/reglamentComponent/reglament";
 
 

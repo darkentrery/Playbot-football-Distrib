@@ -9,6 +9,7 @@ class UserNoticeInline(admin.TabularInline):
     list_display = [
         "user",
         "time_read",
+        "show",
     ]
 
 
@@ -30,4 +31,5 @@ class UserNoticeAdmin(admin.ModelAdmin):
         "user",
         "notice",
         "time_read",
+        "show",
     ]

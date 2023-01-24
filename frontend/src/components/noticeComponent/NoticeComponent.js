@@ -1,12 +1,27 @@
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import {noticeService} from "../..//services/NoticeService";
 
 
-export const NoticeComponent = ({to=false, accept=false, children}) => {
+
+export const NoticeComponent = ({
+    notice,
+    to=false,
+    accept=false,
+    setUser,
+    children,
+}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const close = () => {
         setIsOpen(false);
+        authDecoratorWithoutLogin(noticeService.hiddeNotice, notice).then((response) => {
+            console.log(response.data)
+            if (response.status === 200) {
+                setUser(true, response.data);
+            }
+        })
     }
 
     return (

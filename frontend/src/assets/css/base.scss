@@ -561,14 +561,6 @@ input[type="checkbox"] {
   }
 }
 
-.notice-list {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  gap: 15px;
-}
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .main-wrapper-component {
