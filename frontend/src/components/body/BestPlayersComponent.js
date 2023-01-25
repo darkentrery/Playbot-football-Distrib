@@ -32,7 +32,7 @@ export default function BestPlayersComponent () {
                     <span className={"elem elem-1 player-avatar-icon black-400-13"}>{key + 1}. <span className={"name"}>{player.username}</span></span>
                     <span className={"elem elem-2 black-400-13"}>354<span className={"green"}>&nbsp;+11</span></span>
                     <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
-                    <span className={"elem elem-4 black-400-13 gray"}>{player.all_games !== 0 ? (100 * player.wins / player.all_games).toFixed(2) : 0}</span>
+                    <span className={"elem elem-4 black-400-13 gray"}>{player.all_games !== 0 ? Math.round(100 * player.wins / player.all_games) : 0}</span>
                     <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
                     <span className={"elem elem-6 black-400-13 rank-icon"}></span>
                 </Link>

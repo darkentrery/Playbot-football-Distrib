@@ -181,6 +181,41 @@ class Team(models.Model):
                 played += 1
         return played
 
+    @property
+    def rank(self):
+        rank = 0
+        for player in self.team_players.all():
+            rank += player.player.rank
+        rank /= self.team_players.all().count()
+        return rank
+
+    @property
+    def all_rivals(self):
+        users_id = []
+        for event_game in self.event_games_teams_1.all():
+            if event_game.current_duration:
+                users_id += list(event_game.team_2.team_players.all().values_list("player_id", flat=True))
+        for event_game in self.event_games_teams_2.all():
+            if event_game.current_duration:
+                users_id += list(event_game.team_1.team_players.all().values_list("player_id", flat=True))
+        return len(set(users_id))
+
+    @property
+    def scores(self):
+        return self.wins * 3 + self.nothing
+
+    @property
+    def do_goals(self):
+        goals_1 = [team.score_1 for team in self.event_games_teams_1.all()]
+        goals_2 = [team.score_2 for team in self.event_games_teams_2.all()]
+        return sum(goals_1 + goals_2)
+
+    @property
+    def miss_goals(self):
+        goals_1 = [team.score_2 for team in self.event_games_teams_1.all()]
+        goals_2 = [team.score_1 for team in self.event_games_teams_2.all()]
+        return sum(goals_1 + goals_2)
+
 
 class EventPlayer(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_player")

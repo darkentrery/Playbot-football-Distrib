@@ -125,14 +125,30 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 <EventTable event={event} title={"Турнирная таблица"} className={"black-event-table-icon"}>
                     <TournamentRow gray={true} value1={"№"} value2={"Команда"} value3={"И"} value4={"В / Н / П"} value5={"З-П"} value6={"О"}/>
                     {event && event.teams.map((team, key) => (
-                        <TournamentRow value1={team.number} value2={team.name} value3={team.played} value4={`${team.wins} / ${team.nothing} / ${team.loss}`} value5={"З-П"} value6={"О"} key={key}
-                        flagFinish={team.played ? true : false}/>
+                        <TournamentRow
+                            value1={team.number}
+                            value2={team.name}
+                            value3={team.played}
+                            value4={`${team.wins} / ${team.nothing} / ${team.loss}`}
+                            value5={`${team.do_goals} - ${team.miss_goals}`}
+                            value6={team.scores}
+                            key={key}
+                            flagFinish={team.played ? true : false}
+                        />
                     ))}
                 </EventTable>
                 <EventTable event={event} title={"Игроки"} className={"socer-player-icon"}>
                     <PlayerRow gray={true} value1={"№"} value2={"Имя "} value3={"И"} value4={"П"} value5={"З"} value6={"Рейтинг"}/>
                     {event && event.event_player.map((player, key) => (
-                        <PlayerRow value1={key + 1} value2={player.player.username} value3={"И"} value4={"П"} value5={"З"} value6={"Рейтинг"} key={key}/>
+                        <PlayerRow
+                            value1={key + 1}
+                            value2={player.player.username}
+                            value3={player.player.all_games}
+                            value4={player.player.wins}
+                            value5={player.player.count_goals}
+                            value6={player.player.rank}
+                            key={key}
+                        />
                     ))}
                 </EventTable>
             </div>

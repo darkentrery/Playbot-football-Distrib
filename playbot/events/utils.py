@@ -1,5 +1,5 @@
 from itertools import combinations
-from playbot.events.models import Team, EventGame
+from playbot.events.models import Team, EventGame, Goal
 from playbot.users.models import User
 
 
@@ -142,10 +142,22 @@ def auto_distribution(event):
     return teams
 
 
-def next_rank(user, game):
-    opponent_team = game.team_1
-    if game.team_1.team_players.filter(player__id=user.id).exists():
-        opponent_team = game.team_2
+def get_next_rank(user, event):
+    user_team = event.teams.all().first()
+    opponents_id = []
+    for team in event.teams.all():
+        if team.team_players.filter(player__id=user.id).exists():
+            user_team = team
+        else:
+            opponents_id.append(team.id)
+
+    opponent_teams = event.teams.filter(id__in=opponents_id)
+
+    # opponent_team = game.team_1
+    # user_team = game.team_2
+    # if game.team_1.team_players.filter(player__id=user.id).exists():
+    #     opponent_team = game.team_2
+    #     user_team = game.team_1
 
     time_sum = 0
     for team_player in user.team_players.all():
@@ -155,8 +167,15 @@ def next_rank(user, game):
             time_sum += event_game.current_duration * event_game.event.format.rate
     time_sum *= 0.001
     avr_opponents = 0
-    for opponent in opponent_team.team_players.all():
-        avr_opponents += opponent.player.rank
-    avr_opponents /= opponent_team.team_players.all().count()
-    rank = (5 + time_sum + user.all_rivals * 0.01 + avr_opponents / user.rank) * user.involvement * (100 - user.penalty)
+    rivals = 0
+    for opponent_team in opponent_teams:
+        for opponent in opponent_team.team_players.all():
+            avr_opponents += opponent.player.rank
+        rivals += opponent_team.team_players.all().count()
+    avr_opponents /= rivals
+
+    delta_team_rank = user_team.rank + event.format.rate * 0.01 + user_team.all_rivals * 0.01
+
+    delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
+    rank = (5 + time_sum + user.all_rivals * 0.01 + avr_opponents / user.rank + delta_rank) * user.involvement * (100 - user.penalty)
     return rank

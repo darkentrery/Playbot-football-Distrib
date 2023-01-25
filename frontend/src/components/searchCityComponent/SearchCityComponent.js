@@ -34,12 +34,12 @@ export const SearchCityComponent = ({
 
     const choiceCity = async (e) => {
         setCity(e.target.innerHTML);
+        setIsOpen(false);
         await authDecoratorWithoutLogin(authService.updateCity, {'city': e.target.innerHTML}).then((response) => {
             if (response.status === 200) {
                 setAuth(true, response.data);
             }
         })
-        setIsOpen(false);
     }
 
     document.addEventListener('click', (e) => {

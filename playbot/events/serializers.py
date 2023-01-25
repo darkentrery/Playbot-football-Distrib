@@ -11,6 +11,8 @@ class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     all_games = serializers.IntegerField(read_only=True)
     rank = serializers.FloatField(read_only=True)
+    wins = serializers.IntegerField(read_only=True)
+    count_goals = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
@@ -54,6 +56,9 @@ class TeamSerializer(serializers.ModelSerializer):
     loss = serializers.IntegerField(read_only=True)
     nothing = serializers.IntegerField(read_only=True)
     played = serializers.IntegerField(read_only=True)
+    scores = serializers.IntegerField(read_only=True)
+    do_goals = serializers.IntegerField(read_only=True)
+    miss_goals = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Team
@@ -176,6 +181,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_teams(self, instance):
         teams = instance.teams.all().order_by("number")
+        teams = sorted(teams, key=lambda t: t.scores, reverse=True)
         return TeamSerializer(teams, many=True, read_only=True).data
 
 
