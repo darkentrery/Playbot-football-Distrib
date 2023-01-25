@@ -23,6 +23,7 @@
     "react-scripts": "^5.0.1",
     "react-telegram-auth": "^1.0.3",
     "react-use-websocket": "^4.2.0",
+    "recharts": "^2.3.2",
     "redux": "^4.2.0",
     "svg-url-loader": "^8.0.0",
     "telegram-login-button": "^0.0.3",

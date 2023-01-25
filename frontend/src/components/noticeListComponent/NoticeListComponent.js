@@ -11,7 +11,7 @@ export const NoticeListComponent = ({user, setUser}) => {
                 if (userNotice.show) {
                     let link = false;
                     let accept = false;
-                    if (["Join", "New Player", "Complete Players"].includes(userNotice.notice.notice_type)) {
+                    if (["Join", "New Player", "Complete Players", "Invite"].includes(userNotice.notice.notice_type)) {
                         link = EventRoutes.eventLink(userNotice.notice.event.id)
                     }
                     if ("Invite" === userNotice.notice.notice_type) {

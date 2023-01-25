@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {authService} from "../../services/AuthService";
 import {Link} from "react-router-dom";
 import ProfileRoutes from "../../routes/ProfileRoutes";
+import {RankChartComponent} from "../rankChartComponent/RankChartComponent";
 
 
 export default function BestPlayersComponent () {
@@ -34,7 +35,7 @@ export default function BestPlayersComponent () {
                     <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
                     <span className={"elem elem-4 black-400-13 gray"}>{player.all_games !== 0 ? Math.round(100 * player.wins / player.all_games) : 0}</span>
                     <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
-                    <span className={"elem elem-6 black-400-13 rank-icon"}></span>
+                    <RankChartComponent ranks={player.ranks_history}/>
                 </Link>
             ))}
         </div>

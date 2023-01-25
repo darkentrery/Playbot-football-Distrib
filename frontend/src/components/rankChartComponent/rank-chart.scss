@@ -1,0 +1,13 @@
+.rank-chart-component {
+
+}
+
+.custom-chart-tooltip {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid $lightGrayColor;
+  background: $whiteColor;
+}
