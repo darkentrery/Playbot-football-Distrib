@@ -177,5 +177,5 @@ def get_next_rank(user, event):
     delta_team_rank = user_team.rank + event.format.rate * 0.01 + user_team.all_rivals * 0.01
 
     delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
-    rank = (5 + time_sum + user.all_rivals * 0.01 + avr_opponents / user.rank + delta_rank) * user.involvement * (100 - user.penalty)
+    rank = (5 + time_sum + user.all_rivals * 0.01 + avr_opponents / user.rank + delta_rank) * user.involvement * (100 - user.penalty) * 0.01
     return rank

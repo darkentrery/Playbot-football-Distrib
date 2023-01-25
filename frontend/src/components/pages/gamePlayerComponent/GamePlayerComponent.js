@@ -43,7 +43,6 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             } else {
                 setAllPlayed(1);
             }
-            console.log(arr)
         }
     }, [game])
 

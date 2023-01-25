@@ -39,7 +39,7 @@ class User(AbstractUser):
     about_self = models.TextField(_("About Self"), blank=True, null=True)
     favorite_events = models.ManyToManyField("events.Event", related_name="in_favorites", blank=True)
     penalty = models.PositiveIntegerField(_("Penalty"), default=0)
-    involvement = models.PositiveIntegerField(_("Involvement"), default=0)
+    involvement = models.PositiveIntegerField(_("Involvement"), default=1)
     is_active = models.BooleanField(
         _("active"),
         default=False,
