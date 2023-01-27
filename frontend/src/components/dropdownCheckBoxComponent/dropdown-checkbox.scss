@@ -1,8 +1,6 @@
 .dropdown-checkbox-component {
   display: flex;
   background: $whiteColor;
-  position: relative;
-  //height: 48px;
   flex-direction: column;
   align-items: stretch;
   box-sizing: border-box;
@@ -29,15 +27,11 @@
   }
   .dropdown-body {
     display: flex;
-    //position: absolute;
-    //top: 48px;
     background: $whiteColor;
     box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
-    //width: 100%;
     flex-direction: column;
     box-sizing: border-box;
     padding: 12px 12px 22px 12px;
-    //z-index: 2;
     gap: 10px;
 
     &.hidden {
