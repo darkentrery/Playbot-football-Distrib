@@ -5,6 +5,8 @@ export const SearchComponent = ({
     className='',
     arrayFirst=[],
     setArraySecond,
+    icon='search-icon',
+    placeholder='Поиск',
 }) => {
 
     const search = (e) => {
@@ -18,7 +20,8 @@ export const SearchComponent = ({
 
     return (
         <div className={`search-component ${className}`}>
-            <input className={"search-icon"} type="text" placeholder={"Поиск"} onChange={search}/>
+            <input type="text" placeholder={placeholder} onChange={search}/>
+            <div className={`icon ${icon}`}></div>
         </div>
     )
 }

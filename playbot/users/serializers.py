@@ -28,18 +28,21 @@ class EventPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventPlayer
         fields = "__all__"
+        read_only_field = fields
 
 
 class PositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Position
         fields = "__all__"
+        read_only_field = fields
 
 
 class RankHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = RankHistory
         fields = "__all__"
+        read_only_field = fields
 
 
 class SamePlayerSerializer(serializers.ModelSerializer):
@@ -49,10 +52,11 @@ class SamePlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "rank", "position_1"]
+        read_only_field = fields
 
 
 class UserSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     all_games = serializers.IntegerField(read_only=True)
     count_goals = serializers.IntegerField(read_only=True)
     wins = serializers.IntegerField(read_only=True)
@@ -72,7 +76,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
-        read_only_field = ['is_active',]
+        read_only_field = fields
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):

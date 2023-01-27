@@ -1,5 +1,5 @@
-import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
-import React, {useState, useEffect, useRef} from "react";
+import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import React, {useState, useEffect} from "react";
 import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
 
 import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
@@ -26,7 +26,6 @@ import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
 import VisibleConfirmTeamPlayers from "./redux/containers/VisibleConfirmTeamPlayers";
 import BaseRoutes from "./routes/BaseRoutes";
 import VisibleEventsPage from "./redux/containers/VisibleEventsPage";
-import {GeneralInformationComponent} from "./components/pages/generalInformationComponent/GeneralInformationComponent";
 import VisibleMainPage from "./redux/containers/VisibleMainPage";
 import VisibleEvent from "./redux/containers/VisibleEvent";
 import {AllowPolicyComponent} from "./components/body/AllowPolicyComponent";
@@ -37,14 +36,10 @@ import VisibleRepeatEvent from "./redux/containers/VisibleRepeatEvent";
 import {RulesPageComponent} from "./components/pages/RulesPageComponent";
 import {FaqPageComponent} from "./components/pages/FaqPageComponent";
 import VisibleGamePlayer from "./redux/containers/VisibleGamePlayer";
-import {SuccessCancelEventComponent} from "./components/success/SuccessCancelEventComponent";
 import VisibleSuccessCancelEvent from "./redux/containers/VisibleSuccessCancelEvent";
 import VisibleEndGame from "./redux/containers/VisibleEndGame";
 import EventRoutes from "./routes/EventRoutes";
 import ProfileRoutes from "./routes/ProfileRoutes";
-import {
-    ProfileMyEventsPageComponent
-} from "./components/pages/profileMyEventsPageComponent/ProfileMyEventsPageComponent";
 import VisibleMyEventsPage from "./redux/containers/VisibleMyEventsPage";
 import VisibleFavorites from "./redux/containers/VisibleFavorites";
 import VisibleProfilePersonalData from "./redux/containers/VisibleProfilePersonalData";
@@ -55,6 +50,7 @@ import VisibleSuccessUpdatePassword from "./redux/containers/VisibleSuccessUpdat
 import VisibleMyProfile from "./redux/containers/VisibleMyProfile";
 import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
 import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
+import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
 
 
 
@@ -128,7 +124,7 @@ function App({state, funcs}) {
                 <Routes>
                     <Route exact path={EventRoutes.events} element={<VisibleEventsPage/>}/>
                     <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
-                    <Route exact path={BaseRoutes.statistic} element={<VisibleMainPage/>}/>
+                    <Route exact path={BaseRoutes.statistic} element={<VisibleStatisticPage/>}/>
                     <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
                     <Route exact path={EventRoutes.event} element={<VisibleEvent/>}/>
                     <Route exact path={BaseRoutes.allowPolicy} element={<AllowPolicyComponent/>}/>

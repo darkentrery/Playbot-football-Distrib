@@ -38,6 +38,10 @@
 @import "../../components/userNoticesComponent/user-notices";
 @import "../../components/noticeListComponent/notice-list";
 @import "../../components/rankChartComponent/rank-chart";
+@import "../../components/topStatisticComponent/top-statistic";
+@import "../../components/filtersComponent/filters";
+@import "../../components/bestPlayersComponent/best-players";
+@import "../../components/dropdownCheckBoxComponent/dropdown-checkbox";
 
 //Popups
 @import "sign-up";
@@ -65,6 +69,7 @@
 @import "../../components/pages/gamePlayerComponent/game-player";
 @import "../../components/pages/myProfileComponent/my-profile";
 @import "../../components/pages/eventsPageComponent/events-page";
+@import "../../components/pages/statisticPageComponent/statistic-page";
 
 //Wrappers
 @import "../../components/wrappers/eventWrapperComponent/event-wrapper";

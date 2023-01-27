@@ -1,4 +1,3 @@
-@import "body/best-players";
 @import "body/no-events";
 @import "body/events";
 @import "body/event";
@@ -25,7 +24,7 @@
   align-items: stretch;
 }
 
-.body .title {
+.body .title-component {
   display: flex;
   align-items: center;
   flex: 0 0 29px;
@@ -211,7 +210,7 @@
       display: none;
     }
   }
-  .body .title {
+  .body .title-component {
     display: none;
   }
 }

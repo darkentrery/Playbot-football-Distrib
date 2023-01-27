@@ -1,0 +1,38 @@
+.statistic-page-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: stretch;
+  gap: 44px;
+
+  .statistic-body {
+    display: flex;
+    gap: 13px;
+
+    .filter-block {
+      display: none;
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .statistic-page-component {
+    .statistic-body {
+      .filter-block {
+        display: flex;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px) {
+  .statistic-page-component {
+    .statistic-body {
+
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px) {
+
+}

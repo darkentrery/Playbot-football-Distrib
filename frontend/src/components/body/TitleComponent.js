@@ -4,7 +4,7 @@ import React from "react";
 
 export default function TitleComponent ({label, to}) {
     return (
-        <div className={"title"}>
+        <div className={"title-component"}>
             <span className={"t-1"}>{label}</span>
             <Link className={"t-2"} to={to}>
                 <span>Смотреть все</span>

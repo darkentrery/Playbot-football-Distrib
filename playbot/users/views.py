@@ -133,8 +133,7 @@ class IsAuthView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format='json'):
-        serializer = UserSerializer(instance=request.user)
-        json = serializer.data
+        json = UserSerializer(instance=request.user).data
         return Response(json, status=status.HTTP_200_OK)
 
 
@@ -142,8 +141,7 @@ class GetUsersView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        serializer = UserSerializer(User.objects.all(), many=True)
-        json = serializer.data
+        json = UserSerializer(User.objects.all(), many=True).data
         return Response(json, status=status.HTTP_200_OK)
 
 
@@ -151,8 +149,7 @@ class GetUserView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        serializer = UserSerializer(instance=User.objects.get(pk=kwargs.get("pk")))
-        json = serializer.data
+        json = UserSerializer(instance=User.objects.get(pk=kwargs.get("pk"))).data
         return Response(json, status=status.HTTP_200_OK)
 
 
