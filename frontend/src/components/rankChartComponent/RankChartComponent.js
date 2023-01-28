@@ -20,9 +20,10 @@ export const RankChartComponent = ({ranks}) => {
     }, [ranks])
 
     const CustomTooltip = ({active, payload, label}) => {
+        console.log(payload[0])
         return (
             <div className={"custom-chart-tooltip"}>
-                {payload[0] && <>
+                {payload[0] !== undefined && payload[0].payload && <>
                     <span className={"gray-400-13"}>{payload[0].payload.name}</span>
                     <span className={"gray-400-13"}>Рейтинг: {payload[0].payload.value.toFixed(2)}</span>
                 </>}

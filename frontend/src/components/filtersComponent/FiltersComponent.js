@@ -2,15 +2,17 @@ import {DropdownCheckBoxComponent} from "../dropdownCheckBoxComponent/DropdownCh
 import {useEffect, useState} from "react";
 import {cityService} from "../../services/CityService";
 import {DropdownSliderComponent} from "../dropdownSliderComponent/DropdownSliderComponent";
+import {DateFilterComponent} from "../dateFilterComponent/DateFilterComponent";
 
 
-export const FiltersComponent = ({className=''}) => {
+export const FiltersComponent = ({className='', data, setData}) => {
     const [filterCity, setFilterCity] = useState([]);
     const [filterCanton, setFilterCanton] = useState([]);
     const [filterDistrict, setFilterDistrict] = useState([]);
     const [filterCountGames, setFilterCountGames] = useState([10, 50]);
     const [filterRank, setFilterRank] = useState([10, 50]);
-    const [filterGender, setFilterGender] = useState([10, 50]);
+    const [filterGender, setFilterGender] = useState([]);
+    const [filterDate, setFilterDate] = useState([null, null]);
     const [cities, setCities] = useState([]);
     const cantons = ["aaa", "abbb"];
     const districts = ["aaa", "abbb"];
@@ -29,6 +31,30 @@ export const FiltersComponent = ({className=''}) => {
         return () => isSubscribe = false;
     }, [])
 
+    useEffect(() => {
+        let array = [];
+        data.map((player) => {
+            let flag = false;
+            if (!filterCity.length || filterCity.length && filterCity.includes(player.city)) {
+                flag = true;
+            }
+
+            if (flag) array.push(player);
+        })
+        setData(array);
+        console.log(filterCity, filterCanton, filterDistrict, filterGender, filterCountGames, filterRank, filterDate)
+    }, [filterCity, filterCanton, filterDistrict, filterGender, filterCountGames, filterRank, filterDate])
+
+    const clearFilter = () => {
+        setFilterCity([]);
+        setFilterCanton([]);
+        setFilterDistrict([]);
+        setFilterGender([]);
+        setFilterCountGames([10, 50]);
+        setFilterRank([10, 50]);
+        setFilterDate([null, null]);
+    }
+
     return (
         <div className={`filters-component ${className}`}>
             <span className={"title black-600-16"}>Фильтры</span>
@@ -38,8 +64,8 @@ export const FiltersComponent = ({className=''}) => {
             <DropdownSliderComponent className={"slider"} label={"Количество игр"} setOutData={setFilterCountGames} data={count} outputData={filterCountGames}/>
             <DropdownSliderComponent className={"slider"} label={"Рейтинг"} setOutData={setFilterRank} data={rank} outputData={filterRank}/>
             <DropdownCheckBoxComponent className={"cities"} label={"Пол"} setOutData={setFilterGender} data={genders} outputData={filterGender}/>
-
-            <span className={"btn-second"}>Сбросить фильтры</span>
+            <DateFilterComponent className={"date-filter"} label={"Период"} setOutData={setFilterDate} outputData={filterDate}/>
+            <span className={"btn-second"} onClick={clearFilter}>Сбросить фильтры</span>
         </div>
     )
 }

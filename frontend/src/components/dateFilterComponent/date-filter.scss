@@ -1,0 +1,92 @@
+.date-filter-component {
+  display: flex;
+  background: $whiteColor;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+
+  .dropdown-checkbox-label {
+    display: flex;
+    flex: 0 0 48px;
+    box-sizing: border-box;
+    padding: 0 13px 0 8px;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
+
+    .elem-1 {
+      flex: 1 1 auto;
+    }
+    .elem-2 {
+    }
+    .elem-3 {
+      flex: 0 0 24px;
+      height: 24px;
+    }
+  }
+  .dropdown-body {
+    display: flex;
+    background: $whiteColor;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    &.hidden {
+      display: none;
+    }
+    .dropdown-item {
+      display: flex;
+      flex: 0 0 40px;
+      box-sizing: border-box;
+      padding-left: 16px;
+      gap: 10px;
+      align-items: center;
+      cursor: pointer;
+
+      .orange-check-icon {
+        flex: 0 0 12px;
+        height: 9px;
+        &.hidden {
+          display: none;
+        }
+      }
+    }
+    .choice-period {
+      display: flex;
+      position: relative;
+      box-sizing: border-box;
+      padding-left: 12px;
+      gap: 6px;
+      align-items: center;
+      flex: 0 0 40px;
+      cursor: pointer;
+
+      .calendar-icon {
+        flex: 0 0 24px;
+        height: 24px;
+      }
+    }
+    .MuiDateRangePickerInput-root {
+      .MuiFormControl-root {
+        .MuiInputBase-input.MuiOutlinedInput-input {
+          font-size: 14px;
+          font-family: 'Raleway', sans-serif;
+          padding: 10px;
+        }
+        .MuiFormLabel-root {
+          font-size: 14px;
+          font-family: 'Raleway', sans-serif;
+          top: -7px;
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.MuiPaper-root.MuiPaper-elevation > div > div {
+  display: none;
+  &.MuiDateRangePickerViewDesktop-root {
+    display: flex;
+  }
+}
