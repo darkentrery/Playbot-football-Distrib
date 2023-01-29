@@ -2,7 +2,7 @@ import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime} from "../../utils/dates";
-import {getLocations} from "../../services/LocationService";
+import {getLocations, getLocationsArrayGoogle} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
@@ -50,7 +50,7 @@ export const FormEventComponent = ({
     const [currency, setCurrency] = useState('RUB');
     const [priceError, setPriceError] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
-    const [isTimeOpen, setIsTimeOpen] = useState(false);
+    // const [isTimeOpen, setIsTimeOpen] = useState(false);
     const refDate = useRef();
     const refTime = useRef();
     const refAddress = useRef();
@@ -136,15 +136,15 @@ export const FormEventComponent = ({
         if (refDate.current) refDate.current.setState({inputValue: ''});
     }, [incorrectDate])
 
-    useEffect(() => {
-        if (refTime.current) {
-            if (refTime.current.state.open) {
-                setIsTimeOpen(true);
-            } else {
-                setIsTimeOpen(false);
-            }
-        }
-    },)
+    // useEffect(() => {
+    //     if (refTime.current) {
+    //         if (refTime.current.state.open) {
+    //             setIsTimeOpen(true);
+    //         } else {
+    //             setIsTimeOpen(false);
+    //         }
+    //     }
+    // },)
 
     const renderDay = (props, currentDate, selectedDate) => {
         let date = new Date(currentDate.format("YYYY-MM-DD"));
@@ -175,15 +175,18 @@ export const FormEventComponent = ({
             setCity(false);
             setPoint(false);
             if (e.target.value && e.target.value.length > 6) {
-                getLocations(e.target.value).then((response) => {
-                    if (response.status === 200) {
-                        let geoObjects = response.data.results;
-                        let array = [];
-                        geoObjects.map((item) => {
-                            if (item.components.city) array.push(item);
-                        })
-                        setSuggests(array);
-                    }
+                // getLocations(e.target.value).then((response) => {
+                //     if (response.status === 200) {
+                //         let geoObjects = response.data.results;
+                //         let array = [];
+                //         geoObjects.map((item) => {
+                //             if (item.components.city) array.push(item);
+                //         })
+                //         setSuggests(array);
+                //     }
+                // })
+                getLocationsArrayGoogle(e.target.value).then((array) => {
+                    setSuggests(array);
                 })
             } else {
                 setSuggests([]);
@@ -213,20 +216,20 @@ export const FormEventComponent = ({
 
     const choiceAddress = (e) => {
         let suggest = suggests[e.target.id];
-        let components = suggest.components;
-        let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
-        let city = suggest.components.city;
-        let newAddress = {
-            "country": components.country,
-            "city": components.city,
-        };
-        if (components.region) newAddress["region"] = components.region;
-        if (components.state) newAddress["state"] = components.state;
-        if (components.road) newAddress["street"] = components.road;
-        if (components.house_number) newAddress["house_number"] = components.house_number;
-        setAddress(newAddress);
-        setCity(city);
-        setPoint(point);
+        // let components = suggest.components;
+        // let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
+        // let city = suggest.components.city;
+        // let newAddress = {
+        //     "country": components.country,
+        //     "city": components.city,
+        // };
+        // if (components.region) newAddress["region"] = components.region;
+        // if (components.state) newAddress["state"] = components.state;
+        // if (components.road) newAddress["street"] = components.road;
+        // if (components.house_number) newAddress["house_number"] = components.house_number;
+        setAddress(suggest);
+        setCity(suggest.city);
+        setPoint(`${suggest.lat} ${suggest.lng}`);
         setSuggests([]);
     }
 

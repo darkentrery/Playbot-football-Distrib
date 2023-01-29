@@ -1,6 +1,10 @@
 import {MapContainer, TileLayer, useMapEvents} from "react-leaflet";
 import React, {useEffect, useState} from "react";
-import {getLocations, getLocationsByCoords} from "../../services/LocationService";
+import {
+    getLocations, getLocationsAddressByCoordsGoogle,
+    getLocationsByCoords,
+    getLocationsGoogle
+} from "../../services/LocationService";
 import "leaflet/dist/leaflet.css"
 
 
@@ -19,8 +23,8 @@ export const LocateEventComponent = ({
 
     useEffect(() => {
         if (city && !className.includes("hidden")) {
-            getLocations(city).then((response) => {
-                if (response.data.results.length) setPosition(response.data.results[0].geometry);
+            getLocationsGoogle(city).then((response) => {
+                if (response.data.results.length) setPosition(response.data.results[0].geometry.location);
                 console.log(position)
             })
         }
@@ -28,25 +32,31 @@ export const LocateEventComponent = ({
 
     useEffect(() => {
         if (position) {
-            getLocationsByCoords([position.lat, position.lng]).then((response) => {
-                if (response.data.results.length !== 0) {
-                    let components = response.data.results[0].components;
-                    if (components.city) {
-                        let point = `${position.lat} ${position.lng}`;
-                        let newAddress = {
-                            "country": components.country,
-                            "city": components.city,
-                        };
-                        if (components.region) newAddress["region"] = components.region;
-                        if (components.state) newAddress["state"] = components.state;
-                        if (components.road) newAddress["street"] = components.road;
-                        if (components.house_number) newAddress["house_number"] = components.house_number;
-                        setAddress(newAddress);
-                        setCity(city);
-                        setPoint(point);
-                    }
-                }
+            getLocationsAddressByCoordsGoogle([position.lat, position.lng]).then((newAddress) => {
+                console.log(newAddress)
+                setAddress(newAddress);
+                setCity(newAddress.city);
+                setPoint(`${position.lat} ${position.lng}`);
             })
+            // getLocationsByCoords([position.lat, position.lng]).then((response) => {
+            //     if (response.data.results.length !== 0) {
+            //         let components = response.data.results[0].components;
+            //         if (components.city) {
+            //             let point = `${position.lat} ${position.lng}`;
+            //             let newAddress = {
+            //                 "country": components.country,
+            //                 "city": components.city,
+            //             };
+            //             if (components.region) newAddress["region"] = components.region;
+            //             if (components.state) newAddress["state"] = components.state;
+            //             if (components.road) newAddress["street"] = components.road;
+            //             if (components.house_number) newAddress["house_number"] = components.house_number;
+            //             setAddress(newAddress);
+            //             setCity(city);
+            //             setPoint(point);
+            //         }
+            //     }
+            // })
         }
     }, [position])
 
