@@ -33,7 +33,6 @@ export const LocateEventComponent = ({
     useEffect(() => {
         if (position) {
             getLocationsAddressByCoordsGoogle([position.lat, position.lng]).then((newAddress) => {
-                console.log(newAddress)
                 setAddress(newAddress);
                 setCity(newAddress.city);
                 setPoint(`${position.lat} ${position.lng}`);

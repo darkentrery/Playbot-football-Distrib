@@ -11,11 +11,8 @@ class CitySerializer(serializers.ModelSerializer):
 
 class AddressSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
-    region = serializers.CharField(max_length=150, required=False)
-    state = serializers.CharField(max_length=150, required=False)
-    street = serializers.CharField(max_length=150, required=False)
-    house_number = serializers.CharField(max_length=150, required=False)
 
     class Meta:
         model = Address
         fields = "__all__"
+        # read_only_fields = fields

@@ -38,6 +38,8 @@ class CreateEventView(APIView):
             state=request.data["address"].get("state"),
             street=request.data["address"].get("street"),
             house_number=request.data["address"].get("house_number"),
+            lat=request.data["address"].get("lat"),
+            lng=request.data["address"].get("lng"),
         )
         request.data["address"] = address.id
         serializer = CreateEventSerializer(data=request.data)
@@ -88,6 +90,8 @@ class EditEventView(APIView):
             state=request.data["address"].get("state"),
             street=request.data["address"].get("street"),
             house_number=request.data["address"].get("house_number"),
+            lat=request.data["address"].get("lat"),
+            lng=request.data["address"].get("lng"),
         )
         request.data["address"] = address.id
         serializer = EditEventSerializer(event, data=request.data)

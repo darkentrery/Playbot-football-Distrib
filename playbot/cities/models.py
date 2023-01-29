@@ -21,6 +21,8 @@ class Address(models.Model):
     state = models.CharField(_("State"), max_length=150, blank=True, null=True)
     street = models.CharField(_("Street"), max_length=150, blank=True, null=True)
     house_number = models.CharField(_("House Number"), max_length=150, blank=True, null=True)
+    lat = models.FloatField(_("Lat"), blank=True, null=True)
+    lng = models.FloatField(_("Lng"), blank=True, null=True)
 
     class Meta:
         verbose_name = "Address"

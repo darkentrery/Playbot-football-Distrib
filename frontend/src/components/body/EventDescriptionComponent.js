@@ -11,20 +11,20 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
     const markerRef = useRef(false);
 
     useEffect(() => {
-        if (event.geo_point) {
+        if (event && event.address) {
             let point = {
-                lat: parseFloat(event.geo_point.split(" ")[0]),
-                lng: parseFloat(event.geo_point.split(" ")[1]),
+                lat: event.address.lat,
+                lng: event.address.lng,
             }
             setPosition(point);
+            let address = {
+                country: event.address.country ? event.address.country : '',
+                city: event.address.city ? ', ' + event.address.city : '',
+                street: event.address.street ? ', ' + event.address.street : '',
+                house_number: event.address.house_number ? ', ' + event.address.house_number : '',
+            }
+            setAddress(`${address.country}${address.city}${address.street}${address.house_number}`);
         }
-        let address = {
-            country: event.address && event.address.country ? event.address.country : '',
-            city: event.address && event.address.city ? ', ' + event.address.city : '',
-            street: event.address && event.address.street ? ', ' + event.address.street : '',
-            house_number: event.address && event.address.house_number ? ', ' + event.address.house_number : '',
-        }
-        setAddress(`${address.country}${address.city}${address.street}${address.house_number}`);
     }, [event])
 
     const LocationMarker = () => {
@@ -81,7 +81,6 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             {user.isAuth && event && user.user.id === event.organizer.id &&
             <div className={"elem-1280 elem-1"}>
                 <span className={"el black-edit-icon link"} onClick={editEvent}>Редактировать игру</span>
-                {/*<span className={"el gray-copy-icon link"} onClick={copyLink}>Копировать ссылку</span>*/}
             </div>}
             <span className={"elem-1280 elem-2 black-700-20"}>Информация</span>
             {event.notice && <span className={"elem-1280 elem-3 dark-gray-comment-icon"}>{event.notice}</span>}
@@ -98,23 +97,9 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             <div className={`elem-1280 elem-8 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
             </div>
-            {/*<div className={"elem-744 elem-1"}>*/}
-            {/*    <span className={"el black-edit-icon link"} onClick={editEvent}>Редактировать игру</span>*/}
-            {/*    <span className={"el gray-copy-icon link"} onClick={copyLink}></span>*/}
-            {/*</div>*/}
-            {/*<span className={"elem-744 elem-2"}>Информация</span>*/}
-            {/*<span className={"elem-744 elem-3 dark-gray-comment-icon"}>{event.notice}</span>*/}
-            {/*<span className={"elem-744 elem-4"}>Организатор:</span>*/}
-            {/*<span className={"elem-744 elem-5"}>{event ? event.organizer.username : ''}</span>*/}
-            {/*<span className={"elem-744 elem-6"}>Адрес:</span>*/}
-            {/*<span className={"elem-744 elem-7"}>{address}</span>*/}
-            {/*<div className={`elem-744 elem-8 ${hiddenMap ? 'hidden' : ''}`}>*/}
-            {/*    <MapBody/>*/}
-            {/*</div>*/}
 
             <div className={"elem-376 elem-1"}>
                 <span className={"el el-1 black-700-16"}>Информация</span>
-                {/*<span className={"el gray-copy-icon link"} onClick={copyLink}></span>*/}
             </div>
             {event.notice && <span className={"elem-376 elem-2 dark-gray-comment-icon black-400-16"}>{event.notice}</span>}
             <span className={"elem-376 elem-3 black-400-13"}>Организатор:</span>

@@ -11,7 +11,14 @@ import {FormEventComponent} from "./formEventComponent/FormEventComponent";
 import $ from "jquery";
 
 
-export default function CreateEventComponent ({isOpen, isIPhone, user, closeComponent, openSuccessCreateEvent, setEvent}) {
+export default function CreateEventComponent ({
+    isOpen,
+    isIPhone,
+    user,
+    closeComponent,
+    openSuccessCreateEvent,
+    setEvent,
+}) {
     const eventService = new EventService();
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
@@ -58,15 +65,6 @@ export default function CreateEventComponent ({isOpen, isIPhone, user, closeComp
     useEffect(() => {
         if (isOpen) {
             const interval = setInterval(() => {
-                let start = Date.now();
-                // let timer = setInterval(function() {
-                //     let timePassed = Date.now() - start;
-                //     if (timePassed >= 500) {
-                //         clearInterval(timer);
-                //         return;
-                //     }
-                //     // draw(timePassed);
-                // }, 20);
                 if (contentNumber === 2) {
                     setContentNumber(0);
                 } else {
