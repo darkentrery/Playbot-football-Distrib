@@ -40,6 +40,8 @@
         flex: 0 0 $col-6-Player-Width;
         margin-right: 0;
       }
+      &.elem-7 {display: none;}
+      &.elem-8 {display: none;}
     }
   }
 
@@ -58,16 +60,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
 
       &.elem-1 {
         justify-content: start;
         flex: 1 0 $col-1-Player-Width;
-        height: 52px;
-        background-position: 20px center;
+        padding-left: 8px;
+        gap: 8px;
 
+        .icon {
+          display: flex;
+          flex: 0 0 37px;
+          height: 51px;
+        }
         .name {
-          margin-left: 61px;
-          font-size: 13px;
+          margin-left: 10px;
         }
       }
       &.elem-2 {
@@ -87,6 +94,7 @@
         background-position: center;
         height: 33px;
       }
+      &.elem-7 {display: none;}
     }
   }
 }
@@ -99,19 +107,73 @@
     .table-head {
       padding: 0 20px;
       gap: 20px;
-      .elem-2 {
-        display: none;
-      }
+      .elem-2 {display: none;}
     }
     .player {
       gap: 20px;
       padding: 0 20px;
       .elem-1 {
-        padding-left: 0 !important;
-        background-position: 20px center !important;
+        padding-left: 0;
       }
       .elem-2 {
         display: none;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px) {
+  .best-players-component {
+    padding: 0 0 27px 0;
+    border-radius: 0;
+
+    .table-head {
+      padding: 0 24px;
+      gap: 20px;
+      flex: 0 0 40px;
+
+      .elem {
+        &.elem-1 {
+          justify-content: start;
+          flex: 1 1 auto;
+        }
+        &.elem-2 {display: none;}
+        &.elem-3 {display: none;}
+        &.elem-4 {display: none;}
+        &.elem-5 {display: none;}
+        &.elem-6 {display: none;}
+        &.elem-7 {
+          display: flex;
+          flex: 0 0 40px;
+        }
+        &.elem-8 {
+          display: flex;
+          flex: 0 0 120px;
+        }
+      }
+    }
+    .player {
+      gap: 20px;
+      padding: 0 20px;
+
+      .elem {
+        &.elem-1 {
+          justify-content: start;
+          flex: 1 1 auto;
+          padding-left: 0;
+
+          .number {
+            display: none;
+          }
+        }
+        &.elem-2 {display: none;}
+        &.elem-3 {display: none;}
+        &.elem-4 {display: none;}
+        &.elem-5 {display: none;}
+        &.elem-7 {
+          display: flex;
+          flex: 0 0 40px;
+        }
       }
     }
   }

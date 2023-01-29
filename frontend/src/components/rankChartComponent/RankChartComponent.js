@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 
 export const RankChartComponent = ({ranks}) => {
     const [data, setData] = useState([]);
+    const [width, setWidth] = useState(145);
 
     useEffect(() => {
         let newData = [];
@@ -19,8 +20,11 @@ export const RankChartComponent = ({ranks}) => {
         setData(newData);
     }, [ranks])
 
+    useEffect(() => {
+        if (window.screen.width < 744) setWidth(120);
+    }, [window.screen.width])
+
     const CustomTooltip = ({active, payload, label}) => {
-        console.log(payload[0])
         return (
             <div className={"custom-chart-tooltip"}>
                 {payload[0] !== undefined && payload[0].payload && <>
@@ -32,7 +36,7 @@ export const RankChartComponent = ({ranks}) => {
     }
 
     return (
-        <LineChart width={145} height={33} data={data} syncMethod={'value'}>
+        <LineChart width={width} height={33} data={data} syncMethod={'value'}>
             <Line type={'monotone'} dataKey="value" stroke="#D19C6C" dot={false} activeDot={{ stroke: '#D19C6C', strokeWidth: 1, r: 1 }}/>
             <Tooltip content={<CustomTooltip/>}/>
         </LineChart>

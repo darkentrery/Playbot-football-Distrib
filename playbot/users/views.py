@@ -12,7 +12,7 @@ from playbot.cities.models import City
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
-    UpdatePasswordSerializer
+    UpdatePasswordSerializer, UserListSerializer
 from playbot.users.utils import get_face
 
 
@@ -141,7 +141,8 @@ class GetUsersView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        json = UserSerializer(User.objects.all(), many=True).data
+        # json = UserSerializer(User.objects.all(), many=True).data
+        json = UserListSerializer(User.objects.all(), many=True).data
         return Response(json, status=status.HTTP_200_OK)
 
 

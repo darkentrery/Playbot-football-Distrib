@@ -3,6 +3,7 @@
   flex: 0 0 140px;
   box-sizing: border-box;
   align-items: stretch;
+  position: relative;
 
   .fon {
     display: flex;
@@ -28,9 +29,22 @@
     align-items: stretch;
     box-sizing: border-box;
 
+    &.orange {
+     border: 1px solid $orangeColor;
+    }
     .filter-icon {
       display: flex;
       flex: 1 1 auto;
+    }
+    .orange-filter-icon {
+      display: flex;
+      flex: 1 1 auto;
+    }
+  }
+  .top-filter-block {
+    position: absolute;
+    &.hidden {
+      display: none;
     }
   }
 }
@@ -38,6 +52,9 @@
 @media screen and (min-width: 1280px) {
   .top-statistic-component {
     .button-filters {
+      display: none;
+    }
+    .top-filter-block {
       display: none;
     }
   }
@@ -53,6 +70,10 @@
         font-size: 22px;
       }
     }
+    .top-filter-block {
+      top: 90px;
+      right: 0;
+    }
   }
 }
 
@@ -67,5 +88,10 @@
         font-size: 18px;
       }
     }
+  }
+  .top-filter-block {
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 }

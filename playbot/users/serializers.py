@@ -79,6 +79,19 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_field = fields
 
 
+class UserListSerializer(serializers.ModelSerializer):
+    rank = serializers.FloatField(read_only=True)
+    ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
+    wins = serializers.IntegerField(read_only=True)
+    all_games = serializers.IntegerField(read_only=True)
+    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender"]
+        read_only_field = fields
+
+
 class UpdateUserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     position_1 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)

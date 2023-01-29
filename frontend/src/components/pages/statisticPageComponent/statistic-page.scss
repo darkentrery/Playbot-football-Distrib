@@ -13,6 +13,14 @@
       display: none;
     }
   }
+  .best-players-component {
+    .table-head {
+      gap: 20px;
+    }
+    .player {
+      gap: 20px;
+    }
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -34,5 +42,11 @@
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px) {
+  .statistic-page-component {
+    gap: 0;
+    .statistic-body {
+      gap: 0;
 
+    }
+  }
 }

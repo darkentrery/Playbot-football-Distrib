@@ -1,5 +1,4 @@
-import {useEffect, useRef, useState} from "react";
-import $ from "jquery";
+import {useRef, useState} from "react";
 import {Slider} from "@mui/material";
 
 
@@ -12,16 +11,11 @@ export const DropdownSliderComponent = ({
 
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    // const [currentData, setCurrentData] = useState(data);
     const refLabelFull = useRef();
     const refLabel = useRef();
     const refCount = useRef();
     const refArrow = useRef();
     const minDistance = 1;
-
-    // useEffect(() => {
-    //     setCurrentData(data);
-    // }, [data])
 
     const clickDropdown = () => {
         setIsOpen(!isOpen);

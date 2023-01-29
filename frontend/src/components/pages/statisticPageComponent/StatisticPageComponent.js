@@ -24,7 +24,7 @@ export const StatisticPageComponent = ({state, funcs}) => {
     return (
         <VisibleMainWrapper>
             <div className={"statistic-page-component"}>
-                <TopStatisticComponent/>
+                <TopStatisticComponent players={players} setPlayersView={setPlayersView}/>
                 <div className={"statistic-body"}>
                     <FiltersComponent className={"filter-block"} data={players} setData={setPlayersView}/>
                     <BestPlayersComponent players={playersView}/>

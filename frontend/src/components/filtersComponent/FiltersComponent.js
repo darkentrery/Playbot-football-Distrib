@@ -5,20 +5,25 @@ import {DropdownSliderComponent} from "../dropdownSliderComponent/DropdownSlider
 import {DateFilterComponent} from "../dateFilterComponent/DateFilterComponent";
 
 
-export const FiltersComponent = ({className='', data, setData}) => {
+export const FiltersComponent = ({
+    className='',
+    data,
+    setData,
+    close = () => {},
+}) => {
     const [filterCity, setFilterCity] = useState([]);
     const [filterCanton, setFilterCanton] = useState([]);
     const [filterDistrict, setFilterDistrict] = useState([]);
-    const [filterCountGames, setFilterCountGames] = useState([10, 50]);
-    const [filterRank, setFilterRank] = useState([10, 50]);
+    const [filterCountGames, setFilterCountGames] = useState([0, 100]);
+    const [filterRank, setFilterRank] = useState([0, 100]);
     const [filterGender, setFilterGender] = useState([]);
     const [filterDate, setFilterDate] = useState([null, null]);
     const [cities, setCities] = useState([]);
     const cantons = ["aaa", "abbb"];
     const districts = ["aaa", "abbb"];
     const genders = ["Муж.", "Жен."];
-    const count = [0, 90];
-    const rank = [0, 90];
+    const count = [0, 100];
+    const rank = [0, 100];
 
     useEffect(() => {
         let isSubscribe = true;
@@ -34,12 +39,27 @@ export const FiltersComponent = ({className='', data, setData}) => {
     useEffect(() => {
         let array = [];
         data.map((player) => {
-            let flag = false;
+            let flagCity = false;
+            let flagCanton = true;
+            let flagDistrict = true;
+            let flagGender = false;
+            let flagCountGames = false;
+            let flagRank = false;
+            let flagDate = true;
             if (!filterCity.length || filterCity.length && filterCity.includes(player.city)) {
-                flag = true;
+                flagCity = true;
             }
-
-            if (flag) array.push(player);
+            if (!filterGender.length || filterGender.length && filterGender.includes(player.gender)) {
+                flagGender = true;
+            }
+            if (filterRank[0] <= player.rank && filterRank[1] >= player.rank) {
+                flagRank = true;
+            }
+            if (filterCountGames[0] <= player.all_games && filterCountGames[1] >= player.all_games) {
+                flagCountGames = true;
+            }
+            console.log(flagCity, flagCanton, flagDistrict, flagGender, flagCountGames, flagRank, flagDate)
+            if (flagCity && flagCanton && flagDistrict && flagGender && flagCountGames && flagRank && flagDate) array.push(player);
         })
         setData(array);
         console.log(filterCity, filterCanton, filterDistrict, filterGender, filterCountGames, filterRank, filterDate)
@@ -50,14 +70,17 @@ export const FiltersComponent = ({className='', data, setData}) => {
         setFilterCanton([]);
         setFilterDistrict([]);
         setFilterGender([]);
-        setFilterCountGames([10, 50]);
-        setFilterRank([10, 50]);
+        setFilterCountGames([0, 100]);
+        setFilterRank([0, 100]);
         setFilterDate([null, null]);
     }
 
     return (
         <div className={`filters-component ${className}`}>
-            <span className={"title black-600-16"}>Фильтры</span>
+            <div className={"title"}>
+                <span className={"black-600-16"}>Фильтры</span>
+                <span className={"btn-close"} onClick={() => close(false)}></span>
+            </div>
             <DropdownCheckBoxComponent className={"cities"} label={"Город"} setOutData={setFilterCity} data={cities} outputData={filterCity}/>
             <DropdownCheckBoxComponent className={"cities"} label={"Округ"} setOutData={setFilterCanton} data={cantons} outputData={filterCanton}/>
             <DropdownCheckBoxComponent className={"cities"} label={"Район"} setOutData={setFilterDistrict} data={districts} outputData={filterDistrict}/>
