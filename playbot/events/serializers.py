@@ -158,6 +158,14 @@ class CreateEventSerializer(serializers.ModelSerializer):
                   "city", "geo_point", "format_label", "is_paid", "price"]
 
 
+class EventForPlayerListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = ["date",]
+        read_only_fields = fields
+
+
 class EventSerializer(serializers.ModelSerializer):
     format = serializers.SlugRelatedField(slug_field="name", read_only=True)
     distribution_method = serializers.SlugRelatedField(slug_field="name", read_only=True)

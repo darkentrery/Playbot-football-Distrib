@@ -14,6 +14,7 @@ export const StatisticPageComponent = ({state, funcs}) => {
         let isSubscribe = true;
         authService.getUsers().then((response) => {
             if (response.status === 200) {
+                console.log(response.data)
                 setPlayers(response.data);
                 setPlayersView(response.data);
             }

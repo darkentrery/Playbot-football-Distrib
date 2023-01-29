@@ -15,7 +15,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.events.models import EventPlayer, Event
-from playbot.events.serializers import EventSerializer
+from playbot.events.serializers import EventSerializer, EventForPlayerListSerializer
 from playbot.notices.models import Notice
 from playbot.notices.serializers import UserNoticeSerializer
 from playbot.users.models import User, Position, RankHistory
@@ -27,22 +27,31 @@ class EventPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EventPlayer
-        fields = "__all__"
-        # read_only_fields = fields
+        fields = ["event",]
+        read_only_fields = fields
+
+
+class EventPlayerListSerializer(serializers.ModelSerializer):
+    event = EventForPlayerListSerializer(read_only=True)
+
+    class Meta:
+        model = EventPlayer
+        fields = ["event",]
+        read_only_fields = fields
 
 
 class PositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Position
-        fields = "__all__"
-        # read_only_fields = fields
+        fields = ["name",]
+        read_only_fields = fields
 
 
 class RankHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = RankHistory
-        fields = "__all__"
-        # read_only_fields = fields
+        fields = ["user", "rank", "create"]
+        read_only_fields = fields
 
 
 class SamePlayerSerializer(serializers.ModelSerializer):
@@ -85,10 +94,11 @@ class UserListSerializer(serializers.ModelSerializer):
     wins = serializers.IntegerField(read_only=True)
     all_games = serializers.IntegerField(read_only=True)
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    event_player = EventPlayerListSerializer(EventPlayer.objects.all(), many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender"]
+        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender", "event_player"]
         read_only_fields = fields
 
 

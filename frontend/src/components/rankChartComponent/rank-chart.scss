@@ -2,6 +2,9 @@
 
 }
 
+.recharts-tooltip-wrapper {
+  top: -60px !important;
+}
 .custom-chart-tooltip {
   display: flex;
   flex-direction: column;

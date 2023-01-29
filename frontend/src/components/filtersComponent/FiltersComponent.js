@@ -17,7 +17,7 @@ export const FiltersComponent = ({
     const [filterCountGames, setFilterCountGames] = useState([0, 100]);
     const [filterRank, setFilterRank] = useState([0, 100]);
     const [filterGender, setFilterGender] = useState([]);
-    const [filterDate, setFilterDate] = useState([null, null]);
+    const [filterDate, setFilterDate] = useState({label: "За всё время", begin: null, end: new Date(Date.now())});
     const [cities, setCities] = useState([]);
     const cantons = ["aaa", "abbb"];
     const districts = ["aaa", "abbb"];
@@ -29,7 +29,6 @@ export const FiltersComponent = ({
         let isSubscribe = true;
         cityService.getCities().then((response) => {
             if (response.status == 200) {
-                console.log(response.data.cities)
                 setCities(response.data.cities);
             }
         })
@@ -45,7 +44,7 @@ export const FiltersComponent = ({
             let flagGender = false;
             let flagCountGames = false;
             let flagRank = false;
-            let flagDate = true;
+            let flagDate = false;
             if (!filterCity.length || filterCity.length && filterCity.includes(player.city)) {
                 flagCity = true;
             }
@@ -58,12 +57,40 @@ export const FiltersComponent = ({
             if (filterCountGames[0] <= player.all_games && filterCountGames[1] >= player.all_games) {
                 flagCountGames = true;
             }
-            console.log(flagCity, flagCanton, flagDistrict, flagGender, flagCountGames, flagRank, flagDate)
-            if (flagCity && flagCanton && flagDistrict && flagGender && flagCountGames && flagRank && flagDate) array.push(player);
+            if (!filterDate.begin) {
+                flagDate = true;
+                let history = [];
+                player.ranks_history.map((item) => history.push(item));
+                history = history.reverse();
+                history.map((rank) => {
+                    let date = new Date(rank.create);
+                    if (date <= filterDate.end) {
+                        player.dRank = player.rank - rank.rank;
+                    }
+                })
+            } else {
+                player.event_player.map((event_player) => {
+                    let date = new Date(event_player.event.date);
+                    if (date >= filterDate.begin && date <= filterDate.end) {
+                        flagDate = true;
+                    }
+                })
+                let history = [];
+                player.ranks_history.map((item) => history.push(item));
+                history = history.reverse();
+                history.map((rank) => {
+                    let date = new Date(rank.create);
+                    if (date <= filterDate.end && date >= filterDate.begin) {
+                        player.dRank = player.rank - rank.rank;
+                    }
+                })
+            }
+            if (flagCity && flagCanton && flagDistrict && flagGender && flagCountGames && flagRank && flagDate && player.all_games) {
+                array.push(player);
+            }
         })
         setData(array);
-        console.log(filterCity, filterCanton, filterDistrict, filterGender, filterCountGames, filterRank, filterDate)
-    }, [filterCity, filterCanton, filterDistrict, filterGender, filterCountGames, filterRank, filterDate])
+    }, [filterCity, filterCanton, filterDistrict, filterGender, filterCountGames, filterRank, filterDate, data])
 
     const clearFilter = () => {
         setFilterCity([]);
@@ -72,7 +99,7 @@ export const FiltersComponent = ({
         setFilterGender([]);
         setFilterCountGames([0, 100]);
         setFilterRank([0, 100]);
-        setFilterDate([null, null]);
+        setFilterDate({label: "За всё время", begin: null, end: new Date(Date.now())});
     }
 
     return (

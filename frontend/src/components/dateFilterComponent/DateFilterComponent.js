@@ -12,9 +12,7 @@ export const DateFilterComponent = ({
     className='',
     label,
 }) => {
-    const [value, setValue] = React.useState([null, null]);
     const [isOpen, setIsOpen] = useState(false);
-    const [checked, setChecked] = useState(false);
     const refLabelFull = useRef();
     const refLabel = useRef();
     const refCount = useRef();
@@ -33,19 +31,15 @@ export const DateFilterComponent = ({
     }
 
     const clickItem = (item) => {
-        if (item !== checked) {
-            setChecked(item);
-            setOutData([item.begin, item.end]);
-            setValue([null, null]);
+        if (item.label !== outputData.label) {
+            setOutData(item);
         }
     }
 
     const changeRange = (e) => {
         if (e[0].$d && e[1].$d) {
-            setOutData([e[0].$d, e[1].$d]);
-            setChecked(false);
+            setOutData({label: "Custom", begin: e[0].$d, end: e[1].$d});
         }
-        setValue(e);
     }
 
     return (
@@ -58,7 +52,7 @@ export const DateFilterComponent = ({
             <div className={`dropdown-body ${isOpen ? '' : 'hidden'}`}>
                 {data.map((item, key) => (
                     <div className={"dropdown-item"} key={key} onClick={() => clickItem(item)}>
-                        <div className={checked.label === item.label ? 'orange-check-icon' : 'hidden'}></div>
+                        <div className={outputData.label === item.label ? 'orange-check-icon' : 'hidden'}></div>
                         <span className={"black-400-16"}>{item.label}</span>
                     </div>
                 ))}
@@ -71,7 +65,7 @@ export const DateFilterComponent = ({
                     localeText={{ start: 'Check-in', end: 'Check-out' }}
                 >
                     <DateRangePicker
-                        value={value}
+                        value={[outputData.begin, outputData.end]}
                         onChange={changeRange}
                         renderInput={(startProps, endProps) => (
                             <React.Fragment>
