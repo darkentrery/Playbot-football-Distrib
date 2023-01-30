@@ -571,6 +571,16 @@ input[type="checkbox"] {
     -khtml-user-select: none;
     user-select: none;
   }
+  a {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+  }
+  div {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+  }
 }
 
 
