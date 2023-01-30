@@ -301,7 +301,7 @@ class EndEventView(APIView):
             event.save()
             for player in event.event_player.all():
                 rank = get_next_rank(player.player, event)
-                print(rank)
+                RankHistory.objects.create(user=player.player, rank=rank)
             event = EventSerializer(instance=event)
             return Response(event.data, status=status.HTTP_200_OK)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
