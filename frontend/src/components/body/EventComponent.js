@@ -1,16 +1,16 @@
-import EventService from "../../services/EventService";
-import React, {useEffect, useState} from "react";
+import {eventService} from "../../services/EventService";
+import React, {useEffect} from "react";
 import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
 import {SameEventComponent} from "./SameEventComponent";
 import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {Top376Component} from "../top376Component/Top376Component";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
-    const eventService = new EventService();
     const params = useParams();
     const pk = params.pk;
 
@@ -20,6 +20,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
         funcs.setTeam(false);
         let isSubscribe = true;
         eventService.getEvent(pk).then((response) => {
+            console.log(response.data.event)
             funcs.setEvent(response.data.event);
             funcs.setSameEvents(response.data.same_events);
             if (response.data.event.teams.length !== 0) {
@@ -44,11 +45,23 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
         funcs.removeMap();
     }
 
+    const addToFavorites = () => {
+        authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                funcs.setAuth(true, response.data);
+            }
+        })
+    }
+
     return (
         <VisibleMainWrapper>
             {event && <div className={"event-component"}>
-                <Top376Component label={"Событие"} to={BaseRoutes.main}
-                                 child={<div className={"elem-2 black-edit-icon link"} onClick={editEvent}></div>}/>
+                <Top376Component label={"Событие"} to={BaseRoutes.main}>
+                    <div className={"icon dark-gray-star-icon"} onClick={addToFavorites}></div>
+                    <div className={"icon send-icon"}></div>
+                    {event.organizer.id === user.user.id && <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
+                </Top376Component>
                 <VisibleBoardEvent/>
                 <VisibleEventOrganizer/>
                 {sameEvents.length !== 0 &&

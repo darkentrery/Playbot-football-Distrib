@@ -332,5 +332,6 @@ export const eventService = {
 	endGame(data) { return postRequest('end-game/', data); },
 	createGoal(data) { return postRequest('create-goal/', data); },
 	getEvents(data) { return getRequest('get-events/', data); },
+	getEvent(id) { return getRequest('get-event/', id); },
 	addToFavorites(data) { return postRequest('add-to-favorites/', data); },
 }

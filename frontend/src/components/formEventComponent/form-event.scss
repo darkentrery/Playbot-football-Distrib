@@ -408,6 +408,12 @@
     .form-event-body {
       max-height: 100vh;
     }
+    &.isPaid {
+     padding-right: calc(50vw - 138px);
+      .elem {
+        margin-right: 5px;
+      }
+    }
   }
 }
 

@@ -12,7 +12,6 @@
     display: flex;
     align-items: center;
   }
-
   .elem-1 {
     flex: 0 0 20px;
     gap: 35px;
@@ -23,16 +22,22 @@
       box-sizing: border-box;
       background-position: left center;
 
-      &.el-376 {
+      &.el-744 {
         display: none;
+        padding: 0;
+        flex: 0 0 20px;
+        height: 20px;
       }
     }
     .el-3 {
       background-position: left -1px;
       cursor: pointer;
     }
+    .el-4 {
+      width: auto;
+      height: auto;
+    }
   }
-
   .elem-2 {
     flex: 0 0 34px;
     margin-top: 40px;
@@ -82,6 +87,16 @@
     flex: 0 0 249px;
     padding: 26px 0 24px 26px;
 
+    .elem-1 {
+      .el {
+        &.el-744 {
+          display: flex;
+        }
+        &.el-1280 {
+          display: none;
+        }
+      }
+    }
     .elem-2 {
       flex: 0 0 26px;
       margin-top: 32px;
@@ -114,11 +129,8 @@
         padding-left: 31px;
         font-size: 14px;
 
-        &.el-376 {
-          display: flex;
-          padding: 0;
-          flex: 0 0 20px;
-          height: 20px;
+        &.el-744 {
+          display: none;
         }
         &.el-1280 {
           display: none;

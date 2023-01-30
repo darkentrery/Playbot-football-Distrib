@@ -82,10 +82,9 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                 </div>
 
                 <div className={"navigate-bar-376"}>
-                    <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}
-                                     child={game && game.time_begin && !game.time_end ? <span className={"elem-2 black-500-14"} onClick={endGame}>Завершить игру</span> : ''}
-                    />
-
+                    <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}>
+                        {game && game.time_begin && !game.time_end ? <span className={"black-500-14"} onClick={endGame}>Завершить игру</span> : ''}
+                    </Top376Component>
                     <div className={"elem elem-2"}>
                         <Link
                             className={`nav-link  ${window.location.pathname.includes('info') ? 'white-600-12 active' : 'middle-gray-400-12'}`}

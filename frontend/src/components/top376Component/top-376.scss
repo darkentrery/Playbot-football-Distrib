@@ -10,6 +10,7 @@
     padding-left: 4px;
     align-items: stretch;
     justify-content: space-between;
+    gap: 30px;
 
     .elem-1 {
       display: flex;
@@ -23,6 +24,19 @@
       }
       .el-2 {
         white-space: nowrap;
+      }
+    }
+    .elem-2 {
+      display: flex;
+      gap: 30px;
+      height: 100%;
+      margin-right: 4px;
+      justify-content: end;
+      flex: 1 1 auto;
+
+      .icon {
+        display: flex;
+        flex: 0 0 20px;
       }
     }
   }

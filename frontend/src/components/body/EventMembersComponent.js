@@ -1,6 +1,6 @@
 import {PlayerRowComponent} from "../playerRowComponent/PlayerRowComponent";
 
-export default function EventMembersComponent ({event}) {
+export default function EventMembersComponent ({event, className=''}) {
     const ExistsPlayers = () => {
         return (
             <div className={"players-list scroll"}>
@@ -22,7 +22,7 @@ export default function EventMembersComponent ({event}) {
     }
 
     return (
-        <div className={"event-members-component disabled"}>
+        <div className={`event-members-component ${className}`}>
             <span className={"title"}>Участники ({event && event.event_player.length ? event.event_player.length : 0})</span>
             {event && event.event_player.length !== 0 && <ExistsPlayers/>}
             {event && !event.event_player.length && <NoExistsPlayers/>}

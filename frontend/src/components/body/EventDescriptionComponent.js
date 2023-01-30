@@ -4,7 +4,7 @@ import {MapContainer, Marker, Popup, TileLayer, useMapEvents} from 'react-leafle
 import "leaflet/dist/leaflet.css"
 
 
-export default function EventDescriptionComponent ({event, user, hiddenMap, funcs}) {
+export default function EventDescriptionComponent ({event, user, hiddenMap, funcs, className=''}) {
     const [position, setPosition] = useState(false);
     const [address, setAddress] = useState(false);
     const [isTooltip, setIsTooltip] = useState(false);
@@ -77,7 +77,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
     }
 
     return (
-        <div className={"event-description-component"}>
+        <div className={`event-description-component ${className}`}>
             {user.isAuth && event && user.user.id === event.organizer.id &&
             <div className={"elem-1280 elem-1"}>
                 <span className={"el black-edit-icon link"} onClick={editEvent}>Редактировать игру</span>
@@ -92,8 +92,6 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
                 <span className={"el el-1 black-600-18"}>{address}<span className={"el gray-copy-icon link"} onClick={copyLink}></span></span>
                 <span className={"el el-2 black-600-18"}>{event ? event.organizer.username : ''}</span>
             </div>
-            <span className={"elem-1280 elem-6 black-400-13"}>Формат площадки:</span>
-            <span className={"elem-1280 elem-7 black-600-18"}>{event ? event.format_label : ''}</span>
             <div className={`elem-1280 elem-8 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
             </div>
@@ -109,8 +107,8 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
                 <span className={"el black-600-16"}>{address}</span>
                 <span className={"el gray-copy-icon link"} onClick={copyLink}></span>
             </div>
-            <span className={"elem-376 elem-7 black-400-13"}>Формат площадки:</span>
-            <span className={"elem-376 elem-8 black-600-16"}>{event ? event.format_label : ''}</span>
+            {/*<span className={"elem-376 elem-7 black-400-13"}>Формат площадки:</span>*/}
+            {/*<span className={"elem-376 elem-8 black-600-16"}>{event ? event.format_label : ''}</span>*/}
             <div className={`elem-376 elem-9 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
             </div>
