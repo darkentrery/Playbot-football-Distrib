@@ -62,7 +62,12 @@ class User(AbstractUser):
 
     @property
     def all_games(self):
-        return self.event_player.all().count()
+        games = 0
+        for team_player in self.team_players.all():
+            games += team_player.team.event_games_teams_1.all().count()
+            games += team_player.team.event_games_teams_2.all().count()
+        return games
+        # return self.event_player.all().count()
 
     @property
     def count_goals(self):

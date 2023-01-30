@@ -69,6 +69,13 @@ class CustomUserAdmin(UserAdmin):
         "favorite_events",
     )
     inlines = [RankHistoryInline,]
+    actions = ["set_first_rank", ]
+
+    @admin.action()
+    def set_first_rank(self, request, queryset):
+        for user in User.objects.all():
+            if not user.ranks_history.all().exists():
+                RankHistory.objects.create(user=user)
 
 
 @admin.register(Position)

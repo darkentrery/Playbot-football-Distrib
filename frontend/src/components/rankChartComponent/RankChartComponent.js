@@ -2,7 +2,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import {useEffect, useState} from "react";
 
 
-export const RankChartComponent = ({ranks}) => {
+export const RankChartComponent = ({ranks, rank, dRank}) => {
     const [data, setData] = useState([]);
     const [width, setWidth] = useState(145);
 
@@ -36,9 +36,15 @@ export const RankChartComponent = ({ranks}) => {
     }
 
     return (
-        <LineChart width={width} height={33} data={data} syncMethod={'value'}>
-            <Line type={'monotone'} dataKey="value" stroke="#D19C6C" dot={false} activeDot={{ stroke: '#D19C6C', strokeWidth: 1, r: 1 }}/>
-            <Tooltip content={<CustomTooltip/>}/>
-        </LineChart>
+        <div className={"rank-chart-component"}>
+            <LineChart width={width} height={33} data={data} syncMethod={'value'}>
+                <Line type={'monotone'} dataKey="value" stroke="#D19C6C" dot={false} activeDot={{ stroke: '#D19C6C', strokeWidth: 1, r: 1 }}/>
+                <Tooltip content={<CustomTooltip/>}/>
+            </LineChart>
+            <span className={"rank-744 black-400-13"}>
+                {rank}
+                <span className={`black-400-13 ${dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{dRank >= 0 ? '+' : ''}{dRank}</span>
+            </span>
+        </div>
     )
 }

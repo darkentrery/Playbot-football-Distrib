@@ -71,7 +71,7 @@ export const BestPlayersComponent = ({players}) => {
                 <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>
                 <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
                 <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
-                <RankChartComponent ranks={player.ranks_history}/>
+                <RankChartComponent ranks={player.ranks_history} rank={player.rank} dRank={player.dRank}/>
             </Link>
         )
     }
@@ -88,24 +88,7 @@ export const BestPlayersComponent = ({players}) => {
                 <span className={"elem elem-7 gray-400-13"}>П / И</span>
                 <span className={"elem elem-8 gray-cup-icon"}></span>
             </div>
-            {playersView.map((player, key) => (<PlayerRow player={player} number={key} key={key}/>
-                // <Link className={"player"} key={key} to={ProfileRoutes.previewPlayerLink(player.id)}>
-                //     <div className={"elem elem-1"}>
-                //         <span className={"number black-400-13"}>{key + 1}.</span>
-                //         <div className={"icon player-avatar-icon"}></div>
-                //         <span className={"black-400-13 name"}>{player.username}</span>
-                //     </div>
-                //     <span className={"elem elem-2 black-400-13"}>
-                //         {player.rank}
-                //         <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{player.dRank}</span>
-                //     </span>
-                //     <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
-                //     <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>
-                //     <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
-                //     <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
-                //     <RankChartComponent ranks={player.ranks_history}/>
-                // </Link>
-            ))}
+            {playersView.map((player, key) => (<PlayerRow player={player} number={key} key={key}/>))}
         </div>
     )
 }
