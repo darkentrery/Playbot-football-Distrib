@@ -1,6 +1,6 @@
 import VisibleProfileWrapper from "../../../redux/containers/VisibleProfileWrapper";
 import {CheckSliderComponent} from "../../checkSliderComponent/CheckSliderComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import EventRoutes from "../../../routes/EventRoutes";
 import {Link} from "react-router-dom";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
@@ -15,14 +15,34 @@ export const ProfileFavoritesComponent = ({
     const [isOrganizer, setIsOrganizer] = useState(false);
 
     const EventRow1280 = ({event}) => {
-        let address = '';
-        if (event.address) {
-            address = {
-                street: event.address.street ? event.address.street : '',
-                house: event.address.house_number ? event.address.house_number : '',
+        const [color, setColor] = useState('');
+        const [address, setAddress] = useState('');
+
+        useEffect(() => {
+            if (event) {
+                if (typeof event.address !== "string") {
+                    let newAddress = {
+                        country: event.address && event.address.country ? event.address.country : '',
+                        city: event.address && event.address.city ? event.address.city : '',
+                        street: event.address && event.address.street ? event.address.street : '',
+                        house_number: event.address && event.address.house_number ? event.address.house_number : '',
+                    }
+                    let array = [];
+                    if (newAddress.street) array.push(newAddress.street);
+                    if (newAddress.house_number) array.push(newAddress.house_number);
+                    setAddress(array.join(", "));
+                }
+                let percent = event.event_player.length / event.count_players;
+                if (percent > 0.8) {
+                    setColor('red');
+                } else if (percent > 0.5 && percent <= 0.8) {
+                    setColor('yellow');
+                } else {
+                    setColor('green');
+                }
             }
-            address = `${address.street} ${address.house}`
-        }
+        }, [event])
+
         let date = new Date(event.date);
 
         return (
@@ -33,8 +53,8 @@ export const ProfileFavoritesComponent = ({
                     <span className={"gray-400-13"}>{date.getDate()}.{date.getMonth()}.{date.getFullYear().toString().slice(2,4)} в {event.time_begin.slice(0, 5)}</span>
                 </div>
                 <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
-                <span className={"elem elem-4 gray-400-13"}>0/10</span>
-                <span className={"elem elem-5 gray-400-13"}>88,9</span>
+                <span className={`elem elem-4 gray-400-13 ${color}`}>{event.event_player.length}/{event.count_players}</span>
+                <span className={"elem elem-5 gray-400-13"}>{event.rank.toFixed(1).replace(".", ",")}</span>
             </Link>
         )
     }
