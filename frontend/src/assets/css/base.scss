@@ -566,6 +566,11 @@ input[type="checkbox"] {
   .main-wrapper-component {
     height: 100vh;
   }
+  span {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+  }
 }
 
 
