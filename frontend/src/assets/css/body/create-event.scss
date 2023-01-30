@@ -6,13 +6,6 @@
   width: 872px;
   height: 718px;
 
-  &.isPaid {
-    height: 772px;
-    .form-event-component {
-      height: 772px;
-    }
-  }
-
   .popup-left {
     flex: 0 0 411px;
 
@@ -132,12 +125,6 @@
     width: 696px;
     height: 772px;
 
-    &.isPaid {
-      height: 836px;
-      .form-event-component {
-        height: 836px;
-      }
-    }
     .popup-right {
       padding-left: 40px;
 
@@ -162,12 +149,6 @@
   .create-event-component {
     width: 100vw;
     height: 100vh;
-    &.isPaid {
-      height: 100vh;
-      .form-event-component {
-        height: 100vh;
-      }
-    }
   }
   .create-event-component .popup-right {
     display: none;
@@ -187,12 +168,10 @@
   .create-event-un-auth {
     display: none;
   }
-
   .popup-fon {
     justify-content: stretch;
     align-items: stretch;
   }
-
   .create-event-376 {
     display: flex;
     flex-direction: column;
@@ -206,7 +185,6 @@
       justify-content: center;
       text-align: center;
     }
-
     .elem-1 {
       flex: 0 0 24px;
       justify-content: end;
@@ -217,7 +195,6 @@
         margin-right: 24px;
       }
     }
-
     .elem-2 {
       flex: 1 0 48px;
       align-items: end;
@@ -227,20 +204,17 @@
       letter-spacing: 0.04em;
       margin-bottom: 16px;
     }
-
     .elem-3 {
       flex: 0 0 38px;
       align-items: center;
       width: 249px;
       margin-bottom: 25px;
     }
-
     .elem-4 {
       flex: 0 0 $fieldHeight;
       width: 296px;
       margin-bottom: 24px;
     }
-
     .elem-5 {
       flex: 1 0 19px;
       width: 100px;

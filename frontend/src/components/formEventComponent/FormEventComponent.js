@@ -50,7 +50,6 @@ export const FormEventComponent = ({
     const [currency, setCurrency] = useState('RUB');
     const [priceError, setPriceError] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
-    // const [isTimeOpen, setIsTimeOpen] = useState(false);
     const refDate = useRef();
     const refTime = useRef();
     const refAddress = useRef();
@@ -136,16 +135,6 @@ export const FormEventComponent = ({
         if (refDate.current) refDate.current.setState({inputValue: ''});
     }, [incorrectDate])
 
-    // useEffect(() => {
-    //     if (refTime.current) {
-    //         if (refTime.current.state.open) {
-    //             setIsTimeOpen(true);
-    //         } else {
-    //             setIsTimeOpen(false);
-    //         }
-    //     }
-    // },)
-
     const renderDay = (props, currentDate, selectedDate) => {
         let date = new Date(currentDate.format("YYYY-MM-DD"));
         if (date.setDate(date.getDate() + 1) < Date.now()) {
@@ -216,17 +205,6 @@ export const FormEventComponent = ({
 
     const choiceAddress = (e) => {
         let suggest = suggests[e.target.id];
-        // let components = suggest.components;
-        // let point = `${suggest.geometry.lat} ${suggest.geometry.lng}`;
-        // let city = suggest.components.city;
-        // let newAddress = {
-        //     "country": components.country,
-        //     "city": components.city,
-        // };
-        // if (components.region) newAddress["region"] = components.region;
-        // if (components.state) newAddress["state"] = components.state;
-        // if (components.road) newAddress["street"] = components.road;
-        // if (components.house_number) newAddress["house_number"] = components.house_number;
         setAddress(suggest);
         setCity(suggest.city);
         setPoint(`${suggest.lat} ${suggest.lng}`);
@@ -259,73 +237,76 @@ export const FormEventComponent = ({
     }
 
     return (
-        <div className={`form-event-component scroll ${className}`}>
+        <div className={`form-event-component ${className} ${isPaid ? 'isPaid' : ''}`}>
             <div className={"elem elem-1"}>
                 <span>{titleText}</span>
                 <div onClick={closeWindow} className={"btn-close"}></div>
             </div>
-            <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
-                            placeholder={"Название *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
-            <div className={`elem elem-3 div-input`} ref={refAddress}>
-                <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}
-                       value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
-                       onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>
-                <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>
-                <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>
-                <div className={`suggests scroll ${suggests.length ? '' : 'hidden'}`}>
-                    {suggests.length !== 0 && suggests.map((item, key) => (
-                        <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
-                    ))}
+            <div className={"form-event-body scroll"}>
+                <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
+                                placeholder={"Название *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
+                <div className={`elem elem-3 div-input`} ref={refAddress}>
+                    <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}
+                           value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
+                           onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>
+                    <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>
+                    <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>
+                    <div className={`suggests scroll ${suggests.length ? '' : 'hidden'}`}>
+                        {suggests.length !== 0 && suggests.map((item, key) => (
+                            <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
+                        ))}
+                    </div>
+                </div>
+                <DropDownComponent
+                        value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
+                        flagClose={closeDropDown} id={3} content={formats} errorText={formatError} setErrorText={setFormatError}
+                        placeholder={"Формат площадки*"}
+                    />
+                <div className={"elem elem-5"}>
+                    <ReactDatetimeClass
+                        className={`div-input date ${dateError ? 'error' : ''}`}
+                        timeFormat={false}
+                        dateFormat={"DD.MM.YYYY"}
+                        closeOnSelect={true}
+                        inputProps={{placeholder: 'Дата игры *'}}
+                        onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
+                        ref={refDate}
+                        value={date ? date : ''}
+                        renderDay={renderDay}
+                    />
+                    <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
+                    <ReactDatetimeClass
+                        className={`div-input time ${timeError ? 'error' : ''}`}
+                        timeFormat={"HH:mm"}
+                        dateFormat={false}
+                        closeOnSelect={true}
+                        inputProps={{placeholder: 'Время начала *'}}
+                        onChange={(e) => choiceTime(e, setTime, refTime)}
+                        ref={refTime}
+                        value={time ? time : ''}
+                    />
+                    <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
+                    {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
+                </div>
+                <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
+                <div className={"elem elem-6"}>
+                    <span>Максимальное кол. игроков *</span>
+                </div>
+                <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
+                <CheckSliderComponent value={isNotPlayer} setValue={setIsNotPlayer} text={"Организатор события не играет"}
+                                      sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
+                <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
+                <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
+                    <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? () => {return price;} : inputDigit}
+                                    errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
+                    <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
+                </div>
+
+                <div className={"elem elem-11"} ref={refNotice}>
+                    <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"} value={notice ? notice : ''}></textarea>
                 </div>
             </div>
-            <DropDownComponent
-                    value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
-                    flagClose={closeDropDown} id={3} content={formats} errorText={formatError} setErrorText={setFormatError}
-                    placeholder={"Формат площадки*"}
-                />
-            <div className={"elem elem-5"}>
-                <ReactDatetimeClass
-                    className={`div-input date ${dateError ? 'error' : ''}`}
-                    timeFormat={false}
-                    dateFormat={"DD.MM.YYYY"}
-                    closeOnSelect={true}
-                    inputProps={{placeholder: 'Дата игры *'}}
-                    onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
-                    ref={refDate}
-                    value={date ? date : ''}
-                    renderDay={renderDay}
-                />
-                <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
-                <ReactDatetimeClass
-                    className={`div-input time ${timeError ? 'error' : ''}`}
-                    timeFormat={"HH:mm"}
-                    dateFormat={false}
-                    closeOnSelect={true}
-                    inputProps={{placeholder: 'Время начала *'}}
-                    onChange={(e) => choiceTime(e, setTime, refTime)}
-                    ref={refTime}
-                    value={time ? time : ''}
-                />
-                <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
-                {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
-            </div>
-            <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
-            <div className={"elem elem-6"}>
-                <span>Максимальное кол. игроков *</span>
-            </div>
-            <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
-            <CheckSliderComponent value={isNotPlayer} setValue={setIsNotPlayer} text={"Организатор события не играет"}
-                                  sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
-            <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
-            <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
-                <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? () => {return price;} : inputDigit}
-                                errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
-                <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
-            </div>
 
-            <div className={"elem elem-11"} ref={refNotice}>
-                <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарии"} value={notice ? notice : ''}></textarea>
-            </div>
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>

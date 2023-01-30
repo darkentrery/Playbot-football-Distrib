@@ -122,6 +122,15 @@ class Event(models.Model):
             user = self.event_queues.all().order_by("number").first().player
         return user
 
+    @property
+    def rank(self):
+        players = self.event_player.all()
+        rank = 0
+        if players.count():
+            rank = sum([player.player.rank for player in players])
+            rank /= players.count()
+        return rank
+
 
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)

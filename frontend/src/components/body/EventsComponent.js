@@ -27,11 +27,13 @@ export default function EventsComponent ({city, user}) {
                             if (row.date === item.date && !item.cancel) row.events.push(item);
                         })
                     })
-                    data = data.map((row) => {
-                        if (row.events.length) data.push(row);
+                    let newData = [];
+                    data.map((row) => {
+                        if (row.events.length) {
+                            newData.push(row);
+                        }
                     })
-                    console.log(data)
-                    setEvents(data);
+                    setEvents(newData);
                     setFirstRequest(2);
                 }
             })
@@ -47,12 +49,19 @@ export default function EventsComponent ({city, user}) {
                 if (typeof event.address !== "string") {
                     let newAddress = {
                         country: event.address && event.address.country ? event.address.country : '',
-                        city: event.address && event.address.city ? ', ' + event.address.city : '',
-                        street: event.address && event.address.street ? ', ' + event.address.street : '',
-                        house_number: event.address && event.address.house_number ? ', ' + event.address.house_number : '',
+                        city: event.address && event.address.city ? event.address.city : '',
+                        street: event.address && event.address.street ? event.address.street : '',
+                        house_number: event.address && event.address.house_number ? event.address.house_number : '',
                     }
-                    setAddress(`${newAddress.country}${newAddress.city}${newAddress.street}${newAddress.house_number}`);
-                }
+                    let array = [];
+                    // if (fullAddress) {
+                    //     if (newAddress.country) array.push(newAddress.country);
+                    //     if (newAddress.city) array.push(newAddress.city);
+                    // }
+                    if (newAddress.street) array.push(newAddress.street);
+                    if (newAddress.house_number) array.push(newAddress.house_number);
+                    setAddress(array.join(", "));
+                    }
                 let percent = event.event_player.length / event.count_players;
                 if (percent > 0.8) {
                     setColor('red');
@@ -73,11 +82,11 @@ export default function EventsComponent ({city, user}) {
                 </span>
                 <span className={"elem elem-2 black-400-13"}>
                     {address}
-                    <span className={"gray-400-13"}>Событие {event.event_step.length >= 1 ? 'началось' : 'начнется'}, в {event.time_begin.slice(0, 5)}</span>
+                    <span className={"gray-400-13"}>{event.event_step.length >= 1 ? '' : 'Событие начнется в, '}{event.time_begin.slice(0, 5)}</span>
                 </span>
                 <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>
                 <span className={`elem elem-4 black-400-13 ${color}`}>{event.event_player.length}/{event.count_players}</span>
-                <span className={"elem elem-5 black-400-13 gray"}>88,9</span>
+                <span className={"elem elem-5 black-400-13 gray"}>{event.rank.toFixed(1).replace('.', ',')}</span>
                 <span className={"elem elem-6 black-400-13 gray-right-arrow-icon"}></span>
             </Link>
             <EventItem376Component event={event}/>
@@ -85,7 +94,7 @@ export default function EventsComponent ({city, user}) {
     }
 
     const DateBlock = ({item}) => {
-        if (item.events.length !== 0) {
+        if (item.events.length) {
             let date = new Date(item.date);
             return (<>
                 <div className={"date"}>

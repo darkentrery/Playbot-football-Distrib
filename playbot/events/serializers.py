@@ -182,6 +182,7 @@ class EventSerializer(serializers.ModelSerializer):
     event_games = EventGameSerializer(EventGame.objects.all(), many=True, read_only=True)
     event_queues = EventQueueSerializer(EventQueue.objects.all(), many=True, read_only=True)
     format_label = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    rank = serializers.FloatField(read_only=True)
 
     class Meta:
         model = Event

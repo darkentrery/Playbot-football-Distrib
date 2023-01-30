@@ -82,11 +82,29 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         )
     }
 
-    const PlayerRow = ({gray=false, value1, value2, value3, value4, value5, value6}) => {
+    const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6}) => {
+        const [username, setUsername] = useState('');
+
+        useEffect(() => {
+            let username = value2.split(' ');
+            let newNames = [];
+            username.map((item) => {
+                if (item.length <= 12) {
+                    newNames.push(item);
+                } else {
+                    newNames.push(`${item.slice(0, 12)}...`);
+                }
+            })
+            setUsername(newNames.join(' '));
+        }, [value2])
+
         return (
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
-                <span className={`elem elem-2 ${gray ? 'gray-400-13' : 'black-400-13 player-avatar-icon'}`}>{value2}</span>
+                <div className={"elem elem-2"}>
+                    {isPlayer && <div className={"icon player-avatar-icon"}></div>}
+                    <span className={gray ? 'gray-400-13' : 'black-400-13'}>{isPlayer ? username : value2}</span>
+                </div>
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 <span className={`elem elem-5 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value5}</span>
@@ -138,7 +156,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     ))}
                 </EventTable>
                 <EventTable event={event} title={"Игроки"} className={"socer-player-icon"}>
-                    <PlayerRow gray={true} value1={"№"} value2={"Имя "} value3={"И"} value4={"П"} value5={"З"} value6={"Рейтинг"}/>
+                    <PlayerRow gray={true} isPlayer={false} value1={"№"} value2={"Имя "} value3={"И"} value4={"П"} value5={"З"} value6={"Рейтинг"}/>
                     {event && event.event_player.map((player, key) => (
                         <PlayerRow
                             value1={key + 1}

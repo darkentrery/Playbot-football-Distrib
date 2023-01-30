@@ -161,12 +161,15 @@
     .elem-2 {
       flex: 1 0 175px;
       justify-content: start;
+      gap: 16px;
 
-      &.player-avatar-icon {
-        background-size: auto 32px;
+      .icon {
+        display: flex;
+        flex: 0 0 23px;
         height: 32px;
-        padding-left: 40px;
-        box-sizing: border-box;
+      }
+      .player-avatar-icon {
+        background-size: auto 32px;
       }
     }
     .elem-3 {
