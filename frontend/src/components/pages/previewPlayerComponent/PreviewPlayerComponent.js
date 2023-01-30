@@ -1,7 +1,7 @@
 import HeadComponent from "../../HeadComponent";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
 import {Link, useParams} from "react-router-dom";
-import BottomComponent from "../../BottomComponent";
+import BottomComponent from "../../bottomComponent/BottomComponent";
 import React, {useEffect, useState} from "react";
 import {authService} from "../../../services/AuthService";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";

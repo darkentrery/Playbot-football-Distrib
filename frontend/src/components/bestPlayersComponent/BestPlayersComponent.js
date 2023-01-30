@@ -24,9 +24,7 @@ export const BestPlayersComponent = ({players}) => {
                     return 1;
                 }
             } else {
-                let aPercent = a.all_games !== 0 ? Math.round(100 * a.wins / a.all_games) : 0;
-                let bPercent = b.all_games !== 0 ? Math.round(100 * b.wins / b.all_games) : 0;
-                if (aPercent > bPercent) {
+                if (a.wins_percent > b.wins_percent) {
                     return -1;
                 } else {
                     return 1;
@@ -36,13 +34,47 @@ export const BestPlayersComponent = ({players}) => {
         let array = [];
         players.map((item) => {
             if (item.dRank === undefined) {
-                console.log(item.rank, item.ranks_history[0].rank, item.ranks_history)
                 item.dRank = item.rank - item.ranks_history[0].rank;
             }
             array.push(item)
         });
         setPlayersView(array);
     }, [flagSort, players])
+
+    const PlayerRow = ({player, number}) => {
+        const [username, setUsername] = useState('');
+        useEffect(() => {
+            let username = player.username.split(' ');
+            let newNames = [];
+            username.map((item) => {
+                if (item.length <= 12) {
+                    newNames.push(item);
+                } else {
+                    newNames.push(`${item.slice(0, 12)}...`);
+                }
+            })
+            setUsername(newNames.join(' '));
+        }, [player])
+
+        return (
+            <Link className={"player"} to={ProfileRoutes.previewPlayerLink(player.id)}>
+                <div className={"elem elem-1"}>
+                    <span className={"number black-400-13"}>{number + 1}.</span>
+                    <div className={"icon player-avatar-icon"}></div>
+                    <span className={"black-400-13 name"}>{username}</span>
+                </div>
+                <span className={"elem elem-2 black-400-13"}>
+                    {player.rank}
+                    <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{player.dRank}</span>
+                </span>
+                <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
+                <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>
+                <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
+                <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
+                <RankChartComponent ranks={player.ranks_history}/>
+            </Link>
+        )
+    }
 
     return (
         <div className={"best-players-component"}>
@@ -56,23 +88,23 @@ export const BestPlayersComponent = ({players}) => {
                 <span className={"elem elem-7 gray-400-13"}>П / И</span>
                 <span className={"elem elem-8 gray-cup-icon"}></span>
             </div>
-            {playersView.map((player, key) => (
-                <Link className={"player"} key={key} to={ProfileRoutes.previewPlayerLink(player.id)}>
-                    <div className={"elem elem-1"}>
-                        <span className={"number black-400-13"}>{key + 1}.</span>
-                        <div className={"icon player-avatar-icon"}></div>
-                        <span className={"black-400-13 name"}>{player.username}</span>
-                    </div>
-                    <span className={"elem elem-2 black-400-13"}>
-                        {player.rank}
-                        <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{player.dRank}</span>
-                    </span>
-                    <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
-                    <span className={"elem elem-4 black-400-13 gray"}>{player.all_games !== 0 ? Math.round(100 * player.wins / player.all_games) : 0}</span>
-                    <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
-                    <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
-                    <RankChartComponent ranks={player.ranks_history}/>
-                </Link>
+            {playersView.map((player, key) => (<PlayerRow player={player} number={key} key={key}/>
+                // <Link className={"player"} key={key} to={ProfileRoutes.previewPlayerLink(player.id)}>
+                //     <div className={"elem elem-1"}>
+                //         <span className={"number black-400-13"}>{key + 1}.</span>
+                //         <div className={"icon player-avatar-icon"}></div>
+                //         <span className={"black-400-13 name"}>{player.username}</span>
+                //     </div>
+                //     <span className={"elem elem-2 black-400-13"}>
+                //         {player.rank}
+                //         <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{player.dRank}</span>
+                //     </span>
+                //     <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
+                //     <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>
+                //     <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
+                //     <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
+                //     <RankChartComponent ranks={player.ranks_history}/>
+                // </Link>
             ))}
         </div>
     )

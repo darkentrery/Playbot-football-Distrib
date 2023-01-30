@@ -81,6 +81,8 @@ class UserSerializer(serializers.ModelSerializer):
     rank = serializers.FloatField(read_only=True)
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
     same_players = SamePlayerSerializer(User, many=True, read_only=True)
+    wins_percent = serializers.IntegerField(read_only=True)
+    ranking_place = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
@@ -95,10 +97,11 @@ class UserListSerializer(serializers.ModelSerializer):
     all_games = serializers.IntegerField(read_only=True)
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerListSerializer(EventPlayer.objects.all(), many=True, read_only=True)
+    wins_percent = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender", "event_player"]
+        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender", "event_player", "wins_percent"]
         read_only_fields = fields
 
 

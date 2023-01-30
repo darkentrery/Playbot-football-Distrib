@@ -138,6 +138,15 @@ class User(AbstractUser):
         count = 10 if players.count() >= 10 else players.count()
         return players[:count]
 
+    @property
+    def ranking_place(self):
+        players = []
+        for player in User.objects.all():
+            players.append([player.id, player.rank])
+        players.sort(key=lambda x: x[1], reverse=True)
+        place = players.index([self.id, self.rank]) + 1
+        return place
+
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")

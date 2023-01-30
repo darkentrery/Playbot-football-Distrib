@@ -38,7 +38,7 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                 <div className={"elem elem-2"}>
                     <div className={"item item-left"}>
                         <span className={"gray-400-12"}>Место в рейтинге</span>
-                        <span className={"icon black-table-with-middle-row-icon black-500-24"}>32</span>
+                        <span className={"icon black-table-with-middle-row-icon black-500-24"}>{player.ranking_place}</span>
                     </div>
                     <div className={"item item-right"}>
                         <span className={"gray-400-12"}>Игр за всё время</span>

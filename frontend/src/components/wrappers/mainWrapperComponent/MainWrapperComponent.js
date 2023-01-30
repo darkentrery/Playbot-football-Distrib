@@ -1,5 +1,5 @@
 import HeadComponent from "../../HeadComponent";
-import BottomComponent from "../../BottomComponent";
+import BottomComponent from "../../bottomComponent/BottomComponent";
 import React from "react";
 import {NoticeListComponent} from "../../noticeListComponent/NoticeListComponent";
 

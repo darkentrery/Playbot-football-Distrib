@@ -1,5 +1,5 @@
 import HeadComponent from "../../HeadComponent";
-import BottomComponent from "../../BottomComponent";
+import BottomComponent from "../../bottomComponent/BottomComponent";
 import React, {useEffect} from "react";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
 import {Link, useParams} from "react-router-dom";

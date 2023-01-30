@@ -27,6 +27,9 @@ export default function EventsComponent ({city, user}) {
                             if (row.date === item.date && !item.cancel) row.events.push(item);
                         })
                     })
+                    data = data.map((row) => {
+                        if (row.events.length) data.push(row);
+                    })
                     console.log(data)
                     setEvents(data);
                     setFirstRequest(2);

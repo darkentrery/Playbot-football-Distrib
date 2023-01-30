@@ -295,6 +295,7 @@
   .bottom-component {
     align-items: stretch;
     background: $whiteColor;
+    flex: 0 0 66px;
 
     .elem-1280 {
       display: none;
@@ -304,11 +305,12 @@
     }
     .elem-376 {
       display: flex;
-      flex: 0 0 56px;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #F3F3F3;
+      border-top: 1px solid $lightGrayColor;
       box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9);
+      box-sizing: border-box;
+      padding: 10px 25px 18px 25px;
 
       &.safari-margin {
        margin-bottom: 70px;
@@ -323,23 +325,9 @@
         padding-top: 18px;
         text-decoration: none;
 
-        &.active {
-          font-size: 11px;
-          font-weight: 600;
-          color: #D19C6C;
-        }
         &.disabled {
-          font-size: 11px;
-          color: #949494;
-          margin-top: 6px;
-        }
-        &.elem-1 {
-          margin-left: $marginSides;
-        }
-        &.elem-2 {
-        }
-        &.elem-3 {
-          margin-right: $marginSides;
+          color: $grayColor;
+          font-weight: 400;
         }
       }
     }
