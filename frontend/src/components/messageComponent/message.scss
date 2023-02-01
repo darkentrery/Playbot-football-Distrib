@@ -1,6 +1,5 @@
 .message-component {
   display: flex;
-  //flex: 0 0 113px;
   gap: 20px;
   padding-right: 180px;
   box-sizing: border-box;
@@ -14,7 +13,7 @@
   .elem-1 {
     display: flex;
     flex: 0 0 40px;
-    background-size: 40px 53px;
+    background-size: 40px 57px;
 
     &.hidden {
       display: none;
@@ -56,7 +55,7 @@
   .elem-3 {
     display: flex;
     flex: 0 0 40px;
-    background-size: 40px 53px;
+    background-size: 40px 57px;
 
     &.hidden {
       display: none;

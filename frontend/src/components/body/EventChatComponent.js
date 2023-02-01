@@ -71,11 +71,14 @@ export const EventChatComponent = ({event, user, className=''}) => {
 
     const sendForm = () => {
         if (message) {
-            sendJsonMessage({
-                type: "chat_message",
-                message,
-            });
-            setMessage("");
+            let trimMessage = message.trim();
+            if (trimMessage) {
+                sendJsonMessage({
+                    type: "chat_message",
+                    message,
+                });
+                setMessage("");
+            }
         }
     }
 

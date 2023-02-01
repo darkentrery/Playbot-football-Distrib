@@ -147,7 +147,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                                        "\n" +
                                        "Автоматический - делит игроков на команды автоматически исходя из рейтинга, пола и позиции. \n" +
                                        "\n" +
-                                       "Механический - администратор сам делит пользователей на команды"}
+                                       "Вручную - администратор сам делит пользователей на команды"}
                                    rightFirstIcon={'question-mark-icon'} rightSecondIcon={'question-mark-icon'}
                 />
                 <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
