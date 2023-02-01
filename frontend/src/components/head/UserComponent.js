@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import userIcon from "../../assets/icon/player-avatar.png";
 import {authService} from "../../services/AuthService";
 import {Link} from "react-router-dom";
@@ -42,10 +42,10 @@ export default function UserComponent ({user, funcs}) {
     return (
         <div className={"user-component"}>
             <UserNoticesComponent user={user}/>
-            <div className={"el dropdown-user"}>
+            <div className={"dropdown-user"}>
                 <div className={"dropdown-head"} onClick={openDropdown}>
                     <img className={"dropdown-icon"} src={userIcon} alt=""/>
-                    <span className={"dropdown-label"}>{user.username}</span>
+                    <span className={"dropdown-label black-700-13"}>{user.username}</span>
                     <div className={`arrow-icon ${isDropdown ? 'up-arrow-icon' : 'down-arrow-icon'}`}></div>
                 </div>
                 <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
