@@ -3,6 +3,7 @@ import {eventService} from "../../services/EventService";
 import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 import {PlayerRowComponent} from "../playerRowComponent/PlayerRowComponent";
 import $ from "jquery";
+import {authService} from "../../services/AuthService";
 
 
 export const MainSearchComponent = ({
@@ -21,21 +22,16 @@ export const MainSearchComponent = ({
 
     useEffect(() => {
         if (isOpen) {
-            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
+            eventService.getEvents().then((response) => {
                 if (response.status === 200) {
                     setEvents(response.data);
+                }
+            })
+            authService.getUsers().then((response) => {
+                if (response.status === 200) {
                     let array = [];
-                    response.data.map((event) => {
-                        event.event_player.map((player) => {
-                            if (!array.includes(player.player)) array.push(player.player);
-                        })
-                    })
-                    array = array.filter((item, i) => {
-                        if (i === 0) {
-                            return true;
-                        } else {
-                            return item.id !== array[i - 1].id
-                        }
+                    response.data.map((player) => {
+                        if (player.event_player.length) array.push(player);
                     })
                     setPlayers(array);
                 }
@@ -44,6 +40,8 @@ export const MainSearchComponent = ({
     }, [isOpen])
 
     const search = (e) => {
+        console.log(players)
+        console.log(events)
         let val = e.target.value;
         let array = [];
         events.map((item, key) => {

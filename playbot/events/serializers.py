@@ -194,6 +194,17 @@ class EventSerializer(serializers.ModelSerializer):
         return TeamSerializer(teams, many=True, read_only=True).data
 
 
+class EventListSerializer(serializers.ModelSerializer):
+    address = AddressSerializer(read_only=True)
+    rank = serializers.FloatField(read_only=True)
+
+    class Meta:
+        model = Event
+        fields = ["id", "name", "address", "date", "time_begin", "time_end", "price", "rank", "count_players",
+                  "event_player", "event_step", "is_paid"]
+        read_only_fields = fields
+
+
 class EditEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)

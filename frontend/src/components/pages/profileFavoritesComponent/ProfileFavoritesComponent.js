@@ -53,8 +53,8 @@ export const ProfileFavoritesComponent = ({
                     <span className={"gray-400-13"}>{date.getDate()}.{date.getMonth()}.{date.getFullYear().toString().slice(2,4)} в {event.time_begin.slice(0, 5)}</span>
                 </div>
                 <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
-                <span className={`elem elem-4 gray-400-13 ${color}`}>{event.event_player.length}/{event.count_players}</span>
-                <span className={"elem elem-5 gray-400-13"}>{event.rank.toFixed(1).replace(".", ",")}</span>
+                <span className={"elem elem-4 gray-400-13"}>{event.event_player.length}/{event.count_players}</span>
+                <span className={"elem elem-5 gray-400-13"}>{event.rank.toFixed(1).replace('.', ',')}</span>
             </Link>
         )
     }

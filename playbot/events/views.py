@@ -13,7 +13,7 @@ from playbot.events.models import Event, CancelReasons, EventStep, Format, Distr
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer, EventGameSerializer, \
-    CreateGoalSerializer
+    CreateGoalSerializer, EventListSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, get_next_rank
 from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
@@ -59,8 +59,16 @@ class EventsView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
+        events = EventListSerializer(Event.objects.all().order_by("date", "time_begin"), many=True)
+        return Response(events.data, status=status.HTTP_200_OK)
+
+
+class EventsCityView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
         city = self.kwargs.get("city")
-        events = EventSerializer(Event.objects.filter(city__name=city, time_end=None).order_by("date", "time_begin"), many=True)
+        events = EventListSerializer(Event.objects.filter(city__name=city, time_end=None).order_by("date", "time_begin"), many=True)
         return Response(events.data, status=status.HTTP_200_OK)
 
 

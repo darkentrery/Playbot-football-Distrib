@@ -5,7 +5,8 @@ from playbot.events import views
 
 urlpatterns = [
     path("create/", views.CreateEventView.as_view(), name='create-event'),
-    path("get-events/<city>/", views.EventsView.as_view(), name='events'),
+    path("get-events/", views.EventsView.as_view(), name='events'),
+    path("get-events/<city>/", views.EventsCityView.as_view(), name='events-city'),
     path("get-event/<int:id>/", views.EventView.as_view(), name='event'),
     path("edit/", views.EditEventView.as_view(), name='edit-event'),
     path("cancel-event/", views.CancelEventView.as_view(), name='cancel-event'),
