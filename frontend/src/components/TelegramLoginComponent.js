@@ -22,7 +22,6 @@ export default function TelegramLoginComponent () {
             })
             .catch((error) => {
                 console.log(error.response)
-                // return error.response;
             });
         console.log(e)
     }

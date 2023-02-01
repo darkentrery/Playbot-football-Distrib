@@ -93,7 +93,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
-            authService.confirmSignUp(window.location.pathname)
+            authService.confirmSignUp(window.location.pathname);
             setConfirmSignUp(true);
             funcs.openSuccessSignUp2();
         }

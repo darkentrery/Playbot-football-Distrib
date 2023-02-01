@@ -235,6 +235,8 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
                 defaults["username"] = attrs.get("username")
             defaults["is_active"] = True
             self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
+            if not self.user.ranks_history.all().exists():
+                RankHistory.objects.create(user=self.user)
 
         # if User.objects.filter(telegram_id=attrs["telegram_id"]).exists() and attrs["chanel_id"] == CHANEL_ID:
         #     self.user = User.objects.get(telegram_id=attrs["telegram_id"])
