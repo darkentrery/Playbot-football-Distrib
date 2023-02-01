@@ -63,7 +63,7 @@ export default function CreateEventComponent ({
     }
 
     useEffect(() => {
-        if (isOpen) {
+        if (isOpen && window.screen.width > 744) {
             const interval = setInterval(() => {
                 if (contentNumber === 2) {
                     setContentNumber(0);

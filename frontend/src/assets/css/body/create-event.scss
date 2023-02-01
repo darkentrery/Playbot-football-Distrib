@@ -9,10 +9,8 @@
   .popup-left {
     flex: 0 0 411px;
 
-    .elem-1 {
-      .btn-close {
-        display: none;
-      }
+    .btn-close {
+      display: none;
     }
   }
   .popup-right {
@@ -158,10 +156,8 @@
     flex: 0 0 100vw;
     height: 100vh;
 
-    .elem-1 {
-      .btn-close {
-        display: flex !important;
-      }
+    .btn-close {
+      display: flex;
     }
   }
 
@@ -191,9 +187,9 @@
       margin-top: 24px;
       width: 100vw;
 
-      .btn-close {
-        margin-right: 24px;
-      }
+      //.btn-close {
+      //  margin-right: 24px;
+      //}
     }
     .elem-2 {
       flex: 1 0 48px;

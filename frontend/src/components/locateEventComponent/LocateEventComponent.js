@@ -37,25 +37,6 @@ export const LocateEventComponent = ({
                 setCity(newAddress.city);
                 setPoint(`${position.lat} ${position.lng}`);
             })
-            // getLocationsByCoords([position.lat, position.lng]).then((response) => {
-            //     if (response.data.results.length !== 0) {
-            //         let components = response.data.results[0].components;
-            //         if (components.city) {
-            //             let point = `${position.lat} ${position.lng}`;
-            //             let newAddress = {
-            //                 "country": components.country,
-            //                 "city": components.city,
-            //             };
-            //             if (components.region) newAddress["region"] = components.region;
-            //             if (components.state) newAddress["state"] = components.state;
-            //             if (components.road) newAddress["street"] = components.road;
-            //             if (components.house_number) newAddress["house_number"] = components.house_number;
-            //             setAddress(newAddress);
-            //             setCity(city);
-            //             setPoint(point);
-            //         }
-            //     }
-            // })
         }
     }, [position])
 

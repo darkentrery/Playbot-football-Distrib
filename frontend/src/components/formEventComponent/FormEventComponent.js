@@ -164,16 +164,6 @@ export const FormEventComponent = ({
             setCity(false);
             setPoint(false);
             if (e.target.value && e.target.value.length > 6) {
-                // getLocations(e.target.value).then((response) => {
-                //     if (response.status === 200) {
-                //         let geoObjects = response.data.results;
-                //         let array = [];
-                //         geoObjects.map((item) => {
-                //             if (item.components.city) array.push(item);
-                //         })
-                //         setSuggests(array);
-                //     }
-                // })
                 getLocationsArrayGoogle(e.target.value).then((array) => {
                     setSuggests(array);
                 })
@@ -238,9 +228,9 @@ export const FormEventComponent = ({
 
     return (
         <div className={`form-event-component ${className} ${isPaid ? 'isPaid' : ''}`}>
+            <div onClick={closeWindow} className={"btn-close"}></div>
             <div className={"elem elem-1"}>
                 <span>{titleText}</span>
-                <div onClick={closeWindow} className={"btn-close"}></div>
             </div>
             <div className={"form-event-body scroll"}>
                 <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
