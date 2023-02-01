@@ -40,8 +40,6 @@ export const MainSearchComponent = ({
     }, [isOpen])
 
     const search = (e) => {
-        console.log(players)
-        console.log(events)
         let val = e.target.value;
         let array = [];
         events.map((item, key) => {

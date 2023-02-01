@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {authService} from "../../../services/AuthService";
+import {linkShareService} from "../../../services/LinkShareService";
 
 
 export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
@@ -59,9 +60,9 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                 </div>
                 <div className={"contacts"}>
                     <div className={"elem-1"}>
-                        <div className={"instagram-icon"}></div>
-                        <div className={"telegram-icon"}></div>
-                        <div className={"vk-icon"}></div>
+                        <div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>
+                        <div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>
+                        <div className={"vk-icon"} onClick={linkShareService.clickVk}></div>
                     </div>
                     <div className={"elem-2"}>
                         <div className={"el-1"}>

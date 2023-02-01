@@ -2,6 +2,7 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import React from "react";
 import ProfileRoutes from "../../routes/ProfileRoutes";
+import {linkShareService} from "../../services/LinkShareService";
 
 
 export default function BottomComponent ({user, isIPhone}) {
@@ -68,9 +69,9 @@ export default function BottomComponent ({user, isIPhone}) {
                         </div>
                     </div>
                     <div className={"el el-2"}>
-                        <div className={"instagram-icon"}></div>
-                        <div className={"telegram-icon"}></div>
-                        <div className={"vk-icon"}></div>
+                        <div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>
+                        <div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>
+                        <div className={"vk-icon"} onClick={linkShareService.clickVk}></div>
                     </div>
                 </div>
             </div>
@@ -85,9 +86,9 @@ export default function BottomComponent ({user, isIPhone}) {
                     <span className={"music"}>Включить музыку</span>
                 </div>
                 <div className={"el-3"}>
-                    <div className={"instagram-icon"}></div>
-                    <div className={"telegram-icon"}></div>
-                    <div className={"vk-icon"}></div>
+                    <div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>
+                    <div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>
+                    <div className={"vk-icon"} onClick={linkShareService.clickVk}></div>
                 </div>
             </div>
 
