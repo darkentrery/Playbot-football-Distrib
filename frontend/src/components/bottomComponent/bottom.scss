@@ -114,7 +114,6 @@
           text-decoration: underline;
         }
       }
-
       .offer {
         padding-left: 12px;
         font-size: 12px;
@@ -146,7 +145,7 @@
     }
     .el-3 {
       display: flex;
-      flex: 0 0 118px;
+      gap: 24px;
       align-items: center;
       justify-content: space-between;
     }
@@ -281,7 +280,7 @@
         }
 
         &.el-2 {
-          flex: 0 0 118px;
+          gap: 24px;
           margin-right: $marginSides;
           flex-direction: row;
           justify-content: space-between;

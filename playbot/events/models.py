@@ -306,6 +306,24 @@ class EventGame(models.Model):
     def score_2(self):
         return self.goals.filter(team=self.team_2).count()
 
+    @property
+    def result_1(self):
+        result = 1
+        if self.score_1 > self.score_2:
+            result = 3
+        elif self.score_1 < self.score_2:
+            result = -1
+        return result
+
+    @property
+    def result_2(self):
+        result = 1
+        if self.score_2 > self.score_1:
+            result = 3
+        elif self.score_2 < self.score_1:
+            result = -1
+        return result
+
 
 class EventStep(models.Model):
     class StepName(models.TextChoices):

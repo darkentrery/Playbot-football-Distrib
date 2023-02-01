@@ -42,8 +42,8 @@ export const RankChartComponent = ({ranks, rank, dRank}) => {
                 <Tooltip content={<CustomTooltip/>}/>
             </LineChart>
             <span className={"rank-744 black-400-13"}>
-                {rank}
-                <span className={`black-400-13 ${dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{dRank >= 0 ? '+' : ''}{dRank}</span>
+                {Math.floor(rank)}
+                <span className={`black-400-13 ${dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{dRank >= 0 ? '+' : ''}{Math.floor(dRank)}</span>
             </span>
         </div>
     )

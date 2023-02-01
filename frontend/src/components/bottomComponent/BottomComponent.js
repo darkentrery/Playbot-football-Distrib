@@ -69,9 +69,11 @@ export default function BottomComponent ({user, isIPhone}) {
                         </div>
                     </div>
                     <div className={"el el-2"}>
-                        <div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>
-                        <div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>
-                        <div className={"vk-icon"} onClick={linkShareService.clickVk}></div>
+                        <a className={"instagram-icon"} href={BaseRoutes.instagramShare} target={"_blank"}></a>
+                        <a className={"telegram-icon"} href={BaseRoutes.telegramShare} target={"_blank"}></a>
+                        {/*<div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>*/}
+                        {/*<div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>*/}
+                        {/*<div className={"vk-icon"} onClick={linkShareService.clickVk}></div>*/}
                     </div>
                 </div>
             </div>
@@ -86,9 +88,11 @@ export default function BottomComponent ({user, isIPhone}) {
                     <span className={"music"}>Включить музыку</span>
                 </div>
                 <div className={"el-3"}>
-                    <div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>
-                    <div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>
-                    <div className={"vk-icon"} onClick={linkShareService.clickVk}></div>
+                    <a className={"instagram-icon"} href={BaseRoutes.instagramShare} target={"_blank"}></a>
+                    <a className={"telegram-icon"} href={BaseRoutes.telegramShare} target={"_blank"}></a>
+                    {/*<div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>*/}
+                    {/*<div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>*/}
+                    {/*<div className={"vk-icon"} onClick={linkShareService.clickVk}></div>*/}
                 </div>
             </div>
 

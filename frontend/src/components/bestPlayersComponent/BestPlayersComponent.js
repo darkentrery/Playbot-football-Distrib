@@ -64,14 +64,14 @@ export const BestPlayersComponent = ({players}) => {
                     <span className={"black-400-13 name"}>{username}</span>
                 </div>
                 <span className={"elem elem-2 black-400-13"}>
-                    {player.rank}
-                    <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{player.dRank}</span>
+                    {Math.floor(player.rank)}
+                    <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{Math.floor(player.dRank)}</span>
                 </span>
                 <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
                 <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>
                 <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
                 <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
-                <RankChartComponent ranks={player.ranks_history} rank={player.rank} dRank={player.dRank}/>
+                <RankChartComponent ranks={player.ranks_history} rank={(player.rank)} dRank={player.dRank}/>
             </Link>
         )
     }

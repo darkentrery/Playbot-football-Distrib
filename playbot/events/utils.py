@@ -162,10 +162,39 @@ def get_next_rank(user, event):
     time_sum = 0
     for team_player in user.team_players.all():
         for event_game in team_player.team.event_games_teams_1.all():
-            time_sum += event_game.current_duration * event_game.event.format.rate
+            time_sum += event_game.current_duration
         for event_game in team_player.team.event_games_teams_2.all():
-            time_sum += event_game.current_duration * event_game.event.format.rate
+            time_sum += event_game.current_duration
+
+    result_sum = 0
+    event_duration = sum([game.current_duration for game in event.event_games.all()])
+    for team_player in user.team_players.all():
+        for event_game in team_player.team.event_games_teams_1.all():
+            win_goals = event_game.score_1
+            loss_goals = event_game.score_2
+            if event_game.result_1 < 0:
+                win_goals = event_game.score_2
+                loss_goals = event_game.score_1
+            k_goal = win_goals + 0.5
+            if loss_goals:
+                k_goal  = win_goals / loss_goals
+            result = event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
+            result_sum += result
+            # time_sum += event_game.current_duration * event_game.event.format.rate
+        for event_game in team_player.team.event_games_teams_2.all():
+            win_goals = event_game.score_2
+            loss_goals = event_game.score_1
+            if event_game.result_2 < 0:
+                win_goals = event_game.score_1
+                loss_goals = event_game.score_2
+            k_goal = win_goals + 0.5
+            if loss_goals:
+                k_goal = win_goals / loss_goals
+            result = event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
+            result_sum += result
+            # time_sum += event_game.current_duration * event_game.event.format.rate
     time_sum *= 0.001
+    result_sum *= 0.001
     avr_opponents = 0
     rivals = 0
     for opponent_team in opponent_teams:
@@ -174,8 +203,8 @@ def get_next_rank(user, event):
         rivals += opponent_team.team_players.all().count()
     avr_opponents /= rivals
 
-    delta_team_rank = user_team.rank + event.format.rate * 0.01 + user_team.all_rivals * 0.01
+    # delta_team_rank = user_team.rank + event.format.rate * 0.01 + user_team.all_rivals * 0.01
 
-    delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
-    rank = (5 + time_sum + user.all_rivals * 0.01 + avr_opponents / user.rank + delta_rank) * user.involvement * (100 - user.penalty) * 0.01
+    # delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
+    rank = (user.rank + result_sum + user.all_rivals * 0.01 + avr_opponents / user.rank) * user.involvement * (100 - user.penalty) * 0.01
     return rank
