@@ -15,7 +15,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.events.models import EventPlayer, Event
-from playbot.events.serializers import EventSerializer, EventForPlayerListSerializer
+from playbot.events.serializers import EventSerializer, EventForPlayerListSerializer, EventListSerializer
 from playbot.notices.models import Notice
 from playbot.notices.serializers import UserNoticeSerializer
 from playbot.users.models import User, Position, RankHistory
@@ -74,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
     event = EventSerializer(Event.objects.all(), many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
     position_2 = PositionSerializer(read_only=True)
-    favorite_events = EventPlayerListSerializer(Event.objects.all(), many=True, read_only=True)
+    favorite_events = EventListSerializer(Event.objects.all(), many=True, read_only=True)
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
     total_time = serializers.IntegerField(read_only=True)
     all_rivals = serializers.IntegerField(read_only=True)
