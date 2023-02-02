@@ -30,7 +30,15 @@ export async function getData(func, arg, openLogin, setOpenLogin) {
     }
 }
 
-export async function authDecoratorWithoutLogin(func, arg) {
+const doFunc = (func, arg) => {
+    if (arg) {
+        return func(arg).then((response) => {return response;});
+    } else {
+        return func().then((response) => {return response;});
+    }
+}
+
+export function authDecoratorWithoutLogin(func, arg) {
     let accessToken = null;
     let refreshToken = null;
     let dateToken = null;
@@ -43,14 +51,14 @@ export async function authDecoratorWithoutLogin(func, arg) {
     }
 
     if (accessToken) {
-        if (Date.now() - dateToken > 1.5*60*1000) {
-            await authService.refresh();
+        if (Date.now() - dateToken > 4.5*60*1000) {
+            return authService.refresh().then((response) => {
+                if (response.status === 200) {
+                    return doFunc(func, arg).then((response) => {return response;});
+                }
+            })
+        } else {
+            return doFunc(func, arg).then((response) => {return response;});
         }
-    }
-
-    if (arg) {
-        return await func(arg);
-    } else {
-        return await func();
     }
 }

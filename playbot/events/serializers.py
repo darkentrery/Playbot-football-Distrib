@@ -16,8 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = "__all__"
-        read_only_field = ['is_active',]
+        fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "city", "confirm_slug",
+                  "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
+                  "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
+                  "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent"]
+        read_only_field = fields
 
 
 class EventPlayerSerializer(serializers.ModelSerializer):
@@ -25,7 +28,8 @@ class EventPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EventPlayer
-        fields = "__all__"
+        fields = ["player",]
+        read_only_field = fields
 
 
 class EventQueueSerializer(serializers.ModelSerializer):

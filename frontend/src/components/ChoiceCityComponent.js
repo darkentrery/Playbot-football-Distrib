@@ -35,7 +35,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
     const sendForm = async () => {
         if (city) {
             setCity(city);
-            await authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
+            authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
                 closeWindow();
                 setAuth(true, response.data);
             })

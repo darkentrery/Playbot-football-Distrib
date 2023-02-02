@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from playbot.events.serializers import EventSerializer
+from playbot.events.serializers import EventListSerializer
 from playbot.notices.models import UserNotice, Notice
 
 
 class NoticeSerializer(serializers.ModelSerializer):
-    event = EventSerializer(read_only=True)
+    event = EventListSerializer(read_only=True)
 
     class Meta:
         model = Notice
@@ -17,4 +17,5 @@ class UserNoticeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserNotice
-        fields = "__all__"
+        fields = ["id", "user", "notice", "time_read", "show", "is_read"]
+        read_only_fields = fields

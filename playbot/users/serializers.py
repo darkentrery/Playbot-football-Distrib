@@ -15,7 +15,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
 from playbot.cities.models import City
 from playbot.events.models import EventPlayer, Event
-from playbot.events.serializers import EventSerializer, EventForPlayerListSerializer, EventListSerializer
+from playbot.events.serializers import EventForPlayerListSerializer, EventListSerializer
 from playbot.notices.models import Notice
 from playbot.notices.serializers import UserNoticeSerializer
 from playbot.users.models import User, Position, RankHistory
@@ -23,7 +23,7 @@ from playbot.users.utils import generate_password, send_email_refresh, send_emai
 
 
 class EventPlayerSerializer(serializers.ModelSerializer):
-    event = EventSerializer(read_only=True)
+    event = EventListSerializer(read_only=True)
 
     class Meta:
         model = EventPlayer
@@ -56,7 +56,6 @@ class RankHistorySerializer(serializers.ModelSerializer):
 
 class SamePlayerSerializer(serializers.ModelSerializer):
     position_1 = PositionSerializer(read_only=True)
-    rank = serializers.FloatField(read_only=True)
 
     class Meta:
         model = User
@@ -66,35 +65,35 @@ class SamePlayerSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    all_games = serializers.IntegerField(read_only=True)
-    count_goals = serializers.IntegerField(read_only=True)
-    wins = serializers.IntegerField(read_only=True)
-    loss = serializers.IntegerField(read_only=True)
-    event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
-    event = EventSerializer(Event.objects.all(), many=True, read_only=True)
+    # all_games = serializers.IntegerField(read_only=True)
+    # count_goals = serializers.IntegerField(read_only=True)
+    # wins = serializers.IntegerField(read_only=True)
+    # loss = serializers.IntegerField(read_only=True)
+    event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
+    event = EventListSerializer(Event, many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
     position_2 = PositionSerializer(read_only=True)
-    favorite_events = EventListSerializer(Event.objects.all(), many=True, read_only=True)
+    favorite_events = EventListSerializer(Event, many=True, read_only=True)
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
-    total_time = serializers.IntegerField(read_only=True)
-    all_rivals = serializers.IntegerField(read_only=True)
-    rank = serializers.FloatField(read_only=True)
+    # total_time = serializers.IntegerField(read_only=True)
+    # all_rivals = serializers.IntegerField(read_only=True)
+    # rank = serializers.FloatField(read_only=True)
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
     same_players = SamePlayerSerializer(User, many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
-    ranking_place = serializers.IntegerField(read_only=True)
+    # ranking_place = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
-        fields = "__all__"
-        # read_only_fields = fields
+        fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "city", "confirm_slug",
+                  "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
+                  "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
+                  "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent"]
+        read_only_fields = fields
 
 
 class UserListSerializer(serializers.ModelSerializer):
-    rank = serializers.FloatField(read_only=True)
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
-    wins = serializers.IntegerField(read_only=True)
-    all_games = serializers.IntegerField(read_only=True)
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerListSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)

@@ -60,7 +60,7 @@ function App({state, funcs}) {
     const [firstRequest, setFirstRequest] = useState(true);
 
     const auth = () => {
-        authDecoratorWithoutLogin(authService.isAuth, []).then((response) => {
+        authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status == 200) {
                 funcs.setAuth(true, response.data);
             } else {

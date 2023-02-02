@@ -206,8 +206,9 @@ export default class AuthService{
             'X-CSRFToken': csrftoken,
 		}})
 			.then((response) => {
-				localStorage.setItem( 'access_token' , response.data.access);
-                localStorage.setItem( 'refresh_token' , response.data.refresh);
+				localStorage.setItem('access_token' , response.data.access);
+                localStorage.setItem('refresh_token' , response.data.refresh);
+				localStorage.setItem('date_token', Date.now());
 				return response;
 			})
 			.catch((error) => {
