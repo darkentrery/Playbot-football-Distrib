@@ -26,4 +26,5 @@ urlpatterns = [
     path("end-game/", views.EndGameView.as_view(), name='end-game'),
     path("create-goal/", views.CreateGoalView.as_view(), name='create-goal'),
     path("add-to-favorites/", views.AddToFavoritesView.as_view(), name='add-to-favorites'),
+    path("remove-from-favorites/", views.RemoveFromFavoritesView.as_view(), name='remove-from-favorites'),
 ]

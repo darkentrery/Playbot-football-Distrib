@@ -396,6 +396,18 @@ class AddToFavoritesView(APIView):
         return Response({"error": "Already in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RemoveFromFavoritesView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        event = Event.objects.get(id=request.data["id"])
+        if request.user.favorite_events.filter(id=event.id).exists():
+            request.user.favorite_events.remove(event)
+            json = UserSerializer(instance=request.user).data
+            return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Not in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 

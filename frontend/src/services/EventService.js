@@ -334,4 +334,12 @@ export const eventService = {
 	getEvents(data) { return getRequest('get-events/', data); },
 	getEvent(id) { return getRequest('get-event/', id); },
 	addToFavorites(data) { return postRequest('add-to-favorites/', data); },
+	removeFromFavorites(data) { return postRequest('remove-from-favorites/', data); },
+	isFavorite(user, event) {
+		let isFavorite = false;
+		user.favorite_events.map((e) => {
+			if (e.id === event.id) isFavorite = true;
+		})
+		return isFavorite;
+	},
 }

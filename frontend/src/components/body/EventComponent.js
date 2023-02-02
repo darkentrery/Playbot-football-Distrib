@@ -1,5 +1,5 @@
 import {eventService} from "../../services/EventService";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
 import {useParams} from "react-router-dom";
 import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
@@ -13,6 +13,9 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 export default function EventComponent ({event, sameEvents, user, funcs}) {
     const params = useParams();
     const pk = params.pk;
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isTooltip, setIsTooltip] = useState(false);
+    const [tooltip, setTooltip] = useState(false);
 
     useEffect(() => {
         funcs.setEvent(false);
@@ -23,6 +26,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             console.log(response.data.event)
             funcs.setEvent(response.data.event);
             funcs.setSameEvents(response.data.same_events);
+            if (user.user && response.data.event) setIsFavorite(eventService.isFavorite(user.user, response.data.event));
             if (response.data.event.teams.length !== 0) {
                 for (let team of response.data.event.teams) {
                     if (team.team_players.length === 0) {
@@ -34,7 +38,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             }
         })
         return () => isSubscribe = false;
-    }, [pk])
+    }, [pk, user])
 
     const editEvent = () => {
         if (event && user.isAuth && event.organizer.id === user.user.id) {
@@ -46,19 +50,37 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     }
 
     const addToFavorites = () => {
-        authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
-            console.log(response)
-            if (response.status === 200) {
-                funcs.setAuth(true, response.data);
+        if (user.isAuth) {
+            if (!isTooltip) {
+                setIsTooltip(true);
+                setTooltip(isFavorite ? 'Удалено из избранного!' : 'Добавлено в избранное!')
+                setTimeout(() => {
+                    setIsTooltip(false);
+                }, 1000)
             }
-        })
+            if (isFavorite) {
+                authDecoratorWithoutLogin(eventService.removeFromFavorites, {'id': event.id}).then((response) => {
+                    console.log(response)
+                    if (response.status === 200) {
+                        funcs.setAuth(true, response.data);
+                    }
+                })
+            } else {
+                authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
+                    console.log(response)
+                    if (response.status === 200) {
+                        funcs.setAuth(true, response.data);
+                    }
+                })
+            }
+        }
     }
 
     return (
         <VisibleMainWrapper>
             {event && <div className={"event-component"}>
                 <Top376Component label={"Событие"} to={BaseRoutes.main}>
-                    <div className={"icon dark-gray-star-icon"} onClick={addToFavorites}></div>
+                    <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
                     <div className={"icon send-icon"}></div>
                     {event.organizer.id === user.user.id && <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
                 </Top376Component>
@@ -73,6 +95,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                             ))}
                         </div>
                     </div>}
+                <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>{tooltip}</span>
             </div>}
         </VisibleMainWrapper>
     )
