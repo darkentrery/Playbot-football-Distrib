@@ -56,8 +56,9 @@ def create_event_games(event):
 
 def auto_distribution(event):
     teams_items = event.teams.all()
-    players_id = list(event.event_player.all().order_by("player__gender", "-player__rank")
-                      .values_list("player__id", "player__rank", "player__gender"))
+    players_id = [[player.player.id, player.player.rank, player.player.gender]
+                  for player in event.event_player.all().order_by("player__gender")]
+    players_id.sort(key=lambda x: x[1], reverse=True)
     middle_rank_player = sum([i[1] for i in players_id]) / len(players_id)
     middle_rank = sum([i[1] for i in players_id]) / teams_items.count() + middle_rank_player
     teams = [{"id": team.id, "rank": 0, "players": [], "count": team.count_players, "men": 0, "women": 0} for team in teams_items]

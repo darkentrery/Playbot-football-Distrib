@@ -61,7 +61,7 @@ export default function EventsComponent ({city, user}) {
                     if (newAddress.street) array.push(newAddress.street);
                     if (newAddress.house_number) array.push(newAddress.house_number);
                     setAddress(array.join(", "));
-                    }
+                }
                 let percent = event.event_player.length / event.count_players;
                 if (percent > 0.8) {
                     setColor('red');

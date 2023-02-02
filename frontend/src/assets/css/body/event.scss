@@ -3,6 +3,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   align-items: stretch;
+  gap: 32px;
 }
 
 .event-component .elem-376 {
@@ -12,34 +13,29 @@
 .same-events-component {
   display: flex;
   flex-direction: column;
-  margin-top: 55px;
+  margin-top: 31px;
   gap: 24px;
+  box-sizing: border-box;
 
   .elem {
     display: flex;
     gap: 24px;
   }
-  .elem-1 {
-  }
-  .elem-2 {
-    .same-event-component {
-      flex: 0 0 373px;
-    }
-  }
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
+  .event-component {
+    gap: 24px;
+  }
   .same-events-component {
     gap: 20px;
 
     .elem {
-      display: flex;
       gap: 16px;
-    }
-    .elem-2 {
-    }
-    .same-event-2 {
-      display: none;
+
+      .same-event-2 {
+        display: none;
+      }
     }
   }
 }
@@ -47,6 +43,8 @@
 @media screen and (min-width: 375px) and (max-width: 743px){
   .event-component {
     padding: 0 16px 25px 16px;
+    gap: 24px;
+    overflow: auto;
   }
 
   .same-events-component {
@@ -54,21 +52,28 @@
     gap: 20px;
 
     .elem {
-      display: flex;
       gap: 16px;
+
+      .same-event-1 {
+        display: none;
+      }
+      .same-event-2 {
+        display: none;
+      }
     }
     .elem-1 {
       font-size: 18px;
       font-weight: 700;
     }
-    .elem-2 {
-      margin-bottom: 25px;
-    }
-    .same-event-1 {
-      display: none;
-    }
-    .same-event-2 {
-      display: none;
+  }
+}
+
+@media screen and (max-width: 405px){
+  .event-component {
+    .same-events-component {
+      .same-event-component {
+        flex: 0 0 calc(100vw - 32px);
+      }
     }
   }
 }

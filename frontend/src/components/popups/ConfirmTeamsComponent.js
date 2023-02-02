@@ -154,7 +154,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             </div>
             <div className={`elem elem-7 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn white-500-16"} onClick={confirmTeams}>Подтвердить и начать</button>
-                <span className={"orange-400-14 link"} onClick={repeatDivide}>Поделиться заново</span>
+                {/*<span className={"orange-400-14 link"} onClick={repeatDivide}>Поделиться заново</span>*/}
             </div>
         </ReglamentComponent>
     )

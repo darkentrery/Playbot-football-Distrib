@@ -1,7 +1,6 @@
 .event-organizer-component {
   display: flex;
   flex: 1 1 auto;
-  margin-top: 32px;
   gap: 32px;
 
   .event-organizer-elem-1280 {
@@ -52,19 +51,16 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .event-organizer-component {
-    margin-top: 24px;
     flex: 1 1 auto;
 
     .event-organizer-elem-1280 {
       display: none;
     }
-
     .event-organizer-elem-376 {
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
       align-items: stretch;
-      margin-bottom: 24px;
 
       .menu {
         display: flex;

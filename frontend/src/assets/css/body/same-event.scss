@@ -1,11 +1,10 @@
 .same-event-component {
   display: flex;
-  height: 250px;
-  //width: 373px;
   flex: 0 0 373px;
   border-radius: 8px;
   background: $whiteColor;
   flex-direction: column;
+  box-sizing: border-box;
 
   &:hover {
     text-decoration: none;
@@ -27,7 +26,6 @@
       .el {
         display: flex;
       }
-
       .el-1 {
         flex: 0 0 29px;
         justify-content: space-between;
@@ -48,7 +46,6 @@
         }
       }
     }
-
     &.elem-2 {
       flex: 0 0 68px;
       border-top: 1px solid #E1E1E1;
@@ -70,8 +67,6 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .same-event-component {
-    height: 222px;
-    width: 100%;
 
     .elem {
       &.elem-1 {
