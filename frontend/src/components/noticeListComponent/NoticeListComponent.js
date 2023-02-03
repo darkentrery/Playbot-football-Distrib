@@ -8,7 +8,7 @@ export const NoticeListComponent = ({user, setUser}) => {
     return (
         <div className={"notice-list-component"}>
             {user.user_notices.map((userNotice, key) => {
-                if (userNotice.show) {
+                if (userNotice.show && !["Warning", "Critical"].includes(userNotice.notice.notice_type)) {
                     let link = false;
                     let accept = false;
                     if (["Join", "New Player", "Complete Players", "Invite"].includes(userNotice.notice.notice_type)) {

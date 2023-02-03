@@ -3,7 +3,7 @@ import {
   choiceCityWindow,
   auth, city,
 } from "../actions/actions";
-import MainPageComponent from "../../components/pages/MainPageComponent";
+import MainPageComponent from "../../components/pages/mainPageComponent/MainPageComponent";
 
 
 const mapStateToProps = (state) => {

@@ -1,0 +1,24 @@
+.main-page-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: stretch;
+  gap: 24px;
+
+  .best-players-1280 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .main-page-component {
+    gap: 16px;
+    padding: 16px 0;
+
+    .best-players-1280 {
+      display: none;
+    }
+  }
+}

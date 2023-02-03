@@ -4,6 +4,7 @@
   background: #FFFDF5;
   border-radius: 8px;
   gap: 16px;
+  flex: 1 1 auto;
 
   .icon {
     display: flex;
@@ -13,6 +14,9 @@
   &.critical {
     background: #FFF3F2;
   }
+  .content {
+    flex: 1 1 auto;
+  };
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){

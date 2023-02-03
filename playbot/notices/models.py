@@ -2,9 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from playbot.events.models import Event
-from playbot.users.models import User
-
 
 class Notice(models.Model):
     class Type(models.TextChoices):
@@ -20,7 +17,7 @@ class Notice(models.Model):
     notice_type = models.CharField(_("Notice Type"), max_length=150, choices=Type.choices, default=Type.WARNING)
     text = models.TextField(_("Notice Text"))
     for_all = models.BooleanField(_("For All Users"), default=False)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="notices", blank=True, null=True)
+    event = models.ForeignKey("events.Event", on_delete=models.CASCADE, related_name="notices", blank=True, null=True)
     create = models.DateTimeField(_("Time Create"), default=timezone.now)
 
     class Meta:
@@ -32,7 +29,7 @@ class Notice(models.Model):
 
 
 class UserNotice(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_notices", blank=True)
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="user_notices", blank=True)
     notice = models.ForeignKey(Notice, on_delete=models.CASCADE, related_name="user_notices", blank=True)
     time_read = models.DateTimeField(_("Time Read"), blank=True, null=True)
     show = models.BooleanField(_("Show Notice On Window"), default=True)

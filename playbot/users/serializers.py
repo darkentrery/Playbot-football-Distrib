@@ -82,13 +82,15 @@ class UserSerializer(serializers.ModelSerializer):
     same_players = SamePlayerSerializer(User, many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
     # ranking_place = serializers.IntegerField(read_only=True)
+    warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
 
     class Meta:
         model = User
         fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "city", "confirm_slug",
                   "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
-                  "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent"]
+                  "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
+                  "warning_notices"]
         read_only_fields = fields
 
 

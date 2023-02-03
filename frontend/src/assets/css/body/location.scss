@@ -2,7 +2,6 @@
   display: flex;
   position: relative;
   align-items: stretch;
-  margin-bottom: 24px;
   white-space: nowrap;
   flex: 0 0 27px;
   gap: 16px;
@@ -15,6 +14,7 @@
     border-radius: 25px;
     cursor: pointer;
     gap: 12px;
+    box-sizing: border-box;
 
     .icon {
       display: flex;
@@ -104,7 +104,6 @@
       }
     }
   }
-
   .search-city {
     position: absolute;
     width: 256px;
@@ -113,13 +112,10 @@
     left: 110px;
     z-index: 99999;
   }
-
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .location-component {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 16px;
+    margin: 0 20px;
   }
 }

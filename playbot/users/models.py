@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from playbot.cities.models import City
+from playbot.notices.models import Notice
 
 
 class Position(models.Model):
@@ -150,6 +151,10 @@ class User(AbstractUser):
         players.sort(key=lambda x: x[1], reverse=True)
         place = players.index([self.id, self.rank]) + 1
         return place
+
+    @property
+    def warning_notices(self):
+        return self.user_notices.filter(notice__notice_type__in=(Notice.Type.WARNING, Notice.Type.CRITICAL), show=True)
 
 
 class RankHistory(models.Model):
