@@ -6,13 +6,14 @@ from playbot.cities.models import City, Address
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = "__all__"
+        fields = ["id", "name"]
+        read_only_fields = fields
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
+    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     class Meta:
         model = Address
-        fields = "__all__"
-        # read_only_fields = fields
+        fields = ["id", "city", "country", "region", "state", "street", "house_number", "lat", "lng"]
+        read_only_fields = fields

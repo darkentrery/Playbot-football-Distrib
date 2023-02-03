@@ -8,18 +8,19 @@ from playbot.users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
-    all_games = serializers.IntegerField(read_only=True)
-    rank = serializers.FloatField(read_only=True)
-    wins = serializers.IntegerField(read_only=True)
-    count_goals = serializers.IntegerField(read_only=True)
+    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    wins_percent = serializers.IntegerField(read_only=True)
+    # all_games = serializers.IntegerField(read_only=True)
+    # rank = serializers.FloatField(read_only=True)
+    # wins = serializers.IntegerField(read_only=True)
+    # count_goals = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
         fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "city", "confirm_slug",
-                  "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
-                  "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
-                  "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent"]
+                  "count_goals", "date_joined", "first_name", "gender", "last_name", "loss", "phone_number", "photo",
+                  "position_1", "position_2", "rank", "ranking_place", "telegram_id", "total_time",
+                  "wins", "wins_percent"]
         read_only_field = fields
 
 
@@ -37,13 +38,15 @@ class EventQueueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EventQueue
-        fields = "__all__"
+        fields = ["id", "player", "number"]
+        read_only_field = fields
 
 
 class EventStepSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventStep
-        fields = "__all__"
+        fields = ["id", "step", "complete"]
+        read_only_field = fields
 
 
 class TeamPlayerSerializer(serializers.ModelSerializer):
@@ -51,22 +54,25 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeamPlayer
-        fields = "__all__"
+        fields = ["player",]
+        read_only_field = fields
 
 
 class TeamSerializer(serializers.ModelSerializer):
-    team_players = TeamPlayerSerializer(TeamPlayer.objects.all(), many=True, read_only=True)
-    wins = serializers.IntegerField(read_only=True)
-    loss = serializers.IntegerField(read_only=True)
-    nothing = serializers.IntegerField(read_only=True)
-    played = serializers.IntegerField(read_only=True)
-    scores = serializers.IntegerField(read_only=True)
-    do_goals = serializers.IntegerField(read_only=True)
-    miss_goals = serializers.IntegerField(read_only=True)
+    team_players = TeamPlayerSerializer(TeamPlayer, many=True, read_only=True)
+    # wins = serializers.IntegerField(read_only=True)
+    # loss = serializers.IntegerField(read_only=True)
+    # nothing = serializers.IntegerField(read_only=True)
+    # played = serializers.IntegerField(read_only=True)
+    # scores = serializers.IntegerField(read_only=True)
+    # do_goals = serializers.IntegerField(read_only=True)
+    # miss_goals = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Team
-        fields = "__all__"
+        fields = ["id", "name", "count_players", "number", "wins", "loss", "nothing", "played", "scores", "do_goals",
+                  "miss_goals", "team_players"]
+        read_only_field = fields
 
 
 class GoalSerializer(serializers.ModelSerializer):
@@ -75,7 +81,8 @@ class GoalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Goal
-        fields = "__all__"
+        fields = ["id", "team", "player", "time", "game_time"]
+        read_only_field = fields
 
 
 class CreateGoalSerializer(serializers.ModelSerializer):
@@ -89,27 +96,28 @@ class CreateGoalSerializer(serializers.ModelSerializer):
 
 
 class GamePeriodSerializer(serializers.ModelSerializer):
-    duration = serializers.IntegerField(read_only=True)
-
     class Meta:
         model = GamePeriod
-        fields = "__all__"
+        fields = ["id", "time_begin", "time_end", "duration"]
+        read_only_field = fields
 
 
 class EventGameSerializer(serializers.ModelSerializer):
     team_1 = TeamSerializer(read_only=True)
     team_2 = TeamSerializer(read_only=True)
-    score_1 = serializers.IntegerField(read_only=True)
-    score_2 = serializers.IntegerField(read_only=True)
-    goals = GoalSerializer(Goal.objects.all(), many=True, read_only=True)
-    game_periods = GamePeriodSerializer(GamePeriod.objects.all(), many=True, read_only=True)
-    current_duration = serializers.IntegerField(read_only=True)
-    rest_time = serializers.IntegerField(read_only=True)
-    is_play = serializers.BooleanField(read_only=True)
+    # score_1 = serializers.IntegerField(read_only=True)
+    # score_2 = serializers.IntegerField(read_only=True)
+    goals = GoalSerializer(Goal, many=True, read_only=True)
+    game_periods = GamePeriodSerializer(GamePeriod, many=True, read_only=True)
+    # current_duration = serializers.IntegerField(read_only=True)
+    # rest_time = serializers.IntegerField(read_only=True)
+    # is_play = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = EventGame
-        fields = "__all__"
+        fields = ["id", "team_1", "team_2", "time_begin", "time_end", "number", "goals", "current_duration", "rest_time",
+                  "is_play", "score_1", "score_2", "result_1", "result_2", "game_periods"]
+        read_only_field = fields
 
 
 class EditTeamNameSerializer(serializers.ModelSerializer):
@@ -121,31 +129,36 @@ class EditTeamNameSerializer(serializers.ModelSerializer):
 class CancelReasonsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CancelReasons
-        fields = "__all__"
+        fields = ["id", "name"]
+        read_only_field = fields
 
 
 class FormatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Format
-        fields = "__all__"
+        fields = ["id", "name", "count", "rate"]
+        read_only_field = fields
 
 
 class DistributionMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = DistributionMethod
-        fields = "__all__"
+        fields = ["id", "name"]
+        read_only_field = fields
 
 
 class DurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Duration
-        fields = "__all__"
+        fields = ["id", "name", "duration"]
+        read_only_field = fields
 
 
 class CountCirclesSerializer(serializers.ModelSerializer):
     class Meta:
         model = CountCircles
-        fields = "__all__"
+        fields = ["id", "name", "count"]
+        read_only_field = fields
 
 
 class CreateEventSerializer(serializers.ModelSerializer):
@@ -175,22 +188,26 @@ class EventSerializer(serializers.ModelSerializer):
     distribution_method = serializers.SlugRelatedField(slug_field="name", read_only=True)
     duration = DurationSerializer(read_only=True)
     count_circles = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    event_player = EventPlayerSerializer(EventPlayer.objects.all(), many=True, read_only=True)
+    event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
     organizer = UserSerializer(read_only=True)
-    event_step = EventStepSerializer(EventStep.objects.all(), many=True, read_only=True)
+    event_step = EventStepSerializer(EventStep, many=True, read_only=True)
     city = CitySerializer(read_only=True)
     cancel_reasons = serializers.SlugRelatedField(slug_field="name", read_only=True)
     address = AddressSerializer(read_only=True)
-    # teams = TeamSerializer(Team.objects.all().order_by("-number"), many=True, read_only=True)
     teams = serializers.SerializerMethodField(method_name="get_teams")
-    event_games = EventGameSerializer(EventGame.objects.all(), many=True, read_only=True)
-    event_queues = EventQueueSerializer(EventQueue.objects.all(), many=True, read_only=True)
+    event_games = EventGameSerializer(EventGame, many=True, read_only=True)
+    event_queues = EventQueueSerializer(EventQueue, many=True, read_only=True)
     format_label = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    rank = serializers.FloatField(read_only=True)
 
     class Meta:
         model = Event
-        fields = "__all__"
+        fields = [
+            "id", "name", "date", "time_begin", "time_end", "count_players", "address", "geo_point", "cancel",
+            "cancel_reasons", "format", "distribution_method", "notice", "city", "is_player", "organizer",
+            "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
+            "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
+            "event_step", "teams", "event_games", "event_queues",]
+        read_only_fields = fields
 
     def get_teams(self, instance):
         teams = instance.teams.all().order_by("number")
@@ -200,7 +217,6 @@ class EventSerializer(serializers.ModelSerializer):
 
 class EventListSerializer(serializers.ModelSerializer):
     address = AddressSerializer(read_only=True)
-    rank = serializers.FloatField(read_only=True)
 
     class Meta:
         model = Event

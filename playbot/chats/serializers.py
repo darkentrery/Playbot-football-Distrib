@@ -8,6 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "photo"]
+        read_only_fields = fields
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -15,7 +16,8 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = "__all__"
+        fields = ["id", "chat", "from_user", "content", "timestamp", "read"]
+        read_only_fields = fields
 
 
 class ChatSerializer(serializers.ModelSerializer):
@@ -24,4 +26,5 @@ class ChatSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Chat
-        fields = "__all__"
+        fields = ["id", "messages", "online", "event"]
+        read_only_fields = fields
