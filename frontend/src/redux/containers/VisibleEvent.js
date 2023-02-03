@@ -10,7 +10,7 @@ import {
   loginWindow,
   hiddenMap,
   team,
-  sameEvents
+  sameEvents, auth
 } from "../actions/actions";
 import {connect} from "react-redux";
 import EventComponent from "../../components/body/EventComponent";
@@ -43,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setPlayers: (value) => {
         dispatch(players(value));
+      },
+      setAuth: (value, user) => {
+        dispatch(auth(value, user));
       },
       setSteps: (value) => {
         dispatch(steps(value));

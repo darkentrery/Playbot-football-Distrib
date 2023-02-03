@@ -26,7 +26,6 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             console.log(response.data.event)
             funcs.setEvent(response.data.event);
             funcs.setSameEvents(response.data.same_events);
-            if (user.user && response.data.event) setIsFavorite(eventService.isFavorite(user.user, response.data.event));
             if (response.data.event.teams.length !== 0) {
                 for (let team of response.data.event.teams) {
                     if (team.team_players.length === 0) {
@@ -38,7 +37,13 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             }
         })
         return () => isSubscribe = false;
-    }, [pk, user])
+    }, [pk])
+
+    useEffect(() => {
+        if (event && user.user) {
+            setIsFavorite(eventService.isFavorite(user.user, event));
+        }
+    }, [user, event])
 
     const editEvent = () => {
         if (event && user.isAuth && event.organizer.id === user.user.id) {
