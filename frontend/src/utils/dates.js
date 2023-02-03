@@ -126,4 +126,9 @@ const getMinutesStr = (value) => {
     return label;
 }
 
-export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate}
+const getStringDate = (date) => {
+    let newDate = new Date(date);
+    return `${newDate.getDate()}.${newDate.getMonth()}.${newDate.getFullYear().toString().slice(2,4)}`;
+}
+
+export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate};

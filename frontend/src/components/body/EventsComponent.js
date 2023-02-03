@@ -1,11 +1,11 @@
 import {eventService} from "../../services/EventService";
 import React, {useEffect, useState} from "react";
-import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
 import {getMonth, getWeekDay} from "../../utils/dates";
 import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 import {getAddressStringFormat} from "../../services/LocationService";
+import EventRoutes from "../../routes/EventRoutes";
 
 
 export default function EventsComponent ({city, user}) {
@@ -68,7 +68,7 @@ export default function EventsComponent ({city, user}) {
         }, [event])
 
         return (<>
-            <Link className={"event"} to={BaseRoutes.eventLink(event.id)}>
+            <Link className={"event"} to={EventRoutes.eventLink(event.id)}>
                 <span className={`elem elem-1 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>
                     {eventService.isFavorite(user, event) && <div className={"star-icon"}></div>}
                     {event.event_step.length >= 1 && !isEnd && <div className={"pulse-yellow-point"}></div>}
