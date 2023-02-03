@@ -60,5 +60,7 @@ export function authDecoratorWithoutLogin(func, arg) {
         } else {
             return doFunc(func, arg).then((response) => {return response;});
         }
+    } else {
+        return doFunc(func, arg).then((response) => {return response;});
     }
 }

@@ -54,7 +54,7 @@ export default function LocationComponent ({state, funcs}) {
             </div>
             {/*<span className={"elem city"} onClick={openConfirmCity} ref={refCity}>{user.isAuth && user.user.city ? user.user.city : city}</span>*/}
             <SearchCityComponent className={`search-city`} isOpen={isOpenSearchCity} setIsOpen={setIsOpenSearchCity}
-                                 setCity={funcs.setCity} setAuth={funcs.setAuth} parent={refCity}/>
+                                 setCity={funcs.setCity} setAuth={funcs.setAuth} parent={refCity} isAuth={state.user.isAuth}/>
             <div className={`confirm-city ${isOpen ? 'open' : ''}`}>
                 <div className={"corner"}></div>
                 <div className={"confirm-city-frame"}>

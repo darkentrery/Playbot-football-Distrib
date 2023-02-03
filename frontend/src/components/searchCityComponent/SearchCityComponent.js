@@ -12,6 +12,7 @@ export const SearchCityComponent = ({
     setCity,
     setAuth,
     parent=false,
+    isAuth=false,
 }) => {
     const authService = new AuthService();
     const cityService = new CityService();
@@ -23,7 +24,7 @@ export const SearchCityComponent = ({
         let isSubscribe = true;
         if (isOpen) {
             cityService.getCities().then((response) => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     setCities(response.data.cities);
                     setCitiesView(response.data.cities);
                 }
@@ -35,11 +36,15 @@ export const SearchCityComponent = ({
     const choiceCity = async (e) => {
         setCity(e.target.innerHTML);
         setIsOpen(false);
-        authDecoratorWithoutLogin(authService.updateCity, {'city': e.target.innerHTML}).then((response) => {
-            if (response.status === 200) {
-                setAuth(true, response.data);
-            }
-        })
+        if (isAuth) {
+            authDecoratorWithoutLogin(authService.updateCity, {'city': e.target.innerHTML}).then((response) => {
+                if (response.status === 200) {
+                    setAuth(true, response.data);
+                }
+            })
+        } else {
+            setAuth(false, false);
+        }
     }
 
     document.addEventListener('click', (e) => {

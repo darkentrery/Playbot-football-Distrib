@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Modal from "react-modal";
 import { MobileView } from 'react-device-detect';
 import $ from "jquery";
 
 
-export default function MobileFirstPageComponent ({isOpen, isIPhone, firstRequest, isAuth, funcs}) {
+export default function MobileFirstPageComponent ({isOpen, isIPhone, funcs}) {
     const [slideNumber, setSlideNumber] = useState(0);
     const content = [
         "Организовывай футбольные событие и управляй ими",
@@ -17,13 +17,7 @@ export default function MobileFirstPageComponent ({isOpen, isIPhone, firstReques
     let posX1 = 0;
     let posX2 = 0;
     let posFinal = 0;
-    useEffect(() => {
-        if (!isAuth && !isOpen && !firstRequest) {
-            funcs.openMobileFirstPage();
-        } else if (isAuth && isOpen) {
-            funcs.closeMobileFirstPage();
-        }
-    }, [isAuth, firstRequest])
+
     const closeWindow = () => {
         funcs.closeMobileFirstPage();
     }

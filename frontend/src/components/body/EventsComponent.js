@@ -13,33 +13,31 @@ export default function EventsComponent ({city, user}) {
     const [firstRequest, setFirstRequest] = useState(0);
 
     useEffect(() => {
-        if (user) {
-            setFirstRequest(1);
-            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
-                if (response.status === 200) {
-                    let data = [];
-                    response.data.map((item, key) => {
-                        if (key === 0 || item.date !== response.data[key - 1].date) {
-                            data.push({date: item.date, events: []});
-                        }
-                    })
-                    response.data.map((item) => {
-                        data.map((row) => {
-                            if (row.date === item.date && !item.cancel) row.events.push(item);
-                        })
-                    })
-                    let newData = [];
+        setFirstRequest(1);
+        eventService.getEvents(user && user.city ? user.city : city).then((response) => {
+            if (response.status === 200) {
+                let data = [];
+                response.data.map((item, key) => {
+                    if (key === 0 || item.date !== response.data[key - 1].date) {
+                        data.push({date: item.date, events: []});
+                    }
+                })
+                response.data.map((item) => {
                     data.map((row) => {
-                        if (row.events.length) {
-                            newData.push(row);
-                        }
+                        if (row.date === item.date && !item.cancel) row.events.push(item);
                     })
-                    setEvents(newData);
-                    setFirstRequest(2);
-                }
-            })
-        }
-    }, [user])
+                })
+                let newData = [];
+                data.map((row) => {
+                    if (row.events.length) {
+                        newData.push(row);
+                    }
+                })
+                setEvents(newData);
+                setFirstRequest(2);
+            }
+        })
+    }, [user, city])
 
     const EventRow = ({event}) => {
         const [color, setColor] = useState('');
@@ -70,7 +68,7 @@ export default function EventsComponent ({city, user}) {
         return (<>
             <Link className={"event"} to={EventRoutes.eventLink(event.id)}>
                 <span className={`elem elem-1 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>
-                    {eventService.isFavorite(user, event) && <div className={"star-icon"}></div>}
+                    {user !== false && eventService.isFavorite(user, event) && <div className={"star-icon"}></div>}
                     {event.event_step.length >= 1 && !isEnd && <div className={"pulse-yellow-point"}></div>}
                     {event.name}
                 </span>
@@ -85,7 +83,7 @@ export default function EventsComponent ({city, user}) {
                 <span className={`elem elem-5 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>{event.rank.toFixed(1).replace('.', ',')}</span>
                 <span className={"elem elem-6 gray-right-arrow-icon"}></span>
             </Link>
-            <EventItem376Component event={event} isFavorite={eventService.isFavorite(user, event)}/>
+            <EventItem376Component event={event} isFavorite={user !== false ? eventService.isFavorite(user, event) : false}/>
         </>)
     }
 

@@ -59,20 +59,6 @@ export default class AuthService{
 			});
 	}
 
-	// getUsers(city){
-	// 	const url = `${API_URL}get-users/${city}/`;
-	// 	return axios.get(url, {headers: {
-	// 		'Content-Type': 'application/json',
-    //         'X-CSRFToken': csrftoken,
-	// 	}})
-	// 		.then((response) => {
-	// 			return response;
-	// 		})
-	// 		.catch((error) => {
-	// 			return error.response;
-	// 		});
-	// }
-
 	loginRequestValidation(email, password, setEmailError, setPasswordError) {
 		let errors = [];
 		if (!email) {

@@ -53,21 +53,10 @@ import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
 
 
-
 function App({state, funcs}) {
     const authService = new AuthService();
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
-
-    const auth = () => {
-        authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
-            if (response.status == 200) {
-                funcs.setAuth(true, response.data);
-            } else {
-                funcs.setAuth(false, false);
-            }
-        })
-    }
 
     var lastY = 1;
     document.addEventListener("touchmove", function (event) {
@@ -82,11 +71,18 @@ function App({state, funcs}) {
     useEffect(() => {
         console.log(state)
         if (firstRequest) {
-            // let isSubscribe = true;
-            setFirstRequest(false);
-            auth();
+            let isSubscribe = true;
+            authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
+                if (response.status == 200) {
+                    funcs.setAuth(true, response.data);
+                } else {
+                    funcs.setAuth(false, false);
+                    funcs.openMobileFirstPage();
+                }
+                setFirstRequest(false);
+            })
             funcs.setIsIPhone(authService.deviceDetect());
-            // return () => isSubscribe = false;
+            return () => isSubscribe = false;
         }
     }, [state.user])
 
@@ -147,8 +143,7 @@ function App({state, funcs}) {
                   {/*    </Map>*/}
                   {/*  </YMaps>*/}
 
-                <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone}
-                                            firstRequest={firstRequest} isAuth={state.user.isAuth} funcs={funcs}/>
+                <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone} funcs={funcs}/>
                 <VisibleSignUp/>
                 <VisibleLogin/>
                 <VisibleRefreshPassword/>
