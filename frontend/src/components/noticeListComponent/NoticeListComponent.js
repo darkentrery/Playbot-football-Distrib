@@ -11,8 +11,10 @@ export const NoticeListComponent = ({user, setUser}) => {
                 if (userNotice.show && !["Warning", "Critical"].includes(userNotice.notice.notice_type)) {
                     let link = false;
                     let accept = false;
-                    if (["Join", "New Player", "Complete Players", "Invite"].includes(userNotice.notice.notice_type)) {
-                        link = EventRoutes.eventLink(userNotice.notice.event.id)
+                    if (["New Player", "Complete Players", "Invite"].includes(userNotice.notice.notice_type)) {
+                        link = EventRoutes.eventLink(userNotice.notice.event.id);
+                    } else if (["Cancel Event", "Join"].includes(userNotice.notice.notice_type)) {
+                        link = false;
                     }
                     if ("Invite" === userNotice.notice.notice_type) {
                         accept = true

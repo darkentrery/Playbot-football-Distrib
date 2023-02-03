@@ -138,6 +138,7 @@ class CancelEventView(APIView):
             if event:
                 RankHistory.objects.create(user=request.user, rank=request.user.rank * 0.98)
                 UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.CANCEL)
+                event.notice_cancel_event()
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -258,8 +259,13 @@ class JoinPlayerView(APIView):
         event = Event.objects.get(id=request.data.get("id"))
         if event.event_player.all().count() < event.count_players:
             EventPlayer.objects.update_or_create(player=request.user, event=event)
+            event.notice_join_to_event(request.user)
+            event.notice_new_player()
+            if event.event_player.all().count() == event.count_players:
+                event.notice_complete_players()
         else:
             EventQueue.objects.update_or_create(player=request.user, event=event, number=event.next_queue_number)
+            event.notice_not_places_in_event(request.user)
         UserEventAction.objects.create(user=request.user, event=event)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)

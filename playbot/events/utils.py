@@ -1,5 +1,6 @@
 from itertools import combinations
-from playbot.events.models import Team, EventGame, Goal
+from playbot.events.models import Team, EventGame
+from playbot.notices.models import Notice, UserNotice
 from playbot.users.models import User
 
 

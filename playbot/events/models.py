@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 # from django.contrib.gis.db import models
 from playbot.cities.models import City, Address
+from playbot.events.mixins import CreateNotice
 from playbot.users.models import User
 
 
@@ -66,7 +67,7 @@ class CountCircles(models.Model):
         return f"{self.name}"
 
 
-class Event(models.Model):
+class Event(models.Model, CreateNotice):
     name = models.CharField(_("Name"), max_length=150)
     date = models.DateField(_("Date Of Game"))
     time_begin = models.TimeField(_("Time Begin"))
@@ -382,9 +383,3 @@ class GamePeriod(models.Model):
         if self.time_end:
             duration = (self.time_end - self.time_begin).total_seconds()
         return int(duration)
-
-
-
-
-
-

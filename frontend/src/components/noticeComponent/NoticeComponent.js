@@ -28,8 +28,8 @@ export const NoticeComponent = ({
         <div className={`notice-component ${isOpen ? '' : 'hidden'}`}>
             <div className={"elem-1"}>
                 {children}
-                {!accept &&<Link className={`links`} to={to}>
-                    <span className={"yellow-500-16"}>Посмотреть сейчас</span>
+                {!accept && to !== false &&<Link className={`links`} to={to}>
+                    <span className={"yellow-500-16"}>Посмотреть</span>
                     <div className={"yellow-right-arrow-line-icon"}></div>
                 </Link>}
                 {accept && <div className={`links`}>
