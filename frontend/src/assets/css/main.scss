@@ -6,9 +6,9 @@
 @import "font-styles";
 
 @import "base";
-@import "head";
+@import "../../components/headComponent/head.scss";
 @import "body";
-@import "src/components/bottomComponent/bottom.scss";
+@import "../../components/bottomComponent/bottom.scss";
 
 //Components
 @import "../../components/successComponent/success";
@@ -44,6 +44,7 @@
 @import "../../components/dropdownCheckBoxComponent/dropdown-checkbox";
 @import "../../components/dropdownSliderComponent/dropdown-slider";
 @import "../../components/dateFilterComponent/date-filter";
+@import "./head/user.scss";
 
 //Popups
 @import "sign-up";

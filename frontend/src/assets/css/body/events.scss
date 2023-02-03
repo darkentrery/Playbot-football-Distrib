@@ -79,9 +79,9 @@
           align-items: center;
           gap: 12px;
 
-          &.star-icon {
-            padding-left: 48px;
-            background-position: 16px center;
+          .star-icon {
+            flex: 0 0 16px;
+            height: 16px;
           }
         }
         &.elem-2 {

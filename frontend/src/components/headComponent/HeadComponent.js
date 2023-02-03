@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import BaseRoutes from "../routes/BaseRoutes";
-import UserComponent from "./head/UserComponent";
-import VisibleUnAuthUser from "../redux/containers/VisibleUnAuthUser";
-import {MainSearchComponent} from "./mainSearchComponent/MainSearchComponent";
+import BaseRoutes from "../../routes/BaseRoutes";
+import UserComponent from "../head/UserComponent";
+import VisibleUnAuthUser from "../../redux/containers/VisibleUnAuthUser";
+import {MainSearchComponent} from "../mainSearchComponent/MainSearchComponent";
 
 
 export default function HeadComponent ({user, city, funcs}) {
@@ -24,7 +24,7 @@ export default function HeadComponent ({user, city, funcs}) {
                 <Link
                     className={`menu-point menu-point-3 black-point-icon ${window.location.pathname === `${BaseRoutes.statistic}` ? '' : 'inactive'}`}
                     to={BaseRoutes.statistic}
-                    >Статистика</Link>
+                    >Рейтинг</Link>
                 <Link
                     className={`menu-point menu-point-4 black-point-icon ${window.location.pathname === `${BaseRoutes.faq}` ? '' : 'inactive'}`}
                     to={BaseRoutes.faq}

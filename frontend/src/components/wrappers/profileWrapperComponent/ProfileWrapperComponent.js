@@ -1,4 +1,4 @@
-import HeadComponent from "../../HeadComponent";
+import HeadComponent from "../../headComponent/HeadComponent";
 import BottomComponent from "../../bottomComponent/BottomComponent";
 import React, {useEffect} from "react";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";

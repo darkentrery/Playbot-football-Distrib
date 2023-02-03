@@ -122,3 +122,22 @@ export const getLocationsAddressByCoordsGoogle = (value) => {
 		}
 	})
 }
+
+export const getAddressStringFormat = (address, country=false, city=false) => {
+  	if (address && typeof address !== "string") {
+		let newAddress = {
+			country: address.country ? address.country : '',
+			city: address.city ? address.city : '',
+			street: address.street ? address.street : '',
+			house_number: address.house_number ? address.house_number : '',
+		}
+		let array = [];
+		if (country && newAddress.country) array.push(newAddress.country);
+		if (city && newAddress.city) array.push(newAddress.city);
+		if (newAddress.street) array.push(newAddress.street);
+		if (newAddress.house_number) array.push(newAddress.house_number);
+		return array.join(", ");
+	} else {
+		return address;
+	}
+}

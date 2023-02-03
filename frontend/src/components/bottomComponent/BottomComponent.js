@@ -2,7 +2,6 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import React from "react";
 import ProfileRoutes from "../../routes/ProfileRoutes";
-import {linkShareService} from "../../services/LinkShareService";
 
 
 export default function BottomComponent ({user, isIPhone}) {
@@ -20,7 +19,7 @@ export default function BottomComponent ({user, isIPhone}) {
                 <div className={"el el-2"}>
                     <div className={"col col-1"}>
                         <Link className={"white-400-14"} to={BaseRoutes.main}>Главная</Link>
-                        <span>Статистика</span>
+                        <Link className={"white-400-14"} to={BaseRoutes.statistic}>Рейтинг</Link>
                     </div>
                     <div className={"col col-2"}>
                         <Link className={"white-400-14"} to={BaseRoutes.events}>События</Link>
@@ -103,7 +102,7 @@ export default function BottomComponent ({user, isIPhone}) {
                 <Link
                     className={`elem orange-600-11 orange-statistic-icon ${window.location.pathname === `${BaseRoutes.statistic}` ? '' : 'disabled'}`}
                     to={BaseRoutes.statistic}
-                >Статистика</Link>
+                >Рейтинг</Link>
                 <Link
                     className={`elem orange-600-11 orange-avatar-icon 
                     ${user && window.location.pathname.includes("profile") ? '' : 'disabled'}`}

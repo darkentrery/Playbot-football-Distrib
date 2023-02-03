@@ -68,7 +68,7 @@ class EventsCityView(APIView):
 
     def get(self, request, format='json', **kwargs):
         city = self.kwargs.get("city")
-        events = EventListSerializer(Event.objects.filter(city__name=city, time_end=None, cancel=False).order_by("date", "time_begin"), many=True)
+        events = EventListSerializer(Event.objects.filter(city__name=city, cancel=False).order_by("date", "time_begin"), many=True)
         return Response(events.data, status=status.HTTP_200_OK)
 
 

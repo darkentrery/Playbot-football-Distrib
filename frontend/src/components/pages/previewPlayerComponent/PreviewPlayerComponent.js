@@ -1,4 +1,4 @@
-import HeadComponent from "../../HeadComponent";
+import HeadComponent from "../../headComponent/HeadComponent";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
 import {Link, useParams} from "react-router-dom";
 import BottomComponent from "../../bottomComponent/BottomComponent";

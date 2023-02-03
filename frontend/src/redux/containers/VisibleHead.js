@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import HeadComponent from "../../components/HeadComponent";
+import HeadComponent from "../../components/headComponent/HeadComponent";
 import {hiddenMap} from "../actions/actions";
 
 
