@@ -1,5 +1,5 @@
 .popup-frame {
-  &.choice-city {
+  &.choice-city-component {
     display: flex;
     flex: 0 0 $choiceCityWidth;
     flex-direction: column;
@@ -7,61 +7,25 @@
     justify-content: start;
     height: $choiceCityHeight;
     box-sizing: border-box;
+    padding: 40px;
 
     .elem {
       display: flex;
-      margin-right: 40px;
-      margin-left: 40px;
-      width: calc($choiceCityWidth - 80px);
 
       &.head {
         justify-content: space-between;
-        margin-top: 40px;
         flex: 0 0 26px;
         padding: 0;
-
-        span {
-          font-family: 'Raleway', sans-serif;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 22px;
-          line-height: 120%;
-          color: #1B1B1B;
-        }
+        margin-bottom: 10px;
       }
-
-      &.under-head {
-        margin-top: 10px;
-        span {
-          font-family: 'Raleway',sans-serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 120%;
-          color: #949494;
-        }
-      }
-
-      &.search {
-        margin-top: 24px;
-
-        .line {
-          width: calc($choiceCityWidth - 80px);
-        }
-      }
-
       &.cities {
         flex: 1 1 480px;
         margin-top: 16px;
-
-        div {
-          width: calc($choiceCityWidth - 100px);
-        }
+        align-items: stretch;
       }
 
       &.bottom {
         justify-content: center;
-        margin-bottom: 40px;
         margin-top: 40px;
         flex: 0 0 $fieldHeight;
       }

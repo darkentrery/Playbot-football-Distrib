@@ -70,14 +70,12 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame choice-city"}>
+            <div className={"popup-frame choice-city-component"}>
                 <div className={"elem head"}>
-                    <span>Выберите город</span>
+                    <span className={"black-600-22"}>Выберите город</span>
                     <div onClick={closeWindow} className={"btn-close choice-city-close"}></div>
                 </div>
-                <div className={"elem under-head"}>
-                    <span>Для корректного отображения событий укажите город</span>
-                </div>
+                <span className={"gray-400-14"}>Для корректного отображения событий укажите город</span>
                 <SearchComponent className={"elem search"} arrayFirst={cities} setArraySecond={setCitiesView}/>
                 <div className={"elem cities div-scroll scroll"} ref={citiesRef}>
                     {citiesView && citiesView.map((item, key) => (
