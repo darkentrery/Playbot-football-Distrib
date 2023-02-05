@@ -1,6 +1,6 @@
 import {auth, choiceCityWindow, city, hiddenMap} from "../actions/actions";
 import {connect} from "react-redux";
-import ChoiceCityComponent from "../../components/ChoiceCityComponent";
+import ChoiceCityComponent from "../../components/popups/choiceCityComponent/ChoiceCityComponent";
 
 
 

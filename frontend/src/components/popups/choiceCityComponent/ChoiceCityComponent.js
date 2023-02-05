@@ -1,10 +1,10 @@
 import React, {useState, useRef, useEffect} from "react";
-import AuthService from "../services/AuthService";
+import AuthService from "../../../services/AuthService";
 import Modal from "react-modal";
 import $ from 'jquery';
-import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
-import CityService from "../services/CityService";
-import {SearchComponent} from "./searchComponent/SearchComponent";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import CityService from "../../../services/CityService";
+import {SearchComponent} from "../../searchComponent/SearchComponent";
 
 
 export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, showMap}) {

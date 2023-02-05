@@ -120,7 +120,7 @@ $redColor: #EC5B56;
 
 @media screen and (min-width: 375px) and (max-width: 743px) and (max-height: 750px){
   $fieldContainerHeight: 61px;
-  $fieldHeight: 40px;
+  $fieldHeight: 48px;
   $fieldWidth: 295px;
   $popupWidth: 696px;
   $bottomHeight: 56px;
@@ -154,7 +154,7 @@ $redColor: #EC5B56;
   $noEventsHeight: 350px;
   @import "main";
   .popup-right {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -190,7 +190,7 @@ $redColor: #EC5B56;
 
   @import "main";
   .popup-right {
-    display: none;
+    display: none !important;
   }
 }
 

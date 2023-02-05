@@ -1,109 +1,121 @@
-.sign-up {
-  width: $popupWidth;
-  height: $signUpHeight;
-}
-
-.sign-up-l-bottom {
-  display: flex;
-  flex: 0 0 126px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 132px;
-  background: #F3F3F3;
-
-  &.safari-margin {
-    flex: 1 0 196px;
-    justify-content: start;
-  }
-}
-
-.sign-up-l-body {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.sign-up-l-elem {
-  display: flex;
-  justify-content: center;
+.sign-up-component {
+  width: 800px;
+  height: 714px;
   align-items: stretch;
-  width: $fieldWidth;
 
-  &.head {
-    flex: 0 0 26px;
+  .popup-left {
+    display: flex;
     flex-direction: column;
+    flex: 0 0 50%;
     align-items: stretch;
-    margin-top: 22px;
-    margin-bottom: 16px;
+    background: $whiteColor;
+
+    .sign-up-l-body {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 30px 60px;
+      box-sizing: border-box;
+
+      .sign-up-l-elem {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+
+        &.head {
+          flex: 0 0 26px;
+          justify-content: center;
+          margin-bottom: 16px;
+          position: relative;
+
+          //.btn-close {
+          //  position: absolute;
+          //  top: 0;
+          //  right: 0;
+          //}
+        }
+        &.btn-reg {
+          margin-top: 8px;
+          flex: 0 0 $fieldHeight;
+        }
+        &.elem-5 {
+          position: relative;
+        }
+        &.div-input-checkbox {
+          flex: 0 0 34px;
+          margin-bottom: 12px;
+        }
+      }
+    }
+    .sign-up-l-bottom {
+      display: flex;
+      flex: 0 0 132px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: $lightGrayColor;
+      padding: 0 60px;
+      box-sizing: border-box;
+      position: relative;
+
+      .sign-up-l-bottom-elem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 50%;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        height: 1px;
+        top: 50%;
+        background: #DBDBDB;
+        width: calc(100% - 120px);
+      }
+      &.safari-margin {
+        flex: 1 0 196px;
+        justify-content: start;
+      }
+    }
   }
 
-  &.bottom {
-    margin-bottom: 20px;
-  }
+  .popup-right {
+    display: flex;
+    flex: 0 0 50%;
+    align-items: stretch;
 
-  &.elem-5 {
-    position: relative;
-  }
-}
-
-.sign-up-title {
-  display: flex;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 22px;
-}
-
-.btn-reg {
-  width: $fieldWidth;
-  height: $fieldHeight;
-}
-
-.sign-up-l-bottom-elem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 20px;
-  width: $fieldWidth;
-  margin: 8px;
-
-  &.elem-3 {
-    flex: 0 0 2px;
-    margin: 0;
+    .sign-up-close {
+      flex: 0 0 24px;
+      margin-right: 24px;
+    }
   }
 }
 
-.link-sign-up-login {
-  display: flex;
-  justify-content: center;
-  flex: 1 1 auto;
-  height: 17px;
-  font-size: 14px;
-  color: #949494;
-}
+
+
+//.link-sign-up-login {
+//  display: flex;
+//  justify-content: center;
+//  flex: 1 1 auto;
+//  height: 17px;
+//  font-size: 14px;
+//  color: #949494;
+//}
 
 .sign-up-right-text {
   flex: 0 1 249px;
-
   font-family: "Raleway", sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 120%;
-
   letter-spacing: 0.04em;
   color: #1B1B1B;
 }
 
 .sign-up-img {
   background: url(../icon/signUpImg2.png) no-repeat;
-}
-
-.sign-up-close {
-  flex: 0 0 24px;
-  margin-right: 24px;
 }
 
 .phone-field {
@@ -124,33 +136,75 @@
     border: 0;
     padding-left: 12px;
 
-
     &:focus {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
     }
   }
+}
 
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .sign-up-component {
+    width: 696px;
+
+    .popup-left {
+      .sign-up-l-body {
+        padding: 30px 48px;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .sign-up-close {
-    position: relative;
-    top: -24px;
-    left: $fieldWidth;
-  }
-  .sign-up-l-elem.close {
-    position: relative;
-    justify-content: end;
-    flex: 0 0 24px;
+  .sign-up-component {
     width: 100vw;
-    top: -24px;
+    height: 100vh;
 
-    .sign-up-close {
-      margin-right: 24px;
+    .popup-left {
+      flex: 0 0 100%;
+      .sign-up-l-body {
+        padding: 24px 40px 20px 40px;
+
+        .sign-up-close {
+          position: fixed;
+          top: 28px;
+         right: 28px;
+        }
+        .sign-up-content {
+          display: flex;
+          flex-direction: column;
+          overflow: auto;
+          flex: 1 0 200px;
+
+          &::-webkit-scrollbar {
+            width: 0;
+          }
+          &::-webkit-scrollbar-track {
+            border: 1px solid transparent;
+            background-clip: content-box;
+            border-radius: 5px;
+            background: #E9E9E9;
+          }
+          &::-webkit-scrollbar-thumb {
+            background: #ABABAB;
+            border-radius: 5px;
+          }
+        }
+      }
     }
   }
-  .sign-up-l-elem.head {
-    margin-bottom: 0;
-  }
+  //.sign-up-l-elem.close {
+  //  position: relative;
+  //  justify-content: end;
+  //  flex: 0 0 24px;
+  //  width: 100vw;
+  //  top: -24px;
+  //
+  //  //.sign-up-close {
+  //  //  margin-right: 24px;
+  //  //}
+  //}
+  //.sign-up-l-elem.head {
+  //  margin-bottom: 0;
+  //}
 }

@@ -132,43 +132,8 @@ input[type="checkbox"] {
   display: none;
 }
 
-.checkbox-div {
-  box-sizing: border-box;
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #949494;
-  border-radius: 4px;
-
-  &.error {
-      border: 0.8px solid #EC5B56;
-    }
-}
-
-.checkbox-label {
-  position: absolute;
-  width: 20px;
-  height: $fieldHeight;
-  cursor: pointer;
-
-  &:before {
-    position: absolute;
-    width: 20px;
-    height: $fieldHeight;
-    left: 2px;
-    right: 95.36%;
-    top: 2px;
-    //bottom: 67.65%;
-    cursor: pointer;
-  }
-}
-
 .link {
-  //display: flex;
-  //justify-content: center;
   cursor: pointer;
-  //color: #949494;
-  //font-size: 14px;
 
   &:hover {
     text-decoration: underline;
@@ -181,7 +146,7 @@ input[type="checkbox"] {
 
 .popup-right {
   display: flex;
-  flex: 0 0 math.div($popupWidth, 2);
+  flex: 0 0 50%;
   align-items: stretch;
 }
 
@@ -270,40 +235,57 @@ input[type="checkbox"] {
 
 .div-input-checkbox {
   display: flex;
-  flex: 0 0 $fieldWidth;
-  align-items: stretch;
-  height: $fieldHeight;
-  justify-content: start;
+  position: relative;
 
   input[type=checkbox]{
     box-sizing: border-box;
     flex: 0 0 16px;
-    border: 1px solid #949494;
+    border: 1px solid $grayColor;
     border-radius: 4px;
     &.error {
       border: 0.8px solid #EC5B56;
     }
   }
-
   span {
-    flex: 0 0 $fieldWidth - 28px;
-    margin-left: 28px;
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 120%;
-
-    color: #949494;
+    flex: 1 1 auto;
+    margin-left: 12px;
   }
-
   input:checked + label:before {
-    flex: 0 0 $fieldWidth;
+    flex: 0 0 16px;
     content: '';
     background: url("../icon/checked.png") no-repeat;
     background-size: 9px 7px;
     background-position: 2px 2px;
     position: absolute;
+  }
+  .checkbox-div {
+    box-sizing: border-box;
+    flex: 0 0 16px;
+    height: 16px;
+    border: 1px solid $grayColor;
+    border-radius: 4px;
+
+    &.error {
+      border: 0.8px solid #EC5B56;
+    }
+  }
+  .checkbox-label {
+    position: absolute;
+    width: 16px;
+    height: 100%;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+
+    &:before {
+      position: absolute;
+      width: 16px;
+      height: 100%;
+      left: 2px;
+      right: 95.36%;
+      top: 2px;
+      cursor: pointer;
+    }
   }
 }
 

@@ -221,83 +221,74 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame sign-up"} onClick={hiddenFrames}>
+            <div className={"popup-frame sign-up-component"} onClick={hiddenFrames}>
                 <div className={"popup-left"}>
                     <div className={"sign-up-l-body"}>
                         <div className={"sign-up-l-elem head"}>
-                            <span className={"sign-up-title"}>Регистрация</span>
+                            <span className={"black-600-22"}>Регистрация</span>
                             <div onClick={toMenu} className={"btn-close sign-up-close left"}></div>
                         </div>
-                        <div className={"sign-up-l-elem div-input"} ref={refUsername}>
-                            <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>
-                            <span className={"input-message"}></span>
-                        </div>
-                        <div className={"sign-up-l-elem phone-field"} ref={refPhoneNumber}>
-                            <div className={"dropdown-country"}>
-                                <span className={"dropdown-label"} ref={refPhoneCode} onClick={openDropdown}>
-                                    <img src={banner ? banner : ''} alt=""/>
-                                </span>
-                                <div className={"down-arrow-icon"} ref={refArrowIcon} onClick={openDropdown}></div>
-                                <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
-                                    <input className={"search-icon"} type="text" placeholder={"Найти страну"}
-                                           onChange={(event) => authService.searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode)}/>
-                                    <div className={"dropdown-body"} ref={refCountryBody}>
-                                        {countries && countries.map((item, key) => (
-                                            <div className={"dropdown-elem"} onClick={choicePhoneCode} key={key}>
-                                                <span className={"country"}>{item[0]}</span>
-                                                <span className={"code"}>{item[1]}</span>
-                                                <img className={"banner"} src={item[2]} alt=""/>
-                                            </div>
-                                        ))}
+                        <div className={"sign-up-content"}>
+                            <div className={"sign-up-l-elem div-input"} ref={refUsername}>
+                                <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>
+                                <span className={"input-message"}></span>
+                            </div>
+                            <div className={"sign-up-l-elem phone-field"} ref={refPhoneNumber}>
+                                <div className={"dropdown-country"}>
+                                    <span className={"dropdown-label"} ref={refPhoneCode} onClick={openDropdown}>
+                                        <img src={banner ? banner : ''} alt=""/>
+                                    </span>
+                                    <div className={"down-arrow-icon"} ref={refArrowIcon} onClick={openDropdown}></div>
+                                    <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
+                                        <input className={"search-icon"} type="text" placeholder={"Найти страну"}
+                                               onChange={(event) => authService.searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode)}/>
+                                        <div className={"dropdown-body"} ref={refCountryBody}>
+                                            {countries && countries.map((item, key) => (
+                                                <div className={"dropdown-elem"} onClick={choicePhoneCode} key={key}>
+                                                    <span className={"country"}>{item[0]}</span>
+                                                    <span className={"code"}>{item[1]}</span>
+                                                    <img className={"banner"} src={item[2]} alt=""/>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
+                                <input className={"phone-input"} onClick={clickPhoneInput} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event.target)}/>
                             </div>
-                            <input className={"phone-input"} onClick={clickPhoneInput} type="text" placeholder={"Телефон"}  onChange={(event) => phoneInput(event.target)}/>
-                        </div>
-                        <div className={"sign-up-l-elem div-input"} ref={refEmail}>
-                            <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
-                            <span className={"input-message"}></span>
-                        </div>
-                        <div className={"sign-up-l-elem div-input elem-5"} ref={refPassword}>
-                            <input className={"password-icon"} type="password" placeholder={"Пароль *"} onClick={suggestPassword} onChange={(event) => setPassword(event.target.value)}/>
-                            <span className={"input-message"}></span>
-                            <div className={"generate-password disabled"} onClick={usePassword}>
-                                <span>Сгенерированный пароль: <span className={"new-password"}></span></span>
+                            <div className={"sign-up-l-elem div-input"} ref={refEmail}>
+                                <input className={"email-icon"} type="text" placeholder={"Почта *"} onChange={(event) => setEmail(event.target.value)}/>
+                                <span className={"input-message"}></span>
                             </div>
-                        </div>
-                        <div className={"sign-up-l-elem div-input"} ref={refPasswordConfirm}>
-                            <input className={"password-icon"} type="password" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
-                            <span className={"input-message"}></span>
-                        </div>
-                        <div className={"sign-up-l-elem"} ref={refAllowPolicy}>
-                            <div className={"div-input-checkbox"}>
+                            <div className={"sign-up-l-elem div-input elem-5"} ref={refPassword}>
+                                <input className={"password-icon"} type="password" placeholder={"Пароль *"} onClick={suggestPassword} onChange={(event) => setPassword(event.target.value)}/>
+                                <span className={"input-message"}></span>
+                                <div className={"generate-password disabled"} onClick={usePassword}>
+                                    <span>Сгенерированный пароль: <span className={"new-password"}></span></span>
+                                </div>
+                            </div>
+                            <div className={"sign-up-l-elem div-input"} ref={refPasswordConfirm}>
+                                <input className={"password-icon"} type="password" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>
+                                <span className={"input-message"}></span>
+                            </div>
+                            <div className={"sign-up-l-elem div-input-checkbox"} ref={refAllowPolicy}>
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <span className={"link"} onClick={openAllowPolicy}>Я согласен с политикой конфеденциальности</span>
+                                <span className={"gray-400-14 link"} onClick={openAllowPolicy}>Я согласен с политикой конфеденциальности</span>
                             </div>
-                        </div>
-                        <div className={"sign-up-l-elem"} ref={refAllowOffer}>
-                            <div className={"div-input-checkbox"}>
+                            <div className={"sign-up-l-elem div-input-checkbox"} ref={refAllowOffer}>
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <span className={"link"} onClick={openAllowOffer}>Я согласен с условиями договора-оферты</span>
+                                <span className={"gray-400-14 link"} onClick={openAllowOffer}>Я согласен с условиями договора-оферты</span>
                             </div>
                         </div>
-                        <div className={"sign-up-l-elem bottom"}>
-                            <button className={"btn btn-reg"} autoFocus={true} onClick={sendForm}>Зарегистрироваться</button>
-                        </div>
+                        <span className={"sign-up-l-elem btn btn-reg"} autoFocus={true} onClick={sendForm}>Зарегистрироваться</span>
                     </div>
                     <div className={`sign-up-l-bottom ${isIPhone ? 'safari-margin' : ''}`} ref={refBottom}>
                         <div className={"sign-up-l-bottom-elem"}>
-                            <span className={"link-sign-up-login"}>
-                                У меня уже есть аккаунт,&nbsp;
-                                <span onClick={toLogin} className={"link text-bold"}>Войти</span>
-                            </span>
-                        </div>
-                        <div className={"sign-up-l-bottom-elem elem-3"}>
-                            <div className={"line"}></div>
+                            <span className={"gray-400-14"}>У меня уже есть аккаунт,&nbsp;</span>
+                            <span className={"gray-600-14 link"} onClick={toLogin} >Войти</span>
                         </div>
                         <div className={"sign-up-l-bottom-elem telegram"}>
                             <TelegramLoginComponent/>
