@@ -7,6 +7,8 @@ import docOffer from "../../../assets/documents/offer.docx";
 import $ from "jquery";
 import {getLocationsByCoords} from "../../../services/LocationService";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
+import {Link} from "react-router-dom";
+import BaseRoutes from "../../../routes/BaseRoutes";
 
 
 export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
@@ -184,19 +186,19 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         if ($(e.target)[0].nodeName !== "INPUT") $('.btn.btn-reg').focus();
     }
 
-    const openAllowPolicy = () => {
-        let link = document.createElement("a");
-        link.download = `Политика конфиденциальности.docx`;
-        link.href = docPolicy
-        link.click();
-    }
-
-    const openAllowOffer = () => {
-        let link = document.createElement("a");
-        link.download = `Пользовательское соглашение.docx`;
-        link.href = docOffer
-        link.click();
-    }
+    // const openAllowPolicy = () => {
+    //     let link = document.createElement("a");
+    //     link.download = `Политика конфиденциальности.docx`;
+    //     link.href = docPolicy
+    //     link.click();
+    // }
+    //
+    // const openAllowOffer = () => {
+    //     let link = document.createElement("a");
+    //     link.download = `Пользовательское соглашение.docx`;
+    //     link.href = docOffer
+    //     link.click();
+    // }
 
     const sendForm = () => {
         let errors = authService.signUpRequestValidation(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
@@ -274,16 +276,16 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={(event) => setAllowPolicy(!allowPolicy)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <span className={"gray-400-14 link"} onClick={openAllowPolicy}>Я согласен с политикой конфеденциальности</span>
+                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowPolicy} onClick={toMenu}>Я согласен с политикой конфеденциальности</Link>
                             </div>
                             <div className={"sign-up-l-elem div-input-checkbox"} ref={refAllowOffer}>
                                 <div className={"checkbox-div"}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={(event) => setAllowOffer(!allowOffer)}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <span className={"gray-400-14 link"} onClick={openAllowOffer}>Я согласен с условиями договора-оферты</span>
+                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowOffer} onClick={toMenu}>Я согласен с условиями договора-оферты</Link>
                             </div>
                         </div>
-                        <span className={"sign-up-l-elem btn btn-reg"} autoFocus={true} onClick={sendForm}>Зарегистрироваться</span>
+                        <button className={"sign-up-l-elem btn btn-reg"} autoFocus={true} onClick={sendForm}>Зарегистрироваться</button>
                     </div>
                     <div className={`sign-up-l-bottom ${isIPhone ? 'safari-margin' : ''}`} ref={refBottom}>
                         <div className={"sign-up-l-bottom-elem"}>

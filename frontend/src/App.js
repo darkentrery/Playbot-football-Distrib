@@ -51,6 +51,7 @@ import VisibleMyProfile from "./redux/containers/VisibleMyProfile";
 import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
 import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
+import $ from "jquery";
 
 
 function App({state, funcs}) {
@@ -58,10 +59,12 @@ function App({state, funcs}) {
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
-    var lastY = 1;
+    let lastY = 1;
     document.addEventListener("touchmove", function (event) {
         let lastS = document.documentElement.scrollTop;
-        if (lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable) {
+        console.log(lastY, lastS, event.touches[0].clientY, event.cancelable)
+        console.log(event.target.className)
+        if (lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable && !$(event.target).closest('.scroll').length) {
             event.preventDefault();
             event.stopPropagation();
         }

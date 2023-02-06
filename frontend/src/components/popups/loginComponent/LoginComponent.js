@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import AuthService, {authService} from "../../../services/AuthService";
 import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
@@ -16,6 +16,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     const [typePassword, setTypePassword] = useState(true);
     const [rightIcon, setRightIcon] = useState('eye-icon');
     const [data, setData] = useState(false);
+    const refLogin = useRef(false);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -73,7 +74,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     }
 
     const hiddenFrames = (e) => {
-        if ($(e.target)[0].nodeName !== "INPUT") $('.btn.btn-login').focus();
+        if (e.target.nodeName !== "INPUT") refLogin.current.focus();
     }
 
     return(
@@ -92,7 +93,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                     <InputComponent leftIcon={"password-icon"} rightIcon={rightIcon} password={typePassword}
                                     placeholder={"Пароль"} errorText={passwordError}
                                     value={password} setValue={setPassword} rightOnClick={hiddenPassword}/>
-                    <span className={"btn"} autoFocus={true} onClick={sendForm}>Войти</span>
+                    <button className={"btn"} autoFocus={true} onClick={sendForm} ref={refLogin}>Войти</button>
                     <div className={"links"}>
                         <span onClick={toSignUp} className={"link link-login-reg gray-600-14"}>Регистрация</span>
                         <span onClick={toRefreshPassword} className={"link link-login-reg gray-600-14"}>Забыли пароль?</span>
