@@ -1,6 +1,6 @@
 import {hiddenMap, loginWindow, refreshPasswordWindow, successRefreshPasswordWindow} from "../actions/actions";
 import {connect} from "react-redux";
-import RefreshPasswordComponent from "../../components/RefreshPasswordComponent";
+import RefreshPasswordComponent from "../../components/popups/refreshPasswordComponent/RefreshPasswordComponent";
 
 
 

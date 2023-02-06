@@ -31,7 +31,7 @@ export const RightFonComponent = ({
             <div onClick={close} className={"btn-close"}></div>
             <div className={"points"}>
                 {contents.map((content, i) => (
-                    <div className={`point point-icon ${i === contentNumber ? 'point-big' : ''}`}></div>
+                    <div className={`point point-icon ${i === contentNumber ? 'point-big' : ''}`} key={i}></div>
                 ))}
             </div>
             <span className={`elem-3 black-600-24 ${transform ? 'move' : ''}`}>{contents[contentNumber]}</span>

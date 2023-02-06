@@ -211,7 +211,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         }
     }
 
-
     return(
         <Modal
             isOpen={isOpen}
