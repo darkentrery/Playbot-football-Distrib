@@ -1,0 +1,132 @@
+.create-event-un-auth-component {
+  width: 872px;
+  height: 718px;
+
+  .popup-left {
+    box-sizing: border-box;
+    padding: 40px 42px 44px 42px;
+    align-items: stretch;
+    flex: 0 0 411px;
+
+    .elem-1 {
+      display: flex;
+      justify-content: center;
+    }
+    .elem-2 {
+      flex: 0 0 $fieldHeight;
+    }
+    .event-inactive {
+      flex: 1 1 auto !important;
+      background: url("../../../assets/fons/unauth-create-event.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin-top: 32px;
+    }
+  }
+  .popup-right {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: 90px 60px;
+    position: relative;
+    flex-direction: column;
+    gap: 32px;
+    border-radius: 10px;
+
+    .btn-close {
+      position: absolute;
+      flex: 0 0 24px;
+      top: 28px;
+      right: 28px;
+    }
+    .btn {
+      flex: 0 0 $fieldHeight;
+    }
+  }
+}
+
+.create-event-un-auth-376-component {
+  display: none;
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .create-event-un-auth-component {
+    width: 696px;
+    height: 772px;
+
+    .popup-right {
+      padding-left: 40px;
+
+      .elem-4 {
+      }
+      .elem-5 {
+        margin-left: 30px;
+      }
+    }
+    .popup-left {
+      flex: 0 0 348px;
+
+      .event-inactive {
+        background: url("../../../assets/fons/unauth-create-event-744.png") no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .create-event-un-auth-component {
+    display: none;
+  }
+  .create-event-un-auth-376-component {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: stretch;
+
+    .elem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .elem-1 {
+      flex: 0 0 24px;
+      justify-content: end;
+      margin-top: 24px;
+      width: 100vw;
+      box-sizing: border-box;
+      padding: 0 24px;
+    }
+    .elem-2 {
+      flex: 1 0 48px;
+      align-items: end;
+      width: 247px;
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+    .elem-3 {
+      flex: 0 0 38px;
+      align-items: center;
+      width: 249px;
+      margin-bottom: 25px;
+    }
+    .elem-4 {
+      flex: 0 0 $fieldHeight;
+      width: 296px;
+      margin-bottom: 24px;
+    }
+    .elem-5 {
+      flex: 1 0 19px;
+      width: 100px;
+      align-items: start;
+      color: $orangeColor;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+}

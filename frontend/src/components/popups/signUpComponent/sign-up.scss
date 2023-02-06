@@ -28,12 +28,6 @@
           justify-content: center;
           margin-bottom: 16px;
           position: relative;
-
-          //.btn-close {
-          //  position: absolute;
-          //  top: 0;
-          //  right: 0;
-          //}
         }
         &.btn-reg {
           margin-top: 8px;
@@ -45,6 +39,29 @@
         &.div-input-checkbox {
           flex: 0 0 34px;
           margin-bottom: 12px;
+        }
+      }
+      .phone-field {
+        flex-direction: row;
+        box-sizing: border-box;
+        border: 1px solid gray;
+        border-radius: 8px;
+        margin-bottom: 16px;
+
+        &.open {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        .phone-input {
+          flex: 1 1 auto;
+          border-radius: 8px;
+          border: 0;
+          padding-left: 12px;
+
+          &:focus {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+          }
         }
       }
     }
@@ -79,67 +96,8 @@
       }
     }
   }
-
   .popup-right {
-    display: flex;
     flex: 0 0 50%;
-    align-items: stretch;
-
-    .sign-up-close {
-      flex: 0 0 24px;
-      margin-right: 24px;
-    }
-  }
-}
-
-
-
-//.link-sign-up-login {
-//  display: flex;
-//  justify-content: center;
-//  flex: 1 1 auto;
-//  height: 17px;
-//  font-size: 14px;
-//  color: #949494;
-//}
-
-.sign-up-right-text {
-  flex: 0 1 249px;
-  font-family: "Raleway", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 120%;
-  letter-spacing: 0.04em;
-  color: #1B1B1B;
-}
-
-.sign-up-img {
-  background: url(../icon/signUpImg2.png) no-repeat;
-}
-
-.phone-field {
-  flex-direction: row;
-  box-sizing: border-box;
-  border: 1px solid gray;
-  border-radius: 8px;
-  margin-bottom: 16px;
-
-  &.open {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .phone-input {
-    flex: 1 1 auto;
-    border-radius: 8px;
-    border: 0;
-    padding-left: 12px;
-
-    &:focus {
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
-    }
   }
 }
 
@@ -163,12 +121,12 @@
     .popup-left {
       flex: 0 0 100%;
       .sign-up-l-body {
-        padding: 24px 40px 20px 40px;
+        padding: 24px calc(50vw - 148px) 20px calc(50vw - 148px);
 
         .sign-up-close {
           position: fixed;
           top: 28px;
-         right: 28px;
+          right: 28px;
         }
         .sign-up-content {
           display: flex;
@@ -193,18 +151,4 @@
       }
     }
   }
-  //.sign-up-l-elem.close {
-  //  position: relative;
-  //  justify-content: end;
-  //  flex: 0 0 24px;
-  //  width: 100vw;
-  //  top: -24px;
-  //
-  //  //.sign-up-close {
-  //  //  margin-right: 24px;
-  //  //}
-  //}
-  //.sign-up-l-elem.head {
-  //  margin-bottom: 0;
-  //}
 }

@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from "react";
-import AuthService from "../services/AuthService";
-import TelegramLoginComponent from "./TelegramLoginComponent";
+import AuthService from "../../../services/AuthService";
+import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
-import docPolicy from "../assets/documents/policy.docx";
-import docOffer from "../assets/documents/offer.docx";
+import docPolicy from "../../../assets/documents/policy.docx";
+import docOffer from "../../../assets/documents/offer.docx";
 import $ from "jquery";
-import {getLocationsByCoords} from "../services/LocationService";
+import {getLocationsByCoords} from "../../../services/LocationService";
+import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 
 
 export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
@@ -295,24 +296,13 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                         </div>
                     </div>
                 </div>
-                <div className={"popup-right"}>
-                    <div className={"popup-img sign-up-img"}>
-                        <div className={"first"}>
-                            <div onClick={toMenu} className={"btn-close sign-up-close"}></div>
-                        </div>
-                        <div className={"second"}>
-                            <svg className={"circle-1"} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="8" cy="8" r="8" fill="#EFB041"/>
-                            </svg>
-                            <svg  className={"circle-2"} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="4" cy="4" r="4" fill="#EFB041"/>
-                            </svg>
-                        </div>
-                        <div className={"third"}>
-                            <div className={"sign-up-right-text"}>Попробуй себя в любительском футболе</div>
-                        </div>
-                    </div>
-                </div>
+                <RightFonComponent
+                    className={"popup-right"}
+                    close={toMenu}
+                    slider={isOpen && window.screen.width > 743 ? true : false}
+                    contents={["Попробуй себя в любительском футболе", "Попробуй себя в любительском футболе"]}
+                    imageClasses={["sign-up-fon", "sign-up-fon"]}
+                />
             </div>
         </Modal>
     )

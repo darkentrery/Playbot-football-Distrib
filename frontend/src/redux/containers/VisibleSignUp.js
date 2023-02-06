@@ -1,6 +1,6 @@
 import {hiddenMap, loginWindow, signUpWindow, successSignUpWindow} from "../actions/actions";
 import {connect} from "react-redux";
-import SignUpComponent from "../../components/SignUpComponent";
+import SignUpComponent from "../../components/popups/signUpComponent/SignUpComponent";
 
 
 const mapStateToProps = (state) => {

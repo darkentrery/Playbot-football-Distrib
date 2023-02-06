@@ -6,7 +6,7 @@
   align-items: stretch;
   background: $whiteColor;
   position: relative;
-  padding: 40px;
+  padding: 40px 30px 40px 40px;
   box-sizing: border-box;
   overflow: hidden;
 
@@ -21,6 +21,7 @@
     flex: 0 0 $fieldHeight;
     align-items: stretch;
     justify-content: stretch;
+    width: calc(411px - 80px);
 
     &.elem-1 {
       flex: 0 0 24px;
@@ -294,12 +295,6 @@
       box-sizing: border-box;
     }
   }
-  &.isPaid {
-   padding-right: 30px;
-    .elem {
-      margin-right: 5px;
-    }
-  }
   .form-event-body {
     max-height: 512px;
   }
@@ -307,14 +302,16 @@
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .form-event-component {
-    padding: 32px 48px;
+    padding: 32px 38px 32px 48px;
     height: 772px;
     overflow: hidden;
 
+    .elem {
+      width: calc(348px - 96px);
+    }
     .elem.elem-1 {
       margin-bottom: 24px;
     }
-
     .elem.elem-5 {
       flex-direction: column;
 
@@ -361,10 +358,13 @@
   .form-event-component {
     flex: 0 0 100vw;
     height: 100vh;
-    padding: 24px calc(50vw - 148px) 20px calc(50vw - 148px);
+    padding: 24px calc(50vw - 158px) 20px calc(50vw - 148px);
     overflow-y: auto;
     overflow-x: hidden;
 
+    .elem {
+     width: 296px;
+    }
     .elem.elem-1 {
       align-self: stretch;
       width: auto;
@@ -413,12 +413,6 @@
     }
     .form-event-body {
       max-height: 100vh;
-    }
-    &.isPaid {
-     padding-right: calc(50vw - 138px);
-      .elem {
-        margin-right: 5px;
-      }
     }
   }
 }

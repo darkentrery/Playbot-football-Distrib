@@ -4,7 +4,6 @@
   height: $dropDownLabelHeight + 16px;
   width: auto;
 
-
   .dropdown {
     position: relative;
     display: flex;
@@ -61,7 +60,6 @@
         //opacity: 1;
         display: flex !important;
       }
-
       .dropdown-elem {
         display: flex;
         align-items: center;
@@ -75,7 +73,6 @@
           border-radius: 8px;
         }
       }
-
       &::-webkit-scrollbar {
         width: 5px;
       }

@@ -45,15 +45,16 @@
 @import "../../components/dropdownCheckBoxComponent/dropdown-checkbox";
 @import "../../components/dropdownSliderComponent/dropdown-slider";
 @import "../../components/dateFilterComponent/date-filter";
+@import "../../components/rightFonComponent/right-fon";
 @import "./head/user.scss";
 
 //Popups
-@import "sign-up";
+@import "../../components/popups/signUpComponent/sign-up";
 @import "login";
 @import "refresh-password";
-@import "body/create-event";
+@import "../../components/popups/createEventComponent/create-event";
 @import "mobile-first-page";
-@import "../../components/popups/choiceCityComponent/choice-city.scss";
+@import "../../components/popups/choiceCityComponent/choice-city";
 @import "confirm-players";
 @import "fill-regulation";
 @import "confirm-teams";
@@ -62,6 +63,7 @@
 @import "../../components/popups/updatePasswordComponent/update-password";
 @import "../../components/popups/showEmblemComponent/show-emblem";
 @import "../../components/popups/showMenuComponent/show-menu";
+@import "../../components/popups/createEventUnAuthComponent/create-event-un-auth";
 
 //Pages
 @import "../../components/pages/generalInformationComponent/general-information";

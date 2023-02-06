@@ -227,7 +227,7 @@ export const FormEventComponent = ({
     }
 
     return (
-        <div className={`form-event-component ${className} ${isPaid ? 'isPaid' : ''}`}>
+        <div className={`form-event-component ${className}`}>
             <div onClick={closeWindow} className={"btn-close"}></div>
             <div className={"elem elem-1"}>
                 <span>{titleText}</span>

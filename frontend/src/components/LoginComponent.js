@@ -100,8 +100,8 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                             <button className={"btn btn-login"} autoFocus={true} onClick={sendForm}>Войти</button>
                         </div>
                         <div className={"login-l-elem"}>
-                            <span onClick={toSignUp} className={"link link-login-reg"}>Регистрация</span>
-                            <span onClick={toRefreshPassword} className={"link link-login-reg"}>Забыли пароль?</span>
+                            <span onClick={toSignUp} className={"link link-login-reg gray-600-14"}>Регистрация</span>
+                            <span onClick={toRefreshPassword} className={"link link-login-reg gray-600-14"}>Забыли пароль?</span>
                         </div>
                         <div className={"login-l-elem login-l-elem-line"}>
                             <div className={"line"}></div>

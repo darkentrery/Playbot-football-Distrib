@@ -3,7 +3,7 @@ import {
   successCreateEventWindow, event
 } from "../actions/actions";
 import {connect} from "react-redux";
-import CreateEventComponent from "../../components/CreateEventComponent";
+import CreateEventComponent from "../../components/popups/createEventComponent/CreateEventComponent";
 
 
 

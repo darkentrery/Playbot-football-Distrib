@@ -1,6 +1,6 @@
 import {createEventUnAuthWindow, loginWindow, signUpWindow} from "../actions/actions";
 import {connect} from "react-redux";
-import CreateEventUnAuthComponent from "../../components/CreateEventUnAuthComponent";
+import CreateEventUnAuthComponent from "../../components/popups/createEventUnAuthComponent/CreateEventUnAuthComponent";
 
 
 const mapStateToProps = (state) => {
