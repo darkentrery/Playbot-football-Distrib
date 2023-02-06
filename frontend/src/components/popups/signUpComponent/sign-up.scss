@@ -73,7 +73,7 @@
       justify-content: center;
       background: $lightGrayColor;
       padding: 0 60px;
-      box-sizing: border-box;
+      //box-sizing: border-box;
       position: relative;
 
       .sign-up-l-bottom-elem {
@@ -86,13 +86,12 @@
         content: "";
         position: absolute;
         height: 1px;
-        top: 50%;
+        top: 66px;
         background: #DBDBDB;
         width: calc(100% - 120px);
       }
       &.safari-margin {
-        flex: 1 0 196px;
-        justify-content: start;
+        padding-bottom: 70px;
       }
     }
   }

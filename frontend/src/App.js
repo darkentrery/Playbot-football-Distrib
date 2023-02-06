@@ -62,8 +62,8 @@ function App({state, funcs}) {
     let lastY = 1;
     document.addEventListener("touchmove", function (event) {
         let lastS = document.documentElement.scrollTop;
-        console.log(lastY, lastS, event.touches[0].clientY, event.cancelable)
-        console.log(event.target.className)
+        // console.log(lastY, lastS, event.touches[0].clientY, event.cancelable)
+        // console.log(event.target.className)
         if (lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable && !$(event.target).closest('.scroll').length) {
             event.preventDefault();
             event.stopPropagation();
