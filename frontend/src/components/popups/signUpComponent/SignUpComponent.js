@@ -229,7 +229,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                             <span className={"black-600-22"}>Регистрация</span>
                             <div onClick={toMenu} className={"btn-close sign-up-close left"}></div>
                         </div>
-                        <div className={"sign-up-content"}>
+                        <div className={"sign-up-content scroll"}>
                             <div className={"sign-up-l-elem div-input"} ref={refUsername}>
                                 <input className={"name-icon"} type="text" placeholder={"Username *"} onChange={(event) => setUsername(event.target.value)}/>
                                 <span className={"input-message"}></span>

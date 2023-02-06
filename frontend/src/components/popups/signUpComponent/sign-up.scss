@@ -121,8 +121,10 @@
     .popup-left {
       flex: 0 0 100%;
       .sign-up-l-body {
-        padding: 24px calc(50vw - 148px) 20px calc(50vw - 148px);
-
+        padding: 24px calc(50vw - 158px) 20px calc(50vw - 148px);
+        .sign-up-l-elem {
+          width: 296px;
+        }
         .sign-up-close {
           position: fixed;
           top: 28px;
@@ -131,22 +133,7 @@
         .sign-up-content {
           display: flex;
           flex-direction: column;
-          overflow: auto;
           flex: 1 0 200px;
-
-          &::-webkit-scrollbar {
-            width: 0;
-          }
-          &::-webkit-scrollbar-track {
-            border: 1px solid transparent;
-            background-clip: content-box;
-            border-radius: 5px;
-            background: #E9E9E9;
-          }
-          &::-webkit-scrollbar-thumb {
-            background: #ABABAB;
-            border-radius: 5px;
-          }
         }
       }
     }
