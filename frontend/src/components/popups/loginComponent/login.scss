@@ -1,0 +1,75 @@
+.login-component {
+  width: 800px;
+  height: 489px;
+
+  .popup-left {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 68px 60px 38px 60px;
+    align-items: stretch;
+
+    .btn-close {
+      display: none;
+    }
+    .login-title {
+      display: flex;
+      margin-bottom: 24px;
+      justify-content: center;
+    }
+    .btn {
+      margin-top: 4px;
+      flex: 0 0 $fieldHeight;
+    }
+    .links {
+      display: flex;
+      flex: 0 0 69px;
+
+      .link-login-reg {
+        display: flex;
+        flex: 0 0 50%;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .login-l-elem-line {
+      flex: 0 0 1px;
+      background: #DBDBDB;
+    }
+    .login-l-bottom-elem {
+      display: flex;
+      flex: 0 0 69px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .login-component {
+    width: 696px;
+
+    .popup-left {
+      padding: 68px 48px 38px 48px;
+    }
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .login-component {
+    width: 100vw;
+    height: 100vh;
+
+    .popup-left {
+      padding: 68px calc(50vw - 148px) 38px calc(50vw - 148px);
+      justify-content: center;
+
+      .btn-close {
+        position: fixed;
+        top: 28px;
+        right: 28px;
+        display: flex;
+      }
+    }
+  }
+}
