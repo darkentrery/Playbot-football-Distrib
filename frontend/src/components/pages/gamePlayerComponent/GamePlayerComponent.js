@@ -5,6 +5,7 @@ import {eventService} from "../../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import $ from "jquery";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export const GamePlayerComponent = ({event, user, game, funcs}) => {
@@ -189,6 +190,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
 
     return (
         <VisibleEventWrapper>
+            {!game && <LoaderComponent/>}
             {game && <div className={`game-player-component`} onClick={fonClick}>
                 <div className={"manage"}>
                     <div className={"elem elem-1"}>

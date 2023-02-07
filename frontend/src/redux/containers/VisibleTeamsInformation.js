@@ -5,7 +5,7 @@ import {
   confirmPlayersWindow, players, steps, fillRegulationWindow, confirmTeamsWindow, loginWindow, hiddenMap, team
 } from "../actions/actions";
 import {connect} from "react-redux";
-import {TeamsInformationComponent} from "../../components/teamsInformationComponent/TeamsInformationComponent";
+import {TeamsInformationComponent} from "../../components/pages/teamsInformationComponent/TeamsInformationComponent";
 
 
 const mapStateToProps = (state) => {

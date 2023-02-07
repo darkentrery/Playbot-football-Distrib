@@ -2,9 +2,10 @@ import {Link} from "react-router-dom";
 import ProfileRoutes from "../../routes/ProfileRoutes";
 import {RankChartComponent} from "../rankChartComponent/RankChartComponent";
 import {useEffect, useState} from "react";
+import {LoaderComponent} from "../loaderComponent/LoaderComponent";
 
 
-export const BestPlayersComponent = ({players}) => {
+export const BestPlayersComponent = ({players, loader}) => {
     const [playersView, setPlayersView] = useState([]);
     const [flagSort, setFlagSort] = useState("rank");
     const flagsSort = {
@@ -77,7 +78,8 @@ export const BestPlayersComponent = ({players}) => {
     }
 
     return (
-        <div className={"best-players-component"}>
+        <div className={`best-players-component ${loader ? 'loader' : ''}`}>
+            {loader && <LoaderComponent/>}
             <div className={"table-head"}>
                 <span className={"elem elem-1 gray-400-13"} onClick={() => setFlagSort(flagsSort.name)}>Игрок</span>
                 <span className={"elem elem-2 gray-400-13"} onClick={() => setFlagSort(flagsSort.rank)}>Рейтинг</span>

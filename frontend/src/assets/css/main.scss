@@ -46,7 +46,10 @@
 @import "../../components/dropdownSliderComponent/dropdown-slider";
 @import "../../components/dateFilterComponent/date-filter";
 @import "../../components/rightFonComponent/right-fon";
+@import "../../components/eventsComponent/events";
 @import "./head/user.scss";
+@import "../../components/loaderComponent/loader";
+@import "../../components/sameEventComponent/same-event";
 
 //Popups
 @import "../../components/popups/signUpComponent/sign-up";
@@ -67,7 +70,7 @@
 
 //Pages
 @import "../../components/pages/generalInformationComponent/general-information";
-@import "../../components/teamsInformationComponent/teams-information";
+@import "../../components/pages/teamsInformationComponent/teams-information";
 @import "../../components/pages/profileMyEventsPageComponent/profile-my-events-page";
 @import "../../components/pages/profileFavoritesComponent/profile-favorites";
 @import "../../components/pages/profilePersonalDataComponent/profile-personal-data";
@@ -77,6 +80,7 @@
 @import "../../components/pages/eventsPageComponent/events-page";
 @import "../../components/pages/statisticPageComponent/statistic-page";
 @import "../../components/pages/mainPageComponent/main-page";
+@import "../../components/pages/eventComponent/event";
 
 //Wrappers
 @import "../../components/wrappers/eventWrapperComponent/event-wrapper";

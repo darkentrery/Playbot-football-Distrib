@@ -1,9 +1,20 @@
+@import "src/assets/css/body/board-event";
+@import "src/assets/css/body/event-description";
+@import "src/assets/css/body/event-members";
+@import "src/assets/css/body/event-chat";
+@import "src/assets/css/body/event-organizer";
+
 .event-component {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   align-items: stretch;
   gap: 32px;
+
+  &.loader {
+    align-self: stretch;
+    position: relative;
+  }
 }
 
 .event-component .elem-376 {
@@ -77,9 +88,3 @@
     }
   }
 }
-
-@import "board-event";
-@import "event-description";
-@import "event-members";
-@import "event-chat";
-@import "event-organizer";

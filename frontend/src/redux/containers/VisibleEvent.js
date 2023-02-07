@@ -13,7 +13,7 @@ import {
   sameEvents, auth
 } from "../actions/actions";
 import {connect} from "react-redux";
-import EventComponent from "../../components/body/EventComponent";
+import EventComponent from "../../components/pages/eventComponent/EventComponent";
 
 
 const mapStateToProps = (state) => {

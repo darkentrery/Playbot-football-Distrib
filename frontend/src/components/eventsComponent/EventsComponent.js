@@ -6,6 +6,7 @@ import {getMonth, getWeekDay} from "../../utils/dates";
 import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 import {getAddressStringFormat} from "../../services/LocationService";
 import EventRoutes from "../../routes/EventRoutes";
+import {LoaderComponent} from "../loaderComponent/LoaderComponent";
 
 
 export default function EventsComponent ({city, user}) {
@@ -100,8 +101,9 @@ export default function EventsComponent ({city, user}) {
     }
     
     return (
-        <div className={"events-component"}>
+        <div className={`events-component ${!events.length && firstRequest !== 2 ? 'loader' : ''}`}>
             {!events.length && firstRequest === 2 && <VisibleNoEvents/>}
+            {!events.length && firstRequest !== 2 && <LoaderComponent/>}
 
             {events.length !== 0 &&
                 <div className={"events-table"}>

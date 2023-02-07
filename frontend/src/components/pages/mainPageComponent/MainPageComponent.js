@@ -1,7 +1,7 @@
 import TitleComponent from "../../body/TitleComponent";
 import React, {useEffect, useState} from "react";
 import LocationComponent from "../../body/LocationComponent";
-import EventsComponent from "../../body/EventsComponent";
+import EventsComponent from "../../eventsComponent/EventsComponent";
 import {BestPlayersComponent} from "../../bestPlayersComponent/BestPlayersComponent";
 import VisibleBoardCreateEvent from "../../../redux/containers/VisibleBoardCreateEvent";
 import BaseRoutes from "../../../routes/BaseRoutes";
@@ -12,12 +12,15 @@ import {NoticeListTopComponent} from "../../noticeListTopComponent/NoticeListTop
 
 export default function MainPageComponent ({state, funcs}) {
     const [players, setPlayers] = useState([]);
+    const [loader, setLoader] = useState(true);
+
 
     useEffect(() => {
         let isSubscribe = true;
         authService.getUsers().then((response) => {
             if (response.status === 200) {
                 setPlayers(response.data);
+                setLoader(false);
             }
         })
         return () => isSubscribe = false;
@@ -35,7 +38,7 @@ export default function MainPageComponent ({state, funcs}) {
                 <div className={"best-players-1280"}>
                     <TitleComponent label={"Лучшие игроки"} to={BaseRoutes.main}/>
                     <LocationComponent state={state} funcs={funcs}/>
-                    <BestPlayersComponent players={players}/>
+                    <BestPlayersComponent players={players} loader={loader}/>
                 </div>
             </div>
         </VisibleMainWrapper>

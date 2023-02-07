@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {getMinutesStr} from "../../../utils/dates";
 import {Link} from "react-router-dom";
 import EventRoutes from "../../../routes/EventRoutes";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 
@@ -116,6 +117,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
     return (
         <VisibleEventWrapper>
             <div className={"general-information-component"}>
+                {!event && <LoaderComponent/>}
                 <EventTable event={event} title={"Регламент"} className={"black-reglament-icon"}>
                     <div className={"reglament-row"}>
                         {headItems !== false && headItems.map((item, key) => (

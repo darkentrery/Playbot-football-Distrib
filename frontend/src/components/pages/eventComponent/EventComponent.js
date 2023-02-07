@@ -1,13 +1,14 @@
-import {eventService} from "../../services/EventService";
+import {eventService} from "../../../services/EventService";
 import React, {useEffect, useState} from "react";
-import VisibleEventOrganizer from "../../redux/containers/VisibleEventOrganizer";
+import VisibleEventOrganizer from "../../../redux/containers/VisibleEventOrganizer";
 import {useParams} from "react-router-dom";
-import VisibleBoardEvent from "../../redux/containers/VisibleBoardEvent";
-import {SameEventComponent} from "./SameEventComponent";
-import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
-import BaseRoutes from "../../routes/BaseRoutes";
-import {Top376Component} from "../top376Component/Top376Component";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import VisibleBoardEvent from "../../../redux/containers/VisibleBoardEvent";
+import {SameEventComponent} from "../../sameEventComponent/SameEventComponent";
+import VisibleMainWrapper from "../../../redux/containers/VisibleMainWrapper";
+import BaseRoutes from "../../../routes/BaseRoutes";
+import {Top376Component} from "../../top376Component/Top376Component";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -83,25 +84,28 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
 
     return (
         <VisibleMainWrapper>
-            {event && <div className={"event-component"}>
-                <Top376Component label={"Событие"} to={BaseRoutes.main}>
-                    <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
-                    <div className={"icon send-icon"}></div>
-                    {event.organizer.id === user.user.id && <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
-                </Top376Component>
-                <VisibleBoardEvent/>
-                <VisibleEventOrganizer/>
-                {sameEvents.length !== 0 &&
+            <div className={`event-component ${!event ? 'loader' : ''}`}>
+                {!event && <LoaderComponent/>}
+                {event && <>
+                    <Top376Component label={"Событие"} to={BaseRoutes.main}>
+                        <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
+                        <div className={"icon send-icon"}></div>
+                        {event.organizer.id === user.user.id && <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
+                    </Top376Component>
+                    <VisibleBoardEvent/>
+                    <VisibleEventOrganizer/>
+                    {sameEvents.length !== 0 &&
                     <div className={"same-events-component"}>
                         <span className={"elem elem-1 black-600-20"}>Похожие события</span>
                         <div className={"elem elem-2"}>
-                            {sameEvents.map((event, key) => (
-                                <SameEventComponent className={`same-event-${key}`} event={event} key={key}/>
-                            ))}
+                        {sameEvents.map((event, key) => (
+                            <SameEventComponent className={`same-event-${key}`} event={event} key={key}/>
+                        ))}
                         </div>
                     </div>}
-                <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>{tooltip}</span>
-            </div>}
+                    <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>{tooltip}</span>
+                </>}
+            </div>
         </VisibleMainWrapper>
     )
 }

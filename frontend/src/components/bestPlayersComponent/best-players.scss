@@ -8,6 +8,10 @@
   background: $whiteColor;
   border-radius: 8px;
 
+  &.loader {
+    height: 300px;
+    position: relative;
+  }
   .table-head {
     display: flex;
     align-items: center;

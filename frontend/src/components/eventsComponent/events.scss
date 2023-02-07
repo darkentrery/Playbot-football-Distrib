@@ -3,6 +3,11 @@
   flex-direction: column;
   flex: 1 1 auto;
 
+  &.loader {
+    flex: 0 0 300px;
+    position: relative;
+  }
+
   .events-table {
     display: flex;
     flex-direction: column;

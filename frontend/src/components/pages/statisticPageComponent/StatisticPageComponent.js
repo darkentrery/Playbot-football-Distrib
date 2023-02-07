@@ -9,6 +9,7 @@ import {authService} from "../../../services/AuthService";
 export const StatisticPageComponent = ({state, funcs}) => {
     const [players, setPlayers] = useState([]);
     const [playersView, setPlayersView] = useState([]);
+    const [loader, setLoader] = useState(true);
 
     useEffect(() => {
         let isSubscribe = true;
@@ -17,6 +18,7 @@ export const StatisticPageComponent = ({state, funcs}) => {
                 console.log(response.data)
                 setPlayers(response.data);
                 setPlayersView(response.data);
+                setLoader(false);
             }
         })
         return () => isSubscribe = false;
@@ -28,7 +30,7 @@ export const StatisticPageComponent = ({state, funcs}) => {
                 <TopStatisticComponent players={players} setPlayersView={setPlayersView}/>
                 <div className={"statistic-body"}>
                     <FiltersComponent className={"filter-block"} data={players} setData={setPlayersView}/>
-                    <BestPlayersComponent players={playersView}/>
+                    <BestPlayersComponent players={playersView} loader={loader}/>
                 </div>
             </div>
         </VisibleMainWrapper>

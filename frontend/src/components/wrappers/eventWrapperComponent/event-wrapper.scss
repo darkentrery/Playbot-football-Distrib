@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: stretch;
   min-height: 100vh;
-  background: #F3F3F3;
+  background: $lightGrayColor;
   box-sizing: border-box;
 
   .event-wrapper-head-1280 {
@@ -43,6 +43,7 @@
     padding: 28px 40px 74px 40px;
     width: 688px;
     box-sizing: border-box;
+    position: relative;
   }
 
   .event-wrapper-body .navigate-bar-376 {
