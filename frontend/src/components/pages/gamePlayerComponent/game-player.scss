@@ -156,25 +156,24 @@
         gap: 8px;
         align-items: center;
         position: relative;
+        box-sizing: border-box;
+        padding: 0 10px;
 
         &.goal-row-1 {
-          justify-content: end;
-          padding-right: calc(50% - 12px);
           .gray-line {
-            right: calc(50% + 12px);
-          }
-          .icon {
-            margin-left: 10px;
-          }
-        }
-        &.goal-row-2 {
-          justify-content: start;
-          padding-left: calc(50% - 12px);
-          .gray-line {
-            left: calc(50% + 12px);
+            left: 34px;
           }
           .icon {
             margin-right: 10px;
+          }
+        }
+        &.goal-row-2 {
+          justify-content: end;
+          .gray-line {
+            right: 34px;
+          }
+          .icon {
+            margin-left: 10px;
           }
         }
         .gray-line {
@@ -197,14 +196,6 @@
           flex: 0 0 24px;
           background-size: auto 32px;
         }
-      }
-      &:before {
-        content: " ";
-        background: #EDEDED;
-        width: 1px;
-        height: 100%;
-        position: absolute;
-        left: 50%;
       }
     }
   }

@@ -12,6 +12,13 @@
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .edit-event-component {
     height: 772px;
+
+    &.form-event-component {
+      padding: 40px 30px 40px 40px;
+      .elem {
+        width: calc(411px - 80px);
+      }
+    }
   }
 }
 

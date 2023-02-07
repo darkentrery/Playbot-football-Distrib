@@ -362,6 +362,16 @@ class Goal(models.Model):
     def __str__(self):
         return f"{self.game.event.name} - {self.team.name}"
 
+    @property
+    def score_my(self):
+        goals = self.game.goals.filter(time__lte=self.time)
+        return goals.filter(team=self.team).count()
+
+    @property
+    def score_other(self):
+        goals = self.game.goals.filter(time__lte=self.time)
+        return goals.exclude(team=self.team).count()
+
 
 class GamePeriod(models.Model):
     game = models.ForeignKey(EventGame, on_delete=models.CASCADE, related_name="game_periods")

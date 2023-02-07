@@ -81,7 +81,7 @@ class GoalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Goal
-        fields = ["id", "team", "player", "time", "game_time"]
+        fields = ["id", "team", "player", "time", "game_time", "score_my", "score_other"]
         read_only_field = fields
 
 

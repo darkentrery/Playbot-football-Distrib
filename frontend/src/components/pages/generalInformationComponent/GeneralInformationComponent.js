@@ -108,7 +108,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 <span className={`elem elem-5 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value5}</span>
-                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value6}</span>
+                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{typeof value6 === "number" ? Math.floor(value6) : value6}</span>
             </div>
         )
     }

@@ -163,23 +163,25 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const GoalRow = ({goal, teamId1, teamId2}) => {
         let seconds = goal.game_time % 60;
         let minutes = (goal.game_time - seconds) / 60;
-        minutes = minutes < 10 ? '0' + minutes.toString() : minutes;
-        seconds = seconds < 10 ? '0' + seconds.toString() : seconds;
+        // minutes = minutes < 10 ? '0' + minutes.toString() : minutes;
+        // seconds = seconds < 10 ? '0' + seconds.toString() : seconds;
         return (
             <div className={`goal-row ${goal.team.id === teamId1 ? 'goal-row-1' : 'goal-row-2'}`}>
                 {goal.team.id === teamId1 && <>
-                    {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
-                    <div className={"black-ball-icon"}></div>
-                    <span className={"black-400-13"}>{minutes}:{seconds}'</span>
                     <div className={"icon player-avatar-icon"}></div>
                     <div className={"gray-line"}></div>
+                    <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
+                    <div className={"black-ball-icon"}></div>
+                    {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
+                    <span className={"black-400-13"}>({minutes})'</span>
                 </>}
                 {goal.team.id === teamId2 && <>
-                    <div className={"icon player-avatar-icon"}></div>
-                    <span className={"black-400-13"}>{minutes}:{seconds}'</span>
-                    <div className={"black-ball-icon"}></div>
+                    <span className={"black-400-13"}>({minutes})'</span>
                     {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
+                    <div className={"black-ball-icon"}></div>
+                    <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
                     <div className={"gray-line"}></div>
+                    <div className={"icon player-avatar-icon"}></div>
                 </>}
             </div>
         )
