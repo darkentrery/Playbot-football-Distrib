@@ -30,8 +30,11 @@ export const ProfilePersonalDataComponent = ({
     const [dateError, setDateError] = useState(false);
     const [update, setUpdate] = useState(false);
     const [city, setCity] = useState(null);
+    const [errorCity, setErrorCity] = useState(null);
     const [data, setData] = useState(false);
     const positions = ["Позиция 1", "Позиция 2", "Позиция 3", "Позиция 4", "Позиция 5", "Позиция 6", "Позиция 7", "Позиция 8", "Позиция 9", "Позиция 10", "Позиция 11"];
+    const [positions1, setPositions1] = useState(positions);
+    const [positions2, setPositions2] = useState(positions);
     const refDate = useRef();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -61,6 +64,16 @@ export const ProfilePersonalDataComponent = ({
             'about_self': aboutSelf,
         }
         setData(newData);
+        let array = [];
+        positions.map((position) => {
+            if (position !== position2) array.push(position);
+        })
+        setPositions1(array);
+        array = [];
+        positions.map((position) => {
+            if (position !== position1) array.push(position);
+        })
+        setPositions2(array);
     }, [username, date, email, gender, phone, city, position1, position2, photo, aboutSelf])
 
     const cleanData = () => {
@@ -93,17 +106,21 @@ export const ProfilePersonalDataComponent = ({
     }
 
     const updateUser = () => {
-        if (!update) {
-            cleanData();
-            setUpdate(true);
-            authDecoratorWithoutLogin(authService.updateUser, data).then((response) => {
-                if (response.status === 200) {
-                    funcs.openSuccessUpdateUser();
-                    funcs.setPlayer(response.data);
-                    funcs.setAuth(true, response.data);
-                    setUpdate(false);
-                }
-            })
+        if (city) {
+            if (!update) {
+                cleanData();
+                setUpdate(true);
+                authDecoratorWithoutLogin(authService.updateUser, data).then((response) => {
+                    if (response.status === 200) {
+                        funcs.openSuccessUpdateUser();
+                        funcs.setPlayer(response.data);
+                        funcs.setAuth(true, response.data);
+                        setUpdate(false);
+                    }
+                })
+            }
+        } else {
+            setErrorCity("Выберите город!");
         }
     }
 
@@ -163,7 +180,7 @@ export const ProfilePersonalDataComponent = ({
                                     value={phone}
                                     setValue={setPhone}/>
                     <SelectCityComponent className={"elem elem-6"} value={city} setValue={setCity}
-                                         placeholder={"Город"}/>
+                                         placeholder={"Город"} errorText={errorCity} setErrorText={setErrorCity}/>
                     <div className={"elem elem-8-744 link"}>
                         <div className={"orange-plus-icon"}></div>
                         <span className={"orange-400-14"}>Добавить район</span>
@@ -171,7 +188,7 @@ export const ProfilePersonalDataComponent = ({
                     <DropDownComponent
                         value={position1} setValue={setPosition1} leftIcon={'man-in-target-icon'}
                         sizingClass={"elem elem-7"}
-                        content={positions}
+                        content={positions1}
                         placeholder={"Позиция на поле"}
                     />
                     <div className={"elem elem-8-1280 link"}>
@@ -186,7 +203,7 @@ export const ProfilePersonalDataComponent = ({
                     <DropDownComponent
                         value={position2} setValue={setPosition2} leftIcon={'man-in-target-icon'}
                         sizingClass={`elem elem-10 ${plusPosition ? '' : 'hidden'}`}
-                        content={positions}
+                        content={positions2}
                         placeholder={"Позиция на поле"}
                     />
                     <textarea className={"elem elem-11 map-point-icon"} name="" id="" cols="30" rows="10"

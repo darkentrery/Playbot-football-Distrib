@@ -17,7 +17,12 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                 <div className={"central-line"}></div>
                 <div className={"central-circle"}></div>
                 <div className={"central-point"}></div>
-                {numbers.map((num) => (<div className={`circle circle-${num}`} key={num}></div>))}
+                {numbers.map((num) => (
+                    <span className={`black-600-13 circle circle-${num} ${player.position_1 && num === player.position_1.id ? 'orange-fill' : ''} ${player.position_2 && num === player.position_2.id ? 'fill' : ''}`} key={num}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{player.position_1 && num === player.position_1.id ? player.position_1.acronym: ''}
+                        {player.position_2 && num === player.position_2.id ? player.position_2.acronym: ''}
+                    </span>
+                ))}
             </div>
         )
     }

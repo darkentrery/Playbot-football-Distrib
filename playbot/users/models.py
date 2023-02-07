@@ -9,6 +9,7 @@ from playbot.notices.models import Notice
 
 class Position(models.Model):
     name = models.CharField(_("Position"), max_length=150, unique=True)
+    acronym = models.CharField(_("Acronym"), max_length=150, blank=True, null=True)
 
     class Meta:
         verbose_name = "Position"

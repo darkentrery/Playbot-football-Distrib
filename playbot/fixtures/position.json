@@ -3,77 +3,88 @@
     "model": "users.Position",
     "pk": 1,
     "fields": {
-      "name": "Позиция 1"
+      "name": "Позиция 1",
+      "acronym":  "ПН"
     }
   },
   {
     "model": "users.Position",
     "pk": 2,
     "fields": {
-      "name": "Позиция 2"
+      "name": "Позиция 2",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 3,
     "fields": {
-      "name": "Позиция 3"
+      "name": "Позиция 3",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 4,
     "fields": {
-      "name": "Позиция 4"
+      "name": "Позиция 4",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 5,
     "fields": {
-      "name": "Позиция 5"
+      "name": "Позиция 5",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 6,
     "fields": {
-      "name": "Позиция 6"
+      "name": "Позиция 6",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 7,
     "fields": {
-      "name": "Позиция 7"
+      "name": "Позиция 7",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 8,
     "fields": {
-      "name": "Позиция 8"
+      "name": "Позиция 8",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 9,
     "fields": {
-      "name": "Позиция 9"
+      "name": "Позиция 9",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 10,
     "fields": {
-      "name": "Позиция 10"
+      "name": "Позиция 10",
+      "acronym":  "ПП"
     }
   },
   {
     "model": "users.Position",
     "pk": 11,
     "fields": {
-      "name": "Позиция 11"
+      "name": "Позиция 11",
+      "acronym":  "ПП"
     }
   }
 ]

@@ -43,7 +43,7 @@ class EventPlayerListSerializer(serializers.ModelSerializer):
 class PositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Position
-        fields = ["name",]
+        fields = ["id", "name", "acronym"]
         read_only_fields = fields
 
 

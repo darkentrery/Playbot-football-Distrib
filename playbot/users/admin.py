@@ -82,7 +82,9 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     list_display = [
+        "id",
         "name",
+        "acronym",
     ]
 
 
