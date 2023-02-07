@@ -1,6 +1,7 @@
 import {EmblemComponent} from "../emblemComponent/EmblemComponent";
 import {EmblemSmallComponent} from "../emblemSmallComponent/EmblemSmallComponent";
 import {useEffect, useState} from "react";
+import {LoaderComponent} from "../loaderComponent/LoaderComponent";
 
 
 export const ProfileAsideComponent = ({player, funcs, children}) => {
@@ -61,12 +62,15 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
 
     return (
         <div className={`profile-aside-component`}>
-            <div className={"elem elem-1"}>
-                {player && <EmblemComponent player={player}/>}
-                <span className={"black-400-14"}>Заполненность профиля <span className={"black-600-14"}>{fillPercent}</span>%</span>
-                <div className={"scale"}>
-                    <div className={"fill-scale"} style={{width: `${fillPercent}%`}}></div>
-                </div>
+            <div className={`elem elem-1 ${!player ? 'loader' : ''}`}>
+                {player && <>
+                    <EmblemComponent player={player}/>
+                    <span className={"black-400-14"}>Заполненность профиля<span className={"black-600-14"}>{fillPercent}</span>%</span>
+                    <div className={"scale"}>
+                        <div className={"fill-scale"} style={{width: `${fillPercent}%`}}></div>
+                    </div>
+                </>}
+                {!player && <LoaderComponent/>}
             </div>
             <div className={"elem elem-376"}>
                 <EmblemSmallComponent player={player} funcs={funcs}/>
@@ -97,17 +101,20 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                     <span className={"black-500-20"}>Спартак</span>
                 </div>
             </>}
-            <div className={"elem elem-5"}>
-                <span className={"black-400-13 above-field-text"}>Позиция на поле: </span>
-                {player && <FootballField player={player}/>}
-                {children}
-                <span className={"black-600-18 title-regards"}>Достижения</span>
-                <div className={"regards"}>
-                    <div className={"icon orange-regard-icon"}></div>
-                    <div className={"icon gray-regard-icon"}></div>
-                    <div className={"icon gray-regard-icon"}></div>
-                    <div className={"icon gray-regard-icon"}></div>
-                </div>
+            <div className={`elem elem-5 ${!player ? 'loader' : ''}`}>
+                {player && <>
+                    <span className={"black-400-13 above-field-text"}>Позиция на поле: </span>
+                    <FootballField player={player}/>
+                    {children}
+                        <span className={"black-600-18 title-regards"}>Достижения</span>
+                        <div className={"regards"}>
+                        <div className={"icon orange-regard-icon"}></div>
+                        <div className={"icon gray-regard-icon"}></div>
+                        <div className={"icon gray-regard-icon"}></div>
+                        <div className={"icon gray-regard-icon"}></div>
+                    </div>
+                </>}
+                {!player && <LoaderComponent/>}
             </div>
         </div>
     )

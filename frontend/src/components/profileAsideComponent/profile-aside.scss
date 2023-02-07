@@ -21,6 +21,10 @@
       gap: 12px;
       align-items: center;
       flex-direction: column;
+
+      &.loader {
+        position: relative;
+      }
       .emblem-component {
         margin-bottom: 8px;
       }
@@ -54,6 +58,9 @@
       gap: 12px;
       flex-direction: column;
 
+      &.loader {
+        position: relative;
+      }
       .football-field {
         display: flex;
         flex: 0 0 132px;

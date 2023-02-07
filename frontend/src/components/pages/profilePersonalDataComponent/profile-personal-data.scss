@@ -4,6 +4,10 @@
   background: $whiteColor;
   box-shadow: 0px 2px 10px rgba(215, 215, 215, 0.25);
 
+  &.loader {
+    position: relative;
+    height: 800px;
+  }
   .bottom-bar-376 {
     display: none;
   }
@@ -241,6 +245,9 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .profile-personal-data-component {
+    &.loader {
+      flex: 1 1 auto;
+    }
     .top-bar {
       display: none;
     }
