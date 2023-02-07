@@ -46,6 +46,7 @@ class CustomUserAdmin(UserAdmin):
                     "photo",
                     "about_self",
                     "favorite_events",
+                    "favorite_players",
                 )
             },
         ),

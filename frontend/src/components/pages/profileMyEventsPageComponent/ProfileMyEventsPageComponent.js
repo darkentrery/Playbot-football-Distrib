@@ -1,11 +1,14 @@
 import VisibleProfileWrapper from "../../../redux/containers/VisibleProfileWrapper";
 import {CheckSliderComponent} from "../../checkSliderComponent/CheckSliderComponent";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import EventRoutes from "../../../routes/EventRoutes";
 import {Link} from "react-router-dom";
 import {EventItem376Component} from "../../eventItem376Component/EventItem376Component";
 import {NoEventsProfileComponent} from "../../noEventsProfileComponent/NoEventsProfileComponent";
 import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
+import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
+import {getAddressStringFormat} from "../../../services/LocationService";
+import {getStringDate} from "../../../utils/dates";
 
 
 export const ProfileMyEventsPageComponent = ({
@@ -14,28 +17,28 @@ export const ProfileMyEventsPageComponent = ({
     funcs,
 }) => {
     const [isOrganizer, setIsOrganizer] = useState(false);
+    const types = ["Все события", "Игроки",]
+    const [favorites, setFavorites] = useState(types[0]);
 
     const EventRow1280 = ({event}) => {
-        let address = '';
-        if (event.address) {
-            address = {
-                street: event.address.street ? event.address.street : '',
-                house: event.address.house_number ? event.address.house_number : '',
+        const [address, setAddress] = useState('');
+
+        useEffect(() => {
+            if (event) {
+                setAddress(getAddressStringFormat(event.address));
             }
-            address = `${address.street} ${address.house}`
-        }
-        let date = new Date(event.date);
+        }, [event])
 
         return (
             <Link className={"event-row-1280"} to={EventRoutes.eventLink(event.id)}>
                 <span className={"elem elem-1 black-400-13"}>{event.name}</span>
                 <div className={"elem elem-2"}>
                     <span className={"black-400-13"}>{address}</span>
-                    <span className={"gray-400-13"}>{date.getDate()}.{date.getMonth()}.{date.getFullYear().toString().slice(2,4)} в {event.time_begin.slice(0, 5)}</span>
+                    <span className={"gray-400-13"}>{getStringDate(event.date)} в {event.time_begin.slice(0, 5)}</span>
                 </div>
-                <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
-                <span className={"elem elem-4 gray-400-13"}>0/10</span>
-                <span className={"elem elem-5 gray-400-13"}>88,9</span>
+                <span className={"elem elem-3 gray-400-13"}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>
+                <span className={"elem elem-4 gray-400-13"}>{event.event_player.length}/{event.count_players}</span>
+                <span className={"elem elem-5 gray-400-13"}>{event.rank.toFixed(1).replace('.', ',')}</span>
             </Link>
         )
     }
@@ -51,14 +54,10 @@ export const ProfileMyEventsPageComponent = ({
         <VisibleProfileWrapper>
             {player && user && <div className={`profile-my-events-page-component`}>
                 <Profile376MenuComponent pk={user.id}/>
-                <div className={"table-bar"}>
-                    <div className={"elem elem-1"}>
-                        <span className={"black-600-14"}>Все события</span>
-                        <div className={"gray-down-arrow-icon"}></div>
-                    </div>
+                <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}>
                     <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer}
-                                          sizingClass={"elem elem-2"}/>
-                </div>
+                                          sizingClass={"elem-2"}/>
+                </ProfileTableBarComponent>
                 <div className={"table-head-1280"}>
                     <span className={"elem elem-1 gray-400-13"}>Название</span>
                     <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>

@@ -38,6 +38,7 @@ class User(AbstractUser):
     photo = models.ImageField(upload_to="photos", verbose_name="Photo", blank=True, null=True)
     about_self = models.TextField(_("About Self"), blank=True, null=True)
     favorite_events = models.ManyToManyField("events.Event", related_name="in_favorites", blank=True)
+    favorite_players = models.ManyToManyField("users.User", related_name="in_favorite_players", blank=True)
     penalty = models.PositiveIntegerField(_("Penalty"), default=0)
     involvement = models.PositiveIntegerField(_("Involvement"), default=1)
     is_active = models.BooleanField(

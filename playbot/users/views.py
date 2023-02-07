@@ -189,6 +189,25 @@ class UpdatePasswordView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class AddToFavoritesView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        user = User.objects.get(id=request.data["id"])
+        if not request.user.favorite_players.filter(id=user.id).exists():
+            request.user.favorite_players.add(user)
+            json = UserSerializer(instance=request.user).data
+            return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Already in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RemoveFromFavoritesView(APIView):
+    permission_classes = (IsAuthenticated,)
 
+    def post(self, request, format='json'):
+        user = User.objects.get(id=request.data["id"])
+        if request.user.favorite_players.filter(id=user.id).exists():
+            request.user.favorite_players.remove(user)
+            json = UserSerializer(instance=request.user).data
+            return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Not in favorites!"}, status=status.HTTP_400_BAD_REQUEST)

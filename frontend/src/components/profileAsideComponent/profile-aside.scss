@@ -298,6 +298,12 @@
         .regards {
           justify-content: center;
         }
+        .football-field {
+          align-self: center;
+        }
+        .above-field-text {
+          margin-left: calc(50% - 131px);
+        }
       }
       .item {
         &.item-left {

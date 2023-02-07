@@ -61,7 +61,7 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                 </div>
             </>}
             <div className={"elem elem-5"}>
-                <span className={"black-400-13"}>Позиция на поле: </span>
+                <span className={"black-400-13 above-field-text"}>Позиция на поле: </span>
                 {player && <FootballField player={player}/>}
                 {children}
                 <span className={"black-600-18 title-regards"}>Достижения</span>

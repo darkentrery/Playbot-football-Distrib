@@ -7,6 +7,7 @@ import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376M
 import {getAddressStringFormat} from "../../../services/LocationService";
 import {eventService} from "../../../services/EventService";
 import {getStringDate} from "../../../utils/dates";
+import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
 
 
 export const ProfileFavoritesComponent = ({
@@ -14,6 +15,8 @@ export const ProfileFavoritesComponent = ({
     user,
     funcs,
 }) => {
+    const types = ["События", "Игроки",]
+    const [favorites, setFavorites] = useState(types[0]);
 
     const EventRow1280 = ({event}) => {
         const [color, setColor] = useState('');
@@ -40,7 +43,7 @@ export const ProfileFavoritesComponent = ({
             }
         }, [event])
 
-        return (<>
+        return (user && event && <>
             <Link className={"event-row-1280"} to={EventRoutes.eventLink(event.id)}>
                 <span className={`elem elem-1 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>
                     {eventService.isFavorite(user, event) && <div className={"yellow-star-icon"}></div>}
@@ -64,27 +67,24 @@ export const ProfileFavoritesComponent = ({
         <VisibleProfileWrapper>
             {player && <div className={`profile-favorites-component`}>
                 <Profile376MenuComponent pk={user.id}/>
-                <div className={"table-bar"}>
-                    <div className={"elem elem-1"}>
-                        <span className={"black-600-14"}>События</span>
-                        <div className={"gray-down-arrow-icon"}></div>
+                <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}/>
+                {favorites === types[0] && <>
+                    <div className={"table-head-1280"}>
+                        <span className={"elem elem-1 gray-400-13"}>Название</span>
+                        <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
+                        <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
+                        <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
+                        <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
                     </div>
-                </div>
-                <div className={"table-head-1280"}>
-                    <span className={"elem elem-1 gray-400-13"}>Название</span>
-                    <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
-                    <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
-                    <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
-                    <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
-                </div>
-                <div className={"table-head-744"}>
-                    <span className={"elem elem-1 gray-400-13"}>Событие</span>
-                    <div className={"elem elem-2 avatar-icon disabled"}></div>
-                    <div className={"elem elem-3 gray-cup-icon"}></div>
-                </div>
-                {player && <div className={"table-body"}>
-                    {player.favorite_events.map((event, key) => (<EventRow1280 event={event} key={key}/>))}
-                </div>}
+                    <div className={"table-head-744"}>
+                        <span className={"elem elem-1 gray-400-13"}>Событие</span>
+                        <div className={"elem elem-2 avatar-icon disabled"}></div>
+                        <div className={"elem elem-3 gray-cup-icon"}></div>
+                    </div>
+                    {player && <div className={"table-body"}>
+                        {player.favorite_events.map((event, key) => (<EventRow1280 event={event} key={key}/>))}
+                    </div>}
+                </>}
             </div>}
         </VisibleProfileWrapper>
     )

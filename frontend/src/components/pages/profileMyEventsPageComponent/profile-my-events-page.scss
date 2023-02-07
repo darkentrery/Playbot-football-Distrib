@@ -4,28 +4,7 @@
   flex: 1 1 auto;
   flex-direction: column;
 
-  .table-bar {
-    display: flex;
-    background: $lightGrayColor;
-    border-radius: 6px;
-    flex: 0 0 48px;
-    padding: 12px 24px;
-    box-sizing: border-box;
-    align-items: center;
-    gap: 47px;
-
-    .elem {
-      display: flex;
-    }
-    .elem-1 {
-      gap: 15px;
-      .gray-down-arrow-icon {
-        flex: 0 0 10px;
-      }
-      span {
-        white-space: nowrap;
-      }
-    }
+  .profile-table-bar-component {
     .elem-2 {
       span {
         white-space: nowrap;

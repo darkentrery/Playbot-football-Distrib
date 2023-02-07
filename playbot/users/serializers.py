@@ -65,23 +65,15 @@ class SamePlayerSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    # all_games = serializers.IntegerField(read_only=True)
-    # count_goals = serializers.IntegerField(read_only=True)
-    # wins = serializers.IntegerField(read_only=True)
-    # loss = serializers.IntegerField(read_only=True)
     event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
     event = EventListSerializer(Event, many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
     position_2 = PositionSerializer(read_only=True)
     favorite_events = EventListSerializer(Event, many=True, read_only=True)
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
-    # total_time = serializers.IntegerField(read_only=True)
-    # all_rivals = serializers.IntegerField(read_only=True)
-    # rank = serializers.FloatField(read_only=True)
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
     same_players = SamePlayerSerializer(User, many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
-    # ranking_place = serializers.IntegerField(read_only=True)
     warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
 
     class Meta:
@@ -90,7 +82,7 @@ class UserSerializer(serializers.ModelSerializer):
                   "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
-                  "warning_notices"]
+                  "warning_notices", "favorite_players"]
         read_only_fields = fields
 
 
