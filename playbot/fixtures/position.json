@@ -3,88 +3,48 @@
     "model": "users.Position",
     "pk": 1,
     "fields": {
-      "name": "Позиция 1",
-      "acronym":  "ПН"
+      "name": "Вратарь",
+      "acronym":  "ВР"
     }
   },
   {
     "model": "users.Position",
     "pk": 2,
     "fields": {
-      "name": "Позиция 2",
-      "acronym":  "ПП"
+      "name": "Крайний защитник",
+      "acronym":  "ПЗ/ЛЗ"
     }
   },
   {
     "model": "users.Position",
     "pk": 3,
     "fields": {
-      "name": "Позиция 3",
-      "acronym":  "ПП"
+      "name": "Центральный защитник",
+      "acronym":  "ЦЗ"
     }
   },
   {
     "model": "users.Position",
     "pk": 4,
     "fields": {
-      "name": "Позиция 4",
-      "acronym":  "ПП"
+      "name": "Крайний полузащитник",
+      "acronym":  "ПП/ЛП"
     }
   },
   {
     "model": "users.Position",
     "pk": 5,
     "fields": {
-      "name": "Позиция 5",
-      "acronym":  "ПП"
+      "name": "Центральный полузащитник",
+      "acronym":  "ЦП"
     }
   },
   {
     "model": "users.Position",
     "pk": 6,
     "fields": {
-      "name": "Позиция 6",
-      "acronym":  "ПП"
-    }
-  },
-  {
-    "model": "users.Position",
-    "pk": 7,
-    "fields": {
-      "name": "Позиция 7",
-      "acronym":  "ПП"
-    }
-  },
-  {
-    "model": "users.Position",
-    "pk": 8,
-    "fields": {
-      "name": "Позиция 8",
-      "acronym":  "ПП"
-    }
-  },
-  {
-    "model": "users.Position",
-    "pk": 9,
-    "fields": {
-      "name": "Позиция 9",
-      "acronym":  "ПП"
-    }
-  },
-  {
-    "model": "users.Position",
-    "pk": 10,
-    "fields": {
-      "name": "Позиция 10",
-      "acronym":  "ПП"
-    }
-  },
-  {
-    "model": "users.Position",
-    "pk": 11,
-    "fields": {
-      "name": "Позиция 11",
-      "acronym":  "ПП"
+      "name": "Нападающий",
+      "acronym":  "ЦНП"
     }
   }
 ]

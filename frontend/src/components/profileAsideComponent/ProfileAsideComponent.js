@@ -1,11 +1,43 @@
 import {EmblemComponent} from "../emblemComponent/EmblemComponent";
 import {EmblemSmallComponent} from "../emblemSmallComponent/EmblemSmallComponent";
+import {useEffect, useState} from "react";
 
 
 export const ProfileAsideComponent = ({player, funcs, children}) => {
+    const [fillPercent, setFillPercent] = useState(0);
+
+    useEffect(() => {
+        if (player) {
+            let count = 0;
+            if (player.email) count += 1;
+            if (player.birthday) count += 1;
+            if (player.username) count += 1;
+            if (player.gender) count += 1;
+            if (player.phone_number) count += 1;
+            if (player.city) count += 1;
+            if (player.position_1) count += 1;
+            if (player.position_2) count += 1;
+            if (player.about_self) count += 1;
+            if (player.photo) count += 1;
+            setFillPercent(Math.floor(100* count / 10));
+        }
+    }, [player])
 
     const FootballField = ({player}) => {
         const numbers = [1, 2, 3, 4, 5, 6, 7, 8 ,9 ,10 ,11];
+        const numbersDict = {
+            1: 6,
+            2: 5,
+            3: 4,
+            4: 3,
+            5: 2,
+            6: 1,
+            7: 2,
+            8: 3,
+            9: 4,
+            10: 5,
+            11: 6,
+        }
         return (
             <div className={"football-field"}>
                 <div className={"gate gate-1"}></div>
@@ -18,9 +50,9 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                 <div className={"central-circle"}></div>
                 <div className={"central-point"}></div>
                 {numbers.map((num) => (
-                    <span className={`black-600-13 circle circle-${num} ${player.position_1 && num === player.position_1.id ? 'orange-fill' : ''} ${player.position_2 && num === player.position_2.id ? 'fill' : ''}`} key={num}>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{player.position_1 && num === player.position_1.id ? player.position_1.acronym: ''}
-                        {player.position_2 && num === player.position_2.id ? player.position_2.acronym: ''}
+                    <span className={`black-600-13 circle circle-${num} ${player.position_1 && numbersDict[num] === player.position_1.id ? 'orange-fill' : ''} ${player.position_2 && numbersDict[num] === player.position_2.id ? 'fill' : ''}`} key={num}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{player.position_1 && numbersDict[num] === player.position_1.id ? player.position_1.acronym: ''}
+                        {player.position_2 && numbersDict[num] === player.position_2.id ? player.position_2.acronym: ''}
                     </span>
                 ))}
             </div>
@@ -31,9 +63,9 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
         <div className={`profile-aside-component`}>
             <div className={"elem elem-1"}>
                 {player && <EmblemComponent player={player}/>}
-                <span className={"black-400-14"}>Заполненность профиля <span className={"black-600-14"}>55</span>%</span>
+                <span className={"black-400-14"}>Заполненность профиля <span className={"black-600-14"}>{fillPercent}</span>%</span>
                 <div className={"scale"}>
-                    <div className={"fill-scale"} style={{width: 50}}></div>
+                    <div className={"fill-scale"} style={{width: `${fillPercent}%`}}></div>
                 </div>
             </div>
             <div className={"elem elem-376"}>
