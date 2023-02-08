@@ -1,5 +1,5 @@
 import {
-  player, auth, showMenuWindow, event, createEventWindow,
+  player, auth, showMenuWindow, event, createEventWindow, choiceCityWindow,
 } from "../actions/actions";
 import {connect} from "react-redux";
 import {ShowMenuComponent} from "../../components/popups/showMenuComponent/ShowMenuComponent";
@@ -31,6 +31,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openCreateEvent: () => {
         dispatch(createEventWindow(true));
+      },
+      openChoiceCity: () => {
+        dispatch(choiceCityWindow(true));
       },
     }
   };

@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {authService} from "../../../services/AuthService";
-import {linkShareService} from "../../../services/LinkShareService";
 
 
 export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
@@ -28,6 +27,11 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
         funcs.openCreateEvent();
     }
 
+    const toChoiceCity = () => {
+        closeWindow();
+        funcs.openChoiceCity();
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -45,7 +49,7 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                     <span className={"black-400-16"}>Поиск</span>
                 </div>
                 <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} user={user} city={city}/>
-                <div className={"city-field"}>
+                <div className={"city-field"} onClick={toChoiceCity}>
                     <div className={"map-point-icon"}></div>
                     <div className={"text-field"}>
                         <span className={"gray-400-12"}>Ваш город</span>

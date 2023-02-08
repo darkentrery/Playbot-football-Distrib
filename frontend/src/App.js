@@ -2,7 +2,7 @@ import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import React, {useState, useEffect} from "react";
 import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
 
-import MobileFirstPageComponent from "./components/MobileFirstPageComponent";
+import MobileFirstPageComponent from "./components/popups/mobileFirstPageComponent/MobileFirstPageComponent";
 import AuthService from "./services/AuthService";
 import VisibleSignUp from "./redux/containers/VisibleSignUp";
 import VisibleLogin from "./redux/containers/VisibleLogin";
