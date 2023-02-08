@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "react-modal";
 import { MobileView } from 'react-device-detect';
 import "slick-carousel/slick/slick.css";

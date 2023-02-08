@@ -1,16 +1,16 @@
+import {useState} from "react";
 
 
-export const EmblemSmallComponent = ({player, funcs}) => {
-
+export const EmblemSmallComponent = ({player, funcs, fillPercent}) => {
     const showEmblem = () => {
         funcs.openShowEmblem();
     }
 
     return (
         <div className={"emblem-small-component"}>
-            <span className={"gray-400-13"}>Заполненность профиля <span className={"gray-600-13"}>55</span>%</span>
+            <span className={"gray-400-13"}>Заполненность профиля <span className={"gray-600-13"}>{fillPercent}</span>%</span>
             <div className={"scale"}>
-                <div className={"fill-scale"} style={{width: 50}}></div>
+                <div className={"fill-scale"} style={{width: `${fillPercent}%`}}></div>
             </div>
             <div className={"info-card"}>
                 <div className={"emblem-small"} onClick={showEmblem}>

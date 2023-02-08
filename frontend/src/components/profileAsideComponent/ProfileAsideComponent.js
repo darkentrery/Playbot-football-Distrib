@@ -73,7 +73,7 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                 {!player && <LoaderComponent/>}
             </div>
             <div className={"elem elem-376"}>
-                <EmblemSmallComponent player={player} funcs={funcs}/>
+                <EmblemSmallComponent player={player} funcs={funcs} fillPercent={fillPercent}/>
             </div>
             {player && <>
                 <div className={"elem elem-2"}>

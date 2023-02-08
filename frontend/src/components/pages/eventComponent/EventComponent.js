@@ -9,6 +9,8 @@ import BaseRoutes from "../../../routes/BaseRoutes";
 import {Top376Component} from "../../top376Component/Top376Component";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import {share} from "../../../services/LinkShareService";
+import EventRoutes from "../../../routes/EventRoutes";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -89,7 +91,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                 {event && <>
                     <Top376Component label={"Событие"} to={BaseRoutes.main}>
                         <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
-                        <div className={"icon send-icon"}></div>
+                        <div className={"icon send-icon"} onClick={() => share(EventRoutes.eventLink(event.id))}></div>
                         {event.organizer.id === user.user.id && <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
                     </Top376Component>
                     <VisibleBoardEvent/>

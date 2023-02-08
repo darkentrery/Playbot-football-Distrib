@@ -35,3 +35,15 @@ export const linkShareService = {
       window.open(shareLinks.vk,'', getWindow())
     }
 }
+
+export const share = (link=process.env.REACT_APP_MAIN_URL) => {
+    if (navigator.share) {
+        navigator.share({
+            title: 'korobkaplay.ru',
+            text: 'Откройте для себя мир футбола!',
+            url: link,
+        })
+            .then(() => console.log('Удалось поделиться'))
+            .catch((error) => console.log('Не удалось поделиться', error));
+    }
+}

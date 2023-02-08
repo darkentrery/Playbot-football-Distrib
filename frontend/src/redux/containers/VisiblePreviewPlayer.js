@@ -14,7 +14,7 @@ import {
   loginWindow,
   mobileFirstPageWindow,
   player,
-  players,
+  players, showEmblemWindow,
   signUpWindow,
   steps,
   successSignUp2Window,
@@ -108,6 +108,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openCreateEventUnAuth: () => {
         dispatch(createEventUnAuthWindow(true));
+      },
+      openShowEmblem: () => {
+        dispatch(showEmblemWindow(true));
       },
     },
   };
