@@ -9,6 +9,7 @@ import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376M
 import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
 import {getAddressStringFormat} from "../../../services/LocationService";
 import {getStringDate} from "../../../utils/dates";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export const ProfileMyEventsPageComponent = ({
@@ -52,37 +53,40 @@ export const ProfileMyEventsPageComponent = ({
 
     return (
         <VisibleProfileWrapper>
-            {player && user && <div className={`profile-my-events-page-component`}>
-                <Profile376MenuComponent pk={user.id}/>
-                <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}>
-                    <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer}
+            <div className={`profile-my-events-page-component ${!player || !user ? 'loader' : ''}`}>
+                {user && player && <>
+                   <Profile376MenuComponent pk={user.id}/>
+                   <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}>
+                       <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer}
                                           sizingClass={"elem-2"}/>
-                </ProfileTableBarComponent>
-                <div className={"table-head-1280"}>
-                    <span className={"elem elem-1 gray-400-13"}>Название</span>
-                    <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
-                    <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
-                    <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
-                    <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
-                </div>
-                <div className={"table-head-744"}>
-                    <span className={"elem elem-1 gray-400-13"}>Событие</span>
-                    <div className={"elem elem-2 avatar-icon disabled"}></div>
-                    <div className={"elem elem-3 gray-cup-icon"}></div>
-                </div>
-                {player && <div className={"table-body"}>
-                    {!isOrganizer && player.event_player.length !== 0 && player.event_player.map((event, key) => (
-                        <EventRow event={event.event} key={key}/>)
-                    )}
-                    {isOrganizer && player.event.length !== 0 && player.event.map((event, key) => (
-                        <EventRow event={event} key={key}/>
-                    ))}
-                    {!isOrganizer && player.event_player.length === 0 &&
-                        <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
-                    {isOrganizer && player.event.length === 0 &&
-                        <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
-                </div>}
-            </div>}
+                   </ProfileTableBarComponent>
+                    <div className={"table-head-1280"}>
+                        <span className={"elem elem-1 gray-400-13"}>Название</span>
+                        <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
+                        <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
+                        <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
+                        <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
+                    </div>
+                    <div className={"table-head-744"}>
+                        <span className={"elem elem-1 gray-400-13"}>Событие</span>
+                        <div className={"elem elem-2 avatar-icon disabled"}></div>
+                        <div className={"elem elem-3 gray-cup-icon"}></div>
+                    </div>
+                    {player && <div className={"table-body"}>
+                        {!isOrganizer && player.event_player.length !== 0 && player.event_player.map((event, key) => (
+                            <EventRow event={event.event} key={key}/>)
+                        )}
+                        {isOrganizer && player.event.length !== 0 && player.event.map((event, key) => (
+                            <EventRow event={event} key={key}/>
+                        ))}
+                        {!isOrganizer && player.event_player.length === 0 &&
+                            <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
+                        {isOrganizer && player.event.length === 0 &&
+                            <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
+                    </div>}
+                </>}
+                {(!player || !user) && <LoaderComponent/>}
+            </div>
         </VisibleProfileWrapper>
     )
 }

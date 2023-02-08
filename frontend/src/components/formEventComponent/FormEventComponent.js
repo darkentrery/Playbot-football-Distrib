@@ -300,7 +300,7 @@ export const FormEventComponent = ({
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>
-            <LocateEventComponent className={`elem elem-13 ${isOpenMap ? '' : 'hidden'}`} city={user.city}
+            <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} city={user.city}
                                   setCity={setCity} setAddress={setAddress} setPoint={setPoint} setIsOpenMap={setIsOpenMap}
                                   address={address}/>
         </div>

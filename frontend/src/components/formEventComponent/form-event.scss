@@ -278,11 +278,6 @@
         margin-bottom: 70px;
       }
     }
-    &.elem-13 {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
     .input-message {
       flex: 0 0 12px;
       margin-top: 4px;
@@ -294,6 +289,11 @@
     input {
       box-sizing: border-box;
     }
+  }
+  .elem-13 {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   .form-event-body {
     max-height: 512px;

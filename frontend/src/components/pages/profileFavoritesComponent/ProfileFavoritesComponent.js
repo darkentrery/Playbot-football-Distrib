@@ -8,6 +8,7 @@ import {getAddressStringFormat} from "../../../services/LocationService";
 import {eventService} from "../../../services/EventService";
 import {getStringDate} from "../../../utils/dates";
 import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export const ProfileFavoritesComponent = ({
@@ -65,27 +66,30 @@ export const ProfileFavoritesComponent = ({
 
     return (
         <VisibleProfileWrapper>
-            {player && <div className={`profile-favorites-component`}>
-                <Profile376MenuComponent pk={user.id}/>
-                <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}/>
-                {favorites === types[0] && <>
-                    <div className={"table-head-1280"}>
-                        <span className={"elem elem-1 gray-400-13"}>Название</span>
-                        <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
-                        <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
-                        <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
-                        <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
-                    </div>
-                    <div className={"table-head-744"}>
-                        <span className={"elem elem-1 gray-400-13"}>Событие</span>
-                        <div className={"elem elem-2 avatar-icon disabled"}></div>
-                        <div className={"elem elem-3 gray-cup-icon"}></div>
-                    </div>
-                    {player && <div className={"table-body"}>
-                        {player.favorite_events.map((event, key) => (<EventRow1280 event={event} key={key}/>))}
-                    </div>}
+            <div className={`profile-favorites-component ${!player || !user ? 'loader' : ''}`}>
+                {user && player && <>
+                    <Profile376MenuComponent pk={user.id}/>
+                    <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}/>
+                    {favorites === types[0] && <>
+                        <div className={"table-head-1280"}>
+                            <span className={"elem elem-1 gray-400-13"}>Название</span>
+                            <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
+                            <span className={"elem elem-3 gray-400-13"}>Стоимость участия</span>
+                            <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>
+                            <span className={"elem elem-5 gray-400-13"}>Средний рейтинг</span>
+                        </div>
+                        <div className={"table-head-744"}>
+                            <span className={"elem elem-1 gray-400-13"}>Событие</span>
+                            <div className={"elem elem-2 avatar-icon disabled"}></div>
+                            <div className={"elem elem-3 gray-cup-icon"}></div>
+                        </div>
+                        {player && <div className={"table-body"}>
+                            {player.favorite_events.map((event, key) => (<EventRow1280 event={event} key={key}/>))}
+                        </div>}
+                    </>}
                 </>}
-            </div>}
+                {(!player || !user) && <LoaderComponent/>}
+            </div>
         </VisibleProfileWrapper>
     )
 }

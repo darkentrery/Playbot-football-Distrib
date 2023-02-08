@@ -4,6 +4,10 @@
   flex: 1 1 auto;
   flex-direction: column;
 
+  &.loader {
+    position: relative;
+    height: 800px;
+  }
   .profile-table-bar-component {
     .elem-2 {
       span {
@@ -140,6 +144,9 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .profile-my-events-page-component {
+    &.loader {
+      flex: 1 1 auto;
+    }
     .table-bar {
       border-radius: 0;
     }

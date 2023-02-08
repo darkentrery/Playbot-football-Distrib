@@ -4,6 +4,10 @@
   flex: 1 1 auto;
   flex-direction: column;
 
+  &.loader {
+    position: relative;
+    height: 800px;
+  }
   .table-head-1280 {
     display: flex;
     flex: 0 0 56px;
@@ -136,6 +140,9 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .profile-favorites-component {
+    &.loader {
+      flex: 1 1 auto;
+    }
     .table-head-1280 {
       display: none;
     }
