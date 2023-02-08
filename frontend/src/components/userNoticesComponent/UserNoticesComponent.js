@@ -23,12 +23,12 @@ export const UserNoticesComponent = ({user}) => {
     })
 
     return (
-        <div className={`user-notices-component active`}>
+        <div className={`user-notices-component ${!!user.showing_notices ? 'active' : ''}`}>
             <div className={"black-bell-icon"} onClick={openDropdown}></div>
-            {user.user_notices.length !== 0 && <span className={"notice-count white-600-14"} onClick={openDropdown}>2</span>}
+            {!!user.showing_notices && <span className={"notice-count white-600-14"} onClick={openDropdown}>{user.showing_notices}</span>}
             <div className={`dropdown-menu ${isDropdown ? 'open' : ''}`}>
                 {user.user_notices.map((userNotice, key) => (
-                    <span className={"dropdown-elem black-400-16"} onClick={clickNotice} key={key}>
+                    <span className={`dropdown-elem black-400-16 ${userNotice.show ? 'show' : ''}`} onClick={clickNotice} key={key}>
                         {userNotice.notice.text}
                     </span>
                 ))}
@@ -39,7 +39,7 @@ export const UserNoticesComponent = ({user}) => {
                     <span className={"btn-close"} onClick={openDropdown}></span>
                 </div>
                 {user.user_notices.map((userNotice, key) => (
-                    <span className={"dropdown-elem black-400-16"} onClick={clickNotice} key={key}>
+                    <span className={`dropdown-elem black-400-16 ${userNotice.show ? 'show' : ''}`} onClick={clickNotice} key={key}>
                         {userNotice.notice.text}
                     </span>
                 ))}

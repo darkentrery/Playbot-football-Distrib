@@ -82,7 +82,7 @@ class UserSerializer(serializers.ModelSerializer):
                   "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
-                  "warning_notices", "favorite_players"]
+                  "warning_notices", "favorite_players", "showing_notices"]
         read_only_fields = fields
 
 

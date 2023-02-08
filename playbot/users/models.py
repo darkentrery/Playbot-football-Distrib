@@ -158,6 +158,10 @@ class User(AbstractUser):
     def warning_notices(self):
         return self.user_notices.filter(notice__notice_type__in=(Notice.Type.WARNING, Notice.Type.CRITICAL), show=True)
 
+    @property
+    def showing_notices(self):
+        return self.user_notices.filter(show=True).count()
+
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")

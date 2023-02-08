@@ -52,6 +52,10 @@
       box-sizing: border-box;
       cursor: pointer;
 
+      &.show {
+        background: #FFFDF5;
+        color: $yellowColor;
+      }
       &:hover {
         background: $lightGrayColor;
       }
@@ -100,6 +104,11 @@
         padding: 12px 24px;
         box-sizing: border-box;
         cursor: pointer;
+
+        &.show {
+          background: #FFFDF5;
+          color: $yellowColor;
+        }
       }
       &.open {
         display: flex;
