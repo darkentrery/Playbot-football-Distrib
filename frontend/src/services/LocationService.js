@@ -74,7 +74,7 @@ export const getLocationsArrayGoogle = (value) => {
 				item.address_components.map((component) => {
 					if (component.types.includes('country')) address.country = component.long_name;
 					if (component.types.includes('administrative_area_level_1')) address.region = component.long_name;
-					if (component.types.includes('administrative_area_level_2')) address.city = component.short_name.replace('г. ', '');
+					if (component.types.includes('locality')) address.city = component.short_name.replace('г. ', '');
 					if (component.types.includes('route')) address.street = component.short_name;
 					if (component.types.includes('street_number')) address.house_number = component.long_name;
 				})
@@ -105,10 +105,11 @@ export const getLocationsAddressByCoordsGoogle = (value) => {
 				lng: '',
 				formatted: '',
 			}
+			console.log(geoObjects[0])
 			geoObjects[0].address_components.map((component) => {
 				if (component.types.includes('country')) address.country = component.long_name;
 				if (component.types.includes('administrative_area_level_1')) address.region = component.long_name;
-				if (component.types.includes('administrative_area_level_2')) address.city = component.short_name.replace('г. ', '');
+				if (component.types.includes('locality')) address.city = component.short_name.replace('г. ', '');
 				if (component.types.includes('route')) address.street = component.short_name;
 				if (component.types.includes('street_number')) address.house_number = component.long_name;
 			})

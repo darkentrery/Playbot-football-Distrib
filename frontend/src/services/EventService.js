@@ -57,7 +57,7 @@ export const eventService = {
 	leaveEvent(data) { return postRequest('leave-event/', data); },
 	getEvents(data) { return getRequest('get-events/', data); },
 	getCancelReasons() { return getRequest('get-cancel-reasons/'); },
-	getRegulation() { return getRequest('get-regulation/'); },
+	getRegulation(id) { return getRequest('get-regulation/', id); },
 	getEvent(id) { return getRequest('get-event/', id); },
 	addToFavorites(data) { return postRequest('add-to-favorites/', data); },
 	removeFromFavorites(data) { return postRequest('remove-from-favorites/', data); },
