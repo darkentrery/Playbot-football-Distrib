@@ -5,5 +5,12 @@
   bottom: 24px;
   right: 24px;
   gap: 15px;
+  z-index: 1000;
+}
 
+@media screen and (min-width: 375px) and (max-width: 743px){
+  .notice-list-component {
+    right: 16px;
+    bottom: 83px;
+  }
 }

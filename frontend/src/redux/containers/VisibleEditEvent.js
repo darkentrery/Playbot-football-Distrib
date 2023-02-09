@@ -1,6 +1,6 @@
 import {event, editEventWindow, successEditEventWindow, hiddenMap} from "../actions/actions";
 import {connect} from "react-redux";
-import EditEventComponent from "../../components/EditEventComponent";
+import EditEventComponent from "../../components/popups/editEventComponent/EditEventComponent";
 
 
 const mapStateToProps = (state) => {

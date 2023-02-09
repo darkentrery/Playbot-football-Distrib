@@ -20,7 +20,7 @@ export const NoticeListComponent = ({user, setUser}) => {
                         accept = true
                     }
                     return (
-                        <NoticeComponent notice={userNotice.notice} setUser={setUser} to={link} key={key} accept={accept}>
+                        <NoticeComponent userNotice={userNotice} setUser={setUser} to={link} key={key} accept={accept}>
                             <span className={"black-400-16"}>{userNotice.notice.text}</span>
                         </NoticeComponent>
                     )

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../routes/BaseRoutes";
-import UserComponent from "../head/UserComponent";
+import UserComponent from "../userComponent/UserComponent";
 import VisibleUnAuthUser from "../../redux/containers/VisibleUnAuthUser";
 import {MainSearchComponent} from "../mainSearchComponent/MainSearchComponent";
 

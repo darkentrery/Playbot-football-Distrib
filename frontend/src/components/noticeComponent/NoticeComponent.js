@@ -6,7 +6,7 @@ import {noticeService} from "../..//services/NoticeService";
 
 
 export const NoticeComponent = ({
-    notice,
+    userNotice,
     to=false,
     accept=false,
     setUser,
@@ -16,7 +16,7 @@ export const NoticeComponent = ({
 
     const close = () => {
         setIsOpen(false);
-        authDecoratorWithoutLogin(noticeService.hiddeNotice, notice).then((response) => {
+        authDecoratorWithoutLogin(noticeService.hiddeNotice, userNotice).then((response) => {
             console.log(response.data)
             if (response.status === 200) {
                 setUser(true, response.data);

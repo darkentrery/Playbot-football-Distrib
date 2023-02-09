@@ -1,13 +1,13 @@
-import EventService from "../services/EventService";
+import EventService from "../../../services/EventService";
 import React, {useState} from "react";
 import Modal from "react-modal";
-import {authDecoratorWithoutLogin} from "../services/AuthDecorator";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {
     popupCloseDropdown,
     popupCloseDropdownWithDate,
     popupCloseDropdownWithTime, popupCloseSuggestMap,
-} from "../utils/manageElements";
-import {FormEventComponent} from "./formEventComponent/FormEventComponent";
+} from "../../../utils/manageElements";
+import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
 
 
 export default function EditEventComponent ({isOpen, isIPhone, event, user, closeComponent, openSuccessEditEvent, setEvent, showMap}) {

@@ -8,7 +8,7 @@ export const EmblemSmallComponent = ({player, funcs, fillPercent}) => {
 
     return (
         <div className={"emblem-small-component"}>
-            <span className={"gray-400-13"}>Заполненность профиля <span className={"gray-600-13"}>{fillPercent}</span>%</span>
+            <span className={"gray-400-13"}>Заполненность профиля&nbsp;<span className={"gray-600-13"}>{fillPercent}</span>%</span>
             <div className={"scale"}>
                 <div className={"fill-scale"} style={{width: `${fillPercent}%`}}></div>
             </div>

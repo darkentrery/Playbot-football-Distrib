@@ -4,8 +4,8 @@ import BaseRoutes from "../routes/BaseRoutes";
 import VisibleEvent from "../redux/containers/VisibleEvent";
 import VisibleMainPage from "../redux/containers/VisibleMainPage";
 import VisibleEventsPage from "../redux/containers/VisibleEventsPage";
-import {AllowPolicyComponent} from "./body/AllowPolicyComponent";
-import {AllowOfferComponent} from "./body/AllowOfferComponent";
+import {AllowPolicyComponent} from "./pages/AllowPolicyComponent";
+import {AllowOfferComponent} from "./pages/AllowOfferComponent";
 
 
 export default function BodyComponent () {

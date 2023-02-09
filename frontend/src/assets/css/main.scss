@@ -47,7 +47,7 @@
 @import "../../components/dateFilterComponent/date-filter";
 @import "../../components/rightFonComponent/right-fon";
 @import "../../components/eventsComponent/events";
-@import "./head/user.scss";
+@import "../../components/userComponent/user";
 @import "../../components/loaderComponent/loader";
 @import "../../components/sameEventComponent/same-event";
 @import "../../components/profileTableBarComponent/profile-table-bar";
@@ -63,7 +63,7 @@
 @import "fill-regulation";
 @import "confirm-teams";
 @import "confirm-team-players";
-@import "edit-event";
+@import "../../components/popups/editEventComponent/edit-event.scss";
 @import "../../components/popups/updatePasswordComponent/update-password";
 @import "../../components/popups/showEmblemComponent/show-emblem";
 @import "../../components/popups/showMenuComponent/show-menu";

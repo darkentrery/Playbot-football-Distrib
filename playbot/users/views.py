@@ -158,7 +158,7 @@ class UpdateUserView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        id = int(request.data.get("id")[0])
+        id = int(request.data.get("id"))
         if request.user.id == id:
             serializer = UpdateUserSerializer(instance=request.user, data=request.data)
             if serializer.is_valid():

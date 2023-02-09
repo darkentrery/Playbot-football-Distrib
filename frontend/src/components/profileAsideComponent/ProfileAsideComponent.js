@@ -65,7 +65,7 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
             <div className={`elem elem-1 ${!player ? 'loader' : ''}`}>
                 {player && <>
                     <EmblemComponent player={player}/>
-                    <span className={"black-400-14"}>Заполненность профиля<span className={"black-600-14"}>{fillPercent}</span>%</span>
+                    <span className={"black-400-14"}>Заполненность профиля&nbsp;<span className={"black-600-14"}>{fillPercent}</span>%</span>
                     <div className={"scale"}>
                         <div className={"fill-scale"} style={{width: `${fillPercent}%`}}></div>
                     </div>
