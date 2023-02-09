@@ -1,6 +1,6 @@
 import {createEventUnAuthWindow, createEventWindow, event} from "../actions/actions";
 import {connect} from "react-redux";
-import NoEventsComponent from "../../components/body/NoEventsComponent";
+import NoEventsComponent from "../../components/noEventsComponent/NoEventsComponent";
 
 
 const mapStateToProps = (state) => {
