@@ -55,6 +55,12 @@
 @import "../../components/titleComponent/title";
 @import "../../components/boardCreateEventComponent/board-create-event";
 @import "../../components/noEventsComponent/no-events";
+@import "../../components/boardEventComponent/board-event";
+@import "../../components/eventChatComponent/event-chat";
+@import "../../components/eventDescriptionComponent/event-description";
+@import "../../components/eventMembersComponent/event-members";
+@import "../../components/eventOrganizerComponent/event-organizer";
+@import "rules-pattern";
 
 //Popups
 @import "../../components/popups/signUpComponent/sign-up";

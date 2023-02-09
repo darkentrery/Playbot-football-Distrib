@@ -1,13 +1,12 @@
 import React from "react-dom";
 import {useEffect, useState} from "react";
-import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
+import {eventService} from "../../services/EventService";
 
 
 export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => {
-    const eventService = new EventService();
     const [ids, setIds] = useState([]);
     const [idsQueue, setIdsQueue] = useState([]);
 

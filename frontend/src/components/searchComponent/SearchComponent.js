@@ -12,7 +12,7 @@ export const SearchComponent = ({
     const search = (e) => {
         let array = [];
         let val = e.target.value;
-        arrayFirst.map((item, key) => {
+        arrayFirst.forEach((item) => {
             if (item.toLowerCase().includes(val.toLowerCase())) array.push(item);
         })
         setArraySecond(array);

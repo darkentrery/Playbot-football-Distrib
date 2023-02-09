@@ -1,7 +1,7 @@
 import React from "react-dom";
 import {getMonth, getWeekDay} from "../../utils/dates";
-import {ButtonsBoardOrganizerComponent} from "./ButtonsBoardOrganizerComponent";
-import {ButtonsBoardPlayerComponent} from "./ButtonsBoardPlayerComponent";
+import {ButtonsBoardOrganizerComponent} from "../body/ButtonsBoardOrganizerComponent";
+import {ButtonsBoardPlayerComponent} from "../body/ButtonsBoardPlayerComponent";
 import {useEffect, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {eventService} from "../../services/EventService";

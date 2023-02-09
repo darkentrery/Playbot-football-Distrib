@@ -2,7 +2,7 @@ import {
   editEventWindow, hiddenMap, loginWindow,
 } from "../actions/actions";
 import {connect} from "react-redux";
-import EventOrganizerComponent from "../../components/body/EventOrganizerComponent";
+import EventOrganizerComponent from "../../components/eventOrganizerComponent/EventOrganizerComponent";
 
 
 const mapStateToProps = (state) => {

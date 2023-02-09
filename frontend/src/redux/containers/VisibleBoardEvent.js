@@ -13,7 +13,7 @@ import {
   unAuthJoinWindow, confirmTeamPlayersWindow, repeatEventWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
-import BoardEventComponent from "../../components/body/BoardEventComponent";
+import BoardEventComponent from "../../components/boardEventComponent/BoardEventComponent";
 
 
 const mapStateToProps = (state) => {

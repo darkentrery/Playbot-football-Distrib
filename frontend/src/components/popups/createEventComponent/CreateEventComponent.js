@@ -1,15 +1,14 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import Modal from "react-modal";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import EventService from "../../../services/EventService";
 import {
     popupCloseDropdown,
     popupCloseDropdownWithDate,
     popupCloseDropdownWithTime,
 } from "../../../utils/manageElements";
 import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
-import $ from "jquery";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
+import {eventService} from "../../../services/EventService";
 
 
 export default function CreateEventComponent ({
@@ -20,7 +19,6 @@ export default function CreateEventComponent ({
     openSuccessCreateEvent,
     setEvent,
 }) {
-    const eventService = new EventService();
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
@@ -46,10 +44,6 @@ export default function CreateEventComponent ({
         popupCloseDropdownWithDate(e, isOpenCalendar, setIsOpenCalendar);
         popupCloseDropdownWithTime(e, isOpenTime, setIsOpenTime);
         setSuggests([]);
-    }
-
-    const draw = (timePassed) => {
-        $('.popup-right').attr('style', `transform: translate(${timePassed / 4 + 'px'}); opacity: ${1 - timePassed/500};`);
     }
 
     return(

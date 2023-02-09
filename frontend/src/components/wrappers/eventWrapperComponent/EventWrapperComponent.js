@@ -1,27 +1,22 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import EventService from "../../../services/EventService";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {Top376Component} from "../../top376Component/Top376Component";
+import {eventService} from "../../../services/EventService";
 
 
 export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
-    const eventService = new EventService();
-    const [flagRequest, setFlagRequest] = useState(false);
     const [gameId, setGameId] = useState(0);
     const params = useParams();
     const pk = params.pk;
     const currentId = params.gameId;
 
     useEffect(() => {
-        if (!flagRequest) {
-            eventService.getEvent(pk).then((response) => {
-                funcs.setEvent(response.data.event);
-            })
-        }
-        setFlagRequest(true);
-    }, [flagRequest])
+        eventService.getEvent(pk).then((response) => {
+            funcs.setEvent(response.data.event);
+        })
+    }, [pk])
 
     useEffect(() => {
         if (event) {

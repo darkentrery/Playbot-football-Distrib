@@ -1,7 +1,7 @@
-import EventMembersComponent from "./EventMembersComponent";
-import EventDescriptionComponent from "./EventDescriptionComponent";
+import EventMembersComponent from "../eventMembersComponent/EventMembersComponent";
+import EventDescriptionComponent from "../eventDescriptionComponent/EventDescriptionComponent";
 import React, {useEffect, useState} from "react";
-import {EventChatComponent} from "./EventChatComponent";
+import {EventChatComponent} from "../eventChatComponent/EventChatComponent";
 
 
 export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}) {

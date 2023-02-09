@@ -1,8 +1,8 @@
 import {SearchComponent} from "../searchComponent/SearchComponent";
 import React, {useEffect, useRef, useState} from "react";
 import AuthService from "../../services/AuthService";
-import CityService from "../../services/CityService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import {cityService} from "../../services/CityService";
 
 
 export const SearchCityComponent = ({
@@ -15,13 +15,11 @@ export const SearchCityComponent = ({
     isAuth=false,
 }) => {
     const authService = new AuthService();
-    const cityService = new CityService();
     const [cities, setCities] = useState([]);
     const [citiesView, setCitiesView] = useState([]);
     const citiesRef = useRef();
 
     useEffect(() => {
-        let isSubscribe = true;
         if (isOpen) {
             cityService.getCities().then((response) => {
                 if (response.status === 200) {
@@ -30,7 +28,6 @@ export const SearchCityComponent = ({
                 }
             })
         }
-        return () => isSubscribe = false;
     }, [isOpen])
 
     const choiceCity = async (e) => {

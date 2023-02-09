@@ -3,13 +3,13 @@ import AuthService from "../../../services/AuthService";
 import Modal from "react-modal";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import CityService from "../../../services/CityService";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
+import {cityService} from "../../../services/CityService";
 
 
 export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, showMap}) {
     const authService = new AuthService();
-    const cityService = new CityService();
+
     const [city, setLocalCity] = useState(false);
     const [data, setData] = useState(false);
     const [cities, setCities] = useState([]);

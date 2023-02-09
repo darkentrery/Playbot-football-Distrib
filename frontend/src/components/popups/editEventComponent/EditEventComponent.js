@@ -1,4 +1,3 @@
-import EventService from "../../../services/EventService";
 import React, {useState} from "react";
 import Modal from "react-modal";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
@@ -8,10 +7,10 @@ import {
     popupCloseDropdownWithTime, popupCloseSuggestMap,
 } from "../../../utils/manageElements";
 import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
+import {eventService} from "../../../services/EventService";
 
 
 export default function EditEventComponent ({isOpen, isIPhone, event, user, closeComponent, openSuccessEditEvent, setEvent, showMap}) {
-    const eventService = new EventService();
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);

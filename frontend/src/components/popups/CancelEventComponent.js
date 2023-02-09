@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
-import EventService from "../../services/EventService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {CancelComponent} from "../cancelComponent/CancelComponent";
+import {eventService} from "../../services/EventService";
 
 
 export const CancelEventComponent = ({isOpen, event, funcs}) => {
-    const eventService = new EventService();
     const [reason, setReason] = useState(false);
     const [reasons, setReasons] = useState(false);
 

@@ -1,14 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import EventService from "../../../services/EventService";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
+import {eventService} from "../../../services/EventService";
 
 
 export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, funcs}) => {
-    const eventService = new EventService();
     const [players, setPlayers] = useState([]);
     const [selected, setSelected] = useState([]);
     const [players1, setPlayers1] = useState([]);
@@ -22,17 +21,17 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
         if (event && isOpen) {
             let arraySelect = [];
             if (team) {
-                team.team_players.map((player, p) => {
+                team.team_players.forEach((player) => {
                     arraySelect.push(player.player.id.toString());
                 })
                 setSelected(arraySelect);
             }
             let array = [];
             let array1 = [];
-            event.event_player.map((player, key) => {
+            event.event_player.forEach((player) => {
                 let isPlayer = false;
-                event.teams.map((team, t) => {
-                    team.team_players.map((teamPlayer, tP) => {
+                event.teams.forEach((team, t) => {
+                    team.team_players.forEach((teamPlayer) => {
                         if (teamPlayer.player.id === player.player.id && !arraySelect.includes(player.player.id.toString())) {
                             isPlayer = true;
                         }
@@ -52,7 +51,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
 
     useEffect(() => {
         let array = [];
-        players.map((item) => {
+        players.forEach((item) => {
             if (players2.includes(item.username)) array.push(item);
         })
         setPlayersView(array);

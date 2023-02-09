@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import EventService from "../../../services/EventService";
 import DropDownComponent from "../../dropDownComponent/DropDownComponent";
 import {CheckSliderComponent} from "../../checkSliderComponent/CheckSliderComponent";
 import {popupCloseDropdown} from "../../../utils/manageElements";
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
+import {eventService} from "../../../services/EventService";
 
 
 export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs}) {
-    const eventService = new EventService();
     const [data, setData] = useState(false);
     const [format, setFormat] = useState(false);
     const [formatError, setFormatError] = useState(false);
@@ -32,26 +31,26 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             if (event.until_goal_count) setUntilGoalCount(event.until_goal_count);
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];
-                response.data.formats.map((item) => {
+                response.data.formats.forEach((item) => {
                     if (item.count * 2 <= event.event_player.length) arr.push(item.name);
                 })
                 if (!arr.length) arr.push(false);
                 setFormat(event.format ? event.format : arr[0]);
                 setFormats(arr);
                 arr = [];
-                response.data.distribution_method.map((item) => {
+                response.data.distribution_method.forEach((item) => {
                     arr.push(item.name);
                 })
                 setMode(event.distribution_method ? event.distribution_method : false);
                 setModes(arr);
                 arr = [];
-                response.data.count_circles.map((item) => {
+                response.data.count_circles.forEach((item) => {
                     arr.push(item.name);
                 })
                 setCountCircle(event.count_circles ? event.count_circles : arr[0]);
                 setCountCircles(arr);
                 arr = [];
-                response.data.duration.map((item) => {
+                response.data.duration.forEach((item) => {
                     arr.push(item.name);
                 })
                 setDuration(event.duration ? event.duration.name : arr[0]);

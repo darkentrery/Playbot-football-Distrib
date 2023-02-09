@@ -183,15 +183,6 @@ input[type="checkbox"] {
   }
 }
 
-//.right-input-icon {
-//  position: relative;
-//  flex: 0 0 20px;
-//  width: 20px;
-//  align-self: end;
-//  margin-right: 14px;
-//  top: -50px;
-//}
-
 .div-line {
   flex: 0 0 2px !important;
 }
@@ -199,7 +190,6 @@ input[type="checkbox"] {
 .line {
   width: 279px;
   height: 1px;
-  //border: 1px solid #DBDBDB;
   background: #DBDBDB;
 }
 
@@ -386,13 +376,6 @@ input[type="checkbox"] {
   }
 }
 
-//.main-wrapper-component {
-//  display: flex;
-//  flex-direction: column;
-//  justify-content: stretch;
-//  align-content: stretch;
-//}
-
 .dropdown-country {
   flex: 0 0 65px;
   box-sizing: border-box;
@@ -421,7 +404,6 @@ input[type="checkbox"] {
       width: 20px;
     }
   }
-
   .down-arrow-icon {
     position: relative;
     flex: 0 0 24px;
@@ -429,7 +411,6 @@ input[type="checkbox"] {
     top: -36px;
     left: 36px;
   }
-
   .up-arrow-icon {
     position: relative;
     flex: 0 0 24px;
@@ -437,7 +418,6 @@ input[type="checkbox"] {
     top: -36px;
     left: 36px;
   }
-
   .dropdown-menu {
     display: none;
     flex-direction: column;
@@ -458,7 +438,6 @@ input[type="checkbox"] {
       display: flex;
       position: relative;
     }
-
     .search-icon {
       flex: 0 0 39px;
       border: 0;
@@ -471,7 +450,6 @@ input[type="checkbox"] {
         outline: 0;
       }
     }
-
     .dropdown-body {
       display: flex;
       flex-direction: column;
@@ -489,20 +467,17 @@ input[type="checkbox"] {
           background: rgba(227, 225, 225, 0.63);
           border-radius: 8px;
         }
-
         .country {
           flex: 1 1 auto;
           margin-left: 15px;
           color: #595959;
         }
-
         .code {
           display: flex;
           flex: 0 0 32px;
           justify-content: end;
           color: #8C8C8C;
         }
-
         .banner {
           flex: 0 0 20px;
           width: 20px;
@@ -618,7 +593,3 @@ input[type="checkbox"] {
       box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
-
-
-
-

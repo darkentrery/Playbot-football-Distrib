@@ -1,12 +1,11 @@
 import React from "react-dom";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import EventService from "../../services/EventService";
 import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
+import {eventService} from "../../services/EventService";
 
 
 export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
-    const eventService = new EventService();
     let date = new Date(event.date);
     let activatDate = date.setHours(date.getHours() - 1)
 

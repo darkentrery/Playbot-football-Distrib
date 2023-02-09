@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import EventService from "../../../services/EventService";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {getMinutesStr} from "../../../utils/dates";
 import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
+import {eventService} from "../../../services/EventService";
 
 
 export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs}) {
-    const eventService = new EventService();
     const [headItems, setHeadItems] = useState(false);
     const [teams, setTeams] = useState([]);
     const [teamName1, setTeamName1] = useState(false);
@@ -44,7 +43,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 ["Общее время:", `${totalDuration} ${totalDurationLabel}`]
             ]);
             setTeams(event.teams);
-            event.teams.map((team, i) => {
+            event.teams.forEach((team, i) => {
                 teamNames[i][1](team.name);
             })
         }
@@ -66,7 +65,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     }
 
     const confirmTeams = () => {
-        event.teams.map((team, i) => {
+        event.teams.forEach((team, i) => {
             team.name = teamNames[i][0];
         })
         authDecoratorWithoutLogin(eventService.confirmTeams, {"event": event}).then((response) => {
@@ -78,9 +77,9 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
         })
     }
 
-    const repeatDivide = () => {
-
-    }
+    // const repeatDivide = () => {
+    //
+    // }
 
     return (
         <ReglamentComponent isOpen={isOpen} className={`confirm-teams-component`} title={"Подтверди составы"}
