@@ -1,6 +1,6 @@
 {
-  "short_name": "Playbot",
-  "name": "Playbot football",
+  "short_name": "Korobka",
+  "name": "Korobka football",
   "icons": [
     {
       "src": "favicon.ico",
@@ -23,7 +23,7 @@
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "scope": ".",
-  "description": "Test app for Django and PWA",
+  "description": "Korobka",
   "dir": "ltr",
   "lang": "en-US",
   "orientation": "any"

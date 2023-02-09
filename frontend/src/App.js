@@ -59,17 +59,15 @@ function App({state, funcs}) {
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
-    let lastY = 1;
-    document.addEventListener("touchmove", function (event) {
-        let lastS = document.documentElement.scrollTop;
-        // console.log(lastY, lastS, event.touches[0].clientY, event.cancelable)
-        // console.log(event.target.className)
-        if (lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable && !$(event.target).closest('.scroll').length) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        lastY = event.touches[0].clientY;
-    },{passive: false});
+    // let lastY = 1;
+    // document.addEventListener("touchmove", function (event) {
+    //     let lastS = document.documentElement.scrollTop;
+    //     if (lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable && !$(event.target).closest('.scroll').length) {
+    //         event.preventDefault();
+    //         event.stopPropagation();
+    //     }
+    //     lastY = event.touches[0].clientY;
+    // },{passive: false});
 
     useEffect(() => {
         console.log(state)
