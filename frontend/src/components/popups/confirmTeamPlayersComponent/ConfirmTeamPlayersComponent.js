@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import $ from "jquery";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import EventService from "../../services/EventService";
-import {SearchComponent} from "../searchComponent/SearchComponent";
-import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
-import {TeamNameComponent} from "../teamNameComponent/TeamNameComponent";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import EventService from "../../../services/EventService";
+import {SearchComponent} from "../../searchComponent/SearchComponent";
+import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
+import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 
 
 export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, funcs}) => {

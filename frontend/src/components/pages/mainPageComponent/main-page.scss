@@ -10,6 +10,19 @@
     flex-direction: column;
     gap: 24px;
   }
+  .title-component {
+    margin-bottom: 8px;
+    margin-top: 16px;
+  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+  .main-page-component {
+    .title-component {
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+  }
 }
 
 @media screen and (min-width: 375px) and (max-width: 743px){
@@ -18,6 +31,9 @@
     padding: 16px 0;
 
     .best-players-1280 {
+      display: none;
+    }
+    .title-component {
       display: none;
     }
   }

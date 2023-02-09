@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import EventService from "../../services/EventService";
-import DropDownComponent from "../dropDownComponent/DropDownComponent";
-import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
-import {popupCloseDropdown} from "../../utils/manageElements";
-import {InputComponent} from "../inputComponent/InputComponent";
-import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import EventService from "../../../services/EventService";
+import DropDownComponent from "../../dropDownComponent/DropDownComponent";
+import {CheckSliderComponent} from "../../checkSliderComponent/CheckSliderComponent";
+import {popupCloseDropdown} from "../../../utils/manageElements";
+import {InputComponent} from "../../inputComponent/InputComponent";
+import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 
 
 export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs}) {

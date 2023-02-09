@@ -1,6 +1,6 @@
 import {createEventUnAuthWindow, createEventWindow, event} from "../actions/actions";
 import {connect} from "react-redux";
-import BoardCreateEventComponent from "../../components/body/BoardCreateEventComponent";
+import BoardCreateEventComponent from "../../components/boardCreateEventComponent/BoardCreateEventComponent";
 
 
 const mapStateToProps = (state) => {

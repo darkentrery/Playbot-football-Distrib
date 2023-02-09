@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import $ from "jquery";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import {eventService} from "../../services/EventService";
-import {SearchComponent} from "../searchComponent/SearchComponent";
-import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import {eventService} from "../../../services/EventService";
+import {SearchComponent} from "../../searchComponent/SearchComponent";
+import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 
 
 export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs}) {

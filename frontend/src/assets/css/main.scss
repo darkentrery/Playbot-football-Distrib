@@ -26,6 +26,7 @@
 @import "../../components/eventItem376Component/event-item-376";
 @import "../../components/playerRowComponent/player-row";
 @import "../../components/searchCityComponent/search-city";
+@import "../../components/locationComponent/location";
 @import "../../components/top376Component/top-376";
 @import "../../components/profileAsideComponent/profile-aside";
 @import "../../components/emblemComponent/emblem";
@@ -51,6 +52,8 @@
 @import "../../components/loaderComponent/loader";
 @import "../../components/sameEventComponent/same-event";
 @import "../../components/profileTableBarComponent/profile-table-bar";
+@import "../../components/titleComponent/title";
+@import "../../components/boardCreateEventComponent/board-create-event";
 
 //Popups
 @import "../../components/popups/signUpComponent/sign-up";
@@ -59,10 +62,10 @@
 @import "../../components/popups/createEventComponent/create-event";
 @import "../../components/popups/mobileFirstPageComponent/mobile-first-page";
 @import "../../components/popups/choiceCityComponent/choice-city";
-@import "confirm-players";
-@import "fill-regulation";
-@import "confirm-teams";
-@import "confirm-team-players";
+@import "../../components/popups/confirmPlayersComponent/confirm-players.scss";
+@import "../../components/popups/fillRegulationComponent/fill-regulation.scss";
+@import "../../components/popups/confirmTeamsComponent/confirm-teams.scss";
+@import "../../components/popups/confirmTeamPlayersComponent/confirm-team-players.scss";
 @import "../../components/popups/editEventComponent/edit-event.scss";
 @import "../../components/popups/updatePasswordComponent/update-password";
 @import "../../components/popups/showEmblemComponent/show-emblem";

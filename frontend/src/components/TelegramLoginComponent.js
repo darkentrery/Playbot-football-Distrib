@@ -53,12 +53,7 @@ export default function TelegramLoginComponent () {
             ref.current.appendChild(script);
         }
 
-        // ax.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"
-
-        return () => {
-            // ref.current.removeChild(script);
-            // ref.current.removeChild(func);
-        }
+        return () => {}
       }, []);
 
     return(

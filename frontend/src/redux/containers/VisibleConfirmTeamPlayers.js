@@ -7,7 +7,7 @@ import {
     hiddenMap,
     team, confirmTeamPlayersWindow
 } from "../actions/actions";
-import {ConfirmTeamPlayersComponent} from "../../components/popups/ConfirmTeamPlayersComponent";
+import {ConfirmTeamPlayersComponent} from "../../components/popups/confirmTeamPlayersComponent/ConfirmTeamPlayersComponent";
 
 
 const mapStateToProps = (state) => {

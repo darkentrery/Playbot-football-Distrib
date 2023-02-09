@@ -18,9 +18,9 @@ import VisibleCreateEventUnAuth from "./redux/containers/VisibleCreateEventUnAut
 import VisibleSuccessEditEvent from "./redux/containers/VisibleSuccessEditEvent";
 import VisibleEditEvent from "./redux/containers/VisibleEditEvent";
 import VisibleCancelEvent from "./redux/containers/VisibleCancelEvent";
-import FillRegulationComponent from "./components/popups/FillRegulationComponent";
-import ConfirmTeamsComponent from "./components/popups/ConfirmTeamsComponent";
-import ConfirmPlayersComponent from "./components/popups/ConfirmPlayersComponent";
+import FillRegulationComponent from "./components/popups/fillRegulationComponent/FillRegulationComponent";
+import ConfirmTeamsComponent from "./components/popups/confirmTeamsComponent/ConfirmTeamsComponent";
+import ConfirmPlayersComponent from "./components/popups/confirmPlayersComponent/ConfirmPlayersComponent";
 import VisibleLeaveEvent from "./redux/containers/VisibleLeaveEvent";
 import VisibleUnAuthJoin from "./redux/containers/VisibleUnAuthJoin";
 import VisibleConfirmTeamPlayers from "./redux/containers/VisibleConfirmTeamPlayers";
@@ -176,7 +176,6 @@ function App({state, funcs}) {
                                          funcs={funcs} isIPhone={state.app.isIPhone}/>
                 <VisibleConfirmTeamPlayers/>
                 <VisibleEndGame/>
-
             </Router>
         </div>
     );

@@ -1,6 +1,6 @@
 import {confirmPlayersWindow, players, steps} from "../actions/actions";
 import {connect} from "react-redux";
-import ConfirmPlayersComponent from "../../components/popups/ConfirmPlayersComponent";
+import ConfirmPlayersComponent from "../../components/popups/confirmPlayersComponent/ConfirmPlayersComponent";
 
 
 const mapStateToProps = (state) => {

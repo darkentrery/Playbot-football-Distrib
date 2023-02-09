@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import EventService from "../../services/EventService";
-import {ReglamentComponent} from "../reglamentComponent/ReglamentComponent";
-import {getMinutesStr} from "../../utils/dates";
-import {TeamNameComponent} from "../teamNameComponent/TeamNameComponent";
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import EventService from "../../../services/EventService";
+import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
+import {getMinutesStr} from "../../../utils/dates";
+import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 
 
 export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs}) {

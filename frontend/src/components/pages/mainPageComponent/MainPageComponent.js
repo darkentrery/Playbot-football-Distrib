@@ -1,6 +1,6 @@
-import TitleComponent from "../../body/TitleComponent";
+import {TitleComponent} from "../../titleComponent/TitleComponent";
 import React, {useEffect, useState} from "react";
-import LocationComponent from "../../body/LocationComponent";
+import LocationComponent from "../../locationComponent/LocationComponent";
 import EventsComponent from "../../eventsComponent/EventsComponent";
 import {BestPlayersComponent} from "../../bestPlayersComponent/BestPlayersComponent";
 import VisibleBoardCreateEvent from "../../../redux/containers/VisibleBoardCreateEvent";

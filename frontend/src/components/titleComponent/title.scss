@@ -1,0 +1,26 @@
+.title-component {
+  display: flex;
+  align-items: center;
+  flex: 0 0 29px;
+  gap: 24px;
+
+  .t-2 {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 4px;
+
+    span {
+      flex: 1 1 auto;
+      white-space: nowrap;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .orange-right-arrow-icon {
+      flex: 0 0 24px;
+      height: 24px;
+    }
+  }
+}

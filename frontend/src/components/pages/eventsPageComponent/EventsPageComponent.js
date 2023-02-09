@@ -1,4 +1,4 @@
-import LocationComponent from "../../body/LocationComponent";
+import LocationComponent from "../../locationComponent/LocationComponent";
 import EventsComponent from "../../eventsComponent/EventsComponent";
 import VisibleMainWrapper from "../../../redux/containers/VisibleMainWrapper";
 
