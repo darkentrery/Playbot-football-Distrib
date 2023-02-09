@@ -69,6 +69,13 @@ function App({state, funcs}) {
     //     lastY = event.touches[0].clientY;
     // },{passive: false});
 
+    const showNotice = () => {
+        let notice = new Notification("fff?", {
+            tag: "mail",
+            body: "wait",
+        })
+    }
+
     useEffect(() => {
         console.log(state)
         if (firstRequest) {
@@ -76,6 +83,21 @@ function App({state, funcs}) {
             authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
                 if (response.status == 200) {
                     funcs.setAuth(true, response.data);
+
+                    // if ("Notification" in window) {
+                    //     if (Notification.permission === "granted") {
+                    //         console.log(1)
+                    //         setTimeout(showNotice, 2000);
+                    //     } else if (Notification.permission !== "denied") {
+                    //         Notification.requestPermission((permission) => {
+                    //             console.log(permission)
+                    //             if (Notification.permission === "granted") {
+                    //                 console.log(2)
+                    //                 setTimeout(showNotice, 2000);
+                    //             }
+                    //         })
+                    //     }
+                    // }
                 } else {
                     funcs.setAuth(false, false);
                     funcs.openMobileFirstPage();
