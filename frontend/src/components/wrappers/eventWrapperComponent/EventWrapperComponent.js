@@ -16,7 +16,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
         eventService.getEvent(pk).then((response) => {
             funcs.setEvent(response.data.event);
         })
-    }, [pk])
+    }, [pk]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (event) {

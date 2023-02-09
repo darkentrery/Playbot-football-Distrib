@@ -47,7 +47,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
             setPlayers1(array1);
             if (!teamName) setTeamName(team.name);
         }
-    }, [isOpen, team, event])
+    }, [isOpen, team, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         let array = [];
@@ -55,7 +55,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
             if (players2.includes(item.username)) array.push(item);
         })
         setPlayersView(array);
-    }, [players2])
+    }, [players2]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const closeWindow = () => {
