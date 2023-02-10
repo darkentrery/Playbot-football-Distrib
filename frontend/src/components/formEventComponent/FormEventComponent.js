@@ -183,7 +183,12 @@ export const FormEventComponent = ({
 
     const sendForm = async () => {
         if (name && date && time && address && city && point && (!isPaid || isPaid && price) && format) {
-            onClick(data);
+            if (new Date(`${date}T${time}`) > Date.now()) {
+                onClick(data);
+            } else {
+                setDateError("Выберите правильное время!");
+                setTimeError("Выберите правильное время!");
+            }
         }
         if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
