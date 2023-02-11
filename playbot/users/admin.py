@@ -94,4 +94,5 @@ class RankHistoryAdmin(admin.ModelAdmin):
         "user",
         "rank",
         "create",
+        "event",
     ]

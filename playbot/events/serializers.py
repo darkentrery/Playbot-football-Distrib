@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
                   "count_goals", "date_joined", "first_name", "gender", "last_name", "loss", "phone_number", "photo",
                   "position_1", "position_2", "rank", "ranking_place", "telegram_id", "total_time",
                   "wins", "wins_percent"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class EventPlayerSerializer(serializers.ModelSerializer):
@@ -29,8 +29,8 @@ class EventPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EventPlayer
-        fields = ["player",]
-        read_only_field = fields
+        fields = ["player", "played", "wins", "do_goals", "delta_rank"]
+        read_only_fields = fields
 
 
 class EventQueueSerializer(serializers.ModelSerializer):
@@ -39,14 +39,14 @@ class EventQueueSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventQueue
         fields = ["id", "player", "number"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class EventStepSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventStep
         fields = ["id", "step", "complete"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class TeamPlayerSerializer(serializers.ModelSerializer):
@@ -55,7 +55,7 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamPlayer
         fields = ["player",]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class TeamSerializer(serializers.ModelSerializer):
@@ -72,7 +72,7 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = ["id", "name", "count_players", "number", "wins", "loss", "nothing", "played", "scores", "do_goals",
                   "miss_goals", "team_players"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class GoalSerializer(serializers.ModelSerializer):
@@ -82,7 +82,7 @@ class GoalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goal
         fields = ["id", "team", "player", "time", "game_time", "score_my", "score_other"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class CreateGoalSerializer(serializers.ModelSerializer):
@@ -99,7 +99,7 @@ class GamePeriodSerializer(serializers.ModelSerializer):
     class Meta:
         model = GamePeriod
         fields = ["id", "time_begin", "time_end", "duration"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class EventGameSerializer(serializers.ModelSerializer):
@@ -117,7 +117,7 @@ class EventGameSerializer(serializers.ModelSerializer):
         model = EventGame
         fields = ["id", "team_1", "team_2", "time_begin", "time_end", "number", "goals", "current_duration", "rest_time",
                   "is_play", "score_1", "score_2", "result_1", "result_2", "game_periods"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class EditTeamNameSerializer(serializers.ModelSerializer):
@@ -130,35 +130,35 @@ class CancelReasonsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CancelReasons
         fields = ["id", "name"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class FormatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Format
         fields = ["id", "name", "count", "rate"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class DistributionMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = DistributionMethod
         fields = ["id", "name"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class DurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Duration
         fields = ["id", "name", "duration"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class CountCirclesSerializer(serializers.ModelSerializer):
     class Meta:
         model = CountCircles
         fields = ["id", "name", "count"]
-        read_only_field = fields
+        read_only_fields = fields
 
 
 class CreateEventSerializer(serializers.ModelSerializer):

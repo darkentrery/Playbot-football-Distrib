@@ -167,6 +167,7 @@ class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")
     rank = models.FloatField(_("Rank"), default=5)
     create = models.DateTimeField(_("Time Create"), default=timezone.now)
+    event = models.ForeignKey("events.Event", on_delete=models.CASCADE, related_name="ranks_history", blank=True, null=True)
 
     class Meta:
         ordering = ["create",]

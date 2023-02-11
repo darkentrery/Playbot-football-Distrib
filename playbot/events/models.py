@@ -261,6 +261,45 @@ class EventPlayer(models.Model):
     def __str__(self):
         return f"{self.player.username} - {self.event.name}"
 
+    def get_team(self):
+        team_players = self.player.team_players.filter(team__event=self.event)
+        if team_players.exists():
+            return team_players.first().team
+
+    @property
+    def played(self):
+        played = 0
+        team = self.get_team()
+        if team:
+            played = team.played
+        return played
+
+    @property
+    def wins(self):
+        wins = 0
+        team = self.get_team()
+        if team:
+            wins = team.wins
+        return wins
+
+    @property
+    def do_goals(self):
+        do_goals = 0
+        team = self.get_team()
+        if team:
+            do_goals = Goal.objects.filter(player=self.player, team=team).count()
+        return do_goals
+
+    @property
+    def delta_rank(self):
+        delta_rank = 0
+        getting_ranks = self.player.ranks_history.filter(event=self.event)
+        if getting_ranks.exists():
+            rank = getting_ranks.first()
+            last_rank = self.player.ranks_history.filter(create__lt=rank.create).last()
+            delta_rank = int(rank.rank - last_rank.rank)
+        return delta_rank
+
 
 class EventQueue(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_queues")

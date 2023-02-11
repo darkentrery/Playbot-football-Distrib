@@ -25,10 +25,11 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 ["Время матча:", `${duration} ${durationLabel}`],
                 ["Общее время:", `${totalDuration} ${totalDurationLabel}`]
             ]);
+            console.log(event)
         }
     }, [event])
 
-    const EventTable = ({event, children, title, className}) => {
+    const EventTable = ({children, title, className}) => {
         return (
             <div className={"table"}>
                 <div className={"table-head"}>
@@ -95,7 +96,9 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 <span className={`elem elem-5 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value5}</span>
-                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{typeof value6 === "number" ? Math.floor(value6) : value6}</span>
+                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
+                    {typeof value6 === "number" && value6 > 0 ? `+${value6}` : value6}
+                </span>
             </div>
         )
     }
@@ -104,7 +107,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         <VisibleEventWrapper>
             <div className={"general-information-component"}>
                 {!event && <LoaderComponent/>}
-                <EventTable event={event} title={"Регламент"} className={"black-reglament-icon"}>
+                <EventTable title={"Регламент"} className={"black-reglament-icon"}>
                     <div className={"reglament-row"}>
                         {headItems !== false && headItems.map((item, key) => (
                             <div className={"el"} key={key}>
@@ -114,7 +117,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                         ))}
                     </div>
                 </EventTable>
-                <EventTable event={event} title={"Игры"} className={"black-foot-with-ball-icon"}>
+                <EventTable title={"Игры"} className={"black-foot-with-ball-icon"}>
                     {event && event.event_games.map((game, key) => (
                         <GameRow
                             gray={game.time_end ? true : false}
@@ -128,7 +131,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                         />
                     ))}
                 </EventTable>
-                <EventTable event={event} title={"Турнирная таблица"} className={"black-event-table-icon"}>
+                <EventTable title={"Турнирная таблица"} className={"black-event-table-icon"}>
                     <TournamentRow gray={true} value1={"№"} value2={"Команда"} value3={"И"} value4={"В / Н / П"} value5={"З-П"} value6={"О"}/>
                     {event && event.teams.map((team, key) => (
                         <TournamentRow
@@ -143,16 +146,16 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                         />
                     ))}
                 </EventTable>
-                <EventTable event={event} title={"Игроки"} className={"socer-player-icon"}>
+                <EventTable title={"Игроки"} className={"socer-player-icon"}>
                     <PlayerRow gray={true} isPlayer={false} value1={"№"} value2={"Имя "} value3={"И"} value4={"П"} value5={"З"} value6={"Рейтинг"}/>
                     {event && event.event_player.map((player, key) => (
                         <PlayerRow
                             value1={key + 1}
                             value2={player.player.username}
-                            value3={player.player.all_games}
-                            value4={player.player.wins}
-                            value5={player.player.count_goals}
-                            value6={player.player.rank}
+                            value3={player.played}
+                            value4={player.wins}
+                            value5={player.do_goals}
+                            value6={player.delta_rank}
                             key={key}
                         />
                     ))}
