@@ -68,4 +68,17 @@ export const eventService = {
 		})
 		return isFavorite;
 	},
+
+	getCutUsername(name) {
+		let username = name.split(' ');
+		let newNames = [];
+		username.map((item) => {
+			if (item.length <= 12) {
+				newNames.push(item);
+			} else {
+				newNames.push(`${item.slice(0, 12)}...`);
+			}
+		})
+		return newNames.join(' ');
+	},
 }

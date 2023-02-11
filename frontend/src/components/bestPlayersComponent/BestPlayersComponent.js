@@ -3,6 +3,7 @@ import ProfileRoutes from "../../routes/ProfileRoutes";
 import {RankChartComponent} from "../rankChartComponent/RankChartComponent";
 import {useEffect, useState} from "react";
 import {LoaderComponent} from "../loaderComponent/LoaderComponent";
+import {eventService} from "../../services/EventService";
 
 
 export const BestPlayersComponent = ({players, loader}) => {
@@ -43,26 +44,12 @@ export const BestPlayersComponent = ({players, loader}) => {
     }, [flagSort, players])
 
     const PlayerRow = ({player, number}) => {
-        const [username, setUsername] = useState('');
-        useEffect(() => {
-            let username = player.username.split(' ');
-            let newNames = [];
-            username.map((item) => {
-                if (item.length <= 12) {
-                    newNames.push(item);
-                } else {
-                    newNames.push(`${item.slice(0, 12)}...`);
-                }
-            })
-            setUsername(newNames.join(' '));
-        }, [player])
-
         return (
             <Link className={"player"} to={ProfileRoutes.previewPlayerLink(player.id)}>
                 <div className={"elem elem-1"}>
                     <span className={"number black-400-13"}>{number + 1}.</span>
                     <div className={"icon player-avatar-icon"}></div>
-                    <span className={"black-400-13 name"}>{username}</span>
+                    <span className={"black-400-13 name"}>{eventService.getCutUsername(player.username)}</span>
                 </div>
                 <span className={"elem elem-2 black-400-13"}>
                     {Math.floor(player.rank)}

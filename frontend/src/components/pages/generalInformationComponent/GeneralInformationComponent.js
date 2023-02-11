@@ -4,6 +4,7 @@ import {getMinutesStr} from "../../../utils/dates";
 import {Link} from "react-router-dom";
 import EventRoutes from "../../../routes/EventRoutes";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import {eventService} from "../../../services/EventService";
 
 
 
@@ -84,27 +85,12 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
     }
 
     const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6}) => {
-        const [username, setUsername] = useState('');
-
-        useEffect(() => {
-            let username = value2.split(' ');
-            let newNames = [];
-            username.map((item) => {
-                if (item.length <= 12) {
-                    newNames.push(item);
-                } else {
-                    newNames.push(`${item.slice(0, 12)}...`);
-                }
-            })
-            setUsername(newNames.join(' '));
-        }, [value2])
-
         return (
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
                 <div className={"elem elem-2"}>
                     {isPlayer && <div className={"icon player-avatar-icon"}></div>}
-                    <span className={gray ? 'gray-400-13' : 'black-400-13'}>{isPlayer ? username : value2}</span>
+                    <span className={gray ? 'gray-400-13' : 'black-400-13'}>{isPlayer ? eventService.getCutUsername(value2) : value2}</span>
                 </div>
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
