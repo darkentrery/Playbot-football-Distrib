@@ -58,7 +58,8 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
     }
 
     const copyLink = () => {
-        window.navigator.clipboard.writeText(window.location.href);
+        // window.navigator.clipboard.writeText(`https://www.google.com/maps/@${event.address.lat},${event.address.lng},12z`);
+        window.navigator.clipboard.writeText(`https://www.google.com/maps/search/${event.address.lat},+${event.address.lng}?shorturl=1`);
         if (!isTooltip) {
             setIsTooltip(true);
             setTimeout(() => {

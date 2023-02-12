@@ -139,7 +139,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     return (
         <ReglamentComponent className={`confirm-team-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={3}
                             title={"Выбери состав"} clickBack={clickBack}>
-            {event && <>
+            {!!event && <>
                 <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
                 <TeamNameComponent className={"elem elem-5"} value={teamName} setValue={setTeamName}/>
                 <div className={"elem elem-6 scroll"}>
@@ -151,8 +151,9 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
                     </div>
                 ))}
                 </div>
-                <button className={`elem elem-7 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers} ref={buttonRef}>{
-                team && team.number < event.teams.length ? 'Следующая команда' : 'Далее'}</button>
+                <button className={`elem elem-7 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers} ref={buttonRef}>
+                    {team && team.number < event.teams.length ? 'Следующая команда' : 'Далее'}
+                </button>
             </>}
         </ReglamentComponent>
     )
