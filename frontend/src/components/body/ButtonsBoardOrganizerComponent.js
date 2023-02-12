@@ -6,11 +6,11 @@ import {eventService} from "../../services/EventService";
 
 
 export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
-    let date = new Date(event.date);
-    let activatDate = date.setHours(date.getHours() - 1)
+    let date = new Date(`${event.date}T${event.time_begin}`);
+    date.setHours(date.getHours() - 1);
 
     const toConfirmPlayers = (e) => {
-        if (Date.now() >= activatDate) {
+        if (new Date() >= date) {
             funcs.openConfirmPlayers();
             e.target.blur();
             authDecoratorWithoutLogin(eventService.toConfirmPlayers, event).then((response) => {
@@ -39,10 +39,6 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
         funcs.removeMap();
     }
 
-    const toResults = () => {
-
-    }
-
     const repeatEvent = () => {
         funcs.openRepeatEvent();
         funcs.removeMap();
@@ -51,7 +47,7 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
     return (
         <div className={"elem elem-4"}>
             {!event.cancel && event.event_step.length === 0 && !event.time_end &&
-                <button className={`el el-1 btn ${Date.now() < activatDate ? 'disabled' : ''}`} onClick={toConfirmPlayers}>Начать игру</button>}
+                <button className={`el el-1 btn ${new Date() < date ? 'disabled' : ''}`} onClick={toConfirmPlayers}>Начать игру</button>}
             {!event.cancel && event.event_step.length === 0 && !event.time_end &&
                 <button className={"el el-2 btn-second"} onClick={toCancelEvent}>Отменить игру</button>}
             {!event.cancel && event.event_step.length === 1 && !event.event_step[0]["complete"] && !event.time_end &&

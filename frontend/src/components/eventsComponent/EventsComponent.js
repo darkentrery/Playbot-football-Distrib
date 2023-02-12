@@ -18,25 +18,23 @@ export default function EventsComponent ({city, user}) {
         eventService.getEvents(user && user.city ? user.city : city).then((response) => {
             if (response.status === 200) {
                 let data = [];
-                response.data.map((item, key) => {
+                response.data.forEach((item, key) => {
                     if (key === 0 || item.date !== response.data[key - 1].date) {
                         data.push({date: item.date, events: []});
                     }
                 })
-                response.data.map((item) => {
-                    data.map((row) => {
+                response.data.forEach((item) => {
+                    data.forEach((row) => {
                         let now = new Date(Date.now());
                         let eventDate = new Date(row.date);
-                        console.log(eventDate)
                         eventDate.setDate(eventDate.getDate() + 1);
-                        console.log(now, eventDate)
                         if (row.date === item.date && !item.cancel && now < eventDate) {
                             row.events.push(item);
                         }
                     })
                 })
                 let newData = [];
-                data.map((row) => {
+                data.forEach((row) => {
                     if (row.events.length) {
                         row.events.sort((a, b) => {
                             if (a.is_end && !b.is_end) {

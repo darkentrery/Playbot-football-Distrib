@@ -13,12 +13,12 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
     useEffect(() => {
         if (event && event.event_player) {
             let arrray = [];
-            event.event_player.map((item) => {
+            event.event_player.forEach((item) => {
                 arrray.push(item.player.id);
             })
             setIds(arrray);
             arrray = [];
-            event.event_queues.map((item) => {
+            event.event_queues.forEach((item) => {
                 arrray.push(item.player.id);
             })
             setIdsQueue(arrray);
@@ -39,10 +39,6 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
     const leaveEvent = () => {
         funcs.removeMap();
         funcs.openLeaveEvent();
-    }
-
-    const toResults = () => {
-
     }
 
     return (

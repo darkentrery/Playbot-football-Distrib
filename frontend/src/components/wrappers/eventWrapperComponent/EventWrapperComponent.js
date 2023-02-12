@@ -24,7 +24,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
             if (event.event_games.length !== 0) setGameId(event.event_games[0].id);
             if (event.time_end) setIsEndEvent(true);
             for (let game of event.event_games) {
-                if (game.time_end) setGameId(game.id);
+                if (game.time_begin) setGameId(game.id);
             }
             // if (currentId) {
             //     event.event_games.map((g) => {

@@ -8,6 +8,7 @@ import {EventItem376Component} from "../../eventItem376Component/EventItem376Com
 import {Top376Component} from "../../top376Component/Top376Component";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
+import {eventService} from "../../../services/EventService";
 
 
 export const PreviewPlayerComponent = ({
@@ -112,7 +113,7 @@ export const PreviewPlayerComponent = ({
                 {player.same_players.map((user, key) => (
                     <Link className={"same-player"} key={key} to={ProfileRoutes.previewPlayerLink(user.id)}>
                         <div className={"elem-1"}>
-                            <span className={"black-700-13"}>{user.username}</span>
+                            <span className={"black-700-13"}>{eventService.getCutUsername(player.username)}</span>
                             <span className={"black-400-13"}>{user.position_1 ? user.position_1.name : ''}</span>
                         </div>
                         <span className={"elem-2 black-400-13"}>{user.rank.toFixed(1).replace('.', ',')}</span>

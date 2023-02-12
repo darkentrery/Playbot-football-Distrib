@@ -1,6 +1,7 @@
 import datetime
 
 from django.utils import timezone
+from loguru import logger
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -308,11 +309,16 @@ class BeginEventGameView(APIView):
 class EndEventView(APIView):
     permission_classes = (IsAuthenticated,)
 
+    @logger.catch
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
         if event.organizer == request.user:
             event.time_end = timezone.now().time()
             event.save()
+            if event.event_games.filter(time_end=None).exists():
+                game = event.event_games.filter(time_end=None).last()
+                game.time_end = event.time_end
+                game.save()
             for player in event.event_player.all():
                 rank = get_next_rank(player.player, event)
                 RankHistory.objects.create(user=player.player, rank=rank, event=event)
