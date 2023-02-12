@@ -4,16 +4,21 @@ from playbot.cities.models import City, Address
 from playbot.cities.serializers import CitySerializer, AddressSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod
-from playbot.users.models import User
+from playbot.users.models import User, Position
+
+
+class PositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Position
+        fields = ["id", "name", "acronym"]
+        read_only_fields = fields
 
 
 class UserSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
-    # all_games = serializers.IntegerField(read_only=True)
-    # rank = serializers.FloatField(read_only=True)
-    # wins = serializers.IntegerField(read_only=True)
-    # count_goals = serializers.IntegerField(read_only=True)
+    position_1 = PositionSerializer(read_only=True)
+    position_2 = PositionSerializer(read_only=True)
 
     class Meta:
         model = User

@@ -113,7 +113,7 @@ export const PreviewPlayerComponent = ({
                     <Link className={"same-player"} key={key} to={ProfileRoutes.previewPlayerLink(user.id)}>
                         <div className={"elem-1"}>
                             <span className={"black-700-13"}>{user.username}</span>
-                            <span className={"black-400-13"}>Наталья Разломова</span>
+                            <span className={"black-400-13"}>{user.position_1 ? user.position_1.name : ''}</span>
                         </div>
                         <span className={"elem-2 black-400-13"}>{user.rank.toFixed(1).replace('.', ',')}</span>
                     </Link>
