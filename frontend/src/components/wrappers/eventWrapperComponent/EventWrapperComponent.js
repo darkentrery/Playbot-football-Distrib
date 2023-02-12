@@ -8,6 +8,7 @@ import {eventService} from "../../../services/EventService";
 
 export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     const [gameId, setGameId] = useState(0);
+    const [isEndEvent, setIsEndEvent] = useState(false);
     const params = useParams();
     const pk = params.pk;
     const currentId = params.gameId;
@@ -21,6 +22,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     useEffect(() => {
         if (event) {
             if (event.event_games.length !== 0) setGameId(event.event_games[0].id);
+            if (event.time_end) setIsEndEvent(true);
             for (let game of event.event_games) {
                 if (game.time_end) setGameId(game.id);
             }
@@ -33,6 +35,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     }, [event, currentId])
 
     const endEvent = () => {
+        setIsEndEvent(true);
         authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
             if (response.status === 200) {
                 console.log(response.status)
@@ -56,8 +59,9 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                     <div className={"note-orange-icon"}></div>
                     <span className={"orange-400-14 link"}>Включить Playbot,FM </span>
                 </div>}
-                {!window.location.pathname.includes('teams') && event && !event.time_end &&
+                {!window.location.pathname.includes('teams') && event && !event.time_end && !isEndEvent &&
                     <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span>}
+                {isEndEvent && <Link className={"elem elem-3 gray-400-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}
             </div>
             <div className={"event-wrapper-body"}>
                 <div className={"navigate-bar-1280"}>
@@ -78,7 +82,8 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
 
                 <div className={"navigate-bar-376"}>
                     <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}>
-                        {game && game.time_begin && !game.time_end ? <span className={"black-500-14"} onClick={endGame}>Завершить игру</span> : ''}
+                        {game && game.time_begin && !game.time_end && !isEndEvent ? <span className={"black-500-14"} onClick={endGame}>Завершить игру</span> : ''}
+                        {isEndEvent && <Link className={"black-500-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}
                     </Top376Component>
                     <div className={"elem elem-2"}>
                         <Link

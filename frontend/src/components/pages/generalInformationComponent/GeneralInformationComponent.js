@@ -135,7 +135,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <TournamentRow gray={true} value1={"№"} value2={"Команда"} value3={"И"} value4={"В / Н / П"} value5={"З-П"} value6={"О"}/>
                     {event && event.teams.map((team, key) => (
                         <TournamentRow
-                            value1={team.number}
+                            value1={key + 1}
                             value2={team.name}
                             value3={team.played}
                             value4={`${team.wins} / ${team.nothing} / ${team.loss}`}
