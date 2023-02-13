@@ -28,6 +28,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
                 }, 1000)
             }
             if (isFavorite) {
+                setIsFavorite(false);
                 authDecoratorWithoutLogin(eventService.removeFromFavorites, {'id': event.id}).then((response) => {
                     console.log(response)
                     if (response.status === 200) {
@@ -35,6 +36,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
                     }
                 })
             } else {
+                setIsFavorite(true);
                 authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
                     console.log(response)
                     if (response.status === 200) {

@@ -16,11 +16,12 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const [allPlayed, setAllPlayed] = useState(0);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
+    const [block, setBlock] = useState(false);
 
     useEffect(() => {
         if (event) {
-            event.event_games.map((g) => {
-                if (g.id == gameId) {
+            event.event_games.forEach((g) => {
+                if (g.id.toString() === gameId) {
                     funcs.setGame(g);
                     let seconds = g.rest_time % 60;
                     let minutes = ((g.rest_time - seconds) / 60).toString();
@@ -36,7 +37,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
         setAllPlayed(0);
         if (game) {
             let arr = [];
-            event.event_games.map((g) => {
+            event.event_games.forEach((g) => {
                 if (!g.time_end) arr.push(g);
             })
             if (!arr.length) {
@@ -46,7 +47,6 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             }
         }
     }, [game])
-
 
     const ClockDigit = ({value}) => {
         return (
@@ -59,14 +59,15 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     useEffect(() => {
         if (game && game.is_play && !game.time_end) {
             let start = Date.now();
-            let interval = setInterval(() => {
+                let interval = setInterval(() => {
                 let timePassed = Date.now() - start;
                 if (timePassed >= 1000 && restTime - 1 >= 0) {
                     let seconds = (restTime - 1) % 60;
                     let minutes = (((restTime - 1) - seconds) / 60).toString();
                     setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
                     setRestTime(restTime - 1);
-                } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id) {
+                } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id && !game.time_end) {
+                    setBlock(true);
                     authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
                         console.log(response.data)
                         if (response.status === 200) {
@@ -74,6 +75,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                             funcs.setEvent(response.data.event);
                         }
                     })
+                    clearInterval(interval);
                 }
             }, 1000);
             return () => clearInterval(interval);
@@ -81,41 +83,52 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     })
 
     const beginGamePeriod = () => {
-        authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
-            console.log(response.data)
-            if (response.status === 200) {
-                funcs.setGame(response.data.game);
-                funcs.setEvent(response.data.event);
-            }
-        })
+        if (!block) {
+            setBlock(true);
+            authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
+                console.log(response.data)
+                if (response.status === 200) {
+                    setBlock(false);
+                    funcs.setGame(response.data.game);
+                    funcs.setEvent(response.data.event);
+                }
+            })
+        }
     }
 
     const endGamePeriod = () => {
-        authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
-            console.log(response.data)
-            if (response.status === 200) {
-                funcs.setGame(response.data.game);
-                funcs.setEvent(response.data.event);
-            }
-        })
+        if (!block) {
+            setBlock(true);
+            authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
+                console.log(response.data)
+                if (response.status === 200) {
+                    setBlock(false);
+                    funcs.setGame(response.data.game);
+                    funcs.setEvent(response.data.event);
+                }
+            })
+        }
     }
 
     const createGoal = (teamId, player=false) => {
-        let data = {
-            game: game.id,
-            team: teamId,
-            time: new Date().toISOString(),
-            game_time: event.duration.duration * 60 - restTime,
-        }
-        if (player) data.player = player;
-        authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
-            console.log(response.data)
-            if (response.status === 200) {
-                funcs.setGame(response.data.game);
-                funcs.setEvent(response.data.event);
+        if (!block) {
+            setBlock(true);
+            let data = {
+                game: game.id,
+                team: teamId,
+                time: new Date().toISOString(),
+                game_time: event.duration.duration * 60 - restTime,
             }
-        })
-
+            if (player) data.player = player;
+            authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
+                console.log(response.data)
+                if (response.status === 200) {
+                    setBlock(false);
+                    funcs.setGame(response.data.game);
+                    funcs.setEvent(response.data.event);
+                }
+            })
+        }
     }
 
     const goal1 = () => {
@@ -169,20 +182,20 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
         return (
             <div className={`goal-row ${goal.team.id === teamId1 ? 'goal-row-1' : 'goal-row-2'}`}>
                 {goal.team.id === teamId1 && <>
-                    <div className={"icon player-avatar-icon"}></div>
-                    <div className={"gray-line"}></div>
+                    {goal.player !== null && <div className={"icon player-avatar-icon"}></div>}
+                    {goal.player !== null && <div className={"gray-line"}></div>}
                     <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
                     <div className={"black-ball-icon"}></div>
                     {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
-                    <span className={"black-400-13"}>({minutes})'</span>
+                    <span className={"black-400-13"}>({minutes}' {seconds}'')</span>
                 </>}
                 {goal.team.id === teamId2 && <>
-                    <span className={"black-400-13"}>({minutes})'</span>
+                    <span className={"black-400-13"}>({minutes}' {seconds}'')</span>
                     {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
                     <div className={"black-ball-icon"}></div>
                     <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
-                    <div className={"gray-line"}></div>
-                    <div className={"icon player-avatar-icon"}></div>
+                    {goal.player !== null && <div className={"gray-line"}></div>}
+                    {goal.player !== null && <div className={"icon player-avatar-icon"}></div>}
                 </>}
             </div>
         )
@@ -213,20 +226,20 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                         <span className={"el-1 black-400-12-italic"}>Все матчи сыграны. Результаты сохранены</span>
                     </div>}
                     <div className={"elem elem-3"}>
-                        <div className={"btn-block block-1"}>
-                            <span className={`btn white-600-14 ${game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal1 : () => {}}>
+                        <div className={`btn-block block-1`}>
+                            <span className={`btn white-600-14 ${game.is_play && !block ? '' : 'lock'}`} onClick={game.is_play ? goal1 : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
                             <PlayersList className={"player-list-1"} isOpen={isOpen1} team={game.team_1} setIsOpen={setIsOpen1}/>
                         </div>
-                        {game.is_play && <span className={`btn white-600-14`} onClick={endGamePeriod}>
+                        {game.is_play && <span className={`btn white-600-14 ${block ? 'lock' : ''}`} onClick={endGamePeriod}>
                             <div className={"icon white-pause-icon"}></div>
                         </span>}
-                        {!game.is_play && <span className={`btn white-600-14 ${game.time_end ? 'lock' : ''}`} onClick={game.time_end ? () => {} : beginGamePeriod}>
+                        {!game.is_play && <span className={`btn white-600-14 ${game.time_end || block ? 'lock' : ''}`} onClick={game.time_end ? () => {} : beginGamePeriod}>
                             <div className={"icon white-play-icon"}></div>
                         </span>}
-                        <div className={"btn-block block-2"}>
-                            <span className={`btn white-600-14 ${game.time_begin && game.is_play ? '' : 'lock'}`} onClick={game.is_play ? goal2 : () => {}}>
+                        <div className={`btn-block block-2`}>
+                            <span className={`btn white-600-14 ${game.is_play && !block ? '' : 'lock'}`} onClick={game.is_play ? goal2 : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
                             <PlayersList className={"player-list-2"} isOpen={isOpen2} team={game.team_2} setIsOpen={setIsOpen2}/>

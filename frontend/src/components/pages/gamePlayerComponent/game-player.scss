@@ -91,15 +91,12 @@
           &.hidden {
             display: none;
           }
-
           &.player-list-1 {
             left: 0;
           }
-
           &.player-list-2 {
             right: 0;
           }
-
           .list {
             display: flex;
             flex-direction: column;
