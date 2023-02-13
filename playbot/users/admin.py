@@ -22,6 +22,9 @@ class CustomUserAdmin(UserAdmin):
         "telegram_id",
         "is_superuser",
         "is_active",
+        "city",
+        "gender",
+        "position_1",
     ]
 
     fieldsets = (

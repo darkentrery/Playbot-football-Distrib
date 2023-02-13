@@ -77,10 +77,11 @@ class EventAdmin(admin.ModelAdmin):
         "time_end",
         "count_players",
         "address",
-        # "geo",
         "cancel",
         "cancel_reasons",
         "format",
+        "price",
+        "organizer",
     ]
     inlines = [
         TeamInline,

@@ -96,6 +96,7 @@ class Event(models.Model, CreateNotice):
     currency = models.CharField(_("Currency"), max_length=50, default="RUB")
 
     class Meta:
+        ordering = ["date", "time_begin"]
         verbose_name = "Event"
         verbose_name_plural = "Events"
 
@@ -254,6 +255,7 @@ class EventPlayer(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_player")
 
     class Meta:
+        ordering = ["event__date", "event__time_begin"]
         unique_together = ["player", "event"]
         verbose_name = "Event Player"
         verbose_name_plural = "Events Players"

@@ -18,8 +18,34 @@ export const ProfileMyEventsPageComponent = ({
     funcs,
 }) => {
     const [isOrganizer, setIsOrganizer] = useState(false);
-    const types = ["Все события", "Игроки",]
-    const [favorites, setFavorites] = useState(types[0]);
+    const types = ["Все события", "Предстоящие", "Прошедшие"]
+    const [type, setType] = useState(types[0]);
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        if (player) {
+            let array = [];
+            let array2 = player.event;
+            if (!isOrganizer) {
+                array2 = [];
+                player.event_player.forEach(event => {
+                    array2.push(event.event);
+                })
+            }
+            if (type === types[0]) {
+                array = [...array2];
+            } else if (type === types[1]) {
+                array2.forEach(event => {
+                    if (!event.is_end) array.push(event);
+                })
+            } else if (type === types[2]) {
+                array2.forEach(event => {
+                    if (event.is_end) array.push(event);
+                })
+            }
+            setEvents(array);
+        }
+    }, [isOrganizer, type, player])
 
     const EventRow1280 = ({event}) => {
         const [address, setAddress] = useState('');
@@ -56,7 +82,7 @@ export const ProfileMyEventsPageComponent = ({
             <div className={`profile-my-events-page-component ${!player || !user ? 'loader' : ''}`}>
                 {user && player && <>
                    <Profile376MenuComponent pk={user.id}/>
-                   <ProfileTableBarComponent value={favorites} setValue={setFavorites} values={types}>
+                   <ProfileTableBarComponent value={type} setValue={setType} values={types}>
                        <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer}
                                           sizingClass={"elem-2"}/>
                    </ProfileTableBarComponent>
@@ -72,18 +98,12 @@ export const ProfileMyEventsPageComponent = ({
                         <div className={"elem elem-2 avatar-icon disabled"}></div>
                         <div className={"elem elem-3 gray-cup-icon"}></div>
                     </div>
-                    {player && <div className={"table-body"}>
-                        {!isOrganizer && player.event_player.length !== 0 && player.event_player.map((event, key) => (
-                            <EventRow event={event.event} key={key}/>)
-                        )}
-                        {isOrganizer && player.event.length !== 0 && player.event.map((event, key) => (
+                    <div className={"table-body"}>
+                        {!!events.length && events.map((event, key) => (
                             <EventRow event={event} key={key}/>
                         ))}
-                        {!isOrganizer && player.event_player.length === 0 &&
-                            <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
-                        {isOrganizer && player.event.length === 0 &&
-                            <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
-                    </div>}
+                        {!events.length && <NoEventsProfileComponent openCreateEvent={funcs.openCreateEvent}/>}
+                    </div>
                 </>}
                 {(!player || !user) && <LoaderComponent/>}
             </div>
