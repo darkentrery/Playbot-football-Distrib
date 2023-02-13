@@ -155,6 +155,14 @@ class Event(models.Model, CreateNotice):
 
         return is_end
 
+    @property
+    def is_begin(self):
+        is_begin = False
+        if self.event_games.exists():
+            if self.event_games.all().first().time_begin:
+                is_begin = True
+        return is_begin
+
 
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)

@@ -211,7 +211,7 @@ class EventSerializer(serializers.ModelSerializer):
             "cancel_reasons", "format", "distribution_method", "notice", "city", "is_player", "organizer",
             "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
             "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
-            "event_step", "teams", "event_games", "event_queues", "is_end",]
+            "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin",]
         read_only_fields = fields
 
     def get_teams(self, instance):
