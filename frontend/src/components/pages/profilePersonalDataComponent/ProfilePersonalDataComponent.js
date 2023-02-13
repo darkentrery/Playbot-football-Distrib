@@ -99,7 +99,11 @@ export const ProfilePersonalDataComponent = ({
     }, [player])
 
     const inputAbout = (e) => {
-        setAboutSelf(e.target.value);
+        if (e.target.value.length > 100) {
+            setAboutSelf(e.target.value.slice(0, 100));
+        } else {
+            setAboutSelf(e.target.value);
+        }
     }
 
     const updatePassword = () => {
