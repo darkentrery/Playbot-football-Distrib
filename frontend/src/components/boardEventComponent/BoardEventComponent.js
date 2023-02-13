@@ -12,6 +12,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
     const [date, setDate] = useState(new Date());
     const [isTooltip, setIsTooltip] = useState(false);
     const [tooltip, setTooltip] = useState(false);
+    const [block, setBlock] = useState(false);
 
     useEffect(() => {
         if (event) setDate(new Date(event.date));
@@ -19,7 +20,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
     }, [event, user])
 
     const addToFavorites = () => {
-        if (user.isAuth) {
+        if (user.isAuth && !block) {
             if (!isTooltip) {
                 setIsTooltip(true);
                 setTooltip(isFavorite ? 'Удалено из избранного!' : 'Добавлено в избранное!')
@@ -27,12 +28,14 @@ export default function BoardEventComponent ({event, user, funcs}) {
                     setIsTooltip(false);
                 }, 1000)
             }
+            setBlock(true);
             if (isFavorite) {
                 setIsFavorite(false);
                 authDecoratorWithoutLogin(eventService.removeFromFavorites, {'id': event.id}).then((response) => {
                     console.log(response)
                     if (response.status === 200) {
                         funcs.setAuth(true, response.data);
+                        setBlock(false);
                     }
                 })
             } else {
@@ -41,6 +44,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
                     console.log(response)
                     if (response.status === 200) {
                         funcs.setAuth(true, response.data);
+                        setBlock(false);
                     }
                 })
             }

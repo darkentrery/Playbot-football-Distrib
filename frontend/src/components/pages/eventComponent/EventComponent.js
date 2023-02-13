@@ -19,12 +19,13 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isTooltip, setIsTooltip] = useState(false);
     const [tooltip, setTooltip] = useState(false);
+    const [block, setBlock] = useState(false);
 
     useEffect(() => {
         funcs.setEvent(false);
         funcs.setSameEvents([]);
         funcs.setTeam(false);
-        let isSubscribe = true;
+        // let isSubscribe = true;
         eventService.getEvent(pk).then((response) => {
             console.log(response.data.event)
             funcs.setEvent(response.data.event);
@@ -39,8 +40,8 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                 }
             }
         })
-        return () => isSubscribe = false;
-    }, [pk])
+        // return () => isSubscribe = false;
+    }, [pk]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (event && user.user) {
@@ -58,7 +59,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     }
 
     const addToFavorites = () => {
-        if (user.isAuth) {
+        if (user.isAuth && !block) {
             if (!isTooltip) {
                 setIsTooltip(true);
                 setTooltip(isFavorite ? 'Удалено из избранного!' : 'Добавлено в избранное!')
@@ -66,18 +67,23 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                     setIsTooltip(false);
                 }, 1000)
             }
+            setBlock(true);
             if (isFavorite) {
+                setIsFavorite(false);
                 authDecoratorWithoutLogin(eventService.removeFromFavorites, {'id': event.id}).then((response) => {
                     console.log(response)
                     if (response.status === 200) {
                         funcs.setAuth(true, response.data);
+                        setBlock(false);
                     }
                 })
             } else {
+                setIsFavorite(true);
                 authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
                     console.log(response)
                     if (response.status === 200) {
                         funcs.setAuth(true, response.data);
+                        setBlock(false);
                     }
                 })
             }

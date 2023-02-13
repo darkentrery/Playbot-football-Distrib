@@ -31,7 +31,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             })
         }
         console.log(game)
-    }, [gameId, event])
+    }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         setAllPlayed(0);
@@ -46,7 +46,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                 setAllPlayed(1);
             }
         }
-    }, [game])
+    }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const ClockDigit = ({value}) => {
         return (

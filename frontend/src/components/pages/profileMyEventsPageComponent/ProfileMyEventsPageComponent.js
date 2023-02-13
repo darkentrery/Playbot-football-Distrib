@@ -18,7 +18,7 @@ export const ProfileMyEventsPageComponent = ({
     funcs,
 }) => {
     const [isOrganizer, setIsOrganizer] = useState(false);
-    const types = ["Все события", "Предстоящие", "Прошедшие"]
+    const types = ["Все события", "Предстоящие", "Прошедшие"];
     const [type, setType] = useState(types[0]);
     const [events, setEvents] = useState([]);
 
@@ -45,7 +45,7 @@ export const ProfileMyEventsPageComponent = ({
             }
             setEvents(array);
         }
-    }, [isOrganizer, type, player])
+    }, [isOrganizer, type, player]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const EventRow1280 = ({event}) => {
         const [address, setAddress] = useState('');
