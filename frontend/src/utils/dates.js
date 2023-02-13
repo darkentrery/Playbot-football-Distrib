@@ -128,7 +128,9 @@ const getMinutesStr = (value) => {
 
 const getStringDate = (date) => {
     let newDate = new Date(date);
-    return `${newDate.getDate()}.${newDate.getMonth()}.${newDate.getFullYear().toString().slice(2,4)}`;
+    let day = newDate.getDate() > 9 ? newDate.getDate() : `0${newDate.getDate()}`;
+    let month = newDate.getMonth() > 9 ? newDate.getMonth() : `0${newDate.getMonth()}`;
+    return `${day}.${month}.${newDate.getFullYear().toString().slice(2,4)}`;
 }
 
 export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate};
