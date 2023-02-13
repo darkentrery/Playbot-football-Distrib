@@ -16,6 +16,7 @@ export const MainSearchComponent = ({
     const [events, setEvents] = useState([]);
     const [players, setPlayers] = useState([]);
     const [eventsView, setEventsView] = useState([]);
+    const [eventsPastView, setEventsPastView] = useState([]);
     const [playersView, setPlayersView] = useState([]);
     const ref = useRef()
 
@@ -30,7 +31,7 @@ export const MainSearchComponent = ({
             authService.getUsers().then((response) => {
                 if (response.status === 200) {
                     let array = [];
-                    response.data.map((player) => {
+                    response.data.forEach((player) => {
                         if (player.event_player.length) array.push(player);
                     })
                     setPlayers(array);
@@ -42,12 +43,20 @@ export const MainSearchComponent = ({
     const search = (e) => {
         let val = e.target.value;
         let array = [];
-        events.map((item, key) => {
-            if (item.name.toLowerCase().includes(val.toLowerCase())) array.push(item);
+        let arrayPast = [];
+        events.forEach((item) => {
+            if (item.name.toLowerCase().includes(val.toLowerCase())) {
+                if (item.is_end) {
+                    arrayPast.push(item);
+                } else {
+                    array.push(item);
+                }
+            }
         })
         setEventsView(array);
+        setEventsPastView(arrayPast);
         array = [];
-        players.map((item, key) => {
+        players.forEach((item) => {
             if (item.username.toLowerCase().includes(val.toLowerCase())) array.push(item);
         })
         setPlayersView(array);
@@ -67,13 +76,17 @@ export const MainSearchComponent = ({
             <input className={"search-field"} type="text" onChange={search} ref={ref}/>
             <div className={"btn-close"} onClick={() => setIsOpen(false)}></div>
             <div className={"orange-search-icon"}></div>
-            <div className={`dropdown-menu-wrapper ${playersView.length === 0 && eventsView.length === 0 || !ref.current.value ? 'hidden' : ''}`}>
+            <div className={`dropdown-menu-wrapper ${(!playersView.length && !eventsView.length && !eventsPastView.length) || !ref.current.value ? 'hidden' : ''}`}>
                 <div className={"dropdown-menu scroll"}>
-                    {eventsView.length > 0 && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ</div>}
+                    {!!eventsView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ</div>}
                     {eventsView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}
-                    {playersView.length > 0 && <div className={"dropdown-item label-item gray-400-13"}>ИГРОКИ</div>}
+                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>ПРОШЕДШИЕ СОБЫТИЯ</div>}
+                    {eventsPastView.map((event, key) => (
+                        <EventItem376Component event={event} key={key}/>
+                    ))}
+                    {!!playersView.length && <div className={"dropdown-item label-item gray-400-13"}>ИГРОКИ</div>}
                     {playersView.map((player, key) => (
                         <PlayerRowComponent player={player} key={key} className={"player-item"}/>
                     ))}

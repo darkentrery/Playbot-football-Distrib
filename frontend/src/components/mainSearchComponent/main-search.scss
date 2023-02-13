@@ -49,6 +49,7 @@
     justify-content: stretch;
     align-content: stretch;
     box-sizing: border-box;
+    z-index: 5;
 
     &.hidden {
       display: none;
