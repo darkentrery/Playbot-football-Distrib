@@ -17,6 +17,7 @@ export const MainSearchComponent = ({
     const [players, setPlayers] = useState([]);
     const [eventsView, setEventsView] = useState([]);
     const [eventsPastView, setEventsPastView] = useState([]);
+    const [eventsFutureView, setEventsFutureView] = useState([]);
     const [playersView, setPlayersView] = useState([]);
     const ref = useRef()
 
@@ -44,17 +45,21 @@ export const MainSearchComponent = ({
         let val = e.target.value;
         let array = [];
         let arrayPast = [];
+        let arrayFuture = [];
         events.forEach((item) => {
             if (item.name.toLowerCase().includes(val.toLowerCase())) {
                 if (item.is_end) {
                     arrayPast.push(item);
-                } else {
+                } else if (item.is_begin && !item.is_end) {
                     array.push(item);
+                } else {
+                    arrayFuture.push(item);
                 }
             }
         })
         setEventsView(array);
         setEventsPastView(arrayPast);
+        setEventsFutureView(arrayFuture);
         array = [];
         players.forEach((item) => {
             if (item.username.toLowerCase().includes(val.toLowerCase())) array.push(item);
@@ -67,6 +72,8 @@ export const MainSearchComponent = ({
             if (playersView.length !== 0 || eventsView.length !== 0) {
                 setPlayersView([]);
                 setEventsView([]);
+                setEventsFutureView([]);
+                setEventsPastView([]);
             }
         }
     })
@@ -78,11 +85,15 @@ export const MainSearchComponent = ({
             <div className={"orange-search-icon"}></div>
             <div className={`dropdown-menu-wrapper ${(!playersView.length && !eventsView.length && !eventsPastView.length) || !ref.current.value ? 'hidden' : ''}`}>
                 <div className={"dropdown-menu scroll"}>
-                    {!!eventsView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ</div>}
+                    {!!eventsView.length && <div className={"dropdown-item label-item gray-400-13"}>LIVE – идут в данный момент</div>}
                     {eventsView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}
-                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>ПРОШЕДШИЕ СОБЫТИЯ</div>}
+                    {!!eventsFutureView.length && <div className={"dropdown-item label-item gray-400-13"}>ПРЕДСТОЯЩИЕ</div>}
+                    {eventsFutureView.map((event, key) => (
+                        <EventItem376Component event={event} key={key}/>
+                    ))}
+                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>ЗАВЕРШЕННЫЕ</div>}
                     {eventsPastView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}

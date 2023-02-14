@@ -1,4 +1,7 @@
 from itertools import combinations
+
+from loguru import logger
+
 from playbot.events.models import Team, EventGame
 from playbot.notices.models import Notice, UserNotice
 from playbot.users.models import User
@@ -209,4 +212,6 @@ def get_next_rank(user, event):
 
     # delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
     rank = (user.rank + result_sum + user.all_rivals * 0.01 + avr_opponents / user.rank) * user.involvement * (100 - user.penalty) * 0.01
+    logger.info(f"user.rank= {user.rank}, result_sum= {result_sum}, user.all_rivals= {user.all_rivals}, avr_opponents= {avr_opponents}, user.involvement= {user.involvement}, user.penalty= {user.penalty}")
+    logger.info(f"username= {user.email}, rank= {rank}")
     return rank

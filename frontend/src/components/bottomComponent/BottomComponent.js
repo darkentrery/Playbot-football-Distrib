@@ -84,7 +84,7 @@ export default function BottomComponent ({user, isIPhone}) {
                 </div>
                 <div className={"el-2"}>
                     <div className={"note-orange-icon"}></div>
-                    <span className={"music"}>Включить музыку</span>
+                    <span className={"music"}>Playbot.FM</span>
                 </div>
                 <div className={"el-3"}>
                     <a className={"instagram-icon"} href={BaseRoutes.instagramShare} target={"_blank"}></a>

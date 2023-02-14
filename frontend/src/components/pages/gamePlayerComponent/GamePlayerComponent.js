@@ -27,6 +27,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                     let minutes = ((g.rest_time - seconds) / 60).toString();
                     setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
                     setRestTime(g.rest_time);
+                    setBlock(false);
                 }
             })
         }

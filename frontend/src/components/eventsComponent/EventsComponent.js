@@ -79,12 +79,12 @@ export default function EventsComponent ({city, user}) {
             <Link className={"event"} to={EventRoutes.eventLink(event.id)}>
                 <span className={`elem elem-1 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>
                     {user !== false && eventService.isFavorite(user, event) && <div className={"yellow-star-icon"}></div>}
-                    {event.event_step.length >= 1 && !event.is_end && <div className={"pulse-yellow-point"}></div>}
+                    {event.is_begin && !event.is_end && <div className={"pulse-yellow-point"}></div>}
                     {event.name}
                 </span>
                 <span className={`elem elem-2 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>
                     {address}
-                    {!event.is_end && <span className={"gray-400-13"}>{event.event_step.length >= 1 ? '' : 'Событие начнется в, '}{event.time_begin.slice(0, 5)}</span>}
+                    {!event.is_end && <span className={"gray-400-13"}>{event.is_begin ? '' : 'Событие начнется в, '}{event.time_begin.slice(0, 5)}</span>}
                     {event.is_end && <span className={"gray-400-13"}>Событие завершено</span>}
                 </span>
                 {!event.is_end && <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}

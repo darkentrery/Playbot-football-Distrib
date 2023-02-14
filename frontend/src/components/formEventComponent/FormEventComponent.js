@@ -1,7 +1,7 @@
 import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import React, {useEffect, useRef, useState} from "react";
-import {choiceDate, choiceTime} from "../../utils/dates";
+import {choiceDate, choiceTime, getLocalTime, getUTCTime} from "../../utils/dates";
 import {getLocations, getLocationsArrayGoogle} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
@@ -79,7 +79,9 @@ export const FormEventComponent = ({
             setId(event.id);
             setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
-            if (event.time_begin) setTime(event.time_begin.slice(0, 5));
+            // if (event.date && event.date.length) setDate(event.date);
+            // if (event.date && event.date.length) refDate.current.setState({inputValue: event.date});
+            if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             if (event.address) setAddress(event.address);
             setPoint(event.geo_point);
             if (event.city) setCity(event.city.name);
@@ -116,7 +118,7 @@ export const FormEventComponent = ({
             'id': id,
             'name': name,
             'date': newDate,
-            'time_begin': time,
+            'time_begin': time ? getUTCTime(time) : time,
             'address': address,
             'count_players': count,
             'is_player': !isNotPlayer,
@@ -128,6 +130,7 @@ export const FormEventComponent = ({
             'format_label': format,
             'currency': currency,
         };
+        console.log(bodyFormData)
         setData(bodyFormData);
     }, [name, date, time, address, count, isNotPlayer, notice, point, city, isPaid, price, format, currency]);
 
@@ -137,7 +140,12 @@ export const FormEventComponent = ({
 
     const renderDay = (props, currentDate, selectedDate) => {
         let date = new Date(currentDate.format("YYYY-MM-DD"));
-        if (date.setDate(date.getDate() + 1) < Date.now()) {
+        let now = new Date();
+        now.setHours(date.getHours());
+        now.setMinutes(date.getMinutes());
+        now.setSeconds(date.getSeconds());
+        now.setMilliseconds(date.getMilliseconds());
+        if (date < now) {
             props.className = "calendar-day inactive";
         } else {
             props.className = "calendar-day";
@@ -183,7 +191,7 @@ export const FormEventComponent = ({
 
     const sendForm = async () => {
         if (name && date && time && address && city && point && (!isPaid || (isPaid && price)) && format) {
-            if (new Date(`${date}T${time}`) > new Date()) {
+            if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
                 setDateError("Выберите правильное время!");

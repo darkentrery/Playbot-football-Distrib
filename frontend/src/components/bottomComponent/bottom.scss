@@ -145,9 +145,10 @@
     }
     .el-3 {
       display: flex;
+      flex: 0 0 330px;
       gap: 24px;
       align-items: center;
-      justify-content: space-between;
+      justify-content: end;
     }
   }
 }

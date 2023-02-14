@@ -58,7 +58,12 @@ const choiceDate =(e, setDate, refDate, setIncorrectDate, incorrectDate) => {
         refDate.current.setState({inputValue: formatVal})
     } else {
         let date = new Date(e.format("YYYY-MM-DD"));
-        if (date.setDate(date.getDate() + 1) < Date.now()) {
+        let now = new Date();
+        now.setHours(date.getHours());
+        now.setMinutes(date.getMinutes());
+        now.setSeconds(date.getSeconds());
+        now.setMilliseconds(date.getMilliseconds());
+        if (date < now) {
             refDate.current.setState({open: true});
             setDate(false);
             setIncorrectDate(!incorrectDate);
@@ -133,4 +138,26 @@ const getStringDate = (date) => {
     return `${day}.${month}.${newDate.getFullYear().toString().slice(2,4)}`;
 }
 
-export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate};
+const getUTCTime = (value) => {
+    let time = new Date();
+    time.setHours(value.slice(0, 2));
+    time.setMinutes(value.slice(3, 5));
+    let hours = time.getUTCHours() < 10 ? `0${time.getUTCHours()}` : time.getUTCHours();
+    let minutes = time.getUTCMinutes() < 10 ? `0${time.getUTCMinutes()}` : time.getUTCMinutes();
+    return `${hours}:${minutes}`;
+}
+
+const getLocalTime = (value) => {
+    if (value) {
+        let time = new Date();
+        time.setUTCHours(value.slice(0, 2));
+        time.setUTCMinutes(value.slice(3, 5));
+        let hours = time.getHours() < 10 ? `0${time.getHours()}` : time.getHours();
+        let minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+        return `${hours}:${minutes}`;
+    } else {
+        return false;
+    }
+}
+
+export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate, getUTCTime, getLocalTime};

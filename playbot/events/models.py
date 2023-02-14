@@ -150,6 +150,9 @@ class Event(models.Model, CreateNotice):
         if not is_end and not self.event_games.exclude(time_end=None).exists():
             time_begin = datetime.datetime(year=self.date.year, month=self.date.month, day=self.date.day,
                                            hour=self.time_begin.hour, minute=self.time_begin.minute, tzinfo=timezone.now().tzinfo)
+            c = (time_begin + datetime.timedelta(minutes=90)).timestamp()
+            b = timezone.now()
+            d = b.timestamp()
             if (time_begin + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
                 is_end = True
 
