@@ -209,9 +209,14 @@ def get_next_rank(user, event):
     avr_opponents /= rivals
 
     # delta_team_rank = user_team.rank + event.format.rate * 0.01 + user_team.all_rivals * 0.01
+    if user.rank:
+        rate = avr_opponents / user.rank
+    else:
+        rate = 1 if avr_opponents else 0
 
     # delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
-    rank = (user.rank + result_sum + user.all_rivals * 0.01 + avr_opponents / user.rank) * user.involvement * (100 - user.penalty) * 0.01
-    logger.info(f"user.rank= {user.rank}, result_sum= {result_sum}, user.all_rivals= {user.all_rivals}, avr_opponents= {avr_opponents}, user.involvement= {user.involvement}, user.penalty= {user.penalty}")
+    rank = (user.rank + result_sum + user.all_rivals * 0.01 + rate) * user.involvement * (100 - user.penalty) * 0.01
+    logger.info(f"user.rank= {user.rank}, result_sum= {result_sum}, user.all_rivals= {user.all_rivals}, avr_opponents= "
+                f"{avr_opponents}, rate= {rate}, user.involvement= {user.involvement}, user.penalty= {user.penalty}")
     logger.info(f"username= {user.email}, rank= {rank}")
     return rank
