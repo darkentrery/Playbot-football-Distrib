@@ -6,7 +6,7 @@ import {EventItem376Component} from "../../eventItem376Component/EventItem376Com
 import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 import {getAddressStringFormat} from "../../../services/LocationService";
 import {eventService} from "../../../services/EventService";
-import {getStringDate} from "../../../utils/dates";
+import {getLocalTime, getStringDate} from "../../../utils/dates";
 import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
@@ -53,7 +53,7 @@ export const ProfileFavoritesComponent = ({
                 </span>
                 <span className={`elem elem-2 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>
                     {address}
-                    {<span className={isEnd ? 'gray-400-13' : 'black-400-13'}>{getStringDate(event.date)} в {event.time_begin.slice(0, 5)}</span>}
+                    {<span className={isEnd ? 'gray-400-13' : 'black-400-13'}>{getStringDate(event.date)} в {getLocalTime(event.time_begin)}</span>}
                 </span>
                 {!isEnd && <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
                 {isEnd && <span className={`elem elem-3 gray-400-13`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}

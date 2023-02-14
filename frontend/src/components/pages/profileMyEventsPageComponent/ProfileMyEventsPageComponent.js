@@ -8,7 +8,7 @@ import {NoEventsProfileComponent} from "../../noEventsProfileComponent/NoEventsP
 import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
 import {getAddressStringFormat} from "../../../services/LocationService";
-import {getStringDate} from "../../../utils/dates";
+import {getLocalTime, getStringDate} from "../../../utils/dates";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
@@ -61,7 +61,7 @@ export const ProfileMyEventsPageComponent = ({
                 <span className={"elem elem-1 black-400-13"}>{event.name}</span>
                 <div className={"elem elem-2"}>
                     <span className={"black-400-13"}>{address}</span>
-                    <span className={"gray-400-13"}>{getStringDate(event.date)} в {event.time_begin.slice(0, 5)}</span>
+                    <span className={"gray-400-13"}>{getStringDate(event.date)} в {getLocalTime(event.time_begin)}</span>
                 </div>
                 <span className={"elem elem-3 gray-400-13"}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>
                 <span className={"elem elem-4 gray-400-13"}>{event.event_player.length}/{event.count_players}</span>

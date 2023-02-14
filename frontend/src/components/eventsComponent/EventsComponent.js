@@ -2,7 +2,7 @@ import {eventService} from "../../services/EventService";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import VisibleNoEvents from "../../redux/containers/VisibleNoEvents";
-import {getMonth, getWeekDay} from "../../utils/dates";
+import {getLocalTime, getMonth, getWeekDay} from "../../utils/dates";
 import {EventItem376Component} from "../eventItem376Component/EventItem376Component";
 import {getAddressStringFormat} from "../../services/LocationService";
 import EventRoutes from "../../routes/EventRoutes";
@@ -84,7 +84,7 @@ export default function EventsComponent ({city, user}) {
                 </span>
                 <span className={`elem elem-2 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>
                     {address}
-                    {!event.is_end && <span className={"gray-400-13"}>{event.is_begin ? '' : 'Событие начнется в, '}{event.time_begin.slice(0, 5)}</span>}
+                    {!event.is_end && <span className={"gray-400-13"}>{event.is_begin ? '' : 'Событие начнется в, '}{getLocalTime(event.time_begin)}</span>}
                     {event.is_end && <span className={"gray-400-13"}>Событие завершено</span>}
                 </span>
                 {!event.is_end && <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
