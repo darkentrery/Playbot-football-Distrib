@@ -80,6 +80,8 @@ class EventView(APIView):
         event = Event.objects.get(id=self.kwargs.get("id"))
         json = EventSerializer(instance=event).data
         same_events = Event.objects.filter(city=event.address.city, date__gte=timezone.now().date()).exclude(id=event.id)
+        ids = [event.id for event in same_events if not event.is_begin and not event.is_end]
+        same_events = Event.objects.filter(id__in=ids)
         count = min(3, same_events.count())
         same_events = same_events[:count]
         same_events = EventSerializer(same_events, many=True).data
