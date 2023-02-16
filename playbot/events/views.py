@@ -365,7 +365,7 @@ class EndGameView(APIView):
 
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
-        if game.event.organizer == request.user:
+        if game.event.organizer == request.user and not game.time_end:
             time = timezone.now() - datetime.timedelta(seconds=game.current_duration - game.event.duration.duration * 60)
             if game.game_periods.filter(time_end=None).exists():
                 period = game.game_periods.filter(time_end=None).last()
@@ -373,6 +373,13 @@ class EndGameView(APIView):
                 period.save()
             game.time_end = time.time()
             game.save()
+            event = game.event
+            if not event.event_games.filter(time_end=None).exists():
+                event.time_end = game.time_end
+                event.save()
+                for player in event.event_player.all():
+                    rank = get_next_rank(player.player, event)
+                    RankHistory.objects.create(user=player.player, rank=rank, event=event)
             event = EventSerializer(instance=game.event).data
             game = EventGameSerializer(instance=game).data
             return Response({"event": event, "game": game}, status=status.HTTP_200_OK)
