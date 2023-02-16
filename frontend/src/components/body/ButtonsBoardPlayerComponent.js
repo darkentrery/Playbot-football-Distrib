@@ -49,7 +49,7 @@ export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => 
                 <button className={"el el-1 btn"} onClick={joinToEvent}>Присоединиться к игре</button>}
             {user.isAuth && (ids.includes(user.user.id) || idsQueue.includes(user.user.id)) && event && event.event_step.length < 1 && !event.time_end &&
                 <button className={"el el-1 btn-second"} onClick={leaveEvent}>Покинуть событие</button>}
-            {event && event.event_step.length >= 1 && (event.event_step.length !== 3 || !event.event_step[3].complete) && !event.time_end &&
+            {event && event.event_step.length >= 1 && (event.event_step.length !== 3 || !event.event_step[2].complete) && !event.time_end &&
                 <span className={`el el-1 btn disabled`}>Перейти в меню игры</span>}
             {event && event.event_step.length === 3 && event.event_step[2].complete && !event.is_end &&
                 <Link className={`el el-1 btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
