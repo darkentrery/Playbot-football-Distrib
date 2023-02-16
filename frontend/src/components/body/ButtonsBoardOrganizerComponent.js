@@ -54,7 +54,7 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
                 <button className={`el el-${!event.is_begin ? '1' : '3'} btn-second`} onClick={toFillRegulation}>Заполнить регламент</button>}
             {!event.cancel && event.event_step.length === 3 && !event.event_step[2]["complete"] && !event.time_end &&
                 <button className={`el el-${!event.is_begin ? '1' : '3'} btn-second`} onClick={toConfirmTeams}>Подтвердите команды</button>}
-            {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] && !event.time_end &&
+            {!event.cancel && event.event_step.length === 3 && event.event_step[2]["complete"] && !event.is_end &&
                 <Link className={`el el-${!event.is_begin ? '1' : '3'} btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
             {event.cancel && <span>Событие отменено</span>}
             {event.is_end &&

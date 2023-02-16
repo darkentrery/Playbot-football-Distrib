@@ -141,16 +141,20 @@ class Event(models.Model, CreateNotice):
         if not is_end:
             if self.event_games.exists() and self.event_games.all().count() == self.event_games.all().exclude(time_end=None).count():
                 is_end = True
-        if not is_end and self.event_games.exclude(time_end=None).exists():
-            last_game = self.event_games.all().exclude(time_end=None).last()
-            last_time = datetime.datetime(year=self.date.year, month=self.date.month, day=self.date.day,
-                                            hour=last_game.time_end.hour, minute=last_game.time_end.minute, tzinfo=timezone.now().tzinfo)
-            if (last_time + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
-                is_end = True
+        # if not is_end and self.event_games.exclude(time_end=None).exists():
+        #     last_game = self.event_games.all().exclude(time_end=None).last()
+        #     last_time = datetime.datetime(year=self.date.year, month=self.date.month, day=self.date.day,
+        #                                     hour=last_game.time_end.hour, minute=last_game.time_end.minute, tzinfo=timezone.now().tzinfo)
+        #     if (last_time + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
+        #         is_end = True
         if not is_end and not self.event_games.exclude(time_end=None).exists():
             time_begin = datetime.datetime(year=self.date.year, month=self.date.month, day=self.date.day,
                                            hour=self.time_begin.hour, minute=self.time_begin.minute, tzinfo=timezone.now().tzinfo)
             if (time_begin + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
+                is_end = True
+        if not is_end and self.event_games.filter(time_end=None).exists():
+            last_time = self.event_games.filter(time_end=None).first().last_active_time()
+            if last_time and (last_time + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
                 is_end = True
 
         return is_end
@@ -395,6 +399,15 @@ class EventGame(models.Model):
         elif self.score_2 < self.score_1:
             result = -1
         return result
+
+    def last_active_time(self):
+        time = None
+        for period in self.game_periods.all():
+            if period.time_begin:
+                time = period.time_begin
+            if period.time_end:
+                time = period.time_end
+        return time
 
 
 class EventStep(models.Model):
