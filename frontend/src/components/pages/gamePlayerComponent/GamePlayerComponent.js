@@ -19,6 +19,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const [block, setBlock] = useState(false);
 
     useEffect(() => {
+        setBlock(true);
         if (event) {
             event.event_games.forEach((g) => {
                 if (g.id.toString() === gameId) {
@@ -60,7 +61,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     useEffect(() => {
         if (game && game.is_play && !game.time_end) {
             let start = Date.now();
-                let interval = setInterval(() => {
+            let interval = setInterval(() => {
                 let timePassed = Date.now() - start;
                 if (timePassed >= 1000 && restTime - 1 >= 0) {
                     let seconds = (restTime - 1) % 60;

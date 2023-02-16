@@ -64,8 +64,8 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                 </div>
                 <div className={"contacts"}>
                     <div className={"elem-1"}>
-                        <a className={"instagram-icon"} href={BaseRoutes.instagramShare} target={"_blank"}></a>
-                        <a className={"telegram-icon"} href={BaseRoutes.telegramShare} target={"_blank"}></a>
+                        <a className={"instagram-icon"} href={BaseRoutes.instagramShare} target={"_blank"} rel={"noopener noreferrer"}> </a>
+                        <a className={"telegram-icon"} href={BaseRoutes.telegramShare} target={"_blank"} rel={"noopener noreferrer"}> </a>
                         {/*<div className={"instagram-icon"} onClick={linkShareService.clickInst}></div>*/}
                         {/*<div className={"telegram-icon"} onClick={linkShareService.clickTg}></div>*/}
                         {/*<div className={"vk-icon"} onClick={linkShareService.clickVk}></div>*/}

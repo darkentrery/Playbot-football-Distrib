@@ -368,7 +368,13 @@ class EndGameView(APIView):
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
         if game.event.organizer == request.user and not game.time_end:
-            time = timezone.now() - datetime.timedelta(seconds=game.current_duration - game.event.duration.duration * 60)
+            time = timezone.now()
+            if not game.rest_time:
+                if game.game_periods.filter(time_end=None).exists():
+                    period = game.game_periods.filter(time_end=None).last()
+                    duration = game.event.duration.duration * 60 + period.duration - game.current_duration
+                    time = period.time_begin + datetime.timedelta(seconds=duration)
+
             if game.game_periods.filter(time_end=None).exists():
                 period = game.game_periods.filter(time_end=None).last()
                 period.time_end = time
