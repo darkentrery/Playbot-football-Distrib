@@ -9,48 +9,50 @@ import EventRoutes from "../../routes/EventRoutes";
 import {LoaderComponent} from "../loaderComponent/LoaderComponent";
 
 
-export default function EventsComponent ({city, user}) {
+export default function EventsComponent ({city, user, isAuth}) {
     const [events, setEvents] = useState([]);
     const [firstRequest, setFirstRequest] = useState(0);
 
     useEffect(() => {
         setFirstRequest(1);
-        eventService.getEvents(user && user.city ? user.city : city).then((response) => {
-            if (response.status === 200) {
-                let data = [];
-                response.data.forEach((item, key) => {
-                    if (key === 0 || item.date !== response.data[key - 1].date) {
-                        data.push({date: item.date, events: []});
-                    }
-                })
-                response.data.forEach((item) => {
-                    data.forEach((row) => {
-                        let now = new Date(Date.now());
-                        let eventDate = new Date(row.date);
-                        eventDate.setDate(eventDate.getDate() + 1);
-                        if (row.date === item.date && !item.cancel && now < eventDate) {
-                            row.events.push(item);
+        if (isAuth !== null) {
+            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
+                if (response.status === 200) {
+                    let data = [];
+                    response.data.forEach((item, key) => {
+                        if (key === 0 || item.date !== response.data[key - 1].date) {
+                            data.push({date: item.date, events: []});
                         }
                     })
-                })
-                let newData = [];
-                data.forEach((row) => {
-                    if (row.events.length) {
-                        row.events.sort((a, b) => {
-                            if (a.is_end && !b.is_end) {
-                                return 1;
-                            } else {
-                                return -1;
+                    response.data.forEach((item) => {
+                        data.forEach((row) => {
+                            let now = new Date(Date.now());
+                            let eventDate = new Date(row.date);
+                            eventDate.setDate(eventDate.getDate() + 1);
+                            if (row.date === item.date && !item.cancel && now < eventDate) {
+                                row.events.push(item);
                             }
                         })
-                        newData.push(row);
-                    }
-                })
-                setEvents(newData);
-                setFirstRequest(2);
-            }
-        })
-    }, [user, city])
+                    })
+                    let newData = [];
+                    data.forEach((row) => {
+                        if (row.events.length) {
+                            row.events.sort((a, b) => {
+                                if (a.is_end && !b.is_end) {
+                                    return 1;
+                                } else {
+                                    return -1;
+                                }
+                            })
+                            newData.push(row);
+                        }
+                    })
+                    setEvents(newData);
+                    setFirstRequest(2);
+                }
+            })
+        }
+    }, [user, isAuth, city])
 
     const EventRow = ({event}) => {
         const [color, setColor] = useState('');
@@ -114,7 +116,7 @@ export default function EventsComponent ({city, user}) {
             {!events.length && firstRequest === 2 && <VisibleNoEvents/>}
             {!events.length && firstRequest !== 2 && <LoaderComponent/>}
 
-            {events.length !== 0 &&
+            {!!events.length &&
                 <div className={"events-table"}>
                     <div className={"table-head"}>
                         <span className={"elem elem-1 gray-400-13"}>Название</span>

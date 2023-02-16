@@ -219,7 +219,7 @@ const windows = (state = initialState, action) => {
 };
 
 const initialAuthState = {
-    isAuth: false,
+    isAuth: null,
     user: false,
 }
 

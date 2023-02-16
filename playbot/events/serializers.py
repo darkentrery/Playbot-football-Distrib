@@ -226,7 +226,7 @@ class EventListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["id", "name", "address", "date", "time_begin", "time_end", "price", "rank", "count_players",
-                  "event_player", "event_step", "is_paid", "is_end"]
+                  "event_player", "event_step", "is_paid", "is_end", "is_begin"]
         read_only_fields = fields
 
 

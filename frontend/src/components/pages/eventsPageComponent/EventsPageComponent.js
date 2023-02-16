@@ -12,7 +12,7 @@ export default function EventsPageComponent ({state, funcs}) {
                     <span className={"white-700-40"}>События</span>
                 </div>
                 <LocationComponent state={state} funcs={funcs}/>
-                <EventsComponent city={state.location.city} user={state.user.user}/>
+                <EventsComponent city={state.location.city} user={state.user.user} isAuth={state.user.isAuth}/>
             </div>
         </VisibleMainWrapper>
     )

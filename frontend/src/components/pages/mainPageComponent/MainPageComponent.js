@@ -16,14 +16,14 @@ export default function MainPageComponent ({state, funcs}) {
 
 
     useEffect(() => {
-        let isSubscribe = true;
+        // let isSubscribe = true;
         authService.getUsers().then((response) => {
             if (response.status === 200) {
                 setPlayers(response.data);
                 setLoader(false);
             }
         })
-        return () => isSubscribe = false;
+        // return () => isSubscribe = false;
     }, [state.user.user])
 
     return (
@@ -34,7 +34,7 @@ export default function MainPageComponent ({state, funcs}) {
                 <VisibleBoardCreateEvent/>
                 <TitleComponent label={"Список событий"} to={BaseRoutes.events}/>
                 <LocationComponent state={state} funcs={funcs}/>
-                <EventsComponent city={state.location.city} user={state.user.user}/>
+                <EventsComponent city={state.location.city} user={state.user.user} isAuth={state.user.isAuth}/>
                 <div className={"best-players-1280"}>
                     <TitleComponent label={"Лучшие игроки"} to={BaseRoutes.main}/>
                     <LocationComponent state={state} funcs={funcs}/>
