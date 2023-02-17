@@ -28,44 +28,54 @@
       flex-wrap: nowrap;
     }
   }
-
   &.elem-5-1280 {
     flex: 1 1 auto;
     margin: 0 24px 0 24px;
-    border-bottom: 2px solid #F2F2F2;
+    flex-direction: column;
     align-self: stretch;
-    justify-content: center;
 
+    .team-row {
+      display: flex;
+      border-bottom: 2px solid #F2F2F2;
+      position: relative;
+      padding-top: 20px;
+      box-sizing: border-box;
+
+      &.top {
+        padding-top: 0;
+      }
+      .team {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        box-sizing: border-box;
+        padding-bottom: 16px;
+        flex: 0 0 50%;
+
+        &.team-1 {
+          padding-left: 8px;
+          padding-right: 12px;
+        }
+        &.team-2 {
+          padding-left: 20px;
+        }
+      }
+      .vertical-line {
+        position: absolute;
+        left: calc(50% - 1px);
+        height: 100%;
+        background: #F2F2F2;
+        width: 2px;
+      }
+
+    }
     &.bottom .el .team-name-component{
       margin-top: 16px;
     }
-
-    .el {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      box-sizing: border-box;
-      padding-bottom: 16px;
-    }
-
-    .el-1 {
-      padding-left: 8px;
-      padding-right: 12px;
-      flex: 1 1 auto;
-    }
-
-    .el-2 {
-      padding-left: 20px;
-      border-left: 2px solid #F2F2F2;
-      flex: 0 0 246px;
-    }
-
   }
-
   &.elem-5-376 {
     display: none;
   }
-
   &.elem-7 {
     align-self: stretch;
     flex: 0 0 72px;
@@ -79,7 +89,6 @@
     .btn {
       flex: 0 0 219px;
     }
-
     span {
       flex: 0 0 155px;
       align-items: center;
@@ -100,11 +109,9 @@
       &.elem-4 {
         margin-bottom: 0;
       }
-
       &.elem-5-1280 {
         display: none;
       }
-
       &.elem-5-376 {
         display: flex;
         flex: 1 1 auto;
@@ -114,14 +121,12 @@
         .el {
           display: flex;
           flex-direction: column;
-          flex: 1 1 auto;
           gap: 16px;
           box-sizing: border-box;
           padding: 20px 0 20px 40px;
           border-bottom: 2px solid #F2F2F2;
         }
       }
-
       &.elem-7 {
         flex: 0 0 99px;
         flex-direction: column;
@@ -131,12 +136,10 @@
         .btn {
           flex: 0 0 40px;
         }
-
         span {
           flex: 0 0 17px;
           align-items: center;
         }
-
         &.safari-margin {
           padding: 8px 40px 82px 40px;
         }

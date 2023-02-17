@@ -72,7 +72,7 @@ export const eventService = {
 	getCutUsername(name, size=12) {
 		let username = name.split(' ');
 		let newNames = [];
-		username.map((item) => {
+		username.forEach((item) => {
 			if (item.length <= size) {
 				newNames.push(item);
 			} else {

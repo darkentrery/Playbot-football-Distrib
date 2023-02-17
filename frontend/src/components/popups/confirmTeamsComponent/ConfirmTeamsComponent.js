@@ -42,10 +42,15 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 ["Время матча:", `${duration} ${durationLabel}`],
                 ["Общее время:", `${totalDuration} ${totalDurationLabel}`]
             ]);
-            setTeams(event.teams);
+            let array = [];
+            for (let i=0; i<Math.ceil(event.teams.length / 2); i++) {
+                array.push([]);
+            }
             event.teams.forEach((team, i) => {
+                array[Math.floor(i / 2)].push(team);
                 teamNames[i][1](team.name);
             })
+            setTeams(array);
         }
     }, [event, isOpen])
 
@@ -65,8 +70,10 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     }
 
     const confirmTeams = () => {
-        event.teams.forEach((team, i) => {
-            team.name = teamNames[i][0];
+        teams.forEach((teamRow, key) => {
+            teamRow.forEach((team, i) => {
+                event.teams[key*2 + i].name = teamNames[key*2 + i][0];
+            })
         })
         authDecoratorWithoutLogin(eventService.confirmTeams, {"event": event}).then((response) => {
             if (response.status === 200) {
@@ -92,64 +99,32 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                     </div>
                 ))}
             </div>
-            {teams.length !== 0 &&
-            <div className={`elem elem-5-1280`}>
-                <div className={"el el-1"}>
-                    <TeamNameComponent className={""} value={teamNames[0][0]} setValue={teamNames[0][1]}/>
-                    {teams[0].team_players.length !== 0 && teams[0].team_players.map((player, i) => (
-                            <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                    ))}
-                </div>
-                {teams.length > 1 &&
-                <div className={"el el-2"}>
-                    <TeamNameComponent className={""} value={teamNames[1][0]} setValue={teamNames[1][1]}/>
-                    {teams[1].team_players.length !== 0 && teams[1].team_players.map((player, i) => (
-                            <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                    ))}
-                </div>}
-            </div>}
-            {teams.length > 2 &&
-            <div className={`elem elem-5-1280 bottom`}>
-                <div className={"el el-1"}>
-                    <TeamNameComponent className={""} value={teamNames[2][0]} setValue={teamNames[2][1]}/>
-                    {teams[2].team_players.length !== 0 && teams[2].team_players.map((player, i) => (
-                        <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                    ))}
-                </div>
-                {teams.length > 3 &&
-                <div className={"el el-2"}>
-                    <TeamNameComponent className={""} value={teamNames[3][0]} setValue={teamNames[3][1]}/>
-                    {teams[3].team_players.length !== 0 && teams[3].team_players.map((player, i) => (
-                        <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                    ))}
-                </div>}
-            </div>}
-            {teams.length > 4 &&
-            <div className={`elem elem-5-1280 bottom`}>
-                <div className={"el el-1"}>
-                    <TeamNameComponent className={""} value={teamNames[4][0]} setValue={teamNames[4][1]}/>
-                    {teams[4].team_players.length !== 0 && teams[4].team_players.map((player, i) => (
-                        <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                    ))}
-                </div>
-                {teams.length > 5 &&
-                <div className={"el el-2"}>
-                    <TeamNameComponent className={""} value={teamNames[5][0]} setValue={teamNames[5][1]}/>
-                    {teams[5].team_players.length !== 0 && teams[5].team_players.map((player, i) => (
-                        <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                    ))}
-                </div>}
-            </div>}
-
-            <div className={`elem elem-5-376 scroll`}>
-                {teams.length !== 0 && teams.map((team, key) => (
-                    <div className={"el"} key={key}>
-                        <TeamNameComponent className={""} value={teamNames[key][0]} setValue={teamNames[key][1]}/>
-                        {team.team_players.length !== 0 && team.team_players.map((player, i) => (
-                            <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                        ))}
+            <div className={`elem elem-5-1280 scroll`}>
+                {teams.map((teamRow, key) => (
+                    <div className={`team-row ${!key ? 'top' : ''}`} key={key + 100}>
+                        {teamRow.map((team, i) => (<>
+                            <div className={`team team-${key + 1}`} key={key}>
+                                <TeamNameComponent className={""} value={teamNames[key*2 + i][0]} setValue={teamNames[key*2 + i][1]}/>
+                                {!!team.team_players.length && team.team_players.map((player, i) => (
+                                    <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
+                                ))}
+                            </div>
+                            {teamRow.length === 2 && <div className={"vertical-line"}></div>}
+                        </>))}
                     </div>
                 ))}
+            </div>
+            <div className={`elem elem-5-376 scroll`}>
+                {teams.map((teamRow, key) => (<>
+                    {teamRow.map((team, i) => (
+                         <div className={"el"} key={key*2 + i}>
+                            <TeamNameComponent className={""} value={teamNames[key*2 + i][0]} setValue={teamNames[key*2 + i][1]}/>
+                            {team.team_players.length !== 0 && team.team_players.map((player, i) => (
+                                <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
+                            ))}
+                        </div>
+                    ))}
+                </>))}
             </div>
             <div className={`elem elem-7 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn white-500-16"} onClick={confirmTeams}>Подтвердить и начать</button>
