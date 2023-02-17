@@ -2,7 +2,7 @@ import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime, getLocalTime, getUTCTime} from "../../utils/dates";
-import {getLocations, getLocationsArrayGoogle} from "../../services/LocationService";
+import {getLocationsArrayGoogle} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
@@ -79,8 +79,6 @@ export const FormEventComponent = ({
             setId(event.id);
             setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
-            // if (event.date && event.date.length) setDate(event.date);
-            // if (event.date && event.date.length) refDate.current.setState({inputValue: event.date});
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             if (event.address) setAddress(event.address);
             setPoint(event.geo_point);

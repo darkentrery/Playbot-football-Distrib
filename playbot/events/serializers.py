@@ -110,13 +110,8 @@ class GamePeriodSerializer(serializers.ModelSerializer):
 class EventGameSerializer(serializers.ModelSerializer):
     team_1 = TeamSerializer(read_only=True)
     team_2 = TeamSerializer(read_only=True)
-    # score_1 = serializers.IntegerField(read_only=True)
-    # score_2 = serializers.IntegerField(read_only=True)
     goals = GoalSerializer(Goal, many=True, read_only=True)
     game_periods = GamePeriodSerializer(GamePeriod, many=True, read_only=True)
-    # current_duration = serializers.IntegerField(read_only=True)
-    # rest_time = serializers.IntegerField(read_only=True)
-    # is_play = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = EventGame

@@ -340,9 +340,8 @@ class BeginGamePeriodView(APIView):
                 if not game.time_begin:
                     game.time_begin = period.time_begin.time()
                     game.save()
-                event = EventSerializer(instance=game.event).data
                 game = EventGameSerializer(instance=game).data
-                return Response({"event": event, "game": game}, status=status.HTTP_200_OK)
+                return Response(game, status=status.HTTP_200_OK)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -356,9 +355,8 @@ class EndGamePeriodView(APIView):
                 period = game.game_periods.filter(time_end=None).last()
                 period.time_end = timezone.now()
                 period.save()
-                event = EventSerializer(instance=game.event).data
                 game = EventGameSerializer(instance=game).data
-                return Response({"event": event, "game": game}, status=status.HTTP_200_OK)
+                return Response(game, status=status.HTTP_200_OK)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -404,9 +402,8 @@ class CreateGoalView(APIView):
             if serializer.is_valid():
                 goal = serializer.save()
                 if goal:
-                    event = EventSerializer(instance=game.event).data
                     game = EventGameSerializer(instance=goal.game).data
-                    return Response({"event": event, "game": game}, status=status.HTTP_200_OK)
+                    return Response(game, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -433,8 +430,3 @@ class RemoveFromFavoritesView(APIView):
             json = UserSerializer(instance=request.user).data
             return Response(json, status=status.HTTP_200_OK)
         return Response({"error": "Not in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
