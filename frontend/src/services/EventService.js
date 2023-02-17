@@ -69,14 +69,27 @@ export const eventService = {
 		return isFavorite;
 	},
 
-	getCutUsername(name) {
+	getCutUsername(name, size=12) {
 		let username = name.split(' ');
 		let newNames = [];
 		username.map((item) => {
-			if (item.length <= 12) {
+			if (item.length <= size) {
 				newNames.push(item);
 			} else {
-				newNames.push(`${item.slice(0, 12)}...`);
+				newNames.push(`${item.slice(0, size)}...`);
+			}
+		})
+		return newNames.join(' ');
+	},
+
+	getTeamName(name, size=20) {
+		let teamName = name.split(' ');
+		let newNames = [];
+		teamName.forEach(item => {
+			if (item.length <= size) {
+				newNames.push(item);
+			} else {
+				newNames.push(`${item.slice(0, size)}...\n`);
 			}
 		})
 		return newNames.join(' ');

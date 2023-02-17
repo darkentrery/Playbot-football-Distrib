@@ -209,9 +209,9 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             {game && <div className={`game-player-component`} onClick={fonClick}>
                 <div className={"manage"}>
                     <div className={"elem elem-1"}>
-                        <span className={"black-400-16"}>{game.team_1.name}</span>
+                        <span className={"black-400-16 team-name team-name-left"}>{eventService.getTeamName(game.team_1.name)}</span>
                         <span className={"black-800-32"}>{game.score_1} - {game.score_2}</span>
-                        <span className={"black-400-16"}>{game.team_2.name}</span>
+                        <span className={"black-400-16 team-name"}>{eventService.getTeamName(game.team_2.name)}</span>
                     </div>
                     {allPlayed === 1 && !game.time_end && <div className={"elem elem-2"}>
                         <ClockDigit value={timer[0]}/>

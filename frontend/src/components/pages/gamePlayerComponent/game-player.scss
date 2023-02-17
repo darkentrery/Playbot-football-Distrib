@@ -15,11 +15,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
     }
     .elem-1 {
       flex: 0 0 87px;
       gap: 40px;
+      .team-name {
+        flex: 0 1 calc(50% - 70px);
+        display: flex;
+        white-space: break-spaces;
+        text-align: center;
+        &.team-name-left {
+          justify-content: end;
+        }
+      }
     }
     .elem-2 {
       flex: 0 0 72px;
