@@ -145,7 +145,9 @@ export const FormEventComponent = ({
         now.setMinutes(date.getMinutes());
         now.setSeconds(date.getSeconds());
         now.setMilliseconds(date.getMilliseconds());
-        if (date < now) {
+        let nextMonth = new Date();
+        nextMonth.setDate(nextMonth.getDate() + 30);
+        if (date < now || date > nextMonth) {
             props.className = "calendar-day inactive";
         } else {
             props.className = "calendar-day";
