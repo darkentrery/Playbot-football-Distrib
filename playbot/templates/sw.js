@@ -111,7 +111,27 @@ self.addEventListener('fetch', (event) => {
 
     if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
         console.log(event.request.url)
-        event.respondWith(fromCache(event.request));
+        event.respondWith((async () => {
+          const cachedResponse = await caches.match(event.request);
+            console.log(cachedResponse)
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+
+          const response = await fetch(event.request);
+            console.log(response)
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+
+            const responseToCache = response.clone();
+            const cache = await caches.open(CACHE)
+            await cache.put(event.request, response.clone());
+
+
+          return response;
+        })());
+        // event.respondWith(fromCache(event.request));
         event.waitUntil(
             update(event.request)
                 // В конце, после получения "свежих" данных от сервера уведомляем всех клиентов.
@@ -121,7 +141,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 const fromCache = (request) => {
-    caches.open(CACHE).then((cache) => {
+    return caches.open(CACHE).then((cache) => {
         console.log(cache)
         console.log(request)
         cache.match(request).then((resp) => {
