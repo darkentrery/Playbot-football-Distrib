@@ -106,6 +106,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     console.log('Происходит запрос на сервер');
+    console.log(self.performance.getEntriesByType('resource'))
 
     if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
         console.log(event.request.url)
