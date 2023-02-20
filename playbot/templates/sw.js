@@ -122,6 +122,7 @@ const fromCache = (request) => {
         console.log(cache)
         console.log(request)
             cache.match(request).then((resp) => {
+                console.log(resp)
                 return resp || fetch(request).then((response) => {
                     let responseClone = response.clone();
                     console.log(response)
