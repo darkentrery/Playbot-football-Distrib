@@ -1,5 +1,5 @@
 console.log('Hello from sw.js');
-const CACHE = 'cache-update-and-refresh-v1';
+const CACHE = 'cache-update-and-refresh-v2';
 
 // const assets = [
 //     // './index.html',
@@ -103,8 +103,9 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     console.log('Происходит запрос на сервер');
-    console.log(event.request.url)
+
     if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
+        console.log(event.request.url)
         event.respondWith(fromCache(event.request));
         event.waitUntil(
             update(event.request)
@@ -115,10 +116,14 @@ self.addEventListener('fetch', (event) => {
 });
 
 const fromCache = (request) => {
-    return caches.open(CACHE).then((cache) =>
-        cache.match(request).then((matching) =>
-            matching || Promise.reject('no-match')
-        ));
+    return caches.open(CACHE).then((cache) => {
+        console.log(cache)
+        console.log(request)
+            cache.match(request).then((matching) =>
+                matching || Promise.reject('no-match')
+            )
+        }
+    );
 }
 
 const update = (request) => {
@@ -140,6 +145,7 @@ const refresh = (response) => {
                 eTag: response.headers.get('ETag')
             };
             // Уведомляем клиент об обновлении данных.
+            console.log(JSON.stringify(message))
             client.postMessage(JSON.stringify(message));
         });
     });
