@@ -121,9 +121,16 @@ const fromCache = (request) => {
     return caches.open(CACHE).then((cache) => {
         console.log(cache)
         console.log(request)
-            cache.match(request).then((matching) =>
-                matching || Promise.reject('no-match')
-            )
+            cache.match(request).then((resp) => {
+                return resp || fetch(request).then((response) => {
+                    let responseClone = response.clone();
+                    console.log(response)
+                    caches.open(CACHE).then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
+                    return response;
+                });
+            })
         }
     );
 }
