@@ -60,7 +60,7 @@ export const getLocationsArrayGoogle = (value) => {
 		if (response.status === 200) {
 			let geoObjects = response.data.results;
 			let array = [];
-			geoObjects.map((item) => {
+			geoObjects.forEach((item) => {
 				let address = {
 					country: '',
 					region: '',
@@ -71,7 +71,7 @@ export const getLocationsArrayGoogle = (value) => {
 					lng: '',
 					formatted: '',
 				}
-				item.address_components.map((component) => {
+				item.address_components.forEach((component) => {
 					if (component.types.includes('country')) address.country = component.long_name;
 					if (component.types.includes('administrative_area_level_1')) address.region = component.long_name;
 					if (component.types.includes('locality')) address.city = component.short_name.replace('г. ', '');
@@ -106,7 +106,7 @@ export const getLocationsAddressByCoordsGoogle = (value) => {
 				formatted: '',
 			}
 			console.log(geoObjects[0])
-			geoObjects[0].address_components.map((component) => {
+			geoObjects[0].address_components.forEach((component) => {
 				if (component.types.includes('country')) address.country = component.long_name;
 				if (component.types.includes('administrative_area_level_1')) address.region = component.long_name;
 				if (component.types.includes('locality')) address.city = component.short_name.replace('г. ', '');
