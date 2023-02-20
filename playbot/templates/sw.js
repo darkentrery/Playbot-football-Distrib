@@ -1,25 +1,12 @@
 console.log('Hello from sw.js');
-const CACHE = 'cache-update-and-refresh-v4';
-
-// const assets = [
-//     // './index.html',
-//     './css/main.705bb933.css',
-//     './js/main.23a148f1.js',
-//     './logo192.png',
-//     './favicon.ico',
-//     './media/',
-// ];
+const CACHE = 'cache-update-and-refresh-v5';
 
 const assets = [];
 self.performance.getEntriesByType('resource')
-  // only consider the blocking ones
   .filter(({name}) =>
       name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
-  // log their names
   .forEach(({name}) => assets.push(name))
 
-
-console.log(self)
 // self.addEventListener('activate', (event) => {
 //   let cacheKeeplist = ['images', 'static-resources', 'googleapis'];
 //
@@ -107,59 +94,29 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     console.log('Происходит запрос на сервер');
-    console.log(self.performance.getEntriesByType('resource'))
 
     if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
-        console.log(event.request.url)
         event.respondWith((async () => {
-          const cachedResponse = await caches.match(event.request);
-            console.log(cachedResponse)
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-
-          const response = await fetch(event.request);
-            console.log(response)
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-
+            const cachedResponse = await caches.match(event.request);
+                console.log(cachedResponse)
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+            const response = await fetch(event.request);
+                console.log(response)
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+                return response;
+            }
             const responseToCache = response.clone();
             const cache = await caches.open(CACHE)
-            await cache.put(event.request, response.clone());
-
-
-          return response;
+            await cache.put(event.request, responseToCache);
+            return response;
         })());
-        // event.respondWith(fromCache(event.request));
         event.waitUntil(
-            update(event.request)
-                // В конце, после получения "свежих" данных от сервера уведомляем всех клиентов.
-                .then(refresh)
+            update(event.request).then(refresh)
         );
     }
 });
-
-const fromCache = (request) => {
-    return caches.open(CACHE).then((cache) => {
-        console.log(cache)
-        console.log(request)
-        cache.match(request).then((resp) => {
-            console.log(resp)
-            return resp || fetch(request).then((response) => {
-                let responseClone = response.clone();
-                console.log(response)
-                caches.open(CACHE).then((cache) => {
-                    cache.put(request.url, responseClone);
-                });
-                return response;
-            });
-        }).catch((error) => {
-            console.error('Fetching failed:', error);
-            return  error;
-        });
-    });
-}
 
 const update = (request) => {
     return caches.open(CACHE).then((cache) =>
@@ -180,7 +137,6 @@ const refresh = (response) => {
                 eTag: response.headers.get('ETag')
             };
             // Уведомляем клиент об обновлении данных.
-            console.log(JSON.stringify(message))
             client.postMessage(JSON.stringify(message));
         });
     });
