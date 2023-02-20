@@ -75,7 +75,7 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches
             .open(CACHE)
-            .then((cache) => cache.addAll(['/img/background']))
+            .then((cache) => cache.addAll([/\.(?:png|gif|jpg|jpeg|svg)$/, /\.(?:js|css)$/]))
     );
 });
 
