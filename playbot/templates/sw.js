@@ -121,7 +121,10 @@ self.addEventListener('fetch', (event) => {
 const update = (request) => {
     return caches.open(CACHE).then((cache) =>
         fetch(request).then((response) =>
-            cache.put(request, response.clone()).then(() => response)
+            cache.put(request, response.clone()).then(() => {
+                console.log(response)
+                return response;
+            })
         )
     );
 }
