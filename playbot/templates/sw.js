@@ -10,7 +10,13 @@ const CACHE = 'cache-update-and-refresh-v4';
 //     './media/',
 // ];
 
-
+const assets = [];
+self.performance.getEntriesByType('resource')
+  // only consider the blocking ones
+  .filter(({name}) =>
+      name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
+  // log their names
+  .forEach(({name}) => assets.push(name))
 
 
 console.log(self)
@@ -76,15 +82,7 @@ console.log(self)
 
 self.addEventListener('install', (event) => {
     console.log('Установлен');
-    const assets = [];
     console.log(self.performance.getEntriesByType('resource'))
-    self.performance.getEntriesByType('resource')
-      // only consider the blocking ones
-      .filter(({name}) =>
-          name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
-      // log their names
-      .forEach(({name}) => assets.push(name))
-    console.log(assets)
     event.waitUntil(
         caches
             .open(CACHE)
