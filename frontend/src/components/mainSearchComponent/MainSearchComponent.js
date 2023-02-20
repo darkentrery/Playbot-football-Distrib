@@ -85,15 +85,15 @@ export const MainSearchComponent = ({
             <div className={"orange-search-icon"}></div>
             <div className={`dropdown-menu-wrapper ${(!playersView.length && !eventsView.length && !eventsPastView.length) || !ref.current.value ? 'hidden' : ''}`}>
                 <div className={"dropdown-menu scroll"}>
-                    {!!eventsView.length && <div className={"dropdown-item label-item gray-400-13"}>LIVE – идут в данный момент</div>}
+                    {!!eventsView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ / LIVE</div>}
                     {eventsView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}
-                    {!!eventsFutureView.length && <div className={"dropdown-item label-item gray-400-13"}>ПРЕДСТОЯЩИЕ</div>}
+                    {!!eventsFutureView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ / ПРЕДСТОЯЩИЕ</div>}
                     {eventsFutureView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}
-                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>ЗАВЕРШЕННЫЕ</div>}
+                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ / ЗАВЕРШЕННЫЕ</div>}
                     {eventsPastView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}
