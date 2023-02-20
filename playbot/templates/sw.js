@@ -121,19 +121,21 @@ const fromCache = (request) => {
     caches.open(CACHE).then((cache) => {
         console.log(cache)
         console.log(request)
-            cache.match(request).then((resp) => {
-                console.log(resp)
-                return resp || fetch(request).then((response) => {
-                    let responseClone = response.clone();
-                    console.log(response)
-                    caches.open(CACHE).then((cache) => {
-                        cache.put(event.request, responseClone);
-                    });
-                    return response;
+        cache.match(request).then((resp) => {
+            console.log(resp)
+            return resp || fetch(request).then((response) => {
+                let responseClone = response.clone();
+                console.log(response)
+                caches.open(CACHE).then((cache) => {
+                    cache.put(request.url, responseClone);
                 });
-            })
-        }
-    );
+                return response;
+            });
+        }).catch((error) => {
+            console.error('Fetching failed:', error);
+            return  error;
+        });
+    });
 }
 
 const update = (request) => {
