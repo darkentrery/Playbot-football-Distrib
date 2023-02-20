@@ -9,6 +9,16 @@ const CACHE = 'cache-update-and-refresh-v1';
 //     './favicon.ico',
 //     './media/',
 // ];
+const assets = [];
+window.performance.getEntriesByType('resource')
+  // only consider the blocking ones
+  .filter(({name}) =>
+      name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
+  // log their names
+  .forEach(({name}) => assets.push(name))
+console.log(assets)
+
+
 console.log(self)
 // self.addEventListener('activate', (event) => {
 //   let cacheKeeplist = ['images', 'static-resources', 'googleapis'];
@@ -75,11 +85,19 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches
             .open(CACHE)
-            .then((cache) => cache.addAll([/\.(?:png|gif|jpg|jpeg|svg)$/, /\.(?:js|css)$/]))
+            .then((cache) => cache.addAll(assets))
     );
 });
 
 self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then(keys => {
+          return Promise.all(keys
+            .filter(key => key !== CACHE)
+            .map(key => caches.delete(key))
+          );
+        })
+      );
     console.log('Активирован');
 });
 
