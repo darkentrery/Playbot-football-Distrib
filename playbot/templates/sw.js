@@ -103,6 +103,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     console.log('Происходит запрос на сервер');
+    console.log(event)
     event.respondWith(fromCache(event.request));
     event.waitUntil(
       update(event.request)
