@@ -1,5 +1,5 @@
 console.log('Hello from sw.js');
-const CACHE = 'cache-update-and-refresh-v3';
+const CACHE = 'cache-update-and-refresh-v4';
 
 // const assets = [
 //     // './index.html',
