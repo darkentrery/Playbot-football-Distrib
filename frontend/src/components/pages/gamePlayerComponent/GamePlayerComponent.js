@@ -27,13 +27,15 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                     setBlock(false);
                 }
             })
+        } else {
+            funcs.setGame(false);
         }
         console.log(game)
     }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         setAllPlayed(0);
-        if (game) {
+        if (game && event) {
             let arr = [];
             event.event_games.forEach((g) => {
                 if (!g.time_end) arr.push(g);

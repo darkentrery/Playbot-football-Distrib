@@ -7,32 +7,27 @@ import {eventService} from "../../../services/EventService";
 
 
 export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
-    const [gameId, setGameId] = useState(0);
+    const [gameId, setGameId] = useState(false);
     const [isEndEvent, setIsEndEvent] = useState(false);
     const params = useParams();
     const pk = params.pk;
-    const currentId = params.gameId;
 
     useEffect(() => {
+        funcs.setEvent(false);
         eventService.getEvent(pk).then((response) => {
-            funcs.setEvent(response.data.event);
-        })
-    }, [pk]) // eslint-disable-line react-hooks/exhaustive-deps
-
-    useEffect(() => {
-        if (event) {
-            if (event.event_games.length !== 0) setGameId(event.event_games[0].id);
-            if (event.time_end) setIsEndEvent(true);
-            for (let game of event.event_games) {
-                if (game.time_begin) setGameId(game.id);
+            let e = response.data.event;
+            if (e.time_end) setIsEndEvent(true);
+            for (let game of e.event_games) {
+                if (!game.time_end || e.event_games[e.event_games.length - 1].id === game.id) {
+                    console.log(game)
+                    setGameId(game.id);
+                    break;
+                }
             }
-            // if (currentId) {
-            //     event.event_games.map((g) => {
-            //         if (g.id == currentId) setGame(g);
-            //     })
-            // }
-        }
-    }, [event, currentId])
+            console.log(gameId)
+            funcs.setEvent(e);
+        })
+    }, [pk, window.location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const endEvent = () => {
         setIsEndEvent(true);
@@ -69,7 +64,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                         className={`nav-link ${window.location.pathname.includes('info') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventInfoLink(pk)}
                     >Иформация</Link>
-                    {user.isAuth && event && user.user.id === event.organizer.id && <Link
+                    {user.isAuth && event && user.user.id === event.organizer.id && gameId !== false && <Link
                         className={`nav-link ${window.location.pathname.includes('player-game') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
                     >Плеер</Link>}
@@ -90,7 +85,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                             className={`nav-link  ${window.location.pathname.includes('info') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
                             to={BaseRoutes.eventInfoLink(pk)}
                         >Иформация</Link>
-                        {user.isAuth && event && user.user.id === event.organizer.id && <Link
+                        {user.isAuth && event && user.user.id === event.organizer.id && gameId !== false && <Link
                             className={`nav-link ${window.location.pathname.includes('player-game') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
                             to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
                         >Плеер</Link>}
