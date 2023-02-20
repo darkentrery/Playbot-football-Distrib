@@ -103,13 +103,15 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     console.log('Происходит запрос на сервер');
-    console.log(event)
-    event.respondWith(fromCache(event.request));
-    event.waitUntil(
-      update(event.request)
-      // В конце, после получения "свежих" данных от сервера уведомляем всех клиентов.
-      .then(refresh)
-    );
+    console.log(event.request.url)
+    if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
+        event.respondWith(fromCache(event.request));
+        event.waitUntil(
+            update(event.request)
+                // В конце, после получения "свежих" данных от сервера уведомляем всех клиентов.
+                .then(refresh)
+        );
+    }
 });
 
 const fromCache = (request) => {
