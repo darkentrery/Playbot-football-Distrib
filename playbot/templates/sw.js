@@ -9,13 +9,7 @@ const CACHE = 'cache-update-and-refresh-v3';
 //     './favicon.ico',
 //     './media/',
 // ];
-const assets = [];
-self.performance.getEntriesByType('resource')
-  // only consider the blocking ones
-  .filter(({name}) =>
-      name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
-  // log their names
-  .forEach(({name}) => assets.push(name))
+
 
 
 
@@ -82,6 +76,14 @@ console.log(self)
 
 self.addEventListener('install', (event) => {
     console.log('Установлен');
+    const assets = [];
+    console.log(self.performance.getEntriesByType('resource'))
+    self.performance.getEntriesByType('resource')
+      // only consider the blocking ones
+      .filter(({name}) =>
+          name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
+      // log their names
+      .forEach(({name}) => assets.push(name))
     console.log(assets)
     event.waitUntil(
         caches
