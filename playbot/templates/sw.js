@@ -118,7 +118,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 const fromCache = (request) => {
-    return caches.open(CACHE).then((cache) => {
+    caches.open(CACHE).then((cache) => {
         console.log(cache)
         console.log(request)
             cache.match(request).then((resp) => {
