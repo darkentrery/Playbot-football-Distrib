@@ -1,5 +1,5 @@
 console.log('Hello from sw.js');
-const CACHE = 'cache-update-and-refresh-v2';
+const CACHE = 'cache-update-and-refresh-v3';
 
 // const assets = [
 //     // './index.html',
@@ -16,7 +16,7 @@ self.performance.getEntriesByType('resource')
       name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
   // log their names
   .forEach(({name}) => assets.push(name))
-console.log(assets)
+
 
 
 console.log(self)
@@ -82,6 +82,7 @@ console.log(self)
 
 self.addEventListener('install', (event) => {
     console.log('Установлен');
+    console.log(assets)
     event.waitUntil(
         caches
             .open(CACHE)
