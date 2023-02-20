@@ -10,7 +10,7 @@ const CACHE = 'cache-update-and-refresh-v1';
 //     './media/',
 // ];
 const assets = [];
-window.performance.getEntriesByType('resource')
+self.performance.getEntriesByType('resource')
   // only consider the blocking ones
   .filter(({name}) =>
       name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
