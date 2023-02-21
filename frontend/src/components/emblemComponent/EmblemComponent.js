@@ -25,9 +25,9 @@ export const EmblemComponent = ({className='', player}) => {
                     <span className={"black-600-16"}>{player.count_goals}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ГОЛ</span>
                 </div>
             </div>
-            <span className={"player-name black-700-28"}>sdfsdfsdf</span>
+            <span className={"player-name black-700-28"}>{player.username}</span>
             <div className={"left-label"}>
-                <div className={"elem-1 black-700-28"}>100</div>
+                <div className={"elem-1 black-700-28"}>{player.rank.toFixed()}</div>
                 <div className={"elem-2"}></div>
             </div>
         </div>
