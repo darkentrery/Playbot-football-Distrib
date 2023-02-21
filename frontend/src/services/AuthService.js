@@ -374,10 +374,17 @@ export const authService = {
 		}
 		return false;
 	},
+	isSafari() {
+		if (/safari/.test(navigator.userAgent.toLowerCase())) {
+			return true
+		}
+		return false;
+	},
 	deviceDetect() {
 		console.log("Is Iphone", this.isIPhone())
 		console.log("Is PWA", this.isPWA())
-		if (isMobile && window.screen.width < 743 && this.isIPhone() && !this.isPWA()) {
+		console.log("Is Safari", this.isSafari())
+		if (isMobile && window.screen.width < 743 && this.isIPhone() && !this.isPWA() && this.isSafari()) {
 			return true
 		}
 		return false;
