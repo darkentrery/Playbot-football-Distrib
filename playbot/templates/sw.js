@@ -98,17 +98,15 @@ self.addEventListener('fetch', (event) => {
     if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
         event.respondWith((async () => {
             const cachedResponse = await caches.match(event.request);
-                console.log(cachedResponse)
             if (cachedResponse) {
                 return cachedResponse;
             }
             const response = await fetch(event.request);
-                console.log(response)
             if (!response || response.status !== 200 || response.type !== 'basic') {
                 return response;
             }
             const responseToCache = response.clone();
-            const cache = await caches.open(CACHE)
+            const cache = await caches.open(CACHE);
             await cache.put(event.request, responseToCache);
             return response;
         })());

@@ -93,7 +93,7 @@ export const MainSearchComponent = ({
                     {eventsFutureView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}
-                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ / ЗАВЕРШЕННЫЕ</div>}
+                    {!!eventsPastView.length && <div className={"dropdown-item label-item gray-400-13"}>СОБЫТИЯ / ПРОШЕДШИЕ</div>}
                     {eventsPastView.map((event, key) => (
                         <EventItem376Component event={event} key={key}/>
                     ))}

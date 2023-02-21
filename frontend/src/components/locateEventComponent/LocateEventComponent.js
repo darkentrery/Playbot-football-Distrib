@@ -1,8 +1,6 @@
 import {MapContainer, TileLayer, useMapEvents} from "react-leaflet";
 import React, {useEffect, useState} from "react";
-import {
-    getLocations, getLocationsAddressByCoordsGoogle,
-    getLocationsByCoords,
+import {getLocationsAddressByCoordsGoogle,
     getLocationsGoogle
 } from "../../services/LocationService";
 import "leaflet/dist/leaflet.css"
@@ -20,13 +18,16 @@ export const LocateEventComponent = ({
     const [position, setPosition] = useState(null);
     const [zoom, setZoom] = useState(13);
 
-
     useEffect(() => {
         if (city && !className.includes("hidden")) {
-            getLocationsGoogle(city).then((response) => {
-                if (response.data.results.length) setPosition(response.data.results[0].geometry.location);
-                console.log(position)
-            })
+            if (!address) {
+                getLocationsGoogle(city).then((response) => {
+                    if (response.data.results.length) setPosition(response.data.results[0].geometry.location);
+                    console.log(position)
+                })
+            } else {
+                setPosition({lat: address.lat, lng: address.lng});
+            }
         }
     }, [city, className])
 

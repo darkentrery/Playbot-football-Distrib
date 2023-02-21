@@ -6,8 +6,9 @@ import {eventService} from "../../services/EventService";
 
 
 export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
-    let date = new Date(`${event.date}T${event.time_begin}`);
-    date.setHours(date.getHours() - 1);
+    let date = new Date(`${event.date}`);
+    date.setUTCHours(parseInt(event.time_begin.slice(0, 2)) - 1);
+    date.setUTCMinutes(parseInt(event.time_begin.slice(3, 5)));
 
     const toConfirmPlayers = (e) => {
         if (new Date() >= date) {

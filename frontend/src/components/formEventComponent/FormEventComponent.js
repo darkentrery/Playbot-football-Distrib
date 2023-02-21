@@ -2,7 +2,7 @@ import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime, getLocalTime, getUTCTime} from "../../utils/dates";
-import {getLocationsArrayGoogle} from "../../services/LocationService";
+import {getAddressStringFormat, getLocationsArrayGoogle} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
@@ -165,20 +165,20 @@ export const FormEventComponent = ({
     }
 
     const getAddress = (e) => {
-        if (isEdit) {
-
-        } else {
-            setAddress(e.target.value);
-            setCity(false);
-            setPoint(false);
-            if (e.target.value && e.target.value.length > 6) {
-                getLocationsArrayGoogle(e.target.value).then((array) => {
-                    setSuggests(array);
-                })
-            } else {
-                setSuggests([]);
-            }
-        }
+        // if (isEdit) {
+        //
+        // } else {
+        //     setAddress(e.target.value);
+        //     setCity(false);
+        //     setPoint(false);
+        //     if (e.target.value && e.target.value.length > 6) {
+        //         getLocationsArrayGoogle(e.target.value).then((array) => {
+        //             setSuggests(array);
+        //         })
+        //     } else {
+        //         setSuggests([]);
+        //     }
+        // }
     }
 
     const changeCount = (value) => {
@@ -250,7 +250,7 @@ export const FormEventComponent = ({
                                 placeholder={"Название *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
                 <div className={`elem elem-3 div-input`} ref={refAddress}>
                     <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}
-                           value={address ? `${address.country ? address.country : address}${address.city ? ', ' + address.city : ''}${address.street ? ', ' + address.street : ''}${address.house_number ? ', ' + address.house_number : ''}` : ''}
+                           value={address ? getAddressStringFormat(address) : ''}
                            onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>
                     <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>
                     <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>
