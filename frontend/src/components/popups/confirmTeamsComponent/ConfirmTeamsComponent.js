@@ -17,6 +17,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     const [teamName6, setTeamName6] = useState(false);
     const [teamName7, setTeamName7] = useState(false);
     const [teamName8, setTeamName8] = useState(false);
+    const [isLoader, setIsLoader] = useState(false);
     const teamNames = [
         [teamName1, setTeamName1],
         [teamName2, setTeamName2],
@@ -70,6 +71,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     }
 
     const confirmTeams = () => {
+        setIsLoader(true);
         teams.forEach((teamRow, key) => {
             teamRow.forEach((team, i) => {
                 event.teams[key*2 + i].name = teamNames[key*2 + i][0];
@@ -77,6 +79,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
         })
         authDecoratorWithoutLogin(eventService.confirmTeams, {"event": event}).then((response) => {
             if (response.status === 200) {
+                setIsLoader(false);
                 funcs.setEvent(response.data);
                 funcs.closeConfirmTeams();
                 funcs.showMap();
@@ -90,7 +93,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
     return (
         <ReglamentComponent isOpen={isOpen} className={`confirm-teams-component`} title={"Подтверди составы"}
-                            clickBack={toBack} closeWindow={closeWindow} step={3}>
+                            clickBack={toBack} closeWindow={closeWindow} step={3} isLoader={isLoader}>
             <div className={"elem elem-4"}>
                 {headItems !== false && headItems.map((item, key) => (
                     <div className={"el"} key={key}>

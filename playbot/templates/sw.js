@@ -4,7 +4,7 @@ const CACHE = 'cache-update-and-refresh-v5';
 const assets = [];
 self.performance.getEntriesByType('resource')
   .filter(({name}) =>
-      name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/))
+      (name.match(/[.]js$/) || name.match(/[.]css$/) || name.match(/[.]png$/)) && !name.includes('/admin/'))
   .forEach(({name}) => assets.push(name))
 
 // self.addEventListener('activate', (event) => {
@@ -94,8 +94,9 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     console.log('Происходит запрос на сервер');
+    let url = event.request.url;
 
-    if (event.request.url.match(/[.]js$/) || event.request.url.match(/[.]css$/) || event.request.url.match(/[.]png$/)) {
+    if ((url.match(/[.]js$/) || url.match(/[.]css$/) || url.match(/[.]png$/)) && !url.includes('/admin/')) {
         event.respondWith((async () => {
             const cachedResponse = await caches.match(event.request);
             if (cachedResponse) {

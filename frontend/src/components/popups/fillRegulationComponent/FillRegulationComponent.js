@@ -25,6 +25,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [modeError, setModeError] = useState('');
+    const [isLoader, setIsLoader] = useState(false);
 
     useEffect(() => {
         if (event && isOpen) {
@@ -95,7 +96,9 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             setErrorText('Введите количество голов!');
         } else {
             if (format && mode) {
+                setIsLoader(true);
                 authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
+                    setIsLoader(false);
                     funcs.setEvent(response.data);
                     closeWindow();
                     funcs.removeMap();
@@ -125,8 +128,11 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     }
 
     return (
-        <ReglamentComponent className={`fill-regulation-component ${untilGoal ? 'until-goal' : ''}`} closeWindow={closeWindow} isOpen={isOpen} step={2}
-                            title={"Заполните регламент"} popupClick={popupClick} clickBack={toConfirmPlayers}>
+        <ReglamentComponent
+            className={`fill-regulation-component ${untilGoal ? 'until-goal' : ''}`} closeWindow={closeWindow}
+            isOpen={isOpen} step={2} title={"Заполните регламент"} popupClick={popupClick} clickBack={toConfirmPlayers}
+            isLoader={isLoader}
+        >
             <div className={"elem elem-4"}>
                 <DropDownComponent
                     value={format} setValue={setFormat} leftIcon={'two-people-icon'} sizingClass={"dropdown-size-format"}

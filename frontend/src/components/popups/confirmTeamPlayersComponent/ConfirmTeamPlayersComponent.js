@@ -16,6 +16,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     const [teamName, setTeamName] = useState(false);
     const buttonRef = useRef();
     const [buttonLock, setButtonLock] = useState(false);
+    const [isLoader, setIsLoader] = useState(false);
 
     useEffect(() => {
         if (event && isOpen) {
@@ -104,11 +105,13 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
             team.name = teamName;
             setTeamName(false);
             setButtonLock(true);
+            setIsLoader(true);
             authDecoratorWithoutLogin(eventService.confirmTeamPlayers, {
                 "team": team,
                 "players": selected
             }).then((response) => {
                 if (response.status === 200) {
+                    setIsLoader(false);
                     funcs.setEvent(response.data);
                     closeWindow();
                     if (team.number < event.teams.length) {
@@ -138,7 +141,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
 
     return (
         <ReglamentComponent className={`confirm-team-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={3}
-                            title={"Выбери состав"} clickBack={clickBack}>
+                            title={"Выбери состав"} clickBack={clickBack} isLoader={isLoader}>
             {!!event && <>
                 <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
                 <TeamNameComponent className={"elem elem-5"} value={teamName} setValue={setTeamName}/>

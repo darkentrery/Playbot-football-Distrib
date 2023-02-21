@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import React from "react";
+import {LoaderComponent} from "../loaderComponent/LoaderComponent";
 
 
 export const ReglamentComponent = ({
@@ -11,6 +12,7 @@ export const ReglamentComponent = ({
     title,
     children,
     popupClick = () => {},
+    isLoader=false,
 }) => {
 
     return (
@@ -22,6 +24,7 @@ export const ReglamentComponent = ({
         >
             <div className={"popup-fon"} onClick={popupClick}>
                 <div className={`popup-frame reglament-component ${className}`}>
+                    {isLoader && <LoaderComponent/>}
                     <div className={"elem elem-1"}>
                         <div onClick={clickBack} className={`btn-back ${step !== 1 ? '' : 'hidden'}`}></div>
                         <span className={"title-22"}>{title}</span>

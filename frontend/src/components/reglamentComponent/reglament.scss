@@ -3,6 +3,11 @@
   height: 769px;
   flex-direction: column;
   align-items: center;
+  position: relative;
+
+  .loader-component {
+    border-radius: 10px;
+  }
 }
 
 .reglament-component .elem {
@@ -19,11 +24,9 @@
     .btn-close {
       margin-right: 28px;
     }
-
     .btn-back {
       margin-left: 30px;
     }
-
     .hidden {
       display: none;
     }
@@ -46,7 +49,6 @@
       flex: 0 0 96px;
       background: #D19C6C;
     }
-
     .gray-line {
       flex: 0 0 96px;
       background: #BABABA;

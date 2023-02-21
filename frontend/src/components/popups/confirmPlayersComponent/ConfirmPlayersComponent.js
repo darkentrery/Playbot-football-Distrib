@@ -12,6 +12,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     const [players1, setPlayers1] = useState([]);
     const [players2, setPlayers2] = useState([]);
     const [playersView, setPlayersView] = useState([]);
+    const [isLoader, setIsLoader] = useState(false);
 
     useEffect(() => {
         if (event && isOpen) {
@@ -66,11 +67,13 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
 
     const confirmPlayers = () => {
         if (selected.length >= 4) {
+            setIsLoader(true);
             authDecoratorWithoutLogin(eventService.confirmPlayers, {
                 "event": event,
                 "players": selected
             }).then((response) => {
                 funcs.setEvent(response.data);
+                setIsLoader(false);
                 closeWindow();
                 funcs.openFillRegulation();
                 funcs.removeMap();
@@ -79,15 +82,16 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     }
 
     return (
-        <ReglamentComponent className={`confirm-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={1} title={"Подтвердите игроков"}>
+        <ReglamentComponent className={`confirm-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={1}
+                            title={"Подтвердите игроков"} isLoader={isLoader}>
             <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
             <div className={"elem elem-5 scroll"}>
-                {event && playersView.length !== 0 && playersView.map((item, key) => (
-                        <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
-                            <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
-                            <div className={"player-avatar-icon"}></div>
-                            <span className={"black-400-13"}>{item.player.username}</span>
-                        </div>
+                {event && !!playersView.length && playersView.map((item, key) => (
+                    <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
+                        <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
+                        <div className={"player-avatar-icon"}></div>
+                        <span className={"black-400-13"}>{item.player.username}</span>
+                    </div>
                 ))}
             </div>
             <button className={`elem elem-6 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers}>Продолжить</button>
