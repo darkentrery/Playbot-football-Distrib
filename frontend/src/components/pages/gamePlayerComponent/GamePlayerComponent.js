@@ -18,6 +18,11 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const [isOpen2, setIsOpen2] = useState(false);
     const [block, setBlock] = useState(false);
 
+    const getFullDigit = (value) => {
+        value = value > 9 ? value.toString() : '0' + value.toString();
+        return value;
+    }
+
     useEffect(() => {
         setBlock(true);
         if (event) {
@@ -45,9 +50,9 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             } else {
                 setAllPlayed(1);
             }
-            let seconds = game.rest_time % 60;
-            let minutes = ((game.rest_time - seconds) / 60).toString();
-            setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
+            let seconds = (event.duration.duration * 60 - game.rest_time) % 60;
+            let minutes = (((event.duration.duration * 60 - game.rest_time) - seconds) / 60);
+            setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
             setRestTime(game.rest_time);
             setBlock(false);
         }
@@ -67,9 +72,9 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             let interval = setInterval(() => {
                 let timePassed = Date.now() - start;
                 if (timePassed >= 1000 && restTime - 1 >= 0 && !block) {
-                    let seconds = (restTime - 1) % 60;
-                    let minutes = (((restTime - 1) - seconds) / 60).toString();
-                    setTimer(`${minutes.length === 1 ? '0' + minutes : minutes}${seconds < 10 ? '0' + seconds.toString() : seconds}`);
+                    let seconds = (event.duration.duration * 60 - restTime + 1) % 60;
+                    let minutes = (((event.duration.duration * 60 - restTime + 1) - seconds) / 60);
+                    setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
                     setRestTime(restTime - 1);
                 } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id && !game.time_end && !block) {
                     setBlock(true);
@@ -179,8 +184,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const GoalRow = ({goal, teamId1, teamId2}) => {
         let seconds = goal.game_time % 60;
         let minutes = (goal.game_time - seconds) / 60;
-        // minutes = minutes < 10 ? '0' + minutes.toString() : minutes;
-        // seconds = seconds < 10 ? '0' + seconds.toString() : seconds;
+
         return (
             <div className={`goal-row ${goal.team.id === teamId1 ? 'goal-row-1' : 'goal-row-2'}`}>
                 {goal.team.id === teamId1 && <>
@@ -189,10 +193,10 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                     <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
                     <div className={"black-ball-icon"}></div>
                     {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
-                    <span className={"black-400-13"}>({minutes}' {seconds}'')</span>
+                    <span className={"black-400-13"}>({getFullDigit(minutes)}:{getFullDigit(seconds)})</span>
                 </>}
                 {goal.team.id === teamId2 && <>
-                    <span className={"black-400-13"}>({minutes}' {seconds}'')</span>
+                    <span className={"black-400-13"}>({getFullDigit(minutes)}:{getFullDigit(seconds)})</span>
                     {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
                     <div className={"black-ball-icon"}></div>
                     <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
