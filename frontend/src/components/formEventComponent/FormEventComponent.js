@@ -2,7 +2,7 @@ import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime, getLocalTime, getUTCTime} from "../../utils/dates";
-import {getAddressStringFormat, getLocationsArrayGoogle} from "../../services/LocationService";
+import {getAddressStringFormat} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";

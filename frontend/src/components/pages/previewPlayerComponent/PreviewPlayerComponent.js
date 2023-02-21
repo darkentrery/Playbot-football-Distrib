@@ -17,8 +17,7 @@ export const PreviewPlayerComponent = ({
     player,
     funcs,
 }) => {
-    const params = useParams();
-    const pk = params.pk;
+    const { pk } = useParams();
     const [about, setAbout] = useState(true);
     const [profileLink, setSetProfileLink] = useState(true);
     const [eventsLink, setEventsLink] = useState(false);

@@ -14,8 +14,7 @@ import EventRoutes from "../../../routes/EventRoutes";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
-    const params = useParams();
-    const pk = params.pk;
+    const { pk } = useParams();
     const [isFavorite, setIsFavorite] = useState(false);
     const [isTooltip, setIsTooltip] = useState(false);
     const [tooltip, setTooltip] = useState(false);

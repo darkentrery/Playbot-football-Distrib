@@ -9,8 +9,7 @@ import {eventService} from "../../../services/EventService";
 export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     const [gameId, setGameId] = useState(false);
     const [isEndEvent, setIsEndEvent] = useState(false);
-    const params = useParams();
-    const pk = params.pk;
+    const { pk } = useParams();
 
     useEffect(() => {
         funcs.setEvent(false);
@@ -31,6 +30,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
 
     const endEvent = () => {
         setIsEndEvent(true);
+        funcs.setEvent(false);
         authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
             if (response.status === 200) {
                 console.log(response.status)

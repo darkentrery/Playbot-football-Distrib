@@ -8,6 +8,8 @@ export const EndGameComponent = ({isOpen, game, closeComponent, setGame, setEven
       closeComponent();
     }
     const clickEndGame = () => {
+        setGame(false);
+        setEvent(false);
         authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
             console.log(response.data)
             if (response.status === 200) {

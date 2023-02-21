@@ -19,7 +19,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
             setPlayers(event.event_player);
             setPlayersView(event.event_player);
             let array = [];
-            event.event_player.map((item) => {
+            event.event_player.forEach((item) => {
                 array.push(item.player.username);
             })
             setPlayers1(array);
@@ -35,7 +35,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
 
     useEffect(() => {
         let array = [];
-        players.map((item) => {
+        players.forEach((item) => {
             if (players2.includes(item.player.username)) array.push(item);
         })
         setPlayersView(array);

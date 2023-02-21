@@ -9,8 +9,7 @@ import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export const GamePlayerComponent = ({event, user, game, funcs}) => {
-    const params = useParams();
-    const gameId = params.gameId;
+    const { gameId } = useParams();
     const [timer, setTimer] = useState('0000');
     const [restTime, setRestTime] = useState(false);
     const [allPlayed, setAllPlayed] = useState(0);

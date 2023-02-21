@@ -13,8 +13,7 @@ export const ProfileWrapperComponent = ({
     children,
     funcs,
 }) => {
-    const params = useParams();
-    const pk = params.pk;
+    const { pk } = useParams();
 
     useEffect(() => {
         if (!state.event.player || (state.event.player && state.event.player.id !== pk)) {
