@@ -62,7 +62,7 @@ export const ProfileWrapperComponent = ({
                     {children}
                 </div>
             </div>
-            <div className={"profile-wrapper-component-376"}>
+            <div className={`profile-wrapper-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
                 {children}
             </div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>

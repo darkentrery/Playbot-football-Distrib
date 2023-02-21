@@ -201,10 +201,13 @@
 @media screen and (min-width: 375px) and (max-width: 743px){
   .preview-player-component-376 {
     display: flex;
-    min-height: calc(100vh - 57px);
     flex-direction: column;
     overflow: auto;
+    margin-bottom: 66px;
 
+    &.safari-margin {
+      margin-bottom: 136px;
+    }
     .top-bar {
       flex: 0 0 40px;
       padding: 23px 0 0 24px;

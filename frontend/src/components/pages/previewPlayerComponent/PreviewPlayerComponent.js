@@ -161,7 +161,7 @@ export const PreviewPlayerComponent = ({
                 </div>}
             </div>
 
-            <div className={"preview-player-component-376"}>
+            <div className={`preview-player-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
                 {player && <>
                     <Top376Component className={"top-bar"} label={player.username} to={BaseRoutes.main}/>
                     <div className={"profile-376-menu-component"}>

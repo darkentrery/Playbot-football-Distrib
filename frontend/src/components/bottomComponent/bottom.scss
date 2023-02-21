@@ -3,6 +3,7 @@
   flex: 0 0 $bottomHeight;
   flex-direction: column;
   align-items: stretch;
+  box-sizing: border-box;
 
   .elem-744 {
     display: none;
@@ -296,7 +297,14 @@
     align-items: stretch;
     background: $whiteColor;
     flex: 0 0 66px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 500;
 
+    &.safari-margin {
+      bottom: 70px;
+    }
     .elem-1280 {
       display: none;
     }
@@ -312,9 +320,9 @@
       box-sizing: border-box;
       padding: 10px 25px 18px 25px;
 
-      &.safari-margin {
-       margin-bottom: 70px;
-      }
+      //&.safari-margin {
+      // //margin-bottom: 70px;
+      //}
       .elem {
         display: flex;
         flex: 0 0 50px;

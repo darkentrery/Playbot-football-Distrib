@@ -112,10 +112,14 @@
     display: none;
   }
   .profile-wrapper-component-376 {
-    max-height: calc(100vh - $bottomHeight);
     display: flex;
     flex: 1 1 auto;
     justify-content: stretch;
     overflow: auto;
+    margin-bottom: 66px;
+
+    &.safari-margin {
+      margin-bottom: 136px;
+    }
   }
 }

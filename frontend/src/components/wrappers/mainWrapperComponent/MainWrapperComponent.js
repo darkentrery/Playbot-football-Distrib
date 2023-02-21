@@ -14,7 +14,7 @@ export const MainWrapperComponent = ({
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
-            <div className={"body scroll"}>{children}</div>
+            <div className={`body scroll ${app.isIPhone ? 'safari-margin' : ''}`}>{children}</div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
             {user.user && <NoticeListComponent user={user.user} setUser={funcs.setAuth}/>}
         </main>

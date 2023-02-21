@@ -7,7 +7,7 @@ import ProfileRoutes from "../../routes/ProfileRoutes";
 export default function BottomComponent ({user, isIPhone}) {
 
     return(
-        <div className={"bottom-component"}>
+        <div className={`bottom-component ${isIPhone ? 'safari-margin' : ''}`}>
             <div className={"elem-1280"}>
                 <div className={"el el-1"}>
                     <div className={"logo"}>
@@ -95,7 +95,7 @@ export default function BottomComponent ({user, isIPhone}) {
                 </div>
             </div>
 
-            <div className={`elem-376 ${isIPhone ? 'safari-margin' : ''}`}>
+            <div className={`elem-376`}>
                 <Link className={`elem orange-600-11 orange-cup-icon ${window.location.pathname === `${BaseRoutes.main}` ? '' : 'disabled'}`}
                       to={BaseRoutes.main}
                 >События</Link>
