@@ -2,10 +2,8 @@ import React, {useState, useEffect, useRef} from "react";
 import AuthService from "../../../services/AuthService";
 import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
-import docPolicy from "../../../assets/documents/policy.docx";
-import docOffer from "../../../assets/documents/offer.docx";
 import $ from "jquery";
-import {getLocationsByCoords} from "../../../services/LocationService";
+import {getLocationsAddressByCoordsGoogle} from "../../../services/LocationService";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
@@ -96,24 +94,25 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                 setCountries(response);
             })
         }
+        if (isOpen) {
+            navigator.geolocation.getCurrentPosition((response) => {
+                let coords = [response.coords.latitude, response.coords.longitude];
+                console.log(city)
+                if (!city) {
+                    getLocationsAddressByCoordsGoogle(coords).then((address) => {
+                        console.log(address)
+                        setCity(address.city);
+                    })
+                }
+            }, (error) => {
+                console.log(error)
+            });
+        }
     }, [isOpen])
 
     useEffect(() => {
         let bodyFormData = new FormData();
         let bodyLoginFormData = new FormData();
-        navigator.geolocation.getCurrentPosition((response) => {
-            let coords = [response.coords.latitude, response.coords.longitude];
-            if (!city) {
-                getLocationsByCoords(coords).then((response) => {
-                    if (response.data.results.length !== 0) {
-                        let components = response.data.results[0].components;
-                        if (components.city) setCity(components.city);
-                    }
-                })
-            }
-        }, (error) => {
-           console.log(error)
-        });
         bodyFormData.append('username', username);
         if (phoneNumber) {
             bodyFormData.append('phone_number', `${phoneCode}${phoneNumber}`);
@@ -264,9 +263,9 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                             <div className={"sign-up-l-elem div-input elem-5"} ref={refPassword}>
                                 <input className={"password-icon"} type="password" placeholder={"Пароль *"} onClick={suggestPassword} onChange={(event) => setPassword(event.target.value)}/>
                                 <span className={"input-message"}></span>
-                                <div className={"generate-password disabled"} onClick={usePassword}>
-                                    <span>Сгенерированный пароль: <span className={"new-password"}></span></span>
-                                </div>
+                                <span className={"generate-password black-400-12 disabled"} onClick={usePassword}>
+                                    Сгенерированный пароль: <span className={"new-password"}></span>
+                                </span>
                             </div>
                             <div className={"sign-up-l-elem div-input"} ref={refPasswordConfirm}>
                                 <input className={"password-icon"} type="password" placeholder={"Потвердите пароль *"} onChange={(event) => setPasswordConfirm(event.target.value)}/>

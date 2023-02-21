@@ -2,7 +2,6 @@ import React, {useState, useEffect, useRef} from "react";
 import AuthService, {authService} from "../../../services/AuthService";
 import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
-import $ from 'jquery';
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 
@@ -89,10 +88,10 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                     <div onClick={toMenu} className={"btn-close"}></div>
                     <span className={"black-600-22 login-title"}>Вход</span>
                     <InputComponent leftIcon={'name-icon'} value={email} setValue={setEmail} errorText={emailError}
-                                    placeholder={"Номер телефона или e-mail"} />
+                                    placeholder={"Номер телефона или e-mail"} onKeyUp={sendForm}/>
                     <InputComponent leftIcon={"password-icon"} rightIcon={rightIcon} password={typePassword}
                                     placeholder={"Пароль"} errorText={passwordError}
-                                    value={password} setValue={setPassword} rightOnClick={hiddenPassword}/>
+                                    value={password} setValue={setPassword} rightOnClick={hiddenPassword} onKeyUp={sendForm}/>
                     <button className={"btn"} autoFocus={true} onClick={sendForm} ref={refLogin}>Войти</button>
                     <div className={"links"}>
                         <span onClick={toSignUp} className={"link link-login-reg gray-600-14"}>Регистрация</span>

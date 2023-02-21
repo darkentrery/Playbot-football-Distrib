@@ -35,6 +35,33 @@
         }
         &.elem-5 {
           position: relative;
+
+          .generate-password {
+            display: flex;
+            align-items: center;
+            justify-content: stretch;
+            position: absolute;
+            width: 100%;
+            height: $fieldHeight - 10px;
+            border: 1px solid $grayColor;
+            border-radius: 8px;
+            background: #FFFFFF;
+            top: $fieldHeight + 10px;
+            cursor: pointer;
+            padding: 4px;
+            box-sizing: border-box;
+
+            &.disabled {
+              display: none;
+            }
+            &:hover {
+              background: rgba(227, 225, 225, 1);
+              border-radius: 8px;
+            }
+            .new-password {
+              color: #428bca;
+            }
+          }
         }
         &.div-input-checkbox {
           flex: 0 0 34px;
