@@ -111,6 +111,10 @@ a {
   }
 }
 
+.ReactModal__Overlay {
+  z-index: 999;
+}
+
 .popup-frame {
   display: flex;
   justify-content: stretch;
