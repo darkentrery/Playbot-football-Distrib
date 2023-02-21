@@ -62,6 +62,12 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         }
     }
 
+    const clickEnter = (e) => {
+        if (e.keyCode === 13) {
+            sendForm();
+        }
+    }
+
     const hiddenPassword = () => {
         if (typePassword) {
             setTypePassword(false);
@@ -87,11 +93,15 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                 <div className={"popup-left"}>
                     <div onClick={toMenu} className={"btn-close"}></div>
                     <span className={"black-600-22 login-title"}>Вход</span>
-                    <InputComponent leftIcon={'name-icon'} value={email} setValue={setEmail} errorText={emailError}
-                                    placeholder={"Номер телефона или e-mail"} onKeyUp={sendForm}/>
-                    <InputComponent leftIcon={"password-icon"} rightIcon={rightIcon} password={typePassword}
-                                    placeholder={"Пароль"} errorText={passwordError}
-                                    value={password} setValue={setPassword} rightOnClick={hiddenPassword} onKeyUp={sendForm}/>
+                    <InputComponent
+                        leftIcon={'name-icon'} value={email} setValue={setEmail} errorText={emailError}
+                        placeholder={"Номер телефона или e-mail"} onKeyUp={clickEnter}
+                    />
+                    <InputComponent
+                        leftIcon={"password-icon"} rightIcon={rightIcon} password={typePassword} placeholder={"Пароль"}
+                        errorText={passwordError} value={password} setValue={setPassword} rightOnClick={hiddenPassword}
+                        onKeyUp={clickEnter}
+                    />
                     <button className={"btn"} autoFocus={true} onClick={sendForm} ref={refLogin}>Войти</button>
                     <div className={"links"}>
                         <span onClick={toSignUp} className={"link link-login-reg gray-600-14"}>Регистрация</span>

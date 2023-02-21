@@ -1,9 +1,7 @@
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import React, {useState, useEffect} from "react";
-import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
-
 import MobileFirstPageComponent from "./components/popups/mobileFirstPageComponent/MobileFirstPageComponent";
-import AuthService from "./services/AuthService";
+import {authService} from "./services/AuthService";
 import VisibleSignUp from "./redux/containers/VisibleSignUp";
 import VisibleLogin from "./redux/containers/VisibleLogin";
 import VisibleRefreshPassword from "./redux/containers/VisibleRefreshPassword";
@@ -51,11 +49,9 @@ import VisibleMyProfile from "./redux/containers/VisibleMyProfile";
 import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
 import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
-import $ from "jquery";
 
 
 function App({state, funcs}) {
-    const authService = new AuthService();
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
@@ -118,13 +114,6 @@ function App({state, funcs}) {
         }
     }, [confirmSignUp])
 
-
-    const defaultState = {
-        center: [55.751574, 37.573856],
-        zoom: 10,
-        controls: ["zoomControl", "fullscreenControl"],
-    };
-
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
             // openChoiceCity();
@@ -158,13 +147,6 @@ function App({state, funcs}) {
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
                     <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>
                 </Routes>
-
-                  {/*<YMaps>*/}
-                  {/*    <Map defaultState={defaultState} modules={["control.ZoomControl", "control.FullscreenControl"]} width={600}>*/}
-                  {/*      /!*<Placemark geometry={[55.684758, 37.738521]} />*!/*/}
-                  {/*        <Panorama defaultPoint={[55.733685, 37.588264]} />*/}
-                  {/*    </Map>*/}
-                  {/*  </YMaps>*/}
 
                 <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone} funcs={funcs}/>
                 <VisibleSignUp/>

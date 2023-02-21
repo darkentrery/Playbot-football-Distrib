@@ -132,7 +132,7 @@ class UpdateCityView(APIView):
 class IsAuthView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, format='json'):
+    def post(self, request, format='json'):
         json = UserSerializer(instance=request.user).data
         return Response(json, status=status.HTTP_200_OK)
 

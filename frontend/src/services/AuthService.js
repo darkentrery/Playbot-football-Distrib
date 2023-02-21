@@ -44,21 +44,6 @@ export default class AuthService{
 			});
 	}
 
-	isAuth(){
-		const url = `${API_URL}is-auth/`;
-		return axios.get(url, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
 	loginRequestValidation(email, password, setEmailError, setPasswordError) {
 		let errors = [];
 		if (!email) {
@@ -239,30 +224,6 @@ export default class AuthService{
 			});
 	}
 
-	isIPhone() {
-		if (navigator.appVersion.includes("iPhone") && navigator.userAgent.includes("iPhone")) {
-			return true
-		}
-		return false
-	}
-
-	isPWA() {
-		if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator.standalone)) {
-			return true
-		}
-		return false;
-	}
-
-	deviceDetect() {
-		console.log("Is Iphone", this.isIPhone())
-		console.log("Is PWA", this.isPWA())
-
-		if (isMobile && window.screen.width < 743 && this.isIPhone() && !this.isPWA()) {
-			return true
-		}
-		return false;
-	}
-
 	addIPhoneBottomMargin(classSelector) {
 		console.log("Is Iphone", this.isIPhone())
 		console.log("Is PWA", this.isPWA())
@@ -398,5 +359,27 @@ export const authService = {
 	logout() {
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
+	},
+	confirmSignUp(pathName) { return getRequest(`${pathName.slice(1,)}`); },
+	isAuth(data) { return postRequest('is-auth/', data); },
+	isIPhone() {
+		if (navigator.appVersion.includes("iPhone") && navigator.userAgent.includes("iPhone")) {
+			return true
+		}
+		return false
+	},
+	isPWA() {
+		if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator.standalone)) {
+			return true
+		}
+		return false;
+	},
+	deviceDetect() {
+		console.log("Is Iphone", this.isIPhone())
+		console.log("Is PWA", this.isPWA())
+		if (isMobile && window.screen.width < 743 && this.isIPhone() && !this.isPWA()) {
+			return true
+		}
+		return false;
 	},
 }
