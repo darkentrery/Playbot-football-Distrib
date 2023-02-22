@@ -173,6 +173,9 @@ def get_next_rank(user, event):
 
     result_sum = 0
     event_duration = sum([game.current_duration for game in event.event_games.all()])
+    if not event_duration:
+        return user.rank
+
     for team_player in user.team_players.all():
         for event_game in team_player.team.event_games_teams_1.all():
             win_goals = event_game.score_1
