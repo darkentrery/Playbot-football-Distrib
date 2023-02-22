@@ -65,8 +65,8 @@ class LoginTelegramView(TokenObtainPairView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
+        City.objects.update_or_create(name=request.data["city"])
         serializer = self.get_serializer(data=request.data)
-
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:

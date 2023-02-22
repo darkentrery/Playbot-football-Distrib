@@ -198,6 +198,7 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
         self.fields["last_name"] = serializers.CharField()
         self.fields["photo_url"] = serializers.CharField()
         self.fields["username"] = serializers.CharField()
+        self.fields["city"] = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
 
         # self.fields["telegram_id"] = serializers.CharField()
         # self.fields["chanel_id"] = serializers.CharField()
@@ -205,6 +206,7 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
     def check_response(self, data):
         d = data.copy()
         del d['hash']
+        del d["city"]
         d_list = []
         for key in sorted(d.keys()):
             if d[key] != None:
@@ -226,6 +228,7 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
                 defaults["last_name"] = attrs.get("last_name")
             if attrs.get("username"):
                 defaults["username"] = attrs.get("username")
+            defaults["city"] = attrs.get("city")
             defaults["is_active"] = True
             self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
             if not self.user.ranks_history.all().exists():
@@ -301,8 +304,6 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
 class SignUpSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(max_length=128, write_only=True, required=False)
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
-    # email = serializers.EmailField(required=True, write_only=True, max_length=128)
-    # password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
 
     class Meta:
         model = User

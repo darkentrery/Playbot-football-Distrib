@@ -15,7 +15,7 @@ import {
   loginWindow,
   iphone,
   hiddenMap,
-  team, confirmTeamPlayersWindow
+  team, confirmTeamPlayersWindow, successExistsUserWindow
 } from "../actions/actions";
 
 
@@ -38,6 +38,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openSuccessSignUp2: () => {
         dispatch(successSignUp2Window(true));
+      },
+      openSuccessExistsUser: () => {
+        dispatch(successExistsUserWindow(true));
       },
       openChoiceCity: () => {
         dispatch(choiceCityWindow(true));

@@ -27,7 +27,7 @@ import {
     STEPS,
     SUCCESS_CANCEL_EVENT_WINDOW,
     SUCCESS_CREATE_EVENT_WINDOW,
-    SUCCESS_EDIT_EVENT_WINDOW,
+    SUCCESS_EDIT_EVENT_WINDOW, SUCCESS_EXISTS_USER_WINDOW,
     SUCCESS_REFRESH_PASSWORD_WINDOW,
     SUCCESS_SIGN_UP2_WINDOW,
     SUCCESS_SIGN_UP_WINDOW,
@@ -51,6 +51,7 @@ const initialState = {
     isOpenSuccessCancelEvent: false,
     isOpenSuccessUpdateUser: false,
     isOpenSuccessUpdatePassword: false,
+    isOpenSuccessExistsUser: false,
     isOpenChoiceCity: false,
     isOpenCreateEvent: false,
     isOpenCreateEventUnAuth: false,
@@ -127,6 +128,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenSuccessUpdatePassword: action.value
+          };
+      case SUCCESS_EXISTS_USER_WINDOW:
+          return {
+              ...state,
+              isOpenSuccessExistsUser: action.value
           };
       case REPEAT_EVENT_WINDOW:
           return {

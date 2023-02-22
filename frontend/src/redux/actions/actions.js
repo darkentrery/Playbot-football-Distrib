@@ -9,6 +9,7 @@ export const SUCCESS_EDIT_EVENT_WINDOW = 'SUCCESS_EDIT_EVENT_WINDOW';
 export const SUCCESS_CANCEL_EVENT_WINDOW = 'SUCCESS_CANCEL_EVENT_WINDOW';
 export const SUCCESS_UPDATE_USER_WINDOW = 'SUCCESS_UPDATE_USER_WINDOW';
 export const SUCCESS_UPDATE_PASSWORD_WINDOW = 'SUCCESS_UPDATE_PASSWORD_WINDOW';
+export const SUCCESS_EXISTS_USER_WINDOW = 'SUCCESS_EXISTS_USER_WINDOW';
 export const CHOICE_CITY_WINDOW = 'CHOICE_CITY_WINDOW';
 export const CREATE_EVENT_WINDOW = 'CREATE_EVENT_WINDOW';
 export const CREATE_EVENT_UN_AUTH_WINDOW = 'CREATE_EVENT_UN_AUTH_WINDOW';
@@ -95,6 +96,11 @@ export const successUpdateUserWindow = (value) => ({
 
 export const successUpdatePasswordWindow = (value) => ({
   type: SUCCESS_UPDATE_PASSWORD_WINDOW,
+  value,
+});
+
+export const successExistsUserWindow = (value) => ({
+  type: SUCCESS_EXISTS_USER_WINDOW,
   value,
 });
 

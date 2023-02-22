@@ -49,6 +49,7 @@ import VisibleMyProfile from "./redux/containers/VisibleMyProfile";
 import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
 import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
+import VisibleSuccessExistsUser from "./redux/containers/VisibleSuccessExistsUser";
 
 
 function App({state, funcs}) {
@@ -119,6 +120,9 @@ function App({state, funcs}) {
             // openChoiceCity();
             localStorage.telegramLogin = false;
             funcs.openSuccessSignUp2();
+        } else if (localStorage.telegramLogin === 'username') {
+            localStorage.telegramLogin = false;
+            funcs.openSuccessExistsUser();
         }
     }, [localStorage.telegramLogin])
 
@@ -160,6 +164,7 @@ function App({state, funcs}) {
                 <VisibleSuccessEditEvent/>
                 <VisibleSuccessCancelEvent/>
                 <VisibleSuccessUpdateUser/>
+                <VisibleSuccessExistsUser/>
                 <VisibleCreateEvent/>
                 <VisibleCreateEventUnAuth/>
                 <VisibleEditEvent/>

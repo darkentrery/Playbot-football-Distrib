@@ -63,7 +63,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                     <Link
                         className={`nav-link ${window.location.pathname.includes('info') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventInfoLink(pk)}
-                    >Иформация</Link>
+                    >Информация</Link>
                     {user.isAuth && event && user.user.id === event.organizer.id && gameId !== false && <Link
                         className={`nav-link ${window.location.pathname.includes('player-game') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
@@ -84,7 +84,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                         <Link
                             className={`nav-link  ${window.location.pathname.includes('info') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
                             to={BaseRoutes.eventInfoLink(pk)}
-                        >Иформация</Link>
+                        >Информация</Link>
                         {user.isAuth && event && user.user.id === event.organizer.id && gameId !== false && <Link
                             className={`nav-link ${window.location.pathname.includes('player-game') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
                             to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
