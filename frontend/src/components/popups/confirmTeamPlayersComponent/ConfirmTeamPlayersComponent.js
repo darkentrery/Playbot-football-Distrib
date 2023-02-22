@@ -101,41 +101,43 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     }
 
     const confirmPlayers = () => {
-        if (!buttonLock) {
-            team.name = teamName;
-            setTeamName(false);
-            setButtonLock(true);
-            setIsLoader(true);
-            authDecoratorWithoutLogin(eventService.confirmTeamPlayers, {
-                "team": team,
-                "players": selected
-            }).then((response) => {
-                if (response.status === 200) {
-                    setIsLoader(false);
-                    funcs.setEvent(response.data);
-                    closeWindow();
-                    if (team.number < event.teams.length) {
-                        for (let t of response.data.teams) {
-                            if (t.number === team.number + 1) {
-                                funcs.setTeam(t);
-                                break;
+        if (team.number < event.teams.length || playersView.length === selected.length) {
+            if (!buttonLock) {
+                team.name = teamName;
+                setTeamName(false);
+                setButtonLock(true);
+                setIsLoader(true);
+                authDecoratorWithoutLogin(eventService.confirmTeamPlayers, {
+                    "team": team,
+                    "players": selected
+                }).then((response) => {
+                    if (response.status === 200) {
+                        setIsLoader(false);
+                        funcs.setEvent(response.data);
+                        closeWindow();
+                        if (team.number < event.teams.length) {
+                            for (let t of response.data.teams) {
+                                if (t.number === team.number + 1) {
+                                    funcs.setTeam(t);
+                                    break;
+                                }
                             }
-                        }
-                        funcs.openConfirmTeamPlayers();
-                    } else {
-                        for (let t of response.data.teams) {
-                            if (t.number === team.number) {
-                                funcs.setTeam(t);
-                                break;
+                            funcs.openConfirmTeamPlayers();
+                        } else {
+                            for (let t of response.data.teams) {
+                                if (t.number === team.number) {
+                                    funcs.setTeam(t);
+                                    break;
+                                }
                             }
+                            funcs.openConfirmTeams();
                         }
-                        funcs.openConfirmTeams();
+                        funcs.removeMap();
+                        buttonRef.current.blur();
+                        setButtonLock(false);
                     }
-                    funcs.removeMap();
-                    buttonRef.current.blur();
-                    setButtonLock(false);
-                }
-            })
+                })
+            }
         }
     }
 
