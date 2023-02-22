@@ -359,6 +359,7 @@ export const authService = {
 	logout() {
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
+		window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
 	},
 	confirmSignUp(pathName) { return getRequest(`${pathName.slice(1,)}`); },
 	isAuth(data) { return postRequest('is-auth/', data); },

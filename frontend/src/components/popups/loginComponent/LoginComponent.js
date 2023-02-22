@@ -4,6 +4,7 @@ import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth, showMap}) {
@@ -15,6 +16,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     const [typePassword, setTypePassword] = useState(true);
     const [rightIcon, setRightIcon] = useState('eye-icon');
     const [data, setData] = useState(false);
+    const [isLoader, setIsLoader] = useState(false);
     const refLogin = useRef(false);
 
     useEffect(() => {
@@ -51,9 +53,11 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     const sendForm = () => {
         let errors = authServicee.loginRequestValidation(email, password, setEmailError, setPasswordError);
         if (!errors.length) {
+            setIsLoader(true);
             authService.login(data).then((response) => {
                 errors = authServicee.loginResponseValidation(response, setEmailError, setPasswordError);
                 if (!errors.length) {
+                    setIsLoader(false);
                     setAuth(true, response.data.user);
                     closeWindow();
                     showMap();
@@ -90,6 +94,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
             ariaHideApp={false}
         >
             <div className={"popup-frame login-component"} onClick={hiddenFrames}>
+                {isLoader && <LoaderComponent borderRadius={10}/>}
                 <div className={"popup-left"}>
                     <div onClick={toMenu} className={"btn-close"}></div>
                     <span className={"black-600-22 login-title"}>Вход</span>
