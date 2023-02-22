@@ -406,6 +406,10 @@ class CreateGoalView(APIView):
             if serializer.is_valid():
                 goal = serializer.save()
                 if goal:
+                    if game.game_periods.filter(time_end=None).exists():
+                        period = game.game_periods.filter(time_end=None).last()
+                        period.time_end = goal.time
+                        period.save()
                     game = EventGameSerializer(instance=goal.game).data
                     return Response(game, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

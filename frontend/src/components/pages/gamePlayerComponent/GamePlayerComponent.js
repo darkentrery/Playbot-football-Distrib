@@ -49,10 +49,16 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             } else {
                 setAllPlayed(1);
             }
-            let seconds = (event.duration.duration * 60 - game.rest_time) % 60;
-            let minutes = (((event.duration.duration * 60 - game.rest_time) - seconds) / 60);
+            let currentDuration = game.current_duration_without_last;
+            if (game.last_time_begin) {
+                let time = new Date(game.last_time_begin);
+                let additionalTime = Math.ceil((new Date() - time) / 1000);
+                currentDuration += additionalTime;
+            }
+            let seconds = currentDuration % 60;
+            let minutes = ((currentDuration - seconds) / 60);
             setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-            setRestTime(game.rest_time);
+            setRestTime(event.duration.duration * 60 - currentDuration);
             setBlock(false);
         }
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps

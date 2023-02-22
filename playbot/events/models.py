@@ -366,6 +366,18 @@ class EventGame(models.Model):
         return int(duration)
 
     @property
+    def current_duration_without_last(self):
+        duration = 0
+        for period in self.game_periods.exclude(time_end=None):
+            duration += period.duration
+        return int(duration)
+
+    @property
+    def last_time_begin(self):
+        if self.game_periods.filter(time_end=None).exclude(time_begin=None).exists():
+            return self.game_periods.filter(time_end=None).exclude(time_begin=None).last().time_begin
+
+    @property
     def rest_time(self):
         rest_time = self.event.duration.duration * 60 - self.current_duration
         return rest_time if rest_time > 0 else 0
@@ -476,4 +488,4 @@ class GamePeriod(models.Model):
         duration = (timezone.now() - self.time_begin).total_seconds()
         if self.time_end:
             duration = (self.time_end - self.time_begin).total_seconds()
-        return int(duration)
+        return duration

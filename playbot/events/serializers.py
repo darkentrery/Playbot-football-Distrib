@@ -116,7 +116,8 @@ class EventGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventGame
         fields = ["id", "team_1", "team_2", "time_begin", "time_end", "number", "goals", "current_duration", "rest_time",
-                  "is_play", "score_1", "score_2", "result_1", "result_2", "game_periods"]
+                  "is_play", "score_1", "score_2", "result_1", "result_2", "game_periods", "current_duration_without_last",
+                  "last_time_begin",]
         read_only_fields = fields
 
 

@@ -3,6 +3,7 @@
   background: #F9F9F9;
   box-sizing: border-box;
   flex: 1 1 auto;
+  position: relative;
 
   .about-player {
     display: flex;
@@ -204,6 +205,8 @@
     flex-direction: column;
     overflow: auto;
     margin-bottom: 66px;
+    position: relative;
+    flex: 1 1 auto;
 
     &.safari-margin {
       margin-bottom: 136px;

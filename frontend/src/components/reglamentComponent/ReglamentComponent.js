@@ -24,7 +24,7 @@ export const ReglamentComponent = ({
         >
             <div className={"popup-fon"} onClick={popupClick}>
                 <div className={`popup-frame reglament-component ${className}`}>
-                    {isLoader && <LoaderComponent/>}
+                    {isLoader && <LoaderComponent borderRadius={10}/>}
                     <div className={"elem elem-1"}>
                         <div onClick={clickBack} className={`btn-back ${step !== 1 ? '' : 'hidden'}`}></div>
                         <span className={"title-22"}>{title}</span>

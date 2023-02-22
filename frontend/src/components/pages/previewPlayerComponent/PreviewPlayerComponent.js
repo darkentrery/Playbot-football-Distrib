@@ -9,6 +9,7 @@ import {Top376Component} from "../../top376Component/Top376Component";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
 import {eventService} from "../../../services/EventService";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 
 
 export const PreviewPlayerComponent = ({
@@ -146,19 +147,22 @@ export const PreviewPlayerComponent = ({
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={"profile-wrapper-component scroll"}>
                 <ProfileAsideComponent player={player} funcs={funcs}/>
-                {player && <div className={"preview-player-component"}>
-                    <div className={"top-menu"}>
-                        <span className={about ? 'black-700-20' : 'gray-700-20 link'} onClick={() => setAbout(true)}>Об игроке</span>
-                        <span className={!about ? 'black-700-20' : 'gray-700-20 link'} onClick={() => setAbout(false)}>Похожие игроки</span>
-                    </div>
-                    <div className={`about-player ${about ? '' : 'hidden'}`}>
-                        <span className={"black-700-20 label-1280"}>Об игроке</span>
-                        <About player={player}/>
-                        <span className={"black-700-20"}>События</span>
-                        <EventsTable player={player}/>
-                    </div>
-                    <SamePlayers player={player} hidden={about}/>
-                </div>}
+                <div className={"preview-player-component"}>
+                    {!!player && <>
+                        <div className={"top-menu"}>
+                            <span className={about ? 'black-700-20' : 'gray-700-20 link'} onClick={() => setAbout(true)}>Об игроке</span>
+                            <span className={!about ? 'black-700-20' : 'gray-700-20 link'} onClick={() => setAbout(false)}>Похожие игроки</span>
+                        </div>
+                        <div className={`about-player ${about ? '' : 'hidden'}`}>
+                            <span className={"black-700-20 label-1280"}>Об игроке</span>
+                            <About player={player}/>
+                            <span className={"black-700-20"}>События</span>
+                            <EventsTable player={player}/>
+                        </div>
+                        <SamePlayers player={player} hidden={about}/>
+                    </>}
+                    {!player && <LoaderComponent/>}
+                </div>
             </div>
 
             <div className={`preview-player-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
@@ -175,6 +179,7 @@ export const PreviewPlayerComponent = ({
                     {eventsLink && <EventsTable player={player}/>}
                     {sameLink && <SamePlayers player={player}/>}
                 </>}
+                {!player && <LoaderComponent/>}
             </div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
         </main>
