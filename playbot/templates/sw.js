@@ -1,5 +1,5 @@
 console.log('Hello from sw.js');
-const CACHE = 'cache-update-and-refresh-v5';
+const CACHE = 'cache-update-and-refresh-v6';
 
 const assets = [];
 self.performance.getEntriesByType('resource')

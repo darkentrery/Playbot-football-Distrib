@@ -148,6 +148,7 @@ def auto_distribution(event):
 
 
 def get_next_rank(user, event):
+    logger.info(f"username= {user.email}")
     user_team = event.teams.all().first()
     opponents_id = []
     for team in event.teams.all():
@@ -172,6 +173,7 @@ def get_next_rank(user, event):
             time_sum += event_game.current_duration
 
     result_sum = 0
+    logger.info(f"{result_sum=}")
     event_duration = sum([game.current_duration for game in event.event_games.all()])
     if not event_duration:
         return user.rank
@@ -188,6 +190,8 @@ def get_next_rank(user, event):
                 k_goal  = win_goals / loss_goals
             result = event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
             result_sum += result
+            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
+            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
             # time_sum += event_game.current_duration * event_game.event.format.rate
         for event_game in team_player.team.event_games_teams_2.all():
             win_goals = event_game.score_2
@@ -200,9 +204,13 @@ def get_next_rank(user, event):
                 k_goal = win_goals / loss_goals
             result = event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
             result_sum += result
+            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
+            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
             # time_sum += event_game.current_duration * event_game.event.format.rate
     time_sum *= 0.001
     result_sum *= 0.001
+    logger.info(f"result_sum *= 0.001")
+    logger.info(f"{result_sum=}")
     avr_opponents = 0
     rivals = 0
     for opponent_team in opponent_teams:
