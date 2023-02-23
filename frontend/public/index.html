@@ -3,7 +3,7 @@
   <head>
 <meta charset="utf-8" />
     <link rel="icon" href="/static/favicon.ico"/>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no; viewport-fit=cover"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
     <meta name="HandheldFriendly" content="true"/>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,16 +26,5 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-
-       if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('{% url "sw.js" %}', { scope: '/' })
-              .then((reg) => navigator.serviceWorker.ready.then((worker) => {
-                worker.sync.register('syncdata');
-                console.log('Registration succeeded. Scope is ' + reg.scope);
-              }))
-              .catch((err) => console.log('Registration failed with ' + err));
-        }
-    </script>
   </body>
 </html>

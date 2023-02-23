@@ -2,6 +2,7 @@ import axios from 'axios';
 import {csrftoken} from "./CsrfService";
 import $ from "jquery";
 import {isMobile} from "react-device-detect";
+import {noticeService} from "./NoticeService";
 
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -352,6 +353,7 @@ export const authService = {
 				localStorage.setItem("access_token", response.data.access);
 				localStorage.setItem("refresh_token", response.data.refresh);
 				localStorage.setItem("date_token", Date.now());
+				noticeService.registerSw();
 			}
 			return response;
 		});

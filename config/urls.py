@@ -12,4 +12,5 @@ urlpatterns = [
     path('api/events/', include('playbot.events.urls')),
     path('api/cities/', include('playbot.cities.urls')),
     path('api/notices/', include('playbot.notices.urls')),
+    path('webpush/', include('webpush.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

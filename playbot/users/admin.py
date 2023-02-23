@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from webpush import send_user_notification
 
 from playbot.users.models import User, Position, RankHistory
 
@@ -73,13 +74,19 @@ class CustomUserAdmin(UserAdmin):
         "favorite_events",
     )
     inlines = [RankHistoryInline,]
-    actions = ["set_first_rank", ]
+    actions = ["set_first_rank", "send_notification"]
 
     @admin.action()
     def set_first_rank(self, request, queryset):
         for user in User.objects.all():
             if not user.ranks_history.all().exists():
                 RankHistory.objects.create(user=user)
+
+    @admin.action()
+    def send_notification(self, request, queryset):
+        for user in queryset:
+            payload = {'head': "head", 'body': "body"}
+            send_user_notification(user=user, payload=payload, ttl=1000)
 
 
 @admin.register(Position)

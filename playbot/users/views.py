@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.views.generic import TemplateView
 from rest_framework import status
@@ -7,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
+from webpush import send_user_notification
 
 from playbot.cities.models import City
 from playbot.users.models import User, RankHistory
@@ -133,7 +135,10 @@ class IsAuthView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
+        # webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
+        # vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
         json = UserSerializer(instance=request.user).data
+        # json["vapid_key"] = vapid_key
         return Response(json, status=status.HTTP_200_OK)
 
 

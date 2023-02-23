@@ -102,7 +102,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     'social_django',
     # 'channels',
-    # 'social_django_mongoengine',
+    'webpush',
 ]
 
 LOCAL_APPS = [
@@ -279,3 +279,9 @@ SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 SENDGRID_DEFAULT_FROM_EMAIL = env('SENDGRID_DEFAULT_FROM_EMAIL', default='mikhail.badazhkov@yandex.kz')
 
 CONFIRM_REGISTRATION_DOMAIN = env('CONFIRM_REGISTRATION_DOMAIN')
+
+WEBPUSH_SETTINGS = {
+   "VAPID_PUBLIC_KEY": env("VAPID_PUBLIC_KEY"),
+   "VAPID_PRIVATE_KEY": env("VAPID_PRIVATE_KEY"),
+   "VAPID_ADMIN_EMAIL": env("VAPID_ADMIN_EMAIL"),
+}
