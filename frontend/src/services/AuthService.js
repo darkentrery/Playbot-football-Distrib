@@ -367,19 +367,20 @@ export const authService = {
 	isAuth(data) { return postRequest('is-auth/', data); },
 	isIPhone() {
 		if (navigator.appVersion.includes("iPhone") && navigator.userAgent.includes("iPhone")) {
-			return true
+			return true;
 		}
-		return false
+		return false;
 	},
 	isPWA() {
 		if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator.standalone)) {
-			return true
+			return true;
 		}
 		return false;
 	},
 	isSafari() {
 		if (/safari/.test(navigator.userAgent.toLowerCase())) {
-			return true
+			// return true;
+			return false;
 		}
 		return false;
 	},
