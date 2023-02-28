@@ -6,6 +6,7 @@
   min-height: 100vh;
   background: $lightGrayColor;
   box-sizing: border-box;
+  overflow: auto;
 
   .event-wrapper-head-1280 {
     display: flex;
