@@ -166,11 +166,15 @@ def get_next_rank(user, event):
     #     user_team = game.team_1
 
     time_sum = 0
-    for team_player in user.team_players.all():
-        for event_game in team_player.team.event_games_teams_1.all():
-            time_sum += event_game.current_duration
-        for event_game in team_player.team.event_games_teams_2.all():
-            time_sum += event_game.current_duration
+    # for team_player in user.team_players.all():
+    #     for event_game in team_player.team.event_games_teams_1.all():
+    #         time_sum += event_game.current_duration
+    #     for event_game in team_player.team.event_games_teams_2.all():
+    #         time_sum += event_game.current_duration
+    for event_game in user_team.event_games_teams_1.all():
+        time_sum += event_game.current_duration
+    for event_game in user_team.event_games_teams_2.all():
+        time_sum += event_game.current_duration
 
     result_sum = 0
     logger.info(f"{result_sum=}")

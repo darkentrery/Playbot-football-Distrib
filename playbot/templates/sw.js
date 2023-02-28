@@ -65,9 +65,28 @@ self.addEventListener('push', function (event) {
     event.waitUntil(
         self.registration.showNotification(head, {
             body: body,
-            icon: 'https://i.imgur.com/MZM3K5w.png'
+            icon: 'https://i.imgur.com/MZM3K5w.png',
+            data: data,
         })
     );
+});
+
+self.addEventListener('notificationclick', function(event) {
+    console.log(event.notification.data)
+    const target = event.notification.data.action_url || '/';
+    event.notification.close();
+    event.waitUntil(self.clients.matchAll({
+        type: 'window',
+        includeUncontrolled: true
+    }).then(function(clientList) {
+        for (let i = 0; i < clientList.length; i++) {
+            let client = clientList[i];
+            if (client.url == target && 'focus' in client) {
+                return client.focus();
+            }
+        }
+        return self.clients.openWindow(target);
+    }));
 });
 
 const update = (request) => {

@@ -1,3 +1,6 @@
+from django.conf import settings
+from webpush import send_user_notification
+
 from playbot.notices.models import UserNotice, Notice
 
 
@@ -18,6 +21,12 @@ class CreateNotice:
         )
         for player in self.event_player.all():
             UserNotice.objects.create(user=player.player, notice=notice)
+            payload = {
+                "head": "Игра отменена!",
+                "body": notice.text,
+                "action_url": f"{settings.CONFIRM_REGISTRATION_DOMAIN}/events/event/{self.id}/",
+            }
+            send_user_notification(user=player.player, payload=payload, ttl=1000)
 
     def notice_new_player(self):
         notice = Notice.objects.create(
@@ -27,6 +36,12 @@ class CreateNotice:
         )
         for player in self.event_player.all():
             UserNotice.objects.create(user=player.player, notice=notice)
+            payload = {
+                "head": "Добавился новый участник!",
+                "body": notice.text,
+                "action_url": f"{settings.CONFIRM_REGISTRATION_DOMAIN}/events/event/{self.id}/",
+            }
+            send_user_notification(user=player.player, payload=payload, ttl=1000)
 
     def notice_complete_players(self):
         notice = Notice.objects.create(
