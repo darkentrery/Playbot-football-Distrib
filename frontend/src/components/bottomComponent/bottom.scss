@@ -303,7 +303,7 @@
     z-index: 500;
 
     &.safari-margin {
-      bottom: 70px;
+      //bottom: 70px;
     }
     .elem-1280 {
       display: none;
@@ -320,9 +320,6 @@
       box-sizing: border-box;
       padding: 10px 25px 18px 25px;
 
-      //&.safari-margin {
-      // //margin-bottom: 70px;
-      //}
       .elem {
         display: flex;
         flex: 0 0 50px;
