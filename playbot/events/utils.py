@@ -192,10 +192,15 @@ def get_next_rank(user, event):
             k_goal = win_goals + 0.5
             if loss_goals:
                 k_goal  = win_goals / loss_goals
-            result = event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
+            team_result = 0.5
+            if event_game.score_1 > event_game.score_2:
+                team_result = 1
+            elif event_game.score_1 < event_game.score_2:
+                team_result = -1
+            result = event.format.rate * event_game.result_1 * k_goal * time_sum * team_result / event_duration
             result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
-            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
+            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum * team_result / event_duration")
+            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {team_result=}, {event_duration=}")
             # time_sum += event_game.current_duration * event_game.event.format.rate
         for event_game in team_player.team.event_games_teams_2.all():
             win_goals = event_game.score_2
@@ -206,10 +211,15 @@ def get_next_rank(user, event):
             k_goal = win_goals + 0.5
             if loss_goals:
                 k_goal = win_goals / loss_goals
-            result = event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
+            team_result = 0.5
+            if event_game.score_1 < event_game.score_2:
+                team_result = 1
+            elif event_game.score_1 > event_game.score_2:
+                team_result = -1
+            result = event.format.rate * event_game.result_2 * k_goal * time_sum * team_result / event_duration
             result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
-            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
+            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum * team_result / event_duration")
+            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {team_result=}, {event_duration=}")
             # time_sum += event_game.current_duration * event_game.event.format.rate
     time_sum *= 0.001
     result_sum *= 0.001
