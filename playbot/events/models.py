@@ -396,18 +396,18 @@ class EventGame(models.Model):
 
     @property
     def result_1(self):
-        result = 1
+        result = 0.5
         if self.score_1 > self.score_2:
-            result = 3
+            result = 1
         elif self.score_1 < self.score_2:
             result = -1
         return result
 
     @property
     def result_2(self):
-        result = 1
+        result = 0.5
         if self.score_2 > self.score_1:
-            result = 3
+            result = 1
         elif self.score_2 < self.score_1:
             result = -1
         return result

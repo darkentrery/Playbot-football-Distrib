@@ -42,6 +42,7 @@ class User(AbstractUser):
     favorite_players = models.ManyToManyField("users.User", related_name="in_favorite_players", blank=True)
     penalty = models.PositiveIntegerField(_("Penalty"), default=0)
     involvement = models.PositiveIntegerField(_("Involvement"), default=1)
+    rivals = models.ManyToManyField("users.User", related_name="in_rivals", blank=True)
     is_active = models.BooleanField(
         _("active"),
         default=False,
@@ -69,7 +70,6 @@ class User(AbstractUser):
             games += team_player.team.event_games_teams_1.all().count()
             games += team_player.team.event_games_teams_2.all().count()
         return games
-        # return self.event_player.all().count()
 
     @property
     def count_goals(self):

@@ -147,6 +147,24 @@ def auto_distribution(event):
     return teams
 
 
+def get_k_goal(win_goals, loss_goals):
+    k_goal = win_goals + 0.5
+    if loss_goals:
+        k_goal = win_goals / loss_goals
+    if not loss_goals and not win_goals:
+        k_goal = 1
+    return k_goal
+
+
+def get_wins_loss_goals(self_score, opponent_score, self_result):
+    win_goals = self_score
+    loss_goals = opponent_score
+    if self_result < 0:
+        win_goals = opponent_score
+        loss_goals = self_score
+    return win_goals, loss_goals
+
+
 def get_next_rank(user, event):
     logger.info(f"username= {user.email}")
     user_team = event.teams.all().first()
@@ -159,18 +177,7 @@ def get_next_rank(user, event):
 
     opponent_teams = event.teams.filter(id__in=opponents_id)
 
-    # opponent_team = game.team_1
-    # user_team = game.team_2
-    # if game.team_1.team_players.filter(player__id=user.id).exists():
-    #     opponent_team = game.team_2
-    #     user_team = game.team_1
-
     time_sum = 0
-    # for team_player in user.team_players.all():
-    #     for event_game in team_player.team.event_games_teams_1.all():
-    #         time_sum += event_game.current_duration
-    #     for event_game in team_player.team.event_games_teams_2.all():
-    #         time_sum += event_game.current_duration
     for event_game in user_team.event_games_teams_1.all():
         time_sum += event_game.current_duration
     for event_game in user_team.event_games_teams_2.all():
@@ -182,66 +189,49 @@ def get_next_rank(user, event):
     if not event_duration:
         return user.rank
 
-    for team_player in user.team_players.all():
-        for event_game in team_player.team.event_games_teams_1.all():
-            win_goals = event_game.score_1
-            loss_goals = event_game.score_2
-            if event_game.result_1 < 0:
-                win_goals = event_game.score_2
-                loss_goals = event_game.score_1
-            k_goal = win_goals + 0.5
-            if loss_goals:
-                k_goal  = win_goals / loss_goals
-            team_result = 0.5
-            if event_game.score_1 > event_game.score_2:
-                team_result = 1
-            elif event_game.score_1 < event_game.score_2:
-                team_result = -1
-            result = event.format.rate * event_game.result_1 * k_goal * time_sum * team_result / event_duration
-            result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum * team_result / event_duration")
-            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {team_result=}, {event_duration=}")
-            # time_sum += event_game.current_duration * event_game.event.format.rate
-        for event_game in team_player.team.event_games_teams_2.all():
-            win_goals = event_game.score_2
-            loss_goals = event_game.score_1
-            if event_game.result_2 < 0:
-                win_goals = event_game.score_1
-                loss_goals = event_game.score_2
-            k_goal = win_goals + 0.5
-            if loss_goals:
-                k_goal = win_goals / loss_goals
-            team_result = 0.5
-            if event_game.score_1 < event_game.score_2:
-                team_result = 1
-            elif event_game.score_1 > event_game.score_2:
-                team_result = -1
-            result = event.format.rate * event_game.result_2 * k_goal * time_sum * team_result / event_duration
-            result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum * team_result / event_duration")
-            logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {team_result=}, {event_duration=}")
-            # time_sum += event_game.current_duration * event_game.event.format.rate
-    time_sum *= 0.001
-    result_sum *= 0.001
-    logger.info(f"result_sum *= 0.001")
+    for event_game in user_team.event_games_teams_1.all():
+        win_goals, loss_goals = get_wins_loss_goals(event_game.score_1, event_game.score_2, event_game.result_1)
+        # win_goals = event_game.score_1
+        # loss_goals = event_game.score_2
+        # if event_game.result_1 < 0:
+        #     win_goals = event_game.score_2
+        #     loss_goals = event_game.score_1
+        k_goal = get_k_goal(win_goals, loss_goals)
+        result = event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
+        result_sum += result
+        logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
+        logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
+    for event_game in user_team.event_games_teams_2.all():
+        win_goals, loss_goals = get_wins_loss_goals(event_game.score_2, event_game.score_1, event_game.result_2)
+        # win_goals = event_game.score_2
+        # loss_goals = event_game.score_1
+        # if event_game.result_2 < 0:
+        #     win_goals = event_game.score_1
+        #     loss_goals = event_game.score_2
+        k_goal = get_k_goal(win_goals, loss_goals)
+        result = event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
+        result_sum += result
+        logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
+        logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
+
     logger.info(f"{result_sum=}")
     avr_opponents = 0
     rivals = 0
+    unique_rivals = 0
     for opponent_team in opponent_teams:
         for opponent in opponent_team.team_players.all():
             avr_opponents += opponent.player.rank
+            if opponent.player not in user.rivals.all():
+                unique_rivals += 1
+                user.rivals.add(opponent.player)
         rivals += opponent_team.team_players.all().count()
     avr_opponents /= rivals
-
-    # delta_team_rank = user_team.rank + event.format.rate * 0.01 + user_team.all_rivals * 0.01
     if user.rank:
         rate = avr_opponents / user.rank
     else:
         rate = 1 if avr_opponents else 0
 
-    # delta_rank = user.rank + event.format.rate * delta_team_rank + Goal.objects.filter(team=user_team, player=user).count()
-    rank = (user.rank + result_sum + user.all_rivals * 0.01 + rate) * user.involvement * (100 - user.penalty) * 0.01
-    logger.info(f"user.rank= {user.rank}, result_sum= {result_sum}, user.all_rivals= {user.all_rivals}, avr_opponents= "
-                f"{avr_opponents}, rate= {rate}, user.involvement= {user.involvement}, user.penalty= {user.penalty}")
-    logger.info(f"username= {user.email}, rank= {rank}")
+    rank = (user.rank + result_sum*0.5 + unique_rivals*0.01 + rate*0.001) * user.involvement * (100 - user.penalty) * 0.01
+    logger.info(f"{user.rank=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
+    logger.info(f"username= {user.email}, {rank=}")
     return rank

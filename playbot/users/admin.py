@@ -51,6 +51,7 @@ class CustomUserAdmin(UserAdmin):
                     "about_self",
                     "favorite_events",
                     "favorite_players",
+                    "rivals",
                 )
             },
         ),
@@ -72,6 +73,8 @@ class CustomUserAdmin(UserAdmin):
         "groups",
         "user_permissions",
         "favorite_events",
+        "favorite_players",
+        "rivals",
     )
     inlines = [RankHistoryInline,]
     actions = ["set_first_rank", "send_notification"]
