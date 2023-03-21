@@ -118,6 +118,7 @@
     overflow: auto;
     margin-bottom: 66px;
     height: 100vh;
+    touch-action: auto;
 
     &.safari-margin {
       margin-bottom: 66px;
