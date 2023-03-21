@@ -10,6 +10,7 @@ import BaseRoutes from "../../../routes/BaseRoutes";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
 import {eventService} from "../../../services/EventService";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import {ProfileTableBarComponent} from "../../profileTableBarComponent/ProfileTableBarComponent";
 
 
 export const PreviewPlayerComponent = ({
@@ -23,6 +24,9 @@ export const PreviewPlayerComponent = ({
     const [profileLink, setSetProfileLink] = useState(true);
     const [eventsLink, setEventsLink] = useState(false);
     const [sameLink, setSameLink] = useState(false);
+    const types = ["Все события", "Предстоящие", "Прошедшие"];
+    const [type, setType] = useState(types[0]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         authService.getUser(pk.toString()).then((response) => {
@@ -32,6 +36,25 @@ export const PreviewPlayerComponent = ({
             }
         })
     }, [pk])
+
+    useEffect(() => {
+        if (player) {
+            let array = [];
+            let array2 = player.event;
+            if (type === types[0]) {
+                array = [...array2];
+            } else if (type === types[1]) {
+                array2.forEach(event => {
+                    if (!event.is_end) array.push(event);
+                })
+            } else if (type === types[2]) {
+                array2.forEach(event => {
+                    if (event.is_end) array.push(event);
+                })
+            }
+            setEvents(array);
+        }
+    }, [type, player]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const EventRow1280 = ({event}) => {
         let address = '';
@@ -93,11 +116,8 @@ export const PreviewPlayerComponent = ({
     const EventsTable = ({player}) => {
         return (
             <div className={"events-table"}>
-                <div className={"table-head"}>
-                    <span className={"black-600-14"}>Ближайшие</span>
-                    <div className={"gray-down-arrow-icon"}></div>
-                </div>
-                {player.event_player.map((event, key) => (<EventRow event={event.event} key={key}/>))}
+                <ProfileTableBarComponent value={type} setValue={setType} values={types}/>
+                {events.map((event, key) => (<EventRow event={event} key={key}/>))}
             </div>
         )
     }
@@ -108,7 +128,6 @@ export const PreviewPlayerComponent = ({
                 <div className={"same-players-head"}>
                     <span className={"el-1 black-700-20"}>Игроки</span>
                     <span className={"gray-600-12"}>Похожие игроки</span>
-                    <div className={"gray-down-arrow-icon"}></div>
                 </div>
                 {player.same_players.map((user, key) => (
                     <Link className={"same-player"} key={key} to={ProfileRoutes.previewPlayerLink(user.id)}>

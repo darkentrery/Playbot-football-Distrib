@@ -135,7 +135,7 @@ class User(AbstractUser):
     @property
     def same_players(self):
         players_id = []
-        players = User.objects.filter(gender=self.gender)
+        players = User.objects.filter(gender=self.gender).exclude(id=self.id)
         for player in players:
             if self.wins_percent - 5 <= player.wins_percent <= self.wins_percent + 5:
                 players_id.append([player.id, player.wins_percent])
