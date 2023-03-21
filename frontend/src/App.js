@@ -68,7 +68,7 @@ function App({state, funcs}) {
     // },{passive: false});
 
     document.addEventListener('touchmove',function(e){
-         if(!$(e.target).closest(".scrollable")) {
+         if(!$(e.target).closest(".scrollable").length) {
              e.preventDefault();
              e.stopPropagation();
          }
