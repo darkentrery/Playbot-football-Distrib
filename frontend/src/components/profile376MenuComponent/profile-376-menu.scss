@@ -20,12 +20,12 @@
     &::-webkit-scrollbar-track {
       border: 0;
       background-clip: content-box;
-      border-radius: 5px;
+      border-radius: 0;
       background: #E9E9E9;
     }
     &::-webkit-scrollbar-thumb {
       background: #ABABAB;
-      border-radius: 5px;
+      border-radius: 0;
     }
     .nav-link {
       display: flex;
