@@ -50,6 +50,7 @@ import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
 import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
 import VisibleSuccessExistsUser from "./redux/containers/VisibleSuccessExistsUser";
+import $ from "jquery";
 
 
 function App({state, funcs}) {
@@ -65,6 +66,13 @@ function App({state, funcs}) {
     //     }
     //     lastY = event.touches[0].clientY;
     // },{passive: false});
+
+    document.addEventListener('touchmove',function(e){
+         if(!$(e.target).closest(".scrollable")) {
+             e.preventDefault();
+             e.stopPropagation();
+         }
+    },{passive: false});
 
     const showNotice = () => {
         let notice = new Notification("fff?", {

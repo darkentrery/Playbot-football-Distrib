@@ -28,7 +28,7 @@ export default function SuccessComponent ({
         >
             <div className={"popup-frame success-component"}>
                 <div className={"elem elem-1"}>
-                    <span className={"title-22"}>{title}</span>
+                    <span className={"black-600-22"}>{title}</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <div className={"elem elem-2"}>

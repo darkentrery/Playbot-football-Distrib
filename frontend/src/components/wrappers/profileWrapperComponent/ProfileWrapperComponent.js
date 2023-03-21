@@ -38,7 +38,7 @@ export const ProfileWrapperComponent = ({
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
-            <div className={"profile-wrapper-component"}>
+            <div className={"profile-wrapper-component scrollable"}>
                 <ProfileAsideComponent player={state.event.player} funcs={funcs}/>
                 <div className={"my-profile"}>
                     <div className={"title-elem"}>

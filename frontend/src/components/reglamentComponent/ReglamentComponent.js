@@ -27,7 +27,7 @@ export const ReglamentComponent = ({
                     {isLoader && <LoaderComponent borderRadius={10}/>}
                     <div className={"elem elem-1"}>
                         <div onClick={clickBack} className={`btn-back ${step !== 1 ? '' : 'hidden'}`}></div>
-                        <span className={"title-22"}>{title}</span>
+                        <span className={"black-600-22"}>{title}</span>
                         <div onClick={closeWindow} className={"btn-close"}></div>
                     </div>
                     <div className={"elem elem-2"}>

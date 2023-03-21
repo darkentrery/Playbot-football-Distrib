@@ -64,7 +64,7 @@ export const CancelComponent = ({
         >
             <div className={`popup-frame cancel-component ${otherReason ? 'other-reason' : ''}`}>
                 <div className={"elem elem-1"}>
-                    <span className={"title-22"}>{title}</span>
+                    <span className={"black-600-22"}>{title}</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <span className={"elem elem-2"}>{text}</span>

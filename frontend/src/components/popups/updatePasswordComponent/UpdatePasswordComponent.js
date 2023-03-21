@@ -59,7 +59,7 @@ export const UpdatePasswordComponent = ({isOpen, user, funcs}) => {
             <div className={"popup-frame update-password-component"}>
                 <div onClick={closeWindow} className={"btn-close elem-376"}></div>
                 <div className={"elem elem-1"}>
-                    <span className={"title-22"}>Сменить пароль</span>
+                    <span className={"black-600-22"}>Сменить пароль</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>
                 </div>
                 <InputComponent value={password} setValue={setPassword} password={true} leftIcon={"password-icon"}

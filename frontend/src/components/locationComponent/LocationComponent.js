@@ -46,7 +46,7 @@ export default function LocationComponent ({state, funcs}) {
         <div className={"location-component"}>
             <div className={"elem country"}>
                 <span className={"white-600-14"}>Россия</span>
-                <div className={`icon white-down-arrow-icon`}></div>
+                {/*<div className={`icon white-down-arrow-icon`}></div>*/}
             </div>
             <div className={"elem city"} onClick={openConfirmCity} ref={refCity}>
                 <span className={"middle-gray-400-14"}>{user.isAuth && user.user.city ? user.user.city : city}</span>
