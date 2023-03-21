@@ -96,10 +96,10 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                         <span className={"icon socer-player-icon black-500-24"}>{player.all_rivals}</span>
                     </div>
                 </div>
-                <div className={"elem elem-4"}>
-                    <span className={"gray-400-12"}>Команда</span>
-                    <span className={"black-500-20"}>Спартак</span>
-                </div>
+                {/*<div className={"elem elem-4"}>*/}
+                {/*    <span className={"gray-400-12"}>Команда</span>*/}
+                {/*    <span className={"black-500-20"}>Спартак</span>*/}
+                {/*</div>*/}
             </>}
             <div className={`elem elem-5 ${!player ? 'loader' : ''}`}>
                 {player && <>
