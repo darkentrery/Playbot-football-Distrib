@@ -67,12 +67,38 @@ function App({state, funcs}) {
     //     lastY = event.touches[0].clientY;
     // },{passive: false});
 
-    document.addEventListener('touchmove',function(e){
-         if(!$(e.target).closest(".scrollable").length) {
-             e.preventDefault();
-             e.stopPropagation();
-         }
-    },{passive: false});
+    // document.addEventListener('touchmove',function(e){
+    //      if(!$(e.target).closest(".scrollable").length) {
+    //          e.preventDefault();
+    //          e.stopPropagation();
+    //      }
+    // },{passive: false});
+
+    var body = document.getElementsByTagName('body')[0];
+    var bodyScrollTop = null;
+    var locked = false;
+
+    // Заблокировать прокрутку страницы
+    function lockScroll(){
+        if (!locked) {
+            bodyScrollTop = (typeof window.pageYOffset !== 'undefined') ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+            body.classList.add('scroll-locked');
+            body.style.top = `-${bodyScrollTop}px`;
+            locked = true;
+        };
+    }
+
+    // Включить прокрутку страницы
+    function unlockScroll(){
+        if (locked) {
+            body.classList.remove('scroll-locked');
+            body.style.top = null;
+            window.scrollTo(0, bodyScrollTop);
+            locked = false;
+        }
+    }
+    lockScroll();
+    unlockScroll();
 
     const showNotice = () => {
         let notice = new Notification("fff?", {

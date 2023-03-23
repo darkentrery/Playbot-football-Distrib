@@ -9,6 +9,15 @@ body {
   margin: 0;
   touch-action: none;
   overscroll-behavior: none;
+
+  &.scroll-locked {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
 }
 
 span {
@@ -492,7 +501,7 @@ input[type="checkbox"] {
     height: 100vh;
   }
   body {
-    position: fixed;
+    //position: fixed;
     width: 100vw;
     height: 100vh;
   }
