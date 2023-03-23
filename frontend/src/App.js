@@ -82,6 +82,8 @@ function App({state, funcs}) {
     function lockScroll(){
         if (!locked) {
             bodyScrollTop = (typeof window.pageYOffset !== 'undefined') ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+            console.log(bodyScrollTop)
+            console.log(body)
             body.classList.add('scroll-locked');
             body.style.top = `-${bodyScrollTop}px`;
             locked = true;
@@ -97,8 +99,8 @@ function App({state, funcs}) {
             locked = false;
         }
     }
-    lockScroll();
-    unlockScroll();
+    // lockScroll();
+    // unlockScroll();
 
     const showNotice = () => {
         let notice = new Notification("fff?", {

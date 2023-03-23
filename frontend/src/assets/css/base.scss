@@ -495,15 +495,11 @@ input[type="checkbox"] {
   }
 }
 
-
 @media screen and (min-width: 375px) and (max-width: 743px){
-  .main-wrapper-component {
-    height: 100vh;
-  }
   body {
     //position: fixed;
-    width: 100vw;
-    height: 100vh;
+    //width: 100vw;
+    //height: 100vh;
   }
   span {
     -moz-user-select: none;
