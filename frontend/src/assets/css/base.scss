@@ -10,15 +10,6 @@ body {
   //touch-action: none;
   overscroll-behavior: none;
   overflow: auto;
-
-  &.scroll-locked {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
 }
 
 span {
@@ -498,10 +489,8 @@ input[type="checkbox"] {
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   body {
-    //position: fixed;
     width: 100vw;
     height: 100vh;
-    //overflow: hidden;
   }
   span {
     -moz-user-select: none;

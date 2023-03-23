@@ -4,7 +4,6 @@
   background: #F9F9F9;
   box-sizing: border-box;
   flex: 1 1 auto;
-  //overflow: auto;
 
   .my-profile {
     display: flex;
@@ -115,10 +114,7 @@
     display: flex;
     flex: 1 1 auto;
     justify-content: stretch;
-    //overflow: auto;
     margin-bottom: 66px;
-    //height: 100vh;
-    //touch-action: auto;
 
     &.safari-margin {
       margin-bottom: 66px;
