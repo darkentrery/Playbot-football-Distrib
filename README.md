@@ -12,7 +12,7 @@ playbot/fixtures/format.json playbot/fixtures/position.json`
 
 `cd frontend && npm run build`
 
-`source venv/bin/activate && python manage.py collectstatic`
+`cd .. && source venv/bin/activate && python manage.py collectstatic`
 
 `sudo systemctl daemon-reload`
 
