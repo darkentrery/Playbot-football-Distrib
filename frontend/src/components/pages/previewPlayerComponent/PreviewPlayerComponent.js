@@ -164,7 +164,7 @@ export const PreviewPlayerComponent = ({
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs}/>
-            <div className={"profile-wrapper-component scroll"}>
+            <div className={"profile-wrapper-component"}>
                 <ProfileAsideComponent player={player} funcs={funcs}/>
                 <div className={"preview-player-component"}>
                     {!!player && <>

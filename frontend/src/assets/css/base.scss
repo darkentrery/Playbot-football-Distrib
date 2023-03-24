@@ -1,15 +1,15 @@
 html {
   -webkit-text-size-adjust: none;
   //touch-action: none;
-  overscroll-behavior: none;
+  //overscroll-behavior: none;
 }
 
 body {
   -webkit-text-size-adjust: none;
   margin: 0;
   //touch-action: none;
-  overscroll-behavior: none;
-  overflow: auto;
+  //overscroll-behavior: none;
+  overflow-y: auto;
 }
 
 span {

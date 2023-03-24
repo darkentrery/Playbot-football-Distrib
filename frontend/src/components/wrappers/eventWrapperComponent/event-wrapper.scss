@@ -5,8 +5,7 @@
   justify-content: stretch;
   min-height: 100vh;
   background: $lightGrayColor;
-  box-sizing: border-box;
-  overflow: auto;
+  //box-sizing: border-box;
 
   .event-wrapper-head-1280 {
     display: flex;
@@ -88,7 +87,8 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px){
   .event-wrapper-component {
-    height: 100vh;
+    min-height: calc(100vh - 66px);
+    padding-bottom: 66px;
 
     .event-wrapper-head-1280 {
       display: none;

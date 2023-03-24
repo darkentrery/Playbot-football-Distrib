@@ -6,6 +6,7 @@
 
 @media screen and (min-width: 375px) and (max-width: 743px) {
   .main-wrapper-component {
-    height: 100vh;
+    min-height: calc(100vh - 66px);
+    padding-bottom: 66px;
   }
 }
