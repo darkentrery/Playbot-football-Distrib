@@ -17,12 +17,12 @@ export const EmblemComponent = ({className='', player}) => {
             {/*<div className={"bottom-line"}></div>*/}
             <div className={"statistic"}>
                 <div className={"elem elem-1"}>
-                    <span className={"black-600-16"}>{player.wins}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ПОБ</span>
-                    <span className={"black-600-16"}>{player.loss}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ПОР</span>
+                    <span className={"black-600-22"}>{player.wins}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ПОБ</span>
+                    <span className={"black-600-22"}>{player.loss}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ПОР</span>
                 </div>
                 <div className={"elem elem-2"}>
-                    <span className={"black-600-16"}>{player.all_games}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИГР</span>
-                    <span className={"black-600-16"}>{player.count_goals}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ГОЛ</span>
+                    <span className={"black-600-22"}>{player.all_games}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИГР</span>
+                    <span className={"black-600-22"}>{player.count_goals}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ГОЛ</span>
                 </div>
             </div>
             <span className={"player-name black-700-28"}>{player.username}</span>

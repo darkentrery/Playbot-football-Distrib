@@ -311,8 +311,8 @@ class EventPlayer(models.Model):
         if getting_ranks.exists():
             rank = getting_ranks.first()
             last_rank = self.player.ranks_history.filter(create__lt=rank.create).last()
-            delta_rank = int(rank.rank - last_rank.rank)
-        return delta_rank
+            delta_rank = rank.rank - last_rank.rank
+        return round(delta_rank, 2)
 
 
 class EventQueue(models.Model):

@@ -57,7 +57,8 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             }
         }, [game])
 
-        return (
+        return (<>
+            {(!user.isAuth || !event || event.organizer.id !== user.user.id || !game.time_begin) &&
             <div className={"game-row"}>
                 <div className={"elem-1"}>
                     <span className={`el el-1 ${gray ? 'gray-400-13' : 'black-600-13'}`}>{value1}.</span>
@@ -66,9 +67,22 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 </div>
                 {user.isAuth && event && event.organizer.id === user.user.id &&
-                    <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`} to={EventRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
-            </div>
-        )
+                    <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`}
+                          to={EventRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
+            </div>}
+            {(user.isAuth && event && event.organizer.id === user.user.id && game.time_begin) &&
+            <Link className={"game-row"} to={EventRoutes.eventGamePlayerLink(pk, game.id)}>
+                <div className={"elem-1"}>
+                    <span className={`el el-1 ${gray ? 'gray-400-13' : 'black-600-13'}`}>{value1}.</span>
+                    <span className={`el el-2 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value2}</span>
+                    <span className={`el el-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
+                    <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
+                </div>
+                {user.isAuth && event && event.organizer.id === user.user.id &&
+                    <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`}
+                          to={EventRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
+            </Link>}
+        </>)
     }
 
     const TournamentRow = ({gray=false, value1, value2, value3, value4, value5, value6, flagFinish=false}) => {
@@ -85,7 +99,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         )
     }
 
-    const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6}) => {
+    const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6, value7=false}) => {
         return (
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
@@ -97,7 +111,11 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 <span className={`elem elem-5 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value5}</span>
                 <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
-                    {typeof value6 === "number" && value6 > 0 ? `+${value6}` : value6}
+                    {!!gray && value6}
+                    {!gray && <span className={typeof value6 === "number" && value6 > 0 ? "black-400-13 green" : "black-400-13 red"}>
+                        {typeof value6 === "number" && value6 > 0 ? `+${value6}` : value6}
+                    </span>}
+                    &nbsp;{!!value7 ? `(${value7.toFixed()})` : ''}
                 </span>
             </div>
         )
@@ -156,6 +174,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                             value4={player.wins}
                             value5={player.do_goals}
                             value6={player.delta_rank}
+                            value7={player.player.rank}
                             key={key}
                         />
                     ))}
