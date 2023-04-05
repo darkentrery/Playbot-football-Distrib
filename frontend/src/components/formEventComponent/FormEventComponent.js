@@ -75,6 +75,7 @@ export const FormEventComponent = ({
     }
 
     useEffect(() => {
+        console.log(event)
         if (event && isOpen) {
             setId(event.id);
             setName(event.name);

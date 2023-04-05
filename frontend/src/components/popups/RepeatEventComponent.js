@@ -21,6 +21,7 @@ export const RepeatEventComponent = ({isOpen, isIPhone, event, user, closeCompon
 
     const closeWindow = () => {
         setData(false);
+        setNewEvent(false);
         closeComponent();
     }
 
