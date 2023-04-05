@@ -344,6 +344,7 @@ const getRequest = (url, data=false) => {
 
 export const authService = {
 	getUsers() { return getRequest('get-users/'); },
+	getTop10Users() { return getRequest('get-top-10-users/'); },
 	getUser(pk) { return getRequest('get-user/', pk); },
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
 	updatePassword(data) { return postRequest('update-password/', data); },

@@ -52,6 +52,7 @@
 @media screen and (min-width: 375px) and (max-width: 743px){
   .event-members-component {
     padding: 20px;
+    flex: 0 0 auto;
 
     &.disabled {
       display: none;

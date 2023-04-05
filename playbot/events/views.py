@@ -69,7 +69,9 @@ class EventsCityView(APIView):
 
     def get(self, request, format='json', **kwargs):
         city = self.kwargs.get("city")
-        events = EventListSerializer(Event.objects.filter(address__city__name=city, cancel=False).order_by("date", "time_begin"), many=True)
+        events = Event.objects.filter(address__city__name=city, cancel=False).order_by("date", "time_begin")
+        count = min(5, events.count())
+        events = EventListSerializer(events[:count], many=True)
         return Response(events.data, status=status.HTTP_200_OK)
 
 

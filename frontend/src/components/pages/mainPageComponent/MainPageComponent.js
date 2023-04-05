@@ -17,7 +17,7 @@ export default function MainPageComponent ({state, funcs}) {
 
     useEffect(() => {
         // let isSubscribe = true;
-        authService.getUsers().then((response) => {
+        authService.getTop10Users().then((response) => {
             if (response.status === 200) {
                 setPlayers(response.data);
                 setLoader(false);

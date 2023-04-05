@@ -79,7 +79,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
 
     return (
         <div className={`event-description-component ${className}`}>
-            {user.isAuth && event && user.user.id === event.organizer.id &&
+            {user.isAuth && event && user.user.id === event.organizer.id && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
             <div className={"elem-1280 elem-1"}>
                 <span className={"el black-edit-icon link"} onClick={editEvent}>Редактировать игру</span>
             </div>}

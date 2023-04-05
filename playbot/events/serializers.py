@@ -114,26 +114,6 @@ class EventGameSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
-# class EventGameSerializer(serializers.Serializer):
-#     id = serializers.IntegerField(read_only=True)
-#     team_1 = TeamSerializer(read_only=True)
-#     team_2 = TeamSerializer(read_only=True)
-#     time_begin = serializers.TimeField(read_only=True)
-#     time_end = serializers.TimeField(read_only=True)
-#     number = serializers.IntegerField(read_only=True)
-#     goals = GoalSerializer(Goal, many=True, read_only=True)
-#     current_duration = serializers.IntegerField(read_only=True)
-#     rest_time = serializers.IntegerField(read_only=True)
-#     is_play = serializers.BooleanField(read_only=True)
-#     score_1 = serializers.IntegerField(read_only=True)
-#     score_2 = serializers.IntegerField(read_only=True)
-#     result_1 = serializers.IntegerField(read_only=True)
-#     result_2 = serializers.IntegerField(read_only=True)
-#     game_periods = GamePeriodSerializer(GamePeriod, many=True, read_only=True)
-#     current_duration_without_last = serializers.IntegerField(read_only=True)
-#     last_time_begin = serializers.DateTimeField(read_only=True)
-
-
 class EditTeamNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
@@ -215,12 +195,11 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = [
-            "id", "name", "date", "time_begin", "time_end", "count_players", "address", "geo_point", "cancel",
-            "cancel_reasons", "format", "distribution_method", "notice", "city", "is_player", "organizer",
-            "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
-            "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
-            "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin",]
+        fields = ["id", "name", "date", "time_begin", "time_end", "count_players", "address", "geo_point", "cancel",
+                  "cancel_reasons", "format", "distribution_method", "notice", "city", "is_player", "organizer",
+                  "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
+                  "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
+                  "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin",]
         read_only_fields = fields
 
     def get_teams(self, instance):

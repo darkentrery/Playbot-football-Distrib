@@ -151,6 +151,18 @@ class GetUsersView(APIView):
         return Response(json, status=status.HTTP_200_OK)
 
 
+class GetTop10UsersView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        users = [[user.id, user.rank] for user in User.objects.all()]
+        users.sort(key=lambda x: x[1], reverse=True)
+        users = [id[0] for id in users]
+        count = min(10, len(users))
+        json = UserListSerializer(User.objects.filter(id__in=users[:count]), many=True).data
+        return Response(json, status=status.HTTP_200_OK)
+
+
 class GetUserView(APIView):
     permission_classes = (AllowAny,)
 

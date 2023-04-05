@@ -32,7 +32,6 @@ export default function BoardEventComponent ({event, user, funcs}) {
             if (isFavorite) {
                 setIsFavorite(false);
                 authDecoratorWithoutLogin(eventService.removeFromFavorites, {'id': event.id}).then((response) => {
-                    console.log(response)
                     if (response.status === 200) {
                         funcs.setAuth(true, response.data);
                         setBlock(false);
@@ -41,7 +40,6 @@ export default function BoardEventComponent ({event, user, funcs}) {
             } else {
                 setIsFavorite(true);
                 authDecoratorWithoutLogin(eventService.addToFavorites, {'id': event.id}).then((response) => {
-                    console.log(response)
                     if (response.status === 200) {
                         funcs.setAuth(true, response.data);
                         setBlock(false);
@@ -73,9 +71,12 @@ export default function BoardEventComponent ({event, user, funcs}) {
                 <span className={"elem elem-2-1280 black-700-28"}>{event.name}</span>
                 {!event.time_end && <span className={"elem elem-3-1280 black-500-18"}>{event.is_begin ? 'Событие началось.' : ''} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {getLocalTime(event.time_begin)} {getWeekDay(date)}</span>}
                 {event.time_end && <span className={"elem elem-3-1280 black-500-18"}>{'Событие закончилось.'} {date.getDate()} {getMonth(date)} {date.getFullYear()}, {getLocalTime(event.time_end)} {getWeekDay(date)}</span>}
-                {user.isAuth && event.organizer.id === user.user.id && <ButtonsBoardOrganizerComponent event={event} funcs={funcs}/>}
-                {!user.isAuth && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
-                {user.isAuth && event.organizer.id !== user.user.id && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
+                {user.isAuth && event.organizer.id === user.user.id ?
+                    <ButtonsBoardOrganizerComponent event={event} funcs={funcs}/> :
+                    <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
+                {/*{(!user.isAuth || (user.isAuth && event.organizer.id !== user.user.id)) &&*/}
+                {/*    <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}*/}
+                {/*{user.isAuth && event.organizer.id !== user.user.id && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}*/}
                 <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>{tooltip}</span>
             </>}
         </div>
