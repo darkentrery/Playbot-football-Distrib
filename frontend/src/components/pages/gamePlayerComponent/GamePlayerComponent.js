@@ -214,15 +214,15 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
 
     return (
         <VisibleEventWrapper>
-            {!game && <LoaderComponent/>}
-            {game && <div className={`game-player-component`} onClick={fonClick}>
+            {(!game || !event) && <LoaderComponent/>}
+            {game && event && <div className={`game-player-component`} onClick={fonClick}>
                 <div className={"manage"}>
                     <div className={"elem elem-1"}>
                         <span className={"black-400-16 team-name team-name-left"}>{eventService.getTeamName(game.team_1.name)}</span>
                         <span className={"black-800-32"}>{game.score_1} - {game.score_2}</span>
                         <span className={"black-400-16 team-name"}>{eventService.getTeamName(game.team_2.name)}</span>
                     </div>
-                    {allPlayed === 1 && !game.time_end && <div className={"elem elem-2"}>
+                    {allPlayed === 1 && !game.time_end && !event.is_end && <div className={"elem elem-2"}>
                         <ClockDigit value={timer[0]}/>
                         <ClockDigit value={timer[1]}/>
                         <div className={"clock-middle-icon"}></div>
@@ -246,7 +246,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                         {game.is_play && <span className={`btn white-600-14 ${block ? 'lock' : ''}`} onClick={endGamePeriod}>
                             <div className={"icon white-pause-icon"}></div>
                         </span>}
-                        {!game.is_play && <span className={`btn white-600-14 ${game.time_end || block ? 'lock' : ''}`} onClick={game.time_end ? () => {} : beginGamePeriod}>
+                        {!game.is_play && <span className={`btn white-600-14 ${game.time_end || event.is_end || block ? 'lock' : ''}`} onClick={game.time_end || event.is_end ? () => {} : beginGamePeriod}>
                             <div className={"icon white-play-icon"}></div>
                         </span>}
                         <div className={`btn-block block-2`}>
