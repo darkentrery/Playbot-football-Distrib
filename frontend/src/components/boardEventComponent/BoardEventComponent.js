@@ -74,9 +74,6 @@ export default function BoardEventComponent ({event, user, funcs}) {
                 {user.isAuth && event.organizer.id === user.user.id ?
                     <ButtonsBoardOrganizerComponent event={event} funcs={funcs}/> :
                     <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}
-                {/*{(!user.isAuth || (user.isAuth && event.organizer.id !== user.user.id)) &&*/}
-                {/*    <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}*/}
-                {/*{user.isAuth && event.organizer.id !== user.user.id && <ButtonsBoardPlayerComponent className={"elem elem-4"} event={event} user={user} funcs={funcs}/>}*/}
                 <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>{tooltip}</span>
             </>}
         </div>

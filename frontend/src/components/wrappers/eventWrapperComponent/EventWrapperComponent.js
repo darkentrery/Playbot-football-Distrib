@@ -4,6 +4,7 @@ import BaseRoutes from "../../../routes/BaseRoutes";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {Top376Component} from "../../top376Component/Top376Component";
 import {eventService} from "../../../services/EventService";
+import EventRoutes from "../../../routes/EventRoutes";
 
 
 export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
@@ -56,7 +57,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                 </div>}
                 {!window.location.pathname.includes('teams') && user.isAuth && event && user.user.id === event.organizer.id && !event.is_end && !isEndEvent ?
                     <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span> :
-                    <Link className={"elem elem-3 gray-400-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}
+                    <Link className={"elem elem-3 gray-400-14"} to={EventRoutes.eventLink(pk)}>Выйти</Link>}
                 {/*{isEndEvent && <Link className={"elem elem-3 gray-400-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}*/}
             </div>
             <div className={"event-wrapper-body"}>
@@ -81,7 +82,7 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
                     <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}>
                         {user.isAuth && event && user.user.id === event.organizer.id && !!game && !!game.time_begin && !game.time_end && !isEndEvent && !event.is_end ?
                             <span className={"black-500-14"} onClick={endGame}>Завершить игру</span> :
-                            <Link className={"black-500-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}
+                            <Link className={"black-500-14"} to={EventRoutes.eventLink(pk)}>Выйти</Link>}
                         {/*{isEndEvent && <Link className={"black-500-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}*/}
                     </Top376Component>
                     <div className={"elem elem-2"}>
