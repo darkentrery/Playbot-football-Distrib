@@ -16,7 +16,7 @@ export const MainWrapperComponent = ({
             <HeadComponent user={state.user} funcs={funcs}/>
             <div className={`body scrollable ${app.isIPhone ? 'safari-margin' : ''}`}>{children}</div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
-            {user.user && <NoticeListComponent user={user.user} setUser={funcs.setAuth}/>}
+            {!!user.user && <NoticeListComponent user={user.user} setUser={funcs.setAuth}/>}
         </main>
     )
 }

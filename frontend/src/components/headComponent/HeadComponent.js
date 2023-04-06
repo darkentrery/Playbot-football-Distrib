@@ -4,6 +4,7 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import UserComponent from "../userComponent/UserComponent";
 import VisibleUnAuthUser from "../../redux/containers/VisibleUnAuthUser";
 import {MainSearchComponent} from "../mainSearchComponent/MainSearchComponent";
+import {LoaderComponent} from "../loaderComponent/LoaderComponent";
 
 
 export default function HeadComponent ({user, city, funcs}) {
@@ -36,7 +37,8 @@ export default function HeadComponent ({user, city, funcs}) {
             <div className={`elem search-black-icon ${isOpenSearch ? 'hidden' : ''}`} onClick={() => setIsOpenSearch(!isOpenSearch)}></div>
 
             {user.isAuth && <UserComponent user={user.user} funcs={funcs}/>}
-            {!user.isAuth && <VisibleUnAuthUser/>}
+            {user.isAuth === false && <VisibleUnAuthUser/>}
+            {user.isAuth === null && <LoaderComponent width={30} height={30}/>}
         </div>
     )
 }

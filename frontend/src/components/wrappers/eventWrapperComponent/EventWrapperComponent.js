@@ -11,30 +11,30 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     const [gameId, setGameId] = useState(false);
     const [isEndEvent, setIsEndEvent] = useState(false);
     const { pk } = useParams();
+    console.log(useParams())
 
     useEffect(() => {
         funcs.setEvent(false);
-        eventService.getEvent(pk).then((response) => {
-            let e = response.data.event;
-            if (e.is_end) setIsEndEvent(true);
-            for (let game of e.event_games) {
-                if (!game.time_end || e.event_games[e.event_games.length - 1].id === game.id) {
-                    console.log(game)
-                    setGameId(game.id);
-                    break;
+        if (user.isAuth !== null) {
+            eventService.getEvent(pk).then((response) => {
+                let e = response.data.event;
+                if (e.is_end) setIsEndEvent(true);
+                for (let game of e.event_games) {
+                    if (!game.time_end || e.event_games[e.event_games.length - 1].id === game.id) {
+                        setGameId(game.id);
+                        break;
+                    }
                 }
-            }
-            console.log(gameId)
-            funcs.setEvent(e);
-        })
-    }, [pk, window.location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps
+                funcs.setEvent(e);
+            })
+        }
+    }, [pk, window.location.pathname, user]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const endEvent = () => {
         setIsEndEvent(true);
         funcs.setEvent(false);
         authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
             if (response.status === 200) {
-                console.log(response.status)
                 funcs.setEvent(response.data);
             }
         })

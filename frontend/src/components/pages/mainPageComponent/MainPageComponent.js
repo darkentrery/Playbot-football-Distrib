@@ -14,22 +14,21 @@ export default function MainPageComponent ({state, funcs}) {
     const [players, setPlayers] = useState([]);
     const [loader, setLoader] = useState(true);
 
-
     useEffect(() => {
-        // let isSubscribe = true;
-        authService.getTop10Users().then((response) => {
-            if (response.status === 200) {
-                setPlayers(response.data);
-                setLoader(false);
-            }
-        })
-        // return () => isSubscribe = false;
-    }, [state.user.user])
+        if (state.user.isAuth !== null) {
+            authService.getTop10Users().then((response) => {
+                if (response.status === 200) {
+                    setPlayers(response.data);
+                    setLoader(false);
+                }
+            })
+        }
+    }, [state.user.isAuth])
 
     return (
         <VisibleMainWrapper>
             <div className={"main-page-component"}>
-                {state.user.user && state.user.user.warning_notices.length !== 0 &&
+                {!!state.user.user && state.user.user.warning_notices.length !== 0 &&
                     <NoticeListTopComponent user={state.user.user} setUser={funcs.setAuth}/>}
                 <VisibleBoardCreateEvent/>
                 <TitleComponent label={"Список событий"} to={BaseRoutes.events}/>

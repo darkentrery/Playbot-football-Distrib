@@ -24,26 +24,26 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
         funcs.setEvent(false);
         funcs.setSameEvents([]);
         funcs.setTeam(false);
-        // let isSubscribe = true;
-        eventService.getEvent(pk).then((response) => {
-            console.log(response.data.event)
-            funcs.setEvent(response.data.event);
-            funcs.setSameEvents(response.data.same_events);
-            if (response.data.event.teams.length !== 0) {
-                for (let team of response.data.event.teams) {
-                    if (team.team_players.length === 0) {
+        if (user.isAuth !== null && pk) {
+            eventService.getEvent(pk).then((response) => {
+                console.log(response.data.event)
+                funcs.setEvent(response.data.event);
+                funcs.setSameEvents(response.data.same_events);
+                if (response.data.event.teams.length !== 0) {
+                    for (let team of response.data.event.teams) {
+                        if (team.team_players.length === 0) {
+                            funcs.setTeam(team);
+                            break;
+                        }
                         funcs.setTeam(team);
-                        break;
                     }
-                    funcs.setTeam(team);
                 }
-            }
-        })
-        // return () => isSubscribe = false;
-    }, [pk]) // eslint-disable-line react-hooks/exhaustive-deps
+            })
+        }
+    }, [pk, user]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if (event && user.user) {
+        if (event && !!user.user) {
             setIsFavorite(eventService.isFavorite(user.user, event));
         }
     }, [user, event])
