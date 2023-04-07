@@ -7,19 +7,23 @@ import {cityService} from "../../../services/CityService";
 import {authService} from "../../../services/AuthService";
 
 
-export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, showMap}) {
+export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, setCountry, showMap}) {
     const [city, setLocalCity] = useState(false);
-    const [data, setData] = useState(false);
     const [cities, setCities] = useState([]);
+    const [addresses, setAddresses] = useState([]);
     const [citiesView, setCitiesView] = useState([]);
     const citiesRef = useRef();
 
     useEffect(() => {
         if (isOpen) {
-            cityService.getCities().then((response) => {
-                if (response.status == 200) {
-                    setCities(response.data.cities);
-                    setCitiesView(response.data.cities);
+            cityService.getAddresses().then((response) => {
+                if (response.status === 200) {
+                    let arr = response.data.map((address) => {
+                        return address.city;
+                    })
+                    setCities(arr);
+                    setCitiesView(arr);
+                    setAddresses(response.data);
                 }
             })
         }
@@ -33,18 +37,18 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
     const sendForm = async () => {
         if (city) {
             setCity(city);
-            authDecoratorWithoutLogin(authService.updateAddress, data).then((response) => {
+            for (let address of addresses) {
+                if (address.city === city) {
+                    setCountry(address.country);
+                    break;
+                }
+            }
+            authDecoratorWithoutLogin(authService.updateAddress, {"city": city}).then((response) => {
                 closeWindow();
                 setAuth(true, response.data);
             })
         }
     }
-
-    useEffect(() => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('city', city);
-        setData(bodyFormData);
-    }, [city])
 
     useEffect(() => {
         $('.choice-city').find('.scroll-elem').each((elem) => {
