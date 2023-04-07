@@ -70,6 +70,8 @@ class EventsCityView(APIView):
     def get(self, request, format='json', **kwargs):
         city = self.kwargs.get("city")
         events = Event.objects.filter(address__city__name=city, cancel=False).order_by("date", "time_begin")
+        events_ids = [event.id for event in events if not event.is_end]
+        events = Event.objects.filter(id__in=events_ids)
         count = min(5, events.count())
         events = EventListSerializer(events[:count], many=True)
         return Response(events.data, status=status.HTTP_200_OK)
@@ -305,7 +307,7 @@ class BeginEventGameView(APIView):
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["game"]["id"])
         if game.event.organizer == request.user:
-            game.time_begin = timezone.now().time()
+            game.time_begin = timezone.now().time().replace(microsecond=0)
             game.save()
             event = EventSerializer(instance=game.event)
             return Response(event.data, status=status.HTTP_200_OK)
@@ -319,7 +321,7 @@ class EndEventView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
         if event.organizer == request.user:
-            event.time_end = timezone.now().time()
+            event.time_end = timezone.now().time().replace(microsecond=0)
             event.save()
             for game in event.event_games.filter(time_end=None):
                 game.time_end = event.time_end
@@ -342,7 +344,7 @@ class BeginGamePeriodView(APIView):
         game = EventGame.objects.get(id=request.data["id"])
         if game.event.organizer == request.user:
             if not game.game_periods.filter(time_end=None).exists():
-                period = GamePeriod.objects.create(game=game)
+                period = GamePeriod.objects.create(game=game, time_begin=timezone.now().replace(microsecond=0))
                 if not game.time_begin:
                     game.time_begin = period.time_begin.time()
                     game.save()
@@ -359,7 +361,7 @@ class EndGamePeriodView(APIView):
         if game.event.organizer == request.user:
             if game.game_periods.filter(time_end=None).exists():
                 period = game.game_periods.filter(time_end=None).last()
-                period.time_end = timezone.now()
+                period.time_end = timezone.now().replace(microsecond=0)
                 period.save()
                 game = EventGameSerializer(instance=game).data
                 return Response(game, status=status.HTTP_200_OK)
@@ -372,7 +374,7 @@ class EndGameView(APIView):
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
         if game.event.organizer == request.user and not game.time_end:
-            time = timezone.now()
+            time = timezone.now().replace(microsecond=0)
             if not game.rest_time:
                 if game.game_periods.filter(time_end=None).exists():
                     period = game.game_periods.filter(time_end=None).last()
@@ -408,10 +410,14 @@ class CreateGoalView(APIView):
             if serializer.is_valid():
                 goal = serializer.save()
                 if goal:
+                    goal.time = goal.time.replace(microsecond=0)
+                    goal.save()
                     if game.game_periods.filter(time_end=None).exists():
                         period = game.game_periods.filter(time_end=None).last()
                         period.time_end = goal.time
                         period.save()
+                        goal.game_time = game.current_duration
+                        goal.save()
                     game = EventGameSerializer(instance=goal.game).data
                     return Response(game, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

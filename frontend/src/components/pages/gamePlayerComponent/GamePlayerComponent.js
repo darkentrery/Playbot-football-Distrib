@@ -12,6 +12,7 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const { gameId } = useParams();
     const [timer, setTimer] = useState('0000');
     const [restTime, setRestTime] = useState(false);
+    const [restTimeEnd, setRestTimeEnd] = useState(false);
     const [allPlayed, setAllPlayed] = useState(0);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -22,13 +23,42 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
         return value;
     }
 
+    const isPlayGame = (isPlay) => {
+        let newGame = {...game};
+        newGame.is_play = isPlay;
+        newGame.current_duration_without_last = event.duration.duration * 60 - restTime;
+        newGame.last_time_begin = null;
+        funcs.setGame(newGame);
+    }
+
     useEffect(() => {
         setBlock(true);
+        setAllPlayed(0);
         if (event) {
             event.event_games.forEach((g) => {
                 if (g.id.toString() === gameId) {
                     funcs.setGame(g);
                     setBlock(false);
+                    // let arr = [];
+                    // event.event_games.forEach((g) => {
+                    //     if (!g.time_end) arr.push(g);
+                    // })
+                    // if (!arr.length) {
+                    //     setAllPlayed(2);
+                    // } else {
+                    //     setAllPlayed(1);
+                    // }
+                    // let currentDuration = g.current_duration_without_last;
+                    // if (g.last_time_begin) {
+                    //     let time = new Date(g.last_time_begin);
+                    //     let additionalTime = Math.ceil((new Date() - time) / 1000);
+                    //     currentDuration += additionalTime;
+                    // }
+                    // let seconds = currentDuration % 60;
+                    // let minutes = ((currentDuration - seconds) / 60);
+                    // setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+                    // setRestTime(event.duration.duration * 60 - currentDuration);
+                    // setBlock(false);
                 }
             })
         } else {
@@ -49,17 +79,20 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
             } else {
                 setAllPlayed(1);
             }
-            let currentDuration = game.current_duration_without_last;
-            if (game.last_time_begin) {
-                let time = new Date(game.last_time_begin);
-                let additionalTime = Math.ceil((new Date() - time) / 1000);
-                currentDuration += additionalTime;
+            console.log(restTime)
+            if (!restTime) {
+                let currentDuration = game.current_duration_without_last;
+                if (game.last_time_begin) {
+                    let time = new Date(game.last_time_begin);
+                    let additionalTime = Math.ceil((new Date() - time) / 1000);
+                    currentDuration += additionalTime;
+                }
+                let seconds = currentDuration % 60;
+                let minutes = ((currentDuration - seconds) / 60);
+                setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+                setRestTime(event.duration.duration * 60 - currentDuration);
             }
-            let seconds = currentDuration % 60;
-            let minutes = ((currentDuration - seconds) / 60);
-            setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-            setRestTime(event.duration.duration * 60 - currentDuration);
-            setBlock(false);
+            // setBlock(false);
         }
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -71,17 +104,58 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
         )
     }
 
+    // useEffect(() => {
+    //     if (game && game.is_play && !game.time_end) {
+    //         let start = Date.now();
+    //         let interval = setInterval(() => {
+    //             let timePassed = Date.now() - start;
+    //             if (timePassed >= 1000 && restTime - 1 >= 0) {
+    //                 let seconds = (event.duration.duration * 60 - restTime + 1) % 60;
+    //                 let minutes = (((event.duration.duration * 60 - restTime + 1) - seconds) / 60);
+    //                 setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+    //                 console.log(restTime - 1)
+    //                 console.log(new Date())
+    //                 console.log(timePassed)
+    //                 setRestTime(restTime - 1);
+    //             } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id && !game.time_end) {
+    //                 setBlock(true);
+    //                 authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
+    //                     console.log(response.data)
+    //                     if (response.status === 200) {
+    //                         funcs.setGame(response.data.game);
+    //                         funcs.setEvent(response.data.event);
+    //                     }
+    //                 })
+    //                 clearInterval(interval);
+    //             }
+    //         }, 1000);
+    //         return () => clearInterval(interval);
+    //     }
+    // })
+
+    // useEffect(() => {
+    //     if (restTimeEnd && restTimeEnd > restTime) {
+    //         console.log(restTime)
+    //         console.log(restTimeEnd)
+    //         let seconds = (event.duration.duration * 60 - restTimeEnd + 1) % 60;
+    //         let minutes = (((event.duration.duration * 60 - restTimeEnd + 1) - seconds) / 60);
+    //         setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+    //         setRestTime(restTimeEnd);
+    //         setRestTimeEnd(false);
+    //     }
+    // }, [restTime, restTimeEnd])
+
     useEffect(() => {
         if (game && game.is_play && !game.time_end) {
-            let start = Date.now();
-            let interval = setInterval(() => {
-                let timePassed = Date.now() - start;
-                if (timePassed >= 1000 && restTime - 1 >= 0 && !block) {
+            let interval = setTimeout(() => {
+                if (restTime - 1 >= 0) {
                     let seconds = (event.duration.duration * 60 - restTime + 1) % 60;
                     let minutes = (((event.duration.duration * 60 - restTime + 1) - seconds) / 60);
                     setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+                    console.log(restTime - 1)
+                    console.log(new Date())
                     setRestTime(restTime - 1);
-                } else if (timePassed >= 1000 && restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id && !game.time_end && !block) {
+                } else if (restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id && !game.time_end) {
                     setBlock(true);
                     authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
                         console.log(response.data)
@@ -90,21 +164,23 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
                             funcs.setEvent(response.data.event);
                         }
                     })
-                    clearInterval(interval);
+                    clearTimeout(interval);
                 }
-            }, 1000);
-            return () => clearInterval(interval);
+            }, 990);
         }
-    })
+    }, [game.is_play, restTime])
 
     const beginGamePeriod = () => {
+        console.log(new Date())
         if (!block) {
             setBlock(true);
+            isPlayGame(true);
             authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
                 console.log(response.data)
                 if (response.status === 200) {
                     setBlock(false);
-                    funcs.setGame(response.data);
+                    console.log(new Date())
+                    // funcs.setGame(response.data);
                 }
             })
         }
@@ -113,11 +189,14 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const endGamePeriod = () => {
         if (!block) {
             setBlock(true);
+            isPlayGame(false);
+            setRestTimeEnd(restTime);
+            console.log(new Date())
             authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
                 console.log(response.data)
                 if (response.status === 200) {
                     setBlock(false);
-                    funcs.setGame(response.data);
+                    // funcs.setGame(response.data);
                 }
             })
         }
@@ -126,12 +205,15 @@ export const GamePlayerComponent = ({event, user, game, funcs}) => {
     const createGoal = (teamId, player=false) => {
         if (!block) {
             setBlock(true);
+            isPlayGame(false);
             let data = {
                 game: game.id,
                 team: teamId,
                 time: new Date().toISOString(),
                 game_time: event.duration.duration * 60 - restTime,
             }
+            console.log(new Date())
+            setRestTimeEnd(restTime);
             if (player) data.player = player;
             authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
                 console.log(response.data)

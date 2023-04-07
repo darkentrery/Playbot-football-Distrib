@@ -97,7 +97,8 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                     <Top376Component label={"Событие"} to={BaseRoutes.main}>
                         <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
                         <div className={"icon send-icon"} onClick={() => share(EventRoutes.eventLink(event.id))}></div>
-                        {event.organizer.id === user.user.id && <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
+                        {user.isAuth && event && user.user.id === event.organizer.id && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
+                            <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
                     </Top376Component>
                     <VisibleBoardEvent/>
                     <VisibleEventOrganizer/>

@@ -17,6 +17,7 @@ export const ProfileWrapperComponent = ({
 
     useEffect(() => {
         if (!state.event.player || (state.event.player && state.event.player.id !== pk)) {
+            funcs.setPlayer(false);
             authService.getUser(pk.toString()).then((response) => {
                 if (response.status === 200) {
                     console.log(response)

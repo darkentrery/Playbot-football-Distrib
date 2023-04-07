@@ -86,6 +86,19 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+class UserIsAuthSerializer(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    favorite_events = EventListSerializer(Event, many=True, read_only=True)
+    user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
+    warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "city", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
+                  "user_notices", "warning_notices", "favorite_players", "showing_notices"]
+        read_only_fields = fields
+
+
 class UserListSerializer(serializers.ModelSerializer):
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)

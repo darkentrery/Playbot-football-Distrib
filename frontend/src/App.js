@@ -112,7 +112,7 @@ function App({state, funcs}) {
             funcs.setIsIPhone(authService.deviceDetect());
             return () => isSubscribe = false;
         }
-    }, [state.user])
+    }, [])
 
 
     useEffect(() => {

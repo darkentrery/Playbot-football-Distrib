@@ -142,13 +142,7 @@ class Event(models.Model, CreateNotice):
         if not is_end:
             if self.event_games.exists() and self.event_games.all().count() == self.event_games.all().exclude(time_end=None).count():
                 is_end = True
-        # if not is_end and self.event_games.exclude(time_end=None).exists():
-        #     last_game = self.event_games.all().exclude(time_end=None).last()
-        #     last_time = datetime.datetime(year=self.date.year, month=self.date.month, day=self.date.day,
-        #                                     hour=last_game.time_end.hour, minute=last_game.time_end.minute, tzinfo=timezone.now().tzinfo)
-        #     if (last_time + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
-        #         is_end = True
-        if not is_end and not self.event_games.exclude(time_end=None).exists():
+        if not is_end and not self.event_games.exclude(time_begin=None).exists():
             time_begin = datetime.datetime(year=self.date.year, month=self.date.month, day=self.date.day,
                                            hour=self.time_begin.hour, minute=self.time_begin.minute, tzinfo=timezone.now().tzinfo)
             if (time_begin + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():

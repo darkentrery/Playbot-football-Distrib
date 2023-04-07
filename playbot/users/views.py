@@ -14,7 +14,7 @@ from playbot.cities.models import City
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
-    UpdatePasswordSerializer, UserListSerializer
+    UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer
 from playbot.users.utils import get_face
 
 
@@ -137,7 +137,7 @@ class IsAuthView(APIView):
     def post(self, request, format='json'):
         # webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
         # vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
-        json = UserSerializer(instance=request.user).data
+        json = UserIsAuthSerializer(instance=request.user).data
         # json["vapid_key"] = vapid_key
         return Response(json, status=status.HTTP_200_OK)
 

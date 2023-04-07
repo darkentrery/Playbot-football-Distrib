@@ -120,7 +120,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             <div className={`elem elem-5-376 scroll`}>
                 {teams.map((teamRow, key) => (<>
                     {teamRow.map((team, i) => (
-                         <div className={"el"} key={key*2 + i}>
+                         <div className={"el"} key={key*2 + i + 100}>
                             <TeamNameComponent className={""} value={teamNames[key*2 + i][0]} setValue={teamNames[key*2 + i][1]}/>
                             {team.team_players.length !== 0 && team.team_players.map((player, i) => (
                                 <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>

@@ -29,6 +29,7 @@ export const PreviewPlayerComponent = ({
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
+        funcs.setPlayer(false);
         authService.getUser(pk.toString()).then((response) => {
             if (response.status === 200) {
                 console.log(response.data)

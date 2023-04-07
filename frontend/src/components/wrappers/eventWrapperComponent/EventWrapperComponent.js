@@ -11,7 +11,6 @@ export const EventWrapperComponent = ({children, event, user, game, funcs}) => {
     const [gameId, setGameId] = useState(false);
     const [isEndEvent, setIsEndEvent] = useState(false);
     const { pk } = useParams();
-    console.log(useParams())
 
     useEffect(() => {
         funcs.setEvent(false);
