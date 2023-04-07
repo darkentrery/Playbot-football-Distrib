@@ -19,7 +19,7 @@ export const ShowEmblemComponent = ({isOpen, user, funcs}) => {
             <div className={"popup-frame show-emblem-component"}>
                 <div className={"upload-icon"} onClick={share}></div>
                 <span className={"btn-close"} onClick={closeWindow}></span>
-                <EmblemComponent player={user} className={"emblem"}/>
+                {!!user && <EmblemComponent player={user} className={"emblem"}/>}
             </div>
         </Modal>
     )

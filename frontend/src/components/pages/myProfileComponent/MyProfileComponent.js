@@ -22,7 +22,7 @@ export const MyProfileComponent = ({
                     <div className={"settings-icon"} onClick={showMenu}></div>
                 </div>
                 <Profile376MenuComponent pk={user.id}/>
-                <ProfileAsideComponent player={user} funcs={funcs}/>
+                <ProfileAsideComponent player={player} funcs={funcs}/>
             </div>}
         </VisibleProfileWrapper>
     )
