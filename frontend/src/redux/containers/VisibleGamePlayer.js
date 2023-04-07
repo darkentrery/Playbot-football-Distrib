@@ -10,7 +10,7 @@ import {
   loginWindow,
   hiddenMap,
   team,
-  endGameWindow, game
+  endGameWindow, game, playerBlock
 } from "../actions/actions";
 import {connect} from "react-redux";
 import {GamePlayerComponent} from "../../components/pages/gamePlayerComponent/GamePlayerComponent";
@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
     event: state.event.event,
     user: state.user,
     game: state.event.game,
+    playerBlock: state.event.playerBlock,
   };
 };
 
@@ -69,6 +70,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openEndGame: () => {
         dispatch(endGameWindow(true));
+      },
+      setPlayerBlock: (value) => {
+        dispatch(playerBlock(value));
       },
     }
   };

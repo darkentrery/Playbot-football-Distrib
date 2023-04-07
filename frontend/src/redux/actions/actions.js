@@ -38,6 +38,7 @@ export const STEPS = 'STEPS';
 export const TEAM = 'TEAM';
 export const GAME = 'GAME';
 export const SAME_EVENTS = 'SAME_EVENTS';
+export const PLAYER_BLOCK = 'PLAYER_BLOCK';
 
 export const CITY = 'CITY';
 
@@ -236,6 +237,12 @@ export const sameEvents = (value) => ({
   type: SAME_EVENTS,
   value,
 });
+
+export const playerBlock = (value) => ({
+  type: PLAYER_BLOCK,
+  value,
+});
+
 
 export const city = (value) => ({
   type: CITY,

@@ -18,7 +18,7 @@ import {
     LEAVE_EVENT_WINDOW,
     LOGIN_WINDOW,
     MOBILE_FIRST_PAGE_WINDOW,
-    PLAYER,
+    PLAYER, PLAYER_BLOCK,
     PLAYERS,
     REFRESH_PASSWORD_WINDOW,
     REPEAT_EVENT_WINDOW,
@@ -251,6 +251,7 @@ const initialEventState = {
     team: false,
     sameEvents: [],
     game: false,
+    playerBlock: true,
 }
 
 const event = (state = initialEventState, action) => {
@@ -294,6 +295,11 @@ const event = (state = initialEventState, action) => {
           return {
               ...state,
               sameEvents: action.value,
+          };
+      case PLAYER_BLOCK:
+          return {
+              ...state,
+              playerBlock: action.value,
           };
       default:
           return state;

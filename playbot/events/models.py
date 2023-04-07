@@ -162,6 +162,17 @@ class Event(models.Model, CreateNotice):
                 is_begin = True
         return is_begin
 
+    @property
+    def all_games_finished(self):
+        return self.event_games.all().count() == self.event_games.exclude(time_end=None).count()
+
+    @property
+    def current_game_id(self):
+        if self.event_games.filter(time_end=None).exists():
+            return self.event_games.filter(time_end=None).first().id
+        else:
+            return self.event_games.all().last().id
+
 
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)
