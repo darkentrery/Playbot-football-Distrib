@@ -5,7 +5,7 @@ import {
     CITY,
     CONFIRM_PLAYERS_WINDOW,
     CONFIRM_TEAM_PLAYERS_WINDOW,
-    CONFIRM_TEAMS_WINDOW,
+    CONFIRM_TEAMS_WINDOW, COUNTRY,
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     EDIT_EVENT_WINDOW,
@@ -308,6 +308,7 @@ const event = (state = initialEventState, action) => {
 
 const initialLocationState = {
     city: "Москва",
+    country: "Россия",
 }
 
 const location = (state = initialLocationState, action) => {
@@ -316,6 +317,11 @@ const location = (state = initialLocationState, action) => {
           return {
               ...state,
               city: action.value,
+          };
+      case COUNTRY:
+          return {
+              ...state,
+              country: action.value,
           };
       default:
           return state;

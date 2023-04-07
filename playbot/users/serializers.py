@@ -13,7 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
-from playbot.cities.models import City
+from playbot.cities.models import City, Address
+from playbot.cities.serializers import AddressSerializer
 from playbot.events.models import EventPlayer, Event
 from playbot.events.serializers import EventForPlayerListSerializer, EventListSerializer
 from playbot.notices.models import Notice
@@ -75,6 +76,7 @@ class UserSerializer(serializers.ModelSerializer):
     same_players = SamePlayerSerializer(User, many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
     warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
+    address = AddressSerializer(read_only=True)
 
     class Meta:
         model = User
@@ -82,7 +84,7 @@ class UserSerializer(serializers.ModelSerializer):
                   "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
-                  "warning_notices", "favorite_players", "showing_notices", "delta_rank"]
+                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address"]
         read_only_fields = fields
 
 
@@ -91,11 +93,12 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
     favorite_events = EventListSerializer(Event, many=True, read_only=True)
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
     warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
+    address = AddressSerializer(read_only=True)
 
     class Meta:
         model = User
         fields = ["id", "username", "email", "city", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
-                  "user_notices", "warning_notices", "favorite_players", "showing_notices", "delta_rank"]
+                  "user_notices", "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address"]
         read_only_fields = fields
 
 
@@ -104,11 +107,12 @@ class UserListSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerListSerializer(EventPlayer.objects.all(), many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
+    address = AddressSerializer(read_only=True)
 
     class Meta:
         model = User
         fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender", "event_player",
-                  "wins_percent", "delta_rank"]
+                  "wins_percent", "delta_rank", "address"]
         read_only_fields = fields
 
 
@@ -287,7 +291,7 @@ class LoginSerializer(CustomTokenObtainSerializer):
 
         refresh = self.get_token(self.user)
 
-        data['user'] = UserSerializer(self.user).data
+        data['user'] = UserIsAuthSerializer(self.user).data
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
 
@@ -318,10 +322,11 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
 class SignUpSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(max_length=128, write_only=True, required=False)
     city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
 
     class Meta:
         model = User
-        fields = ("username", "phone_number", "email", "password", "city")
+        fields = ("username", "phone_number", "email", "password", "city", "address")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -434,5 +439,9 @@ class UpdateCitySerializer(serializers.ModelSerializer):
         fields = ("city",)
 
 
+class UpdateAddressSerializer(serializers.ModelSerializer):
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
 
-
+    class Meta:
+        model = User
+        fields = ("address",)

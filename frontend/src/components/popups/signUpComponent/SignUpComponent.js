@@ -17,6 +17,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
     const [city, setCity] = useState(false);
+    const [address, setAddress] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);

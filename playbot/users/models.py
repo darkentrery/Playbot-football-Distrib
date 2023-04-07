@@ -32,6 +32,7 @@ class User(AbstractUser):
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, related_name="user", blank=True, null=True)
+    address = models.ForeignKey("cities.Address", on_delete=models.SET_NULL, related_name="users", blank=True, null=True)
     gender = models.CharField(_("Gender"), max_length=50, choices=Gender.choices, default=Gender.MALE)
     position_1 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_1", blank=True, null=True)
     position_2 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_2", blank=True, null=True)
@@ -183,7 +184,3 @@ class RankHistory(models.Model):
 
     def __str__(self):
         return f"{self.user.email}" or f"{self.user.username}"
-
-
-
-

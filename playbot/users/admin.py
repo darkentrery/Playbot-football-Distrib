@@ -40,6 +40,7 @@ class CustomUserAdmin(UserAdmin):
                     "phone_number",
                     "telegram_id",
                     "city",
+                    "address",
                     "confirm_slug",
                     "gender",
                     "birthday",

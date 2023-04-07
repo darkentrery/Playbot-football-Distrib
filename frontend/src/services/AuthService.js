@@ -210,21 +210,6 @@ export default class AuthService{
 		localStorage.removeItem("refresh_token");
 	}
 
-	updateCity(data){
-		const url = `${API_URL}update-city/`;
-		return axios.post(url, data,{headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-			'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
 	addIPhoneBottomMargin(classSelector) {
 		console.log("Is Iphone", this.isIPhone())
 		console.log("Is PWA", this.isPWA())
@@ -347,6 +332,7 @@ export const authService = {
 	getTop10Users() { return getRequest('get-top-10-users/'); },
 	getUser(pk) { return getRequest('get-user/', pk); },
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
+	updateAddress(data) { return postRequest('update-address/', data); },
 	updatePassword(data) { return postRequest('update-password/', data); },
 	login(user) {
 		return postRequest('login/', user).then((response) => {

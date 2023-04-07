@@ -41,6 +41,7 @@ export const SAME_EVENTS = 'SAME_EVENTS';
 export const PLAYER_BLOCK = 'PLAYER_BLOCK';
 
 export const CITY = 'CITY';
+export const COUNTRY = 'COUNTRY';
 
 export const IPHONE = 'PHONE';
 
@@ -246,6 +247,11 @@ export const playerBlock = (value) => ({
 
 export const city = (value) => ({
   type: CITY,
+  value,
+});
+
+export const country = (value) => ({
+  type: COUNTRY,
   value,
 });
 

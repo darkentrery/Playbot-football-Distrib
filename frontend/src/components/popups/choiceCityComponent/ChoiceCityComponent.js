@@ -1,15 +1,13 @@
 import React, {useState, useRef, useEffect} from "react";
-import AuthService from "../../../services/AuthService";
 import Modal from "react-modal";
 import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {cityService} from "../../../services/CityService";
+import {authService} from "../../../services/AuthService";
 
 
 export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, showMap}) {
-    const authService = new AuthService();
-
     const [city, setLocalCity] = useState(false);
     const [data, setData] = useState(false);
     const [cities, setCities] = useState([]);
@@ -35,7 +33,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
     const sendForm = async () => {
         if (city) {
             setCity(city);
-            authDecoratorWithoutLogin(authService.updateCity, data).then((response) => {
+            authDecoratorWithoutLogin(authService.updateAddress, data).then((response) => {
                 closeWindow();
                 setAuth(true, response.data);
             })

@@ -22,6 +22,7 @@ urlpatterns = [
     path("api/refresh-password/", views.RefreshPasswordView.as_view(), name='refresh-password'),
     path("api/telegram-sign-up/", views.SignUpTelegramView.as_view(), name='telegram-sign-up'),
     path("api/update-city/", views.UpdateCityView.as_view(), name='update-city'),
+    path("api/update-address/", views.UpdateAddressView.as_view(), name='update-address'),
     path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("api/confirm-sign-up/<slug>/", views.ConfirmSignUpView.as_view(), name='confirm-sign-up'),

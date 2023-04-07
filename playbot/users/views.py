@@ -10,7 +10,7 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from webpush import send_user_notification
 
-from playbot.cities.models import City
+from playbot.cities.models import City, Address
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
@@ -129,6 +129,17 @@ class UpdateCityView(APIView):
                 json = UserIsAuthSerializer(instance=request.user).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateAddressView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        address = Address.objects.filter(city__name=request.data.get("city")).first()
+        request.user.address = address
+        request.user.save()
+        json = UserIsAuthSerializer(instance=request.user).data
+        return Response(json, status=status.HTTP_200_OK)
 
 
 class IsAuthView(APIView):

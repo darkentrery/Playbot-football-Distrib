@@ -1,4 +1,4 @@
-import {auth, choiceCityWindow, city, hiddenMap} from "../actions/actions";
+import {auth, choiceCityWindow, city, country, hiddenMap} from "../actions/actions";
 import {connect} from "react-redux";
 import ChoiceCityComponent from "../../components/popups/choiceCityComponent/ChoiceCityComponent";
 
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setCity: (value) => {
       dispatch(city(value));
+    },
+    setCountry: (value) => {
+      dispatch(country(value));
     },
     showMap: () => {
       dispatch(hiddenMap(false));

@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {
   choiceCityWindow,
-  auth, city,
+  auth, city, country,
 } from "../actions/actions";
 import EventsPageComponent from "../../components/pages/eventsPageComponent/EventsPageComponent";
 
@@ -24,6 +24,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setCity: (value) => {
         dispatch(city(value));
+      },
+      setCountry: (value) => {
+        dispatch(country(value));
       },
     }
   };
