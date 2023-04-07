@@ -10,7 +10,7 @@ export const PlayerRowComponent = ({className='', player}) => {
                 <span className={"name"}>{eventService.getCutUsername(player.username)}</span>
                 <span className={"role"}>{player.position_1 ? player.position_1.name : ''}</span>
             </div>
-            <span className={"el el-2"}>{player.rank.toFixed(1).replace('.', ',')}</span>
+            <span className={"el el-2"}>{player.rank.toFixed(2).replace('.', ',')}</span>
         </Link>
     )
 }

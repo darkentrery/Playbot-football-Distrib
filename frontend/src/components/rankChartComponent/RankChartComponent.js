@@ -1,4 +1,4 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, Tooltip } from 'recharts';
 import {useEffect, useState} from "react";
 
 
@@ -43,7 +43,7 @@ export const RankChartComponent = ({ranks, rank, dRank}) => {
             </LineChart>
             <span className={"rank-744 black-400-13"}>
                 {Math.floor(rank)}
-                <span className={`black-400-13 ${dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{dRank >= 0 ? '+' : ''}{Math.floor(dRank)}</span>
+                <span className={`black-400-13 ${dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{dRank >= 0 ? '+' : ''}{dRank}</span>
             </span>
         </div>
     )

@@ -134,6 +134,7 @@ class Event(models.Model, CreateNotice):
         if players.count():
             rank = sum([player.player.rank for player in players])
             rank /= players.count()
+            rank = round(rank, 2)
         return rank
 
     @property

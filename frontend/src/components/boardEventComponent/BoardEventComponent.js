@@ -57,7 +57,7 @@ export default function BoardEventComponent ({event, user, funcs}) {
                 {event.time_end && <span className={"elem-3-376 black-500-14"}>{date.getDate()} {getMonth(date)} {date.getFullYear()}, {getLocalTime(event.time_begin)} {getWeekDay(date)}</span>}
                 <div className={"elem elem-1"}>
                     <span className={"el gray-wallet-icon black-400-16"}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>
-                    <span className={"el el-1 dark-gray-cup-icon black-400-16"}>{event.rank.toFixed(1).replace(".", ",")}</span>
+                    <span className={"el el-1 dark-gray-cup-icon black-400-16"}>{event.rank.toFixed(2).replace(".", ",")}</span>
                     <span className={"el el-2 dark-gray-avatar-icon black-400-16"}>{event.event_player.length}/{event.count_players}</span>
                     <span className={"el el-4 black-400-16 football-field-icon"}>{event.format_label}</span>
                     <span

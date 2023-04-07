@@ -128,9 +128,16 @@ class User(AbstractUser):
     @property
     def rank(self):
         if self.ranks_history.all().exists():
-            return self.ranks_history.all().last().rank
+            return round(self.ranks_history.all().last().rank, 2)
         else:
             return 0
+
+    @property
+    def delta_rank(self):
+        delta_rank = 0
+        if self.ranks_history.all().count() > 1:
+            delta_rank = round(self.ranks_history.all().last().rank - self.ranks_history.all().first().rank, 2)
+        return delta_rank
 
     @property
     def same_players(self):

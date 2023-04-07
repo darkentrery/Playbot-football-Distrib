@@ -33,14 +33,7 @@ export const BestPlayersComponent = ({players, loader}) => {
                 }
             }
         })
-        let array = [];
-        players.map((item) => {
-            if (item.dRank === undefined) {
-                item.dRank = item.rank - item.ranks_history[0].rank;
-            }
-            array.push(item)
-        });
-        setPlayersView(array);
+        setPlayersView(players);
     }, [flagSort, players])
 
     const PlayerRow = ({player, number}) => {
@@ -52,14 +45,14 @@ export const BestPlayersComponent = ({players, loader}) => {
                     <span className={"black-400-13 name"}>{eventService.getCutUsername(player.username)}</span>
                 </div>
                 <span className={"elem elem-2 black-400-13"}>
-                    {Math.floor(player.rank)}
-                    <span className={`black-400-13 ${player.dRank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.dRank >= 0 ? '+' : ''}{Math.floor(player.dRank)}</span>
+                    {player.rank.toFixed(2)}
+                    <span className={`black-400-13 ${player.delta_rank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.delta_rank >= 0 ? '+' : ''}{player.delta_rank.toFixed(2)}</span>
                 </span>
                 <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
                 <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>
                 <span className={"elem elem-5 black-400-13"}>{player.all_games}</span>
                 <span className={"elem elem-7 gray-400-13"}>{player.wins} / {player.all_games}</span>
-                <RankChartComponent ranks={player.ranks_history} rank={(player.rank)} dRank={player.dRank}/>
+                <RankChartComponent ranks={player.ranks_history} rank={(player.rank)} dRank={player.delta_rank}/>
             </Link>
         )
     }

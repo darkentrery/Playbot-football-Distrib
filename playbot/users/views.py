@@ -87,7 +87,7 @@ class SignUpView(APIView):
             user = serializer.save()
             if user:
                 RankHistory.objects.create(user=user)
-                json = UserSerializer(instance=user).data
+                json = UserIsAuthSerializer(instance=user).data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -126,7 +126,7 @@ class UpdateCityView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             if user:
-                json = UserSerializer(instance=request.user).data
+                json = UserIsAuthSerializer(instance=request.user).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

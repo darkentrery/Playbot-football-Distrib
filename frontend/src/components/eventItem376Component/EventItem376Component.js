@@ -38,7 +38,7 @@ export const EventItem376Component = ({event, isFavorite=false}) => {
                     {event.is_end && <span className={"gray-400-13"}>Событие завершено</span>}
                 </div>
                 <span className={`elem elem-2 ${event.is_end ? 'gray-400-13' : 'black-400-13'} ${color}`}>{event.event_player.length}/{event.count_players}</span>
-                <span className={`elem elem-3 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{event.rank.toFixed(1).replace('.', ',')}</span>
+                <span className={`elem elem-3 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{event.rank.toFixed(2).replace('.', ',')}</span>
             </div>
             <div className={"row row-2"}>
                 <span className={`elem elem-1 map-point-icon ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{address}</span>

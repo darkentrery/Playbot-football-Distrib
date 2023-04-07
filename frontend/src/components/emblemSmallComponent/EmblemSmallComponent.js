@@ -17,7 +17,7 @@ export const EmblemSmallComponent = ({player, funcs, fillPercent}) => {
                         <div className={"pentagon-1"}></div>
                         <div className={"pentagon-2"}></div>
                         <div className={"gor-line"}></div>
-                        <span className={"black-600-18 digit"}>{player.rank.toFixed()}</span>
+                        <span className={"black-600-18 digit"}>{player.rank.toFixed(2)}</span>
                     </div>
                     <div className={"info"}>
                         <span className={"black-600-18"}>{player.username}</span>
