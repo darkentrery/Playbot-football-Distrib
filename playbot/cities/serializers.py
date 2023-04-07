@@ -17,3 +17,11 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = ["id", "city", "country", "region", "state", "street", "house_number", "lat", "lng"]
         read_only_fields = fields
+
+
+class CreateAddressSerializer(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+
+    class Meta:
+        model = Address
+        fields = ["city", "country", "region", "state", "street", "house_number", "lat", "lng"]

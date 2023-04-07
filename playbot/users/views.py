@@ -11,6 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from webpush import send_user_notification
 
 from playbot.cities.models import City, Address
+from playbot.cities.serializers import CreateAddressSerializer
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
@@ -81,15 +82,19 @@ class SignUpView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, format='json'):
-        City.objects.update_or_create(name=request.data["city"])
-        serializer = SignUpSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                RankHistory.objects.create(user=user)
-                json = UserIsAuthSerializer(instance=user).data
-                return Response(json, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        address = CreateAddressSerializer(data=request.data.get("address"))
+        if address.is_valid():
+            address = address.save()
+            request.data["address"] = address.id
+            serializer = SignUpSerializer(data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    RankHistory.objects.create(user=user)
+                    json = UserIsAuthSerializer(instance=user).data
+                    return Response(json, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(address.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SignUpTelegramView(APIView):

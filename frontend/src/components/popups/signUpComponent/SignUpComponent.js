@@ -16,13 +16,10 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const [phoneCode, setPhoneCode] = useState("+7");
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
-    const [city, setCity] = useState(false);
     const [address, setAddress] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
-    const [data, setData] = useState(false);
-    const [loginData, setLoginData] = useState(false);
     const [isDropdown, setIsDropdown] = useState(false);
     const [countryTag, setCountryTag] = useState([]);
     const [countries, setCountries] = useState(false);
@@ -98,11 +95,11 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         if (isOpen) {
             navigator.geolocation.getCurrentPosition((response) => {
                 let coords = [response.coords.latitude, response.coords.longitude];
-                console.log(city)
-                if (!city) {
+                console.log(address)
+                if (!address) {
                     getLocationsAddressByCoordsGoogle(coords).then((address) => {
                         console.log(address)
-                        setCity(address.city);
+                        setAddress(address);
                     })
                 }
             }, (error) => {
@@ -110,22 +107,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
             });
         }
     }, [isOpen])
-
-    useEffect(() => {
-        let bodyFormData = new FormData();
-        let bodyLoginFormData = new FormData();
-        bodyFormData.append('username', username);
-        if (phoneNumber) {
-            bodyFormData.append('phone_number', `${phoneCode}${phoneNumber}`);
-        }
-        bodyFormData.append('email', email);
-        bodyFormData.append('password', password);
-        bodyFormData.append('city', city);
-        bodyLoginFormData.append('email', email);
-        bodyLoginFormData.append('password', password);
-        setData(bodyFormData);
-        setLoginData(bodyLoginFormData);
-    }, [username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, phoneCode])
 
     const closeWindow = () => {
         setUsername(false);
@@ -135,9 +116,8 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         setPasswordConfirm(false);
         setAllowPolicy(false);
         setAllowOffer(false);
-        setData(false);
         setIsDropdown(false);
-        setCity(false);
+        setAddress(false);
         refArrowIcon.current.className = "down-arrow-icon";
         $(refPhoneNumber.current).removeClass('open');
         closeComponent();
@@ -186,24 +166,19 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         if ($(e.target)[0].nodeName !== "INPUT") $('.btn.btn-reg').focus();
     }
 
-    // const openAllowPolicy = () => {
-    //     let link = document.createElement("a");
-    //     link.download = `Политика конфиденциальности.docx`;
-    //     link.href = docPolicy
-    //     link.click();
-    // }
-    //
-    // const openAllowOffer = () => {
-    //     let link = document.createElement("a");
-    //     link.download = `Пользовательское соглашение.docx`;
-    //     link.href = docOffer
-    //     link.click();
-    // }
-
     const sendForm = () => {
+        let user = {
+            "username": username,
+            "email": email,
+            "password": password,
+            "address": address
+        }
+        if (phoneNumber) {
+            user.phone_number = `${phoneCode}${phoneNumber}`;
+        }
         let errors = authService.signUpRequestValidation(username, phoneNumber, email, password, passwordConfirm, allowPolicy, allowOffer, refs, refsDict);
         if (!errors.length){
-            authService.signUp(data).then((response) => {
+            authService.signUp(user).then((response) => {
                 errors = authService.signUpResponseValidation(response, refsDict);
                 if (!errors.size) {
                     closeWindow();
