@@ -16,7 +16,7 @@ export const MyProfileComponent = ({
 
     return (
         <VisibleProfileWrapper>
-            {user && <div className={"my-profile-component"}>
+            {user && player && <div className={"my-profile-component"}>
                 <div className={"menu-376"}>
                     <UserNoticesComponent user={user}/>
                     <div className={"settings-icon"} onClick={showMenu}></div>

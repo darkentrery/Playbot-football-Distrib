@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   return {
     isOpen: state.windows.isOpenShowEmblem,
     user: state.user.user,
+    player: state.event.player,
   };
 };
 

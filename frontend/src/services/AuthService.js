@@ -367,7 +367,6 @@ export const authService = {
 	isSafari() {
 		if (/safari/.test(navigator.userAgent.toLowerCase())) {
 			return true;
-			// return false;
 		}
 		return false;
 	},

@@ -1,3 +1,4 @@
+import {eventService} from "../../services/EventService";
 
 
 export const EmblemComponent = ({className='', player}) => {
@@ -25,7 +26,7 @@ export const EmblemComponent = ({className='', player}) => {
                     <span className={"black-600-22"}>{player.count_goals}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ГОЛ</span>
                 </div>
             </div>
-            <span className={"player-name black-700-28"}>{player.username}</span>
+            <span className={"player-name black-700-28"}>{eventService.getCutUsername(player.username)}</span>
             <div className={"left-label"}>
                 <div className={"elem-1 black-700-28"}>{player.rank.toFixed(2)}</div>
                 <div className={"elem-2"}></div>

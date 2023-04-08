@@ -3,7 +3,7 @@ import {EmblemComponent} from "../../emblemComponent/EmblemComponent";
 import {share} from "../../../services/LinkShareService";
 
 
-export const ShowEmblemComponent = ({isOpen, user, funcs}) => {
+export const ShowEmblemComponent = ({isOpen, user, player, funcs}) => {
 
     const closeWindow = () => {
         funcs.closeComponent();
@@ -19,7 +19,7 @@ export const ShowEmblemComponent = ({isOpen, user, funcs}) => {
             <div className={"popup-frame show-emblem-component"}>
                 <div className={"upload-icon"} onClick={share}></div>
                 <span className={"btn-close"} onClick={closeWindow}></span>
-                {!!user && <EmblemComponent player={user} className={"emblem"}/>}
+                {!!user && !!player && <EmblemComponent player={player} className={"emblem"}/>}
             </div>
         </Modal>
     )
