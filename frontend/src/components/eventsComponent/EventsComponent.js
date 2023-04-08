@@ -16,7 +16,7 @@ export default function EventsComponent ({city, user, isAuth}) {
     useEffect(() => {
         setFirstRequest(1);
         if (isAuth !== null) {
-            eventService.getEvents(user && user.city ? user.city : city).then((response) => {
+            eventService.getEvents(user && user.address ? user.address.city : city).then((response) => {
                 if (response.status === 200) {
                     let data = [];
                     response.data.forEach((item, key) => {
@@ -61,7 +61,7 @@ export default function EventsComponent ({city, user, isAuth}) {
         useEffect(() => {
             if (event) {
                 setAddress(getAddressStringFormat(event.address));
-                let percent = event.event_player.length / event.count_players;
+                let percent = event.count_current_players / event.count_players;
                 if (event.is_end) {
                     setColor('gray');
                 } else {
@@ -91,7 +91,7 @@ export default function EventsComponent ({city, user, isAuth}) {
                 </span>
                 {!event.is_end && <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
                 {event.is_end && <span className={`elem elem-3 gray-400-13`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
-                <span className={`elem elem-4 ${event.is_end ? 'gray-400-13' : 'black-400-13'} ${color}`}>{event.event_player.length}/{event.count_players}</span>
+                <span className={`elem elem-4 ${event.is_end ? 'gray-400-13' : 'black-400-13'} ${color}`}>{event.count_current_players}/{event.count_players}</span>
                 <span className={`elem elem-5 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{event.rank.toFixed(2).replace('.', ',')}</span>
                 <span className={"elem elem-6 gray-right-arrow-icon"}></span>
             </Link>

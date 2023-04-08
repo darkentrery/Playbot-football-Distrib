@@ -33,7 +33,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             eventService.getRegulation(event.id).then((response) => {
                 let arr = [];
                 response.data.formats.forEach((item) => {
-                    if (item.count * 2 <= event.event_player.length) arr.push(item.name);
+                    if (item.count * 2 <= event.count_current_players) arr.push(item.name);
                 })
                 if (!arr.length) arr.push(false);
                 setFormat(event.format ? event.format : arr[0]);

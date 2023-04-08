@@ -65,7 +65,7 @@ class SamePlayerSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    # city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
     event = EventListSerializer(Event, many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
@@ -80,7 +80,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "city", "confirm_slug",
+        fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "confirm_slug",
                   "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
@@ -104,8 +104,6 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
 
 class UserListSerializer(serializers.ModelSerializer):
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
-    # city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    # event_player = EventPlayerListSerializer(EventPlayer, many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
     address = AddressSerializer(read_only=True)
 

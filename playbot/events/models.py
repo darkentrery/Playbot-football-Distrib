@@ -174,6 +174,10 @@ class Event(models.Model, CreateNotice):
         else:
             return self.event_games.all().last().id
 
+    @property
+    def count_current_players(self):
+        return self.event_player.all().count()
+
 
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)

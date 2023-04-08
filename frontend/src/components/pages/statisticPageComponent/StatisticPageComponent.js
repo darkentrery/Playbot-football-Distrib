@@ -12,7 +12,6 @@ export const StatisticPageComponent = ({state, funcs}) => {
     const [loader, setLoader] = useState(true);
 
     useEffect(() => {
-        let isSubscribe = true;
         authService.getUsers().then((response) => {
             if (response.status === 200) {
                 console.log(response.data)
@@ -21,7 +20,6 @@ export const StatisticPageComponent = ({state, funcs}) => {
                 setLoader(false);
             }
         })
-        return () => isSubscribe = false;
     }, [state.user.user])
 
     return (

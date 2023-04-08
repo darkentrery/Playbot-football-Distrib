@@ -44,7 +44,7 @@ export const SameEventComponent = ({
                     <span className={"el el-3 black-400-16"}>{address}</span>
                 </div>
                 <div className={"elem elem-2"}>
-                    <span className={"el dark-gray-avatar-icon dark-gray-400-12"}>Участники: {event.event_player.length}/{event.count_players}</span>
+                    <span className={"el dark-gray-avatar-icon dark-gray-400-12"}>Участники: {event.count_current_players}/{event.count_players}</span>
                     <span className={"el dark-gray-cup-icon dark-gray-400-12"}>Средний рейтинг: {event.rank.toFixed(2).replace('.', ',')}</span>
                 </div>
             </>}

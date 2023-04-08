@@ -23,9 +23,9 @@ export default function EventMembersComponent ({event, className=''}) {
 
     return (
         <div className={`event-members-component ${className}`}>
-            <span className={"title"}>Участники ({event && event.event_player.length ? event.event_player.length : 0})</span>
-            {event && event.event_player.length !== 0 && <ExistsPlayers/>}
-            {event && !event.event_player.length && <NoExistsPlayers/>}
+            <span className={"title"}>Участники ({event && event.count_current_players ? event.count_current_players : 0})</span>
+            {event && event.count_current_players !== 0 && <ExistsPlayers/>}
+            {event && !event.count_current_players && <NoExistsPlayers/>}
         </div>
     )
 }

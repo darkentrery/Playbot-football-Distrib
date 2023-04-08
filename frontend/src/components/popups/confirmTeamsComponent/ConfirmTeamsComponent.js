@@ -38,7 +38,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             let totalDurationLabel = getMinutesStr(totalDuration.toString());
             setHeadItems([
                 ["Формат игры:", event.format],
-                ["Кол. игроков:", event.event_player.length],
+                ["Кол. игроков:", event.count_current_players],
                 ["Кол. кругов:", count_circles],
                 ["Время матча:", `${duration} ${durationLabel}`],
                 ["Общее время:", `${totalDuration} ${totalDurationLabel}`]

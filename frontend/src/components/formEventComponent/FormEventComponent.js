@@ -183,7 +183,7 @@ export const FormEventComponent = ({
     }
 
     const changeCount = (value) => {
-        if (isEdit && event.event_player.length >= value) {
+        if (isEdit && event.count_current_players >= value) {
            return;
         } else {
             setCount(value);
@@ -231,7 +231,7 @@ export const FormEventComponent = ({
     }
 
     const changeIsPlayer = () => {
-        if (event && event.count_players === event.event_player.length) {
+        if (event && event.count_players === event.count_current_players) {
             setIsNotPlayer(isNotPlayer);
         }
     }

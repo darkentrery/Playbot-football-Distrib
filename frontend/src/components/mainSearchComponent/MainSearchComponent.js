@@ -33,7 +33,7 @@ export const MainSearchComponent = ({
                 if (response.status === 200) {
                     let array = [];
                     response.data.forEach((player) => {
-                        if (player.event_player.length) array.push(player);
+                        if (player.count_current_players) array.push(player);
                     })
                     setPlayers(array);
                 }

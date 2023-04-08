@@ -12,7 +12,7 @@ export const EventItem376Component = ({event, isFavorite=false}) => {
     useEffect(() => {
         if (event) {
             setAddress(getAddressStringFormat(event.address));
-            let percent = event.event_player.length / event.count_players;
+            let percent = event.count_current_players / event.count_players;
             if (event.is_end) {
                 setColor('gray');
             } else {
@@ -37,7 +37,7 @@ export const EventItem376Component = ({event, isFavorite=false}) => {
                     {!event.is_end && <span className={"gray-400-13"}>{getLocalTime(event.time_begin)}</span>}
                     {event.is_end && <span className={"gray-400-13"}>Событие завершено</span>}
                 </div>
-                <span className={`elem elem-2 ${event.is_end ? 'gray-400-13' : 'black-400-13'} ${color}`}>{event.event_player.length}/{event.count_players}</span>
+                <span className={`elem elem-2 ${event.is_end ? 'gray-400-13' : 'black-400-13'} ${color}`}>{event.count_current_players}/{event.count_players}</span>
                 <span className={`elem elem-3 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{event.rank.toFixed(2).replace('.', ',')}</span>
             </div>
             <div className={"row row-2"}>
