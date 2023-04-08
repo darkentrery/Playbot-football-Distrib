@@ -65,7 +65,6 @@ class SamePlayerSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
     event = EventListSerializer(Event, many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)

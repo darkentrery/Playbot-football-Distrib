@@ -2,6 +2,8 @@ import VisibleProfileWrapper from "../../../redux/containers/VisibleProfileWrapp
 import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
 import {UserNoticesComponent} from "../../userNoticesComponent/UserNoticesComponent";
+import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import React from "react";
 
 
 export const MyProfileComponent = ({
@@ -16,14 +18,17 @@ export const MyProfileComponent = ({
 
     return (
         <VisibleProfileWrapper>
-            {user && player && <div className={"my-profile-component"}>
-                <div className={"menu-376"}>
+            <div className={"my-profile-component"}>
+                {!!user && !!player && <>
+                    <div className={"menu-376"}>
                     <UserNoticesComponent user={user}/>
-                    <div className={"settings-icon"} onClick={showMenu}></div>
-                </div>
-                <Profile376MenuComponent pk={user.id}/>
-                <ProfileAsideComponent player={player} funcs={funcs}/>
-            </div>}
+                        <div className={"settings-icon"} onClick={showMenu}></div>
+                    </div>
+                    <Profile376MenuComponent pk={user.id}/>
+                    <ProfileAsideComponent player={player} funcs={funcs}/>
+                </>}
+                {!player && <LoaderComponent/>}
+            </div>
         </VisibleProfileWrapper>
     )
 }

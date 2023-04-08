@@ -132,6 +132,9 @@
     padding: 0 0 27px 0;
     border-radius: 0;
 
+    &.loader {
+      height: calc(100vh - 191px);
+    }
     .table-head {
       padding: 0 24px;
       gap: 20px;

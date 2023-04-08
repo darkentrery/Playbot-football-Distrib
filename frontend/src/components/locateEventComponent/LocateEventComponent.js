@@ -9,9 +9,7 @@ import "leaflet/dist/leaflet.css"
 export const LocateEventComponent = ({
     className='',
     city,
-    setCity,
     setAddress,
-    setPoint,
     setIsOpenMap,
     address,
 }) => {
@@ -35,8 +33,6 @@ export const LocateEventComponent = ({
         if (position) {
             getLocationsAddressByCoordsGoogle([position.lat, position.lng]).then((newAddress) => {
                 setAddress(newAddress);
-                setCity(newAddress.city);
-                setPoint(`${position.lat} ${position.lng}`);
             })
         }
     }, [position])

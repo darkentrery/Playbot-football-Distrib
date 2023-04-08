@@ -75,8 +75,14 @@ export const FiltersComponent = ({
                     }
                 })
             } else {
-                player.event_player.map((event_player) => {
-                    let date = new Date(event_player.event.date);
+                // player.event_player.map((event_player) => {
+                //     let date = new Date(event_player.event.date);
+                //     if (date >= filterDate.begin && date <= filterDate.end) {
+                //         flagDate = true;
+                //     }
+                // })
+                player.ranks_history.map((rank) => {
+                    let date = new Date(rank.create);
                     if (date >= filterDate.begin && date <= filterDate.end) {
                         flagDate = true;
                     }

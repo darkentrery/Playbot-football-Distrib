@@ -32,8 +32,6 @@ export const FormEventComponent = ({
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
-    const [city, setCity] = useState(false);
-    const [point, setPoint] = useState(false);
     const [count, setCount] = useState(4);
     const [notice, setNotice] = useState('');
     const [format, setFormat] = useState(false);
@@ -82,8 +80,6 @@ export const FormEventComponent = ({
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             if (event.address) setAddress(event.address);
-            setPoint(event.geo_point);
-            if (event.city) setCity(event.city.name);
             setCount(event.count_players);
             if (event) setIsNotPlayer(!event.is_player);
             setNotice(event.notice);
@@ -122,8 +118,6 @@ export const FormEventComponent = ({
             'count_players': count,
             'is_player': !isNotPlayer,
             'notice': notice,
-            'city': city,
-            'geo_point': point,
             'is_paid': isPaid,
             'price': price,
             'format_label': format,
@@ -131,7 +125,7 @@ export const FormEventComponent = ({
         };
         console.log(bodyFormData)
         setData(bodyFormData);
-    }, [name, date, time, address, count, isNotPlayer, notice, point, city, isPaid, price, format, currency]);
+    }, [name, date, time, address, count, isNotPlayer, notice, isPaid, price, format, currency]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
@@ -191,7 +185,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && address && city && point && (!isPaid || (isPaid && price)) && format) {
+        if (name && date && time && address && (!isPaid || (isPaid && price)) && format) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -202,7 +196,7 @@ export const FormEventComponent = ({
         if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
-        if (!address || !city || !point) setAddressError("Заполните поле!");
+        if (!address) setAddressError("Заполните поле!");
         if (isPaid && !price) setPriceError("Заполните поле!");
         if (!format) setFormatError("Заполните поле!");
     }
@@ -210,8 +204,6 @@ export const FormEventComponent = ({
     const choiceAddress = (e) => {
         let suggest = suggests[e.target.id];
         setAddress(suggest);
-        setCity(suggest.city);
-        setPoint(`${suggest.lat} ${suggest.lng}`);
         setSuggests([]);
     }
 
@@ -314,9 +306,8 @@ export const FormEventComponent = ({
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>
-            <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} city={user.city}
-                                  setCity={setCity} setAddress={setAddress} setPoint={setPoint} setIsOpenMap={setIsOpenMap}
-                                  address={address}/>
+            <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} city={user.address ? user.address.city : null}
+                                  setAddress={setAddress} setIsOpenMap={setIsOpenMap} address={address}/>
         </div>
     )
 }
