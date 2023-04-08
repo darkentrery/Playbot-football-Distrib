@@ -1,3 +1,5 @@
+import copy
+
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.views.generic import TemplateView
@@ -68,14 +70,19 @@ class LoginTelegramView(TokenObtainPairView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        City.objects.update_or_create(name=request.data["city"])
-        serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
+        address = CreateAddressSerializer(data=request.data.get("address"))
+        if address.is_valid():
+            address = address.save()
+            request.data["address"] = address.id
+            # City.objects.update_or_create(name=request.data["city"])
+            serializer = self.get_serializer(data=request.data)
+            try:
+                serializer.is_valid(raise_exception=True)
+            except TokenError as e:
+                raise InvalidToken(e.args[0])
 
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(address.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SignUpView(APIView):
@@ -193,14 +200,17 @@ class UpdateUserView(APIView):
     def post(self, request, format='json'):
         id = int(request.data.get("id"))
         if request.user.id == id:
-            serializer = UpdateUserSerializer(instance=request.user, data=request.data)
+            address = Address.objects.filter(city__name=request.data["address"]).first()
+            data = copy.copy(request.data)
+            data["address"] = address.id
+            serializer = UpdateUserSerializer(instance=request.user, data=data)
             if serializer.is_valid():
                 user = serializer.save()
                 if user:
-                    if request.data.get("photo"):
-                        photo = get_face(user.photo.url)
-                        if photo:
-                            user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photo), save=True)
+                    # if request.data.get("photo"):
+                    #     photo = get_face(user.photo.url)
+                    #     if photo:
+                    #         user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photo), save=True)
                             # user.save()
                     json = UserSerializer(instance=user).data
                     return Response(json, status=status.HTTP_200_OK)

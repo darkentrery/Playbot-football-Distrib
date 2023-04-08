@@ -7,7 +7,7 @@ export default function TelegramLoginComponent () {
 
     const ref = useRef();
     function n(e) {
-        e.city = "T'bilisi";
+        // e.city = "T'bilisi";
         const login = (e) => {
             return window.axios.post(url, e, {headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export default function TelegramLoginComponent () {
                     address.formatted = geoObjects[0].formatted_address;
                     console.log(address)
                     if (address.city) {
-                        e.city = address.city;
+                        e.address = address;
                     }
                     login(e);
                     // return address;

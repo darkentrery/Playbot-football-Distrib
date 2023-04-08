@@ -18,6 +18,7 @@ export const SelectCityComponent = ({
     const [isDropdown, setIsDropdown] = useState(false);
     const [cities, setCities] = useState([]);
     const [citiesView, setCitiesView] = useState([]);
+    const [addresses, setAddresses] = useState([]);
     const refLabel = useRef();
     const refRightIcon = useRef();
     let firstValue = '';
@@ -30,10 +31,14 @@ export const SelectCityComponent = ({
     useEffect(() => {
         let isSubscribe = true;
         if (isDropdown) {
-            cityService.getCities().then((response) => {
-                if (response.status == 200) {
-                    setCities(response.data.cities);
-                    setCitiesView(response.data.cities);
+            cityService.getAddresses().then((response) => {
+                if (response.status === 200) {
+                    let arr = response.data.map((address) => {
+                        return address.city;
+                    })
+                    setCities(arr);
+                    setCitiesView(arr);
+                    setAddresses(response.data);
                 }
             })
         }

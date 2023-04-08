@@ -117,13 +117,14 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+    # city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     position_1 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
     position_2 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
 
     class Meta:
         model = User
-        fields = ["username", "birthday", "email", "gender", "phone_number", "city", "position_1", "position_2", "photo", "about_self"]
+        fields = ["username", "birthday", "email", "gender", "phone_number", "address", "position_1", "position_2", "photo", "about_self"]
 
 
 class UpdatePasswordSerializer(serializers.ModelSerializer):
@@ -216,7 +217,8 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
         self.fields["last_name"] = serializers.CharField()
         self.fields["photo_url"] = serializers.CharField()
         self.fields["username"] = serializers.CharField()
-        self.fields["city"] = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+        # self.fields["city"] = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
+        self.fields["address"] = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
 
         # self.fields["telegram_id"] = serializers.CharField()
         # self.fields["chanel_id"] = serializers.CharField()
@@ -309,7 +311,7 @@ class LoginTelegramSerializer(TokenObtainTelegramSerializer):
 
         refresh = self.get_token(self.user)
 
-        data['user'] = UserSerializer(self.user).data
+        data['user'] = UserIsAuthSerializer(self.user).data
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
 

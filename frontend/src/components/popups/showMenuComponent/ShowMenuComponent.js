@@ -53,7 +53,7 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                     <div className={"map-point-icon"}></div>
                     <div className={"text-field"}>
                         <span className={"gray-400-12"}>Ваш город</span>
-                        <span className={"black-600-16"}>{user ? user.city : ''}</span>
+                        <span className={"black-600-16"}>{user && user.address ? user.address.city : ''}</span>
                     </div>
                 </div>
                 <div className={"area-field"}>
