@@ -26,18 +26,24 @@ export const FiltersComponent = ({
     const rank = [0, 100];
 
     useEffect(() => {
-        let isSubscribe = true;
-        cityService.getCities().then((response) => {
-            if (response.status == 200) {
-                setCities(response.data.cities);
+        // cityService.getCities().then((response) => {
+        //     if (response.status == 200) {
+        //         setCities(response.data.cities);
+        //     }
+        // })
+        cityService.getAddresses().then((response) => {
+            if (response.status === 200) {
+                let arr = response.data.map((address) => {
+                    return address.city;
+                })
+                setCities(arr);
             }
         })
-        return () => isSubscribe = false;
     }, [])
 
     useEffect(() => {
         let array = [];
-        data.map((player) => {
+        data.forEach((player) => {
             let flagCity = false;
             let flagCanton = true;
             let flagDistrict = true;
@@ -45,7 +51,7 @@ export const FiltersComponent = ({
             let flagCountGames = false;
             let flagRank = false;
             let flagDate = false;
-            if (!filterCity.length || (filterCity.length && filterCity.includes(player.city))) {
+            if (!filterCity.length || (filterCity.length && player.address && filterCity.includes(player.address.city))) {
                 flagCity = true;
             }
             if (!filterGender.length || (filterGender.length && filterGender.includes(player.gender))) {

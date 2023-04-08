@@ -15,17 +15,11 @@ class PositionSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    wins_percent = serializers.IntegerField(read_only=True)
     position_1 = PositionSerializer(read_only=True)
-    position_2 = PositionSerializer(read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "city", "confirm_slug",
-                  "count_goals", "date_joined", "first_name", "gender", "last_name", "loss", "phone_number", "photo",
-                  "position_1", "position_2", "rank", "ranking_place", "telegram_id", "total_time",
-                  "wins", "wins_percent"]
+        fields = ["id", "username", "email", "first_name", "gender", "last_name", "photo", "position_1", "rank"]
         read_only_fields = fields
 
 
@@ -214,8 +208,8 @@ class EventListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ["id", "name", "address", "date", "time_begin", "time_end", "price", "rank", "count_players",
-                  "event_player", "event_step", "is_paid", "is_end", "is_begin"]
+        fields = ["id", "name", "address", "date", "time_begin", "time_end", "price", "rank", "count_players", "is_paid",
+                  "is_end", "is_begin"]
         read_only_fields = fields
 
 

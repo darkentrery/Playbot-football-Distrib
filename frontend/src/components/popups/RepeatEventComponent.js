@@ -31,7 +31,7 @@ export const RepeatEventComponent = ({isOpen, isIPhone, event, user, closeCompon
     }
 
     useEffect(() => {
-        if (!newEvent) {
+        if (!newEvent && isOpen) {
             let e = {...event};
             e.date = null;
             e.time_begin = null;

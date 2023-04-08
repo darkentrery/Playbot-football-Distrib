@@ -104,20 +104,19 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
 
 class UserListSerializer(serializers.ModelSerializer):
     ranks_history = RankHistorySerializer(RankHistory, many=True, read_only=True)
-    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    event_player = EventPlayerListSerializer(EventPlayer.objects.all(), many=True, read_only=True)
+    # city = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    # event_player = EventPlayerListSerializer(EventPlayer, many=True, read_only=True)
     wins_percent = serializers.IntegerField(read_only=True)
     address = AddressSerializer(read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "city", "gender", "event_player",
+        fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "gender", "event_player",
                   "wins_percent", "delta_rank", "address"]
         read_only_fields = fields
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):
-    # city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
     position_1 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
     position_2 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
     address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())

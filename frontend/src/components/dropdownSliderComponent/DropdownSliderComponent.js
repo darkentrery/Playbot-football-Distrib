@@ -22,7 +22,6 @@ export const DropdownSliderComponent = ({
     }
 
     const handleChange = (e, newValue, activeThumb) => {
-        console.log(e, newValue, activeThumb)
         if (!Array.isArray(newValue)) {
             return;
         }
