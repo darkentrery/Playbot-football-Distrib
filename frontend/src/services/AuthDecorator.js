@@ -26,6 +26,8 @@ export function authDecoratorWithoutLogin(func, arg) {
             return authService.refresh().then((response) => {
                 if (response.status === 200) {
                     return doFunc(func, arg).then((response) => {return response;});
+                } else {
+                    authService.logout();
                 }
             })
         } else {
