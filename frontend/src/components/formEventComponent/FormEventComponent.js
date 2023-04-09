@@ -185,7 +185,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && address && (!isPaid || (isPaid && price)) && format) {
+        if (name && date && time && address && address.city && address.street && (!isPaid || (isPaid && price)) && format) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -196,7 +196,7 @@ export const FormEventComponent = ({
         if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
-        if (!address) setAddressError("Заполните поле!");
+        if (!address || !address.city || !address.street) setAddressError("Заполните поле!");
         if (isPaid && !price) setPriceError("Заполните поле!");
         if (!format) setFormatError("Заполните поле!");
     }

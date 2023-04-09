@@ -153,14 +153,13 @@ class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
-    city = serializers.SlugRelatedField(queryset=City.objects.all(), slug_field="name")
     address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
 
     class Meta:
         model = Event
         fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer",
-                  "city", "geo_point", "format_label", "is_paid", "price"]
+                  "format_label", "is_paid", "price"]
 
 
 class EventForPlayerListSerializer(serializers.ModelSerializer):
