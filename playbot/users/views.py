@@ -73,15 +73,16 @@ class LoginTelegramView(TokenObtainPairView):
         address = CreateAddressSerializer(data=request.data.get("address"))
         if address.is_valid():
             address = address.save()
-            request.data["address"] = address.id
-            serializer = self.get_serializer(data=request.data)
-            try:
-                serializer.is_valid(raise_exception=True)
-            except TokenError as e:
-                raise InvalidToken(e.args[0])
+        else:
+            address = Address.objects.all().first()
+        request.data["address"] = address.id
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
 
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
-        return Response(address.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class SignUpView(APIView):
@@ -91,16 +92,17 @@ class SignUpView(APIView):
         address = CreateAddressSerializer(data=request.data.get("address"))
         if address.is_valid():
             address = address.save()
-            request.data["address"] = address.id
-            serializer = SignUpSerializer(data=request.data)
-            if serializer.is_valid():
-                user = serializer.save()
-                if user:
-                    RankHistory.objects.create(user=user)
-                    json = UserIsAuthSerializer(instance=user).data
-                    return Response(json, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response(address.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            address = Address.objects.all().first()
+        request.data["address"] = address.id
+        serializer = SignUpSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                RankHistory.objects.create(user=user)
+                json = UserIsAuthSerializer(instance=user).data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SignUpTelegramView(APIView):
