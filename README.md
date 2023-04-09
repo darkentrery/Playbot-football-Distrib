@@ -4,6 +4,8 @@
 playbot/fixtures/count_circles.json playbot/fixtures/distribution_method.json playbot/fixtures/duration.json
 playbot/fixtures/format.json playbot/fixtures/position.json`
 
+`cd Playbot_football && bash update.sh`
+
 `eval "$(ssh-agent -s)"`
 
 `ssh-add ~/github_key`
@@ -12,7 +14,7 @@ playbot/fixtures/format.json playbot/fixtures/position.json`
 
 `cd frontend && npm run build`
 
-`cd .. && source venv/bin/activate && python manage.py collectstatic`
+`cd .. && source venv/bin/activate && python manage.py collectstatic --noinput`
 
 `sudo systemctl daemon-reload`
 
