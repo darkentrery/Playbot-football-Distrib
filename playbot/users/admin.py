@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
 
+from playbot.cities.models import Address
 from playbot.users.models import User, Position, RankHistory
 
 
@@ -39,7 +40,6 @@ class CustomUserAdmin(UserAdmin):
                     "email",
                     "phone_number",
                     "telegram_id",
-                    "city",
                     "address",
                     "confirm_slug",
                     "gender",
@@ -78,7 +78,7 @@ class CustomUserAdmin(UserAdmin):
         "rivals",
     )
     inlines = [RankHistoryInline,]
-    actions = ["set_first_rank", "send_notification"]
+    actions = ["set_first_rank", "send_notification", "set_default_address"]
 
     @admin.action()
     def set_first_rank(self, request, queryset):
@@ -91,6 +91,12 @@ class CustomUserAdmin(UserAdmin):
         for user in queryset:
             payload = {'head': "head", 'body': "body"}
             send_user_notification(user=user, payload=payload, ttl=1000)
+
+    @admin.action()
+    def set_default_address(self, request, queryset):
+        for user in queryset:
+            user.address = Address.objects.all().first()
+            user.save()
 
 
 @admin.register(Position)

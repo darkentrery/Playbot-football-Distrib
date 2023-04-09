@@ -213,7 +213,6 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
         self.fields["last_name"] = serializers.CharField()
         self.fields["photo_url"] = serializers.CharField()
         self.fields["username"] = serializers.CharField()
-        # self.fields["city"] = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
         self.fields["address"] = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
 
         # self.fields["telegram_id"] = serializers.CharField()
@@ -222,7 +221,7 @@ class TokenObtainTelegramSerializer(serializers.Serializer):
     def check_response(self, data):
         d = data.copy()
         del d['hash']
-        del d["city"]
+        del d["address"]
         d_list = []
         for key in sorted(d.keys()):
             if d[key] != None:
