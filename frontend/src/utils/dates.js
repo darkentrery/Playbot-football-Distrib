@@ -136,7 +136,7 @@ const getMinutesStr = (value) => {
 const getStringDate = (date) => {
     let newDate = new Date(date);
     let day = newDate.getDate() > 9 ? newDate.getDate() : `0${newDate.getDate()}`;
-    let month = newDate.getMonth() > 9 ? newDate.getMonth() : `0${newDate.getMonth()}`;
+    let month = newDate.getMonth() + 1 > 9 ? newDate.getMonth() + 1 : `0${newDate.getMonth() + 1}`;
     return `${day}.${month}.${newDate.getFullYear().toString().slice(2,4)}`;
 }
 

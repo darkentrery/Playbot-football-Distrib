@@ -71,7 +71,7 @@ class EventsCityView(APIView):
         city = self.kwargs.get("city")
         events = Event.objects.filter(address__city__name=city, cancel=False).order_by("date", "time_begin")
         events_ids = [event.id for event in events if not event.is_end or (event.is_end and (event.date + datetime.timedelta(days=1) > timezone.now().date()))]
-        events = Event.objects.filter(id__in=events_ids)
+        events = Event.objects.filter(id__in=events_ids).order_by("date", "time_begin")
         count = min(5, events.count())
         events = EventListSerializer(events[:count], many=True)
         return Response(events.data, status=status.HTTP_200_OK)

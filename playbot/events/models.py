@@ -1,10 +1,8 @@
 import datetime
-import json
 
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-# from django.contrib.gis.db import models
 from playbot.cities.models import City, Address
 from playbot.events.mixins import CreateNotice
 from playbot.users.models import User
@@ -150,6 +148,10 @@ class Event(models.Model, CreateNotice):
                 is_end = True
         if not is_end and self.event_games.filter(time_end=None).exists():
             last_time = self.event_games.filter(time_end=None).first().last_active_time()
+            if last_time and (last_time + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
+                is_end = True
+        if not is_end and self.event_games.exclude(time_begin=None, time_end=None).exists():
+            last_time = self.event_games.exclude(time_begin=None, time_end=None).last().last_active_time()
             if last_time and (last_time + datetime.timedelta(minutes=90)).timestamp() < timezone.now().timestamp():
                 is_end = True
 

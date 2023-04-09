@@ -26,10 +26,7 @@ export default function EventsComponent ({city, user, isAuth}) {
                     })
                     response.data.forEach((item) => {
                         data.forEach((row) => {
-                            let now = new Date(Date.now());
-                            let eventDate = new Date(row.date);
-                            eventDate.setDate(eventDate.getDate() + 1);
-                            if (row.date === item.date && !item.cancel && now < eventDate) {
+                            if (row.date === item.date) {
                                 row.events.push(item);
                             }
                         })
