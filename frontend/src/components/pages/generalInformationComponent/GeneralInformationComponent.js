@@ -173,7 +173,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                             value3={player.played}
                             value4={player.wins}
                             value5={player.do_goals}
-                            value6={player.delta_rank}
+                            value6={event.is_end ? player.delta_rank : false}
                             value7={player.player.rank}
                             key={key}
                         />
