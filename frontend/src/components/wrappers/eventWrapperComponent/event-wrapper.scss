@@ -88,8 +88,7 @@
   .event-wrapper-component {
     min-height: calc(100vh - 66px);
     padding-bottom: 66px;
-    height: calc(100vh - 66px);
-    overflow-y: auto;
+    //height: calc(100vh - 66px);
 
     .event-wrapper-head-1280 {
       display: none;
