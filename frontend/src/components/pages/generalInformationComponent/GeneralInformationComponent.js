@@ -113,7 +113,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
                     {!!gray && value6}
                     {!gray && <span className={typeof value6 === "number" && value6 > 0 ? "black-400-13 green" : "black-400-13 red"}>
-                        {typeof value6 === "number" && value6 > 0 ? `+${value6.toFixed(2)}` : value6.toFixed(2)}
+                        {value6 !== false && typeof value6 === "number" && (value6 > 0 ? `+${value6.toFixed(2)}` : value6.toFixed(2))}
                     </span>}
                     &nbsp;{!!value7 || value7 === 0 ? `(${value7.toFixed(2)})` : ''}
                 </span>
