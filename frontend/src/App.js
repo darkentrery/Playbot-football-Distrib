@@ -74,6 +74,11 @@ function App({state, funcs}) {
     //      }
     // },{passive: false});
 
+    window.addEventListener("orientationchange", () => {
+        console.log("The orientation of the screen is: " + window.screen.orientation);
+        window.screen.orientation.lock('portrait');
+    });
+
     const showNotice = () => {
         let notice = new Notification("fff?", {
             tag: "mail",
