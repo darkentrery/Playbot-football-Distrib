@@ -49,11 +49,14 @@
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px){
+@media screen and (min-width: 375px) and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
   .event-organizer-component {
     flex: 1 1 auto;
 
     .event-organizer-elem-1280 {
+      display: none;
+    }
+    .event-organizer-elem-744 {
       display: none;
     }
     .event-organizer-elem-376 {

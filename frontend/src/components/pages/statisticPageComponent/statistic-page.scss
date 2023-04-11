@@ -41,7 +41,7 @@
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px) {
+@media screen and (min-width: 375px) and (max-width: 743px)  , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
   .statistic-page-component {
     gap: 0;
     .statistic-body {

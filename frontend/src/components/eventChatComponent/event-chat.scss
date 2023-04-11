@@ -65,7 +65,7 @@
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px){
+@media screen and (min-width: 375px) and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
   .event-chat-component {
     padding: 24px;
     padding-left: 20px;
@@ -75,7 +75,6 @@
     &.disabled {
       display: none;
     }
-
     .elem {
 
       &.elem-3 {
@@ -88,8 +87,8 @@
 
         .el-1 {
           flex: 1 1 auto !important;
+          width: 100%;
         }
-
         .btn-second {
           flex: 0 0 32px !important;
           width: 110px;
