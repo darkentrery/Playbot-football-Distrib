@@ -126,6 +126,14 @@
         }
       }
     }
+  }
+}
 
+@media screen and (min-width: 375px) and (max-width: 743px) and (orientation: landscape) {
+  .user-notices-component {
+    .dropdown-menu-376 {
+      width: 100vh;
+      height: 100vw;
+    }
   }
 }

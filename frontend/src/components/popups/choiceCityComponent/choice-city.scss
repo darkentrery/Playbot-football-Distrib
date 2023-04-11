@@ -36,3 +36,9 @@
 .btn-choice-city {
   flex: 0 0 $fieldHeight;
 }
+
+@media screen and (min-width: 375px) and (max-width: 743px) and (orientation: landscape) {
+  .choice-city-component {
+    flex: 0 0 100%;
+  }
+}

@@ -57,28 +57,6 @@ function App({state, funcs}) {
     const [confirmSignUp, setConfirmSignUp] = useState(false);
     const [firstRequest, setFirstRequest] = useState(true);
 
-    // let lastY = 1;
-    // document.addEventListener("touchmove", function (event) {
-    //     let lastS = document.documentElement.scrollTop;
-    //     if (lastS === 0 && (lastY - event.touches[0].clientY) < 0 && event.cancelable && !$(event.target).closest('.scroll').length) {
-    //         event.preventDefault();
-    //         event.stopPropagation();
-    //     }
-    //     lastY = event.touches[0].clientY;
-    // },{passive: false});
-
-    // document.addEventListener('touchmove',function(e){
-    //      if(!$(e.target).closest(".scrollable").length) {
-    //          e.preventDefault();
-    //          e.stopPropagation();
-    //      }
-    // },{passive: false});
-
-    window.addEventListener("orientationchange", () => {
-        console.log("The orientation of the screen is: " + window.screen.orientation);
-        window.screen.orientation.lock('portrait');
-    });
-
     const showNotice = () => {
         let notice = new Notification("fff?", {
             tag: "mail",

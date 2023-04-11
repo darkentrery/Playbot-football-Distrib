@@ -75,7 +75,7 @@
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .profile-wrapper-component {
-    min-height: calc(100vh - 96px - 323px);
+    min-height: calc(100% - 96px - 323px);
 
     .my-profile {
       padding: 24px 20px 24px 24px;
