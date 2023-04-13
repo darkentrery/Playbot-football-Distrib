@@ -35,7 +35,7 @@ export default function MainPageComponent ({state, funcs}) {
                 <LocationComponent state={state} funcs={funcs}/>
                 <EventsComponent city={state.location.city} user={state.user.user} isAuth={state.user.isAuth}/>
                 <div className={"best-players-1280"}>
-                    <TitleComponent label={"Лучшие игроки"} to={BaseRoutes.main}/>
+                    <TitleComponent label={"Лучшие игроки"} to={BaseRoutes.statistic}/>
                     <LocationComponent state={state} funcs={funcs}/>
                     <BestPlayersComponent players={players} loader={loader}/>
                 </div>

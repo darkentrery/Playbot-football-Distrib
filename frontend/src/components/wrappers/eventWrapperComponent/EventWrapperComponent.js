@@ -25,15 +25,15 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
     }, [pk, window.location.pathname, user]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const endEvent = () => {
-        if (!playerBlock) {
-            setIsEndEvent(true);
-            funcs.setEvent(false);
-            authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
-                if (response.status === 200) {
-                    funcs.setEvent(response.data);
-                }
-            })
-        }
+        // if (!playerBlock) {
+        setIsEndEvent(true);
+        funcs.setEvent(false);
+        authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
+            if (response.status === 200) {
+                funcs.setEvent(response.data);
+            }
+        })
+        // }
     }
 
     const endGame = () => {

@@ -100,6 +100,20 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
     }
 
     const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6, value7=false}) => {
+        const [color, setColor] = useState("gray");
+
+        useEffect(() => {
+            if (value6 !== false) {
+                if (value6 > 0) {
+                    setColor('green');
+                } else if (value6 < 0) {
+                    setColor('red');
+                } else {
+                    setColor('gray');
+                }
+            }
+        }, [value6])
+
         return (
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
@@ -111,11 +125,15 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 <span className={`elem elem-5 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value5}</span>
                 <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
-                    {!!gray && value6}
-                    {!gray && <span className={typeof value6 === "number" && value6 > 0 ? "black-400-13 green" : "black-400-13 red"}>
-                        {value6 !== false && typeof value6 === "number" && (value6 > 0 ? `+${value6.toFixed(2)}` : value6.toFixed(2))}
-                    </span>}
-                    &nbsp;{!!value7 || value7 === 0 ? `(${value7.toFixed(2)})` : ''}
+                    {!!gray ? value6 :
+                        <>{!gray && value6 === false ? '' :
+                            <span className={`black-400-13 ${color}`}>
+                                {(value6 > 0 ? `+${value6}` : value6)}
+                            </span>
+                        }</>
+                    }
+
+                    &nbsp;{!!value7 || value7 === 0 ? `(${value7})` : ''}
                 </span>
             </div>
         )

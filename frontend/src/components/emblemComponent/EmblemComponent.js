@@ -28,7 +28,7 @@ export const EmblemComponent = ({className='', player}) => {
             </div>
             <span className={"player-name black-700-28"}>{eventService.getCutUsername(player.username)}</span>
             <div className={"left-label"}>
-                <div className={"elem-1 black-700-28"}>{player.rank.toFixed(2)}</div>
+                <div className={"elem-1 black-700-28"}>{player.rank}</div>
                 <div className={"elem-2"}></div>
             </div>
         </div>

@@ -3,7 +3,6 @@ from itertools import combinations
 from loguru import logger
 
 from playbot.events.models import Team, EventGame
-from playbot.notices.models import Notice, UserNotice
 from playbot.users.models import User
 
 
@@ -187,15 +186,10 @@ def get_next_rank(user, event):
     logger.info(f"{result_sum=}")
     event_duration = sum([game.current_duration for game in event.event_games.all()])
     if not event_duration:
-        return user.rank
+        return user.rank_fact
 
     for event_game in user_team.event_games_teams_1.all():
         win_goals, loss_goals = get_wins_loss_goals(event_game.score_1, event_game.score_2, event_game.result_1)
-        # win_goals = event_game.score_1
-        # loss_goals = event_game.score_2
-        # if event_game.result_1 < 0:
-        #     win_goals = event_game.score_2
-        #     loss_goals = event_game.score_1
         k_goal = get_k_goal(win_goals, loss_goals)
         result = event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
         result_sum += result
@@ -203,11 +197,6 @@ def get_next_rank(user, event):
         logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
     for event_game in user_team.event_games_teams_2.all():
         win_goals, loss_goals = get_wins_loss_goals(event_game.score_2, event_game.score_1, event_game.result_2)
-        # win_goals = event_game.score_2
-        # loss_goals = event_game.score_1
-        # if event_game.result_2 < 0:
-        #     win_goals = event_game.score_1
-        #     loss_goals = event_game.score_2
         k_goal = get_k_goal(win_goals, loss_goals)
         result = event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
         result_sum += result
@@ -220,18 +209,18 @@ def get_next_rank(user, event):
     unique_rivals = 0
     for opponent_team in opponent_teams:
         for opponent in opponent_team.team_players.all():
-            avr_opponents += opponent.player.rank
+            avr_opponents += opponent.player.rank_fact
             if opponent.player not in user.rivals.all():
                 unique_rivals += 1
                 user.rivals.add(opponent.player)
         rivals += opponent_team.team_players.all().count()
     avr_opponents /= rivals
-    if user.rank:
-        rate = avr_opponents / user.rank
+    if user.rank_fact:
+        rate = avr_opponents / user.rank_fact
     else:
         rate = 1 if avr_opponents else 0
 
-    rank = (user.rank + result_sum*0.5 + unique_rivals*0.01 + rate*0.001) * user.involvement * (100 - user.penalty) * 0.01
-    logger.info(f"{user.rank=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
+    rank = (user.rank_fact + result_sum*0.5 + unique_rivals*0.01 + rate*0.001) * user.involvement * (100 - user.penalty) * 0.01
+    logger.info(f"{user.rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
     logger.info(f"username= {user.email}, {rank=}")
     return rank

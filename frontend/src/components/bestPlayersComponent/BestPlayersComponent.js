@@ -18,7 +18,8 @@ export const BestPlayersComponent = ({players, loader}) => {
     }
 
     useEffect(() => {
-        players = players.sort((a, b) => {
+        console.log(players)
+        let arr = players.sort((a, b) => {
             if (flagSort !== flagsSort.percent) {
                 if (a[flagSort] > b[flagSort]) {
                     return -1;
@@ -33,7 +34,8 @@ export const BestPlayersComponent = ({players, loader}) => {
                 }
             }
         })
-        setPlayersView(players);
+        console.log(arr)
+        setPlayersView(arr);
     }, [flagSort, players])
 
     const PlayerRow = ({player, number}) => {
@@ -45,8 +47,8 @@ export const BestPlayersComponent = ({players, loader}) => {
                     <span className={"black-400-13 name"}>{eventService.getCutUsername(player.username)}</span>
                 </div>
                 <span className={"elem elem-2 black-400-13"}>
-                    {player.rank.toFixed(2)}
-                    <span className={`black-400-13 ${player.delta_rank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.delta_rank >= 0 ? '+' : ''}{player.delta_rank.toFixed(2)}</span>
+                    {player.rank}
+                    <span className={`black-400-13 ${player.delta_rank >= 0 ? 'green' : 'red'}`}>&nbsp;{player.delta_rank >= 0 ? '+' : ''}{player.delta_rank}</span>
                 </span>
                 <span className={"elem elem-3 black-400-13 green"}>{player.wins}</span>
                 <span className={"elem elem-4 black-400-13 gray"}>{player.wins_percent}%</span>

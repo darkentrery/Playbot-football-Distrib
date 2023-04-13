@@ -58,7 +58,7 @@ export const ProfileFavoritesComponent = ({
                 {!isEnd && <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
                 {isEnd && <span className={`elem elem-3 gray-400-13`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
                 <span className={`elem elem-4 ${isEnd ? 'gray-400-13' : 'black-400-13'} ${color}`}>{event.count_current_players}/{event.count_players}</span>
-                <span className={`elem elem-5 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>{event.rank.toFixed(2).replace('.', ',')}</span>
+                <span className={`elem elem-5 ${isEnd ? 'gray-400-13' : 'black-400-13'}`}>{event.rank}</span>
             </Link>
             <EventItem376Component event={event} isFavorite={eventService.isFavorite(user, event)}/>
         </>)

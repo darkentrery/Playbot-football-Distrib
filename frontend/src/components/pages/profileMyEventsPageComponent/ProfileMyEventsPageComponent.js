@@ -65,7 +65,7 @@ export const ProfileMyEventsPageComponent = ({
                 </div>
                 <span className={"elem elem-3 gray-400-13"}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>
                 <span className={"elem elem-4 gray-400-13"}>{event.count_current_players}/{event.count_players}</span>
-                <span className={"elem elem-5 gray-400-13"}>{event.rank.toFixed(2).replace('.', ',')}</span>
+                <span className={"elem elem-5 gray-400-13"}>{event.rank}</span>
             </Link>
         )
     }

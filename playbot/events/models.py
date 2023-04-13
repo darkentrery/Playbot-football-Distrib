@@ -133,6 +133,16 @@ class Event(models.Model, CreateNotice):
             rank = sum([player.player.rank for player in players])
             rank /= players.count()
             rank = round(rank, 2)
+        return int(rank)
+
+    @property
+    def rank_fact(self):
+        players = self.event_player.all()
+        rank = 0
+        if players.count():
+            rank = sum([player.player.rank_fact for player in players])
+            rank /= players.count()
+            rank = round(rank, 2)
         return rank
 
     @property
@@ -245,7 +255,7 @@ class Team(models.Model):
         for player in self.team_players.all():
             rank += player.player.rank
         rank /= self.team_players.all().count()
-        return rank
+        return int(rank)
 
     @property
     def all_rivals(self):
@@ -325,7 +335,7 @@ class EventPlayer(models.Model):
             rank = getting_ranks.first()
             last_rank = self.player.ranks_history.filter(create__lt=rank.create).last()
             delta_rank = rank.rank - last_rank.rank
-        return round(delta_rank, 2)
+        return int(delta_rank * 100)
 
 
 class EventQueue(models.Model):

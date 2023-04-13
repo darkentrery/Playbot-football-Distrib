@@ -136,7 +136,7 @@ export const PreviewPlayerComponent = ({
                             <span className={"black-700-13"}>{eventService.getCutUsername(user.username)}</span>
                             <span className={"black-400-13"}>{user.position_1 ? user.position_1.name : ''}</span>
                         </div>
-                        <span className={"elem-2 black-400-13"}>{user.rank.toFixed(2).replace('.', ',')}</span>
+                        <span className={"elem-2 black-400-13"}>{user.rank}</span>
                     </Link>
                 ))}
             </div>

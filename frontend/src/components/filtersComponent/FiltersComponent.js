@@ -15,7 +15,7 @@ export const FiltersComponent = ({
     const [filterCanton, setFilterCanton] = useState([]);
     const [filterDistrict, setFilterDistrict] = useState([]);
     const [filterCountGames, setFilterCountGames] = useState([0, 100]);
-    const [filterRank, setFilterRank] = useState([0, 100]);
+    const [filterRank, setFilterRank] = useState([0, 10000]);
     const [filterGender, setFilterGender] = useState([]);
     const [filterDate, setFilterDate] = useState({label: "За всё время", begin: null, end: new Date(Date.now())});
     const [cities, setCities] = useState([]);
@@ -23,14 +23,9 @@ export const FiltersComponent = ({
     const districts = ["aaa", "abbb"];
     const genders = ["Муж.", "Жен."];
     const count = [0, 100];
-    const rank = [0, 100];
+    const rank = [0, 10000];
 
     useEffect(() => {
-        // cityService.getCities().then((response) => {
-        //     if (response.status == 200) {
-        //         setCities(response.data.cities);
-        //     }
-        // })
         cityService.getAddresses().then((response) => {
             if (response.status === 200) {
                 let arr = response.data.map((address) => {
