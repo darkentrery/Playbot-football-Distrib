@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Modal from "react-modal";
 import $ from "jquery";
 import {InputComponent} from "../inputComponent/InputComponent";
+import {blockBodyScroll} from "../../utils/manageElements";
 
 
 export const CancelComponent = ({
@@ -17,6 +18,10 @@ export const CancelComponent = ({
 }) => {
     const [errorReason, setErrorReason] = useState(false);
     const [otherReason, setOtherReason] = useState(false);
+
+    useEffect(() => {
+        blockBodyScroll(isOpen);
+    }, [isOpen])
 
     const closeWindow = () => {
         setReason(false);

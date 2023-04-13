@@ -1,9 +1,15 @@
 import Modal from "react-modal";
 import {EmblemComponent} from "../../emblemComponent/EmblemComponent";
 import {share} from "../../../services/LinkShareService";
+import {useEffect} from "react";
+import {blockBodyScroll} from "../../../utils/manageElements";
 
 
 export const ShowEmblemComponent = ({isOpen, user, player, funcs}) => {
+
+    useEffect(() => {
+        blockBodyScroll(isOpen);
+    }, [isOpen])
 
     const closeWindow = () => {
         funcs.closeComponent();

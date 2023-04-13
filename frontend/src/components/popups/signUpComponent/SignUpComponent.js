@@ -7,6 +7,7 @@ import {getLocationsAddressByCoordsGoogle} from "../../../services/LocationServi
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
+import {blockBodyScroll} from "../../../utils/manageElements";
 
 
 export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
@@ -106,6 +107,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                 console.log(error)
             });
         }
+        blockBodyScroll(isOpen);
     }, [isOpen])
 
     const closeWindow = () => {

@@ -1,5 +1,6 @@
 import {FiltersComponent} from "../filtersComponent/FiltersComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import $ from "jquery";
 
 
 export const TopStatisticComponent = ({
@@ -7,6 +8,14 @@ export const TopStatisticComponent = ({
     setPlayersView,
 }) => {
     const [isFilter, setIsFilter] = useState(false);
+
+    useEffect(() => {
+        if (isFilter) {
+            $('body').css('overflow', 'hidden');
+        } else {
+            $('body').css('overflow', '');
+        }
+    }, [isFilter])
 
     return (
         <div className={`top-statistic-component`}>

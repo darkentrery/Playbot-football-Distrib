@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import {blockBodyScroll} from "../../../utils/manageElements";
 
 
 export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth, showMap}) {
@@ -27,6 +28,10 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         bodyFormData.append('password', password);
         setData(bodyFormData);
     }, [email, password]);
+
+    useEffect(() => {
+        blockBodyScroll(isOpen);
+    }, [isOpen])
 
     const closeWindow = () => {
         setEmail(false);

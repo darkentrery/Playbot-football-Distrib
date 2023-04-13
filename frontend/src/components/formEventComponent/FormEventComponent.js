@@ -7,6 +7,7 @@ import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
 import "react-datetime/css/react-datetime.css";
+import {blockBodyScroll} from "../../utils/manageElements";
 
 
 export const FormEventComponent = ({
@@ -93,6 +94,7 @@ export const FormEventComponent = ({
             array.push(i);
         }
         setCountPlayers(array);
+        blockBodyScroll(isOpen);
     }, [event, isOpen])
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {cityService} from "../../../services/CityService";
 import {authService} from "../../../services/AuthService";
+import {blockBodyScroll} from "../../../utils/manageElements";
 
 
 export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, setCountry, showMap}) {
@@ -27,6 +28,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
                 }
             })
         }
+        blockBodyScroll(isOpen);
     }, [isOpen])
 
     const closeWindow = () => {

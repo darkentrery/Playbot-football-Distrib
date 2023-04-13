@@ -1,6 +1,7 @@
 import Modal from "react-modal";
-import React from "react";
+import React, {useEffect} from "react";
 import {LoaderComponent} from "../loaderComponent/LoaderComponent";
+import {blockBodyScroll} from "../../utils/manageElements";
 
 
 export const ReglamentComponent = ({
@@ -14,6 +15,10 @@ export const ReglamentComponent = ({
     popupClick = () => {},
     isLoader=false,
 }) => {
+
+    useEffect(() => {
+        blockBodyScroll(isOpen);
+    }, [isOpen])
 
     return (
         <Modal

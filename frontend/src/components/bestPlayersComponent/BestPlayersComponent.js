@@ -18,7 +18,6 @@ export const BestPlayersComponent = ({players, loader}) => {
     }
 
     useEffect(() => {
-        console.log(players)
         let arr = players.sort((a, b) => {
             if (flagSort !== flagsSort.percent) {
                 if (a[flagSort] > b[flagSort]) {
@@ -34,7 +33,6 @@ export const BestPlayersComponent = ({players, loader}) => {
                 }
             }
         })
-        console.log(arr)
         setPlayersView(arr);
     }, [flagSort, players])
 

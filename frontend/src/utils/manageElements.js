@@ -1,3 +1,4 @@
+import $ from "jquery";
 
 export const popupCloseDropdownWithDate = (e, isOpenCalendar, setIsOpenCalendar) => {
     if (isOpenCalendar) {
@@ -28,5 +29,13 @@ export const popupCloseDropdown = (e, setCloseDropDown, closeDropDown) => {
 export const popupCloseSuggestMap = (e, setAddressFocus, addressFocus) => {
     if (!e.target.className.includes("suggest-map") && !e.target.className.includes("map-point-icon")) {
         setAddressFocus(false);
+    }
+}
+
+export const blockBodyScroll = (flag) => {
+    if (flag) {
+        $('body').css('overflow', 'hidden');
+    } else {
+        $('body').css('overflow', '');
     }
 }
