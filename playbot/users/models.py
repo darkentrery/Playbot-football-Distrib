@@ -144,7 +144,7 @@ class User(AbstractUser):
     def delta_rank(self):
         delta_rank = 0
         if self.ranks_history.all().count() > 1:
-            delta_rank = int(self.ranks_history.all().last().rank - self.ranks_history.all().first().rank * 100)
+            delta_rank = int((self.ranks_history.all().last().rank - self.ranks_history.all().first().rank) * 100)
         return delta_rank
 
     @property

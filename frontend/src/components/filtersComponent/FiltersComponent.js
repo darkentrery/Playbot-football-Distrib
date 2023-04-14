@@ -105,7 +105,7 @@ export const FiltersComponent = ({
         setFilterDistrict([]);
         setFilterGender([]);
         setFilterCountGames([0, 100]);
-        setFilterRank([0, 100]);
+        setFilterRank([0, 10000]);
         setFilterDate({label: "За всё время", begin: null, end: new Date(Date.now())});
     }
 

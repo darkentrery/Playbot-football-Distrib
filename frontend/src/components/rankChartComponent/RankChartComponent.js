@@ -29,7 +29,7 @@ export const RankChartComponent = ({ranks, rank, dRank}) => {
             <div className={"custom-chart-tooltip"}>
                 {payload && payload.length && payload[0] !== undefined && payload[0].payload && <>
                     <span className={"gray-400-13"}>{payload[0].payload.name}</span>
-                    <span className={"gray-400-13"}>Рейтинг: {payload[0].payload.value.toFixed(2)}</span>
+                    <span className={"gray-400-13"}>Рейтинг: {Math.floor(payload[0].payload.value * 100)}</span>
                 </>}
             </div>
         )
