@@ -146,6 +146,27 @@ def auto_distribution(event):
     return teams
 
 
+def get_proportion(events_count: int) -> tuple[float, float]:
+    proportions = [
+        {"min": 0, "max": 10, "win_proportion": 10, "rank_proportion": 90},
+        {"min": 11, "max": 20, "win_proportion": 15, "rank_proportion": 85},
+        {"min": 21, "max": 30, "win_proportion": 20, "rank_proportion": 80},
+        {"min": 31, "max": 40, "win_proportion": 25, "rank_proportion": 75},
+        {"min": 41, "max": 50, "win_proportion": 30, "rank_proportion": 70},
+        {"min": 51, "max": 60, "win_proportion": 35, "rank_proportion": 65},
+        {"min": 61, "max": 70, "win_proportion": 40, "rank_proportion": 60},
+        {"min": 71, "max": 80, "win_proportion": 45, "rank_proportion": 55},
+        {"min": 81, "max": 90, "win_proportion": 50, "rank_proportion": 50},
+        {"min": 91, "max": 100, "win_proportion": 55, "rank_proportion": 45},
+        {"min": 101, "max": 200, "win_proportion": 60, "rank_proportion": 40},
+        {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
+    ]
+    for proportion in proportions:
+        if proportion["min"] <= events_count <= proportion["max"]:
+            return proportion["win_proportion"], proportion["rank_proportion"]
+    return 0, 100
+
+
 def get_k_goal(win_goals, loss_goals):
     k_goal = win_goals + 0.5
     if loss_goals:
@@ -223,4 +244,8 @@ def get_next_rank(user, event):
     rank = (user.rank_fact + result_sum*0.5 + unique_rivals*0.01 + rate*0.001) * user.involvement * (100 - user.penalty) * 0.01
     logger.info(f"{user.rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
     logger.info(f"username= {user.email}, {rank=}")
-    return rank
+    win_proportion, rank_proportion = get_proportion(user.all_games)
+    total_rank = (win_proportion * user.wins_percent + rank_proportion * rank) / 100
+    logger.info(f"{win_proportion=}, {rank_proportion=}, {user.wins_percent=}, {total_rank=}")
+
+    return total_rank
