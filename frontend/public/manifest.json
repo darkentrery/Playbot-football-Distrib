@@ -1,21 +1,54 @@
 {
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/newEmail?to=%s"
+    }
+  ],
   "short_name": "Korobka",
   "name": "Korobka football",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "public/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "logokorobka192.png",
+      "src": "public/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
       "type": "image/png",
-      "sizes": "192x192"
+      "purpose": "maskable"
     },
+    {
+      "src": "public/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "public/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
     {
       "src": "logokorobka512.png",
+      "sizes": "512x512",
       "type": "image/png",
-      "sizes": "512x512"
+      "description": "A screenshot of the home page"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "The name you would like to be displayed for your shortcut",
+      "url": "/",
+      "description": "A description of the functionality of this shortcut"
     }
   ],
   "start_url": "/?fullscreen=true",
@@ -26,5 +59,15 @@
   "description": "Korobka",
   "dir": "ltr",
   "lang": "en-US",
-  "orientation": "any"
+  "orientation": "any",
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "text/*": [
+          ".txt"
+        ]
+      }
+    }
+  ]
 }
