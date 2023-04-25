@@ -51,6 +51,7 @@ import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
 import VisibleSuccessExistsUser from "./redux/containers/VisibleSuccessExistsUser";
 import $ from "jquery";
+import VisibleDeleteAccount from "./redux/containers/VisibleDeleteAccount";
 
 
 function App({state, funcs}) {
@@ -167,6 +168,7 @@ function App({state, funcs}) {
                 <VisibleSuccessUpdatePassword/>
                 <VisibleShowEmblem/>
                 <VisibleShowMenu/>
+                <VisibleDeleteAccount/>
 
                 <ConfirmPlayersComponent isOpen={state.windows.isOpenConfirmPlayers} event={state.event.event}
                                            funcs={funcs} isIPhone={state.app.isIPhone}/>

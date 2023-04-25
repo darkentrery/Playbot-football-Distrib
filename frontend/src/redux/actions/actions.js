@@ -27,6 +27,7 @@ export const END_GAME_WINDOW = 'END_GAME_WINDOW';
 export const UPDATE_PASSWORD_WINDOW = 'UPDATE_PASSWORD_WINDOW';
 export const SHOW_EMBLEM_WINDOW = 'SHOW_EMBLEM_WINDOW';
 export const SHOW_MENU_WINDOW = 'SHOW_MENU_WINDOW';
+export const DELETE_ACCOUNT_WINDOW = 'DELETE_ACCOUNT_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -188,6 +189,11 @@ export const showEmblemWindow = (value) => ({
 
 export const showMenuWindow = (value) => ({
   type: SHOW_MENU_WINDOW,
+  value,
+});
+
+export const deleteAccountWindow = (value) => ({
+  type: DELETE_ACCOUNT_WINDOW,
   value,
 });
 

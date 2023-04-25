@@ -61,8 +61,8 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
             setIsLoader(true);
             authService.login(data).then((response) => {
                 errors = authServicee.loginResponseValidation(response, setEmailError, setPasswordError);
+                setIsLoader(false);
                 if (!errors.length) {
-                    setIsLoader(false);
                     setAuth(true, response.data.user);
                     closeWindow();
                     showMap();

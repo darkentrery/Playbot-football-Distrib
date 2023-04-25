@@ -7,7 +7,7 @@ import {
     CONFIRM_TEAM_PLAYERS_WINDOW,
     CONFIRM_TEAMS_WINDOW, COUNTRY,
     CREATE_EVENT_UN_AUTH_WINDOW,
-    CREATE_EVENT_WINDOW,
+    CREATE_EVENT_WINDOW, DELETE_ACCOUNT_WINDOW,
     EDIT_EVENT_WINDOW,
     END_GAME_WINDOW,
     EVENT,
@@ -69,6 +69,7 @@ const initialState = {
     isOpenUpdatePassword: false,
     isOpenShowEmblem: false,
     isOpenShowMenu: false,
+    isOpenDeleteAccount: false,
 }
 
 
@@ -218,6 +219,11 @@ const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenShowMenu: action.value
+          };
+      case DELETE_ACCOUNT_WINDOW:
+          return {
+              ...state,
+              isOpenDeleteAccount: action.value
           };
       default:
           return state;

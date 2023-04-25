@@ -131,6 +131,10 @@ export const ProfilePersonalDataComponent = ({
         }
     }
 
+    const deleteAccount = () => {
+        funcs.openDeleteAccount();
+    }
+
     return (
         <VisibleProfileWrapper>
             <div className={`profile-personal-data-component ${!player || !user ? 'loader' : ''}`}>
@@ -212,6 +216,10 @@ export const ProfilePersonalDataComponent = ({
                     <div className={"change-password"}>
                         <div className={"orange-lock-icon"}></div>
                         <span className={"orange-400-14 link"} onClick={updatePassword}>Сменить пароль</span>
+                    </div>
+                    <div className={"change-password"}>
+                        {/*<div className={"orange-lock-icon"}></div>*/}
+                        <span className={"orange-400-14 link"} onClick={deleteAccount}>Удалить аккаунт</span>
                     </div>
                     <div className={"bottom-bar-376"}>
                         <span className={`elem-1 btn ${update ? 'disabled' : ''}`} onClick={updateUser}>Сохранить изменения</span>

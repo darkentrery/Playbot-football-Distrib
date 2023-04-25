@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {
   auth,
-  choiceCityWindow, confirmPlayersWindow, confirmTeamPlayersWindow, confirmTeamsWindow,
+  choiceCityWindow, confirmPlayersWindow, confirmTeamPlayersWindow, confirmTeamsWindow, deleteAccountWindow,
   event, fillRegulationWindow,
   hiddenMap, iphone,
   loginWindow, mobileFirstPageWindow, player, players,
@@ -98,6 +98,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       showMap: () => {
         dispatch(hiddenMap(false));
+      },
+      openDeleteAccount: () => {
+        dispatch(deleteAccountWindow(true));
       },
     },
   };

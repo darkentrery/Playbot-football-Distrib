@@ -255,3 +255,12 @@ class RemoveFromFavoritesView(APIView):
             json = UserSerializer(instance=request.user).data
             return Response(json, status=status.HTTP_200_OK)
         return Response({"error": "Not in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteUserView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        user = User.objects.get(id=request.data["id"])
+        user.delete()
+        return Response({}, status=status.HTTP_200_OK)

@@ -165,6 +165,7 @@
         height: 99px;
         padding-left: 44px;
         font-size: 14px;
+
         &.map-point-icon {
           background-position: 18px 16px;
         }
@@ -179,6 +180,7 @@
     padding-left: 48px;
     gap: 14px;
     align-items: center;
+    border-bottom: 1px solid #E8E8E8;
 
     .orange-lock-icon {
       display: flex;
@@ -235,6 +237,7 @@
       padding: 24px 20px;
       align-items: start;
       flex: 0 0 115px;
+
       .orange-lock-icon {
         align-self: start;
         height: 16px;

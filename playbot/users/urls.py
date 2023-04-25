@@ -33,6 +33,7 @@ urlpatterns = [
     path("api/get-user/<int:pk>/", views.GetUserView.as_view(), name='get-user'),
     path("api/update-user/", views.UpdateUserView.as_view(), name='update-user'),
     path("api/update-password/", views.UpdatePasswordView.as_view(), name='update-password'),
+    path("api/delete-user/", views.DeleteUserView.as_view(), name='delete-user'),
     path("add-to-favorites/", views.AddToFavoritesView.as_view(), name='add-to-favorites-player'),
     path("remove-from-favorites/", views.RemoveFromFavoritesView.as_view(), name='remove-from-favorites-player'),
 ]

@@ -334,6 +334,7 @@ export const authService = {
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
 	updateAddress(data) { return postRequest('update-address/', data); },
 	updatePassword(data) { return postRequest('update-password/', data); },
+	deleteUser(data) { return postRequest('delete-user/', data); },
 	login(user) {
 		return postRequest('login/', user).then((response) => {
 			if (response.status === 200) {
