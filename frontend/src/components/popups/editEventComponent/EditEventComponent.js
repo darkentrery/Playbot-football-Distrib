@@ -1,11 +1,6 @@
 import React, {useState} from "react";
 import Modal from "react-modal";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import {
-    popupCloseDropdown,
-    popupCloseDropdownWithDate,
-    popupCloseDropdownWithTime, popupCloseSuggestMap,
-} from "../../../utils/manageElements";
 import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
 import {eventService} from "../../../services/EventService";
 
@@ -13,8 +8,6 @@ import {eventService} from "../../../services/EventService";
 export default function EditEventComponent ({isOpen, isIPhone, event, user, closeComponent, openSuccessEditEvent, setEvent, showMap}) {
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
-    const [isOpenCalendar, setIsOpenCalendar] = useState(false);
-    const [isOpenTime, setIsOpenTime] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [addressFocus, setAddressFocus] = useState(false);
 
@@ -36,14 +29,6 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
         })
     }
 
-    const popupClick = (e) => {
-        popupCloseDropdown(e, setCloseDropDown, closeDropDown);
-        popupCloseDropdownWithDate(e, isOpenCalendar, setIsOpenCalendar);
-        popupCloseDropdownWithTime(e, isOpenTime, setIsOpenTime);
-        popupCloseSuggestMap(e, setAddressFocus, addressFocus);
-        setSuggests([]);
-    }
-
     return (
         <Modal
             isOpen={isOpen}
@@ -51,7 +36,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-fon"} onClick={popupClick}>
+            <div className={"popup-fon"}>
                 <FormEventComponent
                     className={`edit-event-component ${data && data.is_paid ? 'isPaid' : ''}`}
                     event={event}

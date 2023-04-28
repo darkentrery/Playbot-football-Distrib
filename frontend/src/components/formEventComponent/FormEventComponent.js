@@ -2,12 +2,12 @@ import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
 import React, {useEffect, useRef, useState} from "react";
 import {choiceDate, choiceTime, getLocalTime, getUTCTime} from "../../utils/dates";
-import {getAddressStringFormat} from "../../services/LocationService";
 import {InputComponent} from "../inputComponent/InputComponent";
 import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
 import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
 import "react-datetime/css/react-datetime.css";
 import {blockBodyScroll} from "../../utils/manageElements";
+import {cityService} from "../../services/CityService";
 
 
 export const FormEventComponent = ({
@@ -42,6 +42,7 @@ export const FormEventComponent = ({
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
     const [addressError, setAddressError] = useState(false);
+    const [fieldError, setFieldError] = useState(false);
     const [formatError, setFormatError] = useState(false);
     const [isOpenMap, setIsOpenMap] = useState(false);
     const [isPaid, setIsPaid] = useState(false);
@@ -49,6 +50,9 @@ export const FormEventComponent = ({
     const [currency, setCurrency] = useState('RUB');
     const [priceError, setPriceError] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
+    const [fields, setFields] = useState([]);
+    const [fieldsView, setFieldsView] = useState([]);
+    const [field, setField] = useState(false);
     const refDate = useRef();
     const refTime = useRef();
     const refAddress = useRef();
@@ -80,8 +84,8 @@ export const FormEventComponent = ({
             setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
-            if (event.address) setAddress(event.address);
             setCount(event.count_players);
+            if (event.field) setField(`${event.field.name} - ${event.field.address.s_h_string}`);
             if (event) setIsNotPlayer(!event.is_player);
             setNotice(event.notice);
             setFormat(event.format_label);
@@ -95,6 +99,15 @@ export const FormEventComponent = ({
         }
         setCountPlayers(array);
         blockBodyScroll(isOpen);
+
+        cityService.getFields().then((response) => {
+            console.log(response.data)
+            setFields(response.data);
+            let array = response.data.map((field) => {
+                return `${field.name} - ${field.address.s_h_string}`;
+            })
+            setFieldsView(array);
+        })
     }, [event, isOpen])
 
     useEffect(() => {
@@ -111,12 +124,21 @@ export const FormEventComponent = ({
                 newDate = date;
             }
         }
+        let newField;
+        if (field) {
+            for (let obj of fields) {
+                if (`${obj.name} - ${obj.address.s_h_string}` === field) {
+                    newField = obj.id;
+                    break;
+                }
+            }
+        }
         let bodyFormData = {
             'id': id,
             'name': name,
             'date': newDate,
             'time_begin': time ? getUTCTime(time) : time,
-            'address': address,
+            'field': newField,
             'count_players': count,
             'is_player': !isNotPlayer,
             'notice': notice,
@@ -127,7 +149,7 @@ export const FormEventComponent = ({
         };
         console.log(bodyFormData)
         setData(bodyFormData);
-    }, [name, date, time, address, count, isNotPlayer, notice, isPaid, price, format, currency]);
+    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
@@ -187,7 +209,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && address && address.city && address.street && (!isPaid || (isPaid && price)) && format) {
+        if (name && date && time && field && (!isPaid || (isPaid && price)) && format) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -198,7 +220,7 @@ export const FormEventComponent = ({
         if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
-        if (!address || !address.city || !address.street) setAddressError("Заполните поле!");
+        if (!field) setFieldError("Заполните поле!");
         if (isPaid && !price) setPriceError("Заполните поле!");
         if (!format) setFormatError("Заполните поле!");
     }
@@ -243,23 +265,28 @@ export const FormEventComponent = ({
             <div className={"form-event-body scroll"}>
                 <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
                                 placeholder={"Название *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
-                <div className={`elem elem-3 div-input`} ref={refAddress}>
-                    <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}
-                           value={address ? getAddressStringFormat(address) : ''}
-                           onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>
-                    <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>
-                    <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>
-                    <div className={`suggests scroll ${suggests.length ? '' : 'hidden'}`}>
-                        {suggests.length !== 0 && suggests.map((item, key) => (
-                            <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>
-                        ))}
-                    </div>
-                </div>
+                {/*<div className={`elem elem-3 div-input`} ref={refAddress}>*/}
+                {/*    <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}*/}
+                {/*           value={address ? getAddressStringFormat(address) : ''}*/}
+                {/*           onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>*/}
+                {/*    <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>*/}
+                {/*    <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>*/}
+                {/*    <div className={`suggests scroll ${suggests.length ? '' : 'hidden'}`}>*/}
+                {/*        {suggests.length !== 0 && suggests.map((item, key) => (*/}
+                {/*            <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>*/}
+                {/*        ))}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <DropDownComponent
-                        value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
-                        flagClose={closeDropDown} id={3} content={formats} errorText={formatError} setErrorText={setFormatError}
-                        placeholder={"Формат площадки*"}
-                    />
+                    value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3"}
+                    content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
+                    placeholder={"Площадка проведения *"}
+                />
+                <DropDownComponent
+                    value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
+                    flagClose={closeDropDown} content={formats} errorText={formatError} setErrorText={setFormatError}
+                    placeholder={"Формат площадки*"}
+                />
                 <div className={"elem elem-5"}>
                     <ReactDatetimeClass
                         className={`div-input date ${dateError ? 'error' : ''}`}
@@ -290,14 +317,14 @@ export const FormEventComponent = ({
                 <div className={"elem elem-6"}>
                     <span>Максимальное кол. игроков *</span>
                 </div>
-                <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} id={1} content={countPlayers}/>
+                <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} content={countPlayers}/>
                 <CheckSliderComponent value={isNotPlayer} setValue={setIsNotPlayer} text={"Организатор события не играет"}
                                       sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
                 <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
                 <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
                     <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? () => {return price;} : inputDigit}
                                     errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
-                    <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} id={2} content={currencies}/>
+                    <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} content={currencies}/>
                 </div>
 
                 <div className={"elem elem-11"} ref={refNotice}>
@@ -308,8 +335,8 @@ export const FormEventComponent = ({
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
             </div>
-            <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} city={user.address ? user.address.city : null}
-                                  setAddress={setAddress} setIsOpenMap={setIsOpenMap} address={address}/>
+            <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} userAddress={user.address ? user.address : null}
+                                  setField={setField} setIsOpenMap={setIsOpenMap} address={address} fields={fields}/>
         </div>
     )
 }

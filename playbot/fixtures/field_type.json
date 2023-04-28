@@ -1,0 +1,16 @@
+[
+  {
+    "model": "cities.FieldType",
+    "pk": 1,
+    "fields": {
+      "name": "Открытая"
+    }
+  },
+  {
+    "model": "cities.FieldType",
+    "pk": 2,
+    "fields": {
+      "name": "Закрытая"
+    }
+  }
+]

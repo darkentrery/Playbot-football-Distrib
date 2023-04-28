@@ -49,6 +49,11 @@
     &.elem-3 {
       position: relative;
 
+      .dropdown {
+        .map-point-icon {
+          width: 20px;
+        }
+      }
       .suggest-map {
         position: absolute;
         display: flex;

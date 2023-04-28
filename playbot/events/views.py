@@ -31,18 +31,6 @@ class CreateEventView(APIView):
     def post(self, request, format='json'):
         data = request.data
         data.update({"organizer": request.user.pk})
-        city, creat = City.objects.get_or_create(name=request.data["address"]["city"])
-        address, creat = Address.objects.get_or_create(
-            country=request.data["address"]["country"],
-            city=city,
-            region=request.data["address"].get("region"),
-            state=request.data["address"].get("state"),
-            street=request.data["address"].get("street"),
-            house_number=request.data["address"].get("house_number"),
-            lat=request.data["address"].get("lat"),
-            lng=request.data["address"].get("lng"),
-        )
-        request.data["address"] = address.id
         serializer = CreateEventSerializer(data=request.data)
         if serializer.is_valid():
             event = serializer.save()
@@ -69,7 +57,7 @@ class EventsCityView(APIView):
 
     def get(self, request, format='json', **kwargs):
         city = self.kwargs.get("city")
-        events = Event.objects.filter(address__city__name=city, cancel=False).order_by("date", "time_begin")
+        events = Event.objects.filter(field__address__city__name=city, cancel=False).order_by("date", "time_begin")
         events_ids = [event.id for event in events if not event.is_end or (event.is_end and (event.date + datetime.timedelta(days=1) > timezone.now().date()))]
         events = Event.objects.filter(id__in=events_ids).order_by("date", "time_begin")
         count = min(5, events.count())
@@ -85,7 +73,7 @@ class EventView(APIView):
         json = EventSerializer(instance=event).data
         same_events = []
         if not event.is_begin and not event.is_end:
-            same_events = Event.objects.filter(city=event.address.city, date__gte=timezone.now().date()).exclude(id=event.id)
+            same_events = Event.objects.filter(city=event.field.address.city, date__gte=timezone.now().date()).exclude(id=event.id)
             ids = [event.id for event in same_events if not event.is_begin and not event.is_end]
             same_events = Event.objects.filter(id__in=ids)
             count = min(3, same_events.count())

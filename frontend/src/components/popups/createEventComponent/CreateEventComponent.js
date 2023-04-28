@@ -1,11 +1,6 @@
 import React, {useState} from "react";
 import Modal from "react-modal";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import {
-    popupCloseDropdown,
-    popupCloseDropdownWithDate,
-    popupCloseDropdownWithTime,
-} from "../../../utils/manageElements";
 import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {eventService} from "../../../services/EventService";
@@ -21,8 +16,6 @@ export default function CreateEventComponent ({
 }) {
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
-    const [isOpenCalendar, setIsOpenCalendar] = useState(false);
-    const [isOpenTime, setIsOpenTime] = useState(false);
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [addressFocus, setAddressFocus] = useState(false);
 
@@ -39,13 +32,6 @@ export default function CreateEventComponent ({
         })
     }
 
-    const popupClick = (e) => {
-        popupCloseDropdown(e, setCloseDropDown, closeDropDown);
-        popupCloseDropdownWithDate(e, isOpenCalendar, setIsOpenCalendar);
-        popupCloseDropdownWithTime(e, isOpenTime, setIsOpenTime);
-        setSuggests([]);
-    }
-
     return(
         <Modal
             isOpen={isOpen}
@@ -53,7 +39,7 @@ export default function CreateEventComponent ({
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-fon"} onClick={popupClick}>
+            <div className={"popup-fon"}>
                 <div className={`popup-frame create-event-component`}>
                     <FormEventComponent
                         className={"popup-left"}

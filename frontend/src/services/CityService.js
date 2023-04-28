@@ -25,4 +25,5 @@ const getRequest =(url, data=false) => {
 export const cityService = {
 	getCities() { return getRequest('get-cities/'); },
 	getAddresses() { return getRequest('get-addresses/'); },
+	getFields() { return getRequest('get-fields/'); },
 }

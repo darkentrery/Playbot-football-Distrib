@@ -77,6 +77,7 @@ class EventAdmin(admin.ModelAdmin):
         "time_end",
         "count_players",
         "address",
+        "field",
         "cancel",
         "cancel_reasons",
         "format",

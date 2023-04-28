@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from playbot.cities.models import City, Address
+from playbot.cities.models import City, Address, FieldType, CoverageType, Field, FieldPhoto
+
+
+class FieldPhotoInline(admin.TabularInline):
+    model = FieldPhoto
+    extra = 0
+    list_display = [
+        "photo",
+    ]
 
 
 @admin.register(City)
@@ -18,4 +26,42 @@ class AddressAdmin(admin.ModelAdmin):
         "state",
         "street",
         "house_number",
+    ]
+
+
+@admin.register(FieldType)
+class FieldTypeAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+    ]
+
+
+@admin.register(CoverageType)
+class CoverageTypeAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+    ]
+
+
+@admin.register(Field)
+class FieldAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "address",
+        "format",
+        "type_field",
+        "coverage",
+        "shower_room",
+        "dressing_room",
+        "lighting",
+        "tribune",
+    ]
+    inlines = [FieldPhotoInline,]
+
+
+@admin.register(FieldPhoto)
+class FieldPhotoAdmin(admin.ModelAdmin):
+    list_display = [
+        "field",
+        "photo",
     ]

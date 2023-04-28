@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from playbot.cities.models import City, Address
-from playbot.cities.serializers import CitySerializer, AddressSerializer
+from playbot.cities.models import Address, Field
+from playbot.cities.serializers import CitySerializer, AddressSerializer, FieldSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod
 from playbot.users.models import User, Position
@@ -153,13 +153,14 @@ class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
-    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
+    # address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
+    field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer",
-                  "format_label", "is_paid", "price"]
+        fields = ["id", "name", "date", "time_begin", "count_players", "is_player", "notice", "organizer",
+                  "format_label", "is_paid", "price", "field"]
 
 
 class EventForPlayerListSerializer(serializers.ModelSerializer):
@@ -185,6 +186,7 @@ class EventSerializer(serializers.ModelSerializer):
     event_games = EventGameSerializer(EventGame, many=True, read_only=True)
     event_queues = EventQueueSerializer(EventQueue, many=True, read_only=True)
     format_label = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    field = FieldSerializer(read_only=True)
 
     class Meta:
         model = Event
@@ -193,7 +195,7 @@ class EventSerializer(serializers.ModelSerializer):
                   "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
                   "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
                   "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin", "all_games_finished",
-                  "current_game_id", "count_current_players"]
+                  "current_game_id", "count_current_players", "field"]
         read_only_fields = fields
 
     def get_teams(self, instance):

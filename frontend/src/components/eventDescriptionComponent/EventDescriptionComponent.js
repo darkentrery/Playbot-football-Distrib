@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import $ from "jquery";
-import {MapContainer, Marker, Popup, TileLayer, useMapEvents} from 'react-leaflet'
+import {MapContainer, Marker, TileLayer, useMapEvents} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 
 
@@ -11,19 +11,13 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
     const markerRef = useRef(false);
 
     useEffect(() => {
-        if (event && event.address) {
+        if (event && event.field) {
             let point = {
-                lat: event.address.lat,
-                lng: event.address.lng,
+                lat: event.field.address.lat,
+                lng: event.field.address.lng,
             }
             setPosition(point);
-            let address = {
-                country: event.address.country ? event.address.country : '',
-                city: event.address.city ? ', ' + event.address.city : '',
-                street: event.address.street ? ', ' + event.address.street : '',
-                house_number: event.address.house_number ? ', ' + event.address.house_number : '',
-            }
-            setAddress(`${address.country}${address.city}${address.street}${address.house_number}`);
+            setAddress(event.field.address.c_c_s_h_string);
         }
     }, [event])
 
@@ -39,9 +33,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
         }, [markerRef, event])
 
         return !position ? null : (
-            <Marker position={position} ref={markerRef}>
-                {/*<Popup>You are here</Popup>*/}
-            </Marker>
+            <Marker position={position} ref={markerRef}></Marker>
         )
     }
 
@@ -59,7 +51,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
 
     const copyLink = () => {
         // window.navigator.clipboard.writeText(`https://www.google.com/maps/@${event.address.lat},${event.address.lng},12z`);
-        window.navigator.clipboard.writeText(`https://www.google.com/maps/search/${event.address.lat},+${event.address.lng}?shorturl=1`);
+        window.navigator.clipboard.writeText(event.field ? event.field.address.google_link : '');
         if (!isTooltip) {
             setIsTooltip(true);
             setTimeout(() => {

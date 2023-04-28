@@ -1,0 +1,30 @@
+[
+  {
+    "model": "cities.CoverageType",
+    "pk": 1,
+    "fields": {
+      "name": "Искусственное покрытие"
+    }
+  },
+  {
+    "model": "cities.CoverageType",
+    "pk": 2,
+    "fields": {
+      "name": "Натуральное покрытие"
+    }
+  },
+  {
+    "model": "cities.CoverageType",
+    "pk": 3,
+    "fields": {
+      "name": "Паркет"
+    }
+  },
+  {
+    "model": "cities.CoverageType",
+    "pk": 4,
+    "fields": {
+      "name": "Уличное покрытие"
+    }
+  }
+]

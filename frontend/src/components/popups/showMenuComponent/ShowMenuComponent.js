@@ -1,6 +1,6 @@
 import Modal from "react-modal";
 import {MainSearchComponent} from "../../mainSearchComponent/MainSearchComponent";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {authService} from "../../../services/AuthService";

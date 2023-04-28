@@ -3,8 +3,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from playbot.cities.models import City, Address
-from playbot.cities.serializers import AddressSerializer
+from playbot.cities.models import City, Address, Field
+from playbot.cities.serializers import AddressSerializer, FieldSerializer
 
 
 class CitiesView(APIView):
@@ -22,4 +22,12 @@ class GetAddressesByCityView(APIView):
         addresses = Address.objects.all().distinct("city")
         json = AddressSerializer(addresses, many=True).data
         json = sorted(json, key=lambda item: item["city"])
+        return Response(json, status=status.HTTP_200_OK)
+
+
+class GetFieldsView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json'):
+        json = FieldSerializer(Field.objects.all(), many=True).data
         return Response(json, status=status.HTTP_200_OK)
