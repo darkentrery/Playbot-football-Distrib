@@ -1,10 +1,10 @@
 import React from "react";
 
 
-export default function NoEventsComponent ({isAuth, openCreateEvent, openCreateEventUnAuth, setEvent}) {
+export default function NoEventsComponent ({user, openCreateEvent, openCreateEventUnAuth, setEvent}) {
 
     const getOpenCreateEvent = () => {
-        if (isAuth) {
+        if (user.isAuth) {
             setEvent(false);
             openCreateEvent();
         } else {
@@ -18,7 +18,12 @@ export default function NoEventsComponent ({isAuth, openCreateEvent, openCreateE
             <div className={"elem elem-2"}>
                 <span className={"el el-1 black-600-32"}>Стань первым, кто создаст событие!</span>
                 <span className={"el el-2"}> В вашем городе пока не создано ни одного события.</span>
-                <button className={"el el-3 btn-second"} onClick={getOpenCreateEvent}><div className={"black-ball-icon"}></div>Создать событие</button>
+                {((user.isAuth && user.user.is_organizer) || !user.isAuth) &&
+                    <span className={"el el-3 btn-second"} onClick={getOpenCreateEvent}>
+                        <div className={"black-ball-icon"}></div>
+                        Создать событие
+                    </span>
+                }
             </div>
         </div>
     )

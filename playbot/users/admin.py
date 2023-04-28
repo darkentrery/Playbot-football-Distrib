@@ -27,6 +27,7 @@ class CustomUserAdmin(UserAdmin):
         "city",
         "gender",
         "position_1",
+        "is_organizer",
     ]
 
     fieldsets = (
@@ -61,6 +62,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": (
                     "is_active",
+                    "is_organizer",
                     "is_staff",
                     "is_superuser",
                     "groups",

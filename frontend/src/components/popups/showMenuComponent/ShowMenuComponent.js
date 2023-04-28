@@ -1,6 +1,6 @@
 import Modal from "react-modal";
 import {MainSearchComponent} from "../../mainSearchComponent/MainSearchComponent";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {authService} from "../../../services/AuthService";
@@ -10,8 +10,6 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
     const [isOpenSearch, setIsOpenSearch] = useState(false);
 
     const closeWindow = () => {
-        console.log(user)
-        console.log(city)
         funcs.closeComponent();
     }
 
@@ -48,16 +46,21 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                     <div className={"search-icon"}></div>
                     <span className={"black-400-16"}>Поиск</span>
                 </div>
-                <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} user={user} city={city}/>
+                <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} user={user.user} city={city}/>
                 <div className={"city-field"} onClick={toChoiceCity}>
                     <div className={"map-point-icon"}></div>
                     <div className={"text-field"}>
                         <span className={"gray-400-12"}>Ваш город</span>
-                        <span className={"black-600-16"}>{user && user.address ? user.address.city : ''}</span>
+                        <span className={"black-600-16"}>{user.isAuth && !!user.user.address ? user.user.address.city : ''}</span>
                     </div>
                 </div>
                 <div className={"area-field"}>
-                    <span className={"btn-second"} onClick={getOpenCreateEvent}><div className={"black-ball-icon"}></div>Создать событие</span>
+                    {((user.isAuth && user.user.is_organizer) || !user.isAuth) &&
+                        <span className={"btn-second"} onClick={getOpenCreateEvent}>
+                            <div className={"black-ball-icon"}></div>
+                            Создать событие
+                        </span>
+                    }
                 </div>
                 <div className={"exit"} onClick={logout}>
                     <span className={"black-400-16"}>Выйти</span>

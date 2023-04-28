@@ -31,10 +31,7 @@ export const MainSearchComponent = ({
             })
             authService.getUsers().then((response) => {
                 if (response.status === 200) {
-                    let array = [];
-                    response.data.forEach((player) => {
-                        if (player.count_current_players) array.push(player);
-                    })
+                    let array = response.data.map((player) => { return player; });
                     setPlayers(array);
                 }
             })
@@ -65,6 +62,7 @@ export const MainSearchComponent = ({
             if (item.username.toLowerCase().includes(val.toLowerCase())) array.push(item);
         })
         setPlayersView(array);
+        console.log(array)
     }
 
     document.addEventListener('click', (e) => {

@@ -9,7 +9,7 @@ import {ShowMenuComponent} from "../../components/popups/showMenuComponent/ShowM
 const mapStateToProps = (state) => {
   return {
     isOpen: state.windows.isOpenShowMenu,
-    user: state.user.user,
+    user: state.user,
     city: state.city,
   };
 };

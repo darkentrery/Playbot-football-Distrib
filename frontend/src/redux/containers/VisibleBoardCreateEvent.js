@@ -6,7 +6,7 @@ import BoardCreateEventComponent from "../../components/boardCreateEventComponen
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isAuth: state.user.isAuth,
+    user: state.user,
   };
 };
 

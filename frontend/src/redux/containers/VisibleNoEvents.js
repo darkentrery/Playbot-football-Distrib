@@ -6,7 +6,7 @@ import NoEventsComponent from "../../components/noEventsComponent/NoEventsCompon
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isAuth: state.user.isAuth,
+    user: state.user,
   };
 };
 

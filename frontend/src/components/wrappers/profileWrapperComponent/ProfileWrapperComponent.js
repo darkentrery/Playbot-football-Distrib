@@ -44,7 +44,12 @@ export const ProfileWrapperComponent = ({
                 <div className={"my-profile"}>
                     <div className={"title-elem"}>
                         <span className={"black-700-28"}>Мой профиль</span>
-                        <span className={"btn-second"} onClick={getOpenCreateEvent}><div className={"black-ball-icon"}></div>Создать событие</span>
+                        {((state.user.isAuth && state.user.user.is_organizer) || !state.user.isAuth) &&
+                            <span className={"btn-second"} onClick={getOpenCreateEvent}>
+                                <div className={"black-ball-icon"}></div>
+                                Создать событие
+                            </span>
+                        }
                     </div>
                     <div className={"navigate-bar-1280"}>
                         <Link
