@@ -209,9 +209,9 @@ export const ProfilePersonalDataComponent = ({
                             sizingClass={`elem elem-10 ${plusPosition ? '' : 'hidden'}`} content={positions2}
                             placeholder={"Позиция на поле"}
                         />
-                        <textarea className={"elem elem-11 map-point-icon"} name="" id="" cols="30" rows="10"
-                                  onChange={inputAbout} placeholder={"Пара слов о себе"} value={aboutSelf ? aboutSelf : ''}
-                        ></textarea>
+                        {/*<textarea className={"elem elem-11 map-point-icon"} name="" id="" cols="30" rows="10"*/}
+                        {/*          onChange={inputAbout} placeholder={"Пара слов о себе"} value={aboutSelf ? aboutSelf : ''}*/}
+                        {/*></textarea>*/}
                     </div>
                     <div className={"change-password"}>
                         <div className={"orange-lock-icon"}></div>
