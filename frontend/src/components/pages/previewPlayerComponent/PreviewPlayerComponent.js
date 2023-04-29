@@ -58,28 +58,20 @@ export const PreviewPlayerComponent = ({
     }, [type, player]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const EventRow1280 = ({event}) => {
-        let address = '';
-        if (event.address) {
-            address = {
-                street: event.address.street ? event.address.street : '',
-                house: event.address.house_number ? event.address.house_number : '',
-            }
-            address = `${address.street} ${address.house}`
-        }
         let date = new Date(event.date);
 
         return (
-            <div className={"event-row-1280"}>
+            <Link className={"event-row-1280"} to={BaseRoutes.eventLink(event.id)}>
                 <span className={"elem elem-1 black-400-13"}>{event.name}</span>
                 <div className={"elem elem-2"}>
-                    <span className={"black-400-13"}>{address}</span>
+                    <span className={"black-400-13"}>{!!event.field ? event.field.address.s_h_string : ''}</span>
                     <div className={"row-2"}>
                         <span className={"gray-400-13"}>{date.getDate()}.{date.getMonth()}.{date.getFullYear().toString().slice(2,4)} в {event.time_begin.slice(0, 5)}</span>
                         {event.is_paid && <span className={"black-400-13"}>{event.price} р.</span>}
                         {!event.is_paid && <span className={"gray-400-13"}>Бесплатно</span>}
                     </div>
                 </div>
-            </div>
+            </Link>
         )
     }
 
@@ -93,28 +85,33 @@ export const PreviewPlayerComponent = ({
     const About = ({player}) => {
         return (
             <div className={"about"}>
-                <div className={"elem elem-1"}>
-                    <span className={"black-400-13 icon calendar3-icon"}>Дата рождения:</span>
-                    <span className={"black-600-13"}>{player.birthday}</span>
-                </div>
-                <div className={"elem elem-2"}>
-                    <span className={"black-400-13 icon map-point-icon"}>Город:</span>
-                    <span className={"black-600-13"}>{player.city}</span>
-                </div>
+                {!!player.birthday &&
+                    <div className={"elem elem-1"}>
+                        <span className={"black-400-13 icon calendar3-icon"}>Дата рождения:</span>
+                        <span className={"black-600-13"}>{player.birthday}</span>
+                    </div>
+                }
+                {!!player.address && !!player.address.city &&
+                    <div className={"elem elem-2"}>
+                        <span className={"black-400-13 icon map-point-icon"}>Город:</span>
+                        <span className={"black-600-13"}>{player.address.city}</span>
+                    </div>
+                }
                 <div className={"elem elem-3"}>
                     <span className={"black-400-13 icon gender-man-icon"}>Пол:</span>
-                    <span
-                        className={"black-600-13"}>{player.gender === 'Парень' ? 'Мужской' : 'Женский'}</span>
+                    <span className={"black-600-13"}>{player.gender === 'Парень' ? 'Мужской' : 'Женский'}</span>
                 </div>
-                <div className={"elem elem-4"}>
-                    <span className={"black-400-13 icon file-icon"}>О себе:</span>
-                    <span className={"black-400-13"}>{player.about_self}</span>
-                </div>
+                {!!player.about_self &&
+                    <div className={"elem elem-4"}>
+                        <span className={"black-400-13 icon file-icon"}>О себе:</span>
+                        <span className={"black-400-13"}>{player.about_self}</span>
+                    </div>
+                }
             </div>
         )
     }
 
-    const EventsTable = ({player}) => {
+    const EventsTable = () => {
         return (
             <div className={"events-table"}>
                 <ProfileTableBarComponent value={type} setValue={setType} values={types}/>
@@ -177,7 +174,7 @@ export const PreviewPlayerComponent = ({
                             <span className={"black-700-20 label-1280"}>Об игроке</span>
                             <About player={player}/>
                             <span className={"black-700-20"}>События</span>
-                            <EventsTable player={player}/>
+                            <EventsTable/>
                         </div>
                         <SamePlayers player={player} hidden={about}/>
                     </>}
@@ -196,7 +193,7 @@ export const PreviewPlayerComponent = ({
                     {profileLink && <ProfileAsideComponent player={player} funcs={funcs}>
                         <About player={player}/>
                     </ProfileAsideComponent>}
-                    {eventsLink && <EventsTable player={player}/>}
+                    {eventsLink && <EventsTable/>}
                     {sameLink && <SamePlayers player={player}/>}
                 </>}
                 {!player && <LoaderComponent/>}

@@ -153,7 +153,6 @@ class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
-    # address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
 
@@ -205,11 +204,11 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class EventListSerializer(serializers.ModelSerializer):
-    address = AddressSerializer(read_only=True)
+    field = FieldSerializer(read_only=True)
 
     class Meta:
         model = Event
-        fields = ["id", "name", "address", "date", "time_begin", "time_end", "price", "rank", "count_players", "is_paid",
+        fields = ["id", "name", "field", "date", "time_begin", "time_end", "price", "rank", "count_players", "is_paid",
                   "is_end", "is_begin", "count_current_players", "event_step"]
         read_only_fields = fields
 
@@ -218,12 +217,12 @@ class EditEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizer = UserSerializer(read_only=True)
-    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
+    field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "address", "count_players", "is_player", "notice", "organizer",
+        fields = ["id", "name", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizer",
                   "format_label", "is_paid", "price"]
 
 

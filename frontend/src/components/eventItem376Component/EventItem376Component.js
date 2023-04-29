@@ -7,11 +7,9 @@ import {getLocalTime} from "../../utils/dates";
 
 export const EventItem376Component = ({event, isFavorite=false}) => {
     const [color, setColor] = useState('');
-    const [address, setAddress] = useState('');
 
     useEffect(() => {
         if (event) {
-            setAddress(getAddressStringFormat(event.address));
             let percent = event.count_current_players / event.count_players;
             if (event.is_end) {
                 setColor('gray');
@@ -27,7 +25,6 @@ export const EventItem376Component = ({event, isFavorite=false}) => {
         }
     }, [event])
 
-
     return (
         <Link className={`event-item-376-component`} to={BaseRoutes.eventLink(event.id)}>
             <div className={"row row-1"}>
@@ -41,7 +38,7 @@ export const EventItem376Component = ({event, isFavorite=false}) => {
                 <span className={`elem elem-3 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{event.rank}</span>
             </div>
             <div className={"row row-2"}>
-                <span className={`elem elem-1 map-point-icon ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{address}</span>
+                <span className={`elem elem-1 map-point-icon ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{!!event.field ? event.field.address.s_h_string : ''}</span>
             </div>
         </Link>
     )

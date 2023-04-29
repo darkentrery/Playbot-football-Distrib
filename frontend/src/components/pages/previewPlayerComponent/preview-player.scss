@@ -66,6 +66,9 @@
         background: $whiteColor;
         box-sizing: border-box;
 
+        &:hover {
+          text-decoration: none;
+        }
         .elem {
           display: flex;
           &.elem-1 {
