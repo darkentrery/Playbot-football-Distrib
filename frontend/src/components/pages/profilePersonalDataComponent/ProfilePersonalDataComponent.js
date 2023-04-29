@@ -198,7 +198,7 @@ export const ProfilePersonalDataComponent = ({
                         />
                         <div className={"elem elem-8-1280 link"}>
                             <div className={"orange-plus-icon"}></div>
-                            <span className={"orange-400-14"}>Добавить район</span>
+                            <span className={"orange-400-14"}>Играть за район</span>
                         </div>
                         <div className={`elem elem-9 link ${plusPosition ? 'hidden' : ''}`} onClick={() => setPlusPosition(!plusPosition)}>
                             <div className={"orange-plus-icon"}></div>

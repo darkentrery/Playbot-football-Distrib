@@ -1,6 +1,6 @@
 import HeadComponent from "../../headComponent/HeadComponent";
 import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import BottomComponent from "../../bottomComponent/BottomComponent";
 import React, {useEffect, useState} from "react";
 import {authService} from "../../../services/AuthService";
@@ -27,6 +27,7 @@ export const PreviewPlayerComponent = ({
     const types = ["Все события", "Предстоящие", "Прошедшие"];
     const [type, setType] = useState(types[0]);
     const [events, setEvents] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         funcs.setPlayer(false);
@@ -36,6 +37,7 @@ export const PreviewPlayerComponent = ({
                 funcs.setPlayer(response.data);
             }
         })
+
     }, [pk])
 
     useEffect(() => {
@@ -56,6 +58,10 @@ export const PreviewPlayerComponent = ({
             setEvents(array);
         }
     }, [type, player]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    const goBack = () => {
+        navigate(-1);
+    }
 
     const EventRow1280 = ({event}) => {
         let date = new Date(event.date);
@@ -184,7 +190,7 @@ export const PreviewPlayerComponent = ({
 
             <div className={`preview-player-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
                 {player && <>
-                    <Top376Component className={"top-bar"} label={player.username} to={BaseRoutes.main}/>
+                    <Top376Component className={"top-bar"} label={player.username} to={BaseRoutes.main} back={goBack}/>
                     <div className={"profile-376-menu-component"}>
                         <span className={`nav-link ${profileLink ? 'white-600-12 active' : 'middle-gray-400-12'}`} onClick={toProfile}>Профиль</span>
                         <span className={`nav-link ${eventsLink ? 'white-600-12 active' : 'middle-gray-400-12'}`} onClick={toEvents}>События</span>
