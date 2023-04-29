@@ -21,8 +21,8 @@ class Position(models.Model):
 
 class User(AbstractUser):
     class Gender(models.TextChoices):
-        MALE = "Муж.", _("Муж.")
-        FEMALE = "Жен.", _("Жен.")
+        MALE = "Парень", _("Парень")
+        FEMALE = "Девушка", _("Девушка")
 
     email = models.EmailField(_("Email Address"), unique=True, blank=True, null=True)
     first_name = models.CharField(_("First Name"), max_length=150, blank=True)

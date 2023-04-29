@@ -104,7 +104,7 @@ export const PreviewPlayerComponent = ({
                 <div className={"elem elem-3"}>
                     <span className={"black-400-13 icon gender-man-icon"}>Пол:</span>
                     <span
-                        className={"black-600-13"}>{player.gender === 'Муж.' ? 'Мужской' : 'Женский'}</span>
+                        className={"black-600-13"}>{player.gender === 'Парень' ? 'Мужской' : 'Женский'}</span>
                 </div>
                 <div className={"elem elem-4"}>
                     <span className={"black-400-13 icon file-icon"}>О себе:</span>

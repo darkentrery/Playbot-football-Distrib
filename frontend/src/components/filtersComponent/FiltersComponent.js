@@ -21,7 +21,7 @@ export const FiltersComponent = ({
     const [cities, setCities] = useState([]);
     const cantons = ["aaa", "abbb"];
     const districts = ["aaa", "abbb"];
-    const genders = ["Муж.", "Жен."];
+    const genders = ["Парень", "Девушка"];
     const count = [0, 100];
     const rank = [0, 10000];
 

@@ -80,7 +80,7 @@ class CustomUserAdmin(UserAdmin):
         "rivals",
     )
     inlines = [RankHistoryInline,]
-    actions = ["set_first_rank", "send_notification", "set_default_address"]
+    actions = ["set_first_rank", "send_notification", "set_default_address", "change_gender"]
 
     @admin.action()
     def set_first_rank(self, request, queryset):
@@ -99,6 +99,16 @@ class CustomUserAdmin(UserAdmin):
         for user in queryset:
             user.address = Address.objects.all().first()
             user.save()
+
+    @admin.action()
+    def change_gender(self, request, queryset):
+        for user in queryset:
+            if user.gender == "Муж.":
+                user.gender = User.Gender.MALE
+                user.save()
+            if user.gender == "Жен.":
+                user.gender = User.Gender.FEMALE
+                user.save()
 
 
 @admin.register(Position)

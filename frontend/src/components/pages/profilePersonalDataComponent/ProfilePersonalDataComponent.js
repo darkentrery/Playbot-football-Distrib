@@ -182,7 +182,7 @@ export const ProfilePersonalDataComponent = ({
                                         setValue={setEmail}/>
                         <DropDownComponent
                             value={gender} setValue={setGender} leftIcon={'gender-man-icon'} sizingClass={"elem elem-4"}
-                            content={["Муж.", "Жен."]} placeholder={"Пол"}
+                            content={["Парень", "Девушка"]} placeholder={"Пол"}
                         />
                         <InputComponent leftIcon={"phone-icon"} className={"elem elem-5"} placeholder={"Телефон"}
                                         value={phone} setValue={setPhone}/>
