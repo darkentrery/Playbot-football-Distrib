@@ -36,10 +36,10 @@ export default function LocationComponent ({state, funcs}) {
 
     return (
         <div className={"location-component"}>
-            <div className={"elem country"}>
-                <span className={"white-600-14"}>{user.isAuth && user.user.address ? user.user.address.country : location.country}</span>
-                {/*<div className={`icon white-down-arrow-icon`}></div>*/}
-            </div>
+            {/*<div className={"elem country"}>*/}
+            {/*    <span className={"white-600-14"}>{user.isAuth && user.user.address ? user.user.address.country : location.country}</span>*/}
+            {/*    /!*<div className={`icon white-down-arrow-icon`}></div>*!/*/}
+            {/*</div>*/}
             <div className={"elem city"} onClick={openConfirmCity} ref={refCity}>
                 <span className={"middle-gray-400-14"}>{user.isAuth && user.user.address ? user.user.address.city : location.city}</span>
                 <div className={`icon gray-down-arrow-icon`}></div>
