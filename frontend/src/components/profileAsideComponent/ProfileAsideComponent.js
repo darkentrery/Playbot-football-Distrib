@@ -106,13 +106,13 @@ export const ProfileAsideComponent = ({player, funcs, children}) => {
                     <span className={"black-400-13 above-field-text"}>Позиция на поле: </span>
                     <FootballField player={player}/>
                     {children}
-                        <span className={"black-600-18 title-regards"}>Достижения</span>
-                        <div className={"regards"}>
-                        <div className={"icon orange-regard-icon"}></div>
-                        <div className={"icon gray-regard-icon"}></div>
-                        <div className={"icon gray-regard-icon"}></div>
-                        <div className={"icon gray-regard-icon"}></div>
-                    </div>
+                        {/*<span className={"black-600-18 title-regards"}>Достижения</span>*/}
+                        {/*<div className={"regards"}>*/}
+                        {/*    <div className={"icon orange-regard-icon"}></div>*/}
+                        {/*    <div className={"icon gray-regard-icon"}></div>*/}
+                        {/*    <div className={"icon gray-regard-icon"}></div>*/}
+                        {/*    <div className={"icon gray-regard-icon"}></div>*/}
+                        {/*</div>*/}
                 </>}
                 {!player && <LoaderComponent/>}
             </div>

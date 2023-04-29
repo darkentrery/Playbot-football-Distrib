@@ -25,7 +25,7 @@ export default function HeadComponent ({user, city, funcs}) {
                 <Link
                     className={`menu-point menu-point-3 black-point-icon ${window.location.pathname === `${BaseRoutes.statistic}` ? '' : 'inactive'}`}
                     to={BaseRoutes.statistic}
-                    >Рейтинг</Link>
+                    >Лидеры</Link>
                 <Link
                     className={`menu-point menu-point-4 black-point-icon ${window.location.pathname === `${BaseRoutes.faq}` ? '' : 'inactive'}`}
                     to={BaseRoutes.faq}
