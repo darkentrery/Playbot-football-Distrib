@@ -1,15 +1,8 @@
 {
-  "display_override": [
-    "window-controls-overlay"
-  ],
-  "protocol_handlers": [
-    {
-      "protocol": "mailto",
-      "url": "/newEmail?to=%s"
-    }
-  ],
+  "display_override": [],
+  "protocol_handlers": [],
   "short_name": "Korobka",
-  "name": "Korobka football",
+  "name": "Korobka",
   "icons": [
     {
       "src": "manifest-icon-192.maskable.png",
@@ -60,14 +53,7 @@
   "dir": "ltr",
   "lang": "en-US",
   "orientation": "any",
-  "file_handlers": [
-    {
-      "action": "/",
-      "accept": {
-        "text/*": [
-          ".txt"
-        ]
-      }
-    }
-  ]
+  "file_handlers": [],
+  "categories": ["sports"],
+  "related_applications": []
 }

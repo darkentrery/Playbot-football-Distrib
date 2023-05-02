@@ -1,6 +1,10 @@
-[{
-        "relation": ["delegate_permission/common.handle_all_urls"],
-        "target" : { "namespace": "android_app", "package_name": "ru.korobkaplay.test.twa",
-                     "sha256_cert_fingerprints": ["6E:26:98:52:05:68:0B:2E:27:E4:98:DF:E6:EF:7C:A5:8B:6E:0A:D7:23:F9:BF:E6:51:D6:BB:48:9B:67:43:7A"] }
-      }
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : {
+      "namespace": "android_app",
+      "package_name": "ru.korobkaplay.test.twa",
+      "sha256_cert_fingerprints": ["6E:26:98:52:05:68:0B:2E:27:E4:98:DF:E6:EF:7C:A5:8B:6E:0A:D7:23:F9:BF:E6:51:D6:BB:48:9B:67:43:7A"]
+    }
+  }
 ]
