@@ -19,7 +19,8 @@ class GetAddressesByCityView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json'):
-        addresses = Address.objects.all().distinct("city")
+        cities = Field.objects.all().distinct("address__city").values_list("address__city")
+        addresses = Address.objects.filter(city__in=cities).distinct("city")
         json = AddressSerializer(addresses, many=True).data
         json = sorted(json, key=lambda item: item["city"])
         return Response(json, status=status.HTTP_200_OK)
