@@ -80,11 +80,12 @@ export const ProfileMyEventsPageComponent = ({
     return (
         <VisibleProfileWrapper>
             <div className={`profile-my-events-page-component ${!player || !user ? 'loader' : ''}`}>
-                {user && player && <>
+                {!!user && !!player && <>
                    <Profile376MenuComponent pk={user.id}/>
                    <ProfileTableBarComponent value={type} setValue={setType} values={types}>
-                       <CheckSliderComponent text={"Я организатор"} value={isOrganizer} setValue={setIsOrganizer}
-                                          sizingClass={"elem-2"}/>
+                       {user.is_organizer && <CheckSliderComponent text={"Я организатор"} value={isOrganizer}
+                                                                   setValue={setIsOrganizer} sizingClass={"elem-2"}/>
+                       }
                    </ProfileTableBarComponent>
                     <div className={"table-head-1280"}>
                         <span className={"elem elem-1 gray-400-13"}>Название</span>
