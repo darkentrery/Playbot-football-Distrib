@@ -56,7 +56,6 @@ import VisibleDeleteAccount from "./redux/containers/VisibleDeleteAccount";
 
 function App({state, funcs}) {
     const [confirmSignUp, setConfirmSignUp] = useState(false);
-    const [firstRequest, setFirstRequest] = useState(true);
 
     const showNotice = () => {
         let notice = new Notification("fff?", {
@@ -67,37 +66,31 @@ function App({state, funcs}) {
 
     useEffect(() => {
         console.log(state)
-        if (firstRequest) {
-            let isSubscribe = true;
-            authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
-                if (response.status == 200) {
-                    funcs.setAuth(true, response.data);
+        authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
+            if (response.status === 200) {
+                funcs.setAuth(true, response.data);
 
-                    // if ("Notification" in window) {
-                    //     if (Notification.permission === "granted") {
-                    //         console.log(1)
-                    //         setTimeout(showNotice, 2000);
-                    //     } else if (Notification.permission !== "denied") {
-                    //         Notification.requestPermission((permission) => {
-                    //             console.log(permission)
-                    //             if (Notification.permission === "granted") {
-                    //                 console.log(2)
-                    //                 setTimeout(showNotice, 2000);
-                    //             }
-                    //         })
-                    //     }
-                    // }
-                } else {
-                    funcs.setAuth(false, false);
-                    funcs.openMobileFirstPage();
-                }
-                setFirstRequest(false);
-            })
-            funcs.setIsIPhone(authService.deviceDetect());
-            return () => isSubscribe = false;
-        }
+                // if ("Notification" in window) {
+                //     if (Notification.permission === "granted") {
+                //         console.log(1)
+                //         setTimeout(showNotice, 2000);
+                //     } else if (Notification.permission !== "denied") {
+                //         Notification.requestPermission((permission) => {
+                //             console.log(permission)
+                //             if (Notification.permission === "granted") {
+                //                 console.log(2)
+                //                 setTimeout(showNotice, 2000);
+                //             }
+                //         })
+                //     }
+                // }
+            } else {
+                funcs.setAuth(false, false);
+                funcs.openMobileFirstPage();
+            }
+        })
+        funcs.setIsIPhone(authService.deviceDetect());
     }, [])
-
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
@@ -117,10 +110,6 @@ function App({state, funcs}) {
             funcs.openSuccessExistsUser();
         }
     }, [localStorage.telegramLogin])
-
-    // console.log(window.matchMedia)
-    // console.log(navigator)
-    // console.log(document.referrer)
 
     return (
         <div className="App">

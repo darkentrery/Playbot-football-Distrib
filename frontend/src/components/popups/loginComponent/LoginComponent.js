@@ -6,6 +6,7 @@ import {InputComponent} from "../../inputComponent/InputComponent";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {blockBodyScroll} from "../../../utils/manageElements";
+import {AppleAuthComponent} from "../../appleAuthComponent/AppleAuthComponent";
 
 
 export default function LoginComponent ({isOpen, closeComponent, openSignUp, openRefreshPassword, setAuth, showMap}) {
@@ -120,6 +121,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                     <div className={"login-l-elem-line"}></div>
                     <div className={"login-l-bottom-elem"}>
                         <TelegramLoginComponent/>
+                        <AppleAuthComponent/>
                     </div>
                 </div>
                 <RightFonComponent

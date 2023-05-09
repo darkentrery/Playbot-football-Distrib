@@ -32,6 +32,7 @@
     "react-use-websocket": "^4.2.0",
     "recharts": "^2.3.2",
     "redux": "^4.2.0",
+    "scriptjs": "^2.5.9",
     "slick-carousel": "^1.8.1",
     "svg-url-loader": "^8.0.0",
     "telegram-login-button": "^0.0.3",
