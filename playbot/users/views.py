@@ -1,7 +1,5 @@
 import copy
 
-from django.conf import settings
-from django.core.files.base import ContentFile
 from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -10,15 +8,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
-from webpush import send_user_notification
 
-from playbot.cities.models import City, Address
+from playbot.cities.models import Address
 from playbot.cities.serializers import CreateAddressSerializer
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
-    SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
+    RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer
-from playbot.users.utils import get_face
 
 
 class IndexView(APIView):
