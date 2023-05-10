@@ -46,7 +46,7 @@
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
+@media screen and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
   .locate-event-component {
     .fake-marker {
       //top: calc(50vh - 60px);

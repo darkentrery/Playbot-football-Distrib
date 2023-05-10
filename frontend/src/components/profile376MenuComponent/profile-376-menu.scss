@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape) {
+@media screen and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape) {
   .profile-376-menu-component {
     display: flex;
     overflow: scroll;

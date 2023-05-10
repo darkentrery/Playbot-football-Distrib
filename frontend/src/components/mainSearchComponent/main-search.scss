@@ -95,7 +95,7 @@
   }
 }
 
-@media screen and (min-width: 375px) and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
+@media screen and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
   .main-search-component {
     height: 60px;
     border-bottom: 1px solid $lightGrayColor;
