@@ -54,6 +54,7 @@ class User(AbstractUser):
         ),
     )
     confirm_slug = models.CharField(_("Confirm Slug"), max_length=150, blank=True)
+    apple_id = models.CharField(_("Apple Id"), max_length=150, unique=True, blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

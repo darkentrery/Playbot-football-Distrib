@@ -1,14 +1,24 @@
 import "./apple-auth.scss";
+import {authService} from "../../services/AuthService";
 
 
 export const AppleAuthComponent = () => {
 
 
-    const signIn = async (e) => {
+    const login = async (e) => {
         console.log(e)
         try {
             const data = await window.AppleID.auth.signIn();
             console.log(data);
+            if (data.hasOwnProperty("user")) {
+                authService.appleSignUp({...data.authorization, ...data.user}).then((response) => {
+                    console.log(response)
+                })
+            } else {
+                authService.appleLogin(data.authorization).then((response) => {
+                    console.log(response)
+                })
+            }
             // window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
         } catch (error) {
             console.log(error);
@@ -32,7 +42,7 @@ export const AppleAuthComponent = () => {
             data-color="black"
             data-border="true"
             data-type="sign in"
-            onClick={signIn}
+            onClick={login}
         ></div>
     )
 }

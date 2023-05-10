@@ -328,6 +328,15 @@ const getRequest = (url, data=false) => {
 }
 
 export const authService = {
+	saveLoginCredentials(response) {
+		if (response.status === 200) {
+			localStorage.setItem("access_token", response.data.access);
+			localStorage.setItem("refresh_token", response.data.refresh);
+			localStorage.setItem("date_token", Date.now());
+			noticeService.registerSw();
+		}
+		return response;
+	},
 	getUsers() { return getRequest('get-users/'); },
 	getTop10Users() { return getRequest('get-top-10-users/'); },
 	getUser(pk) { return getRequest('get-user/', pk); },
@@ -335,17 +344,7 @@ export const authService = {
 	updateAddress(data) { return postRequest('update-address/', data); },
 	updatePassword(data) { return postRequest('update-password/', data); },
 	deleteUser(data) { return postRequest('delete-user/', data); },
-	login(user) {
-		return postRequest('login/', user).then((response) => {
-			if (response.status === 200) {
-				localStorage.setItem("access_token", response.data.access);
-				localStorage.setItem("refresh_token", response.data.refresh);
-				localStorage.setItem("date_token", Date.now());
-				noticeService.registerSw();
-			}
-			return response;
-		});
-	},
+	login(user) { return postRequest('login/', user).then(this.saveLoginCredentials); },
 	logout() {
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
@@ -380,4 +379,6 @@ export const authService = {
 		}
 		return false;
 	},
+	appleLogin(data) { return postRequest('apple-login/', data).then(this.saveLoginCredentials); },
+	appleSignUp(data) { return postRequest('apple-sign-up/', data).then(this.saveLoginCredentials); },
 }

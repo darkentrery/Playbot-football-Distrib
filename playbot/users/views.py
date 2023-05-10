@@ -17,7 +17,7 @@ from playbot.cities.serializers import CreateAddressSerializer
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     SignUpTelegramSerializer, RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
-    UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer
+    UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer
 from playbot.users.utils import get_face
 
 
@@ -116,6 +116,46 @@ class SignUpTelegramView(APIView):
                 json = serializer.validated_data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SignUpAppleView(TokenObtainPairView):
+    serializer_class = SignUpAppleSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        # address = CreateAddressSerializer(data=request.data.get("address"))
+        # if address.is_valid():
+        #     address = address.save()
+        # else:
+        #     address = Address.objects.all().first()
+        # request.data["address"] = address.id
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+
+class LoginAppleView(TokenObtainPairView):
+    serializer_class = LoginAppleSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        # address = CreateAddressSerializer(data=request.data.get("address"))
+        # if address.is_valid():
+        #     address = address.save()
+        # else:
+        #     address = Address.objects.all().first()
+        # request.data["address"] = address.id
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class RefreshPasswordView(APIView):

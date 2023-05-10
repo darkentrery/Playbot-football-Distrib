@@ -36,4 +36,6 @@ urlpatterns = [
     path("api/delete-user/", views.DeleteUserView.as_view(), name='delete-user'),
     path("add-to-favorites/", views.AddToFavoritesView.as_view(), name='add-to-favorites-player'),
     path("remove-from-favorites/", views.RemoveFromFavoritesView.as_view(), name='remove-from-favorites-player'),
+    path("api/apple-sign-up/", views.SignUpAppleView.as_view(), name='apple-sign-up'),
+    path("api/apple-login/", views.LoginAppleView.as_view(), name='apple-login'),
 ]
