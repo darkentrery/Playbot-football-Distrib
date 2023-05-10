@@ -5,7 +5,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from playbot.cities.models import City, Address
+from playbot.cities.models import Address
 from playbot.cities.serializers import AddressSerializer
 from playbot.events.models import EventPlayer, Event
 from playbot.events.serializers import EventForPlayerListSerializer, EventListSerializer
@@ -82,7 +82,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserIsAuthSerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     favorite_events = EventListSerializer(Event, many=True, read_only=True)
     user_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
     warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
@@ -90,7 +89,7 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "city", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
+        fields = ["id", "username", "email", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
                   "user_notices", "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address",
                   "is_organizer"]
         read_only_fields = fields
@@ -235,14 +234,6 @@ class RefreshPasswordSerializer(serializers.ModelSerializer):
             self._errors["email"] = ["Invalid email!"]
 
         return instance
-
-
-class UpdateCitySerializer(serializers.ModelSerializer):
-    city = serializers.SlugRelatedField(slug_field="name", queryset=City.objects.all())
-
-    class Meta:
-        model = User
-        fields = ("city",)
 
 
 class UpdateAddressSerializer(serializers.ModelSerializer):

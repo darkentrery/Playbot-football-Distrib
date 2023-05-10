@@ -13,7 +13,7 @@ from playbot.cities.models import Address
 from playbot.cities.serializers import CreateAddressSerializer
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
-    RefreshPasswordSerializer, UpdateCitySerializer, UserSerializer, UpdateUserSerializer, \
+    RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer
 
 
@@ -117,19 +117,6 @@ class RefreshPasswordView(APIView):
             user = serializer.update()
             if user:
                 json = serializer.validated_data
-                return Response(json, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class UpdateCityView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request, format='json'):
-        serializer = UpdateCitySerializer(instance=request.user, data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                json = UserIsAuthSerializer(instance=request.user).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

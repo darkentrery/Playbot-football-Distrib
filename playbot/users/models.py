@@ -3,7 +3,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from playbot.cities.models import City
 from playbot.notices.models import Notice
 
 
@@ -31,7 +30,6 @@ class User(AbstractUser):
     name = models.CharField(_("Name"), max_length=150)
     phone_number = models.CharField(_("Phone Number"), max_length=255, blank=True, null=True, unique=True)
     telegram_id = models.IntegerField(_("Telegram Id"), blank=True, null=True, unique=True)
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, related_name="user", blank=True, null=True)
     address = models.ForeignKey("cities.Address", on_delete=models.SET_NULL, related_name="users", blank=True, null=True)
     gender = models.CharField(_("Gender"), max_length=50, choices=Gender.choices, default=Gender.MALE)
     position_1 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_1", blank=True, null=True)
