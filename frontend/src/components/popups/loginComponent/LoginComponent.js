@@ -121,7 +121,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                     <div className={"login-l-elem-line"}></div>
                     <div className={"login-l-bottom-elem"}>
                         <TelegramLoginComponent/>
-                        <AppleAuthComponent/>
+                        <AppleAuthComponent setAuth={setAuth} closeWindow={closeWindow}/>
                     </div>
                 </div>
                 <RightFonComponent

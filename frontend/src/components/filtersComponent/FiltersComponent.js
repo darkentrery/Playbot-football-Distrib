@@ -46,7 +46,7 @@ export const FiltersComponent = ({
             let flagCountGames = false;
             let flagRank = false;
             let flagDate = false;
-            if (!filterCity.length || (filterCity.length && player.address && filterCity.includes(player.address.city))) {
+            if (!filterCity.length || (filterCity.length && !!player.address && filterCity.includes(player.address.city))) {
                 flagCity = true;
             }
             if (!filterGender.length || (filterGender.length && filterGender.includes(player.gender))) {

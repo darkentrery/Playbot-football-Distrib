@@ -2,9 +2,12 @@ import "./apple-auth.scss";
 import {authService} from "../../services/AuthService";
 
 
-export const AppleAuthComponent = () => {
+const clientId = process.env.REACT_APP_APPLE_CLIENT_AUTH_ID;
+console.log(clientId)
+// const mainUrl = process.env.REACT_APP_MAIN_URL;
+const mainUrl = "https://384f-2001-44c8-460e-a8d3-3dc9-cb03-a9de-4244.ngrok-free.app/";
 
-
+export const AppleAuthComponent = ({setAuth, closeWindow}) => {
     const login = async (e) => {
         console.log(e)
         try {
@@ -13,13 +16,16 @@ export const AppleAuthComponent = () => {
             if (data.hasOwnProperty("user")) {
                 authService.appleSignUp({...data.authorization, ...data.user}).then((response) => {
                     console.log(response)
+                    setAuth(true, response.data.user);
+                    closeWindow();
                 })
             } else {
                 authService.appleLogin(data.authorization).then((response) => {
                     console.log(response)
+                    setAuth(true, response.data.user);
+                    closeWindow();
                 })
             }
-            // window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
         } catch (error) {
             console.log(error);
         }
@@ -27,8 +33,8 @@ export const AppleAuthComponent = () => {
     const scriptjs = require("scriptjs");
     scriptjs.get('https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js', () => {
       const params = {
-        clientId: 'ru.korobkaplay.test.auth',
-        redirectURI: 'https://f87a-2001-44c8-460e-a8d3-2560-896a-5d38-1727.ngrok-free.app/apple-login',
+        clientId: clientId,
+        redirectURI: `${mainUrl}apple-login`,
         scope: 'name email',
         usePopup: true,
       };

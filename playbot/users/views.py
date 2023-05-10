@@ -52,7 +52,6 @@ class LoginView(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
@@ -101,44 +100,12 @@ class SignUpView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class SignUpAppleView(TokenObtainPairView):
+class SignUpAppleView(LoginView):
     serializer_class = SignUpAppleSerializer
-    permission_classes = (AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        # address = CreateAddressSerializer(data=request.data.get("address"))
-        # if address.is_valid():
-        #     address = address.save()
-        # else:
-        #     address = Address.objects.all().first()
-        # request.data["address"] = address.id
-        serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
-
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class LoginAppleView(TokenObtainPairView):
+class LoginAppleView(LoginView):
     serializer_class = LoginAppleSerializer
-    permission_classes = (AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        # address = CreateAddressSerializer(data=request.data.get("address"))
-        # if address.is_valid():
-        #     address = address.save()
-        # else:
-        #     address = Address.objects.all().first()
-        # request.data["address"] = address.id
-        serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
-
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class RefreshPasswordView(APIView):

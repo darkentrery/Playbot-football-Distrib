@@ -88,7 +88,7 @@ export const ProfilePersonalDataComponent = ({
             setUsername(player.username);
             if (player.birthday) setDate(`${player.birthday.slice(8, 10)}.${player.birthday.slice(5, 7)}.${player.birthday.slice(0, 4)}`);
             setAboutSelf(player.about_self);
-            if (player.address) {
+            if (!!player.address) {
                 setCity(player.address.city);
             }
             if (player.position_1) setPosition1(player.position_1.name);

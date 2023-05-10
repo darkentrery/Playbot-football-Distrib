@@ -16,7 +16,7 @@ export default function EventsComponent ({city, user, isAuth}) {
     useEffect(() => {
         setFirstRequest(1);
         if (isAuth !== null) {
-            eventService.getEvents(user && user.address ? user.address.city : city).then((response) => {
+            eventService.getEvents(user && !!user.address ? user.address.city : city).then((response) => {
                 if (response.status === 200) {
                     let data = [];
                     response.data.forEach((item, key) => {

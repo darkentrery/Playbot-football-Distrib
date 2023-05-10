@@ -54,7 +54,7 @@ export default function UserComponent ({user, funcs}) {
                     <span className={"dropdown-elem"} onClick={logout}>Выйти</span>
                     <div className={"dropdown-elem d-el-4"} onClick={choiceCity}>
                         <span className={"label"}>Ваш город</span>
-                        <span className={"city"}>{user.address.city}</span>
+                        <span className={"city"}>{!!user.address ? user.address.city : ''}</span>
                     </div>
                 </div>
             </div>

@@ -198,6 +198,7 @@ class TokenObtainSignUpAppleSerializer(ObtainMixin, serializers.Serializer):
             "is_active": True,
             "first_name": attrs["name"]["firstName"],
             "last_name": attrs["name"]["lastName"],
+            "username": attrs["email"],
         }
         self.user, update = User.objects.update_or_create(apple_id=apple_id, email=attrs["email"], defaults=defaults)
         if not self.user.ranks_history.all().exists():

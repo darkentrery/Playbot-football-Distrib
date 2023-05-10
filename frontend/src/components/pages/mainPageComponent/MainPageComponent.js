@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import LocationComponent from "../../locationComponent/LocationComponent";
 import EventsComponent from "../../eventsComponent/EventsComponent";
 import {BestPlayersComponent} from "../../bestPlayersComponent/BestPlayersComponent";
-import VisibleBoardCreateEvent from "../../../redux/containers/VisibleBoardCreateEvent";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import VisibleMainWrapper from "../../../redux/containers/VisibleMainWrapper";
 import {authService} from "../../../services/AuthService";
@@ -30,7 +29,7 @@ export default function MainPageComponent ({state, funcs}) {
             <div className={"main-page-component"}>
                 {!!state.user.user && state.user.user.warning_notices.length !== 0 &&
                     <NoticeListTopComponent user={state.user.user} setUser={funcs.setAuth}/>}
-                <VisibleBoardCreateEvent/>
+                {/*<VisibleBoardCreateEvent/>*/}
                 <TitleComponent label={"Список событий"} to={BaseRoutes.events}/>
                 <LocationComponent state={state} funcs={funcs}/>
                 <EventsComponent city={state.location.city} user={state.user.user} isAuth={state.user.isAuth}/>
