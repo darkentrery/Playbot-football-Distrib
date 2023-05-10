@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef} from "react";
-import AuthService from "../../../services/AuthService";
 import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
 import {InputComponent} from "../../inputComponent/InputComponent";
+import {authService} from "../../../services/AuthService";
 
 
 export default function RefreshPasswordComponent ({isOpen, closeComponent, openSuccess, openLogin, showMap}) {
-    const authService = new AuthService();
     const [email, setEmail] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [data, setData] = useState(false);

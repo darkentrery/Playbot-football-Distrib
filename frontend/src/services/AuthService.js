@@ -13,24 +13,6 @@ export default class AuthService{
 
 	constructor(){}
 
-	async login(user){
-		const url = `${API_URL}login/`;
-		return axios.post(url, user, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-			// "Content-Type": "multipart/form-data"
-		}})
-			.then((response) => {
-				localStorage.setItem("access_token" , response.data.access);
-                localStorage.setItem("refresh_token" , response.data.refresh);
-				localStorage.setItem("date_token", Date.now());
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
 	signUp(user){
 		const url = `${API_URL}sign-up/`;
 		return axios.post(url, user, {headers: {
@@ -157,58 +139,36 @@ export default class AuthService{
 		return errors;
 	}
 
-	refreshPassword(user){
-		const url = `${API_URL}refresh-password/`;
-		return axios.post(url, user, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
+	// refreshPassword(user){
+	// 	const url = `${API_URL}refresh-password/`;
+	// 	return axios.post(url, user, {headers: {
+	// 		'Content-Type': 'application/json',
+    //         'X-CSRFToken': csrftoken,
+	// 	}})
+	// 		.then((response) => {
+	// 			return response;
+	// 		})
+	// 		.catch((error) => {
+	// 			return error.response;
+	// 		});
+	// }
 
-	refresh(){
-		const url = `${API_URL}token/refresh/`;
-		return axios.post(url, {"refresh": localStorage.getItem("refresh_token")}, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-		}})
-			.then((response) => {
-				localStorage.setItem('access_token' , response.data.access);
-                localStorage.setItem('refresh_token' , response.data.refresh);
-				localStorage.setItem('date_token', Date.now());
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
-	async loginTelegram(user){
-		const url = `${API_URL}telegram-login/`;
-		return axios.post(url, user, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-		}})
-			.then((response) => {
-				// localStorage.setItem("access_token" , response.data.access);
-                // localStorage.setItem("refresh_token" , response.data.refresh);
-				// localStorage.setItem("date_token", Date.now());
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
-
-	logout(){
-		localStorage.removeItem("access_token");
-		localStorage.removeItem("refresh_token");
-	}
+	// refresh(){
+	// 	const url = `${API_URL}token/refresh/`;
+	// 	return axios.post(url, {"refresh": localStorage.getItem("refresh_token")}, {headers: {
+	// 		'Content-Type': 'application/json',
+    //         'X-CSRFToken': csrftoken,
+	// 	}})
+	// 		.then((response) => {
+	// 			localStorage.setItem('access_token' , response.data.access);
+    //             localStorage.setItem('refresh_token' , response.data.refresh);
+	// 			localStorage.setItem('date_token', Date.now());
+	// 			return response;
+	// 		})
+	// 		.catch((error) => {
+	// 			return error.response;
+	// 		});
+	// }
 
 	addIPhoneBottomMargin(classSelector) {
 		console.log("Is Iphone", this.isIPhone())
@@ -225,19 +185,6 @@ export default class AuthService{
 		return true;
 	}
 
-	 confirmSignUp(pathName){
-		const url = `${API_URL.slice(0,-4)}${pathName.slice(1,)}`;
-		return axios.get(url, {headers: {
-			'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-		}})
-			.then((response) => {
-				return response;
-			})
-			.catch((error) => {
-				return error.response;
-			});
-	}
 
 	searchCountry(event, refCountryBody, countryTag, setCountryTag, setPhoneCode){
         let children = refCountryBody.current.children;
@@ -343,6 +290,7 @@ export const authService = {
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
 	updateAddress(data) { return postRequest('update-address/', data); },
 	updatePassword(data) { return postRequest('update-password/', data); },
+	refreshPassword(data) { return postRequest('refresh-password/', data); },
 	deleteUser(data) { return postRequest('delete-user/', data); },
 	login(user) { return postRequest('login/', user).then(this.saveLoginCredentials); },
 	logout() {
@@ -381,4 +329,5 @@ export const authService = {
 	},
 	appleLogin(data) { return postRequest('apple-login/', data).then(this.saveLoginCredentials); },
 	appleSignUp(data) { return postRequest('apple-sign-up/', data).then(this.saveLoginCredentials); },
+	refresh(){ return postRequest('token/refresh/', {"refresh": localStorage.getItem("refresh_token")}).then(this.saveLoginCredentials); },
 }

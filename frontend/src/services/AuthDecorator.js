@@ -1,4 +1,4 @@
-import AuthService from "./AuthService";
+import {authService} from "./AuthService";
 
 
 const doFunc = (func, arg) => {
@@ -13,7 +13,6 @@ export function authDecoratorWithoutLogin(func, arg) {
     let accessToken = null;
     // let refreshToken = null;
     let dateToken = null;
-    const authService = new AuthService();
 
     if (localStorage.access_token) {
         accessToken = localStorage.access_token;
