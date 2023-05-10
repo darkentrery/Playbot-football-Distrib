@@ -55,6 +55,7 @@ class FieldAdmin(admin.ModelAdmin):
         "dressing_room",
         "lighting",
         "tribune",
+        "is_active",
     ]
     inlines = [FieldPhotoInline,]
 

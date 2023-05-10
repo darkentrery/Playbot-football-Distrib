@@ -30,5 +30,5 @@ class GetFieldsView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json'):
-        json = FieldSerializer(Field.objects.all(), many=True).data
+        json = FieldSerializer(Field.objects.filter(is_active=True), many=True).data
         return Response(json, status=status.HTTP_200_OK)

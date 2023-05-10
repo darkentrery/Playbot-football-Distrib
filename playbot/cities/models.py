@@ -93,6 +93,7 @@ class Field(models.Model):
     dressing_room = models.BooleanField(_("Dressing Room"), default=False)
     lighting = models.BooleanField(_("Lighting"), default=False)
     tribune = models.BooleanField(_("Tribunes"), default=False)
+    is_active = models.BooleanField(_("Is Active"), default=True)
 
     class Meta:
         verbose_name = "Field"
