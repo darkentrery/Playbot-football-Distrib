@@ -105,19 +105,6 @@ class SignUpView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class SignUpTelegramView(APIView):
-    permission_classes = (AllowAny,)
-
-    def post(self, request, format='json'):
-        serializer = SignUpTelegramSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                json = serializer.validated_data
-                return Response(json, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 class SignUpAppleView(TokenObtainPairView):
     serializer_class = SignUpAppleSerializer
     permission_classes = (AllowAny,)
