@@ -10,7 +10,6 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.cities.models import Address
-from playbot.cities.serializers import CreateAddressSerializer
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
@@ -60,36 +59,20 @@ class LoginView(TokenObtainPairView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class LoginTelegramView(TokenObtainPairView):
+class LoginTelegramView(LoginView):
     serializer_class = LoginTelegramSerializer
-    permission_classes = (AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        address = CreateAddressSerializer(data=request.data.get("address"))
-        if address.is_valid():
-            address = address.save()
-        else:
-            address = Address.objects.all().first()
-        request.data["address"] = address.id
-        serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
-
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class SignUpView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, format='json'):
-        address = CreateAddressSerializer(data=request.data.get("address"))
-        if address.is_valid():
-            address = address.save()
-        else:
-            address = Address.objects.all().first()
-        request.data["address"] = address.id
+        # address = CreateAddressSerializer(data=request.data.get("address"))
+        # if address.is_valid():
+        #     address = address.save()
+        # else:
+        #     address = Address.objects.all().first()
+        # request.data["address"] = address.id
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
@@ -147,7 +130,6 @@ class GetUsersView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        # json = UserSerializer(User.objects.all(), many=True).data
         json = UserListSerializer(User.objects.all(), many=True).data
         return Response(json, status=status.HTTP_200_OK)
 

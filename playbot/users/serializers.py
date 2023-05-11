@@ -165,11 +165,11 @@ class SignUpAppleSerializer(LoginMixin, TokenObtainSignUpAppleSerializer):
 
 class SignUpSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(max_length=128, write_only=True, required=False)
-    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
+    # address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
 
     class Meta:
         model = User
-        fields = ("username", "phone_number", "email", "password", "address")
+        fields = ("username", "phone_number", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):

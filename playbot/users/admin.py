@@ -28,6 +28,7 @@ class CustomUserAdmin(UserAdmin):
         "position_1",
         "is_organizer",
     ]
+    list_display_links = list_display
 
     fieldsets = (
         (

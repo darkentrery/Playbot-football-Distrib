@@ -3,7 +3,6 @@ import AuthService from "../../../services/AuthService";
 import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
 import $ from "jquery";
-import {getLocationsAddressByCoordsGoogle} from "../../../services/LocationService";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
@@ -17,7 +16,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const [phoneCode, setPhoneCode] = useState("+7");
     const [email, setEmail] = useState(false);
     const [password, setPassword] = useState(false);
-    const [address, setAddress] = useState(false);
+    // const [address, setAddress] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
@@ -94,18 +93,18 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
             })
         }
         if (isOpen) {
-            navigator.geolocation.getCurrentPosition((response) => {
-                let coords = [response.coords.latitude, response.coords.longitude];
-                console.log(address)
-                if (!address) {
-                    getLocationsAddressByCoordsGoogle(coords).then((address) => {
-                        console.log(address)
-                        setAddress(address);
-                    })
-                }
-            }, (error) => {
-                console.log(error)
-            });
+            // navigator.geolocation.getCurrentPosition((response) => {
+            //     let coords = [response.coords.latitude, response.coords.longitude];
+            //     console.log(address)
+            //     if (!address) {
+            //         getLocationsAddressByCoordsGoogle(coords).then((address) => {
+            //             console.log(address)
+            //             setAddress(address);
+            //         })
+            //     }
+            // }, (error) => {
+            //     console.log(error)
+            // });
         }
         blockBodyScroll(isOpen);
     }, [isOpen])
@@ -119,7 +118,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
         setAllowPolicy(false);
         setAllowOffer(false);
         setIsDropdown(false);
-        setAddress(false);
+        // setAddress(false);
         refArrowIcon.current.className = "down-arrow-icon";
         $(refPhoneNumber.current).removeClass('open');
         closeComponent();
@@ -173,7 +172,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
             "username": username,
             "email": email,
             "password": password,
-            "address": address
+            // "address": address
         }
         if (phoneNumber) {
             user.phone_number = `${phoneCode}${phoneNumber}`;

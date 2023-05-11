@@ -30,52 +30,51 @@ export default function TelegramLoginComponent () {
 
         console.log(e)
         const url = `${process.env.REACT_APP_API_URL}telegram-login/`;
-        navigator.geolocation.getCurrentPosition((response) => {
-            let coords = [response.coords.latitude, response.coords.longitude];
-            let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords[0]},${coords[1]}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
-            return window.axios.get(url, {headers: {
-                    'Content-Type': 'application/json',
-            }})
-                .then((response) => {
-                    let geoObjects = response.data.results;
-                    let address = {
-                        country: '',
-                        region: '',
-                        city: '',
-                        street: '',
-                        house_number: '',
-                        lat: '',
-                        lng: '',
-                        formatted: '',
-                    }
-                    geoObjects[0].address_components.forEach((component) => {
-                        if (component.types.includes('country')) address.country = component.long_name;
-                        if (component.types.includes('administrative_area_level_1')) address.region = component.long_name;
-                        if (component.types.includes('locality')) address.city = component.short_name.replace('г. ', '');
-                        if (component.types.includes('route')) address.street = component.short_name;
-                        if (component.types.includes('street_number')) address.house_number = component.long_name;
-                    })
-                    if (geoObjects[0].geometry && geoObjects[0].geometry.location) {
-                        address.lat = geoObjects[0].geometry.location.lat;
-                        address.lng = geoObjects[0].geometry.location.lng;
-                    }
-                    address.formatted = geoObjects[0].formatted_address;
-                    console.log(address)
-                    if (address.city) {
-                        e.address = address;
-                    }
-                    login(e);
-                    // return address;
-                })
-                .catch((error) => {
-                    login(e);
-                    console.log(error.response)
-                    // return error.response;
-                });
-            }, (error) => {
-                console.log(error)
-                login(e);
-            });
+        login(e);
+        // navigator.geolocation.getCurrentPosition((response) => {
+        //     let coords = [response.coords.latitude, response.coords.longitude];
+        //     let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords[0]},${coords[1]}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
+        //     return window.axios.get(url, {headers: {
+        //             'Content-Type': 'application/json',
+        //     }})
+        //         .then((response) => {
+        //             let geoObjects = response.data.results;
+        //             let address = {
+        //                 country: '',
+        //                 region: '',
+        //                 city: '',
+        //                 street: '',
+        //                 house_number: '',
+        //                 lat: '',
+        //                 lng: '',
+        //                 formatted: '',
+        //             }
+        //             geoObjects[0].address_components.forEach((component) => {
+        //                 if (component.types.includes('country')) address.country = component.long_name;
+        //                 if (component.types.includes('administrative_area_level_1')) address.region = component.long_name;
+        //                 if (component.types.includes('locality')) address.city = component.short_name.replace('г. ', '');
+        //                 if (component.types.includes('route')) address.street = component.short_name;
+        //                 if (component.types.includes('street_number')) address.house_number = component.long_name;
+        //             })
+        //             if (geoObjects[0].geometry && geoObjects[0].geometry.location) {
+        //                 address.lat = geoObjects[0].geometry.location.lat;
+        //                 address.lng = geoObjects[0].geometry.location.lng;
+        //             }
+        //             address.formatted = geoObjects[0].formatted_address;
+        //             console.log(address)
+        //             if (address.city) {
+        //                 e.address = address;
+        //             }
+        //             login(e);
+        //         })
+        //         .catch((error) => {
+        //             login(e);
+        //             console.log(error.response)
+        //         });
+        //     }, (error) => {
+        //         console.log(error)
+        //         login(e);
+        //     });
     }
 
     useEffect(() => {

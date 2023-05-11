@@ -313,7 +313,7 @@ const event = (state = initialEventState, action) => {
 };
 
 const initialLocationState = {
-    city: "Москва",
+    city: "Tbilisi",
     country: "Россия",
 }
 

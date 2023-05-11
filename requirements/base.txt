@@ -16,3 +16,4 @@ service-identity==21.1.0
 social-auth-app-django-mongoengine==1.0.0
 pillow==9.4.0
 django-webpush==0.3.4
+pyjwt==2.6.0

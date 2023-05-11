@@ -10,7 +10,6 @@ from rest_framework_simplejwt.settings import api_settings
 from django.utils.translation import gettext_lazy as _
 
 from config.settings.base import SOCIAL_AUTH_TELEGRAM_BOT_TOKEN
-from playbot.cities.models import Address
 from playbot.users.models import User, RankHistory
 
 
@@ -86,7 +85,7 @@ class TokenObtainTelegramSerializer(ObtainMixin, serializers.Serializer):
         self.fields["last_name"] = serializers.CharField()
         self.fields["photo_url"] = serializers.CharField()
         self.fields["username"] = serializers.CharField()
-        self.fields["address"] = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
+        # self.fields["address"] = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
 
         # self.fields["telegram_id"] = serializers.CharField()
         # self.fields["chanel_id"] = serializers.CharField()
@@ -116,8 +115,8 @@ class TokenObtainTelegramSerializer(ObtainMixin, serializers.Serializer):
                 defaults["last_name"] = attrs.get("last_name")
             if attrs.get("username"):
                 defaults["username"] = attrs.get("username")
-            if attrs.get("address"):
-                defaults["address"] = attrs.get("address")
+            # if attrs.get("address"):
+            #     defaults["address"] = attrs.get("address")
             defaults["is_active"] = True
             self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
             if not self.user.ranks_history.all().exists():
