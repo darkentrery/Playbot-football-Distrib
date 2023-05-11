@@ -93,7 +93,6 @@ class TokenObtainTelegramSerializer(ObtainMixin, serializers.Serializer):
     def check_response(self, data):
         d = data.copy()
         del d['hash']
-        del d["address"]
         d_list = []
         for key in sorted(d.keys()):
             if d[key] != None:
