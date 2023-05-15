@@ -4,7 +4,7 @@
     "target" : {
       "namespace": "android_app",
       "package_name": "ru.korobkaplay.test.twa",
-      "sha256_cert_fingerprints": ["6E:26:98:52:05:68:0B:2E:27:E4:98:DF:E6:EF:7C:A5:8B:6E:0A:D7:23:F9:BF:E6:51:D6:BB:48:9B:67:43:7A"]
+      "sha256_cert_fingerprints": ["FF:61:A8:22:2E:FF:60:B6:20:C8:20:F6:EC:F3:AE:EC:0E:EA:7E:EF:45:54:01:67:2B:35:B0:A5:60:16:FF:9FA"]
     }
   }
 ]
