@@ -5,7 +5,7 @@ import {authService} from "../../services/AuthService";
 const clientId = process.env.REACT_APP_APPLE_CLIENT_AUTH_ID;
 console.log(clientId)
 const mainUrl = process.env.REACT_APP_MAIN_URL;
-// const mainUrl = "https://384f-2001-44c8-460e-a8d3-3dc9-cb03-a9de-4244.ngrok-free.app/";
+// const mainUrl = "https://4671-2a0d-b201-8020-1b6e-484-f21c-e747-791e.ngrok-free.app/";
 
 export const AppleAuthComponent = ({setAuth, closeWindow}) => {
     const login = async (e) => {

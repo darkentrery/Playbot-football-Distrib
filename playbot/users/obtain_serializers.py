@@ -156,14 +156,21 @@ class TokenObtainLoginAppleSerializer(ObtainMixin, serializers.Serializer):
     def validate(self, attrs):
         decoded = jwt.decode(attrs.get("id_token"), audience="ru.korobkaplay.test.auth", options={"verify_signature": False})
         apple_id = decoded["sub"]
-        users = User.objects.filter(apple_id=apple_id)
-        if users.exists():
-            self.user = users.first()
-        else:
-            raise exceptions.AuthenticationFailed(
-                self.error_messages["no_active_account"],
-                "no_active_account",
-            )
+        defaults = {
+            "is_active": True,
+            "username": decoded["email"],
+        }
+        self.user, update = User.objects.update_or_create(apple_id=apple_id, email=decoded["email"], defaults=defaults)
+        if not self.user.ranks_history.all().exists():
+            RankHistory.objects.create(user=self.user)
+        # users = User.objects.filter(apple_id=apple_id)
+        # if users.exists():
+        #     self.user = users.first()
+        # else:
+        #     raise exceptions.AuthenticationFailed(
+        #         self.error_messages["no_active_account"],
+        #         "no_active_account",
+        #     )
         authenticate_kwargs = {
             self.username_field: self.user.email,
             "password": self.user.password,
