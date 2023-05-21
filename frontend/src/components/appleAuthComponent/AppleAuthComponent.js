@@ -8,28 +8,45 @@ const mainUrl = process.env.REACT_APP_MAIN_URL;
 // const mainUrl = "https://4671-2a0d-b201-8020-1b6e-484-f21c-e747-791e.ngrok-free.app/";
 
 export const AppleAuthComponent = ({setAuth, closeWindow}) => {
-    const login = async (e) => {
-        console.log(e)
-        try {
-            const data = await window.AppleID.auth.signIn();
-            console.log(data);
-            if (data.hasOwnProperty("user")) {
-                authService.appleSignUp({...data.authorization, ...data.user}).then((response) => {
-                    console.log(response)
-                    setAuth(true, response.data.user);
-                    closeWindow();
-                })
-            } else {
-                authService.appleLogin(data.authorization).then((response) => {
-                    console.log(response)
-                    setAuth(true, response.data.user);
-                    closeWindow();
-                })
-            }
-        } catch (error) {
-            authService.catchError({"error": error});
-            console.log(error);
+    // const login = async (e) => {
+    //     console.log(e)
+    //     try {
+    //         const data = await window.AppleID.auth.signIn();
+    //         console.log(data);
+    //         if (data.hasOwnProperty("user")) {
+    //             authService.appleSignUp({...data.authorization, ...data.user}).then((response) => {
+    //                 console.log(response)
+    //                 setAuth(true, response.data.user);
+    //                 closeWindow();
+    //             })
+    //         } else {
+    //             authService.appleLogin(data.authorization).then((response) => {
+    //                 console.log(response)
+    //                 setAuth(true, response.data.user);
+    //                 closeWindow();
+    //             })
+    //         }
+    //     } catch (error) {
+    //         authService.catchError({"error": error});
+    //         console.log(error);
+    //     }
+    // }
+    const login = (e) => {
+        authService.catchError({"error": e});
+        const apple = window.AppleID;
+        if (!apple) {
+            authService.catchError({"error": apple});
+            return Promise.reject("AppleJS not loaded");
         }
+
+        return apple.auth.signIn()
+            .then(result => {
+                authService.appleLogin(result.authorization).then((response) => {
+                    console.log(response)
+                    setAuth(true, response.data.user);
+                    closeWindow();
+                })
+            });
     }
     const scriptjs = require("scriptjs");
     scriptjs.get('https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js', () => {

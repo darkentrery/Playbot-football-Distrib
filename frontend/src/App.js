@@ -92,6 +92,20 @@ function App({state, funcs}) {
         funcs.setIsIPhone(authService.deviceDetect());
     }, [])
 
+    // Listen for authorization success.
+    document.addEventListener('AppleIDSignInOnSuccess', (event) => {
+        // Handle successful response.
+        console.log(event.detail.data);
+        authService.catchError({"success": event.detail});
+    });
+
+    // Listen for authorization failures.
+    document.addEventListener('AppleIDSignInOnFailure', (event) => {
+        // Handle error.
+        console.log(event.detail.error);
+        authService.catchError({"error": event.detail});
+    });
+
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
             authService.confirmSignUp(window.location.pathname);
