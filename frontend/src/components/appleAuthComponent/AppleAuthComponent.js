@@ -37,7 +37,7 @@ export const AppleAuthComponent = ({setAuth, closeWindow}) => {
         clientId: clientId,
         redirectURI: `${mainUrl}apple-login`,
         scope: 'name email',
-        usePopup: true,
+        // usePopup: true,
       };
       window.AppleID.auth.init(params);
     });
