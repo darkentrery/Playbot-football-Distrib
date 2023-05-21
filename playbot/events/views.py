@@ -30,7 +30,7 @@ class CreateEventView(APIView):
 
     def post(self, request, format='json'):
         data = request.data
-        data.update({"organizer": request.user.pk})
+        data.update({"organizers": [request.user.pk]})
         serializer = CreateEventSerializer(data=request.data)
         if serializer.is_valid():
             event = serializer.save()
@@ -73,7 +73,7 @@ class EventView(APIView):
         json = EventSerializer(instance=event).data
         same_events = []
         if not event.is_begin and not event.is_end:
-            same_events = Event.objects.filter(city=event.field.address.city, date__gte=timezone.now().date()).exclude(id=event.id)
+            same_events = Event.objects.filter(field__address__city=event.field.address.city, date__gte=timezone.now().date()).exclude(id=event.id)
             ids = [event.id for event in same_events if not event.is_begin and not event.is_end]
             same_events = Event.objects.filter(id__in=ids)
             count = min(3, same_events.count())
@@ -87,20 +87,8 @@ class EditEventView(APIView):
 
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
-        city, creat = City.objects.update_or_create(name=request.data["address"]["city"])
-        address, creat = Address.objects.get_or_create(
-            country=request.data["address"]["country"],
-            city=city,
-            region=request.data["address"].get("region"),
-            state=request.data["address"].get("state"),
-            street=request.data["address"].get("street"),
-            house_number=request.data["address"].get("house_number"),
-            lat=request.data["address"].get("lat"),
-            lng=request.data["address"].get("lng"),
-        )
-        request.data["address"] = address.id
         serializer = EditEventSerializer(event, data=request.data)
-        if serializer.is_valid() and event.organizer == request.user:
+        if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
                 if event.is_player and not event.event_player.filter(player=request.user):
@@ -130,7 +118,7 @@ class CancelEventView(APIView):
         event = Event.objects.get(id=request.data["id"])
         reason, create = CancelReasons.objects.get_or_create(name=request.data["cancel_reasons"])
         serializer = CancelEventSerializer(event, data=request.data)
-        if serializer.is_valid() and event.organizer == request.user:
+        if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
                 RankHistory.objects.create(user=request.user, rank=request.user.rank * 0.98)
@@ -196,7 +184,7 @@ class SetRegulationView(APIView):
         if request.data.get("until_goal_count") == "null":
             request.data["until_goal_count"] = None
         serializer = SetRegulationSerializer(instance=event, data=request.data)
-        if serializer.is_valid() and event.organizer == request.user:
+        if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
                 create_teams(event)
@@ -224,7 +212,7 @@ class ConfirmTeamPlayersView(APIView):
     def post(self, request, format='json'):
         team = Team.objects.get(id=request.data["team"].pop("id"))
         serializer = EditTeamNameSerializer(instance=team, data=request.data["team"])
-        if serializer.is_valid() and team.event.organizer == request.user:
+        if serializer.is_valid() and team.event.organizers.filter(id=request.user.id).exists():
             team = serializer.save()
             for player in team.team_players.all():
                 player.delete()
@@ -242,7 +230,7 @@ class ConfirmTeamsView(APIView):
         event = Event.objects.get(id=request.data["event"]["id"])
         for team in request.data["event"]["teams"]:
             serializer = EditTeamNameSerializer(instance=Team.objects.get(id=team["id"]), data=team)
-            if serializer.is_valid() and event.organizer == request.user:
+            if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
                 serializer.save()
         EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event, defaults={"complete": True})
         json = EventSerializer(instance=event).data
@@ -294,7 +282,7 @@ class BeginEventGameView(APIView):
 
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["game"]["id"])
-        if game.event.organizer == request.user:
+        if game.event.organizers.filter(id=request.user.id).exists():
             game.time_begin = timezone.now().time()
             game.save()
             event = EventSerializer(instance=game.event)
@@ -308,7 +296,7 @@ class EndEventView(APIView):
     @logger.catch
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
-        if event.organizer == request.user:
+        if event.organizers.filter(id=request.user.id).exists():
             event.time_end = timezone.now().time()
             event.save()
             for game in event.event_games.filter(time_end=None):
@@ -330,7 +318,7 @@ class BeginGamePeriodView(APIView):
 
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
-        if game.event.organizer == request.user:
+        if game.event.organizers.filter(id=request.user.id).exists():
             if not game.game_periods.filter(time_end=None).exists():
                 period = GamePeriod.objects.create(game=game)
                 if not game.time_begin:
@@ -346,7 +334,7 @@ class EndGamePeriodView(APIView):
 
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
-        if game.event.organizer == request.user:
+        if game.event.organizers.filter(id=request.user.id).exists():
             if game.game_periods.filter(time_end=None).exists():
                 period = game.game_periods.filter(time_end=None).last()
                 period.time_end = timezone.now()
@@ -361,7 +349,7 @@ class EndGameView(APIView):
 
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data["id"])
-        if game.event.organizer == request.user and not game.time_end:
+        if game.event.organizers.filter(id=request.user.id).exists() and not game.time_end:
             time = timezone.now()
             if not game.rest_time:
                 if game.game_periods.filter(time_end=None).exists():
@@ -393,7 +381,7 @@ class CreateGoalView(APIView):
 
     def post(self, request, format='json'):
         game = EventGame.objects.get(id=request.data.get("game"))
-        if game.event.organizer == request.user:
+        if game.event.organizers.filter(id=request.user.id).exists():
             serializer = CreateGoalSerializer(data=request.data)
             if serializer.is_valid():
                 goal = serializer.save()

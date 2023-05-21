@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from playbot.cities.models import Field
-from playbot.cities.serializers import AddressSerializer, FieldSerializer
+from playbot.cities.serializers import FieldSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod
 from playbot.users.models import User, Position
@@ -152,13 +152,13 @@ class CountCirclesSerializer(serializers.ModelSerializer):
 class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
-    organizer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
+    organizers = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True, write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "count_players", "is_player", "notice", "organizer",
+        fields = ["id", "name", "date", "time_begin", "count_players", "is_player", "notice", "organizers",
                   "format_label", "is_paid", "price", "field"]
 
 
@@ -176,10 +176,9 @@ class EventSerializer(serializers.ModelSerializer):
     duration = DurationSerializer(read_only=True)
     count_circles = serializers.SlugRelatedField(slug_field="name", read_only=True)
     event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
-    organizer = UserSerializer(read_only=True)
+    organizers = UserSerializer(User, many=True, read_only=True)
     event_step = EventStepSerializer(EventStep, many=True, read_only=True)
     cancel_reasons = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    address = AddressSerializer(read_only=True)
     teams = serializers.SerializerMethodField(method_name="get_teams")
     event_games = EventGameSerializer(EventGame, many=True, read_only=True)
     event_queues = EventQueueSerializer(EventQueue, many=True, read_only=True)
@@ -188,8 +187,8 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "time_end", "count_players", "address", "cancel",
-                  "cancel_reasons", "format", "distribution_method", "notice", "is_player", "organizer",
+        fields = ["id", "name", "date", "time_begin", "time_end", "count_players", "cancel",
+                  "cancel_reasons", "format", "distribution_method", "notice", "is_player", "organizers",
                   "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
                   "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
                   "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin", "all_games_finished",
@@ -215,13 +214,13 @@ class EventListSerializer(serializers.ModelSerializer):
 class EditEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
-    organizer = UserSerializer(read_only=True)
+    organizers = UserSerializer(User, many=True, read_only=True)
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizer",
+        fields = ["id", "name", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizers",
                   "format_label", "is_paid", "price"]
 
 

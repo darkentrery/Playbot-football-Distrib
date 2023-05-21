@@ -91,7 +91,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     console.log(restTime - 1)
                     console.log(new Date())
                     setRestTime(restTime - 1);
-                } else if (restTime - 1 < 0 && user.isAuth && user.user.id === event.organizer.id && !game.time_end) {
+                } else if (restTime - 1 < 0 && user.isAuth && eventService.isOrganizer(event, user.user) && !game.time_end) {
                     funcs.setPlayerBlock(true);
                     // setBlock(true);
                     setIsPlay(false);

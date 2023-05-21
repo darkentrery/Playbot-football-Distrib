@@ -94,4 +94,18 @@ export const eventService = {
 		})
 		return newNames.join(' ');
 	},
+
+	isOrganizer(event, user) {
+		let isOrganizer = false;
+		event.organizers.forEach(organizer => {
+			if (organizer.id === user.id) isOrganizer = true;
+		})
+		return isOrganizer;
+	},
+
+	getOrganizerUsername(event) {
+		let username = "";
+		if (event.organizers.length > 0) username = event.organizers[0].username;
+		return username;
+	},
 }

@@ -2,6 +2,7 @@ import EventMembersComponent from "../eventMembersComponent/EventMembersComponen
 import EventDescriptionComponent from "../eventDescriptionComponent/EventDescriptionComponent";
 import React, {useEffect, useState} from "react";
 import {EventChatComponent} from "../eventChatComponent/EventChatComponent";
+import {eventService} from "../../services/EventService";
 
 
 export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}) {
@@ -27,7 +28,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
         <div className={"event-organizer-component"}>
             <div className={"event-organizer-elem-1280 elem-1"}>
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
-                {event && !event.cancel && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
+                {event && !event.cancel && user.isAuth && (eventService.isOrganizer(event, user.user) || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
             </div>
             <div className={"event-organizer-elem-1280 elem-2"}>
                 <EventMembersComponent event={event}/>
@@ -37,7 +38,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                 <EventDescriptionComponent event={event} user={user} hiddenMap={hiddenMap} funcs={funcs}/>
             </div>
             <div className={"event-organizer-elem-744"}>
-                {event && !event.cancel && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
+                {event && !event.cancel && user.isAuth && (eventService.isOrganizer(event, user.user) || ids.includes(user.user.id)) && <EventChatComponent event={event} user={user}/>}
                 <EventMembersComponent event={event}/>
             </div>
 
@@ -55,7 +56,7 @@ export default function EventOrganizerComponent ({event, user, hiddenMap, funcs}
                     className={flagMenu === flags.description ? '' : 'disabled'}
                 />
                 <EventMembersComponent event={event} className={flagMenu === flags.members ? '' : 'disabled'}/>
-                {event && !event.cancel && user.isAuth && (event.organizer.id === user.user.id || ids.includes(user.user.id)) &&
+                {event && !event.cancel && user.isAuth && (eventService.isOrganizer(event, user.user) || ids.includes(user.user.id)) &&
                     <EventChatComponent event={event} user={user} className={flagMenu === flags.chat ? '' : 'disabled'}/>}
             </div>
         </div>

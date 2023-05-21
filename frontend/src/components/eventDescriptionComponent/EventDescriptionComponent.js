@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import $ from "jquery";
 import {MapContainer, Marker, TileLayer, useMapEvents} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
+import {eventService} from "../../services/EventService";
 
 
 export default function EventDescriptionComponent ({event, user, hiddenMap, funcs, className=''}) {
@@ -61,7 +62,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
     }
 
     const editEvent = () => {
-        if (event && user.isAuth && event.organizer.id === user.user.id) {
+        if (event && user.isAuth && eventService.isOrganizer(event, user.user)) {
             funcs.openEditEvent();
         } else {
             funcs.openLogin();
@@ -71,7 +72,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
 
     return (
         <div className={`event-description-component ${className}`}>
-            {user.isAuth && event && user.user.id === event.organizer.id && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
+            {user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
             <div className={"elem-1280 elem-1"}>
                 <span className={"el black-edit-icon link"} onClick={editEvent}>Редактировать игру</span>
             </div>}
@@ -83,7 +84,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             </div>
             <div className={"elem-1280 elem-5"}>
                 <span className={"el el-1 black-600-18"}>{address}<span className={"el gray-copy-icon link"} onClick={copyLink}></span></span>
-                <span className={"el el-2 black-600-18"}>{event ? event.organizer.username : ''}</span>
+                <span className={"el el-2 black-600-18"}>{eventService.getOrganizerUsername(event)}</span>
             </div>
             <div className={`elem-1280 elem-8 ${hiddenMap ? 'hidden' : ''}`}>
                 <MapBody/>
@@ -94,7 +95,7 @@ export default function EventDescriptionComponent ({event, user, hiddenMap, func
             </div>
             {event.notice && <span className={"elem-376 elem-2 dark-gray-comment-icon black-400-16"}>{event.notice}</span>}
             <span className={"elem-376 elem-3 black-400-13"}>Организатор:</span>
-            <span className={"elem-376 elem-4 black-600-16"}>{event ? event.organizer.username : ''}</span>
+            <span className={"elem-376 elem-4 black-600-16"}>{eventService.getOrganizerUsername(event)}</span>
             <span className={"elem-376 elem-5 black-400-13"}>Адрес:</span>
             <div className={"elem-376 elem-6"}>
                 <span className={"el black-600-16"}>{address}</span>

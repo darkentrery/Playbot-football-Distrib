@@ -58,7 +58,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         }, [game])
 
         return (<>
-            {(!user.isAuth || !event || event.organizer.id !== user.user.id || !game.time_begin) &&
+            {(!user.isAuth || !event || !eventService.isOrganizer(event, user.user) || !game.time_begin) &&
             <div className={"game-row"}>
                 <div className={"elem-1"}>
                     <span className={`el el-1 ${gray ? 'gray-400-13' : 'black-600-13'}`}>{value1}.</span>
@@ -66,11 +66,11 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <span className={`el el-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                     <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 </div>
-                {user.isAuth && event && event.organizer.id === user.user.id &&
+                {user.isAuth && event && eventService.isOrganizer(event, user.user) &&
                     <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`}
                           to={EventRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
             </div>}
-            {(user.isAuth && event && event.organizer.id === user.user.id && game.time_begin) &&
+            {(user.isAuth && event && eventService.isOrganizer(event, user.user) && game.time_begin) &&
             <Link className={"game-row"} to={EventRoutes.eventGamePlayerLink(pk, game.id)}>
                 <div className={"elem-1"}>
                     <span className={`el el-1 ${gray ? 'gray-400-13' : 'black-600-13'}`}>{value1}.</span>
@@ -78,7 +78,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                     <span className={`el el-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                     <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 </div>
-                {user.isAuth && event && event.organizer.id === user.user.id &&
+                {user.isAuth && eventService.isOrganizer(event, user.user) &&
                     <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`}
                           to={EventRoutes.eventGamePlayerLink(pk, game.id)}>Начать игру</Link>}
             </Link>}

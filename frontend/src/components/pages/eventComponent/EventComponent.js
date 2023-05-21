@@ -49,7 +49,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     }, [user, event])
 
     const editEvent = () => {
-        if (event && user.isAuth && event.organizer.id === user.user.id) {
+        if (event && user.isAuth && eventService.isOrganizer(event, user.user)) {
             funcs.openEditEvent();
         } else {
             funcs.openLogin();
@@ -97,7 +97,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                     <Top376Component label={"Событие"} to={BaseRoutes.main}>
                         <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
                         <div className={"icon send-icon"} onClick={() => share(EventRoutes.eventLink(event.id))}></div>
-                        {user.isAuth && event && user.user.id === event.organizer.id && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
+                        {user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
                             <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
                     </Top376Component>
                     <VisibleBoardEvent/>

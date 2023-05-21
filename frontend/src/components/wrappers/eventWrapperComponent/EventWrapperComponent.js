@@ -53,7 +53,7 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
                     <div className={"note-orange-icon"}></div>
                     <span className={"orange-400-14 link"}>Включить Playbot,FM </span>
                 </div>}
-                {!window.location.pathname.includes('teams') && user.isAuth && event && user.user.id === event.organizer.id && !event.is_end && !isEndEvent ?
+                {!window.location.pathname.includes('teams') && user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !isEndEvent ?
                     <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span> :
                     <Link className={"elem elem-3 gray-400-14"} to={EventRoutes.eventLink(pk)}>Выйти</Link>}
                 {/*{isEndEvent && <Link className={"elem elem-3 gray-400-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}*/}
@@ -64,7 +64,7 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
                         className={`nav-link ${window.location.pathname.includes('info') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventInfoLink(pk)}
                     >Информация</Link>
-                    {user.isAuth && event && user.user.id === event.organizer.id && gameId !== false && <Link
+                    {user.isAuth && event && eventService.isOrganizer(event, user.user) && gameId !== false && <Link
                         className={`nav-link ${window.location.pathname.includes('player-game') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
                     >Плеер</Link>}
@@ -72,13 +72,13 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
                         className={`nav-link ${window.location.pathname.includes('teams') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                         to={BaseRoutes.eventInfoTeamsLink(pk)}
                     >Составы команд</Link>
-                    {user.isAuth && event && user.user.id === event.organizer.id && !!game && !!game.time_begin && !game.time_end && !isEndEvent && !event.is_end &&
+                    {user.isAuth && event && eventService.isOrganizer(event, user.user) && !!game && !!game.time_begin && !game.time_end && !isEndEvent && !event.is_end &&
                         <span className={"nav-link end-game-link orange-400-14"} onClick={endGame}>Завершить игру</span>}
                 </div>
 
                 <div className={"navigate-bar-376"}>
                     <Top376Component className={"elem-1"} label={"Подробности события"} to={BaseRoutes.eventLink(pk)}>
-                        {user.isAuth && event && user.user.id === event.organizer.id && !!game && !!game.time_begin && !game.time_end && !isEndEvent && !event.is_end ?
+                        {user.isAuth && event && eventService.isOrganizer(event, user.user) && !!game && !!game.time_begin && !game.time_end && !isEndEvent && !event.is_end ?
                             <span className={"black-500-14"} onClick={endGame}>Завершить игру</span> :
                             <Link className={"black-500-14"} to={EventRoutes.eventLink(pk)}>Выйти</Link>}
                         {/*{isEndEvent && <Link className={"black-500-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}*/}
@@ -88,7 +88,7 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
                             className={`nav-link  ${window.location.pathname.includes('info') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
                             to={BaseRoutes.eventInfoLink(pk)}
                         >Информация</Link>
-                        {user.isAuth && event && user.user.id === event.organizer.id && gameId !== false && <Link
+                        {user.isAuth && event && eventService.isOrganizer(event, user.user) && gameId !== false && <Link
                             className={`nav-link ${window.location.pathname.includes('player-game') ? 'white-600-12 active' : 'middle-gray-400-12'}`}
                             to={BaseRoutes.eventGamePlayerLink(pk, gameId)}
                         >Плеер</Link>}

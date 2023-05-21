@@ -82,7 +82,6 @@ class EventAdmin(admin.ModelAdmin):
         "cancel_reasons",
         "format",
         "price",
-        "organizer",
     ]
     inlines = [
         TeamInline,
@@ -91,6 +90,9 @@ class EventAdmin(admin.ModelAdmin):
         EventGameInline,
         EventQueueInline,
     ]
+    filter_horizontal = (
+        "organizers",
+    )
 
 
 @admin.register(Team)

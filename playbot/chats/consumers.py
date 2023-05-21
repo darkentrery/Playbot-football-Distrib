@@ -18,7 +18,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         event_id = self.scope["url_route"]["kwargs"]["event_id"]
         self.chat = await sync_to_async(lambda: Chat.objects.get(event_id=event_id))()
         is_player = await sync_to_async(lambda: EventPlayer.objects.filter(event_id=event_id, player=self.user).exists())()
-        is_organizer = await sync_to_async(lambda: self.chat.event.organizer == self.user)()
+        is_organizer = await sync_to_async(lambda: self.chat.event.organizers.filter(id=self.user.id).exists())()
         if not self.user.is_authenticated or (not is_player and not is_organizer):
             return
 
