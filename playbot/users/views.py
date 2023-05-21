@@ -1,6 +1,7 @@
 import copy
 
 from django.views.generic import TemplateView
+from loguru import logger
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -50,6 +51,7 @@ class LoginView(TokenObtainPairView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
+        logger.info(request.data)
         serializer = self.get_serializer(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
