@@ -25,6 +25,10 @@ class IndexView(APIView):
     def get(self, request, **kwargs):
         return Response({})
 
+    def post(self, request, *args, **kwargs):
+        logger.info(request.data)
+        return Response({}, status=status.HTTP_200_OK)
+
 
 class ConfirmSignUpView(APIView):
     permission_classes = (AllowAny,)
