@@ -225,3 +225,13 @@ class DeleteUserView(APIView):
         user = User.objects.get(id=request.data["id"])
         user.delete()
         return Response({}, status=status.HTTP_200_OK)
+
+
+class CatchErrorView(APIView):
+    def post(self, request, *args, **kwargs):
+        logger.info(request.data)
+        return Response({}, status=status.HTTP_200_OK)
+
+    def get(self, request, format='json', **kwargs):
+        logger.info(request.data)
+        return Response({}, status=status.HTTP_200_OK)

@@ -36,4 +36,5 @@ urlpatterns = [
     path("remove-from-favorites/", views.RemoveFromFavoritesView.as_view(), name='remove-from-favorites-player'),
     path("api/apple-sign-up/", views.SignUpAppleView.as_view(), name='apple-sign-up'),
     path("api/apple-login/", views.LoginAppleView.as_view(), name='apple-login'),
+    path("api/catch-error/", views.CatchErrorView.as_view(), name='catch-error'),
 ]

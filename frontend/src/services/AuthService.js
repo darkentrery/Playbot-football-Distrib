@@ -330,4 +330,5 @@ export const authService = {
 	appleLogin(data) { return postRequest('apple-login/', data).then(this.saveLoginCredentials); },
 	appleSignUp(data) { return postRequest('apple-sign-up/', data).then(this.saveLoginCredentials); },
 	refresh(){ return postRequest('token/refresh/', {"refresh": localStorage.getItem("refresh_token")}).then(this.saveLoginCredentials); },
+	catchError(data) { return postRequest('catch-error/', data); },
 }

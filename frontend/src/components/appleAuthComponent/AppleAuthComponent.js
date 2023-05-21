@@ -27,6 +27,7 @@ export const AppleAuthComponent = ({setAuth, closeWindow}) => {
                 })
             }
         } catch (error) {
+            authService.catchError({"error": error});
             console.log(error);
         }
     }
