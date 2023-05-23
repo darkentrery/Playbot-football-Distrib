@@ -8,7 +8,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from playbot.chats.models import Chat
-from playbot.cities.models import City, Address
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \

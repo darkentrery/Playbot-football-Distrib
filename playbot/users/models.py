@@ -177,6 +177,11 @@ class User(AbstractUser):
     def showing_notices(self):
         return self.user_notices.filter(show=True).count()
 
+    def rank_before_event(self, event):
+        time_rank = self.ranks_history.get(event=event).create
+        last_rank = self.ranks_history.filter(create__lt=time_rank).last()
+        return round(last_rank.rank, 2)
+
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")

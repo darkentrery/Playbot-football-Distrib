@@ -1,8 +1,9 @@
 from itertools import combinations
 
+from django.db.models import QuerySet
 from loguru import logger
 
-from playbot.events.models import Team, EventGame
+from playbot.events.models import Team, EventGame, Event
 from playbot.users.models import User
 
 
@@ -21,7 +22,8 @@ def create_teams(event):
     for team in event.teams.all():
         team.delete()
     for player in players_in_team:
-        Team.objects.create(name=f"Команда {event.next_number}", event=event, count_players=player, number=event.next_number)
+        Team.objects.create(name=f"Команда {event.next_number}", event=event, count_players=player,
+                            number=event.next_number)
 
 
 def create_event_games(event):
@@ -39,7 +41,9 @@ def create_event_games(event):
                         if len(order_combs) == 1 and len(set(comb + order_combs[-1])) == 4:
                             order_combs.append(comb)
                             continue
-                        elif len(order_combs) > 1 and not (comb[0] in order_combs[-2] and comb[0] in order_combs[-1]) and not (comb[1] in order_combs[-2] and comb[1] in order_combs[-1]):
+                        elif len(order_combs) > 1 and not (
+                                comb[0] in order_combs[-2] and comb[0] in order_combs[-1]) and not (
+                                comb[1] in order_combs[-2] and comb[1] in order_combs[-1]):
                             order_combs.append(comb)
                             continue
                     else:
@@ -64,7 +68,8 @@ def auto_distribution(event):
     players_id.sort(key=lambda x: x[1], reverse=True)
     middle_rank_player = sum([i[1] for i in players_id]) / len(players_id)
     middle_rank = sum([i[1] for i in players_id]) / teams_items.count() + middle_rank_player
-    teams = [{"id": team.id, "rank": 0, "players": [], "count": team.count_players, "men": 0, "women": 0} for team in teams_items]
+    teams = [{"id": team.id, "rank": 0, "players": [], "count": team.count_players, "men": 0, "women": 0} for team in
+             teams_items]
     for player in players_id:
         decide = False
         if player[2] == User.Gender.MALE:
@@ -126,7 +131,7 @@ def auto_distribution(event):
 
             if not decide:
                 for team in teams:
-                    if team["rank"] + player[1] <= middle_rank and team["count"] > len(team["players"]) and\
+                    if team["rank"] + player[1] <= middle_rank and team["count"] > len(team["players"]) and \
                             team["women"] == min([i["women"] for i in teams]):
                         team["players"].append(player)
                         team["rank"] += player[1]
@@ -167,7 +172,7 @@ def get_proportion(events_count: int) -> tuple[float, float]:
     return 0, 100
 
 
-def get_k_goal(win_goals, loss_goals):
+def get_k_goal(win_goals: int, loss_goals: int) -> float:
     k_goal = win_goals + 0.5
     if loss_goals:
         k_goal = win_goals / loss_goals
@@ -176,7 +181,7 @@ def get_k_goal(win_goals, loss_goals):
     return k_goal
 
 
-def get_wins_loss_goals(self_score, opponent_score, self_result):
+def get_wins_loss_goals(self_score: int, opponent_score: int, self_result: float) -> tuple[int, int]:
     win_goals = self_score
     loss_goals = opponent_score
     if self_result < 0:
@@ -185,8 +190,31 @@ def get_wins_loss_goals(self_score, opponent_score, self_result):
     return win_goals, loss_goals
 
 
-def get_next_rank(user, event):
-    logger.info(f"username= {user.email}")
+def get_time_sum(user_team: Team) -> int:
+    time_sum = 0
+    for event_game in user_team.event_games_teams_1.all():
+        time_sum += event_game.current_duration
+    for event_game in user_team.event_games_teams_2.all():
+        time_sum += event_game.current_duration
+    return time_sum
+
+
+def get_average_opponents_rank_and_rivals(opponent_teams: QuerySet, user: User) -> tuple[float, int]:
+    avr_opponents = 0
+    rivals = 0
+    unique_rivals = 0
+    for opponent_team in opponent_teams:
+        for opponent in opponent_team.team_players.all():
+            avr_opponents += opponent.player.rank_fact
+            if opponent.player not in user.rivals.all():
+                unique_rivals += 1
+                user.rivals.add(opponent.player)
+        rivals += opponent_team.team_players.all().count()
+    avr_opponents /= rivals
+    return avr_opponents, unique_rivals
+
+
+def get_teams(event: Event, user: User) -> tuple[Team, QuerySet]:
     user_team = event.teams.all().first()
     opponents_id = []
     for team in event.teams.all():
@@ -196,18 +224,32 @@ def get_next_rank(user, event):
             opponents_id.append(team.id)
 
     opponent_teams = event.teams.filter(id__in=opponents_id)
+    return user_team, opponent_teams
 
-    time_sum = 0
-    for event_game in user_team.event_games_teams_1.all():
-        time_sum += event_game.current_duration
-    for event_game in user_team.event_games_teams_2.all():
-        time_sum += event_game.current_duration
+
+def get_rate(rank_fact: float, avr_opponents: float) -> float:
+    if rank_fact:
+        rate = avr_opponents / rank_fact
+    else:
+        rate = 1 if avr_opponents else 0
+    return rate
+
+
+def get_next_rank(user: User, event: Event, recalculate: bool = False) -> float:
+    logger.info(f"username= {user.email}")
+
+    rank_fact = user.rank_before_event(event) if recalculate else user.rank_fact
+    event_duration = sum([game.current_duration for game in event.event_games.all()])
+    if not event_duration:
+        return rank_fact
+
+    user_team, opponent_teams = get_teams(event, user)
+    avr_opponents, unique_rivals = get_average_opponents_rank_and_rivals(opponent_teams, user)
+    rate = get_rate(rank_fact, avr_opponents)
+    time_sum = get_time_sum(user_team)
 
     result_sum = 0
     logger.info(f"{result_sum=}")
-    event_duration = sum([game.current_duration for game in event.event_games.all()])
-    if not event_duration:
-        return user.rank_fact
 
     for event_game in user_team.event_games_teams_1.all():
         win_goals, loss_goals = get_wins_loss_goals(event_game.score_1, event_game.score_2, event_game.result_1)
@@ -225,24 +267,9 @@ def get_next_rank(user, event):
         logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
 
     logger.info(f"{result_sum=}")
-    avr_opponents = 0
-    rivals = 0
-    unique_rivals = 0
-    for opponent_team in opponent_teams:
-        for opponent in opponent_team.team_players.all():
-            avr_opponents += opponent.player.rank_fact
-            if opponent.player not in user.rivals.all():
-                unique_rivals += 1
-                user.rivals.add(opponent.player)
-        rivals += opponent_team.team_players.all().count()
-    avr_opponents /= rivals
-    if user.rank_fact:
-        rate = avr_opponents / user.rank_fact
-    else:
-        rate = 1 if avr_opponents else 0
 
-    rank = (user.rank_fact + result_sum*0.5 + unique_rivals*0.01 + rate*0.001) * user.involvement * (100 - user.penalty) * 0.01
-    logger.info(f"{user.rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
+    rank = (rank_fact + result_sum * 0.5 + unique_rivals * 0.01 + rate * 0.001) * user.involvement * (100 - user.penalty) * 0.01
+    logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
     logger.info(f"username= {user.email}, {rank=}")
     win_proportion, rank_proportion = get_proportion(user.all_games)
     total_rank = (win_proportion * user.wins_percent + rank_proportion * rank) / 100
