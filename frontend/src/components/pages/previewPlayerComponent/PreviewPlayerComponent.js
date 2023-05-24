@@ -43,7 +43,7 @@ export const PreviewPlayerComponent = ({
     useEffect(() => {
         if (player) {
             let array = [];
-            let array2 = player.event;
+            let array2 = player.events_organizer;
             if (type === types[0]) {
                 array = [...array2];
             } else if (type === types[1]) {

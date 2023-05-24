@@ -25,7 +25,7 @@ export const ProfileMyEventsPageComponent = ({
     useEffect(() => {
         if (player) {
             let array = [];
-            let array2 = player.event;
+            let array2 = player.events_organizer;
             if (!isOrganizer) {
                 array2 = [];
                 player.event_player.forEach(event => {

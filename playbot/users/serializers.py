@@ -60,7 +60,7 @@ class SamePlayerSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     event_player = EventPlayerSerializer(EventPlayer, many=True, read_only=True)
-    event = EventListSerializer(Event, many=True, read_only=True)
+    events_organizer = EventListSerializer(Event, many=True, read_only=True)
     position_1 = PositionSerializer(read_only=True)
     position_2 = PositionSerializer(read_only=True)
     favorite_events = EventListSerializer(Event, many=True, read_only=True)
@@ -74,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "confirm_slug",
-                  "count_goals", "date_joined", "event", "event_player", "favorite_events", "first_name", "gender",
+                  "count_goals", "date_joined", "events_organizer", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
                   "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer"]
