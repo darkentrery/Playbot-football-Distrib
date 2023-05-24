@@ -81,7 +81,7 @@ export default function RefreshPasswordComponent ({isOpen, closeComponent, openS
                 <button className={"btn"} autoFocus={true} onClick={sendForm} ref={refEnter}>Войти</button>
                 <div className={"line"}></div>
                 <div className={"refresh-bottom-elem"}>
-                    <TelegramLoginComponent/>
+                    {/*<TelegramLoginComponent/>*/}
                 </div>
             </div>
         </Modal>

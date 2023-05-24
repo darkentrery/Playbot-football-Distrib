@@ -269,7 +269,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                             <span className={"gray-600-14 link"} onClick={toLogin} >Войти</span>
                         </div>
                         <div className={"sign-up-l-bottom-elem telegram"}>
-                            <TelegramLoginComponent/>
+                        {/*    <TelegramLoginComponent/>*/}
                         </div>
                     </div>
                 </div>
