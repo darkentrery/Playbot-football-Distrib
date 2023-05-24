@@ -151,7 +151,7 @@ def auto_distribution(event):
     return teams
 
 
-def get_proportion(events_count: int) -> tuple[float, float]:
+class RankCalculation:
     proportions = [
         {"min": 0, "max": 10, "win_proportion": 10, "rank_proportion": 90},
         {"min": 11, "max": 20, "win_proportion": 15, "rank_proportion": 85},
@@ -166,112 +166,116 @@ def get_proportion(events_count: int) -> tuple[float, float]:
         {"min": 101, "max": 200, "win_proportion": 60, "rank_proportion": 40},
         {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
     ]
-    for proportion in proportions:
-        if proportion["min"] <= events_count <= proportion["max"]:
-            return proportion["win_proportion"], proportion["rank_proportion"]
-    return 0, 100
 
+    def __init__(self, user: User, event: Event) -> None:
+        self.user = user
+        self.event = event
 
-def get_k_goal(win_goals: int, loss_goals: int) -> float:
-    k_goal = win_goals + 0.5
-    if loss_goals:
-        k_goal = win_goals / loss_goals
-    if not loss_goals and not win_goals:
-        k_goal = 1
-    return k_goal
+    def get_proportion(self) -> tuple[float, float]:
+        for proportion in self.proportions:
+            if proportion["min"] <= self.user.all_games <= proportion["max"]:
+                return proportion["win_proportion"], proportion["rank_proportion"]
+        return 0, 100
 
+    @staticmethod
+    def get_k_goal(win_goals: int, loss_goals: int) -> float:
+        k_goal = win_goals + 0.5
+        if loss_goals:
+            k_goal = win_goals / loss_goals
+        if not loss_goals and not win_goals:
+            k_goal = 1
+        return k_goal
 
-def get_wins_loss_goals(self_score: int, opponent_score: int, self_result: float) -> tuple[int, int]:
-    win_goals = self_score
-    loss_goals = opponent_score
-    if self_result < 0:
-        win_goals = opponent_score
-        loss_goals = self_score
-    return win_goals, loss_goals
+    @staticmethod
+    def get_wins_loss_goals(self_score: int, opponent_score: int, self_result: float) -> tuple[int, int]:
+        win_goals = self_score
+        loss_goals = opponent_score
+        if self_result < 0:
+            win_goals = opponent_score
+            loss_goals = self_score
+        return win_goals, loss_goals
 
+    @staticmethod
+    def get_time_sum(user_team: Team) -> int:
+        time_sum = 0
+        for event_game in user_team.event_games_teams_1.all():
+            time_sum += event_game.current_duration
+        for event_game in user_team.event_games_teams_2.all():
+            time_sum += event_game.current_duration
+        return time_sum
 
-def get_time_sum(user_team: Team) -> int:
-    time_sum = 0
-    for event_game in user_team.event_games_teams_1.all():
-        time_sum += event_game.current_duration
-    for event_game in user_team.event_games_teams_2.all():
-        time_sum += event_game.current_duration
-    return time_sum
+    def get_average_opponents_rank_and_rivals(self, opponent_teams: QuerySet) -> tuple[float, int]:
+        avr_opponents = 0
+        rivals = 0
+        unique_rivals = self.user.rivals.filter(user_rivals_to_user__event=self.event).count()
+        for opponent_team in opponent_teams:
+            for opponent in opponent_team.team_players.all():
+                avr_opponents += opponent.player.rank_fact
+                if opponent.player not in self.user.rivals.all():
+                    unique_rivals += 1
+                    self.user.rivals.add(opponent.player, through_defaults={"event": self.event})
+            rivals += opponent_team.team_players.all().count()
+        avr_opponents /= rivals
+        return avr_opponents, unique_rivals
 
+    def get_teams(self) -> tuple[Team, QuerySet]:
+        user_team = self.event.teams.all().first()
+        opponents_id = []
+        for team in self.event.teams.all():
+            if team.team_players.filter(player__id=self.user.id).exists():
+                user_team = team
+            else:
+                opponents_id.append(team.id)
 
-def get_average_opponents_rank_and_rivals(opponent_teams: QuerySet, user: User, event: Event) -> tuple[float, int]:
-    avr_opponents = 0
-    rivals = 0
-    unique_rivals = user.rivals.filter(user_rivals_to_user__event=event).count()
-    for opponent_team in opponent_teams:
-        for opponent in opponent_team.team_players.all():
-            avr_opponents += opponent.player.rank_fact
-            if opponent.player not in user.rivals.all():
-                unique_rivals += 1
-                user.rivals.add(opponent.player, through_defaults={"event": event})
-        rivals += opponent_team.team_players.all().count()
-    avr_opponents /= rivals
-    return avr_opponents, unique_rivals
+        opponent_teams = self.event.teams.filter(id__in=opponents_id)
+        return user_team, opponent_teams
 
-
-def get_teams(event: Event, user: User) -> tuple[Team, QuerySet]:
-    user_team = event.teams.all().first()
-    opponents_id = []
-    for team in event.teams.all():
-        if team.team_players.filter(player__id=user.id).exists():
-            user_team = team
+    @staticmethod
+    def get_rate(rank_fact: float, avr_opponents: float) -> float:
+        if rank_fact:
+            rate = avr_opponents / rank_fact
         else:
-            opponents_id.append(team.id)
+            rate = 1 if avr_opponents else 0
+        return rate
 
-    opponent_teams = event.teams.filter(id__in=opponents_id)
-    return user_team, opponent_teams
+    def get_result_sum(self, user_team: Team, time_sum: int, event_duration: int) -> float:
+        result_sum = 0
+        for event_game in user_team.event_games_teams_1.all():
+            win_goals, loss_goals = self.get_wins_loss_goals(event_game.score_1, event_game.score_2, event_game.result_1)
+            k_goal = self.get_k_goal(win_goals, loss_goals)
+            result = self.event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
+            result_sum += result
+            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
+            logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
+        for event_game in user_team.event_games_teams_2.all():
+            win_goals, loss_goals = self.get_wins_loss_goals(event_game.score_2, event_game.score_1, event_game.result_2)
+            k_goal = self.get_k_goal(win_goals, loss_goals)
+            result = self.event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
+            result_sum += result
+            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
+            logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
+        return result_sum
 
+    def get_next_rank(self, recalculate: bool = False) -> float:
+        rank_fact = self.user.rank_before_event(self.event) if recalculate else self.user.rank_fact
+        logger.info(f"username= {self.user.email}, {rank_fact=}")
+        event_duration = sum([game.current_duration for game in self.event.event_games.all()])
+        if not event_duration:
+            return rank_fact
 
-def get_rate(rank_fact: float, avr_opponents: float) -> float:
-    if rank_fact:
-        rate = avr_opponents / rank_fact
-    else:
-        rate = 1 if avr_opponents else 0
-    return rate
+        user_team, opponent_teams = self.get_teams()
+        avr_opponents, unique_rivals = self.get_average_opponents_rank_and_rivals(opponent_teams)
+        rate = self.get_rate(rank_fact, avr_opponents)
+        time_sum = self.get_time_sum(user_team)
+        result_sum = self.get_result_sum(user_team, time_sum, event_duration)
 
+        logger.info(f"{result_sum=}")
 
-def get_next_rank(user: User, event: Event, recalculate: bool = False) -> float:
-    rank_fact = user.rank_before_event(event) if recalculate else user.rank_fact
-    logger.info(f"username= {user.email}, {rank_fact=}")
-    event_duration = sum([game.current_duration for game in event.event_games.all()])
-    if not event_duration:
-        return rank_fact
+        rank = (rank_fact + result_sum * 0.5 + unique_rivals * 0.01 + rate * 0.001) * self.user.involvement * (100 - self.user.penalty) * 0.01
+        logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
+        logger.info(f"username= {self.user.email}, {rank=}")
+        win_proportion, rank_proportion = self.get_proportion()
+        total_rank = (win_proportion * self.user.wins_percent + rank_proportion * rank) / 100
+        logger.info(f"{win_proportion=}, {rank_proportion=}, {self.user.wins_percent=}, {total_rank=}")
 
-    user_team, opponent_teams = get_teams(event, user)
-    avr_opponents, unique_rivals = get_average_opponents_rank_and_rivals(opponent_teams, user, event)
-    rate = get_rate(rank_fact, avr_opponents)
-    time_sum = get_time_sum(user_team)
-
-    result_sum = 0
-    logger.info(f"{result_sum=}")
-
-    for event_game in user_team.event_games_teams_1.all():
-        win_goals, loss_goals = get_wins_loss_goals(event_game.score_1, event_game.score_2, event_game.result_1)
-        k_goal = get_k_goal(win_goals, loss_goals)
-        result = event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
-        result_sum += result
-        logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
-        logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
-    for event_game in user_team.event_games_teams_2.all():
-        win_goals, loss_goals = get_wins_loss_goals(event_game.score_2, event_game.score_1, event_game.result_2)
-        k_goal = get_k_goal(win_goals, loss_goals)
-        result = event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
-        result_sum += result
-        logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
-        logger.info(f"{result_sum=}, {event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
-
-    logger.info(f"{result_sum=}")
-
-    rank = (rank_fact + result_sum * 0.5 + unique_rivals * 0.01 + rate * 0.001) * user.involvement * (100 - user.penalty) * 0.01
-    logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {user.involvement=}, {user.penalty=}")
-    logger.info(f"username= {user.email}, {rank=}")
-    win_proportion, rank_proportion = get_proportion(user.all_games)
-    total_rank = (win_proportion * user.wins_percent + rank_proportion * rank) / 100
-    logger.info(f"{win_proportion=}, {rank_proportion=}, {user.wins_percent=}, {total_rank=}")
-
-    return round(total_rank, 2)
+        return round(total_rank, 2)

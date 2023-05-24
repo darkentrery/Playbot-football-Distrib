@@ -14,7 +14,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer, EventGameSerializer, \
     CreateGoalSerializer, EventListSerializer
-from playbot.events.utils import auto_distribution, create_teams, create_event_games, get_next_rank
+from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
 from playbot.users.serializers import UserSerializer
@@ -305,7 +305,7 @@ class EndEventView(APIView):
                 game.time_begin = event.time_end
                 game.save()
             for player in event.event_player.all():
-                rank = get_next_rank(player.player, event)
+                rank = RankCalculation(player.player, event).get_next_rank()
                 RankHistory.objects.create(user=player.player, rank=rank, event=event)
             event = EventSerializer(instance=event)
             return Response(event.data, status=status.HTTP_200_OK)
@@ -367,7 +367,7 @@ class EndGameView(APIView):
                 event.time_end = game.time_end
                 event.save()
                 for player in event.event_player.all():
-                    rank = get_next_rank(player.player, event)
+                    rank = RankCalculation(player.player, event).get_next_rank()
                     RankHistory.objects.create(user=player.player, rank=rank, event=event)
             event = EventSerializer(instance=game.event).data
             game = EventGameSerializer(instance=game).data
