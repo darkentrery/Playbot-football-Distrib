@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
 
 from playbot.cities.models import Address
-from playbot.users.models import User, Position, RankHistory
+from playbot.users.models import User, Position, RankHistory, UserRivals
 
 
 class RankHistoryInline(admin.TabularInline):
@@ -12,6 +12,16 @@ class RankHistoryInline(admin.TabularInline):
     list_display = [
         "rank",
         "create",
+    ]
+
+
+class UserRivalsInline(admin.TabularInline):
+    model = UserRivals
+    extra = 0
+    fk_name = "from_user"
+    list_display = [
+        "to_user",
+        "event",
     ]
 
 
@@ -53,7 +63,7 @@ class CustomUserAdmin(UserAdmin):
                     "about_self",
                     "favorite_events",
                     "favorite_players",
-                    "rivals",
+                    # "rivals",
                 )
             },
         ),
@@ -77,9 +87,9 @@ class CustomUserAdmin(UserAdmin):
         "user_permissions",
         "favorite_events",
         "favorite_players",
-        "rivals",
+        # "rivals",
     )
-    inlines = [RankHistoryInline,]
+    inlines = [RankHistoryInline, UserRivalsInline]
     actions = ["set_first_rank", "send_notification", "set_default_address", "change_gender"]
 
     @admin.action()
@@ -126,5 +136,15 @@ class RankHistoryAdmin(admin.ModelAdmin):
         "user",
         "rank",
         "create",
+        "update",
+        "event",
+    ]
+
+
+@admin.register(UserRivals)
+class UserRivalsAdmin(admin.ModelAdmin):
+    list_display = [
+        "from_user",
+        "to_user",
         "event",
     ]

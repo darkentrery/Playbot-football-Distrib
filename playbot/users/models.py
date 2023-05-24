@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
@@ -41,7 +43,8 @@ class User(AbstractUser):
     favorite_players = models.ManyToManyField("users.User", related_name="in_favorite_players", blank=True)
     penalty = models.PositiveIntegerField(_("Penalty"), default=0)
     involvement = models.PositiveIntegerField(_("Involvement"), default=1)
-    rivals = models.ManyToManyField("users.User", related_name="in_rivals", blank=True)
+    rivals = models.ManyToManyField("users.User", related_name="in_rivals", blank=True, through="UserRivals")
+    # rivalss = models.ManyToManyField("users.User", related_name="in_rivalss", blank=True, through="UserRivals")
     is_organizer = models.BooleanField(_("Is Organizer"), default=False)
     is_active = models.BooleanField(
         _("active"),
@@ -178,7 +181,9 @@ class User(AbstractUser):
         return self.user_notices.filter(show=True).count()
 
     def rank_before_event(self, event):
-        time_rank = self.ranks_history.get(event=event).create
+        time_rank = datetime.datetime.combine(event.date, event.time_end or event.time_begin)
+        if self.ranks_history.filter(event=event).exists():
+            time_rank = self.ranks_history.filter(event=event).last().create
         last_rank = self.ranks_history.filter(create__lt=time_rank).last()
         return round(last_rank.rank, 2)
 
@@ -188,6 +193,7 @@ class RankHistory(models.Model):
     rank = models.FloatField(_("Rank"), default=5)
     create = models.DateTimeField(_("Time Create"), default=timezone.now)
     event = models.ForeignKey("events.Event", on_delete=models.CASCADE, related_name="ranks_history", blank=True, null=True)
+    update = models.DateTimeField(_("Time Update"), auto_now=True)
 
     class Meta:
         ordering = ["create",]
@@ -196,3 +202,16 @@ class RankHistory(models.Model):
 
     def __str__(self):
         return f"{self.user.email}" or f"{self.user.username}"
+
+
+class UserRivals(models.Model):
+    from_user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="user_rivals_from_user")
+    to_user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="user_rivals_to_user")
+    event = models.ForeignKey("events.Event", on_delete=models.CASCADE, related_name="user_rivals")
+
+    class Meta:
+        verbose_name = "User Rivals"
+        verbose_name_plural = "User Rivals"
+
+    def __str__(self):
+        return f"{self.from_user.__str__()} - {self.to_user.__str__()}"

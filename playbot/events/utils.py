@@ -4,7 +4,7 @@ from django.db.models import QuerySet
 from loguru import logger
 
 from playbot.events.models import Team, EventGame, Event
-from playbot.users.models import User
+from playbot.users.models import User, UserRivals
 
 
 def create_teams(event):
@@ -199,16 +199,16 @@ def get_time_sum(user_team: Team) -> int:
     return time_sum
 
 
-def get_average_opponents_rank_and_rivals(opponent_teams: QuerySet, user: User) -> tuple[float, int]:
+def get_average_opponents_rank_and_rivals(opponent_teams: QuerySet, user: User, event: Event) -> tuple[float, int]:
     avr_opponents = 0
     rivals = 0
-    unique_rivals = 0
+    unique_rivals = user.rivals.filter(user_rivals_to_user__event=event).count()
     for opponent_team in opponent_teams:
         for opponent in opponent_team.team_players.all():
             avr_opponents += opponent.player.rank_fact
             if opponent.player not in user.rivals.all():
                 unique_rivals += 1
-                user.rivals.add(opponent.player)
+                user.rivals.add(opponent.player, through_defaults={"event": event})
         rivals += opponent_team.team_players.all().count()
     avr_opponents /= rivals
     return avr_opponents, unique_rivals
@@ -236,15 +236,14 @@ def get_rate(rank_fact: float, avr_opponents: float) -> float:
 
 
 def get_next_rank(user: User, event: Event, recalculate: bool = False) -> float:
-    logger.info(f"username= {user.email}")
-
     rank_fact = user.rank_before_event(event) if recalculate else user.rank_fact
+    logger.info(f"username= {user.email}, {rank_fact=}")
     event_duration = sum([game.current_duration for game in event.event_games.all()])
     if not event_duration:
         return rank_fact
 
     user_team, opponent_teams = get_teams(event, user)
-    avr_opponents, unique_rivals = get_average_opponents_rank_and_rivals(opponent_teams, user)
+    avr_opponents, unique_rivals = get_average_opponents_rank_and_rivals(opponent_teams, user, event)
     rate = get_rate(rank_fact, avr_opponents)
     time_sum = get_time_sum(user_team)
 
@@ -275,4 +274,4 @@ def get_next_rank(user: User, event: Event, recalculate: bool = False) -> float:
     total_rank = (win_proportion * user.wins_percent + rank_proportion * rank) / 100
     logger.info(f"{win_proportion=}, {rank_proportion=}, {user.wins_percent=}, {total_rank=}")
 
-    return total_rank
+    return round(total_rank, 2)
