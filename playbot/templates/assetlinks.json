@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : {
+      "namespace": "android_app",
+      "package_name": "ru.korobkaplay.test.twa2",
+      "sha256_cert_fingerprints": ["C3:2F:C6:D5:6B:30:C5:27:EB:BC:5A:E6:DE:FD:70:36:AA:7C:22:CB:B7:4C:FA:D0:23:C9:9B:C1:8C:06:E3:A2"]
+    }
+  }
+]

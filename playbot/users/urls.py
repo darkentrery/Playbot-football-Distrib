@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("api/confirm-sign-up/<slug>/", views.ConfirmSignUpView.as_view(), name='confirm-sign-up'),
     path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
+    path('.well-known/assetlinks.json', views.AssetLinksView.as_view(), name=views.AssetLinksView.name),
     path("api/is-auth/", views.IsAuthView.as_view(), name='is-auth'),
     path("api/get-users/", views.GetUsersView.as_view(), name='get-users'),
     path("api/get-top-10-users/", views.GetTop10UsersView.as_view(), name='get-top-10-users'),

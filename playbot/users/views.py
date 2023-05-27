@@ -50,6 +50,12 @@ class ServiceWorkerView(TemplateView):
     name = 'sw.js'
 
 
+class AssetLinksView(TemplateView):
+    template_name = 'assetlinks.json'
+    # content_type = 'application/javascript'
+    name = 'assetlinks.json'
+
+
 class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializer
     permission_classes = (AllowAny,)

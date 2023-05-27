@@ -25,3 +25,5 @@ playbot/fixtures/format.json playbot/fixtures/position.json`
 `sudo systemctl restart nginx`
 
 `sudo systemctl daemon-reload && sudo systemctl restart gunicorn`
+
+`sudo tail -F /var/log/nginx/error.log`
