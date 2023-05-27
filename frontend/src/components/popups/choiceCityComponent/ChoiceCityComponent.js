@@ -1,11 +1,9 @@
 import React, {useState, useRef, useEffect} from "react";
 import Modal from "react-modal";
-import $ from 'jquery';
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {cityService} from "../../../services/CityService";
 import {authService} from "../../../services/AuthService";
-import {blockBodyScroll} from "../../../utils/manageElements";
 
 
 export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, setAuth, setCity, setCountry, showMap}) {
@@ -14,6 +12,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
     const [addresses, setAddresses] = useState([]);
     const [citiesView, setCitiesView] = useState([]);
     const citiesRef = useRef();
+    const windowRef = useRef();
 
     useEffect(() => {
         if (isOpen) {
@@ -28,15 +27,20 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
                 }
             })
         }
-        blockBodyScroll(isOpen);
     }, [isOpen])
+
+    useEffect(() => {
+        if (windowRef.current) {
+            windowRef.current.parentNode.parentNode.style.zIndex = 1000;
+        }
+    }, [windowRef.current])
 
     const closeWindow = () => {
         closeComponent();
         showMap();
     }
 
-    const sendForm = async () => {
+    const sendForm = () => {
         if (city) {
             setCity(city);
             for (let address of addresses) {
@@ -52,19 +56,30 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
         }
     }
 
-    useEffect(() => {
-        $('.choice-city').find('.scroll-elem').each((elem) => {
-            $('.choice-city').find('.scroll-elem')[elem].className = 'scroll-elem';
-        })
-    }, [citiesView])
+    // useEffect(() => {
+    //     $('.choice-city').find('.scroll-elem').each((elem) => {
+    //         $('.choice-city').find('.scroll-elem')[elem].className = 'scroll-elem';
+    //     })
+    // }, [citiesView])
 
     const choiceCity = (event) => {
         let children = citiesRef.current.children;
         for (let i=0; i<children.length; i++) {
-            $(children[i]).attr('class', 'scroll-elem');
+            children[i].className = 'scroll-elem';
         }
-        $(event.target).attr('class', 'scroll-elem checked');
-        setLocalCity($(event.target).html());
+        event.target.className = 'scroll-elem checked';
+        setLocalCity(event.target.innerHTML);
+        for (let address of addresses) {
+            if (address.city === event.target.innerHTML) {
+                setCountry(address.country);
+                break;
+            }
+        }
+        authDecoratorWithoutLogin(authService.updateAddress, {"city": event.target.innerHTML})
+            .then((response) => {
+                closeWindow();
+                setAuth(true, response.data);
+        })
     }
 
     return(
@@ -74,7 +89,7 @@ export default function ChoiceCityComponent ({isOpen, isIPhone, closeComponent, 
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame choice-city-component"}>
+            <div className={"popup-frame choice-city-component"} ref={windowRef}>
                 <div className={"elem head"}>
                     <span className={"black-600-22"}>Выберите город</span>
                     <div onClick={closeWindow} className={"btn-close choice-city-close"}></div>

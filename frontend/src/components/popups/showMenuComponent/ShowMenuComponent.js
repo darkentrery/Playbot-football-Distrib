@@ -1,18 +1,13 @@
 import Modal from "react-modal";
 import {MainSearchComponent} from "../../mainSearchComponent/MainSearchComponent";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {authService} from "../../../services/AuthService";
-import {blockBodyScroll} from "../../../utils/manageElements";
 
 
 export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
     const [isOpenSearch, setIsOpenSearch] = useState(false);
-
-    useEffect(() => {
-        blockBodyScroll(isOpen);
-    }, [isOpen])
 
     const closeWindow = () => {
         funcs.closeComponent();
@@ -31,7 +26,7 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
     }
 
     const toChoiceCity = () => {
-        closeWindow();
+        // closeWindow();
         funcs.openChoiceCity();
     }
 

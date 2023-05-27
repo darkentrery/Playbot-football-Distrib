@@ -93,18 +93,18 @@ function App({state, funcs}) {
     }, [])
 
     // Listen for authorization success.
-    document.addEventListener('AppleIDSignInOnSuccess', (event) => {
-        // Handle successful response.
-        console.log(event.detail.data);
-        authService.catchError({"success": event.detail});
-    });
-
-    // Listen for authorization failures.
-    document.addEventListener('AppleIDSignInOnFailure', (event) => {
-        // Handle error.
-        console.log(event.detail.error);
-        authService.catchError({"error": event.detail});
-    });
+    // document.addEventListener('AppleIDSignInOnSuccess', (event) => {
+    //     // Handle successful response.
+    //     console.log(event.detail.data);
+    //     authService.catchError({"success": event.detail});
+    // });
+    //
+    // // Listen for authorization failures.
+    // document.addEventListener('AppleIDSignInOnFailure', (event) => {
+    //     // Handle error.
+    //     console.log(event.detail.error);
+    //     authService.catchError({"error": event.detail});
+    // });
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
@@ -124,6 +124,16 @@ function App({state, funcs}) {
             funcs.openSuccessExistsUser();
         }
     }, [localStorage.telegramLogin])
+
+    useEffect(() => {
+        let isOpenChoiceCity = state.windows.isOpenChoiceCity;
+        let isOpenShowMenu = state.windows.isOpenShowMenu;
+        if (isOpenChoiceCity || isOpenShowMenu) {
+            document.body.style = 'overflow: hidden';
+        } else {
+            document.body.style = null;
+        }
+    }, [state.windows.isOpenChoiceCity, state.windows.isOpenShowMenu])
 
     return (
         <div className="App">
