@@ -51,7 +51,7 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
                     <div className={"search-icon"}></div>
                     <span className={"black-400-16"}>Поиск</span>
                 </div>
-                <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} user={user.user} city={city}/>
+                <MainSearchComponent isOpen={isOpenSearch} setIsOpen={setIsOpenSearch}/>
                 <div className={"city-field"} onClick={toChoiceCity}>
                     <div className={"map-point-icon"}></div>
                     <div className={"text-field"}>

@@ -10,8 +10,6 @@ export const MainSearchComponent = ({
     className='',
     isOpen=true,
     setIsOpen = () => {},
-    user,
-    city,
 }) => {
     const [events, setEvents] = useState([]);
     const [players, setPlayers] = useState([]);
@@ -35,6 +33,9 @@ export const MainSearchComponent = ({
                     setPlayers(array);
                 }
             })
+            ref.current.focus();
+        } else {
+            ref.current.value = null;
         }
     }, [isOpen])
 
