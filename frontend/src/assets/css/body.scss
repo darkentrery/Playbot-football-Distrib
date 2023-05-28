@@ -28,6 +28,13 @@
 @media screen and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
   .body {
     padding: 0;
+    flex: 0 0 calc(100vh - 66px);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      display: none;
+    }
     //margin-bottom: 66px;
     //padding-bottom: 66px;
     &.safari-margin {

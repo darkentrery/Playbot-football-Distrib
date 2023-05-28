@@ -114,8 +114,15 @@
   }
   .profile-wrapper-component-376 {
     display: flex;
-    flex: 1 1 auto;
+    //flex: 1 1 auto;
+    flex: 0 0 calc(100vh - 66px);
     justify-content: stretch;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      display: none;
+    }
 
     &.safari-margin {
       margin-bottom: 66px;

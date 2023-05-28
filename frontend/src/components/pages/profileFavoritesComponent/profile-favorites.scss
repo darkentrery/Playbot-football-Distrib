@@ -142,6 +142,7 @@
   .profile-favorites-component {
     &.loader {
       flex: 1 1 auto;
+      height: 100%;
     }
     .table-head-1280 {
       display: none;

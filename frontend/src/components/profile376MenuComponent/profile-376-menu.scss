@@ -14,8 +14,10 @@
     box-sizing: border-box;
 
     &::-webkit-scrollbar {
-      height: 0;
-      width: 0;
+      -webkit-appearance: none;
+      display: none;
+      //height: 0;
+      //width: 0;
     }
     &::-webkit-scrollbar-track {
       border: 0;

@@ -133,7 +133,7 @@
     border-radius: 0;
 
     &.loader {
-      height: 300px;
+      height: calc(100vh - 158px);
     }
     .table-head {
       padding: 0 24px;

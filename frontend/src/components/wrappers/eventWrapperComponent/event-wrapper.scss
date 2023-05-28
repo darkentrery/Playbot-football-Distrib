@@ -95,6 +95,13 @@
     .event-wrapper-body {
       padding: 0;
       width: 100%;
+      flex: 0 0 calc(100vh - 66px);
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        display: none;
+      }
     }
     .event-wrapper-body .navigate-bar-376 {
       display: flex;

@@ -146,6 +146,7 @@
   .profile-my-events-page-component {
     &.loader {
       flex: 1 1 auto;
+      height: 100%;
     }
     .table-bar {
       border-radius: 0;
