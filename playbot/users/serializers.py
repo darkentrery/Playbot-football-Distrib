@@ -117,6 +117,35 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         fields = ["username", "birthday", "email", "gender", "phone_number", "address", "position_1", "position_2",
                   "photo", "about_self"]
 
+    # def is_valid(self, *, raise_exception=False):
+    #     assert hasattr(self, 'initial_data'), (
+    #         'Cannot call `.is_valid()` as no `data=` keyword argument was '
+    #         'passed when instantiating the serializer instance.'
+    #     )
+    #
+    #     if not hasattr(self, '_validated_data'):
+    #         try:
+    #             self._validated_data = self.run_validation(self.initial_data)
+    #         except ValidationError as exc:
+    #             self._validated_data = {}
+    #             self._errors = exc.detail
+    #         else:
+    #             self._errors = {}
+    #         email = self.initial_data.get("email")
+    #         phone_number = self.initial_data.get("phone_number")
+    #         username = self.initial_data.get("username")
+    #         if email and email != self.instance.email and User.objects.filter(email=email).exists():
+    #             self._errors["email"] = "User with this email already exists!"
+    #         if phone_number and phone_number != self.instance.phone_number and User.objects.filter(phone_number=phone_number).exists():
+    #             self._errors["phone_number"] = "User with this phone_number already exists!"
+    #         if username and username != self.instance.username and User.objects.filter(username=username).exists():
+    #             self._errors["username"] = "User with this username already exists!"
+    #
+    #     if self._errors and raise_exception:
+    #         raise ValidationError(self.errors)
+    #
+    #     return not bool(self._errors)
+
 
 class UpdatePasswordSerializer(serializers.ModelSerializer):
     class Meta:
@@ -202,7 +231,7 @@ class SignUpSerializer(serializers.ModelSerializer):
                 self._errors["email"] = "User with this email already exists!"
             if self.validated_data.get("phone_number") and User.objects.filter(phone_number=self.validated_data["phone_number"]).exists():
                 self._errors["phone_number"] = "User with this phone_number already exists!"
-            if self.validated_data.get("email") and User.objects.filter(username=self.validated_data["username"]).exists():
+            if self.validated_data.get("username") and User.objects.filter(username=self.validated_data["username"]).exists():
                 self._errors["username"] = "User with this username already exists!"
 
         if self._errors and raise_exception:

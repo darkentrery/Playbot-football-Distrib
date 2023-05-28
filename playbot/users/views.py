@@ -52,7 +52,6 @@ class ServiceWorkerView(TemplateView):
 
 class AssetLinksView(TemplateView):
     template_name = 'assetlinks.json'
-    # content_type = 'application/javascript'
     name = 'assetlinks.json'
 
 

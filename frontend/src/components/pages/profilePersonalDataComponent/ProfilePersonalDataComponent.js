@@ -11,6 +11,7 @@ import {Link} from "react-router-dom";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
 import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import {errorsUtil} from "../../../utils/errorsUtil";
 
 
 export const ProfilePersonalDataComponent = ({
@@ -29,6 +30,9 @@ export const ProfilePersonalDataComponent = ({
     const [aboutSelf, setAboutSelf] = useState(null);
     const [plusPosition, setPlusPosition] = useState(false);
     const [dateError, setDateError] = useState(false);
+    const [usernameError, setUsernameError] = useState(null);
+    const [emailError, setEmailError] = useState(null);
+    const [phoneError, setPhoneError] = useState(null);
     const [update, setUpdate] = useState(false);
     const [city, setCity] = useState(null);
     const [errorCity, setErrorCity] = useState(null);
@@ -38,6 +42,11 @@ export const ProfilePersonalDataComponent = ({
     const [positions2, setPositions2] = useState(positions);
     const refDate = useRef();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const setErrors = {
+        email: setEmailError,
+        username: setUsernameError,
+        phone_number: setPhoneError,
+    }
 
     useEffect(() => {
         let currentPhoto = null;
@@ -79,6 +88,9 @@ export const ProfilePersonalDataComponent = ({
 
     const cleanData = () => {
         setPlusPosition(false);
+        for (let key in setErrors) {
+            setErrors[key](null);
+        }
     }
 
     useEffect(() => {
@@ -123,6 +135,14 @@ export const ProfilePersonalDataComponent = ({
                         funcs.setPlayer(response.data);
                         funcs.setAuth(true, response.data);
                         setUpdate(false);
+                    } else {
+                        setUpdate(false);
+                        for (let field in setErrors) {
+                            if (response.data[field]) {
+                                let error = errorsUtil.getError(field, response.data[field][0]);
+                                setErrors[field](error);
+                            }
+                        }
                     }
                 })
             }
@@ -153,8 +173,10 @@ export const ProfilePersonalDataComponent = ({
                         <input id={"input__photo"} type="file" accept={"image/*"} onChange={(e) => setPhoto(e.target.files[0])} placeholder={""}/>
                         <label className={"upload-photo"} htmlFor={"input__photo"}>
                             {!photo && <div className={"el-1 no-photo-icon"}></div>}
-                            {photo && typeof photo !== "string" && <img alt="not fount" className={"el-1 my-photo"} src={URL.createObjectURL(photo)}/>}
-                            {photo && typeof photo === "string" && <img alt="not fount" className={"el-1 my-photo"} src={serverUrl + photo}/>}
+                            {photo && typeof photo !== "string" &&
+                                <img alt="not fount" className={"el-1 my-photo"} src={URL.createObjectURL(photo)}/>}
+                            {photo && typeof photo === "string" &&
+                                <img alt="not fount" className={"el-1 my-photo"} src={serverUrl + photo}/>}
                             <div className={"el-2"}>
                                 <span className={"gray-400-14"}>Файл загружен</span>
                                 <span className={"orange-400-14"}>Выбрать файл</span>
@@ -163,7 +185,7 @@ export const ProfilePersonalDataComponent = ({
                     </div>
                     <div className={"fields-form"}>
                         <InputComponent leftIcon={"avatar-icon disabled"} className={"elem elem-1"} placeholder={"Username"}
-                                        value={username} setValue={setUsername}/>
+                                        value={username} setValue={setUsername} errorText={usernameError}/>
                         <div className={"elem elem-2"}>
                             <ReactDatetimeClass
                                 className={`div-input date ${dateError ? 'error' : ''}`}
@@ -178,14 +200,13 @@ export const ProfilePersonalDataComponent = ({
                             <span className={`input-message date-message ${dateError ? 'error' : ''}`}>{dateError}</span>
                         </div>
                         <InputComponent leftIcon={"email-icon"} className={"elem elem-3"} placeholder={"Почта"}
-                                        value={email}
-                                        setValue={setEmail}/>
+                                        value={email} setValue={setEmail} errorText={emailError}/>
                         <DropDownComponent
                             value={gender} setValue={setGender} leftIcon={'gender-man-icon'} sizingClass={"elem elem-4"}
                             content={["Парень", "Девушка"]} placeholder={"Пол"}
                         />
                         <InputComponent leftIcon={"phone-icon"} className={"elem elem-5"} placeholder={"Телефон"}
-                                        value={phone} setValue={setPhone}/>
+                                        value={phone} setValue={setPhone} errorText={phoneError}/>
                         <SelectCityComponent className={"elem elem-6"} value={city} setValue={setCity}
                                              placeholder={"Город"} errorText={errorCity} setErrorText={setErrorCity}/>
                         <div className={"elem elem-8-744 link"}>
@@ -218,7 +239,6 @@ export const ProfilePersonalDataComponent = ({
                         <span className={"orange-400-14 link"} onClick={updatePassword}>Сменить пароль</span>
                     </div>
                     <div className={"change-password"}>
-                        {/*<div className={"orange-lock-icon"}></div>*/}
                         <span className={"orange-400-14 link"} onClick={deleteAccount}>Удалить аккаунт</span>
                     </div>
                     <div className={"bottom-bar-376"}>
