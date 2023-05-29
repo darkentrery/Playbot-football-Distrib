@@ -45,6 +45,8 @@ $dropDownWidth: 100px;
 $dropDownLeftIconLeft: 15px;
 $dropDownLeftIconTop: 12px;
 
+$maxScreenHeight: 915px;
+
 $whiteColor: #FFFFFF;
 $grayColor: #949494;
 $lightGrayColor: #F3F3F3;
@@ -118,7 +120,7 @@ $redColor: #EC5B56;
   }
 }
 
-@media screen and (max-width: 743px) and (max-height: 750px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   $fieldContainerHeight: 61px;
   $fieldHeight: 48px;
   $fieldWidth: 295px;
@@ -158,39 +160,39 @@ $redColor: #EC5B56;
   }
 }
 
-@media screen and (max-width: 743px) and (min-height: 751px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
-  $fieldWidth: 295px;
-  $popupWidth: 696px;
-  $marginSides: 25px;
-  $bottomHeight: 66px;
-  $signUpHeight: 100vh;
-  $loginHeight: 100vh;
-  $refreshWidth: 100vw;
-  $choiceCityHeight: 100vh;
-  $choiceCityWidth: 100vw;
-  $successEventWidth: 100vw;
-  $successEventHeight: 100vh;
-  $successMarginBottom: 50px;
-  $borderRadius: 0;
-
-  $createEventHeight: 100vh;
-  $createEventWidth: 100vw;
-  $createEventLeftWidth: 100vw;
-  $createEventFieldWidth: 296px;
-
-  $paddingSidesBody: 16px;
-  $paddingTopBody: 16px;
-  $paddingBottomBody: 2px;
-  $paddingEventsTable: 0px;
-  $col-1-Width: 55px;
-  $col-2-Width: 70px;
-  $col-3-Width: 51px;
-
-  $noEventsHeight: 350px;
-
-  @import "main";
-  .popup-right {
-    display: none !important;
-  }
-}
+//@media screen and (max-width: 743px) and (min-height: 751px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
+//  $fieldWidth: 295px;
+//  $popupWidth: 696px;
+//  $marginSides: 25px;
+//  $bottomHeight: 66px;
+//  $signUpHeight: 100vh;
+//  $loginHeight: 100vh;
+//  $refreshWidth: 100vw;
+//  $choiceCityHeight: 100vh;
+//  $choiceCityWidth: 100vw;
+//  $successEventWidth: 100vw;
+//  $successEventHeight: 100vh;
+//  $successMarginBottom: 50px;
+//  $borderRadius: 0;
+//
+//  $createEventHeight: 100vh;
+//  $createEventWidth: 100vw;
+//  $createEventLeftWidth: 100vw;
+//  $createEventFieldWidth: 296px;
+//
+//  $paddingSidesBody: 16px;
+//  $paddingTopBody: 16px;
+//  $paddingBottomBody: 2px;
+//  $paddingEventsTable: 0px;
+//  $col-1-Width: 55px;
+//  $col-2-Width: 70px;
+//  $col-3-Width: 51px;
+//
+//  $noEventsHeight: 350px;
+//
+//  @import "main";
+//  .popup-right {
+//    display: none !important;
+//  }
+//}
 

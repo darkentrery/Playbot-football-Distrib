@@ -34,7 +34,7 @@
   }
 }
 
-@media screen and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   .yes-no-component {
     width: 100vw;
     height: 100vh;
@@ -66,5 +66,12 @@
         gap: 14px;
       }
     }
+  }
+}
+
+@media screen and (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
+  .yes-no-component {
+    width: 100vh;
+    height: 100vw;
   }
 }

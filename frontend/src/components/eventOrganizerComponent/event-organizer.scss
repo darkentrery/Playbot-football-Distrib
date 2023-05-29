@@ -49,7 +49,7 @@
   }
 }
 
-@media screen and (max-width: 743px) , (min-height: 375px) and (max-height: 743px) and (orientation: landscape){
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   .event-organizer-component {
     flex: 1 1 auto;
 
@@ -81,14 +81,12 @@
           align-items: center;
           cursor: pointer;
         }
-
         .active {
           background: $grayColor;
           font-weight: 600;
           font-size: 12px;
           color: $whiteColor;
         }
-
         .inactive {
           background: #EBEBEB;
           font-size: 12px;
