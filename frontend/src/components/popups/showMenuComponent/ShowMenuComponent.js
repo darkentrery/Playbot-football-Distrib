@@ -20,7 +20,7 @@ export const ShowMenuComponent = ({isOpen, user, city, funcs}) => {
     }
 
     const getOpenCreateEvent = () => {
-        closeWindow();
+        // closeWindow();
         funcs.setEvent(false);
         funcs.openCreateEvent();
     }

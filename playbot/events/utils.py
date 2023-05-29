@@ -258,7 +258,7 @@ class RankCalculation:
 
     def get_next_rank(self, recalculate: bool = False) -> float:
         rank_fact = self.user.rank_before_event(self.event) if recalculate else self.user.rank_fact
-        logger.info(f"username= {self.user.email}, {rank_fact=}")
+        logger.info(f"\nusername= {self.user.email}, {rank_fact=}")
         event_duration = sum([game.current_duration for game in self.event.event_games.all()])
         if not event_duration:
             return rank_fact
