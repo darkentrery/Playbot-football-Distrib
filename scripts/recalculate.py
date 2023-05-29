@@ -1,8 +1,11 @@
+from loguru import logger
+
 from playbot.events.models import Event
 from playbot.events.utils import RankCalculation
 from playbot.users.models import RankHistory
 
 
+@logger.catch
 def recalculate():
     for event in Event.objects.filter(time_end__isnull=False):
     # for event in Event.objects.filter(date__gte="2023-04-13"):

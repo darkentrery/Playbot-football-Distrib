@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from playbot.events.models import Event, CancelReasons, Team, EventPlayer, TeamPlayer, EventStep, Duration, Format, \
     DistributionMethod, CountCircles, EventGame, EventQueue, Goal, GamePeriod
+from scripts.recalculate import recalculate
 
 
 class TeamInline(admin.TabularInline):
@@ -93,6 +94,11 @@ class EventAdmin(admin.ModelAdmin):
     filter_horizontal = (
         "organizers",
     )
+    actions = ["recalculate_rank",]
+
+    @admin.action()
+    def recalculate_rank(self, request, queryset):
+        recalculate()
 
 
 @admin.register(Team)
