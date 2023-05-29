@@ -258,7 +258,7 @@ class RankCalculation:
 
     def get_next_rank(self, recalculate: bool = False) -> float:
         rank_fact = self.user.rank_before_event(self.event) if recalculate else self.user.rank_fact
-        logger.info(f"\nusername= {self.user.email}, {rank_fact=}")
+        logger.info(f"username= {self.user.email}, {rank_fact=}")
         event_duration = sum([game.current_duration for game in self.event.event_games.all()])
         if not event_duration:
             return rank_fact
@@ -276,6 +276,6 @@ class RankCalculation:
         logger.info(f"username= {self.user.email}, {rank=}")
         win_proportion, rank_proportion = self.get_proportion()
         total_rank = (win_proportion * self.user.wins_percent + rank_proportion * rank) / 100
-        logger.info(f"{win_proportion=}, {rank_proportion=}, {self.user.wins_percent=}, {total_rank=}")
+        logger.info(f"{win_proportion=}, {rank_proportion=}, {self.user.wins_percent=}, {total_rank=}\n")
 
         return round(total_rank, 2)
