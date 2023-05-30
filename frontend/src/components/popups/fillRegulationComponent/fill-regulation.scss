@@ -1,7 +1,7 @@
 .fill-regulation-component {
   &.reglament-component {
     flex: 0 0 540px;
-    height: 603px;
+    height: 486px;
   }
 
   &.until-goal {
@@ -15,9 +15,8 @@
   &.elem-4 {
     flex: 1 1 auto;
     flex-direction: column;
-    margin-top: 25px;
-    margin-bottom: 19px;
-    width: 280px;
+    align-self: stretch;
+    margin: 30px 24px 0 24px;
 
     .dropdown-size-format {
       &.dropdown-component {
@@ -87,7 +86,7 @@
   &.elem-5 {
     flex: 0 0 $fieldHeight;
     width: 280px;
-    margin-bottom: 40px;
+    margin: 14px 0 24px 0;
 
     &.safari-margin {
       margin-bottom: 70px;
@@ -105,6 +104,12 @@
     }
     &.until-goal {
       height: 100%;
+    }
+  }
+
+  .fill-regulation-component .elem {
+    &.elem-4 {
+      margin: 30px 16px 0 16px;
     }
   }
 }

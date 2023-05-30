@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import DropDownComponent from "../../dropDownComponent/DropDownComponent";
-import {CheckSliderComponent} from "../../checkSliderComponent/CheckSliderComponent";
-import {popupCloseDropdown} from "../../../utils/manageElements";
-import {InputComponent} from "../../inputComponent/InputComponent";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {eventService} from "../../../services/EventService";
 
@@ -19,12 +16,13 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const [countCircles, setCountCircles] = useState([]);
     const [duration, setDuration] = useState(false);
     const [durations, setDurations] = useState([]);
-    const [scorer, setScorer] = useState(false);
+    const [scorer, setScorer] = useState(true);
     const [untilGoal, setUntilGoal] = useState(false);
     const [untilGoalCount, setUntilGoalCount] = useState('');
-    const [closeDropDown, setCloseDropDown] = useState(false);
     const [errorText, setErrorText] = useState('');
-    const [modeError, setModeError] = useState('');
+    const [modeError, setModeError] = useState(false);
+    const [durationError, setDurationError] = useState(false);
+    const [countCircleError, setCountCircleError] = useState(false);
     const [isLoader, setIsLoader] = useState(false);
 
     useEffect(() => {
@@ -36,7 +34,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                     if (item.count * 2 <= event.count_current_players) arr.push(item.name);
                 })
                 if (!arr.length) arr.push(false);
-                setFormat(event.format ? event.format : arr[0]);
+                setFormat(event.format ? event.format : null);
                 setFormats(arr);
                 arr = [];
                 response.data.distribution_method.forEach((item) => {
@@ -48,13 +46,13 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
                 response.data.count_circles.forEach((item) => {
                     arr.push(item.name);
                 })
-                setCountCircle(event.count_circles ? event.count_circles : arr[0]);
+                setCountCircle(event.count_circles ? event.count_circles : null);
                 setCountCircles(arr);
                 arr = [];
                 response.data.duration.forEach((item) => {
                     arr.push(item.name);
                 })
-                setDuration(event.duration ? event.duration.name : arr[0]);
+                setDuration(event.duration ? event.duration.name : null);
                 setDurations(arr);
                 setScorer(event.scorer);
                 setUntilGoal(event.until_goal);
@@ -83,6 +81,10 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
     const closeWindow = () => {
         funcs.closeFillRegulation();
         funcs.showMap();
+        setDurationError(false);
+        setFormatError(false);
+        setCountCircleError(false);
+        setModeError(false);
     }
 
     const toConfirmPlayers = () => {
@@ -95,7 +97,7 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
         if (untilGoal && untilGoalCount === '') {
             setErrorText('Введите количество голов!');
         } else {
-            if (format && mode) {
+            if (format && mode && countCircle && duration) {
                 setIsLoader(true);
                 authDecoratorWithoutLogin(eventService.setRegulation, data).then((response) => {
                     setIsLoader(false);
@@ -112,6 +114,8 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
             } else {
                 if (!format) setFormatError('Выберите формат!');
                 if (!mode) setModeError('Выберите способ распределения!');
+                if (!countCircle) setCountCircleError('Выберите количество кругов!');
+                if (!duration) setDurationError('Выберите продолжительность матча!');
             }
         }
     }
@@ -123,48 +127,48 @@ export default function FillRegulationComponent ({isOpen, isIPhone, event, funcs
         return value;
     }
 
-    const popupClick = (e) => {
-        popupCloseDropdown(e, setCloseDropDown, closeDropDown);
-    }
-
     return (
         <ReglamentComponent
-            className={`fill-regulation-component ${untilGoal ? 'until-goal' : ''}`} closeWindow={closeWindow}
-            isOpen={isOpen} step={2} title={"Заполните регламент"} popupClick={popupClick} clickBack={toConfirmPlayers}
+            className={`fill-regulation-component`} closeWindow={closeWindow}
+            isOpen={isOpen} step={2} title={"Заполните регламент"} clickBack={toConfirmPlayers}
             isLoader={isLoader}
         >
             <div className={"elem elem-4"}>
                 <DropDownComponent
                     value={format} setValue={setFormat} leftIcon={'two-people-icon'} sizingClass={"dropdown-size-format"}
-                    flagClose={closeDropDown} id={1} content={formats} errorText={formatError} setErrorText={setFormatError}
+                    content={formats} errorText={formatError} setErrorText={setFormatError} placeholder={"Формат игры"}
                 />
-                <DropDownComponent value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
-                                   sizingClass={"dropdown-size-format"} flagClose={closeDropDown} id={4} content={durations}/>
-                <DropDownComponent value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
-                                   sizingClass={"dropdown-size-count-circle"} flagClose={closeDropDown} id={3} content={countCircles}
-                                   rightSecondIcon={'question-mark-icon'} rightFirstIcon={'question-mark-icon'}
-                                   tooltipText={"Количество кругов - параметр, который определяет сколько раз команды встретятся между собой в рамках события"}
+                <DropDownComponent
+                    value={duration} setValue={setDuration} leftIcon={'gray-clock-icon'}
+                    sizingClass={"dropdown-size-format"} content={durations} placeholder={"Продолжительность матча"}
+                    errorText={durationError} setErrorText={setDurationError}
                 />
-                <DropDownComponent value={mode} setValue={setMode} leftIcon={'man-in-target-icon'}
-                                   sizingClass={"dropdown-size-mode"} flagClose={closeDropDown} id={2} content={modes}
-                                   placeholder={"Способ распределения"} errorText={modeError} setErrorText={setModeError}
-                                   tooltipText={"Способ распределения:\n" +
-                                       "\n" +
-                                       "Автоматический - делит игроков на команды автоматически исходя из рейтинга, пола и позиции. \n" +
-                                       "\n" +
-                                       "Вручную - администратор сам делит пользователей на команды"}
-                                   rightFirstIcon={'question-mark-icon'} rightSecondIcon={'question-mark-icon'}
+                <DropDownComponent
+                    value={countCircle} setValue={setCountCircle} leftIcon={'football-field-icon'}
+                    sizingClass={"dropdown-size-count-circle"} content={countCircles} rightSecondIcon={'question-mark-icon'}
+                    rightFirstIcon={'question-mark-icon'}
+                    placeholder={"Количество кругов"} errorText={countCircleError} setErrorText={setCountCircleError}
+                    tooltipText={"Количество кругов - параметр, который определяет сколько раз команды встретятся между собой в рамках события"}
                 />
-                <CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>
-                <CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"}
-                                      sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}
-                                      tooltipText={"Играть до Х голов - формат игры при котором игра автоматически завершается, как только одна из команд забьет указанное количество мячей."}
+                <DropDownComponent
+                    value={mode} setValue={setMode} leftIcon={'man-in-target-icon'} sizingClass={"dropdown-size-mode"}
+                    content={modes} placeholder={"Способ распределения"} errorText={modeError} setErrorText={setModeError}
+                    tooltipText={"Способ распределения:\n" +
+                       "\n" +
+                       "Автоматический - делит игроков на команды автоматически исходя из рейтинга, пола и позиции. \n" +
+                       "\n" +
+                       "Вручную - администратор сам делит пользователей на команды"}
+                    rightFirstIcon={'question-mark-icon'} rightSecondIcon={'question-mark-icon'}
                 />
-                <InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}
-                                setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>
+                {/*<CheckSliderComponent value={scorer} setValue={setScorer} text={"Учитывать авторов голов"} sizingClass={"check-slider-size"}/>*/}
+                {/*<CheckSliderComponent value={untilGoal} setValue={setUntilGoal} text={"Игра до X голов"}*/}
+                {/*                      sizingClass={"check-slider-size"} textIcon={"question-mark-icon"}*/}
+                {/*                      tooltipText={"Играть до Х голов - формат игры при котором игра автоматически завершается, как только одна из команд забьет указанное количество мячей."}*/}
+                {/*/>*/}
+                {/*<InputComponent className={`until-goal-input ${untilGoal ? '' : 'hidden'}`} value={untilGoalCount}*/}
+                {/*                setValue={setUntilGoalCount} placeholder={"Количество голов"} onChange={inputDigit} errorText={errorText}/>*/}
             </div>
-            <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Поделиться на команды</button>
+            <button className={`elem elem-5 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={fillRegulation}>Утвердить регламент</button>
         </ReglamentComponent>
     )
-
 }
