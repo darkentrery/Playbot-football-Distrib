@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from "react";
-import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {eventService} from "../../../services/EventService";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
+import {CheckboxComponent} from "../../checkboxComponent/CheckboxComponent";
+import avatarIcon from "../../../assets/icon/avatar-2.png";
 
 
 export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs}) {
     const [players, setPlayers] = useState([]);
     const [selected, setSelected] = useState([]);
-    const [players1, setPlayers1] = useState([]);
-    const [players2, setPlayers2] = useState([]);
+    const [playersBeforeSearch, setPlayersBeforeSearch] = useState([]);
+    const [playersAfterSearch, setPlayersAfterSearch] = useState([]);
     const [playersView, setPlayersView] = useState([]);
     const [isLoader, setIsLoader] = useState(false);
+    const [allChecked, setAllChecked] = useState(false);
+
 
     useEffect(() => {
         if (event && isOpen) {
@@ -22,7 +25,7 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
             event.event_player.forEach((item) => {
                 array.push(item.player.username);
             })
-            setPlayers1(array);
+            setPlayersBeforeSearch(array);
         }
         if (event && event.event_step.length > 1 && event.event_step[0].complete && isOpen) {
             let arr = [];
@@ -36,10 +39,10 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     useEffect(() => {
         let array = [];
         players.forEach((item) => {
-            if (players2.includes(item.player.username)) array.push(item);
+            if (playersAfterSearch.includes(item.player.username)) array.push(item);
         })
         setPlayersView(array);
-    }, [players2])
+    }, [playersAfterSearch])
 
 
     const closeWindow = () => {
@@ -48,21 +51,21 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
     }
 
     const selectPlayer = (e) => {
-        let itemSelect = $(e.target).parent('.el');
-        let arrSelect = [];
-        selected.forEach(item => {
-            arrSelect.push(item);
-        })
-        if ($(e.target).hasClass('el')) {
-            itemSelect = $(e.target);
+        let itemSelect = e.target.parentNode;
+        let arrSelect = [...selected];
+        if (e.target.classList.contains('el')) {
+            itemSelect = e.target;
         }
-        if (selected.includes(itemSelect.attr('id'))) {
-            let i = selected.indexOf(itemSelect.attr('id'));
+        if (selected.includes(itemSelect.id)) {
+            let i = selected.indexOf(itemSelect.id);
             arrSelect.splice(i, 1);
+            setAllChecked(false);
         } else {
-            arrSelect.push(itemSelect.attr('id'));
+            arrSelect.push(itemSelect.id);
         }
+        if (arrSelect.length === players.length) setAllChecked(true);
         setSelected(arrSelect);
+
     }
 
     const confirmPlayers = () => {
@@ -81,19 +84,36 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
         }
     }
 
+    const selectAll = () => {
+        if (allChecked) {
+            setSelected([]);
+        } else {
+            setSelected(players.map(player => {
+                return player.player.id.toString();
+            }));
+        }
+    }
+
     return (
         <ReglamentComponent className={`confirm-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={1}
                             title={"Подтвердите игроков"} isLoader={isLoader}>
-            <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
+            <div className={"elem elem-4"}>
+                <SearchComponent className={"search-field"} arrayFirst={playersBeforeSearch} setArraySecond={setPlayersAfterSearch}/>
+                <CheckboxComponent text={allChecked ? 'Отменить выбор' : 'Выбрать всех'}
+                                   checked={allChecked} setChecked={setAllChecked} onClick={selectAll}/>
+            </div>
+
             <div className={"elem elem-5 scroll"}>
                 {event && !!playersView.length && playersView.map((item, key) => (
                     <div className={"el"} onClick={selectPlayer} key={key} id={item.player.id}>
                         <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
-                        <div className={"player-avatar-icon"}></div>
-                        <span className={"black-400-13"}>{item.player.username}</span>
+                        <img src={avatarIcon} className={"avatar"} alt=""/>
+                        <span className={"black-400-13 username"}>{item.player.username}</span>
+                        {/*<span className={"black-400-13 username-376"}>{item.player.username}</span>*/}
                     </div>
                 ))}
             </div>
+            <div className={"elem elem-fake"}></div>
             <button className={`elem elem-6 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers}>Продолжить</button>
         </ReglamentComponent>
     )

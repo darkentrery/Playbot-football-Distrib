@@ -1,7 +1,7 @@
 .confirm-players-component {
   &.reglament-component {
     flex: 0 0 540px;
-    height: 717px;
+    height: 728px;
   }
 }
 
@@ -16,7 +16,6 @@
     align-items: center;
     align-self: stretch;
 
-
     .btn-close {
       margin-top: -24px;
       align-self: end;
@@ -25,30 +24,46 @@
   }
 
   &.elem-4 {
-    margin-top: 10px;
-    width: 280px;
+    align-self: stretch;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex: 0 0 36px;
+    align-items: end;
+
+    .search-field {
+      margin-top: 19px;
+      flex: 0 0 288px;
+    }
   }
 
   &.elem-5 {
-    flex: 1 1 auto;
-    overflow: auto;
-    flex-direction: column;
-    margin-top: 33px;
-    margin-bottom: 42px;
-    width: 280px;
-    //max-height: 427px;
+    align-self: stretch;
+    padding: 0 8px 0 24px;
+    flex-wrap: wrap;
+    margin: 20px 8px 28px 0;
+    gap: 4px 12px;
+    justify-content: start;
+    max-height: 492px;
+    box-sizing: border-box;
 
     .el {
       display: flex;
-      flex: 0 0 52px;
+      flex: 0 0 240px;
       align-items: center;
       cursor: pointer;
+      gap: 12px;
+      height: 50px;
+      box-sizing: border-box;
+      width: 240px;
 
       .player-select-icon {
         flex: 0 0 20px;
         height: 20px;
       }
-
+      .avatar {
+        flex: 0 0 32px;
+        height: 40px;
+      }
       .player-avatar-icon {
         flex: 0 0 32px;
         height: 42px;
@@ -56,13 +71,20 @@
         margin-right: 14px;
         background-size: 32px 42px;
       }
+      .username {
+        word-break: break-all;
+      }
     }
+  }
+
+  &.elem-fake {
+    flex: 1 1 auto;
   }
 
   &.elem-6 {
     flex: 0 0 $fieldHeight;
     width: 280px;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 
     &.safari-margin {
       margin-bottom: 70px;
@@ -75,6 +97,48 @@
     &.reglament-component {
       flex: 0 0 100%;
       height: 100%;
+    }
+  }
+
+  .confirm-players-component .elem {
+    &.elem-4 {
+      justify-content: start;
+      padding: 0 16px;
+      flex: 0 0 99px;
+      align-items: start;
+      flex-direction: column;
+      gap: 22px;
+
+      .search-field {
+        margin-top: 17px;
+        flex: 0 0 36px;
+        align-self: stretch;
+      }
+    }
+    &.elem-5 {
+      align-self: stretch;
+      padding: 0 8px 0 16px;
+      flex-wrap: wrap;
+      margin: 16px 8px 28px 0;
+      gap: 4px 12px;
+      justify-content: space-between;
+      max-height: none;
+      box-sizing: border-box;
+
+      .el {
+        flex: 0 0 calc(50% - 24px);
+        width: 165.5px;
+      }
+    }
+    &.elem-6 {
+      flex: 0 0 $fieldHeight;
+      width: auto;
+      align-self: stretch;
+      margin: 26px 16px;
+
+      &.safari-margin {
+        margin-bottom: 70px;
+      }
     }
   }
 }

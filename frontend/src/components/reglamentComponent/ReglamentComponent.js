@@ -41,8 +41,8 @@ export const ReglamentComponent = ({
                         <span className={step === 3 ? "black-600-16" : "gray-400-16"}>Шаг 3</span>
                     </div>
                     <div className={"elem elem-3"}>
-                        <div className={step === 1 ? "orange-line" : "gray-line"}></div>
-                        <div className={step === 2 ? "orange-line" : "gray-line"}></div>
+                        <div className={step >= 1 ? "orange-line" : "gray-line"}></div>
+                        <div className={step >= 2 ? "orange-line" : "gray-line"}></div>
                         <div className={step === 3 ? "orange-line" : "gray-line"}></div>
                     </div>
                     {children}

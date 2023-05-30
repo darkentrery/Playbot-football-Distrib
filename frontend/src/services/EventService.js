@@ -82,6 +82,15 @@ export const eventService = {
 		return newNames.join(' ');
 	},
 
+	getSplitUsername(name, size=8) {
+		let count = Math.floor(name.length / size);
+		let newNames = [];
+		for (let i=0; i<count; i++) {
+			newNames.push(name.slice(i*8, i*8 + 8));
+		}
+		return newNames.join('\n');
+	},
+
 	getTeamName(name, size=20) {
 		let teamName = name.split(' ');
 		let newNames = [];

@@ -1,0 +1,17 @@
+.checkbox-component {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+
+  .cell {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #9C9C9C;
+    border-radius: 8px;
+  }
+  .cell.active {
+    border: none;
+    background: url("../../assets/icon/orange-checkbox.svg");
+  }
+}
