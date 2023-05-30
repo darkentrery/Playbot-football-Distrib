@@ -65,7 +65,6 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
         }
         if (arrSelect.length === players.length) setAllChecked(true);
         setSelected(arrSelect);
-
     }
 
     const confirmPlayers = () => {
@@ -109,7 +108,6 @@ export default function ConfirmPlayersComponent ({isOpen, isIPhone, event, funcs
                         <div className={`player-select-icon ${selected.includes(item.player.id.toString()) ? '' : 'inactive'}`}></div>
                         <img src={avatarIcon} className={"avatar"} alt=""/>
                         <span className={"black-400-13 username"}>{item.player.username}</span>
-                        {/*<span className={"black-400-13 username-376"}>{item.player.username}</span>*/}
                     </div>
                 ))}
             </div>

@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
-import $ from "jquery";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 import {eventService} from "../../../services/EventService";
+import avatarIcon from "../../../assets/icon/avatar-2.png";
 
 
 export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, funcs}) => {
@@ -45,18 +45,18 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
             })
             setPlayers(array);
             setPlayersView(array);
-            setPlayers1(array1);
+            // setPlayers1(array1);
             if (!teamName) setTeamName(team.name);
         }
     }, [isOpen, team, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        let array = [];
-        players.forEach((item) => {
-            if (players2.includes(item.username)) array.push(item);
-        })
-        setPlayersView(array);
-    }, [players2]) // eslint-disable-line react-hooks/exhaustive-deps
+    // useEffect(() => {
+    //     let array = [];
+    //     players.forEach((item) => {
+    //         if (players2.includes(item.username)) array.push(item);
+    //     })
+    //     setPlayersView(array);
+    // }, [players2]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const closeWindow = () => {
@@ -67,19 +67,16 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     }
 
     const selectPlayer = (e) => {
-        let itemSelect = $(e.target).parent('.el');
-        let arrSelect = [];
-        selected.forEach(item => {
-            arrSelect.push(item);
-        })
-        if ($(e.target).hasClass('el')) {
-            itemSelect = $(e.target);
+        let itemSelect = e.target.parentNode;
+        let arrSelect = [...selected];
+        if (e.target.classList.contains('el')) {
+            itemSelect = e.target;
         }
-        if (selected.includes(itemSelect.attr('id'))) {
-            let i = selected.indexOf(itemSelect.attr('id'));
+        if (selected.includes(itemSelect.id)) {
+            let i = selected.indexOf(itemSelect.id);
             arrSelect.splice(i, 1);
         } else {
-            if (selected.length < team.count_players) arrSelect.push(itemSelect.attr('id'));
+            if (selected.length < team.count_players) arrSelect.push(itemSelect.id);
         }
         setSelected(arrSelect);
     }
@@ -143,24 +140,27 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
 
     return (
         <ReglamentComponent className={`confirm-team-players-component`} closeWindow={closeWindow} isOpen={isOpen} step={3}
-                            title={"Выбери состав"} clickBack={clickBack} isLoader={isLoader}>
+                            title={"Установите составы"} clickBack={clickBack} isLoader={isLoader}>
             {!!event && <>
-                <SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>
-                <TeamNameComponent className={"elem elem-5"} value={teamName} setValue={setTeamName}/>
+                {/*<SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>*/}
+                <div className={"elem elem-5"}>
+                    <span className={"black-600-16"}>Участники</span>
+                    <TeamNameComponent value={teamName} setValue={setTeamName}/>
+                </div>
                 <div className={"elem elem-6 scroll"}>
                 {event && playersView.length !== 0 && playersView.map((item, key) => (
                     <div className={"el"} onClick={selectPlayer} key={key} id={item.id}>
                         <div className={`player-select-icon ${selected.includes(item.id.toString()) ? '' : 'inactive'}`}></div>
-                        <div className={"player-avatar-icon"}></div>
-                        <span className={"black-400-13"}>{item.username}</span>
+                        <img src={avatarIcon} className={"avatar"} alt=""/>
+                        <span className={"black-400-13 username"}>{item.username}</span>
                     </div>
                 ))}
                 </div>
+                <div className={"elem elem-fake"}></div>
                 <button className={`elem elem-7 btn ${isIPhone ? 'safari-margin' : ''}`} onClick={confirmPlayers} ref={buttonRef}>
-                    {team && team.number < event.teams.length ? 'Следующая команда' : 'Далее'}
+                    {team && team.number < event.teams.length ? 'Следующая команда' : 'Подтвердить'}
                 </button>
             </>}
         </ReglamentComponent>
     )
-
 }

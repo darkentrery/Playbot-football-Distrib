@@ -1,0 +1,86 @@
+[
+  {
+    "model": "events.PlayerNumber",
+    "pk": 1,
+    "fields": {
+      "number": 1
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 2,
+    "fields": {
+      "number": 2
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 3,
+    "fields": {
+      "number": 3
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 4,
+    "fields": {
+      "number": 4
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 5,
+    "fields": {
+      "number": 5
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 6,
+    "fields": {
+      "number": 6
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 7,
+    "fields": {
+      "number": 7
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 8,
+    "fields": {
+      "number": 8
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 9,
+    "fields": {
+      "number": 9
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 10,
+    "fields": {
+      "number": 10
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 11,
+    "fields": {
+      "number": 11
+    }
+  },
+  {
+    "model": "events.PlayerNumber",
+    "pk": 12,
+    "fields": {
+      "number": 12
+    }
+  }
+]

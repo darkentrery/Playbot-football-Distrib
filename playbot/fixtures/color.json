@@ -1,0 +1,74 @@
+[
+  {
+    "model": "events.Color",
+    "pk": 1,
+    "fields": {
+      "color": "Оранжевый",
+      "color_hex":  "#F27901"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 2,
+    "fields": {
+      "color": "Зеленый",
+      "color_hex":  "#019F4C"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 3,
+    "fields": {
+      "color": "Синий",
+      "color_hex":  "#0A08FF"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 4,
+    "fields": {
+      "color": "Красный",
+      "color_hex":  "#FC0D13"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 5,
+    "fields": {
+      "color": "Розовый",
+      "color_hex":  "#FD80FF"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 6,
+    "fields": {
+      "color": "Салатовый",
+      "color_hex":  "#B6FF4E"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 7,
+    "fields": {
+      "color": "Желтый",
+      "color_hex":  "#F9FC00"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 8,
+    "fields": {
+      "color": "Черный",
+      "color_hex":  "#000002"
+    }
+  },
+  {
+    "model": "events.Color",
+    "pk": 9,
+    "fields": {
+      "color": "Белый",
+      "color_hex":  "#FEFFFF"
+    }
+  }
+]

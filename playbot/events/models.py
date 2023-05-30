@@ -190,11 +190,24 @@ class Event(models.Model, CreateNotice):
         return self.event_player.all().count()
 
 
+class Color(models.Model):
+    color = models.CharField(_("Color"), max_length=50, unique=True)
+    color_hex = models.CharField(_("Color Hex"), max_length=50)
+
+    class Meta:
+        verbose_name = "Color"
+        verbose_name_plural = "Colors"
+
+    def __str__(self):
+        return f"{self.color}"
+
+
 class Team(models.Model):
     name = models.CharField(_("Name"), max_length=150)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="teams")
     count_players = models.IntegerField(_("Count Of Players"))
     number = models.IntegerField(_("Team Number"), default=1)
+    color = models.ForeignKey(Color, on_delete=models.SET_NULL, related_name="teams", blank=True, null=True)
 
     class Meta:
         unique_together = ["name", "event"]
@@ -351,12 +364,24 @@ class EventQueue(models.Model):
         return f"{self.player.username} - {self.event.name}"
 
 
+class PlayerNumber(models.Model):
+    number = models.PositiveIntegerField(_("Number"), unique=True)
+
+    class Meta:
+        verbose_name = "Player Number"
+        verbose_name_plural = "Player Numbers"
+
+    def __str__(self):
+        return f"{self.number}"
+
+
 class TeamPlayer(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="team_players")
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team_players")
+    number = models.ForeignKey(PlayerNumber, on_delete=models.CASCADE, related_name="team_players", blank=True, null=True)
 
     class Meta:
-        unique_together = ["player", "team"]
+        unique_together = [["player", "team"], ["number", "team"]]
         verbose_name = "Team Player"
         verbose_name_plural = "Teams Players"
 

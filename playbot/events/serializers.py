@@ -3,7 +3,7 @@ from rest_framework import serializers
 from playbot.cities.models import Field
 from playbot.cities.serializers import FieldSerializer
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, Goal, GamePeriod, Color, PlayerNumber
 from playbot.users.models import User, Position
 
 
@@ -48,22 +48,38 @@ class EventStepSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+class PlayerNumberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerNumber
+        fields = ["id", "number"]
+        read_only_fields = fields
+
+
 class TeamPlayerSerializer(serializers.ModelSerializer):
     player = UserSerializer(read_only=True)
+    number = PlayerNumberSerializer(read_only=True)
 
     class Meta:
         model = TeamPlayer
-        fields = ["player",]
+        fields = ["player", "number"]
+        read_only_fields = fields
+
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = ["color", "color_hex"]
         read_only_fields = fields
 
 
 class TeamSerializer(serializers.ModelSerializer):
     team_players = TeamPlayerSerializer(TeamPlayer, many=True, read_only=True)
+    color = ColorSerializer(read_only=True)
 
     class Meta:
         model = Team
         fields = ["id", "name", "count_players", "number", "wins", "loss", "nothing", "played", "scores", "do_goals",
-                  "miss_goals", "team_players"]
+                  "miss_goals", "team_players", "color"]
         read_only_fields = fields
 
 
