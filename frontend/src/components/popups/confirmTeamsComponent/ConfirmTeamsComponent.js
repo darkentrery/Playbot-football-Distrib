@@ -6,6 +6,7 @@ import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 import {eventService} from "../../../services/EventService";
 import avatarIcon from "../../../assets/icon/avatar-2.png";
 import {SelectColorComponent} from "../../selectColorComponent/SelectColorComponent";
+import {SelectNumberComponent} from "../../selectNumberComponent/SelectNumberComponent";
 
 
 export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs}) {
@@ -32,8 +33,10 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
         [teamName8, setTeamName8],
     ];
     const [colorList, setColorList] = useState([]);
+    const [numberList, setNumberList] = useState([]);
     // const colorList = ["#F27901", "#019F4C", "#0A08FF", "#FC0D13", "#FD80FF", "#B6FF4E", "#F9FC00", "#000002", "#FEFFFF"];
     const [teamColors, setTeamColors] = useState([]);
+    const [teamNumbers, setTeamNumbers] = useState([]);
 
     useEffect(() => {
         if (event && event.event_step && event.event_step.length && event.count_circles && isOpen) {
@@ -50,6 +53,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 ["Общее время:", `${totalDuration} ${totalDurationLabel}`]
             ]);
             eventService.getColors().then(response => setColorList(response.data));
+            eventService.getNumbers().then(response => setNumberList(response.data));
             // let array = [];
             // for (let i=0; i<Math.ceil(event.teams.length / 2); i++) {
             //     array.push([]);
@@ -58,6 +62,9 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 teamNames[i][1](team.name);
             })
             setTeamColors(event.teams.map(team => { return team.color; }));
+            setTeamNumbers(event.teams.map(team => {
+                return team.team_players.map(player => { return player.number; });
+            }));
             setTeams(...event.teams);
             console.log(event.teams)
         }
@@ -80,9 +87,12 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
     const confirmTeams = () => {
         setIsLoader(true);
-        teams.forEach((team, key) => {
+        event.teams.forEach((team, key) => {
             event.teams[key].name = teamNames[key][0];
             event.teams[key].color = teamColors[key].id;
+            team.team_players.forEach((player, i) => {
+                event.teams[key].team_players[i].number = teamNumbers[key][i].id;
+            })
         })
         authDecoratorWithoutLogin(eventService.confirmTeams, {"event": event}).then((response) => {
             if (response.status === 200) {
@@ -116,6 +126,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                             <div className={"el"} key={i}>
                                 <img src={avatarIcon} className={"avatar"} alt=""/>
                                 <span className={"black-400-13 username"}>{player.player.username}</span>
+                                <SelectNumberComponent numberList={numberList} id={i} teamId={key} numbers={teamNumbers} setNumbers={setTeamNumbers}/>
                             </div>
                         ))}
                     </div>

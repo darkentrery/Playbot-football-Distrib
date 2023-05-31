@@ -29,7 +29,6 @@
     }
   }
   &.elem-5 {
-    //flex: 1 1 auto;
     margin: 0 8px 0 24px;
     padding: 0 16px 0 0;
     flex-direction: column;
@@ -55,6 +54,7 @@
         box-sizing: border-box;
         border-bottom: 1px solid #EBEBEB;
         padding: 6px 0;
+        justify-content: space-between;
 
         .avatar {
           flex: 0 0 32px;
@@ -62,12 +62,10 @@
         }
         .username {
           word-break: break-all;
+          flex: 1 1 auto;
         }
       }
     }
-  }
-  &.elem-5-376 {
-    display: none;
   }
   &.elem-7 {
     align-self: stretch;
@@ -75,9 +73,8 @@
     box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25);
     border-radius: 0px 0px 8px 8px;
     justify-content: center;
-    gap: 18px;
     align-items: stretch;
-    padding: 12px 0 12px 0;
+    padding: 12px 0;
 
     .btn {
       flex: 0 0 219px;
@@ -102,32 +99,13 @@
       &.elem-4 {
         margin-bottom: 0;
       }
-      &.elem-5-1280 {
-        display: none;
-      }
-      &.elem-5-376 {
-        display: flex;
-        flex: 1 1 auto;
-        align-self: stretch;
-        flex-direction: column;
-
-        .el {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          box-sizing: border-box;
-          padding: 20px 0 20px 40px;
-          border-bottom: 2px solid #F2F2F2;
-        }
-      }
       &.elem-7 {
         flex: 0 0 99px;
         flex-direction: column;
-        gap: 16px;
-        padding: 8px 40px 12px 40px;
+        padding: 26px 16px;
 
         .btn {
-          flex: 0 0 40px;
+          flex: 0 0 48px;
         }
         span {
           flex: 0 0 17px;

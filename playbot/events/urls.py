@@ -28,4 +28,5 @@ urlpatterns = [
     path("add-to-favorites/", views.AddToFavoritesView.as_view(), name='add-to-favorites'),
     path("remove-from-favorites/", views.RemoveFromFavoritesView.as_view(), name='remove-from-favorites'),
     path("get-colors/", views.ColorsView.as_view(), name='get-colors'),
+    path("get-numbers/", views.NumbersView.as_view(), name='get-numbers'),
 ]

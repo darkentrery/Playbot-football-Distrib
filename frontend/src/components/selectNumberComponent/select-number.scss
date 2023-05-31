@@ -1,0 +1,47 @@
+.select-number-component {
+  display: flex;
+  width: 68px;
+  height: 32px;
+  position: relative;
+  flex: 0 0 68px;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 8px;
+  border: 0.8px solid #949494;
+  border-radius: 8px;
+
+  .number {
+    display: flex;
+    padding-left: 40px;
+    box-sizing: border-box;
+    align-self: stretch;
+    cursor: pointer;
+    align-items: center;
+    flex: 1 1 auto;
+  }
+  .number-list {
+    display: flex;
+    position: absolute;
+    left: -10px;
+    top: 42px;
+    width: 68px;
+    background-color: #FFFFFF;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 2px 10px rgba(118, 118, 118, 0.25);
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    z-index: 10;
+
+    &.hidden {
+      display: none;
+    }
+    .number-item {
+      display: flex;
+      flex: 0 0 32px;
+      align-items: center;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+}

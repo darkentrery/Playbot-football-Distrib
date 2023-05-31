@@ -9,11 +9,11 @@ from rest_framework.views import APIView
 
 from playbot.chats.models import Chat
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color, PlayerNumber
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer, EventGameSerializer, \
-    CreateGoalSerializer, EventListSerializer, ColorSerializer
+    CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
@@ -427,3 +427,11 @@ class ColorsView(APIView):
     def get(self, request, format='json', **kwargs):
         colors = ColorSerializer(Color.objects.all(), many=True)
         return Response(colors.data, status=status.HTTP_200_OK)
+
+
+class NumbersView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        numbers = PlayerNumberSerializer(PlayerNumber.objects.all(), many=True)
+        return Response(numbers.data, status=status.HTTP_200_OK)
