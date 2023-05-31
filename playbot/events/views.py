@@ -9,11 +9,11 @@ from rest_framework.views import APIView
 
 from playbot.chats.models import Chat
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer, EventGameSerializer, \
-    CreateGoalSerializer, EventListSerializer
+    CreateGoalSerializer, EventListSerializer, ColorSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
@@ -419,3 +419,11 @@ class RemoveFromFavoritesView(APIView):
             json = UserSerializer(instance=request.user).data
             return Response(json, status=status.HTTP_200_OK)
         return Response({"error": "Not in favorites!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ColorsView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        colors = ColorSerializer(Color.objects.all(), many=True)
+        return Response(colors.data, status=status.HTTP_200_OK)

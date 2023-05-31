@@ -68,7 +68,7 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
-        fields = ["color", "color_hex"]
+        fields = ["id", "color", "color_hex"]
         read_only_fields = fields
 
 

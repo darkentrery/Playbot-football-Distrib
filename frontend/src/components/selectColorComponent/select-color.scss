@@ -1,0 +1,42 @@
+.select-color-component {
+  display: flex;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  justify-content: stretch;
+  align-items: stretch;
+
+  .color {
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 0 0 20px;
+  }
+  .color-list {
+    display: flex;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    width: 164px;
+    height: 136px;
+    background-color: #FFFFFF;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 2px 10px rgba(118, 118, 118, 0.25);
+    border-radius: 8px;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    &.hidden {
+      display: none;
+    }
+    .color-item {
+      display: flex;
+      flex: 0 0 20px;
+      height: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+}

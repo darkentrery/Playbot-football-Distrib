@@ -61,6 +61,7 @@ export const eventService = {
 	getEvent(id) { return getRequest('get-event/', id); },
 	addToFavorites(data) { return postRequest('add-to-favorites/', data); },
 	removeFromFavorites(data) { return postRequest('remove-from-favorites/', data); },
+	getColors() { return getRequest('get-colors/'); },
 	isFavorite(user, event) {
 		let isFavorite = false;
 		user.favorite_events.forEach((e) => {

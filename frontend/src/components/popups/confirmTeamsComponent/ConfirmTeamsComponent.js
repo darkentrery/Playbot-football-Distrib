@@ -4,6 +4,8 @@ import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {getMinutesStr} from "../../../utils/dates";
 import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 import {eventService} from "../../../services/EventService";
+import avatarIcon from "../../../assets/icon/avatar-2.png";
+import {SelectColorComponent} from "../../selectColorComponent/SelectColorComponent";
 
 
 export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs}) {
@@ -18,6 +20,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     const [teamName7, setTeamName7] = useState(false);
     const [teamName8, setTeamName8] = useState(false);
     const [isLoader, setIsLoader] = useState(false);
+    // const [teamNames, setTeamNames] = useState([]);
     const teamNames = [
         [teamName1, setTeamName1],
         [teamName2, setTeamName2],
@@ -28,6 +31,9 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
         [teamName7, setTeamName7],
         [teamName8, setTeamName8],
     ];
+    const [colorList, setColorList] = useState([]);
+    // const colorList = ["#F27901", "#019F4C", "#0A08FF", "#FC0D13", "#FD80FF", "#B6FF4E", "#F9FC00", "#000002", "#FEFFFF"];
+    const [teamColors, setTeamColors] = useState([]);
 
     useEffect(() => {
         if (event && event.event_step && event.event_step.length && event.count_circles && isOpen) {
@@ -43,15 +49,17 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 ["Время матча:", `${duration} ${durationLabel}`],
                 ["Общее время:", `${totalDuration} ${totalDurationLabel}`]
             ]);
-            let array = [];
-            for (let i=0; i<Math.ceil(event.teams.length / 2); i++) {
-                array.push([]);
-            }
+            eventService.getColors().then(response => setColorList(response.data));
+            // let array = [];
+            // for (let i=0; i<Math.ceil(event.teams.length / 2); i++) {
+            //     array.push([]);
+            // }
             event.teams.forEach((team, i) => {
-                array[Math.floor(i / 2)].push(team);
                 teamNames[i][1](team.name);
             })
-            setTeams(array);
+            setTeamColors(event.teams.map(team => { return team.color; }));
+            setTeams(...event.teams);
+            console.log(event.teams)
         }
     }, [event, isOpen])
 
@@ -72,10 +80,9 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
 
     const confirmTeams = () => {
         setIsLoader(true);
-        teams.forEach((teamRow, key) => {
-            teamRow.forEach((team, i) => {
-                event.teams[key*2 + i].name = teamNames[key*2 + i][0];
-            })
+        teams.forEach((team, key) => {
+            event.teams[key].name = teamNames[key][0];
+            event.teams[key].color = teamColors[key].id;
         })
         authDecoratorWithoutLogin(eventService.confirmTeams, {"event": event}).then((response) => {
             if (response.status === 200) {
@@ -86,10 +93,6 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             }
         })
     }
-
-    // const repeatDivide = () => {
-    //
-    // }
 
     return (
         <ReglamentComponent isOpen={isOpen} className={`confirm-teams-component`} title={"Подтверди составы"}
@@ -102,36 +105,24 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                     </div>
                 ))}
             </div>
-            <div className={`elem elem-5-1280 scroll`}>
-                {teams.map((teamRow, key) => (
-                    <div className={`team-row ${!key ? 'top' : ''}`} key={key + 100}>
-                        {teamRow.map((team, i) => (<>
-                            <div className={`team team-${key + 1}`} key={key}>
-                                <TeamNameComponent className={""} value={teamNames[key*2 + i][0]} setValue={teamNames[key*2 + i][1]}/>
-                                {!!team.team_players.length && team.team_players.map((player, i) => (
-                                    <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                                ))}
+            <div className={`elem elem-5 scroll`}>
+                {!!event && !!teamColors.length && event.teams.map((team, key) => (
+                    <div className={`team`} key={key}>
+                        <div className={"team-name"}>
+                            <SelectColorComponent id={key} teamColors={teamColors} setTeamColors={setTeamColors} colorList={colorList}/>
+                            <TeamNameComponent className={""} value={teamNames[key][0]} setValue={teamNames[key][1]}/>
+                        </div>
+                        {!!team.team_players.length && team.team_players.map((player, i) => (
+                            <div className={"el"} key={i}>
+                                <img src={avatarIcon} className={"avatar"} alt=""/>
+                                <span className={"black-400-13 username"}>{player.player.username}</span>
                             </div>
-                            {teamRow.length === 2 && <div className={"vertical-line"}></div>}
-                        </>))}
+                        ))}
                     </div>
                 ))}
             </div>
-            <div className={`elem elem-5-376 scroll`}>
-                {teams.map((teamRow, key) => (<>
-                    {teamRow.map((team, i) => (
-                         <div className={"el"} key={key*2 + i + 100}>
-                            <TeamNameComponent className={""} value={teamNames[key*2 + i][0]} setValue={teamNames[key*2 + i][1]}/>
-                            {team.team_players.length !== 0 && team.team_players.map((player, i) => (
-                                <span className={"black-400-13"} key={i}>{`${i + 1}. ${player.player.username}`}</span>
-                            ))}
-                        </div>
-                    ))}
-                </>))}
-            </div>
             <div className={`elem elem-7 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn white-500-16"} onClick={confirmTeams}>Подтвердить и начать</button>
-                {/*<span className={"orange-400-14 link"} onClick={repeatDivide}>Поделиться заново</span>*/}
             </div>
         </ReglamentComponent>
     )
