@@ -73,7 +73,7 @@ class ColorSerializer(serializers.ModelSerializer):
 
 
 class TeamSerializer(serializers.ModelSerializer):
-    team_players = TeamPlayerSerializer(TeamPlayer, many=True, read_only=True)
+    team_players = serializers.SerializerMethodField(method_name="get_team_players")
     color = ColorSerializer(read_only=True)
 
     class Meta:
@@ -81,6 +81,11 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "count_players", "number", "wins", "loss", "nothing", "played", "scores", "do_goals",
                   "miss_goals", "team_players", "color"]
         read_only_fields = fields
+
+    def get_team_players(self, instance):
+        team_players = instance.team_players.all()
+        team_players = sorted(team_players, key=lambda t: t.player.rank, reverse=True)
+        return TeamPlayerSerializer(team_players, many=True, read_only=True).data
 
 
 class GoalSerializer(serializers.ModelSerializer):

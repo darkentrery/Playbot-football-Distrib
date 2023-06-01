@@ -106,16 +106,16 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         const [color, setColor] = useState("gray");
 
         useEffect(() => {
-            if (value6 !== false) {
-                if (value6 > 0) {
+            if (value7 !== false) {
+                if (value7 > 0) {
                     setColor('green');
-                } else if (value6 < 0) {
+                } else if (value7 < 0) {
                     setColor('red');
                 } else {
                     setColor('gray');
                 }
             }
-        }, [value6])
+        }, [value7])
 
         return (
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
