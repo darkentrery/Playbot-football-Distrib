@@ -38,6 +38,7 @@ import {
     UPDATE_PASSWORD_WINDOW
 } from "../actions/actions";
 import { combineReducers } from 'redux';
+import {Data} from "../MainReducer";
 
 const initialState = {
     isOpenSignUp: false,
@@ -356,6 +357,7 @@ export let rootReducer = combineReducers({
     event,
     location,
     app,
+    Data,
 });
 
 

@@ -52,6 +52,7 @@ import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
 import VisibleSuccessExistsUser from "./redux/containers/VisibleSuccessExistsUser";
 import $ from "jquery";
 import VisibleDeleteAccount from "./redux/containers/VisibleDeleteAccount";
+import {LandingComponent} from "./components/pages/landingComponent/LandingComponent";
 
 
 function App({state, funcs}) {
@@ -155,6 +156,7 @@ function App({state, funcs}) {
                     <Route exact path={ProfileRoutes.profilePersonalData} element={<VisibleProfilePersonalData/>}/>
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
                     <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>
+                    <Route exact path={BaseRoutes.landing} element={<LandingComponent/>}/>
                 </Routes>
 
                 <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone} funcs={funcs}/>

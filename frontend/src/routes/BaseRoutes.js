@@ -21,5 +21,6 @@ const BaseRoutes = {
 	get rules () {return `/rules/`;},
 	get telegramShare () {return `https://t.me/playbot_community`;},
 	get instagramShare () {return `https://instagram.com/playbot.io?igshid=YWJhMjlhZTc=`;},
+	get landing () {return `/landing/`;},
 }
 export default BaseRoutes;
