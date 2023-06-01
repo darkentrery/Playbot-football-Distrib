@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
-import {SearchComponent} from "../../searchComponent/SearchComponent";
 import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 import {eventService} from "../../../services/EventService";
@@ -101,6 +100,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
         if (team.number < event.teams.length || playersView.length === selected.length) {
             if (!buttonLock) {
                 team.name = teamName;
+                team.color = !!team.color ? team.color.id : null;
                 setTeamName(false);
                 setButtonLock(true);
                 setIsLoader(true);

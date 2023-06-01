@@ -42,6 +42,12 @@
       align-items: center;
       border-radius: 8px;
       cursor: pointer;
+      justify-content: center;
+
+      &:hover {
+        background: #F8F8F8;
+        border-radius: 8px;
+      }
     }
   }
 }

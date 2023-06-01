@@ -91,7 +91,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             event.teams[key].name = teamNames[key][0];
             event.teams[key].color = teamColors[key].id;
             team.team_players.forEach((player, i) => {
-                event.teams[key].team_players[i].number = teamNumbers[key][i].id;
+                event.teams[key].team_players[i].number = teamNumbers[key][i] !== null ? teamNumbers[key][i].id : null;
             })
         })
         authDecoratorWithoutLogin(eventService.confirmTeams, {"event": event}).then((response) => {

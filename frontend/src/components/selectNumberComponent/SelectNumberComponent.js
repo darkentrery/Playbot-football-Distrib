@@ -13,12 +13,8 @@ export const SelectNumberComponent = ({
     const [usedNumbers, setUsedNumbers] = useState([]);
 
     useEffect(() => {
-        console.log(numbers[teamId])
-        console.log(usedNumbers)
         setUsedNumbers(numbers[teamId].map(num => {
-
             if (num !== null) {
-                console.log(num)
                 return num.id;
             } else {
                 return;
@@ -33,7 +29,6 @@ export const SelectNumberComponent = ({
     })
 
     const selectNumber = (number) => {
-        console.log(numbers)
         let arr = [...numbers];
         arr[teamId][id] = number;
         setNumbers(arr);
@@ -44,10 +39,10 @@ export const SelectNumberComponent = ({
         <div className={`select-number-component`}>
             <span className={"black-500-16 number-icon number"} onClick={() => setIsOpen(!isOpen)}>{numbers[teamId][id] ? numbers[teamId][id].number : ''}</span>
             <div className={`number-list ${isOpen ? '' : 'hidden'}`}>
-                {numberList.map((num, key) => (<>
-                    {!usedNumbers.includes(num.id) &&
-                        <div className={"black-500-16 number-item"} onClick={() => selectNumber(num)} key={key}>{num.number}</div>}
-                </>))}
+                {numberList.map((num, key) => (
+                    !usedNumbers.includes(num.id) &&
+                        <div className={"black-500-16 number-item"} onClick={() => selectNumber(num)} key={key}>{num.number}</div>
+                ))}
             </div>
         </div>
     )

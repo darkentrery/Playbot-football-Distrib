@@ -12,8 +12,8 @@ from playbot.events.models import Event, CancelReasons, EventStep, Format, Distr
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color, PlayerNumber
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
-    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EditTeamNameSerializer, EventGameSerializer, \
-    CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer
+    CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EventGameSerializer, \
+    CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer, EditTeamSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
@@ -210,13 +210,13 @@ class ConfirmTeamPlayersView(APIView):
 
     def post(self, request, format='json'):
         team = Team.objects.get(id=request.data["team"].pop("id"))
-        serializer = EditTeamNameSerializer(instance=team, data=request.data["team"])
+        serializer = EditTeamSerializer(instance=team, data=request.data["team"])
         if serializer.is_valid() and team.event.organizers.filter(id=request.user.id).exists():
             team = serializer.save()
-            for player in team.team_players.all():
+            for player in team.team_players.exclude(player_id__in=request.data["players"]):
                 player.delete()
             for id in request.data["players"]:
-                TeamPlayer.objects.create(team=team, player_id=id)
+                TeamPlayer.objects.update_or_create(team=team, player_id=id)
             json = EventSerializer(instance=team.event).data
             return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -228,7 +228,7 @@ class ConfirmTeamsView(APIView):
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["event"]["id"])
         for team in request.data["event"]["teams"]:
-            serializer = EditTeamNameSerializer(instance=Team.objects.get(id=team["id"]), data=team)
+            serializer = EditTeamSerializer(instance=Team.objects.get(id=team["id"]), data=team)
             if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
                 serializer.save()
         EventStep.objects.update_or_create(step=EventStep.StepName.STEP_3, event=event, defaults={"complete": True})

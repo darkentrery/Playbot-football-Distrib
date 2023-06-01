@@ -61,7 +61,7 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeamPlayer
-        fields = ["player", "number"]
+        fields = ["id", "player", "number"]
         read_only_fields = fields
 
 
@@ -124,10 +124,31 @@ class EventGameSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
-class EditTeamNameSerializer(serializers.ModelSerializer):
+class EditTeamPlayerSerializer(serializers.ModelSerializer):
+    number = serializers.PrimaryKeyRelatedField(queryset=PlayerNumber.objects.all(), write_only=True, required=False, allow_null=True, allow_empty=True)
+    id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = TeamPlayer
+        fields = ["id", "number"]
+
+
+class EditTeamSerializer(serializers.ModelSerializer):
+    color = serializers.PrimaryKeyRelatedField(queryset=Color.objects.all(), write_only=True, required=False)
+    team_players = EditTeamPlayerSerializer(many=True, write_only=True, required=False)
+
     class Meta:
         model = Team
-        fields = ["name",]
+        fields = ["name", "color", "team_players"]
+
+    def update(self, instance, validated_data):
+        team_players = validated_data.pop("team_players")
+        players_id = [player["id"] for player in team_players]
+        # for player in instance.team_players.exclude(id__in=players_id):
+        #     player.delete()
+        for player in team_players:
+            instance.team_players.filter(id=player["id"]).update(number_id=player["number"])
+        return super(EditTeamSerializer, self).update(instance, validated_data)
 
 
 class CancelReasonsSerializer(serializers.ModelSerializer):

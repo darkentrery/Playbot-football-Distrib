@@ -41,12 +41,12 @@ export const SelectColorComponent = ({
                 border: color.color_hex === "#FEFFFF" || (id !== null && teamColors[id].color_hex === "#FEFFFF") ? "1px solid #E4E4E4" : "none"
             }} onClick={() => setIsOpen(!isOpen)}></div>
             <div className={`color-list ${isOpen ? '' : 'hidden'}`}>
-                {colorList.map((col, key) => (<>
-                    {!usedColors.includes(col.id) && <div className={"color-item"} style={{
+                {colorList.map((col, key) => (
+                    !usedColors.includes(col.id) && <div className={"color-item"} style={{
                         backgroundColor: col.color_hex,
                         border: col.color_hex === "#FEFFFF" ? "1px solid #E4E4E4" : "none"
-                    }} key={key} onClick={() => selectColor(col)}></div>}
-                </>))}
+                    }} key={key} onClick={() => selectColor(col)}></div>
+                ))}
             </div>
         </div>
     )
