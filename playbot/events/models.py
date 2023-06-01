@@ -388,6 +388,20 @@ class TeamPlayer(models.Model):
     def __str__(self):
         return f"{self.player.name} - {self.team.name}"
 
+    @property
+    def do_goals(self):
+        return Goal.objects.filter(player=self.player, team=self.team).count()
+
+    @property
+    def delta_rank(self):
+        delta_rank = 0
+        getting_ranks = self.player.ranks_history.filter(event=self.team.event)
+        if getting_ranks.exists():
+            rank = getting_ranks.first()
+            last_rank = self.player.ranks_history.filter(create__lt=rank.create).last()
+            delta_rank = rank.rank - last_rank.rank
+        return int(delta_rank * 100)
+
 
 class EventGame(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_games")

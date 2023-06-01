@@ -37,7 +37,7 @@ export const SelectNumberComponent = ({
 
     return (
         <div className={`select-number-component`}>
-            <span className={"black-500-16 number-icon number"} onClick={() => setIsOpen(!isOpen)}>{numbers[teamId][id] ? numbers[teamId][id].number : ''}</span>
+            <span className={"black-500-16 number-icon number"} onClick={() => setIsOpen(!isOpen)}>{numbers[teamId][id] ? numbers[teamId][id].number : '-'}</span>
             <div className={`number-list ${isOpen ? '' : 'hidden'}`}>
                 {numberList.map((num, key) => (
                     !usedNumbers.includes(num.id) &&

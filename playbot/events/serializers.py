@@ -61,7 +61,7 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeamPlayer
-        fields = ["id", "player", "number"]
+        fields = ["id", "player", "number", "do_goals", "delta_rank"]
         read_only_fields = fields
 
 
@@ -143,9 +143,6 @@ class EditTeamSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         team_players = validated_data.pop("team_players")
-        players_id = [player["id"] for player in team_players]
-        # for player in instance.team_players.exclude(id__in=players_id):
-        #     player.delete()
         for player in team_players:
             instance.team_players.filter(id=player["id"]).update(number_id=player["number"])
         return super(EditTeamSerializer, self).update(instance, validated_data)

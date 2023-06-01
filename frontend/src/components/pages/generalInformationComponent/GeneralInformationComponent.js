@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import EventRoutes from "../../../routes/EventRoutes";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {eventService} from "../../../services/EventService";
+import avatarIcon from "../../../assets/icon/avatar-2.png";
 
 
 
@@ -85,11 +86,13 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         </>)
     }
 
-    const TournamentRow = ({gray=false, value1, value2, value3, value4, value5, value6, flagFinish=false}) => {
+    const TournamentRow = ({gray=false, value1, value2, value3, value4, value5, value6, color=false, flagFinish=false}) => {
         return (
             <div className={`tournament-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value1}.</span>
-                <span className={`elem elem-2 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value2}</span>
+                <span className={`elem elem-2 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>
+                    {!!color && <div className={"color"} style={{backgroundColor: color}}>&nbsp;&nbsp;</div>}{value2}
+                </span>
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value3}</span>
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : `${flagFinish ? 'black-700-13' : 'black-400-13'}`}`}>{value4}</span>
                 {gray ? <span className={`elem elem-5 gray-400-13`}><div className={"ball-icon"}></div>{value5}</span>
@@ -99,7 +102,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         )
     }
 
-    const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6, value7=false}) => {
+    const PlayerRow = ({gray=false, isPlayer=true, value1, value2, value3, value4, value5, value6, value7, value8=false}) => {
         const [color, setColor] = useState("gray");
 
         useEffect(() => {
@@ -118,22 +121,23 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
                 <div className={"elem elem-2"}>
-                    {isPlayer && <div className={"icon player-avatar-icon"}></div>}
+                    {isPlayer && <img src={avatarIcon} className={"icon"} alt=""/>}
                     <span className={gray ? 'gray-400-13' : 'black-400-13'}>{isPlayer ? eventService.getCutUsername(value2) : value2}</span>
                 </div>
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
                 <span className={`elem elem-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
                 <span className={`elem elem-5 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value5}</span>
-                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
-                    {!!gray ? value6 :
-                        <>{!gray && value6 === false ? '' :
+                <span className={`elem elem-6 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value6}</span>
+                <span className={`elem elem-7 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
+                    {!!gray ? value7 :
+                        <>{!gray && value7 === false ? '' :
                             <span className={`black-400-13 ${color}`}>
-                                {(value6 > 0 ? `+${value6}` : value6)}
+                                {(value7 > 0 ? `+${value7}` : value7)}
                             </span>
                         }</>
                     }
 
-                    &nbsp;{!!value7 || value7 === 0 ? `(${value7})` : ''}
+                    &nbsp;{!!value8 || value8 === 0 ? `(${value8})` : ''}
                 </span>
             </div>
         )
@@ -177,26 +181,33 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                             value4={`${team.wins} / ${team.nothing} / ${team.loss}`}
                             value5={`${team.do_goals} - ${team.miss_goals}`}
                             value6={team.scores}
+                            color={team.color ? team.color.color_hex : false}
                             key={key}
                             flagFinish={team.played ? true : false}
                         />
                     ))}
                 </EventTable>
-                <EventTable title={"Игроки"} className={"socer-player-icon"}>
-                    <PlayerRow gray={true} isPlayer={false} value1={"№"} value2={"Имя "} value3={"И"} value4={"П"} value5={"З"} value6={"Рейтинг"}/>
-                    {event && event.event_player.map((player, key) => (
-                        <PlayerRow
-                            value1={key + 1}
-                            value2={player.player.username}
-                            value3={player.played}
-                            value4={player.wins}
-                            value5={player.do_goals}
-                            value6={event.is_end ? player.delta_rank : false}
-                            value7={player.player.rank}
-                            key={key}
-                        />
+                <div className={"team-players"}>
+                    {!!event && event.teams.map((team, id) => (
+                        <EventTable title={team.name} className={"socer-player-icon"} key={id}>
+                            <PlayerRow gray={true} isPlayer={false} value1={"№"} value2={"Имя "} value3={"GAM"}
+                                       value4={"GOL"} value5={"AST"} value6={"GOL+AST"} value7={"Рейтинг"}/>
+                            {team.team_players.map((player, key) => (
+                                <PlayerRow
+                                    value1={key + 1}
+                                    value2={player.player.username}
+                                    value3={team.played}
+                                    value4={player.do_goals}
+                                    value5={"-"}
+                                    value6={"-"}
+                                    value7={event.is_end ? player.delta_rank : false}
+                                    value8={player.player.rank}
+                                    key={key}
+                                />
+                            ))}
+                        </EventTable>
                     ))}
-                </EventTable>
+                </div>
             </div>
         </VisibleEventWrapper>
     )
