@@ -119,7 +119,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                 {!!event && !!teamColors.length && event.teams.map((team, key) => (
                     <div className={`team`} key={key}>
                         <div className={"team-name"}>
-                            <SelectColorComponent id={key} teamColors={teamColors} setTeamColors={setTeamColors} colorList={colorList}/>
+                            <SelectColorComponent id={key} teamColors={teamColors} setTeamColors={setTeamColors} colorList={colorList} teamNames={teamNames}/>
                             <TeamNameComponent className={""} value={teamNames[key][0]} setValue={teamNames[key][1]}/>
                         </div>
                         {!!team.team_players.length && team.team_players.map((player, i) => (

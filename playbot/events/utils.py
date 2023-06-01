@@ -3,11 +3,11 @@ from itertools import combinations
 from django.db.models import QuerySet
 from loguru import logger
 
-from playbot.events.models import Team, EventGame, Event
-from playbot.users.models import User, UserRivals
+from playbot.events.models import Team, EventGame, Event, Color
+from playbot.users.models import User
 
 
-def create_teams(event):
+def create_teams(event: Event) -> None:
     count_players = event.event_player.all().count()
     base_count = event.format.count
     count_teams = count_players // base_count
@@ -22,11 +22,19 @@ def create_teams(event):
     for team in event.teams.all():
         team.delete()
     for player in players_in_team:
-        Team.objects.create(name=f"Команда {event.next_number}", event=event, count_players=player,
-                            number=event.next_number)
+        color_id = None
+        colors_id = list(Color.objects.all().values_list("id", flat=True))
+        next_number = event.next_number
+        name = f"Команда {next_number}"
+        if next_number in colors_id:
+            color = Color.objects.get(id=next_number)
+            color_id = color.id
+            name = color.color
+
+        Team.objects.create(name=name, event=event, count_players=player, number=next_number, color_id=color_id)
 
 
-def create_event_games(event):
+def create_event_games(event: Event) -> None:
     teams_id = list(event.teams.all().values_list("id", flat=True))
     combs = [i for i in combinations(teams_id, 2)]
     order_combs = []
@@ -61,7 +69,7 @@ def create_event_games(event):
             EventGame.objects.create(number=number, team_1_id=comb[0], team_2_id=comb[1], event=event)
 
 
-def auto_distribution(event):
+def auto_distribution(event: Event) -> list[dict]:
     teams_items = event.teams.all()
     players_id = [[player.player.id, player.player.rank, player.player.gender]
                   for player in event.event_player.all().order_by("player__gender")]

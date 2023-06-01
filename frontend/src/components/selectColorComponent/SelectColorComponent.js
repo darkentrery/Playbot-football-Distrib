@@ -9,6 +9,7 @@ export const SelectColorComponent = ({
     setTeamColors = () => {},
     teamColors=[],
     id=null,
+    teamNames=[],
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [usedColors, setUsedColors] = useState([]);
@@ -24,6 +25,7 @@ export const SelectColorComponent = ({
             let arr = [...teamColors];
             arr[id] = color;
             setTeamColors(arr);
+            teamNames[id][1](color.color);
         }
         setIsOpen(false);
     }
@@ -37,8 +39,8 @@ export const SelectColorComponent = ({
     return (
         <div className={`select-color-component`}>
             <div className={"color"} style={{
-                backgroundColor: id !== null ? teamColors[id].color_hex : color.color_hex,
-                border: color.color_hex === "#FEFFFF" || (id !== null && teamColors[id].color_hex === "#FEFFFF") ? "1px solid #E4E4E4" : "none"
+                backgroundColor: id !== null ? teamColors[id] ? teamColors[id].color_hex : '' : color.color_hex,
+                border: color.color_hex === "#FEFFFF" || (id !== null && teamColors[id] && teamColors[id].color_hex === "#FEFFFF") ? "1px solid #E4E4E4" : "none"
             }} onClick={() => setIsOpen(!isOpen)}></div>
             <div className={`color-list ${isOpen ? '' : 'hidden'}`}>
                 {colorList.map((col, key) => (
