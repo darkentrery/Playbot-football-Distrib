@@ -10,7 +10,7 @@ import Logo from "../Logo/Logo";
 import blackBall from "../img/ball.png";
 // import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeStateValue } from "../../../redux/MainReducer";
+import { changeStateValue } from "../../../redux/reducers/landingReducer";
 
 function Nav() {
   const [lang, setLang] = useState("RU");

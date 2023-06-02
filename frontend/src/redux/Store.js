@@ -1,4 +1,4 @@
-import {Data} from "./MainReducer"
+import {Data} from "./reducers/landingReducer"
 import {configureStore,combineReducers} from "@reduxjs/toolkit";
 
 const rootReducer=combineReducers({
