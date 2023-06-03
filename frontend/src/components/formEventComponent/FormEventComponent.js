@@ -284,7 +284,7 @@ export const FormEventComponent = ({
                 />
                 <DropDownComponent
                     value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
-                    flagClose={closeDropDown} content={formats} errorText={formatError} setErrorText={setFormatError}
+                    content={formats} errorText={formatError} setErrorText={setFormatError}
                     placeholder={"Формат площадки*"}
                 />
                 <div className={"elem elem-5"}>
@@ -317,14 +317,14 @@ export const FormEventComponent = ({
                 <div className={"elem elem-6"}>
                     <span>Максимальное кол. игроков *</span>
                 </div>
-                <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} flagClose={closeDropDown} content={countPlayers}/>
+                <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} content={countPlayers}/>
                 <CheckSliderComponent value={isNotPlayer} setValue={setIsNotPlayer} text={"Организатор события не играет"}
                                       sizingClass={"elem elem-8"} onClick={changeIsPlayer}/>
                 <CheckSliderComponent value={isPaid} setValue={isEdit ? () => {} : setIsPaid} text={"Участие платное"} sizingClass={"elem elem-9"} onClick={changeIsPaid}/>
                 <div className={`elem elem-10 ${isPaid ? '' : 'hidden'}`}>
                     <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость участия *"} onChange={isEdit? () => {return price;} : inputDigit}
                                     errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
-                    <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} flagClose={closeDropDown} content={currencies}/>
+                    <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} content={currencies}/>
                 </div>
 
                 <div className={"elem elem-11"} ref={refNotice}>

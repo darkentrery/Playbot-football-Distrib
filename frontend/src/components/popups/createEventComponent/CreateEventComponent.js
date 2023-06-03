@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
@@ -16,8 +16,14 @@ export default function CreateEventComponent ({
 }) {
     const [data, setData] = useState(false);
     const [suggests, setSuggests] = useState([]);
-    const [closeDropDown, setCloseDropDown] = useState(false);
     const [addressFocus, setAddressFocus] = useState(false);
+    const windowRef = useRef();
+
+    useEffect(() => {
+        if (isOpen) {
+            windowRef.current.parentNode.parentNode.style.zIndex = 1000;
+        }
+    }, [windowRef.current])
 
     const closeWindow = () => {
         setData(false);
@@ -39,7 +45,7 @@ export default function CreateEventComponent ({
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-fon"}>
+            <div className={"popup-fon"} ref={windowRef}>
                 <div className={`popup-frame create-event-component`}>
                     <FormEventComponent
                         className={"popup-left"}
@@ -47,7 +53,6 @@ export default function CreateEventComponent ({
                         data={data}
                         setData={setData}
                         titleText={"Создайте свое событие"}
-                        closeDropDown={closeDropDown}
                         isIPhone={isIPhone}
                         clickClose={closeWindow}
                         suggests={suggests}
