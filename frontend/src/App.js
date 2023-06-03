@@ -87,7 +87,10 @@ function App({state, funcs}) {
                 // }
             } else {
                 funcs.setAuth(false, false);
-                funcs.openMobileFirstPage();
+                let landing = document.querySelector('.landing-component');
+                if (!landing) {
+                    funcs.openMobileFirstPage();
+                }
             }
         })
         funcs.setIsIPhone(authService.deviceDetect());
