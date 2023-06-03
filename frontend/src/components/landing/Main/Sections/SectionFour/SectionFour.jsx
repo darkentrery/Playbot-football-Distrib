@@ -53,7 +53,7 @@ useEffect (() => {
       videoRef.current.play();
     }
 
-    console.log(videoClicked);
+    // console.log(videoClicked);
   return (
     <section className="section-four">
       <img className="ball4" src={ball4} alt="ball" />
@@ -84,7 +84,7 @@ useEffect (() => {
                 playsInline
               />
               {playBtn ? (
-                <i onClick={handleClick} class="fa-solid fa-play playbtn"></i>
+                <i onClick={handleClick} className={"fa-solid fa-play playbtn"}></i>
               ) : null}
             </>
         </div>
