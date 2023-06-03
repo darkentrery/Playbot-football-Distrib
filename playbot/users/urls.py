@@ -5,7 +5,7 @@ from playbot.users import views
 
 urlpatterns = [
     path("", views.IndexView.as_view(), name='index'),
-    path("main/", views.IndexView.as_view(), name='main'),
+    path("land/", views.IndexView.as_view(), name='land'),
     re_path(r"^events/", views.IndexView.as_view(), name='index-events'),
     re_path(r"^statistic/", views.IndexView.as_view(), name='index-statistic'),
     re_path(r"^faq/", views.IndexView.as_view(), name='index-faq'),
