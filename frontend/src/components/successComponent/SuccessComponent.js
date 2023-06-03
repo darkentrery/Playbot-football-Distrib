@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import {useEffect, useRef} from "react";
 
 
 export default function SuccessComponent ({
@@ -9,6 +10,13 @@ export default function SuccessComponent ({
     buttonLabel,
     clickSuccess = () => {},
 }) {
+    const windowRef = useRef();
+
+     useEffect(() => {
+        if (isOpen) {
+            windowRef.current.parentNode.parentNode.style.zIndex = 1000;
+        }
+    }, [windowRef.current])
 
     const closeWindow = () => {
         closeSuccess();
@@ -26,7 +34,7 @@ export default function SuccessComponent ({
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <div className={"popup-frame success-component"}>
+            <div className={"popup-frame success-component"} ref={windowRef}>
                 <div className={"elem elem-1"}>
                     <span className={"black-600-22"}>{title}</span>
                     <div onClick={closeWindow} className={"btn-close"}></div>
