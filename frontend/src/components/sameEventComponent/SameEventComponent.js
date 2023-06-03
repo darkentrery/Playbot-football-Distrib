@@ -29,7 +29,7 @@ export const SameEventComponent = ({
                         <div className={"star-icon"}></div>
                     </div>
                     <span className={"el el-2 black-600-20"}>{event.name}</span>
-                    <span className={"el el-3 black-400-16"}>{event.address.c_c_s_h_string}</span>
+                    <span className={"el el-3 black-400-16"}>{event.field.address.c_c_s_h_string}</span>
                 </div>
                 <div className={"elem elem-2"}>
                     <span className={"el dark-gray-avatar-icon dark-gray-400-12"}>Участники: {event.count_current_players}/{event.count_players}</span>

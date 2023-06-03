@@ -180,8 +180,8 @@ class SetRegulationView(APIView):
     def post(self, request, format='json'):
         id = request.data.pop("id")
         event = Event.objects.get(id=id)
-        # if request.data.get("until_goal_count") == "null":
-        #     request.data["until_goal_count"] = None
+        if request.data.get("until_goal_count") == "null":
+            request.data["until_goal_count"] = None
         serializer = SetRegulationSerializer(instance=event, data=request.data)
         if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()

@@ -276,7 +276,7 @@ class SetRegulationSerializer(serializers.ModelSerializer):
     distribution_method = serializers.SlugRelatedField(queryset=DistributionMethod.objects.all(), slug_field="name")
     duration = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="name")
     count_circles = serializers.SlugRelatedField(queryset=CountCircles.objects.all(), slug_field="name")
-    until_goal_count = serializers.IntegerField(allow_null=True)
+    until_goal_count = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         model = Event

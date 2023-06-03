@@ -84,6 +84,9 @@
       align-items: center;
     }
   }
+  &.elem-fake {
+    flex: 1 1 auto;
+  }
 }
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){

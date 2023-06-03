@@ -4,6 +4,7 @@ import {ReglamentComponent} from "../../reglamentComponent/ReglamentComponent";
 import {TeamNameComponent} from "../../teamNameComponent/TeamNameComponent";
 import {eventService} from "../../../services/EventService";
 import avatarIcon from "../../../assets/icon/avatar-2.png";
+import {SelectColorComponent} from "../../selectColorComponent/SelectColorComponent";
 
 
 export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, funcs}) => {
@@ -16,6 +17,8 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
     const buttonRef = useRef();
     const [buttonLock, setButtonLock] = useState(false);
     const [isLoader, setIsLoader] = useState(false);
+    const [colorList, setColorList] = useState([]);
+    const [teamColors, setTeamColors] = useState([]);
 
     useEffect(() => {
         if (event && isOpen) {
@@ -25,6 +28,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
                     arraySelect.push(player.player.id.toString());
                 })
                 setSelected(arraySelect);
+                setTeamColors([team.color]);
             }
             let array = [];
             let array1 = [];
@@ -46,6 +50,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
             setPlayersView(array);
             // setPlayers1(array1);
             if (!teamName) setTeamName(team.name);
+            eventService.getColors().then(response => setColorList(response.data));
         }
     }, [isOpen, team, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -100,7 +105,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
         if (team.number < event.teams.length || playersView.length === selected.length) {
             if (!buttonLock) {
                 team.name = teamName;
-                team.color = !!team.color ? team.color.id : null;
+                team.color = teamColors[0].id;
                 setTeamName(false);
                 setButtonLock(true);
                 setIsLoader(true);
@@ -144,7 +149,7 @@ export const ConfirmTeamPlayersComponent = ({isOpen, isIPhone, event, team, func
             {!!event && <>
                 {/*<SearchComponent className={"elem elem-4"} arrayFirst={players1} setArraySecond={setPlayers2}/>*/}
                 <div className={"elem elem-5"}>
-                    <span className={"black-600-16"}>Участники</span>
+                    <SelectColorComponent id={0} teamColors={teamColors} setTeamColors={setTeamColors} colorList={colorList} teamNames={[[teamName, setTeamName]]}/>
                     <TeamNameComponent value={teamName} setValue={setTeamName}/>
                 </div>
                 <div className={"elem elem-6 scroll"}>

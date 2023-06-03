@@ -1,4 +1,4 @@
-import {successCreateEventWindow} from "../actions/actions";
+import {showMenuWindow, successCreateEventWindow} from "../actions/actions";
 import {connect} from "react-redux";
 import SuccessCreateEventComponent from "../../components/success/SuccessCreateEventComponent";
 
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     closeComponent: () => {
       dispatch(successCreateEventWindow(false));
     },
+    closeShowMenu: () => {
+        dispatch(showMenuWindow(false));
+      },
   };
 };
 

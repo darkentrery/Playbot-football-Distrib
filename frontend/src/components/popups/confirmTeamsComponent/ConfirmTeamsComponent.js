@@ -34,7 +34,6 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
     ];
     const [colorList, setColorList] = useState([]);
     const [numberList, setNumberList] = useState([]);
-    // const colorList = ["#F27901", "#019F4C", "#0A08FF", "#FC0D13", "#FD80FF", "#B6FF4E", "#F9FC00", "#000002", "#FEFFFF"];
     const [teamColors, setTeamColors] = useState([]);
     const [teamNumbers, setTeamNumbers] = useState([]);
 
@@ -54,10 +53,6 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             ]);
             eventService.getColors().then(response => setColorList(response.data));
             eventService.getNumbers().then(response => setNumberList(response.data));
-            // let array = [];
-            // for (let i=0; i<Math.ceil(event.teams.length / 2); i++) {
-            //     array.push([]);
-            // }
             event.teams.forEach((team, i) => {
                 teamNames[i][1](team.name);
             })
@@ -132,6 +127,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
                     </div>
                 ))}
             </div>
+            <div className={"elem elem-fake"}></div>
             <div className={`elem elem-7 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn white-500-16"} onClick={confirmTeams}>Подтвердить и начать</button>
             </div>
