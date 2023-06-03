@@ -9,7 +9,7 @@ export const TeamNameComponent = ({
     const [isInput, setIsInput] = useState(false);
 
     const changeValue = (e) => {
-        setValue(e.target.value);
+        setValue(e.target.value.slice(0, 20));
     }
 
     const clickPencil = () => {
