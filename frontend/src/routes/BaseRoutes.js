@@ -2,7 +2,7 @@
 
 const BaseRoutes = {
 	get events () {return "/events/";},
-	get main () {return "/";},
+	get main () {return "/main/";},
 	get statistic () {return "/statistic/";},
 	get faq () {return "/faq/";},
 	get description () {return "/events/description/";},
@@ -21,6 +21,6 @@ const BaseRoutes = {
 	get rules () {return `/rules/`;},
 	get telegramShare () {return `https://t.me/playbot_community`;},
 	get instagramShare () {return `https://instagram.com/playbot.io?igshid=YWJhMjlhZTc=`;},
-	get landing () {return `/landing/`;},
+	get landing () {return `/`;},
 }
 export default BaseRoutes;

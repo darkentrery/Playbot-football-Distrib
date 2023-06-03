@@ -44,7 +44,7 @@
       "description": "A description of the functionality of this shortcut"
     }
   ],
-  "start_url": "/?fullscreen=true",
+  "start_url": "/main/?fullscreen=true",
   "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#ffffff",
