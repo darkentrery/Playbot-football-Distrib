@@ -53,6 +53,7 @@ import VisibleSuccessExistsUser from "./redux/containers/VisibleSuccessExistsUse
 import $ from "jquery";
 import VisibleDeleteAccount from "./redux/containers/VisibleDeleteAccount";
 import {LandingComponent} from "./components/pages/landingComponent/LandingComponent";
+import VisibleOnboardingStep1 from "./redux/containers/VisibleOnboardingStep1";
 
 
 function App({state, funcs}) {
@@ -67,6 +68,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         console.log(state)
+        funcs.openOnboardingStep1();
         authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status === 200) {
                 funcs.setAuth(true, response.data);
@@ -196,6 +198,7 @@ function App({state, funcs}) {
                                          funcs={funcs} isIPhone={state.app.isIPhone}/>
                 <VisibleConfirmTeamPlayers/>
                 <VisibleEndGame/>
+                <VisibleOnboardingStep1/>
             </Router>
         </div>
     );

@@ -1,0 +1,11 @@
+.onboarding-component {
+  flex: 0 0 410px;
+  height: 702px;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  .loader-component {
+    border-radius: 10px;
+  }
+}

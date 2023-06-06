@@ -28,6 +28,9 @@ export const UPDATE_PASSWORD_WINDOW = 'UPDATE_PASSWORD_WINDOW';
 export const SHOW_EMBLEM_WINDOW = 'SHOW_EMBLEM_WINDOW';
 export const SHOW_MENU_WINDOW = 'SHOW_MENU_WINDOW';
 export const DELETE_ACCOUNT_WINDOW = 'DELETE_ACCOUNT_WINDOW';
+export const ONBOARDING_STEP_1_WINDOW = 'ONBOARDING_STEP_1_WINDOW';
+export const ONBOARDING_STEP_2_WINDOW = 'ONBOARDING_STEP_2_WINDOW';
+export const ONBOARDING_STEP_3_WINDOW = 'ONBOARDING_STEP_3_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -194,6 +197,21 @@ export const showMenuWindow = (value) => ({
 
 export const deleteAccountWindow = (value) => ({
   type: DELETE_ACCOUNT_WINDOW,
+  value,
+});
+
+export const onboardingStep1Window = (value) => ({
+  type: ONBOARDING_STEP_1_WINDOW,
+  value,
+});
+
+export const onboardingStep2Window = (value) => ({
+  type: ONBOARDING_STEP_2_WINDOW,
+  value,
+});
+
+export const onboardingStep3Window = (value) => ({
+  type: ONBOARDING_STEP_3_WINDOW,
   value,
 });
 

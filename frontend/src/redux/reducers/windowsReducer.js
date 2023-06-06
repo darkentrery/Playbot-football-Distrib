@@ -1,14 +1,25 @@
 import {
     CANCEL_EVENT_WINDOW,
     CHOICE_CITY_WINDOW,
-    CONFIRM_PLAYERS_WINDOW, CONFIRM_TEAM_PLAYERS_WINDOW, CONFIRM_TEAMS_WINDOW,
+    CONFIRM_PLAYERS_WINDOW,
+    CONFIRM_TEAM_PLAYERS_WINDOW,
+    CONFIRM_TEAMS_WINDOW,
     CREATE_EVENT_UN_AUTH_WINDOW,
-    CREATE_EVENT_WINDOW, DELETE_ACCOUNT_WINDOW,
-    EDIT_EVENT_WINDOW, END_GAME_WINDOW,
-    FILL_REGULATION_WINDOW, LEAVE_EVENT_WINDOW,
-    LOGIN_WINDOW, MOBILE_FIRST_PAGE_WINDOW,
+    CREATE_EVENT_WINDOW,
+    DELETE_ACCOUNT_WINDOW,
+    EDIT_EVENT_WINDOW,
+    END_GAME_WINDOW,
+    FILL_REGULATION_WINDOW,
+    LEAVE_EVENT_WINDOW,
+    LOGIN_WINDOW,
+    MOBILE_FIRST_PAGE_WINDOW,
+    ONBOARDING_STEP_1_WINDOW,
+    ONBOARDING_STEP_2_WINDOW,
+    ONBOARDING_STEP_3_WINDOW,
     REFRESH_PASSWORD_WINDOW,
-    REPEAT_EVENT_WINDOW, SHOW_EMBLEM_WINDOW, SHOW_MENU_WINDOW,
+    REPEAT_EVENT_WINDOW,
+    SHOW_EMBLEM_WINDOW,
+    SHOW_MENU_WINDOW,
     SIGN_UP_WINDOW,
     SUCCESS_CANCEL_EVENT_WINDOW,
     SUCCESS_CREATE_EVENT_WINDOW,
@@ -18,7 +29,9 @@ import {
     SUCCESS_SIGN_UP2_WINDOW,
     SUCCESS_SIGN_UP_WINDOW,
     SUCCESS_UPDATE_PASSWORD_WINDOW,
-    SUCCESS_UPDATE_USER_WINDOW, UN_AUTH_JOIN_WINDOW, UPDATE_PASSWORD_WINDOW
+    SUCCESS_UPDATE_USER_WINDOW,
+    UN_AUTH_JOIN_WINDOW,
+    UPDATE_PASSWORD_WINDOW
 } from "../actions/actions";
 
 const initialState = {
@@ -52,6 +65,9 @@ const initialState = {
     isOpenShowEmblem: false,
     isOpenShowMenu: false,
     isOpenDeleteAccount: false,
+    isOpenOnboardingStep1: false,
+    isOpenOnboardingStep2: false,
+    isOpenOnboardingStep3: false,
 }
 
 export const windows = (state = initialState, action) => {
@@ -205,6 +221,21 @@ export const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenDeleteAccount: action.value
+          };
+      case ONBOARDING_STEP_1_WINDOW:
+          return {
+              ...state,
+              isOpenOnboardingStep1: action.value
+          };
+      case ONBOARDING_STEP_2_WINDOW:
+          return {
+              ...state,
+              isOpenOnboardingStep2: action.value
+          };
+      case ONBOARDING_STEP_3_WINDOW:
+          return {
+              ...state,
+              isOpenOnboardingStep3: action.value
           };
       default:
           return state;

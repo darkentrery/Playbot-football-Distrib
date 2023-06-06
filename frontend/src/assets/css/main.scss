@@ -61,6 +61,7 @@
 @import "../../components/eventMembersComponent/event-members";
 @import "../../components/eventOrganizerComponent/event-organizer";
 @import "rules-pattern";
+@import "../../components/onboardingComponent/onboarding";
 
 //Popups
 @import "../../components/popups/signUpComponent/sign-up";
@@ -78,6 +79,7 @@
 @import "../../components/popups/showEmblemComponent/show-emblem";
 @import "../../components/popups/showMenuComponent/show-menu";
 @import "../../components/popups/createEventUnAuthComponent/create-event-un-auth";
+@import "../../components/popups/onboardingStep1Component/onboarding-step-1";
 
 //Pages
 @import "../../components/pages/generalInformationComponent/general-information";

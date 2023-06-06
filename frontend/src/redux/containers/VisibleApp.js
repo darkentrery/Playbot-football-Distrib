@@ -15,7 +15,12 @@ import {
   loginWindow,
   iphone,
   hiddenMap,
-  team, confirmTeamPlayersWindow, successExistsUserWindow
+  team,
+  confirmTeamPlayersWindow,
+  successExistsUserWindow,
+  onboardingStep1Window,
+  onboardingStep2Window,
+  onboardingStep3Window
 } from "../actions/actions";
 
 
@@ -99,6 +104,24 @@ const mapDispatchToProps = (dispatch) => {
       showMap: () => {
         dispatch(hiddenMap(false));
       },
+      openOnboardingStep1: () => {
+        dispatch(onboardingStep1Window(true));
+      },
+      closeOnboardingStep1: () => {
+        dispatch(onboardingStep1Window(false));
+      },
+      openOnboardingStep2: () => {
+        dispatch(onboardingStep2Window(true));
+      },
+      closeOnboardingStep2: () => {
+        dispatch(onboardingStep2Window(false));
+      },
+      openOnboardingStep3: () => {
+        dispatch(onboardingStep3Window(true));
+      },
+      closeOnboardingStep3: () => {
+        dispatch(onboardingStep3Window(false));
+      }
     }
   };
 };
