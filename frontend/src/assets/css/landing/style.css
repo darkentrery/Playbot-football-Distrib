@@ -615,6 +615,9 @@ footer .footer-container .footer-logo-container .footer-logo-img:hover {
     width: 350px;
     margin-right: 40px;
   }
+  .section-four .section-four-container .section-four-container-right .playbtn {
+    left: 45%;
+  }
   .section-five .section-five-container {
     max-width: 900px;
   }
@@ -730,6 +733,9 @@ footer .footer-container .footer-logo-container .footer-logo-img:hover {
   }
   .section-four .section-four-container .section--text {
     padding-right: 60px;
+  }
+  .section-four .section-four-container .section-four-container-right .playbtn {
+    left: 50%;
   }
   .section-five .section-five-container {
     max-width: 820px;

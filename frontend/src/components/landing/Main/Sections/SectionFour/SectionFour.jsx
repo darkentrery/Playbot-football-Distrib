@@ -18,13 +18,16 @@ const [video,setVideo]=useState(false)
 const [previewLoaded, setPreviewLoaded] = useState(false);
 const [videoClicked,setvideoClicked]=useState(false)
 
+//Проверяю Ios ли уст-во
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const autoplay = isIOS ? true : false;
 
 useEffect (() => {
   AOS.init({duration: 1000, once: true})
   if (videoRef.current) {
     videoRef.current.currentTime = 2;
   }
-  }, [previewLoaded]);
+  }, []);
     const handleClick = () => {
       // проверяем, играет ли видео, и если да, то останавливаем его
       if (!videoRef.current.paused) {
@@ -33,7 +36,7 @@ useEffect (() => {
       } else {
         // // если видео не играет, включаем его
         setVideo(true);
-        // Тут делаю так ,чтобы при остановке видее, при повторном клике оно продолжалось где остановились 
+        // Тут делаю так ,чтобы при остановке видее, при повторном клике оно продолжалось где остановились
         if (videoClicked) {
           videoRef.current.currentTime = videoRef.current.currentTime;
           videoRef.current.play();
@@ -53,7 +56,7 @@ useEffect (() => {
       videoRef.current.play();
     }
 
-    // console.log(videoClicked);
+    console.log(videoClicked);
   return (
     <section className="section-four">
       <img className="ball4" src={ball4} alt="ball" />
@@ -77,15 +80,18 @@ useEffect (() => {
                 src={goalmp4}
                 loop
                 muted
-                onEnded={handleVideoEnded}
+                autoPlay={autoplay}
+                // onEnded={handleVideoEnded}
                 onClick={handleClick}
-                controls={false}
-                // autoPlay={true}
+                // controls={false}
                 playsInline
+
               />
               {playBtn ? (
-                <i onClick={handleClick} className={"fa-solid fa-play playbtn"}></i>
+                <i onClick={handleClick} class="fa-solid fa-play playbtn"></i>
               ) : null}
+
+
             </>
         </div>
       </div>
