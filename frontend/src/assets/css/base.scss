@@ -115,6 +115,10 @@ a {
   .popup-fon {
     background: 0;
   }
+  &.center-position {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .ReactModal__Overlay {

@@ -20,7 +20,7 @@ export const OnboardingComponent = ({
     return (
         <Modal
             isOpen={isOpen}
-            className={"popup-fon"}
+            className={"popup-fon center-position"}
             contentLabel="Example Modal"
             ariaHideApp={false}
         >

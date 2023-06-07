@@ -7,6 +7,8 @@
   box-sizing: border-box;
   padding: 28px 24px 16px 28px;
   gap: 8px;
+  background: $whiteColor;
+  border-radius: 8px;
 
   .loader-component {
     border-radius: 10px;
@@ -40,5 +42,11 @@
     display: flex;
     flex: 1 1 auto;
     margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+  .onboarding-component {
+    flex: 0 0 calc(100% - 24px);
   }
 }
