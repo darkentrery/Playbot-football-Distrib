@@ -65,7 +65,7 @@ export const OnboardingStep2Component = ({isOpen, user, funcs}) => {
         >
             <div className={"onboarding-step-2-component"}>
                 <span className={"title-elem black-600-20"}>Заполни карточку игрока</span>
-                <div className={"photo-elem"}>
+                <div className={"photo-elem upload-photo-icon"}>
 
                 </div>
                 <InputComponent
