@@ -69,7 +69,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         console.log(state)
-        funcs.openOnboardingStep2();
+        funcs.openOnboardingStep1();
         authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status === 200) {
                 funcs.setAuth(true, response.data);

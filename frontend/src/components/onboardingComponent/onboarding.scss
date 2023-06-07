@@ -12,8 +12,12 @@
     border-radius: 10px;
   }
   .close-button {
-    top: 16px;
-    right: 16px;
+    top: 12px;
+    right: 12px;
+  }
+  .back-button {
+    top: 12px;
+    left: 12px;
   }
   .steps {
     display: flex;
@@ -36,8 +40,5 @@
     display: flex;
     flex: 1 1 auto;
     margin-top: 32px;
-  }
-  .save-btn {
-
   }
 }

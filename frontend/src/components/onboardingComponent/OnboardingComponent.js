@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import {CloseButtonComponent} from "../closeButtonComponent/CloseButtonComponent";
 import {ButtonComponent} from "../buttonComponent/ButtonComponent";
+import {BackButtonComponent} from "../backButtonComponent/BackButtonComponent";
 
 
 export const OnboardingComponent = ({
@@ -12,6 +13,7 @@ export const OnboardingComponent = ({
     button2Text='',
     button1Click = () => {},
     button2Click = () => {},
+    backButton=true,
     children,
 }) => {
 
@@ -24,10 +26,10 @@ export const OnboardingComponent = ({
         >
             <div className={"popup-frame onboarding-component"}>
                 <CloseButtonComponent className={"close-button"} onClick={closeWindow}/>
+                {backButton && <BackButtonComponent className={"back-button"} onClick={clickBack}/>}
                 <div className={"steps"}>
                     <span className={`step ${step === 1 ? 'black-600-16 active': 'gray-400-16'}`}>Шаг 1</span>
                     <span className={`step ${step === 2 ? 'black-600-16 active': 'gray-400-16'}`}>Шаг 2</span>
-                    <span className={`step ${step === 3 ? 'black-600-16 active': 'gray-400-16'}`}>Шаг 3</span>
                 </div>
                 <div className={"onboarding-body"}>{children}</div>
                 <ButtonComponent text={button1Text} onClick={button1Click}/>

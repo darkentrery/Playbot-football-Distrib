@@ -1,4 +1,4 @@
-import {onboardingStep1Window} from "../actions/actions";
+import {auth, onboardingStep1Window, onboardingStep2Window} from "../actions/actions";
 import {connect} from "react-redux";
 import {OnboardingStep1Component} from "../../components/popups/onboardingStep1Component/OnboardingStep1Component";
 
@@ -13,8 +13,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    closeComponent: () => {
-      dispatch(onboardingStep1Window(false));
+    funcs: {
+      closeComponent: () => {
+        dispatch(onboardingStep1Window(false));
+      },
+      setAuth: (value, user) => {
+        dispatch(auth(value, user));
+      },
+      openOnboardingStep2: () => {
+        dispatch(onboardingStep2Window(true));
+      },
     }
   };
 };
