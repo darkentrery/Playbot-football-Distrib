@@ -15,7 +15,9 @@
     right: 28px;
     top: 28px;
   }
-
+  & .rtd {
+    width: 113px;
+  }
   .elem {
     display: flex;
     flex: 0 0 $fieldHeight;
@@ -143,9 +145,9 @@
       }
     }
     &.elem-5 {
+      gap: 8px;
       justify-content: start;
       position: relative;
-
       .error {
         input {
           border: 0.8px solid #EC5B56;
@@ -210,7 +212,6 @@
     }
     &.elem-7 {
       flex-direction: column;
-      margin-top: 8px;
     }
     &.elem-8 {
       flex: 0 0 24px;
@@ -229,6 +230,15 @@
       margin-bottom: 20px;
     }
     &.elem-10 {
+      & .gray-wallet-icon {
+        border-right: 0px;
+      }
+      & .dropdown-label {
+        border-left: 0px;
+      }
+      & .input-component {
+        justify-content: flex-start;
+      }
       &.hidden {
         display: none;
       }
@@ -305,7 +315,118 @@
   }
 }
 
+.formEvent__placement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: -20px;
+  & > p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #1B1B1B;
+  }
+  & > .formEvent__placement-checkboxes {
+    display: flex;
+    gap: 37px;
+  }
+  & .checkbox-component .cell {
+    border: 1px solid #6C6C6C;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    background-size: cover !important;
+  }
+  & .checkbox-component .black-400-13 {
+    font-size: 16px;
+  }
+  & .checkbox-component .active {
+    background: url('../../assets/icon/check-box-orange-square.svg') !important;
+    padding: 1px !important;
+  }
+}
+
+.formEvent__rating-range {
+  margin-top: 40px;
+  display: flex;
+}
+
+.formEvent__rating-range-text {
+  white-space: nowrap;
+  margin-right: auto;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  span {
+    margin-left: 12px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    text-align: right;
+    color: #949494;
+  }
+}
+
+.formEvent__delayed-post {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  & .check-slider-component  {
+    white-space: nowrap;
+  }
+
+  & > p {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #949494;
+    padding: 0px 5px 3px 5px;
+    border-bottom: 1px solid rgba(148, 148, 148, 0.5);
+  }
+}
+
+.formEvent__placement-select {
+  width: 100% !important;
+}
+
+.form-event-body-top {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  column-gap: 8px;
+  & .elem {
+    flex: unset;
+  }
+}
+
+.elem-11 {
+  margin-top: 47px;
+  max-height: 68px;
+}
+
 @media screen and (min-width: 744px) and (max-width: 1279px){
+  .formEvent__rating-range-width {
+    max-width: 288px;
+    margin-top: 9px;
+  }
+
+  .elem-5-select-date {
+    width: 116px;
+  }
+
+  .elem-11 {
+    width: 100% !important;
+  }
+
+  .min-content {
+    height: min-content;
+  }
+
   .form-event-component {
     padding: 32px 38px 32px 48px;
     height: 772px;
@@ -318,7 +439,7 @@
       margin-bottom: 24px;
     }
     .elem.elem-5 {
-      flex-direction: column;
+      flex-direction: row;
 
       .date {
         input {

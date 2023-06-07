@@ -75,9 +75,9 @@ const DropDownComponent = ({
                 </div>
                 <span className={isTooltip ? 'tooltip-text' : 'tooltip-text hidden'}>{tooltipText}</span>
             </div>
-            <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>
+            {errorText && <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>}
         </div>
     )
-}
+} 
 
 export default DropDownComponent
