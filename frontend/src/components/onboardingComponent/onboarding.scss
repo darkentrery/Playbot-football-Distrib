@@ -2,10 +2,41 @@
   flex: 0 0 410px;
   height: 702px;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   position: relative;
+  box-sizing: border-box;
+  padding: 28px 24px 16px 28px;
+  gap: 8px;
 
   .loader-component {
     border-radius: 10px;
+  }
+  .close-button {
+    top: 16px;
+    right: 16px;
+  }
+  .steps {
+    display: flex;
+    flex: 0 0 37px;
+    align-self: stretch;
+    justify-content: center;
+
+    .step {
+      display: flex;
+      flex: 0 0 100px;
+      justify-content: center;
+      border-bottom: 4px solid $grayColor;
+
+      &.active {
+        border-bottom: 4px solid $orangeColor;
+      }
+    }
+  }
+  .onboarding-body {
+    display: flex;
+    flex: 1 1 auto;
+  }
+  .save-btn {
+
   }
 }

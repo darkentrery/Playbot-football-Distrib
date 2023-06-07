@@ -2,7 +2,8 @@
 
 `loaddata playbot/fixtures/user.json playbot/fixtures/city.json playbot/fixtures/cancel_reasons.json
 playbot/fixtures/count_circles.json playbot/fixtures/distribution_method.json playbot/fixtures/duration.json
-playbot/fixtures/format.json playbot/fixtures/position.json`
+playbot/fixtures/format.json playbot/fixtures/position.json playbot/fixtures/color.json
+playbot/fixtures/coverage_type.json playbot/fixtures/field_type.json playbot/fixtures/player_number.json`
 
 `cd Playbot_football && bash update.sh`
 
