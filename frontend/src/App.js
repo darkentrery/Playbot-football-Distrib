@@ -69,7 +69,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         console.log(state)
-        funcs.openOnboardingStep1();
+        // funcs.openOnboardingStep1();
         authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status === 200) {
                 funcs.setAuth(true, response.data);
@@ -135,12 +135,25 @@ function App({state, funcs}) {
     useEffect(() => {
         let isOpenChoiceCity = state.windows.isOpenChoiceCity;
         let isOpenShowMenu = state.windows.isOpenShowMenu;
-        if (isOpenChoiceCity || isOpenShowMenu) {
+        let isOpenConfirmPlayers = state.windows.isOpenConfirmPlayers;
+        let isOpenFillRegulation = state.windows.isOpenFillRegulation;
+        let isOpenConfirmTeamPlayers = state.windows.isOpenConfirmTeamPlayers;
+        let isOpenConfirmTeams = state.windows.isOpenConfirmTeams;
+        if (isOpenChoiceCity || isOpenShowMenu || isOpenConfirmPlayers || isOpenFillRegulation || isOpenConfirmTeamPlayers || isOpenConfirmTeams) {
             document.body.style = 'overflow: hidden';
+            document.querySelector('html').style = 'overflow: hidden';
         } else {
             document.body.style = null;
+            document.querySelector('html').style = null;
         }
-    }, [state.windows.isOpenChoiceCity, state.windows.isOpenShowMenu])
+    }, [
+        state.windows.isOpenChoiceCity,
+        state.windows.isOpenShowMenu,
+        state.windows.isOpenConfirmPlayers,
+        state.windows.isOpenFillRegulation,
+        state.windows.isOpenConfirmTeamPlayers,
+        state.windows.isOpenConfirmTeams,
+    ])
 
     return (
         <div className="App">
