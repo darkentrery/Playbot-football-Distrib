@@ -129,6 +129,12 @@ class UpdatePasswordSerializer(serializers.ModelSerializer):
         return instance
 
 
+class UpdatePhotoUsernameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "photo"]
+
+
 class LoginMixin:
     token_class = RefreshToken
 

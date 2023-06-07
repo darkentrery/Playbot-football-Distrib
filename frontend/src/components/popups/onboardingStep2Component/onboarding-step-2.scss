@@ -1,8 +1,26 @@
 .onboarding-step-2-component {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   align-items: stretch;
   flex: 1 1 auto;
 
+  .title-elem {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+  }
+  .photo-elem {
+    display: flex;
+    flex: 0 0 354px;
+    width: 230px;
+    align-self: center;
+  }
+  .username-elem {
+    margin-top: 12px;
+    input {
+      padding: 12px;
+    }
+  }
 }

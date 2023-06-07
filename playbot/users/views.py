@@ -14,7 +14,8 @@ from playbot.cities.models import Address
 from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
-    UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer
+    UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
+    UpdatePhotoUsernameSerializer
 
 
 class IndexView(APIView):
@@ -234,6 +235,26 @@ class DeleteUserView(APIView):
         user = User.objects.get(id=request.data["id"])
         user.delete()
         return Response({}, status=status.HTTP_200_OK)
+
+
+class UpdatePhotoUsernameView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        id = int(request.data.get("id"))
+        if request.user.id == id:
+            serializer = UpdatePhotoUsernameSerializer(instance=request.user, data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    # if request.data.get("photo"):
+                    #     photo = get_face(user.photo.url)
+                    #     if photo:
+                    #         user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photo), save=True)
+                            # user.save()
+                    json = UserSerializer(instance=user).data
+                    return Response(json, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CatchErrorView(APIView):
