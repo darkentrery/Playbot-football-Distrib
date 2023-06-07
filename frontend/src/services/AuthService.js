@@ -139,37 +139,6 @@ export default class AuthService{
 		return errors;
 	}
 
-	// refreshPassword(user){
-	// 	const url = `${API_URL}refresh-password/`;
-	// 	return axios.post(url, user, {headers: {
-	// 		'Content-Type': 'application/json',
-    //         'X-CSRFToken': csrftoken,
-	// 	}})
-	// 		.then((response) => {
-	// 			return response;
-	// 		})
-	// 		.catch((error) => {
-	// 			return error.response;
-	// 		});
-	// }
-
-	// refresh(){
-	// 	const url = `${API_URL}token/refresh/`;
-	// 	return axios.post(url, {"refresh": localStorage.getItem("refresh_token")}, {headers: {
-	// 		'Content-Type': 'application/json',
-    //         'X-CSRFToken': csrftoken,
-	// 	}})
-	// 		.then((response) => {
-	// 			localStorage.setItem('access_token' , response.data.access);
-    //             localStorage.setItem('refresh_token' , response.data.refresh);
-	// 			localStorage.setItem('date_token', Date.now());
-	// 			return response;
-	// 		})
-	// 		.catch((error) => {
-	// 			return error.response;
-	// 		});
-	// }
-
 	addIPhoneBottomMargin(classSelector) {
 		console.log("Is Iphone", this.isIPhone())
 		console.log("Is PWA", this.isPWA())
