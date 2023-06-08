@@ -33,6 +33,19 @@
       position: static;
     }
   }
+  .autogoal-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    flex: 0 0 32px;
+
+    .autogoal-icon {
+      display: flex;
+      flex: 0 0 32px;
+      align-self: stretch;
+    }
+  }
   .players-elems {
     display: flex;
     gap: 4px 8px;

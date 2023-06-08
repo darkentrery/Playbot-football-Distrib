@@ -10,6 +10,7 @@ export const HighLightComponent = ({
     team,
     toBack=false,
     delHighLight=false,
+    autoGoal=false,
 }) => {
     return (
         <div className={`high-light-component ${isOpen ? '' : 'hidden'}`}>
@@ -18,6 +19,10 @@ export const HighLightComponent = ({
                 <span className={"title black-600-14"}>Автор гола (1/2)</span>
                 <CloseButtonComponent className={"close"}/>
             </div>
+            {!!autoGoal && <div className={"autogoal-row"} onClick={autoGoal}>
+                <div className={"autogoal-icon"}></div>
+                <span className={"black-400-14"}>Автогол</span>
+            </div>}
             <div className={"players-elems"}>
                 {!!team.team_players.length && team.team_players.map((player, i) => (
                     <div className={"player-elem"} key={i}>
