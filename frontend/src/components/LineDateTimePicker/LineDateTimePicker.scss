@@ -1,0 +1,29 @@
+.line-date__time-picker {
+    position: relative;
+    .disabled {
+        background-color: lightgray;
+        color: gray;
+        pointer-events: none;
+    }
+    .react-datepicker {
+        width: 280px;
+    }
+    p {
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 120%;
+        color: #949494;
+        padding: 0px 5px 3px 5px;
+        border-bottom: 1px solid rgba(148, 148, 148, 0.5);
+    }
+}
+
+.react-datepicker-wrapper {
+    position: absolute;
+    top: 15px;
+    opacity: 0;
+    width: inherit;
+    overflow: hidden;
+}

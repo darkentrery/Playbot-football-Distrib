@@ -11,6 +11,8 @@ import {cityService} from "../../services/CityService";
 import { CheckboxComponent } from "../checkboxComponent/CheckboxComponent";
 import RangeTwoPointInput from "../RangeInputs/RangeTwoPointInput/RangeTwoPointInput";
 import { AccordionWrapper } from "../AccordionWrapper/AccordionWrapper";
+import InputFromToComponent from "../InputFromToComponent/InputFromToComponent";
+import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
 
 
 export const FormEventComponent = ({
@@ -36,7 +38,7 @@ export const FormEventComponent = ({
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
-    const [count, setCount] = useState(4);
+    const [count, setCount] = useState(false);
     const [notice, setNotice] = useState('');
     const [format, setFormat] = useState(false);
     const [isNotPlayer, setIsNotPlayer] = useState(false);
@@ -58,15 +60,22 @@ export const FormEventComponent = ({
     const [field, setField] = useState(false);
     const [anonseLentaCheck, setAnonseLentaCheck] = useState(true); 
     const [anonseTgCheck, setAnonseTgCheck] = useState(false);
-    const [IsDelayedAnonse, setIsDelayedAnonse] = useState(false)
+    const [isDelayedAnonse, setIsDelayedAnonse] = useState(false)
+    const [allowMale, setAllowMale] = useState(true);
+    const [allowFemale, setAllowFemale] = useState(true);
 
     // need backend -->
+    const allowedGenders = {'male': allowMale, 'female': allowFemale}
     const [ratingLimit, setRatingLimit] = useState([0, 5000])
     const [anonseList, setAnonseList] = useState(['Lenta'])
-    const [delayedTime, setDelayedTime] = useState('0') // 0 or 01.03.2022-17:01
-    console.log(`ratingLimit: ${ratingLimit}`, `anonseList:${anonseList}`)
+    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}) // 0 or 01.03.2022-17:01
+    const [matchDuration, setMatchDuration] = useState(false)
+    const [ageLimit, setAgeLimit] = useState([false, false])
+    console.log(`ratingLimit: ${ratingLimit}`, `anonseList:${anonseList}`, 
+    `matchDuration: ${matchDuration}`, `allowedGendres: ${'male-' + allowedGenders.male + ' female-' + allowedGenders.female}`, delayedTime
+    )
     // need backend <--
-    const refDate = useRef();
+    const refDate = useRef(); 
     const refTime = useRef();
     const refAddress = useRef();
     const refNotice = useRef();
@@ -82,6 +91,10 @@ export const FormEventComponent = ({
         }
     }
 
+    const handleSetMatchDuration = (value) => {
+        setMatchDuration(parseInt(value))
+    }
+
     const closeWindow = () => {
         setId(false);
         setName(false);
@@ -94,7 +107,14 @@ export const FormEventComponent = ({
         setFormat(false);
         setIsPaid(false);
         setPrice(false);
-        setCurrency('RUB')
+        setCurrency('RUB');
+        setAllowFemale(true);
+        setAllowMale(true);
+        setRatingLimit([0, 5000]);
+        setAnonseList(['Lenta']);
+        setDelayedTime({'date': false, 'time': false});
+        setMatchDuration(false);
+        setAgeLimit([false, false]);
         clickClose();
     }
 
@@ -167,6 +187,13 @@ export const FormEventComponent = ({
             'price': price,
             'format_label': format,
             'currency': currency,
+
+            'allowed_genders': allowedGenders,
+            'rating_limit': ratingLimit,
+            'anonse_list': anonseList,
+            'delayed_time': delayedTime,
+            'match_duration': matchDuration,
+            'age_limit': ageLimit,
         };
         console.log(bodyFormData)
         setData(bodyFormData);
@@ -278,14 +305,14 @@ export const FormEventComponent = ({
     }
 
     return (
-        <div className={`form-event-component ${className}`}>
+        <div className={`form-event-component scroll ${className}`}>
             <div onClick={closeWindow} className={"btn-close"}></div>
             <div className={"elem elem-1"}>
                 <span>{titleText}</span>
             </div>
-            <div className={"form-event-body scroll"}>
+            <div className={"form-event-body"}>
                 <div className="form-event-body-top">
-                    <InputComponent className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
+                    <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
                                     placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
                     {/*<div className={`elem elem-3 div-input`} ref={refAddress}>*/}
                     {/*    <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}*/}
@@ -312,67 +339,81 @@ export const FormEventComponent = ({
                         placeholder={"Формат площадки*"}
                     /> */}
                     <div className={"elem elem-5 min-content"}>
-                        <ReactDatetimeClass
-                            className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}
-                            timeFormat={false}
-                            dateFormat={"DD.MM.YYYY"}
-                            closeOnSelect={true}
-                            inputProps={{placeholder: 'Дата *'}}
-                            onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
-                            ref={refDate}
-                            value={date ? date : ''}
-                            renderDay={renderDay}
-                        />
-                        {(dateError || timeError) ? <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span> : null}
-                        <ReactDatetimeClass
-                            className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}
-                            timeFormat={"HH:mm"}
-                            dateFormat={false}
-                            closeOnSelect={true}
-                            inputProps={{placeholder: 'Время *'}}
-                            onChange={(e) => choiceTime(e, setTime, refTime)}
-                            ref={refTime}
-                            value={time ? time : ''}
-                        />
-                        {(dateError || timeError) ? <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span> : null}
+                        <div className="formEvent__date-time-input">
+                            <ReactDatetimeClass
+                                className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}
+                                timeFormat={false}
+                                dateFormat={"DD.MM.YYYY"}
+                                closeOnSelect={true}
+                                inputProps={{placeholder: 'Дата *'}}
+                                onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
+                                ref={refDate}
+                                value={date ? date : ''}
+                                renderDay={renderDay}
+                            />
+                            {(dateError || timeError) ? <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span> : null}
+                        </div>
+                        <div className="formEvent__date-time-input">
+                            <ReactDatetimeClass
+                                className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}
+                                timeFormat={"HH:mm"}
+                                dateFormat={false}
+                                closeOnSelect={true}
+                                inputProps={{placeholder: 'Время *'}}
+                                onChange={(e) => choiceTime(e, setTime, refTime)}
+                                ref={refTime}
+                                value={time ? time : ''}
+                            />
+                            {(dateError || timeError) ? <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span> : null}
+                        </div>
                         {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
                     </div>
                     <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                     <DropDownComponent
-                        value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3"}
-                        content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
+                        value={matchDuration} setValue={setMatchDuration} leftIcon={'duration-icon'} sizingClass={"elem elem-3 elem-96"}
+                        content={['без времени','30 мин', '60 мин', '90 мин', '120 мин']} errorText={fieldError} setErrorText={setFieldError}
                         placeholder={"Продолжительность"}
                     />
-                    <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} placeholder={"Количество слотов *"} content={countPlayers}/>
+                    <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} content={countPlayers}
+                    placeholder={"Количество слотов *"}/>
                     <div className={`elem elem-10`}>
                         <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость"} onChange={isEdit? () => {return price;} : inputDigit}
                                         errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
                         <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} content={currencies}/>
                     </div>
                     <div className="formEvent__placement">
-                        <p>Плейсмент: *</p>
+                        <p>Плейсмент *</p>
                         <div className="formEvent__placement-checkboxes">
                             <CheckboxComponent onClick={() => {handleAnonseCheckBoxClick('Lenta')}} checked={anonseLentaCheck} setChecked={setAnonseLentaCheck} text="Лента"/>
                             <CheckboxComponent onClick={() => {handleAnonseCheckBoxClick('Telegram')}} checked={anonseTgCheck} setChecked={setAnonseTgCheck}  text="TG чат"/>
                         </div>
                     </div>
-                    <DropDownComponent
-                        value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3 formEvent__placement-select"}
-                        content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
-                        placeholder={"Выберите чат *"}
-                    />
+                    {anonseTgCheck && 
+                        <DropDownComponent
+                            value={field} setValue={setField} leftIcon={'chat-icon'} sizingClass={"elem elem-3 formEvent__placement-select"}
+                            content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
+                            placeholder={"Выберите чат *"}
+                        />
+                    }
                     <div className="formEvent__delayed-post">
-                        <CheckSliderComponent value={IsDelayedAnonse} setValue={setIsDelayedAnonse} text={"Отложенная публикация"}/>
-                        <p>30 мая 2023 в 12:45</p>
+                        <CheckSliderComponent value={isDelayedAnonse} setValue={setIsDelayedAnonse} text={"Отложенная публикация"}/>
+                        {isDelayedAnonse && <LineDateTimePicker output={setDelayedTime} />}
                     </div>
                 </div>
             </div>
-            <AccordionWrapper defaultValue={true}>
-                <div className="formEvent__age-limit">
-                
-                </div>
-                <div className="formEvent__select-gender">
-    
+            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={true}>
+                <div className="formEvent__gender-and-age">
+                    <div className="formEvent__age-limit">
+                        <span className="text-footnote">Пол</span>
+                        <div className="formEvent__gender-limit">
+                            <CheckboxComponent checked={allowMale} setChecked={setAllowMale} text="М"/>
+                            <CheckboxComponent checked={allowFemale} setChecked={setAllowFemale} text="Ж"/>
+                        </div>
+                    </div>
+                    <div className="formEvent__age-limit">
+                        <span className="text-footnote">Возраст</span>
+                        <InputFromToComponent output={setAgeLimit} classes={'formEvent__age-limit-input'}/>
+                    </div>
                 </div>
                 <div className="formEvent__rating-range">
                     <div className="formEvent__rating-range-text">
@@ -381,17 +422,18 @@ export const FormEventComponent = ({
                             {`${ratingLimit[0]}-${ratingLimit[1]}`}
                         </span>
                     </div>
-                    <RangeTwoPointInput minValue={0} maxValue={5000} output={setRatingLimit} classes="formEvent__rating-range-width" />
+                    <RangeTwoPointInput step={25} minValue={0} maxValue={5000} output={setRatingLimit} classes="formEvent__rating-range-width" />
                 </div>
             </AccordionWrapper>
             <div className={"elem elem-11"} ref={refNotice}>
                 <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарий"} value={notice ? notice : ''}></textarea>
             </div>
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
-                <button className={"btn btn-form-event"} onClick={sendForm}>Сохранить</button>
+                <button className={"btn btn-form-event"} onClick={sendForm}>Создать</button>
             </div>
             <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} userAddress={user.address ? user.address : null}
-                                  setField={setField} setIsOpenMap={setIsOpenMap} address={address} fields={fields}/>
+                setField={setField} setIsOpenMap={setIsOpenMap} address={address} fields={fields}
+            />
         </div>
     )
 }

@@ -10,6 +10,7 @@ export const InputComponent = ({
     placeholder='',
     errorText='',
     password=false,
+    maxLength=null,
     onChange=(value) => {return value;},
     rightOnClick=() => {},
     onKeyUp=() => {},
@@ -17,6 +18,10 @@ export const InputComponent = ({
 
     const onChangeValue = (e) => {
         let value = onChange(e.target.value);
+        if (!!(maxLength && value.length > maxLength)) {
+            console.log('returned')
+            return
+        }
         setValue(value);
     }
 

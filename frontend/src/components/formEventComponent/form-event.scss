@@ -8,8 +8,22 @@
   position: relative;
   padding: 40px 30px 40px 40px;
   box-sizing: border-box;
-  overflow: hidden;
-
+  overflow-y: auto !important;
+  .btn-close {
+    display: unset !important;
+    right: 35px !important;
+    top: 35px !important;
+    opacity: 0.2;
+  }
+  .currency-dropdown {
+    .dropdown-label {
+      font-size: 13px;
+      padding-left: 8px !important;
+    }
+    .right-icon {
+      right: 20px !important;
+    }
+  }
   .btn-close {
     position: absolute;
     right: 28px;
@@ -320,8 +334,10 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-top: -20px;
+  margin-top: -12px;
   & > p {
+    font-family: 'Raleway';
+    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
@@ -374,19 +390,10 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 55px;
+  margin-top: -8px;
   & .check-slider-component  {
     white-space: nowrap;
-  }
-
-  & > p {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 120%;
-    color: #949494;
-    padding: 0px 5px 3px 5px;
-    border-bottom: 1px solid rgba(148, 148, 148, 0.5);
   }
 }
 
@@ -397,11 +404,44 @@
 .form-event-body-top {
   display: flex;
   flex-wrap: wrap;
-  row-gap: 8px;
   column-gap: 8px;
+  width: 530px;
   & .elem {
     flex: unset;
   }
+}
+
+.formEvent__gender-and-age {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formEvent__age-limit {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.formEvent__gender-limit {
+  display: flex;
+  gap: 22px;
+  & .checkbox-component .cell {
+    border: 1px solid #6C6C6C;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    background-size: cover !important;
+  }
+  & .checkbox-component .active {
+    background: url('../../assets/icon/check-box-orange-square.svg') !important;
+    padding: 1px !important;
+  }
+}
+
+.formEvent__age-limit {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .elem-11 {
@@ -409,7 +449,11 @@
   max-height: 68px;
 }
 
-@media screen and (min-width: 744px) and (max-width: 1279px){
+.elem-12 {
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 744px){
   .formEvent__rating-range-width {
     max-width: 288px;
     margin-top: 9px;
@@ -487,22 +531,62 @@
     padding: 24px calc(50% - 158px) 20px calc(50% - 148px);
     overflow-y: auto;
     overflow-x: hidden;
+    .formEvent__placement {
+      width: max-content;
+      gap: 32px;
+    }
+    .formEvent__placement-select {
+      width: 304px !important;
+    }
+    .line-date__time-picker {
+      width: max-content;
+    }
+    .formEvent__accordion {
+      margin-top: 0px;
+    }
+    
+    .accordion__wrapper-content {
+      margin-top: 24px;
+    }
+    .formEvent__gender-and-age {
+      flex-direction: column;
+      gap: 30px;
+    }
+    .formEvent__rating-range {
+      flex-direction: column;
+      gap: 22px;
+      margin-bottom: 50px;
+    }
+    .formEvent__age-limit {
+      justify-content: space-between;
+    }
+    .formEvent__delayed-post {
+      display: flex;
+      justify-content: unset;
+      height: max-content;
+      flex-direction: column;
+      margin-top: 0px;
+    }
+    .formEvent__placement-checkboxes {
+      gap: 15px;
+    }
 
     .elem {
-     width: 296px;
+      width: 304px;
     }
     .elem.elem-1 {
       align-self: stretch;
       width: auto;
       position: relative;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
 
       span {
         font-size: 20px;
       }
     }
     .elem.elem-5 {
-      flex-direction: column;
+      flex-direction: row;
+      gap: 0px;
 
       .date {
         input {
@@ -527,6 +611,28 @@
         display: flex;
       }
     }
+    .elem-2 {
+      margin-bottom: 15px;
+    }
+    .elem-96 {
+      margin-top: 15px;
+    }
+    .formEvent__date-time-input {
+      width: 152px;
+      & .form-control {
+        border-top-right-radius: unset !important;
+        border-bottom-right-radius: unset !important;
+      }
+    }
+    .elem-select-time {
+      & .form-control {
+        border-top-right-radius: 8px !important;
+        border-bottom-right-radius: 8px !important;
+        border-top-left-radius: unset !important;
+        border-bottom-left-radius: unset !important;
+      }
+    }
+
     .elem.datetime-message {
       display: none;
     }
@@ -539,6 +645,9 @@
     }
     .form-event-body {
       max-height: 100%;
+    }
+    .elem-11 {
+      margin-top: 0px;
     }
   }
 }

@@ -19,8 +19,8 @@ export const AccordionWrapper = ({
         <p onClick={handleClick} className={'accordion__wrapper-action ' + actionElClasses + (isExpanded && 'accordion__wrapper-action--active')}>
             Дополнительные параметры
         </p>
-        <div className={'accrodion__wrapper-content ' + contentClasses}>
-            {isExpanded && children}
+        <div className={'accrodion__wrapper-content ' + contentClasses} style={{display: isExpanded ? '' : 'none'}}>
+            {children}
         </div>
       </div>
     );

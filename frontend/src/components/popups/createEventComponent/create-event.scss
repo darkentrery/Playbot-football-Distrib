@@ -16,7 +16,7 @@
   }
 }
 
-@media screen and (min-width: 744px) and (max-width: 1279px){
+@media screen and (min-width: 744px){
   .create-event-component {
     width: auto;
     height: 772px;
@@ -45,6 +45,10 @@
 
     .elem-10 {
       width: 275px;
+    }
+
+    .elem-11 {
+      margin-top: auto;
     }
   }
 }

@@ -19,11 +19,12 @@
         background-image: url('../../assets/icon/up-arrow.png');
         background-size: cover;
         opacity: 0.5;
+        transform: rotate(180deg);
     }
 }
 
 .accordion__wrapper-action--active {
     &::after {
-        transform: rotate(180deg);
+        transform: rotate(0deg);
     }
 }
