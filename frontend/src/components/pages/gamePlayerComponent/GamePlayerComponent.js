@@ -16,6 +16,15 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const [restTimeEnd, setRestTimeEnd] = useState(false);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
+    const [isOpen1Auto, setIsOpen1Auto] = useState(false);
+    const [isOpen2Auto, setIsOpen2Auto] = useState(false);
+    const [isOpen1Pass, setIsOpen1Pass] = useState(false);
+    const [isOpen2Pass, setIsOpen2Pass] = useState(false);
+    const [goal1Player, setGoal1Player] = useState(false);
+    const [goal2Player, setGoal2Player] = useState(false);
+    const [players1Pass, setPlayers1Pass] = useState([]);
+    const [players2Pass, setPlayers2Pass] = useState([]);
+
     // const [block, setBlock] = useState(false);
     const [isPlay, setIsPlay] = useState(null);
 
@@ -89,8 +98,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     let seconds = (event.duration.duration * 60 - restTime + 1) % 60;
                     let minutes = (((event.duration.duration * 60 - restTime + 1) - seconds) / 60);
                     setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-                    console.log(restTime - 1)
-                    console.log(new Date())
+                    // console.log(restTime - 1)
+                    // console.log(new Date())
                     setRestTime(restTime - 1);
                 } else if (restTime - 1 < 0 && user.isAuth && eventService.isOrganizer(event, user.user) && !game.time_end) {
                     funcs.setPlayerBlock(true);
@@ -184,22 +193,61 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         }
     }
 
-    const PlayersList = ({className='', isOpen, team, setIsOpen}) => {
-        const goal = (player) => {
-          createGoal(team.id, player.player.id);
-          setIsOpen(false);
-        }
-        return (
-            <div className={`players-list ${className} ${isOpen ? '' : 'hidden'}`}>
-                <div className={"list scroll"}>
-                    {team.team_players.map((player, key) => (
-                        <div className={"el black-400-13"} key={key}
-                             onClick={() => {goal(player)}}
-                        >{player.player.username}</div>
-                    ))}
-                </div>
-            </div>
-        )
+    const team1AutoGoal = () => {
+        setIsOpen1(false);
+        setIsOpen1Auto(true);
+    }
+
+    const team2AutoGoal = () => {
+        setIsOpen2(false);
+        setIsOpen2Auto(true);
+    }
+
+    const team1Goal = () => {
+        setIsOpen1(true);
+        setIsOpen1Auto(false);
+    }
+
+    const team2Goal = () => {
+        setIsOpen2(true);
+        setIsOpen2Auto(false);
+    }
+
+    const pass1Back = () => {
+        setIsOpen1Pass(false);
+        setIsOpen1(true);
+    }
+
+    const pass2Back = () => {
+        setIsOpen2Pass(false);
+        setIsOpen2(true);
+    }
+
+    const closeHighLight = () => {
+        setIsOpen1(false);
+        setIsOpen2(false);
+        setIsOpen1Auto(false);
+        setIsOpen2Auto(false);
+        setIsOpen1Pass(false);
+        setIsOpen2Pass(false);
+        setGoal1Player(false);
+        setGoal2Player(false);
+    }
+
+    const click1TeamGoalPlayer = (player) => {
+        setIsOpen1(false);
+        setIsOpen1Pass(true);
+        setGoal1Player(player);
+        let players = game.team_1.team_players.filter(item => { if (player.id !== item.id) return item; });
+        setPlayers1Pass(players);
+    }
+
+    const click2TeamGoalPlayer = (player) => {
+        setIsOpen2(false);
+        setIsOpen2Pass(true);
+        setGoal2Player(player);
+        let players = game.team_2.team_players.filter(item => { if (player.id !== item.id) return item; });
+        setPlayers2Pass(players);
     }
 
     const GoalRow = ({goal, teamId1, teamId2}) => {
@@ -254,11 +302,21 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     </div>}
                     <div className={"elem elem-3"}>
                         <div className={`btn-block block-1`}>
-                            <span className={`btn white-600-14 ${isPlay && !playerBlock ? '' : 'lock'}`} onClick={isPlay ? goal1 : () => {}}>
+                            <span className={`btn white-600-14 ${isPlay && !playerBlock ? '' : 'lock'}`} onClick={isPlay ? team1Goal : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
-                            <HighLightComponent isOpen={true} event={event} team={game.team_1}/>
-                            <PlayersList className={"player-list-1"} isOpen={isOpen1} team={game.team_1} setIsOpen={setIsOpen1}/>
+                            <HighLightComponent
+                                isOpen={isOpen1} event={event} teamPlayers={game.team_1.team_players} autoGoal={team1AutoGoal}
+                                text={"Автор гола (1/2)"} clickClose={closeHighLight} clickPlayer={click1TeamGoalPlayer}
+                            />
+                            <HighLightComponent
+                                isOpen={isOpen1Pass} event={event} teamPlayers={players1Pass}
+                                text={"Голевой пас (2/2)"} toBack={pass1Back} clickClose={closeHighLight}
+                            />
+                            <HighLightComponent
+                                isOpen={isOpen1Auto} event={event} teamPlayers={game.team_2.team_players} toBack={team1Goal}
+                                text={"Автор автогола"} clickClose={closeHighLight}
+                            />
                         </div>
                         {isPlay && <span className={`btn white-600-14 ${playerBlock ? 'lock' : ''}`} onClick={endGamePeriod}>
                             <div className={"icon white-pause-icon"}></div>
@@ -267,10 +325,21 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                             <div className={"icon white-play-icon"}></div>
                         </span>}
                         <div className={`btn-block block-2`}>
-                            <span className={`btn white-600-14 ${isPlay && !playerBlock ? '' : 'lock'}`} onClick={isPlay ? goal2 : () => {}}>
+                            <span className={`btn white-600-14 ${isPlay && !playerBlock ? '' : 'lock'}`} onClick={isPlay ? team2Goal : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
-                            <PlayersList className={"player-list-2"} isOpen={isOpen2} team={game.team_2} setIsOpen={setIsOpen2}/>
+                            <HighLightComponent
+                                isOpen={isOpen2} event={event} teamPlayers={game.team_2.team_players} autoGoal={team2AutoGoal}
+                                text={"Автор гола (1/2)"} clickClose={closeHighLight} clickPlayer={click2TeamGoalPlayer}
+                            />
+                            <HighLightComponent
+                                isOpen={isOpen2Pass} event={event} teamPlayers={players2Pass}
+                                text={"Голевой пас (2/2)"} toBack={pass2Back} clickClose={closeHighLight}
+                            />
+                            <HighLightComponent
+                                isOpen={isOpen2Auto} event={event} teamPlayers={game.team_1.team_players} toBack={team2Goal}
+                                text={"Автор автогола"} clickClose={closeHighLight}
+                            />
                         </div>
                     </div>
                     {game.goals.length !== 0 && <div className={"elem elem-5"}>

@@ -6,26 +6,28 @@ import {PlayerIconComponent} from "../playerIconComponent/PlayerIconComponent";
 
 export const HighLightComponent = ({
     isOpen,
-    event,
-    team,
+    teamPlayers,
     toBack=false,
     delHighLight=false,
     autoGoal=false,
+    clickPlayer = () => {},
+    text='',
+    clickClose = () => {},
 }) => {
     return (
         <div className={`high-light-component ${isOpen ? '' : 'hidden'}`}>
             <div className={`title-row`}>
                 {!!toBack && <BackButtonComponent className={"back"} onClick={toBack}/>}
-                <span className={"title black-600-14"}>Автор гола (1/2)</span>
-                <CloseButtonComponent className={"close"}/>
+                <span className={"title black-600-14"}>{text}</span>
+                <CloseButtonComponent className={"close"} onClick={clickClose}/>
             </div>
             {!!autoGoal && <div className={"autogoal-row"} onClick={autoGoal}>
                 <div className={"autogoal-icon"}></div>
                 <span className={"black-400-14"}>Автогол</span>
             </div>}
             <div className={"players-elems"}>
-                {!!team.team_players.length && team.team_players.map((player, i) => (
-                    <div className={"player-elem"} key={i}>
+                {!!teamPlayers.length && teamPlayers.map((player, i) => (
+                    <div className={"player-elem"} key={i} onClick={() => clickPlayer(player)}>
                         <PlayerIconComponent photo={player.player.photo}/>
                         <span className={"black-400-14"}>{player.player.username}</span>
                     </div>
