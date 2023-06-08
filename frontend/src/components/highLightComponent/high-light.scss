@@ -1,0 +1,71 @@
+.high-light-component {
+  display: flex;
+  position: absolute;
+  width: 400px;
+  height: 372px;
+  background: #FFFFFF;
+  padding: 20px 12px;
+  border: 1px solid #E4E4E4;
+  box-shadow: 0px 2px 10px rgba(118, 118, 118, 0.25);
+  border-radius: 8px;
+  top: 50px;
+  gap: 16px;
+  flex-direction: column;
+
+  &.hidden {
+    display: none;
+  }
+  .title-row {
+    display: flex;
+    flex: 0 0 20px;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 6px;
+    gap: 12px;
+
+    .back {
+      position: static;
+    }
+    .title {
+      flex: 1 1 auto;
+    }
+    .close {
+      position: static;
+    }
+  }
+  .players-elems {
+    display: flex;
+    gap: 4px 8px;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+
+    .player-elem {
+      display: flex;
+      box-sizing: border-box;
+      padding: 4px 6px;
+      gap: 8px;
+      align-items: center;
+      cursor: pointer;
+      height: 48px;
+      flex: 0 0 186px;
+
+      &:hover {
+        border: 1px solid #DADADA;
+        border-radius: 8px;
+      }
+    }
+  }
+  .delete-row {
+    display: flex;
+    flex: 0 0 24;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+
+    .bucket {
+      display: flex;
+      height: 20px;
+      flex: 0 0 18px;
+    }
+  }
+}

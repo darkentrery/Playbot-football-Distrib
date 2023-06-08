@@ -6,6 +6,7 @@ import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import $ from "jquery";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
+import {HighLightComponent} from "../../highLightComponent/HighLightComponent";
 
 
 export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => {
@@ -256,6 +257,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                             <span className={`btn white-600-14 ${isPlay && !playerBlock ? '' : 'lock'}`} onClick={isPlay ? goal1 : () => {}}>
                                 <div className={"icon white-ball-icon"}></div>Гол
                             </span>
+                            <HighLightComponent isOpen={true} event={event} team={game.team_1}/>
                             <PlayersList className={"player-list-1"} isOpen={isOpen1} team={game.team_1} setIsOpen={setIsOpen1}/>
                         </div>
                         {isPlay && <span className={`btn white-600-14 ${playerBlock ? 'lock' : ''}`} onClick={endGamePeriod}>

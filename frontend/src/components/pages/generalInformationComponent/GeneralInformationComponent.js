@@ -6,6 +6,7 @@ import EventRoutes from "../../../routes/EventRoutes";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {eventService} from "../../../services/EventService";
 import avatarIcon from "../../../assets/icon/avatar-2.png";
+import {PlayerIconComponent} from "../../playerIconComponent/PlayerIconComponent";
 
 
 
@@ -130,7 +131,8 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             <div className={`player-row ${gray ? 'gray-bottom': ''}`}>
                 <span className={`elem elem-1 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value1}.</span>
                 <div className={"elem elem-2"}>
-                    {isPlayer && <img src={avatarIcon} className={"icon"} alt=""/>}
+                    {isPlayer && <PlayerIconComponent/>}
+                    {/*{isPlayer && <img src={avatarIcon} className={"icon"} alt=""/>}*/}
                     <span className={gray ? 'gray-400-13' : 'black-400-13'}>{isPlayer ? eventService.getCutUsername(value2) : value2}</span>
                 </div>
                 <span className={`elem elem-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
