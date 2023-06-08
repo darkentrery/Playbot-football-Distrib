@@ -17,7 +17,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             let count_circles = event.count_circles.replace(/\D/g, "");
             let duration = event.duration.duration.toString();
             let durationLabel = getMinutesStr(duration);
-            let totalDuration = count_circles * duration;
+            let totalDuration = event.event_games.length * duration;
             let totalDurationLabel = getMinutesStr(totalDuration.toString());
             setHeadItems([
                 ["Формат игры:", event.format],
@@ -30,11 +30,12 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         }
     }, [event])
 
-    const EventTable = ({children, title, className}) => {
+    const EventTable = ({children, title, className, color=false}) => {
         return (
             <div className={"table"}>
                 <div className={"table-head"}>
                     <div className={className}></div>
+                    {color && <div className={"color"} style={{backgroundColor: color}}></div>}
                     <span className={"black-500-16"}>{title}</span>
                 </div>
                 <div className={"table-body"}>
@@ -44,7 +45,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
         )
     }
 
-    const GameRow = ({gray=false, value1, value2, value4, game, flagBegin, pk}) => {
+    const GameRow = ({gray=false, value1, value2, value4, game, flagBegin, pk, color1, color2}) => {
         const [value3, setValue3] = useState(false);
         useEffect(() => {
             if (game) {
@@ -63,9 +64,13 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             <div className={"game-row"}>
                 <div className={"elem-1"}>
                     <span className={`el el-1 ${gray ? 'gray-400-13' : 'black-600-13'}`}>{value1}.</span>
-                    <span className={`el el-2 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value2}</span>
+                    <span className={`el el-2 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
+                        {!!color1 && <div className={"color"} style={{backgroundColor: color1}}>&nbsp;&nbsp;</div>}{value2}
+                    </span>
                     <span className={`el el-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
-                    <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
+                    <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
+                        {!!color2 && <div className={"color"} style={{backgroundColor: color2}}>&nbsp;&nbsp;</div>}{value4}
+                    </span>
                 </div>
                 {user.isAuth && event && eventService.isOrganizer(event, user.user) &&
                     <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`}
@@ -75,9 +80,13 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             <Link className={"game-row"} to={EventRoutes.eventGamePlayerLink(pk, game.id)}>
                 <div className={"elem-1"}>
                     <span className={`el el-1 ${gray ? 'gray-400-13' : 'black-600-13'}`}>{value1}.</span>
-                    <span className={`el el-2 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value2}</span>
+                    <span className={`el el-2 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
+                        {!!color1 && <div className={"color"} style={{backgroundColor: color1}}>&nbsp;&nbsp;</div>}{value2}
+                    </span>
                     <span className={`el el-3 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value3}</span>
-                    <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>{value4}</span>
+                    <span className={`el el-4 ${gray ? 'gray-400-13' : 'black-400-13'}`}>
+                        {!!color2 && <div className={"color"} style={{backgroundColor: color2}}>&nbsp;&nbsp;</div>}{value4}
+                    </span>
                 </div>
                 {user.isAuth && eventService.isOrganizer(event, user.user) &&
                     <Link className={`elem-2 btn ${flagBegin ? '' : 'hidden'}`}
@@ -168,6 +177,8 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                             game={game}
                             flagBegin={(key === 0 && !game.time_begin) || (key > 0 && event.event_games[key - 1].time_end && !game.time_begin) ? true : false}
                             pk={event.id}
+                            color1={game.team_1.color ? game.team_1.color.color_hex : false}
+                            color2={game.team_2.color ? game.team_2.color.color_hex : false}
                         />
                     ))}
                 </EventTable>
@@ -189,7 +200,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                 </EventTable>
                 <div className={"team-players"}>
                     {!!event && event.teams.map((team, id) => (
-                        <EventTable title={team.name} className={"socer-player-icon"} key={id}>
+                        <EventTable title={team.name} className={"socer-player-icon"} key={id} color={team.color ? team.color.color_hex : false}>
                             <PlayerRow gray={true} isPlayer={false} value1={"№"} value2={"Имя "} value3={"GAM"}
                                        value4={"GOL"} value5={"AST"} value6={"GOL+AST"} value7={"Рейтинг"}/>
                             {team.team_players.map((player, key) => (

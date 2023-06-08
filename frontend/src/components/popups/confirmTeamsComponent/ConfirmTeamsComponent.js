@@ -42,7 +42,7 @@ export default function ConfirmTeamsComponent ({isOpen, isIPhone, event, funcs})
             let count_circles = event.count_circles.replace(/\D/g, "");
             let duration = event.duration.duration.toString();
             let durationLabel = getMinutesStr(duration);
-            let totalDuration = count_circles * duration;
+            let totalDuration = event.event_games.length * duration;
             let totalDurationLabel = getMinutesStr(totalDuration.toString());
             setHeadItems([
                 ["Формат игры:", event.format],
