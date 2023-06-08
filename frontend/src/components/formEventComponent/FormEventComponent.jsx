@@ -65,12 +65,13 @@ export const FormEventComponent = ({
     const [allowFemale, setAllowFemale] = useState(true);
 
     // need backend -->
-    const allowedGenders = {'male': allowMale, 'female': allowFemale}
-    const [ratingLimit, setRatingLimit] = useState([0, 5000])
-    const [anonseList, setAnonseList] = useState(['Lenta'])
-    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}) // 0 or 01.03.2022-17:01
-    const [matchDuration, setMatchDuration] = useState(false)
-    const [ageLimit, setAgeLimit] = useState([false, false])
+    const allowedGenders = {'male': allowMale, 'female': allowFemale} // 'male': boolean, 'female': boolean
+    const [ratingLimit, setRatingLimit] = useState([0, 5000]) // [0, 25] min
+    const [anonseList, setAnonseList] = useState(['Lenta']) // anonse list - может быть пустым [] или с данными куда пост выкатить ['Lenta', 'Telegram']
+    const [tgChat, setTgChat] = useState(false); // пока не добавил, с этим нужно уточнить, появляется при Telegram в anonseList.
+    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}) // date - 01.03.2022  time - 17:01 UTC
+    const [matchDuration, setMatchDuration] = useState(false) // в минутах 30, 60 и тд, если false то без времени 
+    const [ageLimit, setAgeLimit] = useState([false, false]) // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
     console.log(`ratingLimit: ${ratingLimit}`, `anonseList:${anonseList}`, 
     `matchDuration: ${matchDuration}`, `allowedGendres: ${'male-' + allowedGenders.male + ' female-' + allowedGenders.female}`, delayedTime
     )
@@ -174,6 +175,12 @@ export const FormEventComponent = ({
                 }
             }
         }
+        let newMatchDuration;
+        if (isNaN(parseInt(matchDuration))) {
+            newMatchDuration = false;
+        } else {
+            newMatchDuration = parseInt(matchDuration)
+        }
         let bodyFormData = {
             'id': id,
             'name': name,
@@ -192,12 +199,12 @@ export const FormEventComponent = ({
             'rating_limit': ratingLimit,
             'anonse_list': anonseList,
             'delayed_time': delayedTime,
-            'match_duration': matchDuration,
+            'match_duration': newMatchDuration,
             'age_limit': ageLimit,
         };
         console.log(bodyFormData)
         setData(bodyFormData);
-    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency]);
+    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit, anonseList, delayedTime, matchDuration, allowedGenders.male, allowedGenders.female, ageLimit]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
@@ -257,7 +264,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && field && (!isPaid || (isPaid && price)) && format) {
+        if (name && date && time && field && format) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {

@@ -7,14 +7,14 @@ export const InputFromToComponent = ({
     output = () => {},
     classes = ''
 }) => {
-    const [input1, setInput1] = useState('minValue')
-    const [input2, setInput2] = useState('maxValue')
+    const [input1, setInput1] = useState(false)
+    const [input2, setInput2] = useState(false)
 
     useEffect(() => {
         const numericRegex = /^[0-9]+$/; // Регулярное выражение для проверки, содержит ли строка только цифры
     
         //Проверка и очистка input1
-        if (!numericRegex.test(input1) && input1 !== '') {
+        if (!numericRegex.test(input1)) {
             setInput1('');
         } else if (parseInt(input1) > maxValue) {
             setInput1(maxValue.toString());
@@ -31,7 +31,7 @@ export const InputFromToComponent = ({
             setInput2(minValue.toString());
         }
     
-        output([input1, input2]);
+        output([input1 !== '' && input1, input2 !== '' && input2]);
     }, [input1, input2]);
 
     return (
