@@ -10,7 +10,7 @@ import {
   loginWindow,
   hiddenMap,
   team,
-  endGameWindow, game
+  endGameWindow, game, endEventWindow
 } from "../actions/actions";
 import {connect} from "react-redux";
 import {EventWrapperComponent} from "../../components/wrappers/eventWrapperComponent/EventWrapperComponent";
@@ -70,6 +70,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       openEndGame: () => {
         dispatch(endGameWindow(true));
+      },
+      openEndEvent: () => {
+        dispatch(endEventWindow(true));
       },
     }
   };

@@ -24,6 +24,7 @@ export const MOBILE_FIRST_PAGE_WINDOW = 'MOBILE_FIRST_PAGE_WINDOW';
 export const LEAVE_EVENT_WINDOW = 'LEAVE_EVENT_WINDOW';
 export const UN_AUTH_JOIN_WINDOW = 'UN_AUTH_JOIN_WINDOW';
 export const END_GAME_WINDOW = 'END_GAME_WINDOW';
+export const END_EVENT_WINDOW = 'END_EVENT_WINDOW';
 export const UPDATE_PASSWORD_WINDOW = 'UPDATE_PASSWORD_WINDOW';
 export const SHOW_EMBLEM_WINDOW = 'SHOW_EMBLEM_WINDOW';
 export const SHOW_MENU_WINDOW = 'SHOW_MENU_WINDOW';
@@ -177,6 +178,11 @@ export const unAuthJoinWindow = (value) => ({
 
 export const endGameWindow = (value) => ({
   type: END_GAME_WINDOW,
+  value,
+});
+
+export const endEventWindow = (value) => ({
+  type: END_EVENT_WINDOW,
   value,
 });
 

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
-import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {Top376Component} from "../../top376Component/Top376Component";
 import {eventService} from "../../../services/EventService";
 import EventRoutes from "../../../routes/EventRoutes";
@@ -25,15 +24,7 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
     }, [pk, window.location.pathname, user]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const endEvent = () => {
-        // if (!playerBlock) {
-        setIsEndEvent(true);
-        funcs.setEvent(false);
-        authDecoratorWithoutLogin(eventService.endEvent, {"id": pk}).then((response) => {
-            if (response.status === 200) {
-                funcs.setEvent(response.data);
-            }
-        })
-        // }
+        funcs.openEndEvent();
     }
 
     const endGame = () => {
@@ -53,7 +44,7 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
                     <div className={"note-orange-icon"}></div>
                     <span className={"orange-400-14 link"}>Включить Playbot,FM </span>
                 </div>}
-                {!window.location.pathname.includes('teams') && user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !isEndEvent ?
+                {user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !isEndEvent ?
                     <span className={"elem elem-3 gray-400-14 link"} onClick={endEvent}>Завершить событие</span> :
                     <Link className={"elem elem-3 gray-400-14"} to={EventRoutes.eventLink(pk)}>Выйти</Link>}
                 {/*{isEndEvent && <Link className={"elem elem-3 gray-400-14"} to={BaseRoutes.main}>Вернуть на главную</Link>}*/}

@@ -55,6 +55,7 @@ import VisibleDeleteAccount from "./redux/containers/VisibleDeleteAccount";
 import {LandingComponent} from "./components/pages/landingComponent/LandingComponent";
 import VisibleOnboardingStep1 from "./redux/containers/VisibleOnboardingStep1";
 import VisibleOnboardingStep2 from "./redux/containers/VisibleOnboardingStep2";
+import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
 
 
 function App({state, funcs}) {
@@ -212,6 +213,7 @@ function App({state, funcs}) {
                                          funcs={funcs} isIPhone={state.app.isIPhone}/>
                 <VisibleConfirmTeamPlayers/>
                 <VisibleEndGame/>
+                <VisibleEndEvent/>
                 <VisibleOnboardingStep1/>
                 <VisibleOnboardingStep2/>
             </Router>

@@ -7,7 +7,7 @@ import {
     CREATE_EVENT_UN_AUTH_WINDOW,
     CREATE_EVENT_WINDOW,
     DELETE_ACCOUNT_WINDOW,
-    EDIT_EVENT_WINDOW,
+    EDIT_EVENT_WINDOW, END_EVENT_WINDOW,
     END_GAME_WINDOW,
     FILL_REGULATION_WINDOW,
     LEAVE_EVENT_WINDOW,
@@ -61,6 +61,7 @@ const initialState = {
     isOpenLeaveEvent: false,
     isOpenUnAuthJoin: false,
     isOpenEndGame: false,
+    isOpenEndEvent: false,
     isOpenUpdatePassword: false,
     isOpenShowEmblem: false,
     isOpenShowMenu: false,
@@ -201,6 +202,11 @@ export const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenEndGame: action.value
+          };
+      case END_EVENT_WINDOW:
+          return {
+              ...state,
+              isOpenEndEvent: action.value
           };
       case UPDATE_PASSWORD_WINDOW:
           return {
