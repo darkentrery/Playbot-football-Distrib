@@ -265,7 +265,9 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 <div className={"manage"}>
                     <div className={"elem elem-1"}>
                         <span className={"black-400-16 team-name team-name-left"}>{eventService.getTeamName(game.team_1.name)}</span>
-                        <span className={"black-800-32"}>{game.score_1} - {game.score_2}</span>
+                        <div className={"team-color"} style={{backgroundColor: game.team_1.color ? game.team_1.color.color_hex : "#FFFFFF"}}></div>
+                        <span className={"black-800-32 central-count"}>{game.score_1} - {game.score_2}</span>
+                        <div className={"team-color"} style={{backgroundColor: game.team_2.color ? game.team_2.color.color_hex : "#FFFFFF"}}></div>
                         <span className={"black-400-16 team-name"}>{eventService.getTeamName(game.team_2.name)}</span>
                     </div>
                     {!event.all_games_finished && !game.time_end && !event.is_end && <div className={"elem elem-2"}>

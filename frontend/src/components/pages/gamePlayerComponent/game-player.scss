@@ -18,7 +18,7 @@
     }
     .elem-1 {
       flex: 0 0 87px;
-      gap: 40px;
+      gap: 8px;
       .team-name {
         flex: 0 1 calc(50% - 100px);
         display: flex;
@@ -27,6 +27,15 @@
         &.team-name-left {
           justify-content: end;
         }
+      }
+      .team-color {
+        display: flex;
+        flex: 0 0 8px;
+        border-radius: 2px;
+        height: 27px;
+      }
+      .central-count {
+        margin: 0 20px;
       }
     }
     .elem-2 {
