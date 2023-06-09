@@ -1,4 +1,3 @@
-import "./high-light.scss";
 import {BackButtonComponent} from "../backButtonComponent/BackButtonComponent";
 import {CloseButtonComponent} from "../closeButtonComponent/CloseButtonComponent";
 import {PlayerIconComponent} from "../playerIconComponent/PlayerIconComponent";
@@ -7,6 +6,7 @@ import {PlayerIconComponent} from "../playerIconComponent/PlayerIconComponent";
 export const HighLightComponent = ({
     isOpen,
     teamPlayers,
+    className='',
     toBack=false,
     delHighLight=false,
     autoGoal=false,
@@ -15,7 +15,7 @@ export const HighLightComponent = ({
     clickClose = () => {},
 }) => {
     return (
-        <div className={`high-light-component ${isOpen ? '' : 'hidden'}`}>
+        <div className={`high-light-component ${isOpen ? '' : 'hidden'} ${className}`}>
             <div className={`title-row`}>
                 {!!toBack && <BackButtonComponent className={"back"} onClick={toBack}/>}
                 <span className={"title black-600-14"}>{text}</span>

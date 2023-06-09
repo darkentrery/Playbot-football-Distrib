@@ -314,14 +314,16 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                             <HighLightComponent
                                 isOpen={isOpen1} event={event} teamPlayers={game.team_1.team_players} autoGoal={team1AutoGoal}
                                 text={"Автор гола (1/2)"} clickClose={closeHighLight} clickPlayer={click1TeamGoalPlayer}
+                                className={"left"}
                             />
                             <HighLightComponent
                                 isOpen={isOpen1Pass} event={event} teamPlayers={players1Pass} clickPlayer={click1Goal}
-                                text={"Голевой пас (2/2)"} toBack={pass1Back} clickClose={closeHighLight}
+                                text={"Голевой пас (2/2)"} toBack={pass1Back} clickClose={closeHighLight} className={"left"}
                             />
                             <HighLightComponent
                                 isOpen={isOpen1Auto} event={event} teamPlayers={game.team_2.team_players} toBack={team1Goal}
                                 text={"Автор автогола"} clickClose={closeHighLight} clickPlayer={click1AutoGoal}
+                                className={"left"}
                             />
                         </div>
                         {isPlay && <span className={`btn white-600-14 ${playerBlock ? 'lock' : ''}`} onClick={endGamePeriod}>
@@ -337,14 +339,16 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                             <HighLightComponent
                                 isOpen={isOpen2} event={event} teamPlayers={game.team_2.team_players} autoGoal={team2AutoGoal}
                                 text={"Автор гола (1/2)"} clickClose={closeHighLight} clickPlayer={click2TeamGoalPlayer}
+                                className={"right"}
                             />
                             <HighLightComponent
                                 isOpen={isOpen2Pass} event={event} teamPlayers={players2Pass} clickPlayer={click2Goal}
-                                text={"Голевой пас (2/2)"} toBack={pass2Back} clickClose={closeHighLight}
+                                text={"Голевой пас (2/2)"} toBack={pass2Back} clickClose={closeHighLight} className={"right"}
                             />
                             <HighLightComponent
                                 isOpen={isOpen2Auto} event={event} teamPlayers={game.team_1.team_players} toBack={team2Goal}
                                 text={"Автор автогола"} clickClose={closeHighLight} clickPlayer={click2AutoGoal}
+                                className={"right"}
                             />
                         </div>
                     </div>
