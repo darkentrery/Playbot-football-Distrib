@@ -81,52 +81,6 @@
         position: relative;
         display: flex;
         flex: 0 0 98px;
-
-        //.players-list {
-        //  display: flex;
-        //  position: absolute;
-        //  width: 256px;
-        //  height: auto;
-        //  top: 52px;
-        //  background: $whiteColor;
-        //  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
-        //  border-radius: 8px;
-        //  padding: 6px 8px;
-        //  box-sizing: border-box;
-        //  justify-content: stretch;
-        //  z-index: 3;
-        //
-        //  &.hidden {
-        //    display: none;
-        //  }
-        //  &.player-list-1 {
-        //    left: 0;
-        //  }
-        //  &.player-list-2 {
-        //    right: 0;
-        //  }
-        //  .list {
-        //    display: flex;
-        //    flex-direction: column;
-        //    padding: 0 10px;
-        //    box-sizing: border-box;
-        //    gap: 4px;
-        //    max-height: 190px;
-        //    flex: 1 1 auto;
-        //
-        //    .el {
-        //      display: flex;
-        //      flex: 0 0 28px;
-        //      cursor: pointer;
-        //      align-items: center;
-        //
-        //      &:hover {
-        //        background: rgba(227, 225, 225, 0.63);
-        //        border-radius: 4px;
-        //      }
-        //    }
-        //  }
-        //}
       }
     }
     .elem-4 {
@@ -205,6 +159,9 @@
                 flex: 0 0 11.5px;
                 height: 11.5px;
               }
+            }
+            .pencil-icon {
+              position: relative;
             }
           }
         }

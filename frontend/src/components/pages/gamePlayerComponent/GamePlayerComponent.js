@@ -8,6 +8,7 @@ import $ from "jquery";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {HighLightComponent} from "../../highLightComponent/HighLightComponent";
 import {PlayerIconComponent} from "../../playerIconComponent/PlayerIconComponent";
+import {GoalRowComponent} from "../../goalRowComponent/GoalRowComponent";
 
 
 export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => {
@@ -257,52 +258,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         closeHighLight();
     }
 
-    const GoalRow = ({goal, teamId1, teamId2}) => {
-        let seconds = goal.game_time % 60;
-        let minutes = (goal.game_time - seconds) / 60;
-
-        return (
-            <div className={`goal-row ${goal.team.id === teamId1 ? 'goal-row-1' : 'goal-row-2'}`}>
-                {goal.team.id === teamId1 && <>
-                    {goal.player !== null && <PlayerIconComponent className={"icon"} photo={goal.player.photo}/>}
-                    <div className={"inform"}>
-                        <div className={"top-part"}>
-                            <span className={"black-600-14"}>{getFullDigit(minutes)}'&nbsp;{getFullDigit(seconds)}''</span>
-                            <div className={"count"}>
-                                <div className={"gray-ball-icon"}></div>
-                                <span className={"black-400-14"}>{goal.score_my}-{goal.score_other}</span>
-                            </div>
-                            <div className={"pencil-icon"}></div>
-                        </div>
-                        <span className={"black-600-14"}>
-                            {!!goal.player ? goal.player.username : ''}&nbsp;&nbsp;
-                            <span className={"gray-400-14"}>({!!goal.assistant && !goal.auto ? goal.assistant.username : 'автогол'})
-                            </span>
-                        </span>
-                    </div>
-                </>}
-                {goal.team.id === teamId2 && <>
-                    <div className={"inform"}>
-                        <div className={"top-part"}>
-                            <div className={"pencil-icon"}></div>
-                            <div className={"count"}>
-                                <div className={"gray-ball-icon"}></div>
-                                <span className={"black-400-14"}>{goal.score_my}-{goal.score_other}</span>
-                            </div>
-                            <span className={"black-600-14"}>{getFullDigit(minutes)}'&nbsp;{getFullDigit(seconds)}''</span>
-                        </div>
-                        <span className={"black-600-14"}>
-                            {!!goal.player ? goal.player.username : ''}&nbsp;&nbsp;
-                            <span className={"gray-400-14"}>({!!goal.assistant && !goal.auto ? goal.assistant.username : 'автогол'})
-                            </span>
-                        </span>
-                    </div>
-                    {goal.player !== null && <PlayerIconComponent className={"icon"} photo={goal.player.photo}/>}
-                </>}
-            </div>
-        )
-    }
-
     return (
         <VisibleEventWrapper>
             {(!game || !event) && <LoaderComponent/>}
@@ -375,7 +330,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     </div>
                     {game.goals.length !== 0 && <div className={"elem elem-5"}>
                         {game.goals.map((goal, key) => (
-                            <GoalRow goal={goal} teamId1={game.team_1.id} teamId2={game.team_2.id} key={key}/>
+                            <GoalRowComponent goal={goal} event={event} team1={game.team_1} team2={game.team_2} key={key}/>
                         ))}
                     </div>}
                 </div>
