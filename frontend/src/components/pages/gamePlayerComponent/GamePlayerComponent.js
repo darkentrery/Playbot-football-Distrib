@@ -7,6 +7,7 @@ import BaseRoutes from "../../../routes/BaseRoutes";
 import $ from "jquery";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {HighLightComponent} from "../../highLightComponent/HighLightComponent";
+import {PlayerIconComponent} from "../../playerIconComponent/PlayerIconComponent";
 
 
 export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => {
@@ -263,20 +264,40 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         return (
             <div className={`goal-row ${goal.team.id === teamId1 ? 'goal-row-1' : 'goal-row-2'}`}>
                 {goal.team.id === teamId1 && <>
-                    {goal.player !== null && <div className={"icon player-avatar-icon"}></div>}
-                    {goal.player !== null && <div className={"gray-line"}></div>}
-                    <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
-                    <div className={"black-ball-icon"}></div>
-                    {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
-                    <span className={"black-400-13"}>({getFullDigit(minutes)}:{getFullDigit(seconds)})</span>
+                    {goal.player !== null && <PlayerIconComponent className={"icon"} photo={goal.player.photo}/>}
+                    <div className={"inform"}>
+                        <div className={"top-part"}>
+                            <span className={"black-600-14"}>{getFullDigit(minutes)}'&nbsp;{getFullDigit(seconds)}''</span>
+                            <div className={"count"}>
+                                <div className={"gray-ball-icon"}></div>
+                                <span className={"black-400-14"}>{goal.score_my}-{goal.score_other}</span>
+                            </div>
+                            <div className={"pencil-icon"}></div>
+                        </div>
+                        <span className={"black-600-14"}>
+                            {!!goal.player ? goal.player.username : ''}&nbsp;&nbsp;
+                            <span className={"gray-400-14"}>({!!goal.assistant && !goal.auto ? goal.assistant.username : 'автогол'})
+                            </span>
+                        </span>
+                    </div>
                 </>}
                 {goal.team.id === teamId2 && <>
-                    <span className={"black-400-13"}>({getFullDigit(minutes)}:{getFullDigit(seconds)})</span>
-                    {goal.player !== null && <span className={"black-400-13"}>{goal.player.username}</span>}
-                    <div className={"black-ball-icon"}></div>
-                    <span className={"black-400-13"}>{goal.score_my}:{goal.score_other}</span>
-                    {goal.player !== null && <div className={"gray-line"}></div>}
-                    {goal.player !== null && <div className={"icon player-avatar-icon"}></div>}
+                    <div className={"inform"}>
+                        <div className={"top-part"}>
+                            <div className={"pencil-icon"}></div>
+                            <div className={"count"}>
+                                <div className={"gray-ball-icon"}></div>
+                                <span className={"black-400-14"}>{goal.score_my}-{goal.score_other}</span>
+                            </div>
+                            <span className={"black-600-14"}>{getFullDigit(minutes)}'&nbsp;{getFullDigit(seconds)}''</span>
+                        </div>
+                        <span className={"black-600-14"}>
+                            {!!goal.player ? goal.player.username : ''}&nbsp;&nbsp;
+                            <span className={"gray-400-14"}>({!!goal.assistant && !goal.auto ? goal.assistant.username : 'автогол'})
+                            </span>
+                        </span>
+                    </div>
+                    {goal.player !== null && <PlayerIconComponent className={"icon"} photo={goal.player.photo}/>}
                 </>}
             </div>
         )
@@ -365,19 +386,21 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     </div>
                     <div className={"elem-2"}>
                         <div className={"team team-1"}>
+                            <span className={"team-name black-700-13"}>{game.team_1.name}</span>
                             {game.team_1.team_players.map((player, key) => (
                                 <div className={"player"} key={key}>
                                     <span className={"black-400-13"}>{key+1}.</span>
-                                    <div className={"player-avatar-icon"}></div>
+                                    <PlayerIconComponent className={"icon"} photo={player.player.photo}/>
                                     <span className={"black-400-13"}>{player.player.username}</span>
                                 </div>
                             ))}
                         </div>
                         <div className={"team team-2"}>
+                            <span className={"team-name black-700-13"}>{game.team_2.name}</span>
                             {game.team_2.team_players.map((player, key) => (
                                 <div className={"player"} key={key}>
                                     <span className={"black-400-13"}>{key+1}.</span>
-                                    <div className={"player-avatar-icon"}></div>
+                                    <PlayerIconComponent className={"icon"} photo={player.player.photo}/>
                                     <span className={"black-400-13"}>{player.player.username}</span>
                                 </div>
                             ))}
