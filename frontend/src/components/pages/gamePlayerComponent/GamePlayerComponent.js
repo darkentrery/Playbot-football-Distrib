@@ -144,7 +144,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         }
     }
 
-    const createGoal = (teamId, player=false) => {
+    const createGoal = (teamId, auto, player=false, assistant=false) => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
             // setBlock(true);
@@ -154,10 +154,12 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 team: teamId,
                 time: new Date().toISOString(),
                 game_time: event.duration.duration * 60 - restTime,
+                auto: auto,
             }
             console.log(new Date())
             setRestTimeEnd(restTime);
-            if (player) data.player = player;
+            if (player) data.player = player.player.id;
+            if (assistant) data.assistant = assistant.player.id;
             authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
                 console.log(response.data)
                 if (response.status === 200) {
@@ -165,22 +167,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     funcs.setGame(response.data);
                 }
             })
-        }
-    }
-
-    const goal1 = () => {
-        if (event.scorer) {
-            if (!isOpen2) setIsOpen1(!isOpen1);
-        } else {
-            createGoal(game.team_1.id);
-        }
-    }
-
-    const goal2 = () => {
-        if (event.scorer) {
-            if (!isOpen1) setIsOpen2(!isOpen2);
-        } else {
-            createGoal(game.team_2.id);
         }
     }
 
@@ -250,6 +236,26 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         setPlayers2Pass(players);
     }
 
+    const click1AutoGoal = (player) => {
+        createGoal(game.team_1.id, true, player);
+        closeHighLight();
+    }
+
+    const click2AutoGoal = (player) => {
+        createGoal(game.team_2.id, true, player);
+        closeHighLight();
+    }
+
+    const click1Goal = (player) => {
+        createGoal(game.team_1.id, false, goal1Player, player);
+        closeHighLight();
+    }
+
+    const click2Goal = (player) => {
+        createGoal(game.team_2.id, false, goal2Player, player);
+        closeHighLight();
+    }
+
     const GoalRow = ({goal, teamId1, teamId2}) => {
         let seconds = goal.game_time % 60;
         let minutes = (goal.game_time - seconds) / 60;
@@ -310,12 +316,12 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                                 text={"Автор гола (1/2)"} clickClose={closeHighLight} clickPlayer={click1TeamGoalPlayer}
                             />
                             <HighLightComponent
-                                isOpen={isOpen1Pass} event={event} teamPlayers={players1Pass}
+                                isOpen={isOpen1Pass} event={event} teamPlayers={players1Pass} clickPlayer={click1Goal}
                                 text={"Голевой пас (2/2)"} toBack={pass1Back} clickClose={closeHighLight}
                             />
                             <HighLightComponent
                                 isOpen={isOpen1Auto} event={event} teamPlayers={game.team_2.team_players} toBack={team1Goal}
-                                text={"Автор автогола"} clickClose={closeHighLight}
+                                text={"Автор автогола"} clickClose={closeHighLight} clickPlayer={click1AutoGoal}
                             />
                         </div>
                         {isPlay && <span className={`btn white-600-14 ${playerBlock ? 'lock' : ''}`} onClick={endGamePeriod}>
@@ -333,12 +339,12 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                                 text={"Автор гола (1/2)"} clickClose={closeHighLight} clickPlayer={click2TeamGoalPlayer}
                             />
                             <HighLightComponent
-                                isOpen={isOpen2Pass} event={event} teamPlayers={players2Pass}
+                                isOpen={isOpen2Pass} event={event} teamPlayers={players2Pass} clickPlayer={click2Goal}
                                 text={"Голевой пас (2/2)"} toBack={pass2Back} clickClose={closeHighLight}
                             />
                             <HighLightComponent
                                 isOpen={isOpen2Auto} event={event} teamPlayers={game.team_1.team_players} toBack={team2Goal}
-                                text={"Автор автогола"} clickClose={closeHighLight}
+                                text={"Автор автогола"} clickClose={closeHighLight} clickPlayer={click2AutoGoal}
                             />
                         </div>
                     </div>

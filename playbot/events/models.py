@@ -509,6 +509,8 @@ class Goal(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals", blank=True, null=True)
     time = models.DateTimeField(_("Goal Time"), default=timezone.now)
     game_time = models.FloatField(_("Game Time"))
+    auto = models.BooleanField(_("Is Auto Goal"), default=False)
+    assistant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="assistant_goals", blank=True, null=True)
 
     class Meta:
         ordering = ["time",]
