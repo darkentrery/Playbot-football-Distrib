@@ -110,6 +110,17 @@ class CreateGoalSerializer(serializers.ModelSerializer):
         fields = ["game", "team", "player", "time", "game_time", "auto", "assistant"]
 
 
+class UpdateGoalSerializer(serializers.ModelSerializer):
+    # game = serializers.PrimaryKeyRelatedField(queryset=EventGame.objects.all(), write_only=True)
+    # team = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all(), write_only=True)
+    player = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, write_only=True)
+    assistant = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, write_only=True, allow_null=True, allow_empty=True)
+
+    class Meta:
+        model = Goal
+        fields = ["player", "auto", "assistant"]
+
+
 class GamePeriodSerializer(serializers.ModelSerializer):
     class Meta:
         model = GamePeriod

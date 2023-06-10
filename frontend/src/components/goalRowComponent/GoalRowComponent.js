@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {PlayerIconComponent} from "../playerIconComponent/PlayerIconComponent";
 import {HighLightComponent} from "../highLightComponent/HighLightComponent";
 import {DeleteHighLightComponent} from "../deleteHighLightComponent/DeleteHighLightComponent";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
+import {eventService} from "../../services/EventService";
 
 
-export const GoalRowComponent = ({event, goal, team1, team2}) => {
+export const GoalRowComponent = ({event, goal, team1, team2, funcs}) => {
     const [isOpenGoal, setIsOpenGoal] = useState(false);
     const [isOpenAssistant, setIsOpenAssistant] = useState(false);
     const [isOpenAuto, setIsOpenAuto] = useState(false);
@@ -17,6 +19,23 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
     const getFullDigit = (value) => {
         value = value > 9 ? value.toString() : '0' + value.toString();
         return value;
+    }
+
+    const updateGoal = (auto, player=false, assistant=null) => {
+        console.log(goal)
+        let updateGoal = {...goal};
+        if (player) updateGoal.player = player.player.id;
+        if (assistant) updateGoal.assistant = assistant.player.id;
+        updateGoal.assistant = assistant ? assistant.player.id : assistant;
+        if (auto) updateGoal.auto = true;
+        console.log(updateGoal)
+        authDecoratorWithoutLogin(eventService.updateGoal, updateGoal).then((response) => {
+            console.log(response.data)
+            if (response.status === 200) {
+                // funcs.setPlayerBlock(false);
+                funcs.setGame(response.data);
+            }
+        })
     }
 
     const closeElem = () => {
@@ -35,11 +54,13 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
     }
 
     const clickTeamGoalAssistant = (player) => {
-
+        closeElem();
+        updateGoal(false, goalPlayer, player);
     }
 
     const clickTeamGoalAuto = (player) => {
-
+        closeElem();
+        updateGoal(true, player);
     }
 
     const teamAutoGoal = () => {

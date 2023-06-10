@@ -332,7 +332,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     </div>
                     {game.goals.length !== 0 && <div className={"elem elem-5"}>
                         {game.goals.map((goal, key) => (
-                            <GoalRowComponent goal={goal} event={event} team1={game.team_1} team2={game.team_2} key={key}/>
+                            <GoalRowComponent goal={goal} event={event} team1={game.team_1} team2={game.team_2} key={key} funcs={funcs}/>
                         ))}
                     </div>}
                 </div>

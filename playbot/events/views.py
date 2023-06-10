@@ -9,11 +9,12 @@ from rest_framework.views import APIView
 
 from playbot.chats.models import Chat
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
-    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color, PlayerNumber
+    EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color, PlayerNumber, Goal
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
     CancelReasonsSerializer, FormatSerializer, DistributionMethodSerializer, DurationSerializer, \
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EventGameSerializer, \
-    CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer, EditTeamSerializer
+    CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer, EditTeamSerializer, \
+    UpdateGoalSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
@@ -376,6 +377,44 @@ class EndGameView(APIView):
 
 
 class CreateGoalView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        game = EventGame.objects.get(id=request.data.get("game"))
+        if game.event.organizers.filter(id=request.user.id).exists():
+            serializer = CreateGoalSerializer(data=request.data)
+            if serializer.is_valid():
+                goal = serializer.save()
+                if goal:
+                    if game.game_periods.filter(time_end=None).exists():
+                        period = game.game_periods.filter(time_end=None).last()
+                        period.time_end = goal.time
+                        period.save()
+                        goal.game_time = game.current_duration
+                        goal.save()
+                    game = EventGameSerializer(instance=goal.game).data
+                    return Response(game, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateGoalView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        goal = Goal.objects.get(id=request.data.get("id"))
+        if goal.game.event.organizers.filter(id=request.user.id).exists():
+            serializer = UpdateGoalSerializer(instance=goal, data=request.data)
+            if serializer.is_valid():
+                goal = serializer.save()
+                if goal:
+                    game = EventGameSerializer(instance=goal.game).data
+                    return Response(game, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteGoalView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):

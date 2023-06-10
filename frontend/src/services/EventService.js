@@ -52,6 +52,8 @@ export const eventService = {
 	beginEventGame(data) { return postRequest('begin-event-game/', data); },
 	endGame(data) { return postRequest('end-game/', data); },
 	createGoal(data) { return postRequest('create-goal/', data); },
+	updateGoal(data) { return postRequest('update-goal/', data); },
+	deleteGoal(data) { return postRequest('delete-goal/', data); },
 	setRegulation(data) { return postRequest('set-regulation/', data); },
 	joinPlayer(data) { return postRequest('join-player/', data); },
 	leaveEvent(data) { return postRequest('leave-event/', data); },
