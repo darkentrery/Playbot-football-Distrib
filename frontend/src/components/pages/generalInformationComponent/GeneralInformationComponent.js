@@ -211,8 +211,8 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                                     value2={player.player.username}
                                     value3={team.played}
                                     value4={player.do_goals}
-                                    value5={"-"}
-                                    value6={"-"}
+                                    value5={player.do_assist}
+                                    value6={player.do_goals + player.do_assist}
                                     value7={event.is_end ? player.delta_rank : false}
                                     value8={player.player.rank}
                                     key={key}

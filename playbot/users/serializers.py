@@ -76,7 +76,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "confirm_slug",
-                  "count_goals", "date_joined", "events_organizer", "event_player", "favorite_events", "first_name", "gender",
+                  "count_goals", "count_assist", "date_joined", "events_organizer", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
                   "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",

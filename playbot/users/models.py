@@ -78,7 +78,11 @@ class User(AbstractUser):
 
     @property
     def count_goals(self):
-        return self.goals.all().count()
+        return self.goals.filter(auto=False).count()
+
+    @property
+    def count_assist(self):
+        return self.assistant_goals.all().count()
 
     @property
     def wins(self):

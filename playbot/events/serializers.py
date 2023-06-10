@@ -28,7 +28,7 @@ class EventPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EventPlayer
-        fields = ["player", "played", "wins", "do_goals", "delta_rank"]
+        fields = ["player", "played", "wins", "do_goals", "do_assist", "delta_rank"]
         read_only_fields = fields
 
 
@@ -61,7 +61,7 @@ class TeamPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeamPlayer
-        fields = ["id", "player", "number", "do_goals", "delta_rank"]
+        fields = ["id", "player", "number", "do_goals", "do_assist", "delta_rank"]
         read_only_fields = fields
 
 
@@ -111,8 +111,6 @@ class CreateGoalSerializer(serializers.ModelSerializer):
 
 
 class UpdateGoalSerializer(serializers.ModelSerializer):
-    # game = serializers.PrimaryKeyRelatedField(queryset=EventGame.objects.all(), write_only=True)
-    # team = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all(), write_only=True)
     player = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, write_only=True)
     assistant = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, write_only=True, allow_null=True, allow_empty=True)
 

@@ -340,6 +340,14 @@ class EventPlayer(models.Model):
         return do_goals
 
     @property
+    def do_assist(self):
+        do_assist = 0
+        team = self.get_team()
+        if team:
+            do_assist = Goal.objects.filter(assistant=self.player, team=team).count()
+        return do_assist
+
+    @property
     def delta_rank(self):
         delta_rank = 0
         getting_ranks = self.player.ranks_history.filter(event=self.event)
@@ -391,6 +399,10 @@ class TeamPlayer(models.Model):
     @property
     def do_goals(self):
         return Goal.objects.filter(player=self.player, team=self.team).count()
+
+    @property
+    def do_assist(self):
+        return Goal.objects.filter(assistant=self.player, team=self.team).count()
 
     @property
     def delta_rank(self):
