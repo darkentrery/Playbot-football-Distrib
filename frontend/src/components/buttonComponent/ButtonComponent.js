@@ -5,12 +5,13 @@ export const ButtonComponent = ({
     className='',
     text='',
     onClick = () => {},
-    buttonType='type-1'
+    buttonType='type-1',
+    style={},
 }) => {
     return (
         <span
             className={`button-component ${buttonType} ${className}`}
-            onClick={onClick}
+            onClick={onClick} style={style}
         >{text}</span>
     )
 }

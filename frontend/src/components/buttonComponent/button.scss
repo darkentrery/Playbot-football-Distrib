@@ -67,7 +67,7 @@
     }
   }
 
-  &.type-2 {
+  &.type-3 {
     border: none;
     background: #FFFFFF;
     border-radius: 8px;
@@ -87,6 +87,33 @@
     }
     &:active {
       background: #DCDCDC;
+      border: 0;
+    }
+    &.disabled {
+      color: #888888;
+    }
+  }
+
+  &.type-red {
+    border: none;
+    background: #EC5B56;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16.8px;
+    color: #FFFFFF;
+
+    &:hover {
+      background: #EC5B56;
+      text-decoration: none;
+    }
+    &:focus {
+      outline-color: transparent;
+      outline-style:solid;
+      background: #EC5B56;
+    }
+    &:active {
+      background:#EC5B56;
       border: 0;
     }
     &.disabled {

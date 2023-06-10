@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {PlayerIconComponent} from "../playerIconComponent/PlayerIconComponent";
 import {HighLightComponent} from "../highLightComponent/HighLightComponent";
+import {DeleteHighLightComponent} from "../deleteHighLightComponent/DeleteHighLightComponent";
 
 
 export const GoalRowComponent = ({event, goal, team1, team2}) => {
@@ -9,6 +10,7 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
     const [isOpenAuto, setIsOpenAuto] = useState(false);
     const [assistantsPlayers, setAssistantsPlayers] = useState([]);
     const [goalPlayer, setGoalPlayer] = useState(false);
+    const [isOpenDelete, setIsOpenDelete] = useState(false);
     let seconds = goal.game_time % 60;
     let minutes = (goal.game_time - seconds) / 60;
 
@@ -22,12 +24,7 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
         setIsOpenAssistant(false);
         setIsOpenAuto(false);
         setGoalPlayer(false);
-        console.log(isOpenGoal)
-        console.log(1)
     }
-    useEffect(() => {
-        console.log(isOpenGoal)
-    }, [isOpenGoal])
 
     const clickTeamGoalPlayer = (player) => {
         setIsOpenAssistant(true);
@@ -53,7 +50,6 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
     const teamGoal = (e) => {
         setIsOpenGoal(true);
         setIsOpenAuto(false);
-        console.log(e.target)
     }
 
     const assistantBack = () => {
@@ -63,6 +59,15 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
 
     const deleteGoal = () => {
 
+    }
+
+    const openDeleteGoal = () => {
+        setIsOpenGoal(false);
+        setIsOpenDelete(true);
+    }
+
+    const closeDeleteGoal = () => {
+        setIsOpenDelete(false);
     }
 
     return (
@@ -87,7 +92,7 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
                 <HighLightComponent
                     isOpen={isOpenGoal} event={event} teamPlayers={goal.team.team_players} autoGoal={teamAutoGoal}
                     text={"Автор гола (1/2)"} clickClose={closeElem} clickPlayer={clickTeamGoalPlayer}
-                    className={"left"} delHighLight={deleteGoal}
+                    className={"left"} delHighLight={openDeleteGoal}
                 />
                 <HighLightComponent
                     isOpen={isOpenAssistant} event={event} teamPlayers={assistantsPlayers} clickPlayer={clickTeamGoalAssistant}
@@ -98,6 +103,8 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
                     text={"Автор автогола"} clickClose={closeElem} clickPlayer={clickTeamGoalAuto}
                     className={"left"}
                 />
+                <DeleteHighLightComponent className={`delete-high-light left ${isOpenDelete ? '' : 'hidden'}`}
+                                          clickYes={deleteGoal} clickNo={closeDeleteGoal}/>
             </>}
             {goal.team.id === team2.id && <>
                 <div className={"inform"}>
@@ -119,7 +126,7 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
                 <HighLightComponent
                     isOpen={isOpenGoal} event={event} teamPlayers={goal.team.team_players} autoGoal={teamAutoGoal}
                     text={"Автор гола (1/2)"} clickClose={closeElem} clickPlayer={clickTeamGoalPlayer}
-                    className={"right"} delHighLight={deleteGoal}
+                    className={"right"} delHighLight={openDeleteGoal}
                 />
                 <HighLightComponent
                     isOpen={isOpenAssistant} event={event} teamPlayers={assistantsPlayers} clickPlayer={clickTeamGoalAssistant}
@@ -130,6 +137,8 @@ export const GoalRowComponent = ({event, goal, team1, team2}) => {
                     text={"Автор автогола"} clickClose={closeElem} clickPlayer={clickTeamGoalAuto}
                     className={"right"}
                 />
+                <DeleteHighLightComponent className={`delete-high-light right ${isOpenDelete ? '' : 'hidden'}`}
+                                          clickYes={deleteGoal} clickNo={closeDeleteGoal}/>
             </>}
         </div>
     )

@@ -1,0 +1,62 @@
+.delete-high-light-component {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  gap: 16px;
+  position: absolute;
+  width: 400px;
+  height: 144px;
+  align-items: stretch;
+  box-sizing: border-box;
+  top: 40px;
+
+  background: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  box-shadow: 0px 2px 10px rgba(118, 118, 118, 0.25);
+  border-radius: 8px;
+  z-index: 10;
+
+  &.hidden {
+    display: none;
+  }
+  .title-elem {
+    display: flex;
+    flex: 0 0 48px;
+    width: 250px;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+  }
+  .buttons-elem {
+    display: flex;
+    flex: 0 0 40px;
+    gap: 8px;
+    align-items: stretch;
+
+    .button {
+      flex: 0 0 calc(50% - 4px);
+    }
+  }
+  &.left {
+    left: 0;
+  }
+  &.right {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+  .delete-high-light-component {
+    width: 343px;
+    height: 192px;
+
+    .buttons-elem {
+      flex-direction: column;
+      flex: 0 0 88px;
+
+      .button {
+        flex: 0 0 40px;
+      }
+    }
+  }
+}
