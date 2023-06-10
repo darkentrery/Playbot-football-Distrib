@@ -138,6 +138,17 @@ class IsAuthView(APIView):
         return Response(json, status=status.HTTP_200_OK)
 
 
+class FirstLoginView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        user = request.user
+        user.first_login = False
+        user.save()
+        json = UserIsAuthSerializer(instance=user).data
+        return Response(json, status=status.HTTP_200_OK)
+
+
 class GetUsersView(APIView):
     permission_classes = (AllowAny,)
 

@@ -1,3 +1,5 @@
+import re
+
 from loguru import logger
 from rest_framework import serializers
 from django.contrib.auth.models import update_last_login
@@ -77,7 +79,8 @@ class UserSerializer(serializers.ModelSerializer):
                   "count_goals", "date_joined", "events_organizer", "event_player", "favorite_events", "first_name", "gender",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
-                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer"]
+                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",
+                  "first_login"]
         read_only_fields = fields
 
 
@@ -91,7 +94,7 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
                   "user_notices", "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address",
-                  "is_organizer"]
+                  "is_organizer", "first_login"]
         read_only_fields = fields
 
 
@@ -185,10 +188,22 @@ class SignUpSerializer(serializers.ModelSerializer):
         instance.confirm_slug = slug
         if password is not None:
             instance.set_password(password)
-
         instance.save()
+
+        if instance.username is None:
+            username = re.sub(r'@[^@]*', "", instance.email)
+            instance.username = self.get_new_username(username)
+        instance.save()
+
         send_email_confirm_sign_up(instance.email, slug)
         return instance
+
+    def get_new_username(self, username):
+        if User.objects.filter(username=username).exists():
+            username += "1"
+            return self.get_new_username(username)
+        else:
+            return username
 
     def is_valid(self, *, raise_exception=False):
         assert hasattr(self, 'initial_data'), (

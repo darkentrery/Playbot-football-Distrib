@@ -63,6 +63,7 @@ class CustomUserAdmin(UserAdmin):
                     "about_self",
                     "favorite_events",
                     "favorite_players",
+                    "first_login",
                     # "rivals",
                 )
             },

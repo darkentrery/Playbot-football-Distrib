@@ -74,7 +74,6 @@ function App({state, funcs}) {
         authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status === 200) {
                 funcs.setAuth(true, response.data);
-
                 // if ("Notification" in window) {
                 //     if (Notification.permission === "granted") {
                 //         console.log(1)
@@ -99,6 +98,17 @@ function App({state, funcs}) {
         })
         funcs.setIsIPhone(authService.deviceDetect());
     }, [])
+
+    useEffect(() => {
+        if (state.user.isAuth && state.user.user.first_login) {
+            funcs.openOnboardingStep1();
+            authDecoratorWithoutLogin(authService.firstLogin, false).then(response => {
+                if (response.status === 200) {
+                    funcs.setAuth(true, response.data);
+                }
+            })
+        }
+    }, [state.user.user])
 
     // Listen for authorization success.
     // document.addEventListener('AppleIDSignInOnSuccess', (event) => {
