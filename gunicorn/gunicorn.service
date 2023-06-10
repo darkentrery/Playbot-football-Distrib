@@ -6,9 +6,9 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/home/python/Playbot_football
-Environment="PATH=/home/python/Playbot_football/venv/bin"
-ExecStart=/home/python/Playbot_football/venv/bin/gunicorn \
+WorkingDirectory=/home/site/Playbot_football
+Environment="PATH=/home/site/Playbot_football/venv/bin"
+ExecStart=/home/site/Playbot_football/venv/bin/gunicorn \
           --access-logfile - \
           -k uvicorn.workers.UvicornWorker \
           --workers 5 \
