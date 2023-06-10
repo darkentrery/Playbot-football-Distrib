@@ -29,6 +29,7 @@ export const OnboardingStep2Component = ({isOpen, user, funcs}) => {
                 console.log(response.data)
                 if (response.status === 200) {
                     funcs.setAuth(true, response.data);
+                    funcs.closeComponent();
                 } else {
                     if (response.data.username) setUsernameError(errorsUtil.getError("username", response.data.username[0]));
                 }
