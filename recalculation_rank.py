@@ -1,4 +1,6 @@
 import os
+import time
+
 import django
 from loguru import logger
 
@@ -9,7 +11,10 @@ def main() -> None:
     django.setup()
 
     from scripts.recalculate import recalculate
-    recalculate()
+
+    while True:
+        recalculate()
+        time.sleep(300)
 
 
 if __name__ == "__main__":

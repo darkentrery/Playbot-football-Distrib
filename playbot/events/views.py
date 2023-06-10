@@ -418,21 +418,11 @@ class DeleteGoalView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        game = EventGame.objects.get(id=request.data.get("game"))
-        if game.event.organizers.filter(id=request.user.id).exists():
-            serializer = CreateGoalSerializer(data=request.data)
-            if serializer.is_valid():
-                goal = serializer.save()
-                if goal:
-                    if game.game_periods.filter(time_end=None).exists():
-                        period = game.game_periods.filter(time_end=None).last()
-                        period.time_end = goal.time
-                        period.save()
-                        goal.game_time = game.current_duration
-                        goal.save()
-                    game = EventGameSerializer(instance=goal.game).data
-                    return Response(game, status=status.HTTP_200_OK)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        goal = Goal.objects.get(id=request.data.get("id"))
+        if goal.game.event.organizers.filter(id=request.user.id).exists():
+            goal.delete()
+            game = EventGameSerializer(instance=goal.game).data
+            return Response(game, status=status.HTTP_200_OK)
         return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 

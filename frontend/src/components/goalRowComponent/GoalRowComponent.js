@@ -22,15 +22,12 @@ export const GoalRowComponent = ({event, goal, team1, team2, funcs}) => {
     }
 
     const updateGoal = (auto, player=false, assistant=null) => {
-        console.log(goal)
         let updateGoal = {...goal};
         if (player) updateGoal.player = player.player.id;
         if (assistant) updateGoal.assistant = assistant.player.id;
         updateGoal.assistant = assistant ? assistant.player.id : assistant;
         if (auto) updateGoal.auto = true;
-        console.log(updateGoal)
         authDecoratorWithoutLogin(eventService.updateGoal, updateGoal).then((response) => {
-            console.log(response.data)
             if (response.status === 200) {
                 // funcs.setPlayerBlock(false);
                 funcs.setGame(response.data);
@@ -79,7 +76,12 @@ export const GoalRowComponent = ({event, goal, team1, team2, funcs}) => {
     }
 
     const deleteGoal = () => {
-
+        authDecoratorWithoutLogin(eventService.deleteGoal, goal).then((response) => {
+            if (response.status === 200) {
+                // funcs.setPlayerBlock(false);
+                funcs.setGame(response.data);
+            }
+        })
     }
 
     const openDeleteGoal = () => {

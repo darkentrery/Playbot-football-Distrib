@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn_recalculation.socket
+After=network.target
+
+[Service]
+User=wildberries
+Group=www-data
+WorkingDirectory=/home/python/Playbot_football
+Environment="PATH=/home/python/Playbot_football/venv/bin"
+ExecStart=/home/python/Playbot_football/venv/bin/python3 /home/python/Playbot_football/recalculation_rank.py
+
+[Install]
+WantedBy=multi-user.target
