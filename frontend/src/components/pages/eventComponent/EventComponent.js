@@ -11,6 +11,9 @@ import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {share} from "../../../services/LinkShareService";
 import EventRoutes from "../../../routes/EventRoutes";
+import EventTopAdminEditBar from "../../EventTopAdminEditBar/EventTopAdminEditBar";
+import EventJoinWithInfoCards from "../../EventJoinWithInfoCards/EventJoinWithInfoCards";
+import EventInfo from "../../EventInfo/EventInfo";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -19,7 +22,6 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     const [isTooltip, setIsTooltip] = useState(false);
     const [tooltip, setTooltip] = useState(false);
     const [block, setBlock] = useState(false);
-
     useEffect(() => {
         funcs.setEvent(false);
         funcs.setSameEvents([]);
@@ -100,6 +102,11 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                         {user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
                             <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
                     </Top376Component>
+                    {user.isAuth && event && eventService.isOrganizer(event, user.user) && 
+                        <EventTopAdminEditBar/>
+                    }
+                    <EventJoinWithInfoCards event={event} user={user} funcs={funcs}/>
+                    <EventInfo event={event}/>
                     <VisibleBoardEvent/>
                     <VisibleEventOrganizer/>
                     {sameEvents.length !== 0 &&
