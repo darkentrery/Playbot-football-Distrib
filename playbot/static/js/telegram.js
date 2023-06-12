@@ -193,7 +193,6 @@
       }
       if (widgetEl.hasAttribute('data-onauth')) {
         onInitAuthUser = onAuthUser = __parseFunction(widgetEl.getAttribute('data-onauth'), ['e']);
-        console.log(onAuthUser)
       }
       else if (widgetEl.hasAttribute('data-auth-url')) {
         var a = document.createElement('A');

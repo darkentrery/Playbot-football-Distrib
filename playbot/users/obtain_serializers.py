@@ -1,6 +1,9 @@
 import hashlib
 import hmac
+import json
 import re
+from urllib.parse import parse_qsl
+from hashlib import sha256
 
 import jwt
 from django.contrib.auth import get_user_model, authenticate
@@ -128,6 +131,50 @@ class TokenObtainTelegramSerializer(ObtainMixin, serializers.Serializer):
                 self.error_messages["no_active_account"],
                 "no_active_account",
             )
+        authenticate_kwargs = {
+            self.username_field: self.user.email,
+            "password": self.user.password,
+            # "password": "admin",
+        }
+        try:
+            authenticate_kwargs["request"] = self.context["request"]
+        except KeyError:
+            pass
+
+        # self.user = authenticate(**authenticate_kwargs)
+        if not api_settings.USER_AUTHENTICATION_RULE(self.user):
+            raise exceptions.AuthenticationFailed(
+                self.error_messages["no_active_account"],
+                "no_active_account",
+            )
+
+        return {}
+
+
+class TokenObtainTelegramAppSerializer(ObtainMixin, serializers.Serializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["first_name"] = serializers.CharField()
+        self.fields["hash"] = serializers.CharField()
+        self.fields["id"] = serializers.CharField()
+        self.fields["last_name"] = serializers.CharField()
+        self.fields["username"] = serializers.CharField()
+
+    def validate(self, attrs):
+        defaults = {}
+        if attrs.get("first_name"):
+            defaults["first_name"] = attrs.get("first_name")
+        if attrs.get("last_name"):
+            defaults["last_name"] = attrs.get("last_name")
+        if attrs.get("username"):
+            defaults["username"] = attrs.get("username")
+        # if attrs.get("address"):
+        #     defaults["address"] = attrs.get("address")
+        defaults["is_active"] = True
+        self.user, update = User.objects.update_or_create(telegram_id=attrs["id"], defaults=defaults)
+        if not self.user.ranks_history.all().exists():
+            RankHistory.objects.create(user=self.user)
+
         authenticate_kwargs = {
             self.username_field: self.user.email,
             "password": self.user.password,

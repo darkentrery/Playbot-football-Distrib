@@ -1,5 +1,5 @@
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import MobileFirstPageComponent from "./components/popups/mobileFirstPageComponent/MobileFirstPageComponent";
 import {authService} from "./services/AuthService";
 import VisibleSignUp from "./redux/containers/VisibleSignUp";
@@ -60,6 +60,7 @@ import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
 
 function App({state, funcs}) {
     const [confirmSignUp, setConfirmSignUp] = useState(false);
+    const refTelegram = useRef(false);
 
     const showNotice = () => {
         let notice = new Notification("fff?", {
@@ -97,7 +98,26 @@ function App({state, funcs}) {
             }
         })
         funcs.setIsIPhone(authService.deviceDetect());
+        // if (refTelegram.current) {
+        //     const tgScript = document.createElement('script');
+        //     tgScript.src = "http://127.0.0.1:8000/static/js/telegram-web-app.js";
+        //     tgScript.id = "id-tg";
+        //     refTelegram.current.appendChild(tgScript);
+        //
+        // }
     }, [])
+
+    useEffect(() => {
+        if (window.Telegram && window.Telegram.WebApp.initData) {
+            authService.telegramAppLogin(window.Telegram.WebApp.initData).then(response => {
+                console.log(response)
+                if (response.status === 200) {
+                    funcs.setAuth(true, response.data.user);
+                }
+            });
+        }
+        console.log(window.Telegram.WebApp.initData)
+    }, [window.Telegram])
 
     useEffect(() => {
         if (state.user.isAuth && state.user.user.first_login) {
@@ -226,6 +246,7 @@ function App({state, funcs}) {
                 <VisibleEndEvent/>
                 <VisibleOnboardingStep1/>
                 <VisibleOnboardingStep2/>
+                <div ref={refTelegram}></div>
             </Router>
         </div>
     );

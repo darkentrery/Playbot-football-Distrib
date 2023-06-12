@@ -15,7 +15,8 @@ from playbot.users.models import User, RankHistory
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
-    UpdatePhotoUsernameSerializer
+    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer
+from playbot.users.utils import parse_init_data
 
 
 class IndexView(APIView):
@@ -61,7 +62,6 @@ class LoginView(TokenObtainPairView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        logger.info(request.data)
         serializer = self.get_serializer(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
@@ -73,6 +73,20 @@ class LoginView(TokenObtainPairView):
 
 class LoginTelegramView(LoginView):
     serializer_class = LoginTelegramSerializer
+
+
+class LoginTelegramAppView(LoginView):
+    serializer_class = LoginTelegramAppSerializer
+
+    def post(self, request, *args, **kwargs):
+        data = parse_init_data(request.data)
+        serializer = self.get_serializer(data=data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class SignUpView(APIView):

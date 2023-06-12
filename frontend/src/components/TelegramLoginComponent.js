@@ -18,7 +18,7 @@ export default function TelegramLoginComponent () {
                     localStorage.setItem("date_token", Date.now());
                     localStorage.setItem("telegramLogin", true);
                     console.log(response);
-                    window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
+                    // window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
                 })
                 .catch((error) => {
                     console.log(error.response)
@@ -93,6 +93,7 @@ export default function TelegramLoginComponent () {
         if (!$(ref.current).children('#id-script').left) {
             const script = document.createElement('script');
             script.src = "https://test.korobkaplay.ru/static/js/telegram.js"
+            // script.src = "http://127.0.0.1:8000/static/js/telegram.js"
             script.async = true;
             script.setAttribute('data-telegram-login', 'PlaybotTestBot');
             script.setAttribute('data-size', 'large');

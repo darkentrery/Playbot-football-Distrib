@@ -20,6 +20,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     const [data, setData] = useState(false);
     const [isLoader, setIsLoader] = useState(false);
     const refLogin = useRef(false);
+    const refTelegram = useRef(false);
 
     useEffect(() => {
         let bodyFormData = new FormData();
@@ -31,8 +32,21 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     }, [email, password]);
 
     useEffect(() => {
-        blockBodyScroll(isOpen);
-    }, [isOpen])
+        // blockBodyScroll(isOpen);
+        // if (refTelegram.current) {
+        //     const tgScript = document.createElement('script');
+        //     tgScript.src = "http://127.0.0.1:8000/static/js/telegram-web-app.js";
+        //     tgScript.id = "id-tg";
+        //     refTelegram.current.appendChild(tgScript);
+        //
+        // }
+        // console.log(window.Telegram.WebApp.initData)
+    }, [isOpen, refTelegram])
+
+    useEffect(() => {
+        if (window.Telegram)
+        console.log(window.Telegram.WebApp.initData)
+    }, [window.Telegram])
 
     const closeWindow = () => {
         setEmail(false);
@@ -122,6 +136,7 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
                     <div className={"login-l-bottom-elem"}>
                         {/*<TelegramLoginComponent/>*/}
                         {/*<AppleAuthComponent setAuth={setAuth} closeWindow={closeWindow}/>*/}
+                        <div ref={refTelegram}></div>
                     </div>
                 </div>
                 <RightFonComponent

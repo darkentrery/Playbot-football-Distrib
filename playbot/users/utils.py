@@ -1,10 +1,14 @@
+import hmac
+import json
 import os
 import smtplib
 import sys
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from hashlib import sha256
 from io import BytesIO
 from pathlib import Path
+from urllib.parse import parse_qsl
 
 import cv2
 from PIL import Image
@@ -159,3 +163,44 @@ def get_face(image):
         return img_png
     else:
         return None
+
+
+def validate_init_data(raw_init_data):
+    try:
+        parsed_data = dict(parse_qsl(raw_init_data))
+    except ValueError:
+        return False
+    if "hash" not in parsed_data:
+        return False
+
+    init_data_hash = parsed_data.pop('hash')
+    data_check_string = "\n".join(f"{key}={value}" for key, value in sorted(parsed_data.items()))
+    secret_key = hmac.new(key=b"WebAppData", msg=settings.SOCIAL_AUTH_TELEGRAM_BOT_TOKEN.encode(), digestmod=sha256)
+
+    return hmac.new(secret_key.digest(), data_check_string.encode(), sha256).hexdigest() == init_data_hash
+
+
+def parse_init_data(raw_init_data: str):
+    is_valid = validate_init_data(raw_init_data)
+    if not is_valid:
+        return False
+
+    result = {}
+    for key, value in parse_qsl(raw_init_data):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            result[key] = value
+        else:
+            result[key] = value
+
+    if result.get("user"):
+        result.update({
+            "id": result["user"].get("id"),
+            "first_name": result["user"].get("first_name"),
+            "last_name": result["user"].get("last_name"),
+            "username": result["user"].get("username"),
+            "language_code": result["user"].get("language_code"),
+        })
+        del result["user"]
+    return result
