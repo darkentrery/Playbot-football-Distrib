@@ -19,6 +19,11 @@ export const EventTopAdminEditBar = ({
     return (
         <div className='event-admin-bar'>
             <div className="event-admin-bar-data">
+                {event.name && 
+                <div className="event-component-title">
+                    {event.name}
+                </div>
+                }
                 <div className="event-admin-bar-data-item">
                     <div className="event-admin-bar-data-item-name">
                         Плейсмент

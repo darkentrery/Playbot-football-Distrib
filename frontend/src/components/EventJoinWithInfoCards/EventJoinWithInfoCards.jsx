@@ -17,22 +17,23 @@ export const EventJoinWithInfoCards = ({
     user,
     funcs,
 }) => {
-    const duration = event.duration.duration
 
     return (
-        <div className="event-join-top">
-            <div className="event-cards-info">
-                {duration &&  
+        <>
+            {event &&
+            <div className="event-join-top">
+                <div className="event-cards-info">
+                {event.duration.duration &&  
                     <div className="event-info-card">
                         <img src={ClockIcon} alt="clock" height={15} />
-                        <div>{duration} мин</div>
+                        <div>{event.duration.duration} мин</div>
                     </div>
                 }
                 <div className="event-info-card">
                     <img src={AvatarIcon} alt="avatar" width={15} height={17} />
                     <div>{event.count_current_players + "/" + event.count_players}
-                        {event.next_queue_number - 1 != 0
-                            ? <span className="event-info-card-in-queue">({event.next_queue_number - 1})</span>
+                        {event.event_queues.length
+                            ? <span className="event-info-card-in-queue">({event.event_queues.length})</span>
                             : null
                         }
                     </div>
@@ -84,7 +85,10 @@ export const EventJoinWithInfoCards = ({
                 }
                 </div>
             </div>
-        </div>
+            
+            </div>}
+        </>
+        
     )
 }
 

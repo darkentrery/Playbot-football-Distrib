@@ -1,6 +1,8 @@
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {useEffect, useRef, useState} from "react";
 import {MessageComponent} from "../messageComponent/MessageComponent";
+import ChatIcon from "../../assets/icon/dark-gray-coment.png";
+import ChatSendIcon from "../../assets/icon/chat-send.svg";
 import $ from "jquery";
 
 
@@ -107,7 +109,7 @@ export const EventChatComponent = ({event, user, className=''}) => {
 
     return (
         <div className={`event-chat-component ${className}`}>
-            <span className={"elem elem-1"}>Чат<span className={"count"}>&nbsp;&nbsp;{messageHistory.length}</span></span>
+            <span className={"elem elem-1"}><img src={ChatIcon} width={20} height={18}/> Чат ({messageHistory.length})</span>
             <div className={"elem elem-2 scroll"} ref={chatRef}>
                 {messageHistory.map((message, key) => (
                     <MessageComponent
@@ -119,9 +121,9 @@ export const EventChatComponent = ({event, user, className=''}) => {
                 ))}
             </div>
             <div className={"elem elem-3"}>
-                <textarea className={"el el-1 scroll"} placeholder={"Введите текст сообщения"} value={message}
+                <textarea style={{maxHeight: "20px"}} className={"el el-1 scroll"} placeholder={"Введите текст сообщения"} value={message}
                           onChange={changeMessage} onKeyDown={keyMessageDown} onKeyUp={keyMessageUp}></textarea>
-                <button className={"el btn-second"} onClick={sendForm}>Отправить</button>
+                <img src={ChatSendIcon} width={18} height={18} onClick={sendForm}/>
             </div>
         </div>
     )

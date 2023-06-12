@@ -11,6 +11,15 @@
   }
 }
 
+.event-component-title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: $blackColor;
+}
+
 .same-events-component {
   display: flex;
   flex-direction: column;

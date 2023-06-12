@@ -59,6 +59,7 @@
         margin-top: 13px;
         border-radius: 8px; 
         border: 1px solid #949494; 
+        pointer-events: none;
     }
     .leaflet-tile-pane {
         filter: grayscale(0.9);
@@ -69,7 +70,31 @@
 }
 
 .event-info-map-address-wrapper {
+    position: relative;
     display: flex;
+}
+
+@keyframes slideAndFadeOut {
+    0% {
+      transform: translateY(0px);
+      opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-22px);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(5000px, -22px);
+    }
+  }
+
+.event-info-address-tooltip {
+    position: absolute;
+    top: 0px;
+    left: 22%;
+    color: gray;
+    font-size: 13px;
+    animation: slideAndFadeOut 1.7s forwards;
 }
 
 .event-info-map-address {
@@ -77,4 +102,12 @@
     font-size: 12px;
     line-height: 120%;
     color: #1B1B1B;
+    img {
+        cursor: pointer;
+        margin-left: 12px;
+        margin-bottom: -6px;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
 }

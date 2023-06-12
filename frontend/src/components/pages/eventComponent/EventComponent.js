@@ -14,7 +14,10 @@ import EventRoutes from "../../../routes/EventRoutes";
 import EventTopAdminEditBar from "../../EventTopAdminEditBar/EventTopAdminEditBar";
 import EventJoinWithInfoCards from "../../EventJoinWithInfoCards/EventJoinWithInfoCards";
 import EventInfo from "../../EventInfo/EventInfo";
+import { EventChatComponent } from "../../eventChatComponent/EventChatComponent";
 import VisibleEventTopAdminEditBar from "../../../redux/containers/VisibleEventTopAdminEditBar";
+import EventMembers from "../../EventMembers/EventMembers";
+import VisibleJoinWithInfoCards from "../../../redux/containers/VisibleJoinWithInfoCards";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -23,6 +26,18 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     const [isTooltip, setIsTooltip] = useState(false);
     const [tooltip, setTooltip] = useState(false);
     const [block, setBlock] = useState(false);
+    const [ids, setIds] = useState([]);
+
+    useEffect(() => {
+        if (event && event.event_player) {
+            let arrray = [];
+            event.event_player.map((item) => {
+                arrray.push(item.player.id);
+            })
+            setIds(arrray);
+        }
+    }, [event])
+
     useEffect(() => {
         funcs.setEvent(false);
         funcs.setSameEvents([]);
@@ -91,7 +106,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             }
         }
     }
-
+    console.log(event)
     return (
         <VisibleMainWrapper>
             <div className={`event-component ${!event ? 'loader' : ''}`}>
@@ -106,10 +121,23 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                     {user.isAuth && event && eventService.isOrganizer(event, user.user) && 
                         <VisibleEventTopAdminEditBar/>
                     }
-                    <EventJoinWithInfoCards event={event} user={user} funcs={funcs}/>
+                    {(event.name && !eventService.isOrganizer(event, user.user)) && 
+                    <div className="event-component-title">
+                        {event.name}
+                    </div>
+                    }
+                    <VisibleJoinWithInfoCards/>
+                    <EventJoinWithInfoCards/>
                     <EventInfo event={event}/>
-                    <VisibleBoardEvent/>
-                    <VisibleEventOrganizer/>
+                    <EventMembers event={event}/>
+
+                    {event && !event.cancel && user.isAuth && (eventService.isOrganizer(event, user.user) || ids.includes(user.user.id)) &&
+                        <EventChatComponent event={event} user={user}/>
+                    }
+                   
+                    {/* <VisibleBoardEvent/>
+                    <VisibleEventOrganizer/> */}
+                    
                     {sameEvents.length !== 0 &&
                     <div className={"same-events-component"}>
                         <span className={"elem elem-1 black-600-20"}>Похожие события</span>

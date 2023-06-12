@@ -8,18 +8,31 @@ import ShowerRoomIcon from '../../assets/icon/shower-room.svg';
 import FlagIcon from '../../assets/icon/flag.svg';
 import AirplaneIcon from '../../assets/icon/airplane.svg';
 
+
 import React, {useEffect, useRef, useState} from "react";
 import $ from "jquery";
 import {MapContainer, Marker, TileLayer, useMapEvents} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import {eventService} from "../../services/EventService";
 import EventInfoSlider from '../EventInfoSlider/EventInfoSlider';
+import EventInfoAddressCopyText from '../EventInfoAddressCopyText/EventInfoAddressCopyText';
 
 export const EventInfo = ({event}) => {
     const [position, setPosition] = useState(false);
     const [address, setAddress] = useState(false);
-    const [isTooltip, setIsTooltip] = useState(false);
+
     const markerRef = useRef(false);
+
+    const fieldName = event.field.name
+    const fieldAddress = event.field.address.c_c_s_h_string.replace(/ - /g, ", ")
+    const isDressingRoom = event.field.dressing_room
+    const isLighting = event.field.lighting
+    const fieldCoverage = event.field.coverage.name
+    const fieldFormat = event.field.format.name
+    const isShowerRoom = event.field.shower_room
+    const isTribune = event.field.tribune
+    const fieldType = event.field.type_field.name
+
     useEffect(() => {
         if (event && event.field) {
             let point = {
@@ -59,16 +72,6 @@ export const EventInfo = ({event}) => {
         )
     }
 
-    const fieldName = event.field.name
-    const fieldAddress = event.field.address.c_c_s_h_string.replace(/ - /g, ", ")
-    const isDressingRoom = event.field.dressing_room
-    const isLighting = event.field.lighting
-    const fieldCoverage = event.field.coverage.name
-    const fieldFormat = event.field.format.name
-    const isShowerRoom = event.field.shower_room
-    const isTribune = event.field.tribune
-    const fieldType = event.field.type_field.name
-
     return (
         <div className="event-info">
             <div className="event-info-row">
@@ -106,11 +109,7 @@ export const EventInfo = ({event}) => {
                     </div>
                 </div>
                 <div className="event-info-map">
-                    <div className="event-info-map-address-wrapper">
-                        <div className="event-info-map-address">
-                            {fieldAddress}
-                        </div>
-                    </div>
+                    <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"}/>
                     <MapBody/>
                 </div>
             </div>
