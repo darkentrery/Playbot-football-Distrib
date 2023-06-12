@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import {createStore} from 'redux';
 import "normalize.css";
 import './assets/css/index.scss';
-import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {rootReducer} from "./redux/reducers/reducers";
 import VisibleApp from "./redux/containers/VisibleApp";
@@ -21,4 +20,3 @@ root.render(
 
 noticeService.registerSw();
 
-reportWebVitals();

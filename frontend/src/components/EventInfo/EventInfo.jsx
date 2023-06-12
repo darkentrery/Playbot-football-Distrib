@@ -1,0 +1,122 @@
+import './EventInfo.scss';
+import TempEventImage from '../../assets/icon/temp-event-image.png';
+import HangerIcon from '../../assets/icon/hanger.svg';
+import LightingIcon from '../../assets/icon/lighting.svg';
+import FieldMaterialIcon from '../../assets/icon/field-material.svg';
+import FootballFieldIcon from '../../assets/icon/football-field.svg';
+import ShowerRoomIcon from '../../assets/icon/shower-room.svg';
+import FlagIcon from '../../assets/icon/flag.svg';
+import AirplaneIcon from '../../assets/icon/airplane.svg';
+
+import React, {useEffect, useRef, useState} from "react";
+import $ from "jquery";
+import {MapContainer, Marker, TileLayer, useMapEvents} from 'react-leaflet'
+import "leaflet/dist/leaflet.css"
+import {eventService} from "../../services/EventService";
+import EventInfoSlider from '../EventInfoSlider/EventInfoSlider';
+
+export const EventInfo = ({event}) => {
+    const [position, setPosition] = useState(false);
+    const [address, setAddress] = useState(false);
+    const [isTooltip, setIsTooltip] = useState(false);
+    const markerRef = useRef(false);
+    useEffect(() => {
+        if (event && event.field) {
+            let point = {
+                lat: event.field.address.lat,
+                lng: event.field.address.lng,
+            }
+            setPosition(point);
+            setAddress(event.field.address.c_c_s_h_string);
+        }
+    }, [event])
+
+    const LocationMarker = () => {
+        const map = useMapEvents({});
+        map.flyTo(position, map.getZoom(), {animate: false});
+
+        useEffect(() => {
+            if (markerRef.current) {
+                $('.leaflet-marker-icon').attr('src', 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png');
+                $('.leaflet-marker-shadow').attr('src', 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png');
+            }
+        }, [markerRef, event])
+
+        return !position ? null : (
+            <Marker position={position} ref={markerRef}></Marker>
+        )
+    }
+
+    const MapBody = () => {
+        return !position ? null : (
+            <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <LocationMarker/>
+            </MapContainer>
+        )
+    }
+
+    const fieldName = event.field.name
+    const fieldAddress = event.field.address.c_c_s_h_string.replace(/ - /g, ", ")
+    const isDressingRoom = event.field.dressing_room
+    const isLighting = event.field.lighting
+    const fieldCoverage = event.field.coverage.name
+    const fieldFormat = event.field.format.name
+    const isShowerRoom = event.field.shower_room
+    const isTribune = event.field.tribune
+    const fieldType = event.field.type_field.name
+
+    return (
+        <div className="event-info">
+            <div className="event-info-row">
+                <div className="event-info-field-title">
+                    {fieldName}
+                </div>
+                <div className="event-info-field-assets-list">
+                    <div className={"event-info-field-assets-item" + (isDressingRoom ? "" : " event-info-item-strikethrough")}>
+                        <img src={HangerIcon} alt="item hanger" />
+                        <div className="event-info-field-assets-item-text">раздевалки</div>
+                    </div>
+                    <div className={"event-info-field-assets-item" + (isLighting ? "" : " event-info-item-strikethrough")}>
+                        <img src={LightingIcon} alt="ligting" />
+                        <div className="event-info-field-assets-item-text">освещение</div>
+                    </div>
+                    <div className="event-info-field-assets-item">
+                        <img src={FieldMaterialIcon} alt="field material" />
+                        <div className="event-info-field-assets-item-text">{fieldCoverage}</div>
+                    </div>
+                    <div className="event-info-field-assets-item">
+                        <img src={FootballFieldIcon} alt="field format" />
+                        <div className="event-info-field-assets-item-text">{fieldFormat}</div>
+                    </div>
+                    <div className={"event-info-field-assets-item" + (isShowerRoom ? "" : " event-info-item-strikethrough")}>
+                        <img src={ShowerRoomIcon} alt="shower rooms" />
+                        <div className="event-info-field-assets-item-text">душевые</div>
+                    </div>
+                    <div className={"event-info-field-assets-item" + (isTribune ? "" : " event-info-item-strikethrough")}>
+                        <img src={FlagIcon} alt="stands" />
+                        <div className="event-info-field-assets-item-text">трибуны</div>
+                    </div>
+                    <div className="event-info-field-assets-item">
+                        <img src={AirplaneIcon} alt="match place" />
+                        <div className="event-info-field-assets-item-text">{fieldType}</div>
+                    </div>
+                </div>
+                <div className="event-info-map">
+                    <div className="event-info-map-address-wrapper">
+                        <div className="event-info-map-address">
+                            {fieldAddress}
+                        </div>
+                    </div>
+                    <MapBody/>
+                </div>
+            </div>
+            <EventInfoSlider images={[TempEventImage,TempEventImage,TempEventImage,TempEventImage,TempEventImage]}/>
+        </div>
+    )
+}
+
+export default EventInfo

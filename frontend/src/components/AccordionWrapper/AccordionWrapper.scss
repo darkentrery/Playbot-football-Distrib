@@ -1,0 +1,30 @@
+.accordion__wrapper-action {
+    position: relative;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #949494;
+    width: max-content;
+    cursor: pointer;
+    user-select: none;
+    &::after {
+        content: '';
+        position: absolute;
+        right: -25px;
+        top: -4px;
+        width: 24px;
+        height: 24px;
+        background-image: url('../../assets/icon/up-arrow.png');
+        background-size: cover;
+        opacity: 0.5;
+        transform: rotate(180deg);
+    }
+}
+
+.accordion__wrapper-action--active {
+    &::after {
+        transform: rotate(0deg);
+    }
+}

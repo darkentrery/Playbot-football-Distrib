@@ -52,7 +52,7 @@ export default function CreateEventComponent ({
                         onClick={sendForm}
                         data={data}
                         setData={setData}
-                        titleText={"Создайте свое событие"}
+                        titleText={"Создайте событие"}
                         isIPhone={isIPhone}
                         clickClose={closeWindow}
                         suggests={suggests}
@@ -62,7 +62,7 @@ export default function CreateEventComponent ({
                         setAddressFocus={setAddressFocus}
                         user={user}
                     />
-                    <RightFonComponent
+                    {/* <RightFonComponent
                         className={"popup-right"}
                         close={closeWindow}
                         slider={isOpen && window.screen.width > 743 ? true : false}
@@ -72,7 +72,7 @@ export default function CreateEventComponent ({
                             "Фиксируй статистику матча",
                         ]}
                         imageClasses={["sign-up-fon", "sign-up-fon", "sign-up-fon"]}
-                    />
+                    /> */}
                 </div>
             </div>
         </Modal>

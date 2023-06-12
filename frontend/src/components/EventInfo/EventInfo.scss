@@ -1,0 +1,80 @@
+.event-info {
+    padding: 42px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    font-family: "Raleway";
+    font-style: normal;
+}
+
+.event-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.event-info-field-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 120%;
+    color: #1B1B1B;
+}
+
+.event-info-field-assets-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    row-gap: 11px;
+    margin-top: 20px;
+    max-width: 340px;
+}
+
+.event-info-field-assets-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+}
+
+.event-info-field-assets-item-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #1B1B1B;
+}
+
+.event-info-item-strikethrough {
+    img {
+        opacity: 0.8;
+    }
+    div {
+        color: #949494;
+        text-decoration: line-through;
+    }
+}
+
+.event-info-map {
+    margin-top: 54px;
+    .leaflet-container {
+        width: 401px;
+        height: 159px;
+        margin-top: 13px;
+        border-radius: 8px; 
+        border: 1px solid #949494; 
+    }
+    .leaflet-tile-pane {
+        filter: grayscale(0.9);
+    }
+    .leaflet-control-container {
+        display: none;
+    }
+}
+
+.event-info-map-address-wrapper {
+    display: flex;
+}
+
+.event-info-map-address {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    color: #1B1B1B;
+}

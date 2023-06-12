@@ -64,8 +64,8 @@ export const ButtonsBoardOrganizerComponent = ({event, funcs}) => {
                         <button className={`el el-${!event.is_begin ? '1' : '3'} btn-second`} onClick={toConfirmTeams}>Подтверждение команд</button>}
                     {event.event_step.length === 3 && event.event_step[2]["complete"] &&
                         <Link className={`el el-${!event.is_begin ? '1' : '3'} btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
-                    {!event.is_begin &&
-                        <button className={"el el-2 btn-second"} onClick={toCancelEvent}>Отменить игру</button>}
+                    {/* {!event.is_begin &&
+                        <button className={"el el-2 btn-second"} onClick={toCancelEvent}>Отменить игру</button>} */}
                 </>}
                 {event.cancel && <span>Событие отменено</span>}
             </>}

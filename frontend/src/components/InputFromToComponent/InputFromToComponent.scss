@@ -1,0 +1,21 @@
+.input__from-to {
+    display: flex;
+    align-items: center;
+    input {
+        padding: 0px;
+        height: 21px;
+        width: 40px;
+        border: 1px solid #949494;
+        border-radius: 4px;
+        margin-inline: 6px;
+        text-align: center;
+        padding-bottom: 4px;
+        box-sizing: content-box;
+    }
+    span {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 120%;
+        color: #949494;
+    }
+}

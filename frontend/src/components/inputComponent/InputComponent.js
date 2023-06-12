@@ -10,6 +10,7 @@ export const InputComponent = ({
     placeholder='',
     errorText='',
     password=false,
+    maxLength=null,
     onChange=(value) => {return value;},
     rightOnClick=() => {},
     onKeyUp=() => {},
@@ -17,6 +18,10 @@ export const InputComponent = ({
 
     const onChangeValue = (e) => {
         let value = onChange(e.target.value);
+        if (!!(maxLength && value.length > maxLength)) {
+            console.log('returned')
+            return
+        }
         setValue(value);
     }
 
@@ -24,7 +29,7 @@ export const InputComponent = ({
         <div className={`input-component ${className}`}>
             <input className={`${leftIcon} ${errorText ? 'error' : ''}`} type={password ? 'password' : 'text'}
                    placeholder={placeholder} value={value ? value : ''} onChange={onChangeValue} onKeyUp={onKeyUp}/>
-            <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>
+            {errorText && <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>}
             <div className={`right-input-icon ${rightIcon}`} onClick={rightOnClick}></div>
         </div>
     )

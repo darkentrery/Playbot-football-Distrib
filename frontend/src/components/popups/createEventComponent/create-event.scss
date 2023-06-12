@@ -1,7 +1,9 @@
 .create-event-component {
   width: 872px;
   height: 718px;
-
+  .elem-1 {
+    margin-inline: auto !important;
+  }
   .popup-left {
     flex: 0 0 411px;
 
@@ -14,13 +16,39 @@
   }
 }
 
-@media screen and (min-width: 744px) and (max-width: 1279px){
+@media screen and (min-width: 744px){
   .create-event-component {
-    width: 696px;
+    width: auto;
     height: 772px;
 
     .popup-left {
-      flex: 0 0 348px;
+      display: flex;
+      flex-direction: column;
+      flex: unset;
+      width: 615px;
+    }
+
+    .elem-2, .elem-3 {
+      width: 260px;
+    }
+    .elem-5 {
+      width: unset;
+    }
+
+    .elem-select-time {
+      width: 137px;
+    }
+
+    .elem-7 {
+      width: 245px;
+    }
+
+    .elem-10 {
+      width: 275px;
+    }
+
+    .elem-11 {
+      margin-top: auto;
     }
   }
 }
