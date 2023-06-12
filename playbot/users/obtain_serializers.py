@@ -157,7 +157,7 @@ class TokenObtainTelegramAppSerializer(ObtainMixin, serializers.Serializer):
         self.fields["first_name"] = serializers.CharField()
         self.fields["hash"] = serializers.CharField()
         self.fields["id"] = serializers.CharField()
-        self.fields["last_name"] = serializers.CharField()
+        self.fields["last_name"] = serializers.CharField(required=False, allow_null=True, allow_blank=True)
         self.fields["username"] = serializers.CharField()
 
     def validate(self, attrs):
