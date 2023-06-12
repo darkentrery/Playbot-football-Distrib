@@ -1,32 +1,50 @@
 .edit-event-component {
-  flex: 0 0 411px;
-  height: 702px;
+  width: auto !important;
+  height: 772px;
+  flex: unset;
   border-radius: 10px;
-  .elem.elem-1 {
-    align-self: stretch;
-    width: auto;
-    margin-bottom: 16px;
+  .elem-1 {
+    margin-inline: auto;
+  }
+  .elem-2, .elem-3 {
+    width: 260px;
+  }
+  .elem-5 {
+    width: unset;
+  }
+
+  .elem-select-time {
+    width: 137px;
+  }
+
+  .elem-7 {
+    width: 245px;
+  }
+
+  .elem-10 {
+    width: 275px;
+  }
+
+  .elem-11 {
+    margin-top: auto;
+  }
+  .dropdown-component .dropdown .dropdown-label {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .line-date__time-picker .react-datepicker {
+    width: 327px;
   }
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px){
-  .edit-event-component {
-    height: 772px;
 
-    &.form-event-component {
-      padding: 40px 30px 40px 40px;
-      .elem {
-        width: calc(411px - 80px);
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   .edit-event-component {
-    flex: 0 0 100%;
+    width: 100%;
     height: 100%;
-    border-radius: 0;
 
     &.form-event-component {
       padding: 24px calc(50% - 158px) 20px calc(50% - 148px);

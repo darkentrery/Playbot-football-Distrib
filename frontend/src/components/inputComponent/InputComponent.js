@@ -29,7 +29,7 @@ export const InputComponent = ({
         <div className={`input-component ${className}`}>
             <input className={`${leftIcon} ${errorText ? 'error' : ''}`} type={password ? 'password' : 'text'}
                    placeholder={placeholder} value={value ? value : ''} onChange={onChangeValue} onKeyUp={onKeyUp}/>
-            {errorText && <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>}
+            <span className={`input-message ${errorText ? 'error' : ''}`}>{errorText}</span>
             <div className={`right-input-icon ${rightIcon}`} onClick={rightOnClick}></div>
         </div>
     )

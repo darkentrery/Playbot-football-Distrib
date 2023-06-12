@@ -32,6 +32,7 @@ export const FormEventComponent = ({
     setAddressFocus = () => {},
     user,
     isEdit=false,
+    buttonText='Создать'
 }) => {
     const [id, setId] = useState(false);
     const [name, setName] = useState(false);
@@ -315,7 +316,7 @@ export const FormEventComponent = ({
         <div className={`form-event-component scroll ${className}`}>
             <div onClick={closeWindow} className={"btn-close"}></div>
             <div className={"elem elem-1"}>
-                <span>{titleText}</span>
+                <span className="form-event-title">{titleText}</span>
             </div>
             <div className={"form-event-body"}>
                 <div className="form-event-body-top">
@@ -436,7 +437,7 @@ export const FormEventComponent = ({
                 <textarea name="" id="" cols="30" rows="5" onChange={inputNotice} placeholder={"Комментарий"} value={notice ? notice : ''}></textarea>
             </div>
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
-                <button className={"btn btn-form-event"} onClick={sendForm}>Создать</button>
+                <button className={"btn btn-form-event"} onClick={sendForm}>{buttonText}</button>
             </div>
             <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} userAddress={user.address ? user.address : null}
                 setField={setField} setIsOpenMap={setIsOpenMap} address={address} fields={fields}

@@ -54,6 +54,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
                     setAddressFocus={setAddressFocus}
                     user={user}
                     isEdit={true}
+                    buttonText={"Сохранить"}
                 />
             </div>
         </Modal>

@@ -14,6 +14,7 @@ import EventRoutes from "../../../routes/EventRoutes";
 import EventTopAdminEditBar from "../../EventTopAdminEditBar/EventTopAdminEditBar";
 import EventJoinWithInfoCards from "../../EventJoinWithInfoCards/EventJoinWithInfoCards";
 import EventInfo from "../../EventInfo/EventInfo";
+import VisibleEventTopAdminEditBar from "../../../redux/containers/VisibleEventTopAdminEditBar";
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -103,7 +104,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                             <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
                     </Top376Component>
                     {user.isAuth && event && eventService.isOrganizer(event, user.user) && 
-                        <EventTopAdminEditBar/>
+                        <VisibleEventTopAdminEditBar/>
                     }
                     <EventJoinWithInfoCards event={event} user={user} funcs={funcs}/>
                     <EventInfo event={event}/>
