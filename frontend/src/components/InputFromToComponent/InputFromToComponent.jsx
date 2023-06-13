@@ -5,12 +5,14 @@ export const InputFromToComponent = ({
     minValue = 0,
     maxValue = 100,
     output = () => {},
-    classes = ''
+    classes = '',
 }) => {
-    const [input1, setInput1] = useState(false)
-    const [input2, setInput2] = useState(false)
+    const [input1, setInput1] = useState(false);
+    const [input2, setInput2] = useState(false);
 
     useEffect(() => {
+        // console.log(input1)
+        // console.log(input2)
         const numericRegex = /^[0-9]+$/; // Регулярное выражение для проверки, содержит ли строка только цифры
     
         //Проверка и очистка input1
@@ -44,4 +46,4 @@ export const InputFromToComponent = ({
     )
 }
 
-export default InputFromToComponent
+export default InputFromToComponent;

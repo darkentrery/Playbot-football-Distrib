@@ -37,8 +37,9 @@ class CreateEventView(APIView):
             if event:
                 Chat.objects.update_or_create(event=event)
                 UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
-                if event.is_player and not event.event_player.filter(player=request.user):
-                    EventPlayer.objects.create(player=request.user, event=event)
+                if event.public_in_channel:
+                    pass
+
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -57,7 +58,9 @@ class EventsCityView(APIView):
 
     def get(self, request, format='json', **kwargs):
         city = self.kwargs.get("city")
-        events = Event.objects.filter(field__address__city__name=city, cancel=False).order_by("date", "time_begin")
+        events = Event.objects.filter(field__address__city__name=city, cancel=False, is_news_line=True)\
+            .exclude(publish_time__gt=timezone.now())\
+            .order_by("date", "time_begin")
         events_ids = [event.id for event in events if not event.is_end or (event.is_end and (event.date + datetime.timedelta(days=1) > timezone.now().date()))]
         events = Event.objects.filter(id__in=events_ids).order_by("date", "time_begin")
         count = min(5, events.count())
@@ -87,17 +90,15 @@ class EditEventView(APIView):
 
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
+        is_published = event.public_in_channel
         serializer = EditEventSerializer(event, data=request.data)
         if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
-                if event.is_player and not event.event_player.filter(player=request.user):
-                    EventPlayer.objects.create(player=request.user, event=event)
-                elif not event.is_player and event.event_player.filter(player=request.user):
-                    EventPlayer.objects.get(player=request.user, event=event).delete()
-                    if event.first_order_queue:
-                        EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
-                        EventQueue.objects.get(player=event.first_order_queue).delete()
+                if not is_published and event.public_in_channel:
+                    logger.info(f"Published {event.id=}")
+                    pass
+
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

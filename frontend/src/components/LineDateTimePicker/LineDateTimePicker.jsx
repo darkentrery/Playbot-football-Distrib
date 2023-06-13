@@ -3,13 +3,21 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru'; // Импорт русской локализации
 import { format } from 'date-fns';
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 export const LineDateTimePicker = ({
-        output = () => {}
+    output = () => {},
+    value,
 }) => {
     const today = new Date();
 
-    const [selectedDate, setSelectedDate] = useState(0)
+    const [selectedDate, setSelectedDate] = useState(0);
+
+    useEffect(() => {
+        console.log(value)
+        if (value.date && value.time) {
+            setSelectedDate(new Date(`${value.date}T${value.time}`));
+        }
+    }, [value])
 
     const handleDateChange = (date) => {
         setSelectedDate(date);

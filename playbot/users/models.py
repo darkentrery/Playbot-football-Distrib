@@ -20,6 +20,17 @@ class Position(models.Model):
         return f"{self.name}"
 
 
+class Gender(models.Model):
+    name = models.CharField(_("Gender Name"), max_length=150, unique=True)
+
+    class Meta:
+        verbose_name = "Gender"
+        verbose_name_plural = "Gender"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class User(AbstractUser):
     class Gender(models.TextChoices):
         MALE = "Парень", _("Парень")

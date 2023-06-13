@@ -8,13 +8,20 @@ const RangeTwoPointInput = ({
         step = null,
         output = () => {},
         classes = '',
+        defaultValue1=0,
+        defaultValue2=5000,
     }) => {
-    const [value1, setValue1] = useState(minValue)
-    const [value2, setValue2] = useState(maxValue)
+    const [value1, setValue1] = useState(defaultValue1);
+    const [value2, setValue2] = useState(defaultValue2);
 
     useEffect(() => {
         output([+value1, +value2])
     }, [value1, value2])
+
+    useEffect(() => {
+        setValue1(defaultValue1);
+        setValue2(defaultValue2);
+    }, [defaultValue1, defaultValue2])
 
     return (
         <>

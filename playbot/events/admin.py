@@ -108,6 +108,7 @@ class EventAdmin(admin.ModelAdmin):
     ]
     filter_horizontal = (
         "organizers",
+        "genders",
     )
     actions = ["recalculate_rank",]
 

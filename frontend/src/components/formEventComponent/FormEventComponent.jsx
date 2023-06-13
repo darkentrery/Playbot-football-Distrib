@@ -13,6 +13,7 @@ import RangeTwoPointInput from "../RangeInputs/RangeTwoPointInput/RangeTwoPointI
 import { AccordionWrapper } from "../AccordionWrapper/AccordionWrapper";
 import InputFromToComponent from "../InputFromToComponent/InputFromToComponent";
 import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
+import {telegramService} from "../../services/TelegramService";
 
 
 export const FormEventComponent = ({
@@ -47,15 +48,14 @@ export const FormEventComponent = ({
     const [nameError, setNameError] = useState(false);
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
-    const [addressError, setAddressError] = useState(false);
     const [fieldError, setFieldError] = useState(false);
-    const [formatError, setFormatError] = useState(false);
     const [isOpenMap, setIsOpenMap] = useState(false);
     const [isPaid, setIsPaid] = useState(false);
     const [price, setPrice] = useState(false);
     const [currency, setCurrency] = useState('RUB');
     const [priceError, setPriceError] = useState(false);
     const [countPlayers, setCountPlayers] = useState([]);
+    const [countError, setCountError] = useState(false);
     const [fields, setFields] = useState([]);
     const [fieldsView, setFieldsView] = useState([]);
     const [field, setField] = useState(false);
@@ -64,38 +64,24 @@ export const FormEventComponent = ({
     const [isDelayedAnonse, setIsDelayedAnonse] = useState(false)
     const [allowMale, setAllowMale] = useState(true);
     const [allowFemale, setAllowFemale] = useState(true);
+    const [publicInChannel, setPublicInChannel] = useState(null);
+    const [publicInChannelError, setPublicInChannelError] = useState(false);
+    const [channels, setChannels] = useState([]);
+    const [genders, setGenders] = useState([1, 2]);
+    const [delayedTimeError, setDelayedTimeError] = useState(false);
 
     // need backend -->
-    const allowedGenders = {'male': allowMale, 'female': allowFemale} // 'male': boolean, 'female': boolean
-    const [ratingLimit, setRatingLimit] = useState([0, 5000]) // [0, 25] min
-    const [anonseList, setAnonseList] = useState(['Lenta']) // anonse list - может быть пустым [] или с данными куда пост выкатить ['Lenta', 'Telegram']
-    const [tgChat, setTgChat] = useState(false); // пока не добавил, с этим нужно уточнить, появляется при Telegram в anonseList.
-    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}) // date - 01.03.2022  time - 17:01 UTC
-    const [matchDuration, setMatchDuration] = useState(false) // в минутах 30, 60 и тд, если false то без времени 
-    const [ageLimit, setAgeLimit] = useState([false, false]) // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
-    console.log(`ratingLimit: ${ratingLimit}`, `anonseList:${anonseList}`, 
-    `matchDuration: ${matchDuration}`, `allowedGendres: ${'male-' + allowedGenders.male + ' female-' + allowedGenders.female}`, delayedTime
-    )
-    // need backend <--
+
+    const [ratingLimit, setRatingLimit] = useState([0, 5000]); // [0, 25] min
+    // const [anonseList, setAnonseList] = useState(['Lenta']) // anonse list - может быть пустым [] или с данными куда пост выкатить ['Lenta', 'Telegram']
+    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}); // date - 01.03.2022  time - 17:01 UTC
+    const [matchDuration, setMatchDuration] = useState(false); // в минутах 30, 60 и тд, если false то без времени
+    const [ageLimit, setAgeLimit] = useState([0, 0]); // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
+
     const refDate = useRef(); 
     const refTime = useRef();
-    const refAddress = useRef();
     const refNotice = useRef();
-    const refAddressInput = useRef();
-    const currencies = ["RUB", "KZT", "UAH", "AZN", "GEL", "AMD"]
-    const formats = ["2x2", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11",];
-
-    const handleAnonseCheckBoxClick = (e) => {
-        if (anonseList.includes(e)) {
-            setAnonseList(anonseList.filter(item => item !== e))
-        } else {
-            setAnonseList([...anonseList, e])
-        }
-    }
-
-    const handleSetMatchDuration = (value) => {
-        setMatchDuration(parseInt(value))
-    }
+    const currencies = ["RUB", "KZT", "UAH", "AZN", "GEL", "AMD"];
 
     const closeWindow = () => {
         setId(false);
@@ -103,7 +89,7 @@ export const FormEventComponent = ({
         setDate(false);
         setTime(false);
         setAddress(false);
-        setCount(4);
+        setCount(false);
         setIsNotPlayer(false);
         setNotice('');
         setFormat(false);
@@ -113,10 +99,9 @@ export const FormEventComponent = ({
         setAllowFemale(true);
         setAllowMale(true);
         setRatingLimit([0, 5000]);
-        setAnonseList(['Lenta']);
         setDelayedTime({'date': false, 'time': false});
         setMatchDuration(false);
-        setAgeLimit([false, false]);
+        setAgeLimit([0, 0]);
         clickClose();
     }
 
@@ -129,12 +114,25 @@ export const FormEventComponent = ({
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             setCount(event.count_players);
             if (event.field) setField(`${event.field.name} - ${event.field.address.s_h_string}`);
-            if (event) setIsNotPlayer(!event.is_player);
             setNotice(event.notice);
-            setFormat(event.format_label);
             setCurrency(event.currency);
             if (event && event.is_paid) setIsPaid(event.is_paid);
+            if (event.duration_opt) setMatchDuration(event.duration_opt);
             setPrice(event.price);
+            setAnonseLentaCheck(event.is_news_line);
+            setAnonseTgCheck(!!event.public_in_channel);
+            setIsDelayedAnonse(event.is_delay_publish);
+            setAgeLimit([event.min_age, event.max_age]);
+            setRatingLimit([event.min_players_rank, event.max_players_rank]);
+            let genderIds = event.genders.map(g => g.id);
+            setAllowMale(genderIds.includes(1));
+            setAllowFemale(genderIds.includes(2));
+            if (event.public_in_channel) {
+                setPublicInChannel(event.public_in_channel.name);
+            }
+            if (event.publish_time) {
+                setDelayedTime({date: event.publish_time.slice(0, 10), time: getLocalTime(event.publish_time.slice(11, 16))});
+            }
         }
         let array = [];
         for (let i=4; i<51; i++) {
@@ -144,12 +142,16 @@ export const FormEventComponent = ({
         blockBodyScroll(isOpen);
 
         cityService.getFields().then((response) => {
-            console.log(response.data)
             setFields(response.data);
             let array = response.data.map((field) => {
                 return `${field.name} - ${field.address.s_h_string}`;
             })
             setFieldsView(array);
+        })
+        telegramService.getChannelsByAdmin(user.id.toString()).then((response) => {
+            if (response.status === 200) {
+                setChannels(response.data);
+            }
         })
     }, [event, isOpen])
 
@@ -157,7 +159,6 @@ export const FormEventComponent = ({
         setNameError(false);
         setDateError(false);
         setTimeError(false);
-        setAddressError(false);
         let newDate;
         if (date) {
             let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
@@ -178,10 +179,13 @@ export const FormEventComponent = ({
         }
         let newMatchDuration;
         if (isNaN(parseInt(matchDuration))) {
-            newMatchDuration = false;
+            newMatchDuration = null;
         } else {
             newMatchDuration = parseInt(matchDuration)
         }
+        let allowGenders = [];
+        if (allowMale) allowGenders.push(1);
+        if (allowFemale) allowGenders.push(2);
         let bodyFormData = {
             'id': id,
             'name': name,
@@ -189,23 +193,28 @@ export const FormEventComponent = ({
             'time_begin': time ? getUTCTime(time) : time,
             'field': newField,
             'count_players': count,
-            'is_player': !isNotPlayer,
             'notice': notice,
             'is_paid': isPaid,
             'price': price,
-            'format_label': format,
             'currency': currency,
-
-            'allowed_genders': allowedGenders,
-            'rating_limit': ratingLimit,
-            'anonse_list': anonseList,
-            'delayed_time': delayedTime,
-            'match_duration': newMatchDuration,
-            'age_limit': ageLimit,
+            'genders': allowGenders,
+            'min_age': ageLimit[0] ? ageLimit[0] : 0,
+            'max_age': ageLimit[1] ? ageLimit[1] : 0,
+            'min_players_rank': ratingLimit[0],
+            'max_players_rank': ratingLimit[1],
+            'public_in_channel': anonseTgCheck && publicInChannel ? publicInChannel : null,
+            'duration_opt': newMatchDuration,
+            'is_news_line': anonseLentaCheck,
+            'publish_time': null,
         };
+        if (isDelayedAnonse && delayedTime.date && delayedTime.time) {
+            bodyFormData.publish_time = `${delayedTime.date}T${delayedTime.time ? getUTCTime(delayedTime.time) : delayedTime.time}`;
+        }
         console.log(bodyFormData)
         setData(bodyFormData);
-    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit, anonseList, delayedTime, matchDuration, allowedGenders.male, allowedGenders.female, ageLimit]);
+    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
+        delayedTime, matchDuration, allowMale, allowFemale, ageLimit, anonseLentaCheck, publicInChannel, fields,
+        isDelayedAnonse, anonseTgCheck]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});
@@ -239,23 +248,6 @@ export const FormEventComponent = ({
         setNotice(e.target.value);
     }
 
-    const getAddress = (e) => {
-        // if (isEdit) {
-        //
-        // } else {
-        //     setAddress(e.target.value);
-        //     setCity(false);
-        //     setPoint(false);
-        //     if (e.target.value && e.target.value.length > 6) {
-        //         getLocationsArrayGoogle(e.target.value).then((array) => {
-        //             setSuggests(array);
-        //         })
-        //     } else {
-        //         setSuggests([]);
-        //     }
-        // }
-    }
-
     const changeCount = (value) => {
         if (isEdit && event.count_current_players >= value) {
            return;
@@ -265,7 +257,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && field && format) {
+        if (name && date && time && field && count && (publicInChannel || !anonseTgCheck) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -277,22 +269,9 @@ export const FormEventComponent = ({
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
         if (!field) setFieldError("Заполните поле!");
-        if (isPaid && !price) setPriceError("Заполните поле!");
-        if (!format) setFormatError("Заполните поле!");
-    }
-
-    const choiceAddress = (e) => {
-        let suggest = suggests[e.target.id];
-        setAddress(suggest);
-        setSuggests([]);
-    }
-
-    const onFocusAddress = () => {
-        setAddressFocus(true);
-    }
-
-    const openMap = () => {
-        setIsOpenMap(true);
+        if (!count) setCountError("Заполните поле!");
+        if (!publicInChannel && anonseTgCheck) setPublicInChannelError("Заполните поле!");
+        if (isDelayedAnonse && (delayedTime.date || delayedTime.time)) setDelayedTimeError("Заполните поле!");
     }
 
     const inputDigit = (value) => {
@@ -300,16 +279,6 @@ export const FormEventComponent = ({
         value = value.replace(/\D/g, '');
         if (value.length >= 1 && value[0] === '0') value = value.slice(1,);
         return value;
-    }
-
-    const changeIsPlayer = () => {
-        if (event && event.count_players === event.count_current_players) {
-            setIsNotPlayer(isNotPlayer);
-        }
-    }
-
-    const changeIsPaid = () => {
-        if (!isEdit) setPrice(false);
     }
 
     return (
@@ -322,30 +291,11 @@ export const FormEventComponent = ({
                 <div className="form-event-body-top">
                     <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
                                     placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
-                    {/*<div className={`elem elem-3 div-input`} ref={refAddress}>*/}
-                    {/*    <input className={`map-point-icon input-icon ${addressError ? 'error' : ''}`} type="text" placeholder={"Адрес проведения *"}*/}
-                    {/*           value={address ? getAddressStringFormat(address) : ''}*/}
-                    {/*           onChange={getAddress} ref={refAddressInput} onFocus={onFocusAddress}/>*/}
-                    {/*    <div className={"map-paper-icon"} onClick={isEdit ? () => {} : openMap}></div>*/}
-                    {/*    <span className={`input-message ${addressError ? 'error' : ''}`}>{addressError}</span>*/}
-                    {/*    <div className={`suggests scroll ${suggests.length ? '' : 'hidden'}`}>*/}
-                    {/*        {suggests.length !== 0 && suggests.map((item, key) => (*/}
-                    {/*            <span className={"suggest-item gray-400-12"} key={key} onClick={choiceAddress} id={key}>{item.formatted}</span>*/}
-                    {/*        ))}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                     <DropDownComponent
                         value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3"}
                         content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
                         placeholder={"Площадка *"}
                     />
-
-                    {/* Формат площадки - убран в макете. */}
-                    {/* <DropDownComponent
-                        value={format} setValue={setFormat} leftIcon={'football-field-icon'} sizingClass={"elem elem-4"}
-                        content={formats} errorText={formatError} setErrorText={setFormatError}
-                        placeholder={"Формат площадки*"}
-                    /> */}
                     <div className={"elem elem-5 min-content"}>
                         <div className="formEvent__date-time-input">
                             <ReactDatetimeClass
@@ -383,7 +333,7 @@ export const FormEventComponent = ({
                         placeholder={"Продолжительность"}
                     />
                     <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} content={countPlayers}
-                    placeholder={"Количество слотов *"}/>
+                    placeholder={"Количество слотов *"} errorText={countError} setErrorText={setCountError}/>
                     <div className={`elem elem-10`}>
                         <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость"} onChange={isEdit? () => {return price;} : inputDigit}
                                         errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
@@ -392,20 +342,20 @@ export const FormEventComponent = ({
                     <div className="formEvent__placement">
                         <p>Плейсмент *</p>
                         <div className="formEvent__placement-checkboxes">
-                            <CheckboxComponent onClick={() => {handleAnonseCheckBoxClick('Lenta')}} checked={anonseLentaCheck} setChecked={setAnonseLentaCheck} text="Лента"/>
-                            <CheckboxComponent onClick={() => {handleAnonseCheckBoxClick('Telegram')}} checked={anonseTgCheck} setChecked={setAnonseTgCheck}  text="TG чат"/>
+                            <CheckboxComponent checked={anonseLentaCheck} setChecked={setAnonseLentaCheck} text="Лента"/>
+                            <CheckboxComponent checked={anonseTgCheck} setChecked={setAnonseTgCheck}  text="TG чат"/>
                         </div>
                     </div>
                     {anonseTgCheck && 
                         <DropDownComponent
-                            value={field} setValue={setField} leftIcon={'chat-icon'} sizingClass={"elem elem-3 formEvent__placement-select"}
-                            content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
+                            value={publicInChannel} setValue={setPublicInChannel} leftIcon={'chat-icon'} sizingClass={"elem elem-3 formEvent__placement-select"}
+                            content={[...channels.map(c => c.name)]} errorText={publicInChannelError} setErrorText={setPublicInChannelError}
                             placeholder={"Выберите чат *"}
                         />
                     }
                     <div className="formEvent__delayed-post">
                         <CheckSliderComponent value={isDelayedAnonse} setValue={setIsDelayedAnonse} text={"Отложенная публикация"}/>
-                        {isDelayedAnonse && <LineDateTimePicker output={setDelayedTime} />}
+                        {isDelayedAnonse && <LineDateTimePicker output={setDelayedTime} value={delayedTime}/>}
                     </div>
                 </div>
             </div>
@@ -430,7 +380,10 @@ export const FormEventComponent = ({
                             {`${ratingLimit[0]}-${ratingLimit[1]}`}
                         </span>
                     </div>
-                    <RangeTwoPointInput step={25} minValue={0} maxValue={5000} output={setRatingLimit} classes="formEvent__rating-range-width" />
+                    <RangeTwoPointInput
+                        step={25} minValue={0} maxValue={5000} output={setRatingLimit} classes={"formEvent__rating-range-width"}
+                        defaultValue1={ratingLimit[0]} defaultValue2={ratingLimit[1]}
+                    />
                 </div>
             </AccordionWrapper>
             <div className={"elem elem-11"} ref={refNotice}>
