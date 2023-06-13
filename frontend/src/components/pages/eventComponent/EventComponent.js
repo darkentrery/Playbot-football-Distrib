@@ -137,7 +137,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                    
                     {/* <VisibleBoardEvent/>
                     <VisibleEventOrganizer/> */}
-                    
+
                     {sameEvents.length !== 0 &&
                     <div className={"same-events-component"}>
                         <span className={"elem elem-1 black-600-20"}>Похожие события</span>

@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import {getLocalTime, getMonth, getShortWeekDay} from "../../utils/dates";
 import { eventService } from '../../services/EventService';
 import { ButtonsBoardOrganizerComponent } from '../body/ButtonsBoardOrganizerComponent';
 import { ButtonsBoardPlayerComponent } from '../body/ButtonsBoardPlayerComponent';
@@ -17,7 +19,12 @@ export const EventJoinWithInfoCards = ({
     user,
     funcs,
 }) => {
+    console.log(event);
+    const [date, setDate] = useState(new Date());
 
+    useEffect(() => {
+        if (event) setDate(new Date(event.date));
+    }, [event])
     return (
         <>
             {event &&
@@ -59,7 +66,7 @@ export const EventJoinWithInfoCards = ({
                 <div className="event-join-action-info">
                     <div className="event-join-action-calendar">
                         <img src={CalendarIcon} width={24} height={21} alt="calendar"/>
-                        <div>14:00, 21 августа, пн</div>
+                        <div>{getLocalTime(event.time_begin)},  {date.getDate()} {getMonth(date)}, {getShortWeekDay(date)}</div>
                     </div>
                     {!event.is_paid
                     ?

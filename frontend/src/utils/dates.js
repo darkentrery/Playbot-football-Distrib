@@ -23,6 +23,16 @@ const weekDay = [
     "суббота",
 ]
 
+const shortWeekDay = [
+    "вс",
+    "пн",
+    "вт",
+    "ср",
+    "чт",
+    "пт",
+    "сб",
+];
+
 const getMonth = (date) => {
   return monthsNames[date.getMonth()];
 }
@@ -30,6 +40,10 @@ const getMonth = (date) => {
 const getWeekDay = (date) => {
   return weekDay[date.getDay()];
 }
+
+const getShortWeekDay = (date) => {
+    return shortWeekDay[date.getDay()];
+};
 
 const replaceAt = (val, i) => {
     val = val.substring(0, i) + '' + val.substring(i + 1);
@@ -162,4 +176,4 @@ const getLocalTime = (value) => {
     }
 }
 
-export {getMonth, getWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate, getUTCTime, getLocalTime};
+export {getMonth, getWeekDay, getShortWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate, getUTCTime, getLocalTime};

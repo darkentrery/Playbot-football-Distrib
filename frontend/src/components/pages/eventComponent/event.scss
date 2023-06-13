@@ -3,7 +3,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   align-items: stretch;
-  gap: 32px;
+  gap: 40px;
 
   &.loader {
     align-self: stretch;
@@ -23,7 +23,6 @@
 .same-events-component {
   display: flex;
   flex-direction: column;
-  margin-top: 31px;
   gap: 24px;
   box-sizing: border-box;
 

@@ -843,3 +843,27 @@
   background-size: 32px 40px;
   background-position: center;
 }
+
+.calendar-same-icon {
+  background: url("../icon/calendar-same.svg");
+  background-repeat: no-repeat;
+  background-size: 20px 17px;
+  width: 20px;
+  height: 17px;
+}
+
+.new-star-icon {
+  background: url("../icon/new-star.svg");
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.trophy-icon {
+  background: url("../icon/trophy.svg");
+  background-repeat: no-repeat;
+  background-size: 18px 15px;
+  width: 18px;
+  height: 15px;
+}

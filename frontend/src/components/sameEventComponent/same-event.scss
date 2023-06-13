@@ -9,7 +9,13 @@
   &:hover {
     text-decoration: none;
   }
-
+  .el-data-item {
+    display: flex;
+    background-color: #F3F3F3;
+    border-radius: 20px;
+    padding: 6px 12px;
+    gap: 8px;
+  }
   .elem {
     display: flex;
     box-sizing: border-box;
@@ -29,15 +35,15 @@
       .el-1 {
         flex: 0 0 29px;
         justify-content: space-between;
+        align-items: center;
 
         .time {
           display: flex;
-          flex: 0 0 183px;
+          padding: 6px 12px;
           border-radius: 25px;
           background: $lightGrayColor;
           align-items: center;
           column-gap: 10px;
-          padding-left: 14.5px;
         }
 
         .star-icon {
@@ -51,12 +57,10 @@
       border-top: 1px solid #E1E1E1;
       padding-left: 35px;
       padding-right: 30px;
-      justify-content: space-between;
       align-items: center;
-      gap: 0;
+      gap: 17px;
 
       .el {
-        padding-left: 28px;
         height: 18px;
         display: flex;
         align-items: center;
