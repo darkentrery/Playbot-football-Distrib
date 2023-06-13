@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TelegramChannel(models.Model):
-    name = models.CharField(_("Name"), max_length=150)
+    name = models.CharField(_("Name"), max_length=150, unique=True)
     admin = models.ForeignKey("users.User", on_delete=models.SET_NULL, related_name="telegram_channels_admin", blank=True, null=True)
 
     class Meta:

@@ -19,7 +19,6 @@ export const EventJoinWithInfoCards = ({
     user,
     funcs,
 }) => {
-    console.log(event);
     const [date, setDate] = useState(new Date());
 
     useEffect(() => {
@@ -30,7 +29,7 @@ export const EventJoinWithInfoCards = ({
             {event &&
             <div className="event-join-top">
                 <div className="event-cards-info">
-                {event.duration.duration &&  
+                {event.duration && event.duration.duration &&
                     <div className="event-info-card">
                         <img src={ClockIcon} alt="clock" height={15} />
                         <div>{event.duration.duration} мин</div>

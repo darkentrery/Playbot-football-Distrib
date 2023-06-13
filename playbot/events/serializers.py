@@ -212,16 +212,16 @@ class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizers = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True, write_only=True)
-    format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
+    # format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
-    public_in_channels = serializers.PrimaryKeyRelatedField(queryset=TelegramChannel.objects.all(), write_only=True)
+    public_in_channel = serializers.SlugRelatedField(queryset=TelegramChannel.objects.all(), slug_field="name", write_only=True, allow_null=True, allow_empty=True)
     genders = serializers.PrimaryKeyRelatedField(queryset=Gender.objects.all(), many=True, write_only=True)
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "count_players", "is_player", "notice", "organizers",
-                  "format_label", "is_paid", "price", "field", "duration_opt", "is_news_line",
-                  "public_in_channels", "publish_time", "genders", "min_age", "max_age", "min_players_rank",
+        fields = ["id", "name", "date", "time_begin", "count_players", "notice", "organizers",
+                  "is_paid", "price", "field", "duration_opt", "is_news_line",
+                  "public_in_channel", "publish_time", "genders", "min_age", "max_age", "min_players_rank",
                   "max_players_rank"]
 
 
@@ -247,7 +247,7 @@ class EventSerializer(serializers.ModelSerializer):
     event_queues = EventQueueSerializer(EventQueue, many=True, read_only=True)
     format_label = serializers.SlugRelatedField(slug_field="name", read_only=True)
     field = FieldSerializer(read_only=True)
-    public_in_channels = TelegramChannelSerializer(read_only=True)
+    public_in_channel = TelegramChannelSerializer(read_only=True)
     genders = GenderSerializer(Gender, many=True, read_only=True)
 
     class Meta:
@@ -258,7 +258,7 @@ class EventSerializer(serializers.ModelSerializer):
                   "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
                   "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin", "all_games_finished",
                   "current_game_id", "count_current_players", "field", "is_delay_publish", "duration_opt",
-                  "is_news_line", "public_in_channels", "publish_time", "genders", "min_age", "max_age",
+                  "is_news_line", "public_in_channel", "publish_time", "genders", "min_age", "max_age",
                   "min_players_rank", "max_players_rank"]
         read_only_fields = fields
 
@@ -284,14 +284,14 @@ class EditEventSerializer(serializers.ModelSerializer):
     organizers = UserSerializer(User, many=True, read_only=True)
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
     format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
-    public_in_channels = serializers.PrimaryKeyRelatedField(queryset=TelegramChannel.objects.all(), write_only=True)
+    public_in_channel = serializers.PrimaryKeyRelatedField(queryset=TelegramChannel.objects.all(), write_only=True)
     genders = serializers.PrimaryKeyRelatedField(queryset=Gender.objects.all(), many=True, write_only=True)
 
     class Meta:
         model = Event
         fields = ["id", "name", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizers",
                   "format_label", "is_paid", "price", "duration_opt", "is_news_line",
-                  "public_in_channels", "publish_time", "genders", "min_age", "max_age", "min_players_rank",
+                  "public_in_channel", "publish_time", "genders", "min_age", "max_age", "min_players_rank",
                   "max_players_rank"]
 
 
