@@ -106,7 +106,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             }
         }
     }
-    console.log(event)
+
     return (
         <VisibleMainWrapper>
             <div className={`event-component ${!event ? 'loader' : ''}`}>

@@ -212,7 +212,6 @@ class CreateEventSerializer(serializers.ModelSerializer):
     date = serializers.CharField(max_length=128, write_only=True, required=True)
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizers = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True, write_only=True)
-    # format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
     public_in_channel = serializers.SlugRelatedField(queryset=TelegramChannel.objects.all(), slug_field="name", write_only=True, allow_null=True, allow_empty=True)
     genders = serializers.PrimaryKeyRelatedField(queryset=Gender.objects.all(), many=True, write_only=True)
@@ -220,8 +219,8 @@ class CreateEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["id", "name", "date", "time_begin", "count_players", "notice", "organizers",
-                  "is_paid", "price", "field", "duration_opt", "is_news_line",
-                  "public_in_channel", "publish_time", "genders", "min_age", "max_age", "min_players_rank",
+                  "is_paid", "price", "field", "duration_opt", "is_news_line", "public_in_channel", "publish_time",
+                  "genders", "min_age", "max_age", "min_players_rank",
                   "max_players_rank"]
 
 
@@ -283,16 +282,14 @@ class EditEventSerializer(serializers.ModelSerializer):
     time_begin = serializers.CharField(max_length=128, write_only=True, required=True)
     organizers = UserSerializer(User, many=True, read_only=True)
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
-    format_label = serializers.SlugRelatedField(queryset=Format.objects.all(), slug_field="name")
-    public_in_channel = serializers.PrimaryKeyRelatedField(queryset=TelegramChannel.objects.all(), write_only=True)
+    public_in_channel = serializers.SlugRelatedField(queryset=TelegramChannel.objects.all(), slug_field="name", write_only=True, allow_null=True, allow_empty=True)
     genders = serializers.PrimaryKeyRelatedField(queryset=Gender.objects.all(), many=True, write_only=True)
 
     class Meta:
         model = Event
         fields = ["id", "name", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizers",
-                  "format_label", "is_paid", "price", "duration_opt", "is_news_line",
-                  "public_in_channel", "publish_time", "genders", "min_age", "max_age", "min_players_rank",
-                  "max_players_rank"]
+                  "is_paid", "price", "duration_opt", "is_news_line", "public_in_channel", "publish_time", "genders",
+                  "min_age", "max_age", "min_players_rank", "max_players_rank"]
 
 
 class CancelEventSerializer(serializers.ModelSerializer):

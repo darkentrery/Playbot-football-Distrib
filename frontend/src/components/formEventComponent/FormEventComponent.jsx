@@ -122,12 +122,26 @@ export const FormEventComponent = ({
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             setCount(event.count_players);
             if (event.field) setField(`${event.field.name} - ${event.field.address.s_h_string}`);
-            if (event) setIsNotPlayer(!event.is_player);
             setNotice(event.notice);
-            setFormat(event.format_label);
             setCurrency(event.currency);
             if (event && event.is_paid) setIsPaid(event.is_paid);
+            if (event.duration_opt) setMatchDuration(event.duration_opt);
             setPrice(event.price);
+            setAnonseLentaCheck(event.is_news_line);
+            setAnonseTgCheck(!!event.public_in_channel);
+            setIsDelayedAnonse(event.is_delay_publish);
+            setAgeLimit([event.min_age, event.max_age]);
+            console.log([event.min_age, event.max_age])
+            setRatingLimit([event.min_players_rank, event.max_players_rank]);
+            let genderIds = event.genders.map(g => g.id);
+            setAllowMale(genderIds.includes(1));
+            setAllowFemale(genderIds.includes(2));
+            if (event.public_in_channel) {
+                setPublicInChannel(event.public_in_channel.name);
+            }
+            if (event.publish_time) {
+                setDelayedTime({date: event.publish_time.slice(0, 10), time: getLocalTime(event.publish_time.slice(11, 16))});
+            }
         }
         let array = [];
         for (let i=4; i<51; i++) {
@@ -144,7 +158,6 @@ export const FormEventComponent = ({
             setFieldsView(array);
         })
         telegramService.getChannelsByAdmin(user.id.toString()).then((response) => {
-            console.log(response.data)
             if (response.status === 200) {
                 setChannels(response.data);
             }
@@ -193,7 +206,6 @@ export const FormEventComponent = ({
             'is_paid': isPaid,
             'price': price,
             'currency': currency,
-
             'genders': allowGenders,
             'min_age': ageLimit[0] ? ageLimit[0] : 0,
             'max_age': ageLimit[1] ? ageLimit[1] : 0,
@@ -350,7 +362,7 @@ export const FormEventComponent = ({
                     }
                     <div className="formEvent__delayed-post">
                         <CheckSliderComponent value={isDelayedAnonse} setValue={setIsDelayedAnonse} text={"Отложенная публикация"}/>
-                        {isDelayedAnonse && <LineDateTimePicker output={setDelayedTime} />}
+                        {isDelayedAnonse && <LineDateTimePicker output={setDelayedTime} value={delayedTime}/>}
                     </div>
                 </div>
             </div>
@@ -375,7 +387,10 @@ export const FormEventComponent = ({
                             {`${ratingLimit[0]}-${ratingLimit[1]}`}
                         </span>
                     </div>
-                    <RangeTwoPointInput step={25} minValue={0} maxValue={5000} output={setRatingLimit} classes="formEvent__rating-range-width" />
+                    <RangeTwoPointInput
+                        step={25} minValue={0} maxValue={5000} output={setRatingLimit} classes={"formEvent__rating-range-width"}
+                        defaultValue1={ratingLimit[0]} defaultValue2={ratingLimit[1]}
+                    />
                 </div>
             </AccordionWrapper>
             <div className={"elem elem-11"} ref={refNotice}>

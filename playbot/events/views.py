@@ -37,8 +37,8 @@ class CreateEventView(APIView):
             if event:
                 Chat.objects.update_or_create(event=event)
                 UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
-                if event.is_player and not event.event_player.filter(player=request.user):
-                    EventPlayer.objects.create(player=request.user, event=event)
+                # if event.is_player and not event.event_player.filter(player=request.user):
+                #     EventPlayer.objects.create(player=request.user, event=event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -91,13 +91,13 @@ class EditEventView(APIView):
         if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
-                if event.is_player and not event.event_player.filter(player=request.user):
-                    EventPlayer.objects.create(player=request.user, event=event)
-                elif not event.is_player and event.event_player.filter(player=request.user):
-                    EventPlayer.objects.get(player=request.user, event=event).delete()
-                    if event.first_order_queue:
-                        EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
-                        EventQueue.objects.get(player=event.first_order_queue).delete()
+                # if event.is_player and not event.event_player.filter(player=request.user):
+                #     EventPlayer.objects.create(player=request.user, event=event)
+                # elif not event.is_player and event.event_player.filter(player=request.user):
+                #     EventPlayer.objects.get(player=request.user, event=event).delete()
+                #     if event.first_order_queue:
+                #         EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
+                #         EventQueue.objects.get(player=event.first_order_queue).delete()
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
