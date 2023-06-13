@@ -8,7 +8,7 @@ export const EventMembers = ({
 }) => {
     const maxPlayersNumber = event.count_players
     const currentPlayersNumber = event.count_current_players
-    const organizerName = event.organizers[0].username
+    const organizerName = event.organizers?.[0]?.username ?? null;
     return (
         <div className="event-members">
             <div className="event-members-active">
@@ -17,13 +17,15 @@ export const EventMembers = ({
                         <img src={AvatarSkeletonIcon} height={17} width={15} alt="avatar" />
                         <span>{currentPlayersNumber + '/' + maxPlayersNumber}</span>
                     </div>
+                    {organizerName &&
                     <div className="event-members-info__creator">
                         <span className="event-members-info__creator-title">Организатор:</span>
                         <span className="event-members-info__creator-name">{organizerName}</span>
                     </div>
+                    }
                 </div>
                 <div className="event-members-list">
-                    {event.event_player.map((e, i) => {
+                    {event.event_player.length !== 0 && event.event_player.map((e, i) => {
                         return (
                             <EventMemberCard 
                             name={e.player.username}
