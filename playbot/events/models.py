@@ -92,6 +92,15 @@ class Event(models.Model, CreateNotice):
     is_paid = models.BooleanField(_("Is Paid"), default=False)
     price = models.FloatField(_("Price"), default=0)
     currency = models.CharField(_("Currency"), max_length=50, default="RUB")
+    duration_opt = models.ForeignKey(Duration, on_delete=models.SET_NULL, related_name="events_opt", blank=True, null=True)
+    is_news_line = models.BooleanField(_("Is Public in News Lina"), default=False)
+    public_in_channel = models.ForeignKey("telegram.TelegramChannel", on_delete=models.SET_NULL, blank=True, null=True)
+    publish_time = models.DateTimeField(_("Time of Delayed Publishing"), blank=True, null=True)
+    genders = models.ManyToManyField("users.Gender", related_name="event_genders", blank=True)
+    min_age = models.PositiveIntegerField(_("Min Age"), default=0)
+    max_age = models.PositiveIntegerField(_("Max Age"), default=0)
+    min_players_rank = models.PositiveIntegerField(_("Min Players Rank"), default=0)
+    max_players_rank = models.PositiveIntegerField(_("Max Players Rank"), default=0)
 
     class Meta:
         ordering = ["date", "time_begin"]
@@ -188,6 +197,10 @@ class Event(models.Model, CreateNotice):
     @property
     def count_current_players(self):
         return self.event_player.all().count()
+
+    @property
+    def is_delay_publish(self):
+        return bool(self.publish_time)
 
 
 class Color(models.Model):

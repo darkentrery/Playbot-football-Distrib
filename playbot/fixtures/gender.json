@@ -1,0 +1,16 @@
+[
+  {
+    "model": "users.Gender",
+    "pk": 1,
+    "fields": {
+      "name": "Парень"
+    }
+  },
+  {
+    "model": "users.Gender",
+    "pk": 2,
+    "fields": {
+      "name": "Девушка"
+    }
+  }
+]

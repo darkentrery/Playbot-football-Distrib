@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
 
 from playbot.cities.models import Address
-from playbot.users.models import User, Position, RankHistory, UserRivals
+from playbot.users.models import User, Position, RankHistory, UserRivals, Gender
 
 
 class RankHistoryInline(admin.TabularInline):
@@ -148,4 +148,12 @@ class UserRivalsAdmin(admin.ModelAdmin):
         "from_user",
         "to_user",
         "event",
+    ]
+
+
+@admin.register(Gender)
+class GenderAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
     ]
