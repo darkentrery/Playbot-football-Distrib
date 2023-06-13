@@ -72,24 +72,16 @@ export const FormEventComponent = ({
 
     // need backend -->
 
-    const [ratingLimit, setRatingLimit] = useState([0, 5000]) // [0, 25] min
+    const [ratingLimit, setRatingLimit] = useState([0, 5000]); // [0, 25] min
     // const [anonseList, setAnonseList] = useState(['Lenta']) // anonse list - может быть пустым [] или с данными куда пост выкатить ['Lenta', 'Telegram']
-    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}) // date - 01.03.2022  time - 17:01 UTC
-    const [matchDuration, setMatchDuration] = useState(false) // в минутах 30, 60 и тд, если false то без времени 
-    const [ageLimit, setAgeLimit] = useState([0, 0]) // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
+    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}); // date - 01.03.2022  time - 17:01 UTC
+    const [matchDuration, setMatchDuration] = useState(false); // в минутах 30, 60 и тд, если false то без времени
+    const [ageLimit, setAgeLimit] = useState([0, 0]); // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
 
     const refDate = useRef(); 
     const refTime = useRef();
     const refNotice = useRef();
     const currencies = ["RUB", "KZT", "UAH", "AZN", "GEL", "AMD"];
-
-    // const handleAnonseCheckBoxClick = (e) => {
-    //     if (anonseList.includes(e)) {
-    //         setAnonseList(anonseList.filter(item => item !== e))
-    //     } else {
-    //         setAnonseList([...anonseList, e])
-    //     }
-    // }
 
     const closeWindow = () => {
         setId(false);
@@ -131,7 +123,6 @@ export const FormEventComponent = ({
             setAnonseTgCheck(!!event.public_in_channel);
             setIsDelayedAnonse(event.is_delay_publish);
             setAgeLimit([event.min_age, event.max_age]);
-            console.log([event.min_age, event.max_age])
             setRatingLimit([event.min_players_rank, event.max_players_rank]);
             let genderIds = event.genders.map(g => g.id);
             setAllowMale(genderIds.includes(1));
@@ -211,17 +202,19 @@ export const FormEventComponent = ({
             'max_age': ageLimit[1] ? ageLimit[1] : 0,
             'min_players_rank': ratingLimit[0],
             'max_players_rank': ratingLimit[1],
-            'public_in_channel': publicInChannel,
+            'public_in_channel': anonseTgCheck && publicInChannel ? publicInChannel : null,
             'duration_opt': newMatchDuration,
             'is_news_line': anonseLentaCheck,
+            'publish_time': null,
         };
-        if (delayedTime.date && delayedTime.time) {
+        if (isDelayedAnonse && delayedTime.date && delayedTime.time) {
             bodyFormData.publish_time = `${delayedTime.date}T${delayedTime.time ? getUTCTime(delayedTime.time) : delayedTime.time}`;
         }
         console.log(bodyFormData)
         setData(bodyFormData);
     }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
-        delayedTime, matchDuration, allowMale, allowFemale, ageLimit, anonseLentaCheck, publicInChannel]);
+        delayedTime, matchDuration, allowMale, allowFemale, ageLimit, anonseLentaCheck, publicInChannel, fields,
+        isDelayedAnonse, anonseTgCheck]);
 
     useEffect(() => {
         if (refDate.current) refDate.current.setState({inputValue: ''});

@@ -6,14 +6,15 @@ import { format } from 'date-fns';
 import {useEffect, useState} from 'react'
 export const LineDateTimePicker = ({
     output = () => {},
-    value=0,
+    value,
 }) => {
     const today = new Date();
 
     const [selectedDate, setSelectedDate] = useState(0);
 
     useEffect(() => {
-        if (value) {
+        console.log(value)
+        if (value.date && value.time) {
             setSelectedDate(new Date(`${value.date}T${value.time}`));
         }
     }, [value])
@@ -23,7 +24,6 @@ export const LineDateTimePicker = ({
         let dateFormated = format(date, 'yyyy-MM-dd');
         let timeFormated = format(date, 'HH:mm');
         output({'date': dateFormated, 'time': timeFormated});
-        console.log(date);
     };
 
     const isDateDisabled = (date) => {
