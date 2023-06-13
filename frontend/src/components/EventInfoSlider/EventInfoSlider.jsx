@@ -4,9 +4,9 @@ import { Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination';
 
-export const EventInfoSlider = ({images}) => {
+export const EventInfoSlider = ({images, className = ''}) => {
     return (
-        <div className="event-info-slider">
+        <div className={"event-info-slider " + className}>
             {images ?
                 <Swiper
                     modules={[Pagination]}

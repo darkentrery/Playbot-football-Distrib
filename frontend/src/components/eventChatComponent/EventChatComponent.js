@@ -121,7 +121,7 @@ export const EventChatComponent = ({event, user, className=''}) => {
                 ))}
             </div>
             <div className={"elem elem-3"}>
-                <textarea style={{maxHeight: "20px"}} className={"el el-1 scroll"} placeholder={"Введите текст сообщения"} value={message}
+                <textarea style={{maxHeight: "200px", height: "20px"}} className={"el el-1 scroll"} placeholder={"Введите текст сообщения"} value={message}
                           onChange={changeMessage} onKeyDown={keyMessageDown} onKeyUp={keyMessageUp}></textarea>
                 <img src={ChatSendIcon} width={18} height={18} onClick={sendForm}/>
             </div>

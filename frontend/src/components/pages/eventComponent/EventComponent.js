@@ -18,6 +18,13 @@ import { EventChatComponent } from "../../eventChatComponent/EventChatComponent"
 import VisibleEventTopAdminEditBar from "../../../redux/containers/VisibleEventTopAdminEditBar";
 import EventMembers from "../../EventMembers/EventMembers";
 import VisibleJoinWithInfoCards from "../../../redux/containers/VisibleJoinWithInfoCards";
+import ShareArrowIcon from '../../../assets/icon/share-arrow.svg'
+import EventJoinInfo376 from "../../EventJoinInfo376/EventJoinInfo376";
+import EventLimitsInfo376 from "../../EventLimitsInfo376/EventLimitsInfo376";
+
+import VisibleEventOrganizerButtons from "../../../redux/containers/VisibleEventOrganizerButtons";
+import VisibleEventPlayerButtons from "../../../redux/containers/VisibleEventPlayerButtons";
+
 
 
 export default function EventComponent ({event, sameEvents, user, funcs}) {
@@ -106,17 +113,16 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
             }
         }
     }
-    console.log(event)
     return (
         <VisibleMainWrapper>
             <div className={`event-component ${!event ? 'loader' : ''}`}>
                 {!event && <LoaderComponent/>}
                 {event && <>
-                    <Top376Component label={"Событие"} to={BaseRoutes.main}>
-                        <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>
-                        <div className={"icon send-icon"} onClick={() => share(EventRoutes.eventLink(event.id))}></div>
-                        {user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
-                            <div className={"icon black-edit-icon"} onClick={editEvent}></div>}
+                    <Top376Component label={""} to={BaseRoutes.main}>
+                        {/* <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>  deleted design*/}
+                        <img src={ShareArrowIcon} className={"icon"} onClick={() => share(EventRoutes.eventLink(event.id))}/>
+                        {/* {user.isAuth && event && eventService.isOrganizer(event, user.user) && !event.is_end && !event.cancel && event.event_step.length <= 1 &&
+                            <div className={"icon black-edit-icon"} onClick={editEvent}></div>} deleted design */}
                     </Top376Component>
                     {user.isAuth && event && eventService.isOrganizer(event, user.user) && 
                         <VisibleEventTopAdminEditBar/>
@@ -126,9 +132,19 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                         {event.name}
                     </div>
                     }
+                    <EventJoinInfo376 event={event} user={user.user}/>
+
+                    {event && eventService.isOrganizer(event, user.user) &&
+                    <div className="event-organizer-buttons-376">
+                        <VisibleEventOrganizerButtons/>
+                    </div>
+                    }
+
+                    
+
                     <VisibleJoinWithInfoCards/>
-                    <EventJoinWithInfoCards/>
                     <EventInfo event={event}/>
+                    <EventLimitsInfo376 event={event}/>
                     <EventMembers event={event}/>
 
                     {event && !event.cancel && user.isAuth && (eventService.isOrganizer(event, user.user) || ids.includes(user.user.id)) &&
@@ -149,6 +165,9 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
                     </div>}
                     <span className={`tooltip ${isTooltip ? '' : 'hidden'}`}>{tooltip}</span>
                 </>}
+                <div className="event-player-buttons-376">
+                    <VisibleEventPlayerButtons/>
+                </div>
             </div>
         </VisibleMainWrapper>
     )

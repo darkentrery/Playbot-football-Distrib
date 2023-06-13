@@ -4,6 +4,12 @@
   flex: 1 1 auto;
   align-items: stretch;
   gap: 40px;
+  .event-player-buttons-376 {
+    display: none;
+  }
+  .event-organizer-buttons-376 {
+    display: none;
+  }
 
   &.loader {
     align-self: stretch;
@@ -53,7 +59,24 @@
   .event-component {
     padding: 0 16px 25px 16px;
     gap: 24px;
+    padding-bottom: 90px;
     //overflow: auto;
+    .event-player-buttons-376 {
+      width: max-content;
+      display: block;
+      position: fixed;
+      z-index: 999;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .event-organizer-buttons-376 {
+      display: block;
+      button {
+        width: 100%;
+        padding: 13px 22px;
+      }
+    }
   }
   .same-events-component {
     margin-top: 0px;

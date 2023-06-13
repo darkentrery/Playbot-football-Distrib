@@ -36,3 +36,18 @@
         padding-left: 24px;
     }
 }
+
+@media only screen and (max-width: 1279px) {
+    .event-admin-bar {
+        margin-bottom: 4px;
+        padding-inline: 20px;
+    }
+    .event-admin-bar-edit {
+        .black-edit-icon {
+            display: inline-block;
+            width: 0px;
+            overflow: hidden;
+            margin-right: -5px;
+        }
+    }
+}

@@ -69,9 +69,20 @@
   }
 }
 
-@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+@media screen and (max-width: 1279px) {
   .same-event-component {
+    flex: 0 0 343px;
+  }
+} 
 
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+  .same-events-component {
+    &>.elem-2 {
+      flex-direction: column;
+    }
+  }
+  .same-event-component {
+    flex: 0 0 222px !important;
     .elem {
       &.elem-1 {
         flex: 0 0 162px;
