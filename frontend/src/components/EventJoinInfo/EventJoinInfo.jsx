@@ -14,7 +14,7 @@ export const EventJoinInfo = ({event, is376 = false, user = false}) => {
     const freeSlots = event.count_players - event.count_current_players
 
     const noSlots = freeSlots === 0
-    const lowSlots = freeSlots <= 3 && freeSlots != 0
+    const lowSlots = freeSlots < 5 && freeSlots != 0
     const userInQueue = event.event_queues.some((e) => e.player.id === user.id)
 
 

@@ -5,9 +5,17 @@
     margin-top: 42px;
     margin-bottom: -20px;
     padding-inline: 42px;
+    .event-component-title {
+        margin-bottom: 0px;
+    }
 }
 
 .event-admin-bar-data {
+    display: flex;
+    gap: 24px;
+}
+
+.event-admin-bar-data-inner {
     display: flex;
     gap: 24px;
 }
@@ -49,5 +57,18 @@
             overflow: hidden;
             margin-right: -5px;
         }
+    }
+}
+
+@media only screen and (max-width: 743px) {
+    .event-admin-bar {
+        margin-top: 0px;
+        align-items: flex-end;
+        .no-data-items-376 {
+            margin-bottom: -20px;
+        }
+    }
+    .event-admin-bar-data {
+        flex-direction: column;
     }
 }

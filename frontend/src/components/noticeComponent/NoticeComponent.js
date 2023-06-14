@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {memo, useState} from "react";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {noticeService} from "../..//services/NoticeService";
 
 
 
-export const NoticeComponent = ({
+export const NoticeComponent = memo(({
     userNotice,
     to=false,
     accept=false,
@@ -41,4 +41,4 @@ export const NoticeComponent = ({
             <span className={"btn-close"} onClick={close}></span>
         </div>
     )
-}
+})

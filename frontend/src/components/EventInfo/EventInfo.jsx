@@ -7,6 +7,7 @@ import FootballFieldIcon from '../../assets/icon/football-field.svg';
 import ShowerRoomIcon from '../../assets/icon/shower-room.svg';
 import FlagIcon from '../../assets/icon/flag.svg';
 import AirplaneIcon from '../../assets/icon/airplane.svg';
+import MapMarkerIcon from '../../assets/icon/map-marker.svg';
 
 
 import React, {useEffect, useRef, useState} from "react";
@@ -50,7 +51,7 @@ export const EventInfo = ({event}) => {
 
         useEffect(() => {
             if (markerRef.current) {
-                $('.leaflet-marker-icon').attr('src', 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png');
+                $('.leaflet-marker-icon').attr('src', MapMarkerIcon);
                 $('.leaflet-marker-shadow').attr('src', 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png');
             }
         }, [markerRef, event])

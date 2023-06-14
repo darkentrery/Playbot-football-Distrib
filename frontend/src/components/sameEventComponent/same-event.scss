@@ -1,6 +1,6 @@
 .same-event-component {
   display: flex;
-  flex: 0 0 373px;
+  flex: 0 0 366px;
   border-radius: 8px;
   background: $whiteColor;
   flex-direction: column;
@@ -95,6 +95,7 @@
       }
       &.elem-2 {
         flex: 0 0 60px;
+        padding-inline: 20px;
       }
     }
   }

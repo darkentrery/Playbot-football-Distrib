@@ -115,7 +115,7 @@ export default function EventComponent ({event, sameEvents, user, funcs}) {
     }
     return (
         <VisibleMainWrapper>
-            <div className={`event-component ${!event ? 'loader' : ''}`}>
+            <div className={`event-component ${!event ? 'loader' : ''}${event && eventService.isOrganizer(event, user.user) ? 'event-component-organizer' : ''}`}>
                 {!event && <LoaderComponent/>}
                 {event && <>
                     <Top376Component label={""} to={BaseRoutes.main}>
