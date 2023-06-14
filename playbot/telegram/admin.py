@@ -7,5 +7,7 @@ from playbot.telegram.models import TelegramChannel
 class TelegramChannelAdmin(admin.ModelAdmin):
     list_display = [
         "name",
-        "admin",
+    ]
+    filter_horizontal = [
+        "admins",
     ]
