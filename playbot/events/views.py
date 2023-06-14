@@ -17,7 +17,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     UpdateGoalSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
-from playbot.telegram.utils import send_announce
+from playbot.telegram.utils import send_announce, update_announce
 from playbot.users.models import RankHistory
 from playbot.users.serializers import UserSerializer
 
@@ -91,14 +91,18 @@ class EditEventView(APIView):
 
     def post(self, request, format='json'):
         event = Event.objects.get(id=request.data["id"])
-        is_published = event.public_in_channel
         serializer = EditEventSerializer(event, data=request.data)
         if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
-                if not is_published and event.public_in_channel:
+                if event.announce:
+                    update_announce(event.announce, "sdfdsвачпрва")
+                elif not event.announce and event.public_in_channel:
                     logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
-                    send_announce(event.public_in_channel.channel_id, f"Published {event.id=}")
+                    announce = send_announce(event.public_in_channel, f"Published {event.id=}")
+                    event.announce = announce
+                    event.save()
+
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

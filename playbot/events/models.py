@@ -101,6 +101,7 @@ class Event(models.Model, CreateNotice):
     max_age = models.PositiveIntegerField(_("Max Age"), default=0)
     min_players_rank = models.PositiveIntegerField(_("Min Players Rank"), default=0)
     max_players_rank = models.PositiveIntegerField(_("Max Players Rank"), default=0)
+    announce = models.OneToOneField("telegram.Announce", on_delete=models.CASCADE, related_name="event", blank=True, null=True)
 
     class Meta:
         ordering = ["date", "time_begin"]

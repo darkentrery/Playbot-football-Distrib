@@ -19,5 +19,5 @@ class GetChannelsByAdminView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        channels = TelegramChannelSerializer(TelegramChannel.objects.filter(admins__id__in=[self.kwargs.get("id")]), many=True)
+        channels = TelegramChannelSerializer(TelegramChannel.objects.filter(admins__id__in=[self.kwargs.get("id")], has_bot=True), many=True)
         return Response(channels.data, status=status.HTTP_200_OK)
