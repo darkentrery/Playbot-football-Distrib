@@ -1,668 +1,719 @@
 .form-event-component {
-  display: flex;
-  flex: 0 0 411px;
-  height: 718px;
-  flex-direction: column;
-  align-items: stretch;
-  background: $whiteColor;
-  position: relative;
-  padding: 40px 30px 40px 40px;
-  box-sizing: border-box;
-  overflow-y: auto !important;
-  .event-form-delete {
-    align-self: center;
-    margin-top: 27px;
-    margin-left: -13px;
-    background-size: 25px 16px;
-    padding-left: 33px;
-    padding-top: 2px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .btn-close {
-    display: unset !important;
-    right: 35px !important;
-    top: 35px !important;
-    opacity: 0.2;
-  }
-  .form-event-title {
-    width: max-content;
-  }
-  .currency-dropdown {
-    .dropdown-label {
-      font-size: 13px;
-      padding-left: 8px !important;
-    }
-    .right-icon {
-      right: 20px !important;
-    }
-  }
-  .btn-close {
-    position: absolute;
-    right: 28px;
-    top: 28px;
-  }
-  & .rtd {
-    width: 113px;
-  }
-  .elem {
     display: flex;
-    flex: 0 0 $fieldHeight;
+    flex: 0 0 411px;
+    height: 718px;
+    flex-direction: column;
     align-items: stretch;
-    justify-content: stretch;
-    width: calc(411px - 80px);
-
-    &.elem-1 {
-      flex: 0 0 24px;
-      justify-content: end;
-      align-items: center;
-      flex-direction: column;
-      margin-bottom: 32px;
-      position: relative;
-
-      .btn-close {
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-      span {
-        font-weight: 600;
-        font-size: 22px;
-      }
-    }
-    &.elem-2 {
-      input {
-        background-position: 16px center;
-      }
-    }
-    &.elem-3 {
-      position: relative;
-
-      .dropdown {
-        .map-point-icon {
-          width: 20px;
-        }
-      }
-      .suggest-map {
-        position: absolute;
-        display: flex;
-        border: 0.8px solid $grayColor;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        width: $createEventFieldWidth;
-        top: $fieldHeight;
-        justify-content: stretch;
-        align-items: center;
-        height: 28px;
-        background: $whiteColor;
+    background: $whiteColor;
+    position: relative;
+    padding: 40px 30px 40px 40px;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+    .event-form-delete {
+        align-self: center;
+        margin-top: 27px;
+        margin-left: -13px;
+        background-size: 25px 16px;
+        padding-left: 33px;
+        padding-top: 2px;
         cursor: pointer;
-        padding-left: 10px;
-        box-sizing: border-box;
-
-        &:hover {
-          background: #F8F8F8;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 8px;
+        user-select: none;
+    }
+    .btn-close {
+        display: unset !important;
+        right: 35px !important;
+        top: 35px !important;
+        opacity: 0.2;
+    }
+    .form-event-title {
+        width: max-content;
+    }
+    .currency-dropdown {
+        .dropdown-label {
+            font-size: 13px;
+            padding-left: 8px !important;
         }
-
-        &.suggests-exists {
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
+        .right-icon {
+            right: 20px !important;
         }
-
-        &.hidden {
-          display: none;
-        }
-      }
-
-      .suggests {
+    }
+    .btn-close {
         position: absolute;
+        right: 28px;
+        top: 28px;
+    }
+    & .rtd {
+        width: 113px;
+    }
+    .elem {
         display: flex;
-        flex-direction: column;
-        width: $createEventFieldWidth;
-        height: auto;
-        top: $fieldHeight;
-        border: 0.8px solid $grayColor;
-        border-radius: 8px;
-        background: $whiteColor;
-        z-index: 99999;
-        max-height: 250px;
+        flex: 0 0 $fieldHeight;
         align-items: stretch;
-        box-sizing: border-box;
-        overflow: auto;
-        gap: 5px;
+        justify-content: stretch;
+        width: calc(411px - 80px);
 
-        .suggest-item {
-          display: flex;
-          align-items: center;
-          flex: 1 0 28px;
-          padding-left: 10px;
-          padding-right: 10px;
-          cursor: pointer;
+        &.elem-1 {
+            flex: 0 0 24px;
+            justify-content: end;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 32px;
+            position: relative;
 
-          &:hover {
-            background: #F8F8F8;
-            border-radius: 8px;
-          }
-        }
-        &.hidden {
-          display: none;
-        }
-      }
-      .map-paper-icon{
-        position: absolute;
-        right: 14.5px;
-        top: 17px;
-        cursor: pointer;
-      }
-      .input-icon {
-        padding-left: 48px;
-        padding-right: 40px;
-        background-position: 16px center;
-      }
-    }
-    &.elem-4 {
-      .dropdown {
-        .football-field-icon {
-          width: 20px;
-          background-size: 20px 12.5px;
-        }
-      }
-    }
-    &.elem-5 {
-      gap: 8px;
-      justify-content: start;
-      position: relative;
-      .error {
-        input {
-          border: 0.8px solid #EC5B56;
-        }
-      }
-      .date-message {
-        display: none;
-      }
-      .time-message {
-        display: none;
-      }
-      .date {
-        input {
-          width: $createEventFieldWidth/2;
-          padding-left: 48px;
-          padding-right: 10px;
-          background: url("../../assets/icon/calendar2.png") no-repeat;
-          background-size: 20px;
-          background-position: 16px center;
-          border-radius: 8px 0 0 8px;
-        }
-      }
-      .time {
-        input {
-          width: $createEventFieldWidth/2;
-          padding-left: 48px;
-          padding-right: 10px;
-          background: url("../../assets/icon/gray-clock.png") no-repeat;
-          background-size: 20px;
-          background-position: 16px center;
-          border-radius: 0 8px 8px 0;
-        }
-        .rdtPicker {
-          min-width: 150px;
-        }
-      }
-      .confirm-time {
-        position: absolute;
-        z-index: 999999;
-        height: 20px;
-        width: 20px;
-        top: 63px;
-        left: 180px;
-        cursor: pointer;
-        background-size: 20px;
-        &.hidden {
-          display: none;
-        }
-      }
-    }
-    &.datetime-message {
-      display: flex;
-      margin-top: 4px;
-      flex: 0 0 12px;
-      font-size: 10px;
-      &.error {
-        color: #EC5B56;
-      }
-    }
-    &.elem-6 {
-      flex: 0 0 19px;
-    }
-    &.elem-7 {
-      flex-direction: column;
-    }
-    &.elem-8 {
-      flex: 0 0 24px;
-      margin-top: 4px;
-      margin-bottom: 20px;
-      align-items: center;
-
-      .slider-uncheck-icon {
-        flex: 0 0 40px;
-      }
-      .slider-check-icon {
-        flex: 0 0 40px;
-      }
-    }
-    &.elem-9 {
-      margin-bottom: 20px;
-    }
-    &.elem-10 {
-      & .gray-wallet-icon {
-        border-right: 0px;
-      }
-      & .dropdown-label {
-        border-left: 0px;
-      }
-      & .input-component {
-        justify-content: flex-start;
-      }
-      &.hidden {
-        display: none;
-      }
-      .price {
-        flex: 1 1 auto;
-        .gray-wallet-icon {
-          border-radius: 8px 0 0 8px;
-          background-position: 16px center;
-          padding-left: 48px;
-        }
-      }
-      .currency-dropdown.dropdown-component {
-        flex: 0 0 74px;
-
-        .dropdown {
-          .dropdown-label {
-            border-radius: 0 8px 8px 0;
-            padding-left: 12px;
-            background: #F3F3F3;
-            color: $grayColor;
-          }
-          .right-icon {
-            right: 10px;
-          }
-          .dropdown-menu {
-            border-radius: 0 0 8px 8px;
-            max-height: 150px;
-            .dropdown-elem {
-              color: #595959;
-              font-size: 14px;
-              flex: 0 0 32px;
+            .btn-close {
+                position: absolute;
+                right: 0;
+                top: 0;
             }
-          }
+            span {
+                font-weight: 600;
+                font-size: 22px;
+            }
         }
-      }
-    }
-    &.elem-11 {
-      flex: 1 1 auto;
-      flex-direction: column;
-      textarea {
-        box-sizing: border-box;
-        flex: 1 0 69px;
-      }
-    }
-    &.elem-12 {
-      margin-top: 20px;
+        &.elem-2 {
+            input {
+                background-position: 16px center;
+            }
+        }
+        &.elem-3 {
+            position: relative;
 
-      .btn-form-event {
-        flex: 1 1 auto;
-      }
-      &.safari-margin {
-        margin-bottom: 70px;
-      }
+            .dropdown {
+                .map-point-icon {
+                    width: 20px;
+                }
+            }
+            .suggest-map {
+                position: absolute;
+                display: flex;
+                border: 0.8px solid $grayColor;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                width: $createEventFieldWidth;
+                top: $fieldHeight;
+                justify-content: stretch;
+                align-items: center;
+                height: 28px;
+                background: $whiteColor;
+                cursor: pointer;
+                padding-left: 10px;
+                box-sizing: border-box;
+
+                &:hover {
+                    background: #f8f8f8;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                }
+
+                &.suggests-exists {
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                &.hidden {
+                    display: none;
+                }
+            }
+
+            .suggests {
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                width: $createEventFieldWidth;
+                height: auto;
+                top: $fieldHeight;
+                border: 0.8px solid $grayColor;
+                border-radius: 8px;
+                background: $whiteColor;
+                z-index: 99999;
+                max-height: 250px;
+                align-items: stretch;
+                box-sizing: border-box;
+                overflow: auto;
+                gap: 5px;
+
+                .suggest-item {
+                    display: flex;
+                    align-items: center;
+                    flex: 1 0 28px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: #f8f8f8;
+                        border-radius: 8px;
+                    }
+                }
+                &.hidden {
+                    display: none;
+                }
+            }
+            .map-paper-icon {
+                position: absolute;
+                right: 14.5px;
+                top: 17px;
+                cursor: pointer;
+            }
+            .input-icon {
+                padding-left: 48px;
+                padding-right: 40px;
+                background-position: 16px center;
+            }
+        }
+        &.elem-4 {
+            .dropdown {
+                .football-field-icon {
+                    width: 20px;
+                    background-size: 20px 12.5px;
+                }
+            }
+        }
+        &.elem-5 {
+            gap: 8px;
+            justify-content: start;
+            position: relative;
+            .error {
+                input {
+                    border: 0.8px solid #ec5b56;
+                }
+            }
+            .date-message {
+                display: none;
+            }
+            .time-message {
+                display: none;
+            }
+            .date {
+                input {
+                    width: $createEventFieldWidth/2;
+                    padding-left: 48px;
+                    padding-right: 10px;
+                    background: url('../../assets/icon/calendar2.png') no-repeat;
+                    background-size: 20px;
+                    background-position: 16px center;
+                    border-radius: 8px 0 0 8px;
+                }
+            }
+            .time {
+                input {
+                    width: $createEventFieldWidth/2;
+                    padding-left: 48px;
+                    padding-right: 10px;
+                    background: url('../../assets/icon/gray-clock.png')
+                        no-repeat;
+                    background-size: 20px;
+                    background-position: 16px center;
+                    border-radius: 0 8px 8px 0;
+                }
+                .rdtPicker {
+                    min-width: 150px;
+                }
+            }
+            .confirm-time {
+                position: absolute;
+                z-index: 999999;
+                height: 20px;
+                width: 20px;
+                top: 63px;
+                left: 180px;
+                cursor: pointer;
+                background-size: 20px;
+                &.hidden {
+                    display: none;
+                }
+            }
+        }
+        &.datetime-message {
+            display: flex;
+            margin-top: 4px;
+            flex: 0 0 12px;
+            font-size: 10px;
+            &.error {
+                color: #ec5b56;
+            }
+        }
+        &.elem-6 {
+            flex: 0 0 19px;
+        }
+        &.elem-7 {
+            flex-direction: column;
+        }
+        &.elem-8 {
+            flex: 0 0 24px;
+            margin-top: 4px;
+            margin-bottom: 20px;
+            align-items: center;
+
+            .slider-uncheck-icon {
+                flex: 0 0 40px;
+            }
+            .slider-check-icon {
+                flex: 0 0 40px;
+            }
+        }
+        &.elem-9 {
+            margin-bottom: 20px;
+        }
+        &.elem-10 {
+            & .gray-wallet-icon {
+                border-right: 0px;
+            }
+            & .dropdown-label {
+                border-left: 0px;
+            }
+            & .input-component {
+                justify-content: flex-start;
+            }
+            &.hidden {
+                display: none;
+            }
+            .price {
+                flex: 1 1 auto;
+                .gray-wallet-icon {
+                    border-radius: 8px 0 0 8px;
+                    background-position: 16px center;
+                    padding-left: 48px;
+                }
+            }
+            .currency-dropdown.dropdown-component {
+                flex: 0 0 74px;
+
+                .dropdown {
+                    .dropdown-label {
+                        border-radius: 0 8px 8px 0;
+                        padding-left: 12px;
+                        background: #f3f3f3;
+                        color: $grayColor;
+                    }
+                    .right-icon {
+                        right: 10px;
+                    }
+                    .dropdown-menu {
+                        border-radius: 0 0 8px 8px;
+                        max-height: 150px;
+                        .dropdown-elem {
+                            color: #595959;
+                            font-size: 14px;
+                            flex: 0 0 32px;
+                        }
+                    }
+                }
+            }
+        }
+        &.elem-11 {
+            flex: 1 1 auto;
+            flex-direction: column;
+            textarea {
+                box-sizing: border-box;
+                flex: 1 0 69px;
+            }
+        }
+        &.elem-12 {
+            margin-top: 20px;
+
+            .btn-form-event {
+                flex: 1 1 auto;
+            }
+            &.safari-margin {
+                margin-bottom: 70px;
+            }
+        }
+        .input-message {
+            flex: 0 0 12px;
+            margin-top: 4px;
+            font-size: 10px;
+            &.error {
+                color: #ec5b56;
+            }
+        }
+        input {
+            box-sizing: border-box;
+        }
     }
-    .input-message {
-      flex: 0 0 12px;
-      margin-top: 4px;
-      font-size: 10px;
-      &.error {
-        color: #EC5B56;
-      }
+    .elem-13 {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-    input {
-      box-sizing: border-box;
+    .form-event-body {
+        max-height: 512px;
     }
-  }
-  .elem-13 {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .form-event-body {
-    max-height: 512px;
-  }
 }
 
 .formEvent__placement {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: -12px;
-  & > p {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 120%;
-    color: #1B1B1B;
-  }
-  & > .formEvent__placement-checkboxes {
     display: flex;
-    gap: 37px;
-  }
-  & .checkbox-component .cell {
-    border: 1px solid #6C6C6C;
-    border-radius: 2px;
-    width: 20px;
-    height: 20px;
-    background-size: cover !important;
-  }
-  & .checkbox-component .black-400-13 {
-    font-size: 16px;
-  }
-  & .checkbox-component .active {
-    background: url('../../assets/icon/check-box-orange-square.svg') !important;
-    padding: 1px !important;
-  }
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: -12px;
+    & > p {
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 120%;
+        color: #1b1b1b;
+    }
+    & > .formEvent__placement-checkboxes {
+        position: relative;
+        display: flex;
+        gap: 37px;
+    }
+    & .checkbox-component .cell {
+        border: 1px solid #6c6c6c;
+        border-radius: 2px;
+        width: 20px;
+        height: 20px;
+        background-size: cover !important;
+    }
+    & .checkbox-component .black-400-13 {
+        font-size: 16px;
+    }
+    & .checkbox-component .active {
+        background: url('../../assets/icon/check-box-orange-square.svg') !important;
+        padding: 1px !important;
+    }
+    .formEvent__placement-error {
+        position: absolute;
+        top: 22px;
+        flex: 0 0 12px;
+        margin-top: 4px;
+        font-family: 'Raleway', sans-serif;
+        font-style: normal;
+        font-size: 10px;
+        color: #ec5b56;
+    }
+}
+
+.FormEvent__placement-checkboxes--error {
+    & .checkbox-component .cell {
+        border: 1px solid #ec5b56;
+    }
 }
 
 .formEvent__rating-range {
-  margin-top: 40px;
-  display: flex;
+    margin-top: 40px;
+    display: flex;
 }
 
 .formEvent__rating-range-text {
-  white-space: nowrap;
-  margin-right: auto;
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 120%;
-  span {
-    margin-left: 12px;
+    white-space: nowrap;
+    margin-right: auto;
+    font-family: 'Raleway';
+    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 120%;
-    text-align: right;
-    color: #949494;
-  }
+    span {
+        margin-left: 12px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 120%;
+        text-align: right;
+        color: #949494;
+    }
 }
 
 .formEvent__delayed-post {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 55px;
-  margin-top: -8px;
-  & .check-slider-component  {
-    white-space: nowrap;
-  }
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 55px;
+    margin-top: -8px;
+    & .check-slider-component {
+        white-space: nowrap;
+    }
 }
 
 .formEvent__placement-select {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 .form-event-body-top {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 8px;
-  width: 530px;
-  & .elem {
-    flex: unset;
-  }
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    width: 530px;
+    & .elem {
+        flex: unset;
+    }
 }
 
 .formEvent__gender-and-age {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .formEvent__age-limit {
-  display: flex;
-  align-items: center;
-  gap: 22px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
 }
 
 .formEvent__gender-limit {
-  display: flex;
-  gap: 22px;
-  & .checkbox-component .cell {
-    border: 1px solid #6C6C6C;
-    border-radius: 2px;
-    width: 20px;
-    height: 20px;
-    background-size: cover !important;
-  }
-  & .checkbox-component .active {
-    background: url('../../assets/icon/check-box-orange-square.svg') !important;
-    padding: 1px !important;
-  }
+    display: flex;
+    flex-direction: column;
+    .error {
+        display: none;
+        flex: 0 0 12px;
+        margin-top: 4px;
+        font-size: 10px;
+        color: #ec5b56;
+        margin-bottom: -16px;
+    }
+    & .checkbox-component .cell {
+        border: 1px solid #6c6c6c;
+        border-radius: 2px;
+        width: 20px;
+        height: 20px;
+        background-size: cover !important;
+    }
+    & .checkbox-component .active {
+        background: url('../../assets/icon/check-box-orange-square.svg') !important;
+        padding: 1px !important;
+    }
+}
+
+.formEvent__gender-error {
+    .checkbox-component .cell {
+        border: 1px solid #ec5b56 !important;
+    }
+    .error {
+        display: inline;
+    }
+}
+
+.formEvent__gender-limit__inner {
+    display: flex;
+    gap: 22px;
 }
 
 .formEvent__age-limit {
-  display: flex;
-  gap: 15px;
-  align-items: center;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .elem-11 {
-  margin-top: 47px;
-  max-height: 68px;
+    margin-top: 47px;
+    max-height: 68px;
 }
 
 .elem-12 {
-  margin-inline: auto;
+    margin-inline: auto;
 }
 
-@media screen and (min-width: 744px){
-  .formEvent__rating-range-width {
-    max-width: 288px;
-    margin-top: 9px;
-  }
-
-  .elem-5-select-date {
-    width: 116px;
-  }
-
-  .elem-11 {
-    width: 100% !important;
-  }
-
-  .min-content {
-    height: min-content;
-  }
-
-  .form-event-component {
-    padding: 32px 38px 32px 48px;
-    height: 772px;
-    overflow: hidden;
-
-    .elem {
-      width: calc(348px - 96px);
-    }
-    .elem.elem-1 {
-      margin-bottom: 24px;
-    }
-    .elem.elem-5 {
-      flex-direction: row;
-
-      .date {
-        input {
-          width: auto;
-          border-radius: 8px;
-        }
-      }
-      .time {
-        input {
-          width: auto;
-          border-radius: 8px;
-        }
-      }
-      .confirm-time {
-        top: 127px;
-        left: 15px;
-      }
-      .date-message {
-        display: flex;
-      }
-      .time-message {
-        display: flex;
-      }
-    }
-    .elem.datetime-message {
-      display: none;
-    }
-    .elem.elem-10 {
-      .price {
-        .gray-wallet-icon {
-          width: 100%;
-        }
-      }
-    }
-    .form-event-body {
-      max-height: 588px;
-    }
-  }
-}
-
-@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
-  .form-event-component {
-    flex: 0 0 100%;
-    height: 100%;
-    padding: 24px calc(50% - 158px) 20px calc(50% - 148px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    .formEvent__placement {
-      width: max-content;
-      gap: 32px;
-    }
-    .formEvent__placement-select {
-      width: 304px !important;
-    }
-    .line-date__time-picker {
-      width: max-content;
-    }
-    .formEvent__accordion {
-      margin-top: 0px;
-    }
-    
-    .accordion__wrapper-content {
-      margin-top: 24px;
-    }
-    .formEvent__gender-and-age {
-      flex-direction: column;
-      gap: 30px;
-    }
-    .formEvent__rating-range {
-      flex-direction: column;
-      gap: 22px;
-      margin-bottom: 50px;
-    }
-    .formEvent__age-limit {
-      justify-content: space-between;
-    }
-    .formEvent__delayed-post {
-      display: flex;
-      justify-content: unset;
-      height: max-content;
-      flex-direction: column;
-      margin-top: 0px;
-    }
-    .formEvent__placement-checkboxes {
-      gap: 15px;
+@media screen and (min-width: 744px) {
+    .formEvent__rating-range-width {
+        max-width: 288px;
+        margin-top: 9px;
     }
 
-    .elem {
-      width: 304px;
-    }
-    .elem.elem-1 {
-      align-self: stretch;
-      width: auto;
-      position: relative;
-      margin-bottom: 40px;
-
-      span {
-        font-size: 20px;
-      }
-    }
-    .elem.elem-5 {
-      flex-direction: row;
-      gap: 0px;
-
-      .date {
-        input {
-          width: auto;
-          border-radius: 8px;
-        }
-      }
-      .time {
-        input {
-          width: auto;
-          border-radius: 8px;
-        }
-      }
-      .confirm-time {
-        top: 127px;
-        left: 15px;
-      }
-      .date-message {
-        display: flex;
-      }
-      .time-message {
-        display: flex;
-      }
-    }
-    .elem-2 {
-      margin-bottom: 15px;
-    }
-    .elem-96 {
-      margin-top: 15px;
-    }
-    .formEvent__date-time-input {
-      width: 152px;
-      & .form-control {
-        border-top-right-radius: unset !important;
-        border-bottom-right-radius: unset !important;
-      }
-    }
-    .elem-select-time {
-      & .form-control {
-        border-top-right-radius: 8px !important;
-        border-bottom-right-radius: 8px !important;
-        border-top-left-radius: unset !important;
-        border-bottom-left-radius: unset !important;
-      }
+    .elem-5-select-date {
+        width: 116px;
     }
 
-    .elem.datetime-message {
-      display: none;
-    }
-    .elem.elem-10 {
-      .price {
-        .gray-wallet-icon {
-          width: 100%;
-        }
-      }
-    }
-    .form-event-body {
-      max-height: 100%;
-    }
     .elem-11 {
-      margin-top: 0px;
+        width: 100% !important;
     }
-  }
+
+    .min-content {
+        height: min-content;
+    }
+
+    .form-event-component {
+        padding: 32px 38px 32px 48px;
+        height: 772px;
+        overflow: hidden;
+
+        .elem {
+            width: calc(348px - 96px);
+        }
+        .elem.elem-1 {
+            margin-bottom: 24px;
+        }
+        .elem.elem-5 {
+            flex-direction: row;
+
+            .date {
+                input {
+                    width: auto;
+                    border-radius: 8px;
+                }
+            }
+            .time {
+                input {
+                    width: auto;
+                    border-radius: 8px;
+                }
+            }
+            .confirm-time {
+                top: 127px;
+                left: 15px;
+            }
+            .date-message {
+                display: flex;
+            }
+            .time-message {
+                display: flex;
+            }
+        }
+        .elem.datetime-message {
+            display: none;
+        }
+        .elem.elem-10 {
+            .price {
+                .gray-wallet-icon {
+                    width: 100%;
+                }
+            }
+        }
+        .form-event-body {
+            max-height: 588px;
+        }
+    }
+}
+
+@media screen and (max-width: 743px),
+    (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
+    .form-event-component {
+        flex: 0 0 100%;
+        height: 100%;
+        padding: 24px calc(50% - 158px) 20px calc(50% - 148px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+            display: none;
+        }
+        .formEvent__placement {
+            width: max-content;
+            gap: 32px;
+        }
+        .formEvent__placement-select {
+            width: 304px !important;
+        }
+        .line-date__time-picker {
+            width: max-content;
+        }
+        .formEvent__accordion {
+            margin-top: 0px;
+        }
+
+        .accordion__wrapper-content {
+            margin-top: 24px;
+        }
+        .formEvent__gender-and-age {
+            flex-direction: column;
+            gap: 30px;
+        }
+        .formEvent__rating-range {
+            flex-direction: column;
+            gap: 22px;
+            margin-bottom: 50px;
+        }
+        .formEvent__age-limit {
+            justify-content: space-between;
+        }
+        .formEvent__delayed-post {
+            display: flex;
+            justify-content: unset;
+            height: max-content;
+            flex-direction: column;
+            margin-top: 0px;
+        }
+        .formEvent__placement-checkboxes {
+            gap: 15px;
+        }
+
+        .elem {
+            width: 304px !important;
+        }
+        .elem.elem-1 {
+            align-self: stretch;
+            width: auto;
+            position: relative;
+            margin-bottom: 40px;
+
+            span {
+                font-size: 20px;
+            }
+        }
+        .elem.elem-5 {
+            flex-direction: row;
+            gap: 0px;
+
+            .date {
+                input {
+                    width: auto;
+                    border-radius: 8px;
+                }
+            }
+            .time {
+                input {
+                    width: auto;
+                    border-radius: 8px;
+                }
+            }
+            .confirm-time {
+                top: 127px;
+                left: 15px;
+            }
+            .date-message {
+                display: flex;
+            }
+            .time-message {
+                display: flex;
+            }
+        }
+        .elem-2 {
+            margin-bottom: 0px;
+        }
+        .elem-96 {
+            margin-top: 0px;
+        }
+        .formEvent__date-time-input {
+            display: flex;
+            flex-direction: column;
+            width: 152px;
+            .elem-5-select-date,
+            .elem-select-time {
+                width: 152px;
+            }
+            & .form-control {
+                border-top-right-radius: unset !important;
+                border-bottom-right-radius: unset !important;
+            }
+        }
+        .elem-select-time {
+            & .form-control {
+                border-top-right-radius: 8px !important;
+                border-bottom-right-radius: 8px !important;
+                border-top-left-radius: unset !important;
+                border-bottom-left-radius: unset !important;
+            }
+        }
+
+        .elem.datetime-message {
+            display: none;
+        }
+        .elem.elem-10 {
+            .price {
+                .gray-wallet-icon {
+                    width: 100%;
+                }
+            }
+        }
+        .form-event-body {
+            max-height: 100%;
+        }
+        .elem-11 {
+            margin-top: 0px;
+        }
+    }
 }
 
 //@media screen and (max-width: 743px) and (max-height: 750px){

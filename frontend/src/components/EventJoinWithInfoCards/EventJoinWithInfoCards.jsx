@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { eventService } from '../../services/EventService';
 import { ButtonsBoardOrganizerComponent } from '../body/ButtonsBoardOrganizerComponent';
 import { ButtonsBoardPlayerComponent } from '../body/ButtonsBoardPlayerComponent';
-import './EventJoinWithInfoCards.scss';
 import { EventCardsInfo } from '../EventCardsInfo/EventCardsInfo';
 import EventJoinInfo from '../EventJoinInfo/EventJoinInfo';
 

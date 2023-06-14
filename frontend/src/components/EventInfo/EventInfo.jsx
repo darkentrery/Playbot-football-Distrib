@@ -1,4 +1,3 @@
-import './EventInfo.scss';
 import TempEventImage from '../../assets/icon/temp-event-image.png';
 import HangerIcon from '../../assets/icon/hanger.svg';
 import LightingIcon from '../../assets/icon/lighting.svg';
@@ -10,15 +9,15 @@ import AirplaneIcon from '../../assets/icon/airplane.svg';
 import MapMarkerIcon from '../../assets/icon/map-marker.svg';
 
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
-import {MapContainer, Marker, TileLayer, useMapEvents} from 'react-leaflet'
+import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import {eventService} from "../../services/EventService";
+import { eventService } from "../../services/EventService";
 import EventInfoSlider from '../EventInfoSlider/EventInfoSlider';
 import EventInfoAddressCopyText from '../EventInfoAddressCopyText/EventInfoAddressCopyText';
 
-export const EventInfo = ({event}) => {
+export const EventInfo = ({ event }) => {
     const [position, setPosition] = useState(false);
     const [address, setAddress] = useState(false);
 
@@ -47,7 +46,7 @@ export const EventInfo = ({event}) => {
 
     const LocationMarker = () => {
         const map = useMapEvents({});
-        map.flyTo(position, map.getZoom(), {animate: false});
+        map.flyTo(position, map.getZoom(), { animate: false });
 
         useEffect(() => {
             if (markerRef.current) {
@@ -68,45 +67,45 @@ export const EventInfo = ({event}) => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <LocationMarker/>
+                <LocationMarker />
             </MapContainer>
         )
     }
 
 
-    const DressingRoomItem = ({active=true}) => {
+    const DressingRoomItem = ({ active = true }) => {
         return (
             <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
                 <img src={HangerIcon} alt="item hanger" />
                 <div className="event-info-field-assets-item-text">раздевалки</div>
-             </div>
+            </div>
         )
     }
 
-    const LightingItem = ({active=true}) => {
+    const LightingItem = ({ active = true }) => {
         return (
             <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
                 <img src={LightingIcon} alt="ligting" />
                 <div className="event-info-field-assets-item-text">освещение</div>
-             </div>
+            </div>
         )
     }
 
-    const ShowerRoomItem = ({active=true}) => {
+    const ShowerRoomItem = ({ active = true }) => {
         return (
             <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
                 <img src={ShowerRoomIcon} alt="shower rooms" />
                 <div className="event-info-field-assets-item-text">душевые</div>
-             </div>
+            </div>
         )
     }
 
-    const TribuneItem = ({active=true}) => {
+    const TribuneItem = ({ active = true }) => {
         return (
             <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
                 <img src={FlagIcon} alt="stands" />
                 <div className="event-info-field-assets-item-text">трибуны</div>
-             </div>
+            </div>
         )
     }
 
@@ -130,26 +129,26 @@ export const EventInfo = ({event}) => {
                         <div className="event-info-field-assets-item-text">{fieldFormat}</div>
                     </div>
 
-                    {isDressingRoom && <DressingRoomItem/>}
-                    {isLighting && <LightingItem/>}
-                    {isShowerRoom && <ShowerRoomItem/>}
-                    {isTribune && <TribuneItem/>}
+                    {isDressingRoom && <DressingRoomItem />}
+                    {isLighting && <LightingItem />}
+                    {isShowerRoom && <ShowerRoomItem />}
+                    {isTribune && <TribuneItem />}
 
-                    {!isDressingRoom && <DressingRoomItem active={false}/>}
-                    {!isLighting && <LightingItem active={false}/>}
-                    {!isShowerRoom && <ShowerRoomItem active={false}/>}
-                    {!isTribune && <TribuneItem active={false}/>}
+                    {!isDressingRoom && <DressingRoomItem active={false} />}
+                    {!isLighting && <LightingItem active={false} />}
+                    {!isShowerRoom && <ShowerRoomItem active={false} />}
+                    {!isTribune && <TribuneItem active={false} />}
 
                 </div>
                 <div className="event-info-map">
                     <div className="event-info-map-inner">
-                        <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"}/>
-                        <MapBody/>
+                        <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"} />
+                        <MapBody />
                     </div>
-                    <EventInfoSlider className="event-info-max-1279" images={[TempEventImage,TempEventImage,TempEventImage,TempEventImage,TempEventImage]}/>
+                    <EventInfoSlider className="event-info-max-1279" images={[TempEventImage, TempEventImage, TempEventImage, TempEventImage, TempEventImage]} />
                 </div>
             </div>
-            <EventInfoSlider className="event-info-min-1279" images={[TempEventImage,TempEventImage,TempEventImage,TempEventImage,TempEventImage]}/>
+            <EventInfoSlider className="event-info-min-1279" images={[TempEventImage, TempEventImage, TempEventImage, TempEventImage, TempEventImage]} />
         </div>
     )
 }

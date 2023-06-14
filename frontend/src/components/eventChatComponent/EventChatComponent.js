@@ -25,8 +25,8 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                     : '',
                 Refresh: user.isAuth
                     ? `${localStorage.getItem('refresh_token')}`
-                    : ''
-            }
+                    : '',
+            },
         }
     );
 
@@ -39,7 +39,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                     : '',
                 Refresh: user.isAuth
                     ? `${localStorage.getItem('refresh_token')}`
-                    : ''
+                    : '',
             },
             onOpen: () => {
                 console.log('Connected!');
@@ -67,7 +67,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                         console.error('Unknown message type!');
                         break;
                 }
-            }
+            },
         }
     );
 
@@ -85,7 +85,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
         [ReadyState.OPEN]: 'Open',
         [ReadyState.CLOSING]: 'Closing',
         [ReadyState.CLOSED]: 'Closed',
-        [ReadyState.UNINSTANTIATED]: 'Uninstantiated'
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
     }[readyState];
 
     const sendForm = () => {
@@ -94,7 +94,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             if (trimMessage) {
                 sendJsonMessage({
                     type: 'chat_message',
-                    message
+                    message,
                 });
                 setMessage('');
                 setTextareaHeight(20);
@@ -195,7 +195,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                 <textarea
                     style={{
                         maxHeight: '200px',
-                        height: `${textareaHeight}px`
+                        height: `${textareaHeight}px`,
                     }}
                     className={'el el-1 scroll'}
                     placeholder={'Введите текст сообщения'}

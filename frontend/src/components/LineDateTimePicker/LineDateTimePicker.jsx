@@ -7,13 +7,13 @@ import {useEffect, useState} from 'react'
 export const LineDateTimePicker = ({
     output = () => {},
     value,
+    isError = true,
 }) => {
     const today = new Date();
 
     const [selectedDate, setSelectedDate] = useState(0);
 
     useEffect(() => {
-        console.log(value)
         if (value.date && value.time) {
             setSelectedDate(new Date(`${value.date}T${value.time}`));
         }
@@ -28,11 +28,11 @@ export const LineDateTimePicker = ({
 
     const isDateDisabled = (date) => {
         return date <= today;
-    };
+    }; 
     return (
         <>
             <div className="line-date__time-picker">
-                <p>{selectedDate ? format(selectedDate, 'dd MMMM yyyy в HH:mm', { locale: ru }) : 'Выберите дату'}</p>
+                <p className={isError ? "line-date__time-picker--error" : ''}>{selectedDate ? format(selectedDate, 'dd MMMM yyyy в HH:mm', { locale: ru }) : 'Выберите дату'}</p>
                 <DatePicker
                     selected={selectedDate}
                     onChange={handleDateChange}

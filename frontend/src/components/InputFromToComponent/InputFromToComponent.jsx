@@ -6,13 +6,12 @@ export const InputFromToComponent = ({
     maxValue = 100,
     output = () => {},
     classes = '',
+    isError = false,
 }) => {
     const [input1, setInput1] = useState(false);
     const [input2, setInput2] = useState(false);
 
     useEffect(() => {
-        // console.log(input1)
-        // console.log(input2)
         const numericRegex = /^[0-9]+$/; // Регулярное выражение для проверки, содержит ли строка только цифры
     
         //Проверка и очистка input1
@@ -37,11 +36,16 @@ export const InputFromToComponent = ({
     }, [input1, input2]);
 
     return (
-        <div className={`input__from-to ${classes}`}>
-            <span>от</span>
-            <input type="text" value={input1} onChange={(e) => {setInput1(e.currentTarget.value)}} min={minValue} max={maxValue}/>
-            <span>до</span>
-            <input type="text" value={input2} onChange={(e) => {setInput2(e.currentTarget.value)}} min={minValue} max={maxValue}/>
+        <div className={`input__from-to ${classes} ${isError ? 'input__from-to--is-error' : ''}`}>
+            <div className='input__form-to-inner'>
+                <span>от</span>
+                <input type="text" value={input1} onChange={(e) => {setInput1(e.currentTarget.value)}} min={minValue} max={maxValue}/>
+                <span>до</span>
+                <input type="text" value={input2} onChange={(e) => {setInput2(e.currentTarget.value)}} min={minValue} max={maxValue}/>
+                <div className={'input__form-to-inner-error' }>
+                    {isError ? "Укажите корректные значения" : ''}
+                </div>
+            </div>
         </div>
     )
 }

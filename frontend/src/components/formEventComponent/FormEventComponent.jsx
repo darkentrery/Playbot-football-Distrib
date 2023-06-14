@@ -1,40 +1,40 @@
 import ReactDatetimeClass from "react-datetime";
 import DropDownComponent from "../dropDownComponent/DropDownComponent";
-import React, {useEffect, useRef, useState} from "react";
-import {choiceDate, choiceTime, getLocalTime, getUTCTime} from "../../utils/dates";
-import {InputComponent} from "../inputComponent/InputComponent";
-import {LocateEventComponent} from "../locateEventComponent/LocateEventComponent";
-import {CheckSliderComponent} from "../checkSliderComponent/CheckSliderComponent";
+import React, { useEffect, useRef, useState } from "react";
+import { choiceDate, choiceTime, getLocalTime, getUTCTime } from "../../utils/dates";
+import { InputComponent } from "../inputComponent/InputComponent";
+import { LocateEventComponent } from "../locateEventComponent/LocateEventComponent";
+import { CheckSliderComponent } from "../checkSliderComponent/CheckSliderComponent";
 import "react-datetime/css/react-datetime.css";
-import {blockBodyScroll} from "../../utils/manageElements";
-import {cityService} from "../../services/CityService";
+import { blockBodyScroll } from "../../utils/manageElements";
+import { cityService } from "../../services/CityService";
 import { CheckboxComponent } from "../checkboxComponent/CheckboxComponent";
 import RangeTwoPointInput from "../RangeInputs/RangeTwoPointInput/RangeTwoPointInput";
 import { AccordionWrapper } from "../AccordionWrapper/AccordionWrapper";
 import InputFromToComponent from "../InputFromToComponent/InputFromToComponent";
 import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
-import {telegramService} from "../../services/TelegramService";
+import { telegramService } from "../../services/TelegramService";
 
 
 export const FormEventComponent = ({
     isOpen,
-    event=false,
+    event = false,
     isIPhone,
     clickClose,
     data,
     setData,
-    onClick = () => {},
-    className='',
+    onClick = () => { },
+    className = '',
     closeDropDown,
     titleText,
     suggests,
     setSuggests,
-    addressFocus=false,
-    setAddressFocus = () => {},
-    onDeleteEventClick = () => {},
+    addressFocus = false,
+    setAddressFocus = () => { },
+    onDeleteEventClick = () => { },
     user,
-    isEdit=false,
-    buttonText='Создать'
+    isEdit = false,
+    buttonText = 'Создать'
 }) => {
     const [id, setId] = useState(false);
     const [name, setName] = useState(false);
@@ -50,6 +50,7 @@ export const FormEventComponent = ({
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
     const [fieldError, setFieldError] = useState(false);
+    const [genderError, setGenderError] = useState(false);
     const [isOpenMap, setIsOpenMap] = useState(false);
     const [isPaid, setIsPaid] = useState(false);
     const [price, setPrice] = useState(false);
@@ -60,7 +61,7 @@ export const FormEventComponent = ({
     const [fields, setFields] = useState([]);
     const [fieldsView, setFieldsView] = useState([]);
     const [field, setField] = useState(false);
-    const [anonseLentaCheck, setAnonseLentaCheck] = useState(true); 
+    const [anonseLentaCheck, setAnonseLentaCheck] = useState(true);
     const [anonseTgCheck, setAnonseTgCheck] = useState(false);
     const [isDelayedAnonse, setIsDelayedAnonse] = useState(false)
     const [allowMale, setAllowMale] = useState(true);
@@ -70,16 +71,18 @@ export const FormEventComponent = ({
     const [channels, setChannels] = useState([]);
     const [genders, setGenders] = useState([1, 2]);
     const [delayedTimeError, setDelayedTimeError] = useState(false);
+    const [ageLimitError, setAgeLimitError] = useState(false);
+    const [anonseError, setAnonseError] = useState(false);
 
     // need backend -->
 
     const [ratingLimit, setRatingLimit] = useState([0, 5000]); // [0, 25] min
     // const [anonseList, setAnonseList] = useState(['Lenta']) // anonse list - может быть пустым [] или с данными куда пост выкатить ['Lenta', 'Telegram']
-    const [delayedTime, setDelayedTime] = useState({'date': false, 'time': false}); // date - 01.03.2022  time - 17:01 UTC
+    const [delayedTime, setDelayedTime] = useState({ 'date': false, 'time': false }); // date - 01.03.2022  time - 17:01 UTC
     const [matchDuration, setMatchDuration] = useState(false); // в минутах 30, 60 и тд, если false то без времени
     const [ageLimit, setAgeLimit] = useState([0, 0]); // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
 
-    const refDate = useRef(); 
+    const refDate = useRef();
     const refTime = useRef();
     const refNotice = useRef();
     const currencies = ["RUB", "KZT", "UAH", "AZN", "GEL", "AMD"];
@@ -100,7 +103,7 @@ export const FormEventComponent = ({
         setAllowFemale(true);
         setAllowMale(true);
         setRatingLimit([0, 5000]);
-        setDelayedTime({'date': false, 'time': false});
+        setDelayedTime({ 'date': false, 'time': false });
         setMatchDuration(false);
         setAgeLimit([0, 0]);
         clickClose();
@@ -132,11 +135,11 @@ export const FormEventComponent = ({
                 setPublicInChannel(event.public_in_channel.name);
             }
             if (event.publish_time) {
-                setDelayedTime({date: event.publish_time.slice(0, 10), time: getLocalTime(event.publish_time.slice(11, 16))});
+                setDelayedTime({ date: event.publish_time.slice(0, 10), time: getLocalTime(event.publish_time.slice(11, 16)) });
             }
         }
         let array = [];
-        for (let i=4; i<51; i++) {
+        for (let i = 4; i < 51; i++) {
             array.push(i);
         }
         setCountPlayers(array);
@@ -159,6 +162,10 @@ export const FormEventComponent = ({
         setNameError(false);
         setDateError(false);
         setTimeError(false);
+        if ((allowFemale || allowMale) && genderError) setGenderError(false);
+        if (isDelayedAnonse && delayedTime.date && delayedTime.time) setDelayedTimeError(false);
+        if (ageLimit[0] <= ageLimit[1]) setAgeLimitError(false);
+        if (anonseLentaCheck || anonseTgCheck) setAnonseError(false);
         let newDate;
         if (date) {
             let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
@@ -217,7 +224,7 @@ export const FormEventComponent = ({
         isDelayedAnonse, anonseTgCheck]);
 
     useEffect(() => {
-        if (refDate.current) refDate.current.setState({inputValue: ''});
+        if (refDate.current) refDate.current.setState({ inputValue: '' });
     }, [incorrectDate])
 
     const renderDay = (props, currentDate, selectedDate) => {
@@ -239,7 +246,7 @@ export const FormEventComponent = ({
     }
 
     const inputName = (value) => {
-        return  value.slice(0, 20);
+        return value.slice(0, 20);
     }
 
     const inputNotice = (e) => {
@@ -250,14 +257,14 @@ export const FormEventComponent = ({
 
     const changeCount = (value) => {
         if (isEdit && event.count_current_players >= value) {
-           return;
+            return;
         } else {
             setCount(value);
         }
     }
 
     const sendForm = async () => {
-        if (name && date && time && field && count && (publicInChannel || !anonseTgCheck) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
+        if (name && date && time && field && count && (publicInChannel || !anonseTgCheck) && (allowMale || allowFemale) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -270,8 +277,11 @@ export const FormEventComponent = ({
         if (!time) setTimeError("Заполните поле!");
         if (!field) setFieldError("Заполните поле!");
         if (!count) setCountError("Заполните поле!");
+        if (ageLimit[0] > ageLimit[1] && ageLimit[1] !== false) setAgeLimitError(true);
+        if (!allowMale && !allowFemale) setGenderError("Заполните поле!");
         if (!publicInChannel && anonseTgCheck) setPublicInChannelError("Заполните поле!");
-        if (isDelayedAnonse && (delayedTime.date || delayedTime.time)) setDelayedTimeError("Заполните поле!");
+        if (isDelayedAnonse && (!delayedTime.date || !delayedTime.time)) setDelayedTimeError(true);
+        if (!anonseLentaCheck && !anonseTgCheck) setAnonseError(true);
     }
 
     const inputDigit = (value) => {
@@ -289,8 +299,8 @@ export const FormEventComponent = ({
             </div>
             <div className={"form-event-body"}>
                 <div className="form-event-body-top">
-                    <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit? () => {return name;} : inputName}
-                                    placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName}/>
+                    <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit ? () => { return name; } : inputName}
+                        placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName} />
                     <DropDownComponent
                         value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3"}
                         content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
@@ -303,13 +313,13 @@ export const FormEventComponent = ({
                                 timeFormat={false}
                                 dateFormat={"DD.MM.YYYY"}
                                 closeOnSelect={true}
-                                inputProps={{placeholder: 'Дата *'}}
+                                inputProps={{ placeholder: 'Дата *' }}
                                 onChange={(e) => choiceDate(e, setDate, refDate, setIncorrectDate, incorrectDate)}
                                 ref={refDate}
                                 value={date ? date : ''}
                                 renderDay={renderDay}
                             />
-                            {(dateError || timeError) ? <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span> : null}
+                            <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         <div className="formEvent__date-time-input">
                             <ReactDatetimeClass
@@ -317,36 +327,37 @@ export const FormEventComponent = ({
                                 timeFormat={"HH:mm"}
                                 dateFormat={false}
                                 closeOnSelect={true}
-                                inputProps={{placeholder: 'Время *'}}
+                                inputProps={{ placeholder: 'Время *' }}
                                 onChange={(e) => choiceTime(e, setTime, refTime)}
                                 ref={refTime}
                                 value={time ? time : ''}
                             />
-                            {(dateError || timeError) ? <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span> : null}
+                            <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
                     </div>
                     <span className={`elem input-message datetime-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                     <DropDownComponent
                         value={matchDuration} setValue={setMatchDuration} leftIcon={'duration-icon'} sizingClass={"elem elem-3 elem-96"}
-                        content={['без времени','30 мин', '60 мин', '90 мин', '120 мин']} errorText={fieldError} setErrorText={setFieldError}
+                        content={['без времени', '30 мин', '60 мин', '90 мин', '120 мин']} errorText={fieldError} setErrorText={setFieldError}
                         placeholder={"Продолжительность"}
                     />
                     <DropDownComponent value={count} setValue={changeCount} leftIcon={'foot-icon'} sizingClass={"elem elem-7"} content={countPlayers}
-                    placeholder={"Количество слотов *"} errorText={countError} setErrorText={setCountError}/>
+                        placeholder={"Количество слотов *"} errorText={countError} setErrorText={setCountError} />
                     <div className={`elem elem-10`}>
-                        <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость"} onChange={isEdit? () => {return price;} : inputDigit}
-                                        errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"}/>
-                        <DropDownComponent value={currency} setValue={isEdit ? () => {} : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} content={currencies}/>
+                        <InputComponent value={price} setValue={setPrice} placeholder={"Стоимость"} onChange={isEdit ? () => { return price; } : inputDigit}
+                            errorText={priceError} className={"price"} leftIcon={"gray-wallet-icon"} />
+                        <DropDownComponent value={currency} setValue={isEdit ? () => { } : setCurrency} leftIcon={""} sizingClass={"currency-dropdown"} content={currencies} />
                     </div>
                     <div className="formEvent__placement">
                         <p>Плейсмент *</p>
-                        <div className="formEvent__placement-checkboxes">
-                            <CheckboxComponent checked={anonseLentaCheck} setChecked={setAnonseLentaCheck} text="Лента"/>
-                            <CheckboxComponent checked={anonseTgCheck} setChecked={setAnonseTgCheck}  text="TG чат"/>
+                        <div className={"formEvent__placement-checkboxes" + (anonseError ? " FormEvent__placement-checkboxes--error" : '')}>
+                            <CheckboxComponent checked={anonseLentaCheck} setChecked={setAnonseLentaCheck} text="Лента" />
+                            <CheckboxComponent checked={anonseTgCheck} setChecked={setAnonseTgCheck} text="TG чат" />
+                            <div className="formEvent__placement-error error">{anonseError ? "Выберите хотя-бы 1 вариант" : ''}</div>
                         </div>
                     </div>
-                    {anonseTgCheck && 
+                    {anonseTgCheck &&
                         <DropDownComponent
                             value={publicInChannel} setValue={setPublicInChannel} leftIcon={'chat-icon'} sizingClass={"elem elem-3 formEvent__placement-select"}
                             content={[...channels.map(c => c.name)]} errorText={publicInChannelError} setErrorText={setPublicInChannelError}
@@ -354,23 +365,26 @@ export const FormEventComponent = ({
                         />
                     }
                     <div className="formEvent__delayed-post">
-                        <CheckSliderComponent value={isDelayedAnonse} setValue={setIsDelayedAnonse} text={"Отложенная публикация"}/>
-                        {isDelayedAnonse && <LineDateTimePicker output={setDelayedTime} value={delayedTime}/>}
+                        <CheckSliderComponent value={isDelayedAnonse} setValue={setIsDelayedAnonse} text={"Отложенная публикация"} />
+                        {isDelayedAnonse && <LineDateTimePicker isError={delayedTimeError} output={setDelayedTime} value={delayedTime} />}
                     </div>
                 </div>
             </div>
             <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={true}>
                 <div className="formEvent__gender-and-age">
-                    <div className="formEvent__age-limit">
+                    <div className={"formEvent__age-limit" + (genderError ? " formEvent__gender-error" : "")}>
                         <span className="text-footnote">Пол</span>
                         <div className="formEvent__gender-limit">
-                            <CheckboxComponent checked={allowMale} setChecked={setAllowMale} text="М"/>
-                            <CheckboxComponent checked={allowFemale} setChecked={setAllowFemale} text="Ж"/>
+                            <div className="formEvent__gender-limit__inner">
+                                <CheckboxComponent checked={allowMale} setChecked={setAllowMale} text="М" />
+                                <CheckboxComponent checked={allowFemale} setChecked={setAllowFemale} text="Ж" />
+                            </div>
+                            <span class="input-message error">{genderError}</span>
                         </div>
                     </div>
                     <div className="formEvent__age-limit">
                         <span className="text-footnote">Возраст</span>
-                        <InputFromToComponent output={setAgeLimit} classes={'formEvent__age-limit-input'}/>
+                        <InputFromToComponent isError={ageLimitError} output={setAgeLimit} classes={'formEvent__age-limit-input'} />
                     </div>
                 </div>
                 <div className="formEvent__rating-range">
@@ -392,9 +406,10 @@ export const FormEventComponent = ({
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>{buttonText}</button>
             </div>
-            <div className="red-bucket-icon red-400-14 event-form-delete" onClick={onDeleteEventClick}>
-                Отменить событие
-            </div>
+            {isEdit &&
+                <div className="red-bucket-icon red-400-14 event-form-delete" onClick={onDeleteEventClick}>
+                    Отменить событие
+                </div>}
             <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} userAddress={user.address ? user.address : null}
                 setField={setField} setIsOpenMap={setIsOpenMap} address={address} fields={fields}
             />

@@ -5,11 +5,9 @@ import WalletIcon from '../../assets/icon/wallet.svg';
 import UsdIcon from '../../assets/icon/currency-usd.svg';
 import CalendarIcon from '../../assets/icon/calendar.svg';
 import WarningIcon from '../../assets/icon/warning.svg';
-import { eventService } from "../../services/EventService";
 
 export const EventJoinInfo = ({event, is376 = false, user = false}) => {
     const [date, setDate] = useState(new Date());
-    console.log(event)
 
     const freeSlots = event.count_players - event.count_current_players
 

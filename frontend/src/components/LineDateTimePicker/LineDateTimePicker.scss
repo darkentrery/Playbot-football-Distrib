@@ -27,3 +27,8 @@
     width: inherit;
     overflow: hidden;
 }
+
+.line-date__time-picker--error {
+    color: #EC5B56 !important;
+    border-bottom: 1px solid #EC5B56 !important;
+}

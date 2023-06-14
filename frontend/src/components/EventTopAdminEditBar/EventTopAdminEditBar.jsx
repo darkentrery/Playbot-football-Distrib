@@ -1,4 +1,3 @@
-import './EventTopAdminEditBar.scss';
 import { eventService } from '../../services/EventService';
 import { format } from "date-fns";
 import ru from 'date-fns/locale/ru';

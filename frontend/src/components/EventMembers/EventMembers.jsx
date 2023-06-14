@@ -1,4 +1,3 @@
-import './EventMembers.scss'
 import AvatarSkeletonIcon from '../../assets/icon/avatar-skeleton-space.svg'
 import Zaglushka from '../../assets/icon/star.png'
 import WaitListIcon from '../../assets/icon/wait-list.svg';

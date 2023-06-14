@@ -19,3 +19,21 @@
         color: #949494;
     }
 }
+
+.input__from-to--is-error {
+    input {
+        border: 1px solid #EC5B56;
+    }
+}
+
+.input__form-to-inner-error {
+    font-family: "Raleway", sans-serif;
+    font-style: normal;
+    display: block;
+    height: 12px;
+    margin-top: 4px;
+    font-size: 10px;
+    color: #EC5B56;
+    text-align: center;
+    margin-bottom: -15px;
+}

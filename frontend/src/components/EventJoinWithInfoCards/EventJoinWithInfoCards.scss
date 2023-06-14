@@ -47,8 +47,9 @@
     }
 }
 
-@media only screen and (max-width: 743px) {
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
     .event-join-top {
         display: none;
     }
+
 }

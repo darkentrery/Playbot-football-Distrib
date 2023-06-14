@@ -1,5 +1,4 @@
 import EventJoinInfo from '../EventJoinInfo/EventJoinInfo';
-import './EventJoinInfo376.scss';
 
 export const EventJoinInfo376 = ({event, user = false}) => {
     return (
