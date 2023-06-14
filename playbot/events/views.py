@@ -39,8 +39,9 @@ class CreateEventView(APIView):
                 Chat.objects.update_or_create(event=event)
                 UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
                 if event.public_in_channel:
+                    event = Event.objects.get(id=event.id)
                     logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
-                    send_announce(event.public_in_channel.channel_id, f"Published {event.id=}")
+                    send_announce(event.public_in_channel.channel_id, event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -95,11 +96,12 @@ class EditEventView(APIView):
         if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
+                event = Event.objects.get(id=request.data["id"])
                 if event.announce:
-                    update_announce(event.announce, "sdfdsвачпрва")
+                    update_announce(event.announce, event)
                 elif not event.announce and event.public_in_channel:
                     logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
-                    announce = send_announce(event.public_in_channel, f"Published {event.id=}")
+                    announce = send_announce(event.public_in_channel, event)
                     event.announce = announce
                     event.save()
 

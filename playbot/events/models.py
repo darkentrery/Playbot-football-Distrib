@@ -203,6 +203,17 @@ class Event(models.Model, CreateNotice):
     def is_delay_publish(self):
         return bool(self.publish_time)
 
+    @property
+    def status(self):
+        status = _("waiting to start")
+        if self.is_begin and not self.is_end:
+            status = _("started")
+        if self.is_end:
+            status = _("completed")
+        if self.cancel:
+            status = _("cancelled")
+        return status
+
 
 class Color(models.Model):
     color = models.CharField(_("Color"), max_length=50, unique=True)

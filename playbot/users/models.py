@@ -203,6 +203,10 @@ class User(AbstractUser):
         last_rank = self.ranks_history.filter(create__lt=time_rank).last()
         return round(last_rank.rank, 2)
 
+    @property
+    def acronym_positions(self):
+        positions = [position.acronym for position in (self.position_1, self.position_2) if position]
+        return "/".join(positions)
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")
