@@ -29,7 +29,7 @@ export const EventTopAdminEditBar = ({
     let isNoDataItems = !isPublishDelayed && !event.is_news_line && true
     return (
         <div className='event-admin-bar'>
-            <div className={"event-admin-bar-data" + (isNoDataItems && " no-data-items-376")}>
+            <div className={"event-admin-bar-data " + (isNoDataItems && "no-data-items-376")}>
                 {event.name && 
                 <div className={"event-component-title" }>
                     {event.name}

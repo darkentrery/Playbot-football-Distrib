@@ -25,6 +25,7 @@
     flex-direction: column;
 
     .el-1 {
+      margin-block: 22px;
       flex: 0 0 19px;
     }
     .el-2 {
@@ -39,6 +40,7 @@
       flex-direction: column;
     }
     .el-3 {
+      margin-top: 3px;
       flex: 0 0 19px;
       align-self: end;
     }

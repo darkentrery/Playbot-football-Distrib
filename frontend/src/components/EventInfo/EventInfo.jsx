@@ -25,7 +25,7 @@ export const EventInfo = ({event}) => {
     const markerRef = useRef(false);
 
     const fieldName = event.field.name
-    const fieldAddress = event.field.address.c_c_s_h_string.replace(/ - /g, ", ")
+    const fieldAddress = `${event.field.address.city}, ${event.field.address.street}, ${event.field.address.house_number}`
     const isDressingRoom = event.field.dressing_room
     const isLighting = event.field.lighting
     const fieldCoverage = event.field.coverage.name
