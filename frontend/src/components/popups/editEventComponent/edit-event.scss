@@ -26,7 +26,7 @@
   }
 
   .elem-11 {
-    margin-top: auto;
+    
   }
   .dropdown-component .dropdown .dropdown-label {
     white-space: nowrap;
@@ -45,7 +45,12 @@
   .edit-event-component {
     width: 100%;
     height: 100%;
-
+    .elem-2 {
+      margin-bottom: 0px;
+    }
+    .elem-select-time {
+      width: 144px;
+    }
     &.form-event-component {
       padding: 24px calc(50% - 158px) 20px calc(50% - 148px);
       .elem {

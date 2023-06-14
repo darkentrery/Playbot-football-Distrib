@@ -7,6 +7,7 @@ import FootballFieldIcon from '../../assets/icon/football-field.svg';
 import ShowerRoomIcon from '../../assets/icon/shower-room.svg';
 import FlagIcon from '../../assets/icon/flag.svg';
 import AirplaneIcon from '../../assets/icon/airplane.svg';
+import MapMarkerIcon from '../../assets/icon/map-marker.svg';
 
 
 import React, {useEffect, useRef, useState} from "react";
@@ -50,7 +51,7 @@ export const EventInfo = ({event}) => {
 
         useEffect(() => {
             if (markerRef.current) {
-                $('.leaflet-marker-icon').attr('src', 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png');
+                $('.leaflet-marker-icon').attr('src', MapMarkerIcon);
                 $('.leaflet-marker-shadow').attr('src', 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png');
             }
         }, [markerRef, event])
@@ -72,6 +73,43 @@ export const EventInfo = ({event}) => {
         )
     }
 
+
+    const DressingRoomItem = ({active=true}) => {
+        return (
+            <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
+                <img src={HangerIcon} alt="item hanger" />
+                <div className="event-info-field-assets-item-text">раздевалки</div>
+             </div>
+        )
+    }
+
+    const LightingItem = ({active=true}) => {
+        return (
+            <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
+                <img src={LightingIcon} alt="ligting" />
+                <div className="event-info-field-assets-item-text">освещение</div>
+             </div>
+        )
+    }
+
+    const ShowerRoomItem = ({active=true}) => {
+        return (
+            <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
+                <img src={ShowerRoomIcon} alt="shower rooms" />
+                <div className="event-info-field-assets-item-text">душевые</div>
+             </div>
+        )
+    }
+
+    const TribuneItem = ({active=true}) => {
+        return (
+            <div className={"event-info-field-assets-item" + (active ? "" : " event-info-item-strikethrough")}>
+                <img src={FlagIcon} alt="stands" />
+                <div className="event-info-field-assets-item-text">трибуны</div>
+             </div>
+        )
+    }
+
     return (
         <div className="event-info">
             <div className="event-info-row">
@@ -79,13 +117,9 @@ export const EventInfo = ({event}) => {
                     {fieldName}
                 </div>
                 <div className="event-info-field-assets-list">
-                    <div className={"event-info-field-assets-item" + (isDressingRoom ? "" : " event-info-item-strikethrough")}>
-                        <img src={HangerIcon} alt="item hanger" />
-                        <div className="event-info-field-assets-item-text">раздевалки</div>
-                    </div>
-                    <div className={"event-info-field-assets-item" + (isLighting ? "" : " event-info-item-strikethrough")}>
-                        <img src={LightingIcon} alt="ligting" />
-                        <div className="event-info-field-assets-item-text">освещение</div>
+                    <div className="event-info-field-assets-item">
+                        <img src={AirplaneIcon} alt="match place" />
+                        <div className="event-info-field-assets-item-text">{fieldType}</div>
                     </div>
                     <div className="event-info-field-assets-item">
                         <img src={FieldMaterialIcon} alt="field material" />
@@ -95,25 +129,27 @@ export const EventInfo = ({event}) => {
                         <img src={FootballFieldIcon} alt="field format" />
                         <div className="event-info-field-assets-item-text">{fieldFormat}</div>
                     </div>
-                    <div className={"event-info-field-assets-item" + (isShowerRoom ? "" : " event-info-item-strikethrough")}>
-                        <img src={ShowerRoomIcon} alt="shower rooms" />
-                        <div className="event-info-field-assets-item-text">душевые</div>
-                    </div>
-                    <div className={"event-info-field-assets-item" + (isTribune ? "" : " event-info-item-strikethrough")}>
-                        <img src={FlagIcon} alt="stands" />
-                        <div className="event-info-field-assets-item-text">трибуны</div>
-                    </div>
-                    <div className="event-info-field-assets-item">
-                        <img src={AirplaneIcon} alt="match place" />
-                        <div className="event-info-field-assets-item-text">{fieldType}</div>
-                    </div>
+
+                    {isDressingRoom && <DressingRoomItem/>}
+                    {isLighting && <LightingItem/>}
+                    {isShowerRoom && <ShowerRoomItem/>}
+                    {isTribune && <TribuneItem/>}
+
+                    {!isDressingRoom && <DressingRoomItem active={false}/>}
+                    {!isLighting && <LightingItem active={false}/>}
+                    {!isShowerRoom && <ShowerRoomItem active={false}/>}
+                    {!isTribune && <TribuneItem active={false}/>}
+
                 </div>
                 <div className="event-info-map">
-                    <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"}/>
-                    <MapBody/>
+                    <div className="event-info-map-inner">
+                        <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"}/>
+                        <MapBody/>
+                    </div>
+                    <EventInfoSlider className="event-info-max-1279" images={[TempEventImage,TempEventImage,TempEventImage,TempEventImage,TempEventImage]}/>
                 </div>
             </div>
-            <EventInfoSlider images={[TempEventImage,TempEventImage,TempEventImage,TempEventImage,TempEventImage]}/>
+            <EventInfoSlider className="event-info-min-1279" images={[TempEventImage,TempEventImage,TempEventImage,TempEventImage,TempEventImage]}/>
         </div>
     )
 }

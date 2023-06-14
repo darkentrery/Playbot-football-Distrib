@@ -31,6 +31,7 @@ export const FormEventComponent = ({
     setSuggests,
     addressFocus=false,
     setAddressFocus = () => {},
+    onDeleteEventClick = () => {},
     user,
     isEdit=false,
     buttonText='Создать'
@@ -154,7 +155,6 @@ export const FormEventComponent = ({
             }
         })
     }, [event, isOpen])
-
     useEffect(() => {
         setNameError(false);
         setDateError(false);
@@ -194,7 +194,7 @@ export const FormEventComponent = ({
             'field': newField,
             'count_players': count,
             'notice': notice,
-            'is_paid': isPaid,
+            'is_paid': price > 0 ? true : false,
             'price': price,
             'currency': currency,
             'genders': allowGenders,
@@ -391,6 +391,9 @@ export const FormEventComponent = ({
             </div>
             <div className={`elem elem-12 ${isIPhone ? 'safari-margin' : ''}`}>
                 <button className={"btn btn-form-event"} onClick={sendForm}>{buttonText}</button>
+            </div>
+            <div className="red-bucket-icon red-400-14 event-form-delete" onClick={onDeleteEventClick}>
+                Отменить событие
             </div>
             <LocateEventComponent className={`elem-13 ${isOpenMap ? '' : 'hidden'}`} userAddress={user.address ? user.address : null}
                 setField={setField} setIsOpenMap={setIsOpenMap} address={address} fields={fields}

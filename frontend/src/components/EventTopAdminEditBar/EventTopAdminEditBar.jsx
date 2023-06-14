@@ -1,13 +1,14 @@
 import './EventTopAdminEditBar.scss';
 import { eventService } from '../../services/EventService';
+import { format } from "date-fns";
+import ru from 'date-fns/locale/ru';
 
 export const EventTopAdminEditBar = ({
-    placement = 'В главной ленте',
-    delayedPublish = '30 мая 2023 в 12:00',
     funcs,
     event,
     user
 }) => {
+    
     const editEvent = () => {
         if (event && user.isAuth && eventService.isOrganizer(event, user.user)) {
             funcs.openEditEvent();
@@ -16,29 +17,45 @@ export const EventTopAdminEditBar = ({
         }
         funcs.removeMap();
     }
+
+    const isPublishDelayed = event.is_delay_publish
+
+    let publishTime;
+
+    if (isPublishDelayed) {
+        publishTime = format(new Date(event.publish_time), `dd MMMM yyyy 'в' HH:mm`, { locale: ru });
+    }
+
+    let isNoDataItems = !isPublishDelayed && !event.is_news_line && true
     return (
         <div className='event-admin-bar'>
-            <div className="event-admin-bar-data">
+            <div className={"event-admin-bar-data" + (isNoDataItems && " no-data-items-376")}>
                 {event.name && 
-                <div className="event-component-title">
+                <div className={"event-component-title" }>
                     {event.name}
                 </div>
                 }
-                <div className="event-admin-bar-data-item">
-                    <div className="event-admin-bar-data-item-name">
-                        Плейсмент
+                <div className="event-admin-bar-data-inner">
+                    {event.is_news_line && 
+                    <div className="event-admin-bar-data-item">
+                        <div className="event-admin-bar-data-item-name">
+                            Плейсмент
+                        </div>
+                        <div className="event-admin-bar-data-item-text">
+                            В главной ленте
+                        </div>
                     </div>
-                    <div className="event-admin-bar-data-item-text">
-                        {placement}
+                    }
+                    {isPublishDelayed && 
+                    <div className="event-admin-bar-data-item">
+                        <div className="event-admin-bar-data-item-name">
+                            Отложенная публикация
+                        </div>
+                        <div className="event-admin-bar-data-item-text">
+                            {publishTime}
+                        </div>
                     </div>
-                </div>
-                <div className="event-admin-bar-data-item">
-                    <div className="event-admin-bar-data-item-name">
-                        Отложенная публикация
-                    </div>
-                    <div className="event-admin-bar-data-item-text">
-                        {delayedPublish}
-                    </div>
+                    }
                 </div>
             </div>
             <div className={"event-admin-bar-edit elem-1280 elem-1"}>

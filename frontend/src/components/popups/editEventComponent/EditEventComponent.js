@@ -3,6 +3,8 @@ import Modal from "react-modal";
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {FormEventComponent} from "../../formEventComponent/FormEventComponent";
 import {eventService} from "../../../services/EventService";
+import { useDispatch } from "react-redux";
+import { cancelEventWindow } from "../../../redux/actions/actions";
 
 
 export default function EditEventComponent ({isOpen, isIPhone, event, user, closeComponent, openSuccessEditEvent, setEvent, showMap}) {
@@ -10,6 +12,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
     const [suggests, setSuggests] = useState([]);
     const [closeDropDown, setCloseDropDown] = useState(false);
     const [addressFocus, setAddressFocus] = useState(false);
+    const dispatch = useDispatch()
 
     const closeWindow = () => {
         setData(false);
@@ -19,6 +22,11 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
     const toMenu = () => {
         closeWindow();
         showMap();
+    }
+
+    const deleteEvent = () => {
+        toMenu()
+        dispatch(cancelEventWindow(true));
     }
 
     const sendForm = async () => {
@@ -54,6 +62,7 @@ export default function EditEventComponent ({isOpen, isIPhone, event, user, clos
                     setAddressFocus={setAddressFocus}
                     user={user}
                     isEdit={true}
+                    onDeleteEventClick={deleteEvent}
                     buttonText={"Сохранить"}
                 />
             </div>

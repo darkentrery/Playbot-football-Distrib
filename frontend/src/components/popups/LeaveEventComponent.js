@@ -40,8 +40,8 @@ export const LeaveEventComponent = ({isOpen, event, funcs}) => {
             reasons={reasons}
             onClick={sendForm}
             title={"Покинуть событие"}
-            text={"Укажите причину, по которой вы хотите покуинуть событие:"}
-            buttonText={"Отменить игру"}
+            text={"Укажите причину, по которой вы хотите покинуть событие:"}
+            buttonText={"Покинуть событие"}
         />
     )
 }

@@ -12,68 +12,43 @@
     }
 }
 
-.event-cards-info {
-    display: flex;
-    max-width: 390px;
-    flex-wrap: wrap;
-    row-gap: 12px;
-    column-gap: 8px;
-}
-
-.event-info-card-in-queue {
-    color: #D19C6C;
-    margin-left: 3px;
-}
-
-.event-info-card-green-text {
-    color: #72C140;
-}
-
-.event-info-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: max-content;
-    padding: 6px 12px;
-    gap: 4px;
-    background: #F3F3F3;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 120%;
-    color: #1B1B1B;
-}
-
 .event-join-action {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.event-join-action-price {
-    display: flex;
-    align-items: center;
-}
-
-.event-join-action-text {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    color: #1B1B1B;
-    margin-left: 9px;
-}
-
 .event-join-action-text-paid {
     margin-left: 10px;
 }
 
-.event-join-action-calendar {
-    display: flex;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 21px;
-    color: #1B1B1B;
-    margin-bottom: 8px;
+@media only screen and (max-width: 1279px) {
+    .event-join-top {
+        padding: 24px 20px;
+        .event-cards-info {
+            max-width: 263px;
+        }
+    }
+    
+    .event-join-action {
+        flex-direction: column;
+        gap: 19px;
+        align-items: flex-start;
+    }
 
+    .event-join-action-info {
+        margin-left: 10px;
+    }
+
+    .event-join-top-organizer {
+        .event-join-action-info {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 743px) {
+    .event-join-top {
+        display: none;
+    }
 }

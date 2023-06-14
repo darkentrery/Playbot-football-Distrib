@@ -1,5 +1,6 @@
 import './EventMembers.scss'
-import AvatarSkeletonIcon from '../../assets/icon/avatar-skeleton.svg'
+import AvatarSkeletonIcon from '../../assets/icon/avatar-skeleton-space.svg'
+import Zaglushka from '../../assets/icon/star.png'
 import WaitListIcon from '../../assets/icon/wait-list.svg';
 import { EventMemberCard } from '../EventMemberCard/EventMemberCard'
 
@@ -19,12 +20,13 @@ export const EventMembers = ({
                     </div>
                     {organizerName &&
                     <div className="event-members-info__creator">
-                        <span className="event-members-info__creator-title">Организатор:</span>
+                        <img src={Zaglushka} height={20} width={20} alt="" />
                         <span className="event-members-info__creator-name">{organizerName}</span>
                     </div>
                     }
                 </div>
-                <div className="event-members-list">
+                {event.event_player.length !== 0 ?
+                    <div className="event-members-list">
                     {event.event_player.length !== 0 && event.event_player.map((e, i) => {
                         return (
                             <EventMemberCard 
@@ -33,7 +35,9 @@ export const EventMembers = ({
                             key={i}/>
                         )
                     })}
-                </div>
+                    </div>
+                : <div className="event-members-no-players">Пока никто не присоединился.</div>
+                }
             </div>
             {event.event_queues.length ?
             <div className="event-members-queue">

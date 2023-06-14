@@ -4,6 +4,12 @@
   flex: 1 1 auto;
   align-items: stretch;
   gap: 40px;
+  .event-player-buttons-376 {
+    display: none;
+  }
+  .event-organizer-buttons-376 {
+    display: none;
+  }
 
   &.loader {
     align-self: stretch;
@@ -18,6 +24,7 @@
   font-size: 28px;
   letter-spacing: 0.04em;
   color: $blackColor;
+  margin-bottom: -10px;
 }
 
 .same-events-component {
@@ -29,6 +36,13 @@
   .elem {
     display: flex;
     gap: 24px;
+  }
+}
+
+@media only screen and (max-width: 1279px) {
+  .event-component-title {
+    margin-top: 5px;
+    margin-bottom: 0px;
   }
 }
 
@@ -50,10 +64,36 @@
 }
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+  .event-component-organizer {
+    .event-player-buttons-376 {
+      display: none !important;
+    }
+  }
+  .event-component-title {
+    font-weight: 600;
+    font-size: 20px;
+  }
   .event-component {
     padding: 0 16px 25px 16px;
     gap: 24px;
+    padding-bottom: 90px;
     //overflow: auto;
+    .event-player-buttons-376 {
+      width: max-content;
+      display: block;
+      position: fixed;
+      z-index: 999;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .event-organizer-buttons-376 {
+      display: block;
+      button {
+        width: 100%;
+        padding: 13px 22px;
+      }
+    }
   }
   .same-events-component {
     margin-top: 0px;

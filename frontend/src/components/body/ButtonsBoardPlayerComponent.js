@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {eventService} from "../../services/EventService";
 
 
-export const ButtonsBoardPlayerComponent = ({className, event, user, funcs}) => {
+export const ButtonsBoardPlayerComponent = ({className='', event, user, funcs}) => {
     const [ids, setIds] = useState([]);
     const [idsQueue, setIdsQueue] = useState([]);
 
