@@ -101,6 +101,7 @@ class Event(models.Model, CreateNotice):
     max_age = models.PositiveIntegerField(_("Max Age"), default=0)
     min_players_rank = models.PositiveIntegerField(_("Min Players Rank"), default=0)
     max_players_rank = models.PositiveIntegerField(_("Max Players Rank"), default=0)
+    announce = models.OneToOneField("telegram.Announce", on_delete=models.CASCADE, related_name="event", blank=True, null=True)
 
     class Meta:
         ordering = ["date", "time_begin"]
@@ -201,6 +202,17 @@ class Event(models.Model, CreateNotice):
     @property
     def is_delay_publish(self):
         return bool(self.publish_time)
+
+    @property
+    def status(self):
+        status = _("waiting to start")
+        if self.is_begin and not self.is_end:
+            status = _("started")
+        if self.is_end:
+            status = _("completed")
+        if self.cancel:
+            status = _("cancelled")
+        return status
 
 
 class Color(models.Model):

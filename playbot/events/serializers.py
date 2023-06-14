@@ -254,7 +254,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "date", "time_begin", "time_end", "count_players", "cancel",
                   "cancel_reasons", "format", "distribution_method", "notice", "is_player", "organizers",
                   "count_circles", "duration", "scorer", "until_goal", "until_goal_count", "format_label", "is_paid",
-                  "price", "currency", "next_number", "next_queue_number", "first_order_queue", "rank", "event_player",
+                  "price", "currency", "next_number", "next_queue_number", "rank", "event_player",
                   "event_step", "teams", "event_games", "event_queues", "is_end", "is_begin", "all_games_finished",
                   "current_game_id", "count_current_players", "field", "is_delay_publish", "duration_opt",
                   "is_news_line", "public_in_channel", "publish_time", "genders", "min_age", "max_age",
