@@ -142,10 +142,13 @@ export const EventInfo = ({ event }) => {
                         <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"} />
                         <MapBody />
                     </div>
-                    <EventInfoSlider className="event-info-max-1279" images={event.field.field_photos} />
+                    {event.field.field_photos.length !== 0 &&
+                        <EventInfoSlider className="event-info-max-1279" images={event.field.field_photos} />
+                    }
                 </div>
             </div>
-            <EventInfoSlider className="event-info-min-1279" images={event.field.field_photos} />
+            {event.field.field_photos.length !== 0 &&
+                <EventInfoSlider className="event-info-min-1279" images={event.field.field_photos} />}
         </div>
     )
 }
