@@ -74,7 +74,7 @@ async def send_announce(channel: TelegramChannel, event: Event) -> Announce:
         bot_is_member = await bot.get_chat_member(chat_id=channel.channel_id, user_id=bot.id)
         if bot_is_member.status == "administrator":
             text = await sync_to_async(lambda: get_message_for_announce(event))()
-            message = await bot.send_message(channel.channel_id, text)
+            message = await bot.send_message(channel.channel_id, text, parse_mode="html")
             announce, _ = await sync_to_async(lambda: Announce.objects.get_or_create(message_id=message.message_id, channel=channel))()
             return announce
         if bot_is_member.status in ["left", "kicked"]:
@@ -85,13 +85,14 @@ async def send_announce(channel: TelegramChannel, event: Event) -> Announce:
 
 @logger.catch
 @async_to_sync
-async def update_announce(announce: Announce, event: Event) -> None:
-    channel_id = await sync_to_async(lambda: announce.channel.channel_id)()
+async def update_announce(event: Event) -> None:
+    channel_id = await sync_to_async(lambda: event.announce.channel.channel_id)()
+    message_id = await sync_to_async(lambda: event.announce.message_id)()
     try:
         bot_is_member = await bot.get_chat_member(chat_id=channel_id, user_id=bot.id)
         if bot_is_member.status == "administrator":
             text = await sync_to_async(lambda: get_message_for_announce(event))()
-            await bot.edit_message_text(text=text, chat_id=channel_id, message_id=announce.message_id, parse_mode="html")
+            await bot.edit_message_text(text=text, chat_id=channel_id, message_id=message_id, parse_mode="html")
         if bot_is_member.status in ["left", "kicked"]:
             logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
     except Exception as e:

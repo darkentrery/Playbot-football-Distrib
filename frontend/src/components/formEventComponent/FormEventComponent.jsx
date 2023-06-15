@@ -201,7 +201,7 @@ export const FormEventComponent = ({
             'field': newField,
             'count_players': count,
             'notice': notice,
-            'is_paid': price > 0 ? true : false,
+            'is_paid': price > 0,
             'price': price,
             'currency': currency,
             'genders': allowGenders,
