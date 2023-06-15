@@ -1,8 +1,6 @@
 import { eventService } from '../../../services/EventService';
 import React, { useEffect, useState } from 'react';
-import VisibleEventOrganizer from '../../../redux/containers/VisibleEventOrganizer';
 import { useParams } from 'react-router-dom';
-import VisibleBoardEvent from '../../../redux/containers/VisibleBoardEvent';
 import { SameEventComponent } from '../../sameEventComponent/SameEventComponent';
 import VisibleMainWrapper from '../../../redux/containers/VisibleMainWrapper';
 import BaseRoutes from '../../../routes/BaseRoutes';
@@ -11,8 +9,6 @@ import { authDecoratorWithoutLogin } from '../../../services/AuthDecorator';
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
 import { share } from '../../../services/LinkShareService';
 import EventRoutes from '../../../routes/EventRoutes';
-import EventTopAdminEditBar from '../../EventTopAdminEditBar/EventTopAdminEditBar';
-import EventJoinWithInfoCards from '../../EventJoinWithInfoCards/EventJoinWithInfoCards';
 import EventInfo from '../../EventInfo/EventInfo';
 import { EventChatComponent } from '../../eventChatComponent/EventChatComponent';
 import VisibleEventTopAdminEditBar from '../../../redux/containers/VisibleEventTopAdminEditBar';

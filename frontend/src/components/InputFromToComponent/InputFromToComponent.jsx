@@ -38,8 +38,8 @@ export const InputFromToComponent = ({
     }, [input1, input2]);
 
     useEffect(() => {
-        setInput1(value1 == 0 ? false : value1);
-        setInput2(value2 == 0 ? false : value2);
+        setInput1(value1 === 0 ? false : value1);
+        setInput2(value2 === 0 ? false : value2);
     }, [value1, value2])
 
     return (

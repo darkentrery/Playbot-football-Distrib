@@ -41,7 +41,7 @@ class CreateEventView(APIView):
                 if event.public_in_channel:
                     event = Event.objects.get(id=event.id)
                     logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
-                    send_announce(event.public_in_channel.channel_id, event)
+                    send_announce(event.public_in_channel, event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -98,7 +98,7 @@ class EditEventView(APIView):
             if event:
                 event = Event.objects.get(id=request.data["id"])
                 if event.announce:
-                    update_announce(event.announce, event)
+                    update_announce(event)
                 elif not event.announce and event.public_in_channel:
                     logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
                     announce = send_announce(event.public_in_channel, event)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from playbot.cities.models import City, Address, FieldType, CoverageType, Field
+from playbot.cities.models import City, Address, FieldType, CoverageType, Field, FieldPhoto
 from playbot.events.models import Format
 
 
@@ -50,14 +50,22 @@ class FormatSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+class FieldPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FieldPhoto
+        fields = ["id", "photo"]
+        read_only_fields = fields
+
+
 class FieldSerializer(serializers.ModelSerializer):
     address = AddressSerializer(read_only=True)
     format = FormatSerializer(read_only=True)
     type_field = FieldTypeSerializer(read_only=True)
     coverage = CoverageTypeSerializer(read_only=True)
+    field_photos = FieldPhotoSerializer(FieldPhoto, many=True, read_only=True)
 
     class Meta:
         model = Field
         fields = ["id", "name", "address", "format", "type_field", "coverage", "shower_room", "dressing_room",
-                  "lighting", "tribune"]
+                  "lighting", "tribune", "field_photos"]
         read_only_fields = fields
