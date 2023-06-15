@@ -13,13 +13,11 @@ import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import { eventService } from "../../services/EventService";
 import EventInfoSlider from '../EventInfoSlider/EventInfoSlider';
 import EventInfoAddressCopyText from '../EventInfoAddressCopyText/EventInfoAddressCopyText';
 
 export const EventInfo = ({ event }) => {
     const [position, setPosition] = useState(false);
-    const [address, setAddress] = useState(false);
 
     const markerRef = useRef(false);
 
@@ -40,7 +38,6 @@ export const EventInfo = ({ event }) => {
                 lng: event.field.address.lng,
             }
             setPosition(point);
-            setAddress(event.field.address.c_c_s_h_string);
         }
     }, [event])
 
@@ -145,10 +142,10 @@ export const EventInfo = ({ event }) => {
                         <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"} />
                         <MapBody />
                     </div>
-                    <EventInfoSlider className="event-info-max-1279" images={[TempEventImage, TempEventImage, TempEventImage, TempEventImage, TempEventImage]} />
+                    <EventInfoSlider className="event-info-max-1279" images={event.field.field_photos} />
                 </div>
             </div>
-            <EventInfoSlider className="event-info-min-1279" images={[TempEventImage, TempEventImage, TempEventImage, TempEventImage, TempEventImage]} />
+            <EventInfoSlider className="event-info-min-1279" images={event.field.field_photos} />
         </div>
     )
 }

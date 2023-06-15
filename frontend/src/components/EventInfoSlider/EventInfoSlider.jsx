@@ -5,6 +5,7 @@ import 'swiper/css'
 import 'swiper/css/pagination';
 
 export const EventInfoSlider = ({images, className = ''}) => {
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
     return (
         <div className={"event-info-slider " + className}>
             {images ?
@@ -16,7 +17,7 @@ export const EventInfoSlider = ({images, className = ''}) => {
                 >
                     {images.map((e, i) => (
                         <SwiperSlide key={i}>
-                            <img src={e} alt="" />
+                            <img src={serverUrl + e.photo} alt="" />
                         </SwiperSlide>
                     ))}
                 </Swiper>
