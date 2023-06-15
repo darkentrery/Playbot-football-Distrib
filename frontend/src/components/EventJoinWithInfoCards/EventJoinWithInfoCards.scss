@@ -22,14 +22,34 @@
     margin-left: 10px;
 }
 
+.event-join-action-buttons {
+    .elem-4 {
+        display: flex;
+        gap: 25px;
+    }
+    .buttons-board-player-component {
+        display: unset;
+    }
+}
 @media only screen and (max-width: 1279px) {
+    .event-join-action-buttons {
+        .el-2 {
+            flex: 0 0 47px !important;
+        }
+    }
     .event-join-top {
         padding: 24px 20px;
         .event-cards-info {
             max-width: 263px;
         }
     }
-    
+    .event-join-action-buttons {
+        .elem-4 {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+    }
     .event-join-action {
         flex-direction: column;
         gap: 19px;

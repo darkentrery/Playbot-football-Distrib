@@ -47,7 +47,7 @@ export const ButtonsBoardPlayerComponent = ({className='', event, user, funcs}) 
                 {!!event && <>
                     {event.is_end ?
                         <>{event.event_step.length === 3 && event.event_step[2].complete &&
-                            <Link className={"el el-2 btn-second"} to={BaseRoutes.eventInfoLink(event.id)}>Посмотреть итоги</Link>}
+                            <Link className={"el el-2 btn-second"} to={BaseRoutes.eventInfoLink(event.id)}>Итоги игры</Link>}
                         </> :
 
                         <>

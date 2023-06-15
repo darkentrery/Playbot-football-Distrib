@@ -268,8 +268,8 @@ export const FormEventComponent = ({
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
-                setDateError("Выберите правильное время!");
-                setTimeError("Выберите правильное время!");
+                setDateError("Заполните поле!");
+                setTimeError("Заполните поле!");
             }
         }
         if (!name) setNameError("Заполните поле!");

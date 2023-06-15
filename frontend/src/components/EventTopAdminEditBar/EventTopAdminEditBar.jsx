@@ -35,16 +35,14 @@ export const EventTopAdminEditBar = ({
                 </div>
                 }
                 <div className="event-admin-bar-data-inner">
-                    {event.is_news_line && 
                     <div className="event-admin-bar-data-item">
                         <div className="event-admin-bar-data-item-name">
                             Плейсмент
                         </div>
                         <div className="event-admin-bar-data-item-text">
-                            В главной ленте
+                            {event.is_news_line ? "В главной ленте" : "В телеграмм чате"}
                         </div>
                     </div>
-                    }
                     {isPublishDelayed && 
                     <div className="event-admin-bar-data-item">
                         <div className="event-admin-bar-data-item-name">
@@ -57,8 +55,8 @@ export const EventTopAdminEditBar = ({
                     }
                 </div>
             </div>
-            <div className={"event-admin-bar-edit elem-1280 elem-1"}>
-                <span className={"el black-edit-icon link"} onClick={editEvent}>Редактировать</span>
+            <div className={"event-admin-bar-edit elem-1280 elem-1"} onClick={editEvent}>
+                <span className={"el black-edit-icon link"} >Редактировать</span>
             </div>
         </div>
     )

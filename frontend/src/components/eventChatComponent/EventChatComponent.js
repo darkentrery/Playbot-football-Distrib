@@ -3,16 +3,17 @@ import { useEffect, useRef, useState } from 'react';
 import { MessageComponent } from '../messageComponent/MessageComponent';
 import ChatIcon from '../../assets/icon/dark-gray-coment.png';
 import ChatSendIcon from '../../assets/icon/chat-send.svg';
+import autosize from 'autosize';
 import $ from 'jquery';
 
 export const EventChatComponent = ({ event, user, className = '' }) => {
     const chatRef = useRef();
+    const textAreaRef = useRef();
     const [message, setMessage] = useState('');
     const [messageHistory, setMessageHistory] = useState([]);
     const [lastEvent, setLastEvent] = useState(false);
     const [lastR, setLastR] = useState(0);
     const [firstLoad, setFirstLoad] = useState(true);
-    const [textareaHeight, setTextareaHeight] = useState(20);
     const [isScrolledToBottom, setIsScrolledToBottom] = useState(true); // Флаг, указывающий, прокручен ли элемент вниз до конца
     const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
@@ -29,6 +30,8 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             },
         }
     );
+
+    autosize(textAreaRef.current)
 
     const { readyState } = useWebSocket(
         user.isAuth ? `${SOCKET_URL}${event.id}/` : null,
@@ -97,7 +100,6 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                     message,
                 });
                 setMessage('');
-                setTextareaHeight(20);
             }
         }
     };
@@ -106,22 +108,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
         if (lastEvent.keyCode === 13) {
             sendForm();
         } else {
-            const textarea = e.target;
-            const previousHeight = textareaHeight;
             setMessage(e.target.value);
-            const numLines = e.target.value.split('\n').length;
-            const newHeight = numLines * 20;
-
-            if (textarea.scrollTop !== 0) {
-                setTextareaHeight((prevHeight) => prevHeight + 20);
-                textarea.scrollTop += 20;
-            }
-
-            if (e.target.value.endsWith('\n')) {
-                setTextareaHeight((prevHeight) => prevHeight + 20);
-            } else if (newHeight <= previousHeight || e.target.value === '') {
-                setTextareaHeight(newHeight);
-            }
         }
     };
 
@@ -134,7 +121,6 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                     message.slice(e.target.selectionStart, message.length)
             );
             setLastR(e.target.selectionStart);
-            setTextareaHeight((prevHeight) => prevHeight + 20);
         }
     };
 
@@ -170,7 +156,6 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
     }, [messageHistory, isScrolledToBottom]);
-
     return (
         <div className={`event-chat-component ${className}`}>
             <span className={'elem elem-1'}>
@@ -195,14 +180,16 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                 <textarea
                     style={{
                         maxHeight: '200px',
-                        height: `${textareaHeight}px`,
+                        height: '20px',
+                        overflowX: 'hidden',
                     }}
-                    className={'el el-1 scroll'}
+                    className={'el el-1 scroll autoheight-init'}
                     placeholder={'Введите текст сообщения'}
                     value={message}
                     onChange={changeMessage}
                     onKeyDown={keyMessageDown}
                     onKeyUp={keyMessageUp}
+                    ref={textAreaRef}
                 ></textarea>
                 <img
                     src={ChatSendIcon}

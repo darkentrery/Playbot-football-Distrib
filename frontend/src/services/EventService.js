@@ -121,4 +121,17 @@ export const eventService = {
 		if (event.organizers.length > 0) username = event.organizers[0].username;
 		return username;
 	},
+
+	isHaveLimits(event) {
+		const minAge = event.min_age
+		const maxAge = event.max_age
+		const genders = event.genders
+		const minPlayersRating = event.min_players_rank
+		const maxPlayersRating = event.max_players_rank
+		const maxRating = 5000
+
+		if (minAge || maxAge) return true
+		if (genders.length !== 2 && genders[0]) return true
+		if (minPlayersRating > 0 || maxPlayersRating < maxRating && maxPlayersRating !== 0) return true
+	}
 }

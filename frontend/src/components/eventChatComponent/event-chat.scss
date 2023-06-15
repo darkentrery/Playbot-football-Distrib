@@ -8,6 +8,9 @@
   align-items: stretch;
   box-sizing: border-box;
   gap: 30px;
+  textarea {
+    height: 20px;
+  }
 
   .elem {
     display: flex;
@@ -45,6 +48,12 @@
       gap: 10px;
       padding-inline: 12px;
       padding-block: 8px;
+      img {
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
       .el {
         display: flex;
 
@@ -53,6 +62,8 @@
           padding: 0;
           border: 0;
           border-radius: 0;
+          overflow-x: hidden !important;
+          resize: none;
         }
 
         &.btn-second {
