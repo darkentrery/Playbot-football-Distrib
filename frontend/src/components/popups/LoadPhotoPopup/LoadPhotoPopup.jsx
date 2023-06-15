@@ -6,11 +6,27 @@ import GoodPhotoExPng from "../../../assets/icon/good-photo-example.png"
 import BadPhotoExPng from "../../../assets/icon/bad-photo-example.png"
 import TempPreviewPng from "../../../assets/icon/temp-preview-photo.png"
 import AvatarDecorSquareIcon from "../../../assets/icon/avatar-decor-square.svg"
-import GreenCheckRoundedIcon from "../../../assets/icon/avatar-decor-square.svg"
+import GreenCheckRoundedIcon from "../../../assets/icon/check-small-rounded.svg"
+import { showLoadPhotoWindow } from '../../../redux/actions/actions';
+import { setStep, setPhoto } from '../../../redux/reducers/loadPhotoReducer';
 
 export const LoadPhotoPopup = ({ isOpen }) => {
     const dispatch = useDispatch();
-    const { step } = useSelector(state => state.loadPhoto)
+    const { step, photo } = useSelector(state => state.loadPhoto)
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const hidePopup = () => {
+        dispatch(showLoadPhotoWindow(false))
+    }
+
+    const dispatchStep = (value) => {
+        dispatch(setStep(value))
+    }
+    console.log(photo)
+    const handlePhotoLoad = (e) => {
+        console.log(e.target.value)
+        dispatch(setPhoto(e.target.value))
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -62,9 +78,17 @@ export const LoadPhotoPopup = ({ isOpen }) => {
                                 </div>
                             </div>
                         </div>
-                        <input id='load-user-photo-input' type='file' />
-                        <label for="load-user-photo-input" className="load-user-photo-button">
-                            <div className='no-photo-icon'></div>
+                        <input onChange={handlePhotoLoad} id='load-user-photo-input' type='file' accept='image/*' />
+                        <label htmlFor="load-user-photo-input" className="load-user-photo-button">
+                            {
+                                !photo && <div className='no-photo-icon'></div>
+                            }
+                            {
+                                photo && typeof photo === "string" && <img src={serverUrl + photo} width={40} height={40} alt="" />
+                            }
+                            {
+                                photo && typeof photo !== "string" && <img src={URL.createObjectURL(photo)} width={40} height={40} alt="" />
+                            }
                             <span className='gray-400-14'>Выбрать файл</span>
                         </label>
                         <div className='load-photo-supported-formats gray-400-14'>
@@ -113,11 +137,17 @@ export const LoadPhotoPopup = ({ isOpen }) => {
                 }
                 {
                     step === 3 &&
-                    <div className='load-user-photo'>
-                        <img src="" alt="" />
-                        <div></div>
-                        <div></div>
-                        <button></button>
+                    <div className='load-user-photo load-user-photo-step3'>
+                        <img src={GreenCheckRoundedIcon} height={52} width={52} alt="green check" />
+                        <div className='load-user-photo-step3-text-1'>
+                            Фотография отправлена на модерацию
+                        </div>
+                        <div className='load-user-photo-step3-text-2'>
+                            Она появится на вашей карточке в профиле после одобрения модератором
+                        </div>
+                        <button onClick={hidePopup} className='load-user-photo-step3-button'>
+                            Закрыть
+                        </button>
                     </div>
                 }
             </div>
