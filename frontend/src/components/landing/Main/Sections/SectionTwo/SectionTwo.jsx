@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux';
 function SectionTwo() {
 const engLang=useSelector(state=>state.Data.engLang)
 
-    useEffect (() => {
-    AOS.init({duration: 1000})
-    }, []);
+    // useEffect (() => {
+    // AOS.init({duration: 1000})
+    // }, []);
   return (
     <section className="section-two">
       <div className="section-two-container">

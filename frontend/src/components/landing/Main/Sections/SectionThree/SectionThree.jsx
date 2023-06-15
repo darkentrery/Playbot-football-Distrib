@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux';
 function SectionThree() {
 const engLang=useSelector(state=>state.Data.engLang)
 
-  useEffect (() => {
-    AOS.init({duration: 1000, once: true})
-    }, []);
+  // useEffect (() => {
+  //   AOS.init({duration: 1000, once: true})
+  //   }, []);
   return (
     <section className="section-three">
       <img className="ball3" src={ball3} alt="ball" />

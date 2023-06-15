@@ -23,7 +23,7 @@ const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 const autoplay = isIOS ? true : false;
 
 useEffect (() => {
-  AOS.init({duration: 1000, once: true})
+  // AOS.init({duration: 1000, once: true})
   if (videoRef.current) {
     videoRef.current.currentTime = 2;
   }
