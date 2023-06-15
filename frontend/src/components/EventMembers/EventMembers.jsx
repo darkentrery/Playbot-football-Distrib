@@ -39,7 +39,7 @@ export const EventMembers = ({
                     }
                 </div>
                 {event.count_current_players !== 0 ?
-                    <div className="event-members-list" style={{ maxHeight: (isMemberListOpened ? "max-content" : "120px") }}>
+                    <div className="event-members-list" style={{ maxHeight: (isMemberListOpened && showMemberListFog ? "max-content" : "120px") }}>
                         {event.count_current_players !== 0 && event.event_player.map((e, i) => {
                             return (
                                 <EventMemberCard
@@ -58,7 +58,7 @@ export const EventMembers = ({
                     : <div className="event-members-no-players">Пока никто не присоединился.</div>
                 }
             </div>
-            {!event.event_queues.length ?
+            {event.event_queues.length ?
                 <div className="event-members-queue">
                     <div className="event-members-queue-info">
                         <img src={WaitListIcon} width={16} height={20} alt="wait list" />
