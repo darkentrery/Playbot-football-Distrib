@@ -384,7 +384,7 @@ export const FormEventComponent = ({
                     </div>
                     <div className="formEvent__age-limit">
                         <span className="text-footnote">Возраст</span>
-                        <InputFromToComponent isError={ageLimitError} setValue={setAgeLimit} value1={ageLimit[0]} value2={ageLimit[1]} classes={'formEvent__age-limit-input'} />
+                        <InputFromToComponent isError={ageLimitError} setValue={setAgeLimit} value1={event.min_age ? event.min_age : 0} value2={event.max_age ? event.max_age : 0} classes={'formEvent__age-limit-input'} />
                     </div>
                 </div>
                 <div className="formEvent__rating-range">
