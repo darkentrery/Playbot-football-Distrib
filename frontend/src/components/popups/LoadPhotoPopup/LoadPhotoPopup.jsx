@@ -21,10 +21,9 @@ export const LoadPhotoPopup = ({ isOpen }) => {
     const dispatchStep = (value) => {
         dispatch(setStep(value))
     }
-    console.log(photo)
+
     const handlePhotoLoad = (e) => {
-        console.log(e.target.value)
-        dispatch(setPhoto(e.target.value))
+        dispatch(setPhoto(e.target.files[0]));
     }
 
     return (
