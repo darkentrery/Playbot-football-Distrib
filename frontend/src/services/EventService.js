@@ -133,5 +133,7 @@ export const eventService = {
 		if (minAge || maxAge) return true
 		if (genders.length !== 2 && genders[0]) return true
 		if (minPlayersRating > 0 || maxPlayersRating < maxRating && maxPlayersRating !== 0) return true
+
+		return false
 	}
 }
