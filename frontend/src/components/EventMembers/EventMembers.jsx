@@ -19,6 +19,10 @@ export const EventMembers = ({
         setIsMemberListOpened(true)
         setShowMemberListFog(false)
     }
+
+    if (event.event_player.length < 6 && showMemberListFog == true) {
+        setShowMemberListFog(false)
+    }
     return (
         <div className="event-members">
             <div className="event-members-active">
