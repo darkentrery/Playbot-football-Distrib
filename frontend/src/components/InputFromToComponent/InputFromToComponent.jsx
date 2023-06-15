@@ -7,9 +7,11 @@ export const InputFromToComponent = ({
     output = () => {},
     classes = '',
     isError = false,
+    value1 = false,
+    value2 = false
 }) => {
-    const [input1, setInput1] = useState(false);
-    const [input2, setInput2] = useState(false);
+    const [input1, setInput1] = useState(value1);
+    const [input2, setInput2] = useState(value2);
 
     useEffect(() => {
         const numericRegex = /^[0-9]+$/; // Регулярное выражение для проверки, содержит ли строка только цифры
@@ -34,6 +36,11 @@ export const InputFromToComponent = ({
     
         output([input1 !== '' && input1, input2 !== '' && input2]);
     }, [input1, input2]);
+
+    useEffect(() => {
+        setInput1(value1 == 0 ? false : value1);
+        setInput2(value2 == 0 ? false : value2);
+    }, [value1, value2])
 
     return (
         <div className={`input__from-to ${classes} ${isError ? 'input__from-to--is-error' : ''}`}>
