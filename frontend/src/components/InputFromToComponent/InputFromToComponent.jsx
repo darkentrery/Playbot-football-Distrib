@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 export const InputFromToComponent = ({
     minValue = 0,
     maxValue = 100,
-    output = () => {},
+    setValue = () => {},
     classes = '',
     isError = false,
     value1 = false,
@@ -34,7 +34,7 @@ export const InputFromToComponent = ({
             setInput2(minValue.toString());
         }
     
-        output([input1 !== '' && input1, input2 !== '' && input2]);
+        setValue([input1 !== '' && input1, input2 !== '' && input2]);
     }, [input1, input2]);
 
     useEffect(() => {
