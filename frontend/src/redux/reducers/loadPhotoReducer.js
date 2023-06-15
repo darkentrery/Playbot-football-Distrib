@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    step: 2,
+    step: 3,
 }
 
 export const loadPhotoSlice = createSlice({

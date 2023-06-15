@@ -92,9 +92,9 @@
 
 .load-user-photo-preview-top-frame-fog {
     position: absolute;
-    bottom: -16px;
+    bottom: -25px;
     left: 5px;
-    height: 45px;
+    height: 40px;
     width: 96%;
     background-color: #f7f4f4;
     filter: blur(8px);
@@ -107,6 +107,8 @@
 }
 
 .load-user-photo-preview-bottom {
+    position: relative;
+    z-index: 5;
     margin-top: 14px;
 }
 
