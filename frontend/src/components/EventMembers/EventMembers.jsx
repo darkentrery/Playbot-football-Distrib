@@ -58,7 +58,7 @@ export const EventMembers = ({
                     : <div className="event-members-no-players">Пока никто не присоединился.</div>
                 }
             </div>
-            {event.event_queues.length ?
+            {!event.event_queues.length ?
                 <div className="event-members-queue">
                     <div className="event-members-queue-info">
                         <img src={WaitListIcon} width={16} height={20} alt="wait list" />

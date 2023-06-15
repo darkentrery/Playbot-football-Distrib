@@ -62,7 +62,7 @@
         pointer-events: none;
     }
     .leaflet-marker-icon {
-        pointer-events: none;
+        pointer-events: none !important;
     }
     .leaflet-tile-pane {
         filter: grayscale(0.9);

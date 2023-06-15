@@ -16,10 +16,10 @@ export const EventCardsInfo = ({event}) => {
 
     return (
         <div className="event-cards-info">
-            { event.duration?.duration &&  
+            { event.duration_opt &&  
                 <div className="event-info-card">
                     <img src={ClockIcon} alt="clock" height={15} />
-                    <div>{event.duration.duration} мин</div>
+                    <div>{event.duration_opt} мин</div>
                 </div>
             }
             { event.count_current_players !== 0 &&
