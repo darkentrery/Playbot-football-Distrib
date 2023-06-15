@@ -20,7 +20,7 @@ export const EventMembers = ({
         setShowMemberListFog(false)
     }
 
-    if (event.event_player.length < 6 && showMemberListFog == true) {
+    if (event.count_current_players < 6 && showMemberListFog == true) {
         setShowMemberListFog(false)
     }
     return (
@@ -38,9 +38,9 @@ export const EventMembers = ({
                         </div>
                     }
                 </div>
-                {event.event_player.length !== 0 ?
+                {event.count_current_players !== 0 ?
                     <div className="event-members-list" style={{ maxHeight: (isMemberListOpened ? "max-content" : "120px") }}>
-                        {event.event_player.length !== 0 && event.event_player.map((e, i) => {
+                        {event.count_current_players !== 0 && event.event_player.map((e, i) => {
                             return (
                                 <EventMemberCard
                                     name={e.player.username}
