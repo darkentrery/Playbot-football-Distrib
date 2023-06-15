@@ -75,6 +75,9 @@
                 background-position: 16px center;
             }
         }
+        &.elem-96 {
+            width: 241px;
+        }
         &.elem-3 {
             position: relative;
 
@@ -585,6 +588,7 @@
         padding: 24px calc(50% - 158px) 20px calc(50% - 148px);
         overflow-y: auto;
         overflow-x: hidden;
+        border-radius: unset !important;
         &::-webkit-scrollbar {
             -webkit-appearance: none;
             display: none;
