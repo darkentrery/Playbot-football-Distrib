@@ -8,6 +8,8 @@ import { getLocalTime } from '../../utils/dates';
 
 export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
     let date = parseISO(`${event.date}T${getLocalTime(event.time_begin)}`);
+    date.setHours(date.getHours() - 1)
+
     const toConfirmPlayers = (e) => {
         if (new Date() >= date) {
             funcs.openConfirmPlayers();
