@@ -19,6 +19,7 @@ import {
     REFRESH_PASSWORD_WINDOW,
     REPEAT_EVENT_WINDOW,
     SHOW_EMBLEM_WINDOW,
+    SHOW_LOAD_PHOTO_WINDOW,
     SHOW_MENU_WINDOW,
     SIGN_UP_WINDOW,
     SUCCESS_CANCEL_EVENT_WINDOW,
@@ -69,6 +70,7 @@ const initialState = {
     isOpenOnboardingStep1: false,
     isOpenOnboardingStep2: false,
     isOpenOnboardingStep3: false,
+    isOpenLoadPhoto: false,
 }
 
 export const windows = (state = initialState, action) => {
@@ -242,6 +244,11 @@ export const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenOnboardingStep3: action.value
+          };
+      case SHOW_LOAD_PHOTO_WINDOW:
+          return {
+              ...state,
+              isOpenLoadPhoto: action.value
           };
       default:
           return state;

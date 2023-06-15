@@ -1,0 +1,199 @@
+.load-user-photo {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 24px;
+    z-index: 999;
+    font-family: 'Raleway';
+    font-style: normal;
+}
+
+.load-user-photo-title {
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+    color: #1B1B1B;
+}
+
+.load-user-photo-examples {
+    margin-top: 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.load-photo-example-text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    color: #1B1B1B;
+}
+
+.load-user-photo-button {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-inline: auto;
+    margin-top: 24px;
+    width: 254px;
+    background: #F3F3F3;
+    border: 0.8px solid #F3F3F3;
+    border-radius: 8px;
+    padding: 16px 20px;
+    cursor: pointer;
+    .no-photo-icon {
+        width: 40px;
+        height: 40px;
+    }
+    &:hover {
+        .gray-400-14 {
+            text-decoration: underline;
+        }
+    }
+}
+
+#load-user-photo-input {
+    display: none;
+}
+
+.load-photo-supported-formats {
+    margin-top: 4px;
+    text-align: center;
+}
+
+// preview
+
+.load-user-photo-preview {
+    margin-top: 24px;
+    background: #F7F4ED;
+    box-shadow: -0.389864px 1.55945px 1.55945px rgba(48, 38, 29, 0.8), -1.55945px 3.89864px 3.11891px rgba(39, 39, 39, 0.35), inset 0.779727px -0.389864px 1.55945px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 7px;
+    width: max-content;
+    margin-inline: auto;
+}
+
+.load-user-photo-preview-frame {
+    border: 3.89864px solid #EDC49F;
+    border-radius: 7.79727px;
+}
+
+.load-user-photo-preview-top-frame {
+    position: relative;
+    background: linear-gradient(180deg, rgba(247, 244, 237, 0) 54.02%, #F7F4ED 79.03%);
+    background-image: url('../../../assets/icon/background-user-photo.png');
+    background-repeat: no-repeat;
+    background-size: 185px;
+    width: 182px;
+    height: 198px;
+}
+
+.load-user-photo-preview-top-frame-fog {
+    position: absolute;
+    bottom: -16px;
+    left: 5px;
+    height: 45px;
+    width: 96%;
+    background-color: #f7f4f4;
+    filter: blur(8px);
+    border-radius: 20px;
+}
+
+.load-user-photo-preview-user-img {
+    width: 182px;
+    height: 198px;
+}
+
+.load-user-photo-preview-bottom {
+    margin-top: 14px;
+}
+
+.load-user-photo-preview-username {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23.3918px;
+    line-height: 95.4%;
+    color: #E2B184;
+    text-align: center;
+}
+
+.load-user-photo-preview-decor-square {
+    padding-top: 4px;
+}
+
+.load-user-photo-preview-bottom-stats {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 21px;
+    justify-content: center;
+}
+
+.load-user-photo-preview-stats {
+
+}
+
+.load-user-photo-preview-stats-name {
+    font-weight: 700;
+    font-size: 9.66757px;
+    line-height: 12px;
+    color: #EDC49F;
+}
+
+.load-user-photo-preview-stats-value {
+    font-weight: 700;
+    font-size: 16.791px;
+    line-height: 20px;
+    color: #E2B184;
+}
+
+.load-user-photo-preview-stats-right {
+    text-align: end;
+}
+
+.load-user-photo-preview-text-step-2 {
+    margin-top: 24px;
+    max-width: 390px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    text-align: center;
+    color: #1B1B1B;
+    margin-inline: auto;
+}
+
+.load-user-photo-preview-buttons-step-2 {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    button {
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        width: max-content;
+    }
+}
+
+.load-user-photo-preview-step-2-accept {
+    background: #D19C6C;
+    border-radius: 8px;
+    padding: 14px 48px;
+    text-align: center;
+    color: #FFFFFF;
+    outline: none;
+    border: none;
+}
+
+.load-user-photo-preview-step-2-decline {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    color: #1B1B1B;
+    padding: 12px 61px;
+}

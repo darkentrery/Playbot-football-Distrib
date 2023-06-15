@@ -32,6 +32,7 @@ export const DELETE_ACCOUNT_WINDOW = 'DELETE_ACCOUNT_WINDOW';
 export const ONBOARDING_STEP_1_WINDOW = 'ONBOARDING_STEP_1_WINDOW';
 export const ONBOARDING_STEP_2_WINDOW = 'ONBOARDING_STEP_2_WINDOW';
 export const ONBOARDING_STEP_3_WINDOW = 'ONBOARDING_STEP_3_WINDOW';
+export const SHOW_LOAD_PHOTO_WINDOW = 'SHOW_LOAD_PHOTO_WINDOW';
 
 export const AUTH = 'AUTH';
 
@@ -221,6 +222,10 @@ export const onboardingStep3Window = (value) => ({
   value,
 });
 
+export const showLoadPhotoWindow = (value) => ({
+  type: SHOW_LOAD_PHOTO_WINDOW,
+  value,
+})
 
 export const auth = (value, user) => ({
   type: AUTH,
