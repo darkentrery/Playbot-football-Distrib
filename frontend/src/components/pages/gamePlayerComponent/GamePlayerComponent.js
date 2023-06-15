@@ -9,6 +9,7 @@ import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {HighLightComponent} from "../../highLightComponent/HighLightComponent";
 import {PlayerIconComponent} from "../../playerIconComponent/PlayerIconComponent";
 import {GoalRowComponent} from "../../goalRowComponent/GoalRowComponent";
+import useWebSocket, {ReadyState} from "react-use-websocket";
 
 
 export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => {
@@ -26,6 +27,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const [goal2Player, setGoal2Player] = useState(false);
     const [players1Pass, setPlayers1Pass] = useState([]);
     const [players2Pass, setPlayers2Pass] = useState([]);
+    const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
     // const [block, setBlock] = useState(false);
     const [isPlay, setIsPlay] = useState(null);
@@ -125,10 +127,14 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             funcs.setPlayerBlock(true);
             // setBlock(true);
             setIsPlay(true);
-            authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
-                console.log(response.data)
-                if (response.status === 200) {funcs.setPlayerBlock(false);}
-            })
+            sendJsonMessage({
+                type: 'begin_game_period',
+                game,
+            });
+            // authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
+            //     console.log(response.data)
+            //     if (response.status === 200) {funcs.setPlayerBlock(false);}
+            // })
         }
     }
 
@@ -139,10 +145,14 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             setIsPlay(false);
             setRestTimeEnd(restTime);
             console.log(new Date())
-            authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
-                console.log(response.data)
-                if (response.status === 200) {funcs.setPlayerBlock(false);}
-            })
+            sendJsonMessage({
+                type: 'end_game_period',
+                game,
+            });
+            // authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
+            //     console.log(response.data)
+            //     if (response.status === 200) {funcs.setPlayerBlock(false);}
+            // })
         }
     }
 
@@ -257,6 +267,62 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         createGoal(game.team_2.id, false, goal2Player, player);
         closeHighLight();
     }
+
+    const { sendJsonMessage } = useWebSocket(
+        user.isAuth ? `${SOCKET_URL}event-game/${game.id}/` : null,
+        {
+            queryParams: {
+                Authorization: user.isAuth
+                    ? `Bearer ${localStorage.getItem('access_token')}`
+                    : '',
+                Refresh: user.isAuth
+                    ? `${localStorage.getItem('refresh_token')}`
+                    : '',
+            },
+        }
+    );
+
+    const { readyState } = useWebSocket(
+        user.isAuth ? `${SOCKET_URL}event-game/${game.id}/` : null,
+        {
+            queryParams: {
+                Authorization: user.isAuth
+                    ? `Bearer ${localStorage.getItem('access_token')}`
+                    : '',
+                Refresh: user.isAuth
+                    ? `${localStorage.getItem('refresh_token')}`
+                    : '',
+            },
+            onOpen: () => {
+                console.log('Connected!');
+            },
+            onClose: () => {
+                // setMessageHistory([]);
+                console.log('Disconnected!');
+            },
+            onMessage: (e) => {
+                const data = JSON.parse(e.data);
+                switch (data.type) {
+                    case 'game':
+                        console.log(data);
+                        funcs.setGame(data.game);
+                        funcs.setPlayerBlock(false);
+                        break;
+                    default:
+                        console.error('Unknown message type!');
+                        break;
+                }
+            },
+        }
+    );
+
+    const connectionStatus = {
+        [ReadyState.CONNECTING]: 'Connecting',
+        [ReadyState.OPEN]: 'Open',
+        [ReadyState.CLOSING]: 'Closing',
+        [ReadyState.CLOSED]: 'Closed',
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+    }[readyState];
 
     return (
         <VisibleEventWrapper>
