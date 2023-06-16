@@ -5,19 +5,32 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 10px;
     padding: 24px;
     z-index: 999;
     font-family: 'Raleway';
     font-style: normal;
+    .cross-icon {
+        position: absolute;
+        top: 31px;
+        right: 24px;
+        cursor: pointer;
+    }
+    &.loader {
+        
+        .loader-component {
+            border-radius: 10px;
+            background: white;
+        }
+    }
 }
 
 .load-user-photo-title {
     font-weight: 600;
     font-size: 22px;
     text-align: center;
-    color: #1B1B1B;
+    color: #1b1b1b;
 }
 
 .load-user-photo-examples {
@@ -30,7 +43,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 21px;
-    color: #1B1B1B;
+    color: #1b1b1b;
 }
 
 .load-user-photo-button {
@@ -39,9 +52,9 @@
     gap: 16px;
     margin-inline: auto;
     margin-top: 24px;
-    width: 254px;
-    background: #F3F3F3;
-    border: 0.8px solid #F3F3F3;
+    width: 261px;
+    background: #f3f3f3;
+    border: 0.8px solid #f3f3f3;
     border-radius: 8px;
     padding: 16px 20px;
     cursor: pointer;
@@ -54,6 +67,10 @@
             text-decoration: underline;
         }
     }
+    .loading-circle-icon {
+        margin-left: auto;
+        opacity: 0.2;
+    }
 }
 
 #load-user-photo-input {
@@ -63,14 +80,17 @@
 .load-photo-supported-formats {
     margin-top: 4px;
     text-align: center;
+    letter-spacing: 0.3px;
 }
 
 // preview
 
 .load-user-photo-preview {
     margin-top: 24px;
-    background: #F7F4ED;
-    box-shadow: -0.389864px 1.55945px 1.55945px rgba(48, 38, 29, 0.8), -1.55945px 3.89864px 3.11891px rgba(39, 39, 39, 0.35), inset 0.779727px -0.389864px 1.55945px rgba(0, 0, 0, 0.2);
+    background: #f7f4ed;
+    box-shadow: -0.389864px 1.55945px 1.55945px rgba(48, 38, 29, 0.8),
+        -1.55945px 3.89864px 3.11891px rgba(39, 39, 39, 0.35),
+        inset 0.779727px -0.389864px 1.55945px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     padding: 7px;
     width: max-content;
@@ -78,13 +98,17 @@
 }
 
 .load-user-photo-preview-frame {
-    border: 3.89864px solid #EDC49F;
+    border: 3.89864px solid #edc49f;
     border-radius: 7.79727px;
 }
 
 .load-user-photo-preview-top-frame {
     position: relative;
-    background: linear-gradient(180deg, rgba(247, 244, 237, 0) 54.02%, #F7F4ED 79.03%);
+    background: linear-gradient(
+        180deg,
+        rgba(247, 244, 237, 0) 54.02%,
+        #f7f4ed 79.03%
+    );
     background-image: url('../../../assets/icon/background-user-photo.png');
     background-repeat: no-repeat;
     background-size: 185px;
@@ -120,7 +144,7 @@
     font-weight: 700;
     font-size: 23.3918px;
     line-height: 95.4%;
-    color: #E2B184;
+    color: #e2b184;
     text-align: center;
 }
 
@@ -137,21 +161,20 @@
 }
 
 .load-user-photo-preview-stats {
-
 }
 
 .load-user-photo-preview-stats-name {
     font-weight: 700;
     font-size: 9.66757px;
     line-height: 12px;
-    color: #EDC49F;
+    color: #edc49f;
 }
 
 .load-user-photo-preview-stats-value {
     font-weight: 700;
     font-size: 16.791px;
     line-height: 20px;
-    color: #E2B184;
+    color: #e2b184;
 }
 
 .load-user-photo-preview-stats-right {
@@ -167,7 +190,7 @@
     font-size: 16px;
     line-height: 120%;
     text-align: center;
-    color: #1B1B1B;
+    color: #1b1b1b;
     margin-inline: auto;
 }
 
@@ -185,20 +208,20 @@
 }
 
 .load-user-photo-preview-step-2-accept {
-    background: #D19C6C;
+    background: #d19c6c;
     border-radius: 8px;
     padding: 14px 48px;
     text-align: center;
-    color: #FFFFFF;
+    color: #ffffff;
     outline: none;
     border: none;
 }
 
 .load-user-photo-preview-step-2-decline {
-    background: #FFFFFF;
+    background: #ffffff;
     border: 1px solid #000000;
     border-radius: 8px;
-    color: #1B1B1B;
+    color: #1b1b1b;
     padding: 12px 61px;
 }
 
@@ -218,7 +241,7 @@
     font-size: 20px;
     line-height: 120%;
     text-align: center;
-    color: #1B1B1B;
+    color: #1b1b1b;
     max-width: var(--max-width);
 }
 
@@ -235,6 +258,44 @@
 .load-user-photo-step3-button {
     @include orangeButton(10px 0px);
     width: 100%;
-    font-family: "Raleway";
+    font-family: 'Raleway';
     font-style: normal;
+}
+
+// error
+
+.load-user-photo-error {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px;
+    background: #fff3f2;
+    border-radius: 8px;
+    .red-warning-icon {
+        height: 22px;
+        width: 24px;
+    }
+}
+
+.load-user-photo-error {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 130%;
+    color: #000000;
+}
+
+.load-user-photo-error-format {
+    margin-top: 8px;
+    text-align: unset;
+    margin-left: 50px;
+}
+
+.load-user-photo-error-btn {
+    @include orangeButton(5px 24px);
+    margin-top: 26px;
+    display: block; 
+    border-radius: 50px;
+    margin-inline: auto;
+    font-size: 12px;
 }
