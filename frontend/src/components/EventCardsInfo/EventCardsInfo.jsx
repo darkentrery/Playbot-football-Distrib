@@ -16,7 +16,7 @@ export const EventCardsInfo = ({event}) => {
 
     return (
         <div className="event-cards-info">
-            { event.duration_opt.duration &&  
+            { event.duration_opt?.duration &&  
                 <div className="event-info-card">
                     <img src={ClockIcon} alt="clock" height={15} />
                     <div>{event.duration_opt.duration} мин</div>
