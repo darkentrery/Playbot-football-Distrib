@@ -27,6 +27,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const [goal2Player, setGoal2Player] = useState(false);
     const [players1Pass, setPlayers1Pass] = useState([]);
     const [players2Pass, setPlayers2Pass] = useState([]);
+    const [socketState, setSocketState] = useState(false);
     const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
     // const [block, setBlock] = useState(false);
@@ -55,6 +56,10 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             setIsPlay(null)
         }
         console.log(game)
+
+        if (gameId && event) {
+
+        }
     }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
@@ -297,13 +302,12 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 console.log('Connected!');
             },
             onClose: () => {
-                // setMessageHistory([]);
                 console.log('Disconnected!');
             },
             onMessage: (e) => {
                 const data = JSON.parse(e.data);
                 switch (data.type) {
-                    case 'game':
+                    case 'game_message':
                         console.log(data);
                         funcs.setGame(data.game);
                         funcs.setPlayerBlock(false);

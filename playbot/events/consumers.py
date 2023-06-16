@@ -23,7 +23,7 @@ class EventGameConsumer(AsyncJsonWebsocketConsumer):
         await self.accept()
         await self.channel_layer.group_add(str(self.game.id), self.channel_name)
         message = await sync_to_async(lambda: EventGameSerializer(instance=self.game).data)()
-        await self.send_json({"type": "game", "game": message})
+        await self.send_json({"type": "game_message", "game": message})
 
     async def disconnect(self, code):
         print("Disconnected!")
@@ -34,16 +34,16 @@ class EventGameConsumer(AsyncJsonWebsocketConsumer):
         if message_type == "begin_game_period":
             self.game = await self.begin_game_period()
             message = await sync_to_async(lambda: EventGameSerializer(instance=self.game).data)()
-            await self.channel_layer.group_send(str(self.game.id), {"type": "game", "game": message})
+            await self.channel_layer.group_send(str(self.game.id), {"type": "game_message", "game": message})
 
         if message_type == "end_game_period":
             self.game = await self.end_game_period()
             message = await sync_to_async(lambda: EventGameSerializer(instance=self.game).data)()
-            await self.channel_layer.group_send(str(self.game.id), {"type": "game", "game": message})
+            await self.channel_layer.group_send(str(self.game.id), {"type": "game_message", "game": message})
         print(content)
         return await super().receive_json(content, **kwargs)
 
-    async def game(self, event):
+    async def game_message(self, event):
         print(event)
         await self.send_json(event)
 
