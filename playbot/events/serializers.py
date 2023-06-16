@@ -215,6 +215,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
     public_in_channel = serializers.SlugRelatedField(queryset=TelegramChannel.objects.all(), slug_field="name", write_only=True, allow_null=True, allow_empty=True)
     genders = serializers.PrimaryKeyRelatedField(queryset=Gender.objects.all(), many=True, write_only=True)
+    duration_opt = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="duration")
 
     class Meta:
         model = Event
@@ -284,6 +285,7 @@ class EditEventSerializer(serializers.ModelSerializer):
     field = serializers.PrimaryKeyRelatedField(queryset=Field.objects.all(), write_only=True)
     public_in_channel = serializers.SlugRelatedField(queryset=TelegramChannel.objects.all(), slug_field="name", write_only=True, allow_null=True, allow_empty=True)
     genders = serializers.PrimaryKeyRelatedField(queryset=Gender.objects.all(), many=True, write_only=True)
+    duration_opt = serializers.SlugRelatedField(queryset=Duration.objects.all(), slug_field="duration")
 
     class Meta:
         model = Event
