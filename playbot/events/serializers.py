@@ -249,6 +249,7 @@ class EventSerializer(serializers.ModelSerializer):
     field = FieldSerializer(read_only=True)
     public_in_channel = TelegramChannelSerializer(read_only=True)
     genders = GenderSerializer(Gender, many=True, read_only=True)
+    duration_opt = DurationSerializer(read_only=True)
 
     class Meta:
         model = Event

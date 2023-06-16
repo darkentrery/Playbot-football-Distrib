@@ -253,20 +253,20 @@ class RankCalculation:
             k_goal = self.get_k_goal(win_goals, loss_goals)
             result = self.event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
             result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
-            logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
+            # logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
+            # logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
         for event_game in user_team.event_games_teams_2.all():
             win_goals, loss_goals = self.get_wins_loss_goals(event_game.score_2, event_game.score_1, event_game.result_2)
             k_goal = self.get_k_goal(win_goals, loss_goals)
             result = self.event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
             result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
-            logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
+            # logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
+            # logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
         return result_sum
 
     def get_next_rank(self, recalculate: bool = False) -> float:
         rank_fact = self.user.rank_before_event(self.event) if recalculate else self.user.rank_fact
-        logger.info(f"username= {self.user.email}, {rank_fact=}")
+        # logger.info(f"username= {self.user.email}, {rank_fact=}")
         event_duration = sum([game.current_duration for game in self.event.event_games.all()])
         if not event_duration:
             return rank_fact
@@ -277,11 +277,11 @@ class RankCalculation:
         time_sum = self.get_time_sum(user_team)
         result_sum = self.get_result_sum(user_team, time_sum, event_duration)
 
-        logger.info(f"{result_sum=}")
+        # logger.info(f"{result_sum=}")
 
         rank = (rank_fact + result_sum * 0.5 + unique_rivals * 0.01 + rate * 0.001) * self.user.involvement * (100 - self.user.penalty) * 0.01
-        logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
-        logger.info(f"username= {self.user.email}, {rank=}")
+        # logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
+        # logger.info(f"username= {self.user.email}, {rank=}")
         win_proportion, rank_proportion = self.get_proportion()
         total_rank = (win_proportion * self.user.wins_percent + rank_proportion * rank) / 100
         logger.info(f"{win_proportion=}, {rank_proportion=}, {self.user.wins_percent=}, {total_rank=}\n")
