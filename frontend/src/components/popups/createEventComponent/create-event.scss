@@ -19,13 +19,16 @@
 @media screen and (min-width: 744px){
   .create-event-component {
     width: auto;
-    height: 772px;
+    height: auto;
+    max-height: 722px;
 
     .popup-left {
       display: flex;
       flex-direction: column;
       flex: unset;
       width: 615px;
+      height: auto;
+      max-height: 722px;
     }
 
     .elem-2, .elem-3 {

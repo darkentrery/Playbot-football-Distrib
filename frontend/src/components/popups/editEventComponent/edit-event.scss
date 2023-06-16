@@ -1,6 +1,7 @@
 .edit-event-component {
   width: auto !important;
-  height: 772px;
+  height: auto;
+  max-height: 772px;
   flex: unset;
   border-radius: 10px;
   .elem-1 {
@@ -37,6 +38,12 @@
   }
 }
 
+.formEvent__accordion {
+  .accordion__wrapper-content {
+    margin-bottom: 30px;
+  }
+}
+
 @media screen and (min-width: 744px) and (max-width: 1279px){
 
 }
@@ -44,6 +51,7 @@
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   .edit-event-component {
     width: 100%;
+    max-height: unset;
     height: 100%;
     .elem-2 {
       margin-bottom: 0px;
