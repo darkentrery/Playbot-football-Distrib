@@ -212,11 +212,15 @@ export default class AuthService{
 
 const postRequest = (url, data, contentType='application/json') => {
 	url = `${API_URL}${url}`;
-	return axios.post(url, data, {headers: {
+	let headers = {
 		'Content-Type': contentType,
 		'X-CSRFToken': csrftoken,
-		'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-	}})
+		// 'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+	}
+	if (localStorage.getItem("access_token")) {
+		headers.Authorization = `Bearer ${localStorage.getItem("access_token")}`;
+	}
+	return axios.post(url, data, {headers: headers})
 		.then((response) => {
 			return response;
 		})

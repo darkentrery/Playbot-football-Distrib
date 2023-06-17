@@ -192,6 +192,7 @@ function App({state, funcs}) {
                 <Routes>
                     <Route exact path={EventRoutes.events} element={<VisibleEventsPage/>}/>
                     <Route exact path={BaseRoutes.main} element={<VisibleMainPage/>}/>
+                    <Route exact path={BaseRoutes.confirmSignUp} element={<VisibleMainPage/>}/>
                     <Route exact path={BaseRoutes.statistic} element={<VisibleStatisticPage/>}/>
                     <Route exact path={BaseRoutes.faq} element={<FaqPageComponent/>}/>
                     <Route exact path={EventRoutes.event} element={<VisibleEvent/>}/>
