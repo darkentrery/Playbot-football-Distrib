@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
 
 from playbot.cities.models import Address
-from playbot.users.models import User, Position, RankHistory, UserRivals, Gender
+from playbot.users.models import User, Position, RankHistory, UserRivals, Gender, PhotoError
 
 
 class RankHistoryInline(admin.TabularInline):
@@ -64,6 +64,8 @@ class CustomUserAdmin(UserAdmin):
                     "favorite_events",
                     "favorite_players",
                     "first_login",
+                    "is_accept_photo",
+                    "photo_errors",
                     # "rivals",
                 )
             },
@@ -88,6 +90,7 @@ class CustomUserAdmin(UserAdmin):
         "user_permissions",
         "favorite_events",
         "favorite_players",
+        "photo_errors",
         # "rivals",
     )
     inlines = [RankHistoryInline, UserRivalsInline]
@@ -157,3 +160,12 @@ class GenderAdmin(admin.ModelAdmin):
         "id",
         "name",
     ]
+
+
+@admin.register(PhotoError)
+class PhotoErrorAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "name",
+    ]
+

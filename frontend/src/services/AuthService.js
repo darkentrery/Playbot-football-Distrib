@@ -257,6 +257,7 @@ export const authService = {
 	getTop10Users() { return getRequest('get-top-10-users/'); },
 	getUser(pk) { return getRequest('get-user/', pk); },
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
+	checkUserPhoto(data) { return postRequest('check-user-photo/', data, "multipart/form-data"); },
 	updatePhotoUsername(data) { return postRequest('update-photo-username/', data, "multipart/form-data"); },
 	updateAddress(data) { return postRequest('update-address/', data); },
 	firstLogin() { return postRequest('first-login/', {}); },

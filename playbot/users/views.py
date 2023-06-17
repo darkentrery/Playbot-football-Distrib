@@ -11,11 +11,11 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.cities.models import Address
-from playbot.users.models import User, RankHistory
+from playbot.users.models import User, RankHistory, PhotoError
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
-    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer
+    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer
 from playbot.users.utils import parse_init_data
 
 
@@ -280,6 +280,20 @@ class UpdatePhotoUsernameView(APIView):
                     json = UserSerializer(instance=user).data
                     return Response(json, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CheckUserPhotoView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        serializer = UpdatePhotoSerializer(instance=request.user, data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            error = PhotoError.objects.get(id=1)
+            user.photo_errors.add(error)
+            json = UserSerializer(instance=user).data
+            return Response(json, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CatchErrorView(APIView):

@@ -33,6 +33,7 @@ urlpatterns = [
     path("api/get-top-10-users/", views.GetTop10UsersView.as_view(), name='get-top-10-users'),
     path("api/get-user/<int:pk>/", views.GetUserView.as_view(), name='get-user'),
     path("api/update-user/", views.UpdateUserView.as_view(), name='update-user'),
+    path("api/check-user-photo/", views.CheckUserPhotoView.as_view(), name='check-user-photo'),
     path("api/first-login/", views.FirstLoginView.as_view(), name='first-login'),
     path("api/update-photo-username/", views.UpdatePhotoUsernameView.as_view(), name='update-photo-username'),
     path("api/update-password/", views.UpdatePasswordView.as_view(), name='update-password'),

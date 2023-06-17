@@ -31,6 +31,17 @@ class Gender(models.Model):
         return f"{self.name}"
 
 
+class PhotoError(models.Model):
+    name = models.CharField(_("Error Name"), max_length=250, unique=True)
+
+    class Meta:
+        verbose_name = "Photo Error"
+        verbose_name_plural = "Photo Errors"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class User(AbstractUser):
     class Gender(models.TextChoices):
         MALE = "Парень", _("Парень")
@@ -49,6 +60,8 @@ class User(AbstractUser):
     position_2 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_2", blank=True, null=True)
     birthday = models.DateField(_("Birthday"), blank=True, null=True)
     photo = models.ImageField(upload_to="photos", verbose_name="Photo", blank=True, null=True)
+    photo_errors = models.ManyToManyField(PhotoError, related_name="users", blank=True)
+    is_accept_photo = models.BooleanField(_("Is Accept Photo"), default=False)
     about_self = models.TextField(_("About Self"), blank=True, null=True)
     favorite_events = models.ManyToManyField("events.Event", related_name="in_favorites", blank=True)
     favorite_players = models.ManyToManyField("users.User", related_name="in_favorite_players", blank=True)
