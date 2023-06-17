@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import SectionOne2Img from './SectionOne2Img';
 import ball1 from '../../../img/BallVector1.png'
 import ball2 from '../../../img/BallVector2.png'

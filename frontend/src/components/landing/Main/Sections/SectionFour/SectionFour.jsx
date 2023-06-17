@@ -4,8 +4,6 @@ import greyimg from '../../../img/grey2.png'
 import preview from '../../../img/videoPreview.PNG'
 import goalmp4 from '../../../img/Petr Kozlov3.mp4'
 import ball4 from '../../../img/BallVector4.png'
-import AOS from 'aos';
-import 'aos/dist/aos.css'
 import { useSelector } from 'react-redux';
 
 
@@ -23,7 +21,6 @@ const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 const autoplay = isIOS ? true : false;
 
 useEffect (() => {
-  // AOS.init({duration: 1000, once: true})
   if (videoRef.current) {
     videoRef.current.currentTime = 2;
   }
@@ -61,7 +58,7 @@ useEffect (() => {
     <section className="section-four">
       <img className="ball4" src={ball4} alt="ball" />
       <div className="section-four-container">
-        <div className="section-four-container-left" data-aos="fade-right">
+        <div className="section-four-container-left">
           <SectionsTitleText
             title={
               engLang ? "Grab media attention" : "Привлекай внимание медиа"
@@ -73,7 +70,7 @@ useEffect (() => {
             }
           />
         </div>
-        <div className="section-four-container-right" data-aos="fade-left">
+        <div className="section-four-container-right">
               <>
               <video
                 ref={videoRef}
