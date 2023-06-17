@@ -1,4 +1,4 @@
-import {endGameWindow, event, game} from "../actions/actions";
+import {endGameWindow, event, game, sendSocketMessage} from "../actions/actions";
 import {connect} from "react-redux";
 import {EndGameComponent} from "../../components/popups/EndGameComponent";
 
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     isOpen: state.windows.isOpenEndGame,
     event: state.event.event,
     game: state.event.game,
+    sendSocketMessage: state.event.sendSocketMessage,
   };
 };
 

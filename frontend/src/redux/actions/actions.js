@@ -44,6 +44,7 @@ export const TEAM = 'TEAM';
 export const GAME = 'GAME';
 export const SAME_EVENTS = 'SAME_EVENTS';
 export const PLAYER_BLOCK = 'PLAYER_BLOCK';
+export const SEND_SOCKET_MESSAGE = 'SEND_SOCKET_MESSAGE';
 
 export const CITY = 'CITY';
 export const COUNTRY = 'COUNTRY';
@@ -271,6 +272,11 @@ export const sameEvents = (value) => ({
 
 export const playerBlock = (value) => ({
   type: PLAYER_BLOCK,
+  value,
+});
+
+export const sendSocketMessage = (value) => ({
+  type: SEND_SOCKET_MESSAGE,
   value,
 });
 

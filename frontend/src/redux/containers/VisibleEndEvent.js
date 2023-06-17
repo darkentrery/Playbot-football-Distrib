@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
     ...state,
     isOpen: state.windows.isOpenEndEvent,
     event: state.event.event,
+    sendSocketMessage: state.event.sendSocketMessage,
   };
 };
 
