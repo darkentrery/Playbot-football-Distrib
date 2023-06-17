@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
-import TelegramLoginComponent from "../../TelegramLoginComponent";
+import React, { useState, useRef} from "react";
 import Modal from "react-modal";
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {authService} from "../../../services/AuthService";
@@ -8,18 +7,10 @@ import {authService} from "../../../services/AuthService";
 export default function RefreshPasswordComponent ({isOpen, closeComponent, openSuccess, openLogin, showMap}) {
     const [email, setEmail] = useState(false);
     const [emailError, setEmailError] = useState(false);
-    const [data, setData] = useState(false);
     const refEnter = useRef(false);
-
-    useEffect(() => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('email', email);
-        setData(bodyFormData);
-    }, [email])
 
     const closeWindow = () => {
         setEmail(false);
-        setData(false);
         setEmailError(false);
         closeComponent();
     }
@@ -36,7 +27,7 @@ export default function RefreshPasswordComponent ({isOpen, closeComponent, openS
 
     const sendForm = async () => {
         if (email) {
-            authService.refreshPassword(data).then((response) => {
+            authService.refreshPassword({email: email}).then((response) => {
                 if (response.status == 200) {
                     closeWindow();
                     openSuccess();
