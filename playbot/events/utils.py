@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from itertools import combinations
 
 from django.db.models import QuerySet
@@ -159,20 +160,40 @@ def auto_distribution(event: Event) -> list[dict]:
     return teams
 
 
+@dataclass
+class Proportion:
+    min: int
+    max: int
+    win_proportion: int
+    rank_proportion: int
+
+
 class RankCalculation:
     proportions = [
-        {"min": 0, "max": 10, "win_proportion": 10, "rank_proportion": 90},
-        {"min": 11, "max": 20, "win_proportion": 15, "rank_proportion": 85},
-        {"min": 21, "max": 30, "win_proportion": 20, "rank_proportion": 80},
-        {"min": 31, "max": 40, "win_proportion": 25, "rank_proportion": 75},
-        {"min": 41, "max": 50, "win_proportion": 30, "rank_proportion": 70},
-        {"min": 51, "max": 60, "win_proportion": 35, "rank_proportion": 65},
-        {"min": 61, "max": 70, "win_proportion": 40, "rank_proportion": 60},
-        {"min": 71, "max": 80, "win_proportion": 45, "rank_proportion": 55},
-        {"min": 81, "max": 90, "win_proportion": 50, "rank_proportion": 50},
-        {"min": 91, "max": 100, "win_proportion": 55, "rank_proportion": 45},
-        {"min": 101, "max": 200, "win_proportion": 60, "rank_proportion": 40},
-        {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
+        Proportion(0, 10, 10, 90),
+        Proportion(11, 20, 15, 85),
+        Proportion(21, 30, 20, 80),
+        Proportion(31, 40, 25, 75),
+        Proportion(41, 50, 30, 70),
+        Proportion(51, 60, 35, 65),
+        Proportion(61, 70, 40, 60),
+        Proportion(71, 80, 45, 55),
+        Proportion(81, 90, 50, 50),
+        Proportion(91, 100, 55, 45),
+        Proportion(101, 200, 60, 40),
+        Proportion(201, 1000, 70, 30),
+        # {"min": 0, "max": 10, "win_proportion": 10, "rank_proportion": 90},
+        # {"min": 11, "max": 20, "win_proportion": 15, "rank_proportion": 85},
+        # {"min": 21, "max": 30, "win_proportion": 20, "rank_proportion": 80},
+        # {"min": 31, "max": 40, "win_proportion": 25, "rank_proportion": 75},
+        # {"min": 41, "max": 50, "win_proportion": 30, "rank_proportion": 70},
+        # {"min": 51, "max": 60, "win_proportion": 35, "rank_proportion": 65},
+        # {"min": 61, "max": 70, "win_proportion": 40, "rank_proportion": 60},
+        # {"min": 71, "max": 80, "win_proportion": 45, "rank_proportion": 55},
+        # {"min": 81, "max": 90, "win_proportion": 50, "rank_proportion": 50},
+        # {"min": 91, "max": 100, "win_proportion": 55, "rank_proportion": 45},
+        # {"min": 101, "max": 200, "win_proportion": 60, "rank_proportion": 40},
+        # {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
     ]
 
     def __init__(self, user: User, event: Event) -> None:
@@ -181,8 +202,8 @@ class RankCalculation:
 
     def get_proportion(self) -> tuple[float, float]:
         for proportion in self.proportions:
-            if proportion["min"] <= self.user.all_games <= proportion["max"]:
-                return proportion["win_proportion"], proportion["rank_proportion"]
+            if proportion.min <= self.user.all_games <= proportion.max:
+                return proportion.win_proportion, proportion.rank_proportion
         return 0, 100
 
     @staticmethod

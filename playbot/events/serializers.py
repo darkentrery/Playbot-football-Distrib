@@ -140,6 +140,7 @@ class EventGameSerializer(serializers.ModelSerializer):
     team_2 = TeamSerializer(read_only=True)
     goals = GoalSerializer(Goal, many=True, read_only=True)
     game_periods = GamePeriodSerializer(GamePeriod, many=True, read_only=True)
+    last_time_begin = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = EventGame

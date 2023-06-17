@@ -6,7 +6,7 @@ import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 import {eventService} from "../../services/EventService";
 
 
-export const GoalRowComponent = ({event, goal, team1, team2, funcs}) => {
+export const GoalRowComponent = ({event, goal, team1, team2, funcs, sendSocketMessage = () => {}}) => {
     const [isOpenGoal, setIsOpenGoal] = useState(false);
     const [isOpenAssistant, setIsOpenAssistant] = useState(false);
     const [isOpenAuto, setIsOpenAuto] = useState(false);
@@ -27,12 +27,16 @@ export const GoalRowComponent = ({event, goal, team1, team2, funcs}) => {
         if (assistant) updateGoal.assistant = assistant.player.id;
         updateGoal.assistant = assistant ? assistant.player.id : assistant;
         if (auto) updateGoal.auto = true;
-        authDecoratorWithoutLogin(eventService.updateGoal, updateGoal).then((response) => {
-            if (response.status === 200) {
-                // funcs.setPlayerBlock(false);
-                funcs.setGame(response.data);
-            }
+        sendSocketMessage({
+            type: "update_goal",
+            data: updateGoal,
         })
+        // authDecoratorWithoutLogin(eventService.updateGoal, updateGoal).then((response) => {
+        //     if (response.status === 200) {
+        //         // funcs.setPlayerBlock(false);
+        //         funcs.setGame(response.data);
+        //     }
+        // })
     }
 
     const closeElem = () => {
@@ -76,12 +80,16 @@ export const GoalRowComponent = ({event, goal, team1, team2, funcs}) => {
     }
 
     const deleteGoal = () => {
-        authDecoratorWithoutLogin(eventService.deleteGoal, goal).then((response) => {
-            if (response.status === 200) {
-                // funcs.setPlayerBlock(false);
-                funcs.setGame(response.data);
-            }
+        sendSocketMessage({
+            type: "delete_goal",
+            data: goal,
         })
+        // authDecoratorWithoutLogin(eventService.deleteGoal, goal).then((response) => {
+        //     if (response.status === 200) {
+        //         // funcs.setPlayerBlock(false);
+        //         funcs.setGame(response.data);
+        //     }
+        // })
     }
 
     const openDeleteGoal = () => {

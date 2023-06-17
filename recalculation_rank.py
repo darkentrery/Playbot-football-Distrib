@@ -14,7 +14,7 @@ def main() -> None:
 
     while True:
         recalculate()
-        time.sleep(300)
+        time.sleep(600)
 
 
 if __name__ == "__main__":

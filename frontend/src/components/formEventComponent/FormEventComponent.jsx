@@ -121,7 +121,7 @@ export const FormEventComponent = ({
             setNotice(event.notice);
             setCurrency(event.currency);
             if (event && event.is_paid) setIsPaid(event.is_paid);
-            if (event.duration_opt) setMatchDuration(event.duration_opt);
+            if (event.duration_opt?.duration) setMatchDuration(event.duration_opt.duration);
             setPrice(event.price);
             setAnonseLentaCheck(event.is_news_line);
             setAnonseTgCheck(!!event.public_in_channel);
