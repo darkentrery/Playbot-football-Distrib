@@ -10,13 +10,13 @@ export const LoadPhotoPopup = ({ isOpen }) => {
     const dispatch = useDispatch();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-    const { step, photo, error, isLoading } = useSelector(state => state.loadPhoto)
+    const { step, photo, error, isLoading, isAdminLoad} = useSelector(state => state.loadPhoto)
 
     const hidePopup = () => {
         dispatch(setStateToDefault())
         dispatch(showLoadPhotoWindow(false))
     }
-
+    console.log(useSelector(state => state.loadPhoto), 'loadphotostate')
     return (
         <Modal
             isOpen={isOpen}
@@ -32,7 +32,7 @@ export const LoadPhotoPopup = ({ isOpen }) => {
                             <div className='load-user-photo-title'>
                                 Загрузить фото
                             </div>
-                            <LoadPhotoStep1 error={error} isLoading={isLoading} photo={photo} serverUrl={serverUrl}/>
+                            <LoadPhotoStep1 error={error} isLoading={isLoading} photo={photo} serverUrl={serverUrl} isAdmin={isAdminLoad}/>
                         </>
 
                     }
@@ -40,14 +40,14 @@ export const LoadPhotoPopup = ({ isOpen }) => {
                         <>
                             <div className='cross-icon' onClick={hidePopup}></div>
                             <div className='load-user-photo-title'>
-                                Загрузить фото
+                                Подтвердите фото
                             </div>
-                            <LoadPhotoStep2 photo={photo} serverUrl={serverUrl}/>
+                            <LoadPhotoStep2 photo={photo} serverUrl={serverUrl} isAdmin={isAdminLoad}/>
                         </>
                     }
                     {step === 3 &&
                         <>
-                            <LoadPhotoStep3 hidePopup={hidePopup} />
+                            <LoadPhotoStep3 hidePopup={hidePopup} isAdmin={isAdminLoad} />
                         </>
                     }
                 </div>

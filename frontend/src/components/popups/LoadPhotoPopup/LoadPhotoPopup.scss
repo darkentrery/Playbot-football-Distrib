@@ -304,8 +304,76 @@
 .load-user-photo-error-btn {
     @include orangeButton(5px 24px);
     margin-top: 26px;
-    display: block; 
+    display: block;
     border-radius: 50px;
     margin-inline: auto;
     font-size: 12px;
+}
+
+// admin load
+
+.load-user-photo-as-admin {
+    margin-top: 40px;
+    .load-user-photo-as-admin-title {
+        text-align: center;
+        font-family: 'Raleway';
+        font-style: normal;
+        margin-bottom: 12px;
+    }
+    input {
+        position: relative;
+        display: block;
+        margin-inline: auto;
+        padding: 14px 8px 14px 16px;
+        max-width: 332px;
+        width: 100%;
+        border: 0.8px solid #949494;
+        border-radius: 8px;
+    }
+}
+
+.load-user-photo-as-admin-input-wrapper {
+    position: relative;
+}
+
+.load-user-photo-as-admin-user-list-wrapper {
+    position: absolute;
+    bottom: -105px;
+    left: 80px;
+    height: 163px;
+    max-width: 332px;
+    width: 100%;
+    bottom: -174px;
+}
+
+.load-user-photo-as-admin-user-list {
+    border: 0.8px solid #949494;
+    border-radius: 8px;
+    width: 100%;
+    & > div:first-child {
+        border-radius: 8px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    & > div:last-child {
+        border-radius: 8px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+}
+
+.load-user-photo-as-admin-user-item {
+    width: 100%;
+    padding: 14px 8px 14px 16px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover {
+        background-color: #F3F3F4;
+    }
+}
+
+.load-user-photo-step3-admin-button {
+    display: flex;
+    gap: 20px;
 }

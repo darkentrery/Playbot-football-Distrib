@@ -6,9 +6,11 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 
-const LoadPhotoStep2 = ({photo, serverUrl}) => {
+const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch()
-    const {username} = useSelector(state => state.user.user)
+    const { username } = useSelector(state => state.user.user)
+    const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin)
+    console.log(selectedUser)
     const handleChangePhotoClick = () => {
         dispatch(setStateToDefault())
     }
@@ -28,25 +30,25 @@ const LoadPhotoStep2 = ({photo, serverUrl}) => {
         }
     }, [photo1Loading, photo2Loading])
     return (
-        
+
         <>
-            {loader && <LoaderComponent/>}
+            {loader && <LoaderComponent />}
             <div className="load-user-photo-preview">
                 <div className="load-user-photo-preview-frame">
                     <div className="load-user-photo-preview-top-frame" onLoad={() => setPhoto1Loading(false)}>
                         {
                             photo && typeof photo === "string" &&
-                            <img className='load-user-photo-preview-user-img' src={serverUrl + photo} alt="user photo" onLoad={() => setPhoto2Loading(false)}/>
+                            <img className='load-user-photo-preview-user-img' src={serverUrl + photo} alt="user photo" onLoad={() => setPhoto2Loading(false)} />
                         }
                         {
                             photo && typeof photo !== "string" &&
-                            <img className='load-user-photo-preview-user-img' src={URL.createObjectURL(photo)} alt="user photo" onLoad={() => setPhoto2Loading(false)}/>
+                            <img className='load-user-photo-preview-user-img' src={URL.createObjectURL(photo)} alt="user photo" onLoad={() => setPhoto2Loading(false)} />
                         }
                         <div className="load-user-photo-preview-top-frame-fog"></div>
                     </div>
                     <div className="load-user-photo-preview-bottom">
                         <div className="load-user-photo-preview-username">
-                            {username}
+                            {isAdmin ? selectedUser.username : username}
                         </div>
                         <div className="load-user-photo-preview-bottom-stats">
                             <div className='load-user-photo-preview-stats'>
@@ -60,7 +62,10 @@ const LoadPhotoStep2 = ({photo, serverUrl}) => {
                 </div>
             </div>
             <div className="load-user-photo-preview-text-step-2">
-                Так будет выглядеть ваша карточка в сезоне 2023. Вы <b>не сможете</b> изменить фотографию до начала <b>следующего сезона.</b>
+                {isAdmin
+                    ? <span>Так будет выглядеть карточка игрока в сезоне 2023.</span>
+                    : <span dangerouslySetInnerHTML={{ __html: 'Так будет выглядеть ваша карточка в сезоне 2023. Вы <strong>не сможете</strong> изменить фотографию до начала <strong>следующего сезона</strong>.' }} />
+                }
             </div>
             <div className="load-user-photo-preview-buttons-step-2">
                 <button className="load-user-photo-preview-step-2-accept" onClick={handleConfirmPhotoClick}>

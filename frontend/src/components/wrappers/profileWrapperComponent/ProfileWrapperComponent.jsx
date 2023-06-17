@@ -5,6 +5,8 @@ import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideCom
 import {Link, useParams} from "react-router-dom";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
 import {authService} from "../../../services/AuthService";
+import { useDispatch } from "react-redux";
+import { openLoadUserPhotoPopupAsAdmin } from "../../../redux/reducers/loadPhotoReducer";
 
 
 export const ProfileWrapperComponent = ({
@@ -14,7 +16,7 @@ export const ProfileWrapperComponent = ({
     funcs,
 }) => {
     const { pk } = useParams();
-
+    const dispatch = useDispatch();
     useEffect(() => {
         if (!state.event.player || (state.event.player && state.event.player.id !== pk)) {
             funcs.setPlayer(false);
@@ -34,6 +36,10 @@ export const ProfileWrapperComponent = ({
         } else {
             funcs.openCreateEventUnAuth();
         }
+    }
+
+    const handleAdminUserPhotoLoad = () => {
+        dispatch(openLoadUserPhotoPopupAsAdmin())
     }
 
     return (
@@ -64,6 +70,10 @@ export const ProfileWrapperComponent = ({
                             className={`nav-link ${window.location.pathname.includes('personal-data') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                             to={ProfileRoutes.profilePersonalDataLink(pk)}
                         >Личные данные</Link>
+                        <button className="admin-load-user-photo-btn black-500-14 add-photo-icon" onClick={handleAdminUserPhotoLoad}>
+                            Загрузить фото других игроков
+                        </button>
+                        
                     </div>
                     {children}
                 </div>

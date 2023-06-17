@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GoodPhotoExPng from "../../../assets/icon/good-photo-example.jpg"
 import BadPhotoExPng from "../../../assets/icon/bad-photo-example.png"
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
-import { setError, loadPhotoAction } from '../../../redux/reducers/loadPhotoReducer';
+import { setError, loadPhotoAction, setSelectedUserByAdmin } from '../../../redux/reducers/loadPhotoReducer';
 
-const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl}) => {
+const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
+    const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin)
     const [loader, setLoader] = useState(true);
 
     const [photo1Loading, setPhoto1Loading] = useState(true);
@@ -18,6 +19,12 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl}) => {
         }
     }, [photo1Loading, photo2Loading])
 
+    const [searchValue, setSearchValue] = useState('')
+
+    const users = [{ username: "zagre", id: 1 }, { username: "zagreadmin", id: 2 }, { username: "user", id: 3 }, { username: "test4", id: 4 }, { username: "test5", id: 5 }]
+    const filteredUsers = users.filter(user => user.username.toUpperCase().includes(searchValue.toUpperCase()) && user.username !== selectedUser.username).slice(0, 3)
+
+
     const handlePhotoLoad = (e) => {
         dispatch(loadPhotoAction(e.target.files[0]))
     }
@@ -25,6 +32,19 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl}) => {
     const handleRetryClick = () => {
         dispatch(setError(false));
     }
+
+    const handleSearchInput = (e) => {
+        dispatch(setSelectedUserByAdmin({}))
+        setSearchValue(e)
+    }
+
+    const handleSearchSelect = (user) => {
+        setSearchValue(user.username)
+        dispatch(setSelectedUserByAdmin(user))
+    }
+
+    const disableInput = isAdmin && !selectedUser.username && true
+    console.log(disableInput, isAdmin, selectedUser)
     return (
 
         <>
@@ -67,11 +87,31 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl}) => {
                     </div>
                 </div>
             </div>
+            {isAdmin &&
+                <div className="load-user-photo-as-admin">
+                    <div className='black-400-20 load-user-photo-as-admin-title'>Введите username игрока</div>
+                    <div className='load-user-photo-as-admin-input-wrapper'>
+                        <input type="text"  value={searchValue} onChange={(e) => handleSearchInput(e.currentTarget.value)} placeholder='Username' />
+                        {filteredUsers[0] && !selectedUser?.username && searchValue &&
+                            <div className='load-user-photo-as-admin-user-list-wrapper'>
+
+                                <div className='load-user-photo-as-admin-user-list'>
+                                    {filteredUsers?.map(user => (
+                                        <div className='load-user-photo-as-admin-user-item' onClick={() => handleSearchSelect(user)} style={{ borderRadius: filteredUsers.length === 1 && "8px" }} key={user.id}>
+                                            {user.username}
+                                        </div>
+                                    ))}
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>}
             {
                 !error
                     ?
                     <>
-                        <input onChange={handlePhotoLoad} id='load-user-photo-input' type='file' accept='image/*' disabled={isLoading} />
+                        <input onChange={handlePhotoLoad} id='load-user-photo-input' type='file' accept='image/*' disabled={isLoading || disableInput && true} />
                         <label htmlFor="load-user-photo-input" className="load-user-photo-button">
                             {
                                 !photo && <div className='no-photo-icon'></div>
