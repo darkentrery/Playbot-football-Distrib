@@ -35,6 +35,7 @@ export const ONBOARDING_STEP_3_WINDOW = 'ONBOARDING_STEP_3_WINDOW';
 export const SHOW_LOAD_PHOTO_WINDOW = 'SHOW_LOAD_PHOTO_WINDOW';
 
 export const AUTH = 'AUTH';
+export const SET_USER_PHOTO_MODERATION = 'SET_USER_PHOTO_MODERATION'
 
 export const EVENT = 'EVENT';
 export const HIDDEN_MAP = 'HIDDEN_MAP';
@@ -232,7 +233,10 @@ export const auth = (value, user) => ({
   value,
   user,
 });
-
+export const setUserPhotoModeration = (value) => ({
+  type: SET_USER_PHOTO_MODERATION,
+  value,
+})
 
 export const event = (value) => ({
   type: EVENT,

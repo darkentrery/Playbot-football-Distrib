@@ -1,30 +1,112 @@
-import { useDispatch } from 'react-redux';
-import './ProfilePersonalPhoto.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
+import { YesNoComponent } from "../yesNoComponent/YesNoComponent";
 import { showLoadPhotoWindow } from '../../redux/actions/actions';
-
-export const ProfilePersonalPhoto = ({photo, setPhoto}) => {
+import { cancelUserPhotoModeration } from '../../redux/reducers/loadPhotoReducer';
+export const ProfilePersonalPhoto = () => {
     const dispatch = useDispatch()
+    const [showCancelLoadPopup, setShowCancelLoadPopup] = useState(false);
     const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const { media } = useSelector(state => state.user?.user)
+    const photo = media?.user_photo
+    const isModerationFinished = media?.moderation?.finished
+    const photoOnModeration = media?.moderation?.photo
+    const loadPhotoErrorMsg = media?.moderation?.message
+
 
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true))
     }
+    console.log(isModerationFinished)
+
+    const handleCancelLoadPhotoClick = () => {
+        dispatch(cancelUserPhotoModeration())
+    }
+
     return (
-        <div className={"photo-bar"}>
-            <span className={"black-400-14"}>Фотография профиля:</span>
-            <label className={"upload-photo"} onClick={handleLoadPhotoClick}>
-                {!photo && <div className={"el-1 no-photo-icon"}></div>}
-                {photo && typeof photo !== "string" &&
-                    <img alt="not fount" className={"el-1 my-photo"} src={URL.createObjectURL(photo)} />}
-                {photo && typeof photo === "string" &&
-                    <img alt="not fount" className={"el-1 my-photo"} src={serverUrl + photo} />}
-                <div className={"el-2"}>
-                    <span className={"gray-400-14"}>Файл не выбран</span>
-                    <span className={"orange-400-14"}>Загрузить фото</span>
+        <> {/* test */}
+            <YesNoComponent
+                isOpen={showCancelLoadPopup}
+                closeSuccess={() => setShowCancelLoadPopup(false)}
+                title={"Отменить загрузку фото"}
+                text={"Вы уверены, что хотите отменить загрузку фотографии?"}
+                clickSuccess={handleCancelLoadPhotoClick}
+            />
+            {/* фотка есть */}
+            {photoOnModeration &&
+                <div className='photo-bar'>
+                    <div className="photo-bar-user-photo-wrapper">
+                        <div className="photo-bar-user-photo">
+                            {photoOnModeration && typeof photoOnModeration !== "string" &&
+                                <img alt="not fount" src={URL.createObjectURL(photoOnModeration)} />}
+                            {photo && typeof photo === "string" &&
+                                <img alt="not fount" src={serverUrl + photo} />}
+                        </div>
+                        <div className="photo-bar-user-photo-text black-600-16">
+                            Фотография профиля на сезон 23/24
+                        </div>
+                    </div>
                 </div>
-            </label>
-        </div>
+            }
+            {/* на модерации */}
+            {!isModerationFinished && !photo && photoOnModeration &&
+                <div className="photo-bar on-moderation">
+                    <span className="black-400-14">Фотография профиля:</span>
+                    <label className="upload-photo">
+                        {typeof photoOnModeration !== "string" &&
+                            <img height={40} width={40} alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}
+                        {typeof photoOnModeration === "string" &&
+                            <img height={40} width={40} alt="not fount" className="upload-photo-image" src={serverUrl + photoOnModeration} />}
+                        <div className="upload-photo-text">
+                            <span className="gray-400-14">Фотография находится <br /> на модерации</span>
+                            <span className="orange-400-14" onClick={() => { setShowCancelLoadPopup(true) }} style={{ cursor: "pointer" }}>Отменить загрузку</span>
+                        </div>
+                    </label>
+                </div>
+            }
+
+            {/*нету фото, нету модерации */}
+            {!photo && !photoOnModeration && !isModerationFinished &&
+                <div className="photo-bar">
+                    <span className="black-400-14">Фотография профиля:</span>
+                    <label className="upload-photo" onClick={handleLoadPhotoClick}>
+                        {!photo && <div className="upload-photo-image no-photo-icon"></div>}
+                        {photo && typeof photo !== "string" &&
+                            <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photo)} />}
+                        {photo && typeof photo === "string" &&
+                            <img alt="not fount" className="upload-photo-image" src={serverUrl + photo} />}
+                        <div className="upload-photo-text">
+                            <span className="gray-400-14">Файл не выбран</span>
+                            <span className="orange-400-14">Загрузить фото</span>
+                        </div>
+                    </label>
+                </div>
+            }
+            {/* ошибка при модерации */}
+            {!photo && photoOnModeration && !isModerationFinished &&
+                <div className="photo-bar moderation-failed">
+                    <span className="black-400-14">Фотография профиля:</span>
+                    <div className="photo-bar-moderation-tip-content photo-bar-moderation-tip-content-mobile gray-400-14">
+                        {loadPhotoErrorMsg}
+                    </div>
+                    <label className="upload-photo" onClick={handleLoadPhotoClick}>
+                        {typeof photoOnModeration !== "string" &&
+                            <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}
+                        {typeof photoOnModeration === "string" &&
+                            <img alt="not fount" className="upload-photo-image" src={serverUrl + photoOnModeration} />}
+                        <div className="upload-photo-text">
+                            <span className="gray-400-14">Файл не прошёл модерацию</span>
+                            <span className="orange-400-14">Загрузить новое фото</span>
+                        </div>
+                        <div className='photo-bar-moderation-tip red-circle-warning-icon'></div>
+                        <div className="photo-bar-moderation-tip-content gray-400-14">
+                            {loadPhotoErrorMsg}
+                        </div>
+                    </label>
+                </div>
+            }
+        </>
+
     )
 }
 

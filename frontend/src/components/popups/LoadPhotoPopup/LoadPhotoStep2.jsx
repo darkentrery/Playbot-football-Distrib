@@ -1,16 +1,52 @@
+import TempPreviewPng from "../../../assets/icon/temp-preview-photo.png"
+import { confirmPhotoAction, setStateToDefault } from '../../../redux/reducers/loadPhotoReducer';
+import { useDispatch } from "react-redux";
+import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const LoadPhotoStep2 = () => {
+
+const LoadPhotoStep2 = ({photo, serverUrl}) => {
+    const dispatch = useDispatch()
+    const {username} = useSelector(state => state.user.user)
+    const handleChangePhotoClick = () => {
+        dispatch(setStateToDefault())
+    }
+
+    const handleConfirmPhotoClick = () => {
+        dispatch(confirmPhotoAction())
+    }
+
+    const [loader, setLoader] = useState(true);
+
+    const [photo1Loading, setPhoto1Loading] = useState(true);
+    const [photo2Loading, setPhoto2Loading] = useState(true)
+
+    useEffect(() => {
+        if (!photo1Loading && !photo2Loading) {
+            setLoader(false)
+        }
+    }, [photo1Loading, photo2Loading])
     return (
+        
         <>
+            {loader && <LoaderComponent/>}
             <div className="load-user-photo-preview">
                 <div className="load-user-photo-preview-frame">
-                    <div className="load-user-photo-preview-top-frame">
-                        <img className='load-user-photo-preview-user-img' src={TempPreviewPng} alt="" />
+                    <div className="load-user-photo-preview-top-frame" onLoad={() => setPhoto1Loading(false)}>
+                        {
+                            photo && typeof photo === "string" &&
+                            <img className='load-user-photo-preview-user-img' src={serverUrl + photo} alt="user photo" onLoad={() => setPhoto2Loading(false)}/>
+                        }
+                        {
+                            photo && typeof photo !== "string" &&
+                            <img className='load-user-photo-preview-user-img' src={URL.createObjectURL(photo)} alt="user photo" onLoad={() => setPhoto2Loading(false)}/>
+                        }
                         <div className="load-user-photo-preview-top-frame-fog"></div>
                     </div>
                     <div className="load-user-photo-preview-bottom">
                         <div className="load-user-photo-preview-username">
-                            ALEX_MIRAN
+                            {username}
                         </div>
                         <div className="load-user-photo-preview-bottom-stats">
                             <div className='load-user-photo-preview-stats'>
@@ -27,10 +63,10 @@ const LoadPhotoStep2 = () => {
                 Так будет выглядеть ваша карточка в сезоне 2023. Вы <b>не сможете</b> изменить фотографию до начала <b>следующего сезона.</b>
             </div>
             <div className="load-user-photo-preview-buttons-step-2">
-                <button className="load-user-photo-preview-step-2-accept">
+                <button className="load-user-photo-preview-step-2-accept" onClick={handleConfirmPhotoClick}>
                     Подтвердить фото
                 </button>
-                <button className="load-user-photo-preview-step-2-decline">
+                <button className="load-user-photo-preview-step-2-decline" onClick={handleChangePhotoClick}>
                     Изменить фото
                 </button>
             </div>

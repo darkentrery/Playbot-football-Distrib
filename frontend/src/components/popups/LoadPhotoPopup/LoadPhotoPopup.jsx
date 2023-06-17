@@ -1,4 +1,3 @@
-import './LoadPhotoPopup.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 import { showLoadPhotoWindow } from '../../../redux/actions/actions';
@@ -9,7 +8,7 @@ import LoadPhotoStep3 from './LoadPhotoStep3';
 
 export const LoadPhotoPopup = ({ isOpen }) => {
     const dispatch = useDispatch();
-
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const { step, photo, error, isLoading } = useSelector(state => state.loadPhoto)
 
@@ -26,14 +25,14 @@ export const LoadPhotoPopup = ({ isOpen }) => {
             ariaHideApp={false}
         >
             <div className='popup-fon'>
-                <div className={"load-user-photo loader"}>
+                <div className={"load-user-photo loader" + (step === 3 ? " load-user-photo-step3" : "")}>
                     {step === 1 &&
                         <>
                             <div className='cross-icon' onClick={hidePopup}></div>
                             <div className='load-user-photo-title'>
                                 Загрузить фото
                             </div>
-                            <LoadPhotoStep1 error={error} isLoading={isLoading} photo={photo} />
+                            <LoadPhotoStep1 error={error} isLoading={isLoading} photo={photo} serverUrl={serverUrl}/>
                         </>
 
                     }
@@ -43,12 +42,12 @@ export const LoadPhotoPopup = ({ isOpen }) => {
                             <div className='load-user-photo-title'>
                                 Загрузить фото
                             </div>
-                            <LoadPhotoStep2 />
+                            <LoadPhotoStep2 photo={photo} serverUrl={serverUrl}/>
                         </>
                     }
                     {step === 3 &&
                         <>
-                            <LoadPhotoStep3 />
+                            <LoadPhotoStep3 hidePopup={hidePopup} />
                         </>
                     }
                 </div>

@@ -3,12 +3,11 @@ import { useDispatch } from 'react-redux';
 import GoodPhotoExPng from "../../../assets/icon/good-photo-example.jpg"
 import BadPhotoExPng from "../../../assets/icon/bad-photo-example.png"
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
-import { setPhoto, setError, setIsLoading } from '../../../redux/reducers/loadPhotoReducer';
+import { setError, loadPhotoAction } from '../../../redux/reducers/loadPhotoReducer';
 
-const LoadPhotoStep1 = ({ error, isLoading, photo}) => {
+const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl}) => {
     const dispatch = useDispatch();
     const [loader, setLoader] = useState(true);
-    const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const [photo1Loading, setPhoto1Loading] = useState(true);
     const [photo2Loading, setPhoto2Loading] = useState(true);
@@ -20,8 +19,7 @@ const LoadPhotoStep1 = ({ error, isLoading, photo}) => {
     }, [photo1Loading, photo2Loading])
 
     const handlePhotoLoad = (e) => {
-        dispatch(setPhoto(e.target.files[0]));
-        dispatch(setIsLoading(true));
+        dispatch(loadPhotoAction(e.target.files[0]))
     }
 
     const handleRetryClick = () => {

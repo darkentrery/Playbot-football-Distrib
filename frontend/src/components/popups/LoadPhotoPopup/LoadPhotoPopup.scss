@@ -18,10 +18,11 @@
         cursor: pointer;
     }
     &.loader {
-        
+        border-radius: 10px !important;
         .loader-component {
-            border-radius: 10px;
+            border-radius: 10px !important;
             background: white;
+            border-radius: 10px;
         }
     }
 }
@@ -143,9 +144,13 @@
     font-style: normal;
     font-weight: 700;
     font-size: 23.3918px;
+    text-align: center;
     line-height: 95.4%;
     color: #e2b184;
-    text-align: center;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-inline: auto;
 }
 
 .load-user-photo-preview-decor-square {
@@ -204,6 +209,11 @@
         font-weight: 500;
         font-size: 16px;
         width: max-content;
+        transition: 0.3s;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+        }
     }
 }
 
