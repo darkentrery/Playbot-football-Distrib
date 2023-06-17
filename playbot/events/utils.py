@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from itertools import combinations
 
 from django.db.models import QuerySet
@@ -159,20 +160,40 @@ def auto_distribution(event: Event) -> list[dict]:
     return teams
 
 
+@dataclass
+class Proportion:
+    min: int
+    max: int
+    win_proportion: int
+    rank_proportion: int
+
+
 class RankCalculation:
     proportions = [
-        {"min": 0, "max": 10, "win_proportion": 10, "rank_proportion": 90},
-        {"min": 11, "max": 20, "win_proportion": 15, "rank_proportion": 85},
-        {"min": 21, "max": 30, "win_proportion": 20, "rank_proportion": 80},
-        {"min": 31, "max": 40, "win_proportion": 25, "rank_proportion": 75},
-        {"min": 41, "max": 50, "win_proportion": 30, "rank_proportion": 70},
-        {"min": 51, "max": 60, "win_proportion": 35, "rank_proportion": 65},
-        {"min": 61, "max": 70, "win_proportion": 40, "rank_proportion": 60},
-        {"min": 71, "max": 80, "win_proportion": 45, "rank_proportion": 55},
-        {"min": 81, "max": 90, "win_proportion": 50, "rank_proportion": 50},
-        {"min": 91, "max": 100, "win_proportion": 55, "rank_proportion": 45},
-        {"min": 101, "max": 200, "win_proportion": 60, "rank_proportion": 40},
-        {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
+        Proportion(0, 10, 10, 90),
+        Proportion(11, 20, 15, 85),
+        Proportion(21, 30, 20, 80),
+        Proportion(31, 40, 25, 75),
+        Proportion(41, 50, 30, 70),
+        Proportion(51, 60, 35, 65),
+        Proportion(61, 70, 40, 60),
+        Proportion(71, 80, 45, 55),
+        Proportion(81, 90, 50, 50),
+        Proportion(91, 100, 55, 45),
+        Proportion(101, 200, 60, 40),
+        Proportion(201, 1000, 70, 30),
+        # {"min": 0, "max": 10, "win_proportion": 10, "rank_proportion": 90},
+        # {"min": 11, "max": 20, "win_proportion": 15, "rank_proportion": 85},
+        # {"min": 21, "max": 30, "win_proportion": 20, "rank_proportion": 80},
+        # {"min": 31, "max": 40, "win_proportion": 25, "rank_proportion": 75},
+        # {"min": 41, "max": 50, "win_proportion": 30, "rank_proportion": 70},
+        # {"min": 51, "max": 60, "win_proportion": 35, "rank_proportion": 65},
+        # {"min": 61, "max": 70, "win_proportion": 40, "rank_proportion": 60},
+        # {"min": 71, "max": 80, "win_proportion": 45, "rank_proportion": 55},
+        # {"min": 81, "max": 90, "win_proportion": 50, "rank_proportion": 50},
+        # {"min": 91, "max": 100, "win_proportion": 55, "rank_proportion": 45},
+        # {"min": 101, "max": 200, "win_proportion": 60, "rank_proportion": 40},
+        # {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
     ]
 
     def __init__(self, user: User, event: Event) -> None:
@@ -181,8 +202,8 @@ class RankCalculation:
 
     def get_proportion(self) -> tuple[float, float]:
         for proportion in self.proportions:
-            if proportion["min"] <= self.user.all_games <= proportion["max"]:
-                return proportion["win_proportion"], proportion["rank_proportion"]
+            if proportion.min <= self.user.all_games <= proportion.max:
+                return proportion.win_proportion, proportion.rank_proportion
         return 0, 100
 
     @staticmethod
@@ -253,15 +274,15 @@ class RankCalculation:
             k_goal = self.get_k_goal(win_goals, loss_goals)
             result = self.event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration
             result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
-            logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
+            # logger.info(f"result_sum += event.format.rate * event_game.result_1 * k_goal * time_sum / event_duration")
+            # logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_1=}, {k_goal=}, {time_sum=}, {event_duration=}")
         for event_game in user_team.event_games_teams_2.all():
             win_goals, loss_goals = self.get_wins_loss_goals(event_game.score_2, event_game.score_1, event_game.result_2)
             k_goal = self.get_k_goal(win_goals, loss_goals)
             result = self.event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration
             result_sum += result
-            logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
-            logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
+            # logger.info(f"result_sum += event.format.rate * event_game.result_2 * k_goal * time_sum / event_duration")
+            # logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
         return result_sum
 
     def get_next_rank(self, recalculate: bool = False) -> float:
@@ -277,11 +298,11 @@ class RankCalculation:
         time_sum = self.get_time_sum(user_team)
         result_sum = self.get_result_sum(user_team, time_sum, event_duration)
 
-        logger.info(f"{result_sum=}")
+        # logger.info(f"{result_sum=}")
 
         rank = (rank_fact + result_sum * 0.5 + unique_rivals * 0.01 + rate * 0.001) * self.user.involvement * (100 - self.user.penalty) * 0.01
-        logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
-        logger.info(f"username= {self.user.email}, {rank=}")
+        # logger.info(f"{rank_fact=}, {result_sum=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
+        # logger.info(f"username= {self.user.email}, {rank=}")
         win_proportion, rank_proportion = self.get_proportion()
         total_rank = (win_proportion * self.user.wins_percent + rank_proportion * rank) / 100
         logger.info(f"{win_proportion=}, {rank_proportion=}, {self.user.wins_percent=}, {total_rank=}\n")

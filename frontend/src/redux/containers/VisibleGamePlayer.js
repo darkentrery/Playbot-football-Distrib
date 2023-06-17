@@ -10,7 +10,7 @@ import {
   loginWindow,
   hiddenMap,
   team,
-  endGameWindow, game, playerBlock
+  endGameWindow, game, playerBlock, sendSocketMessage
 } from "../actions/actions";
 import {connect} from "react-redux";
 import {GamePlayerComponent} from "../../components/pages/gamePlayerComponent/GamePlayerComponent";
@@ -73,6 +73,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setPlayerBlock: (value) => {
         dispatch(playerBlock(value));
+      },
+      setSendSocketMessage: (value) => {
+        dispatch(sendSocketMessage(value));
       },
     }
   };

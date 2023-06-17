@@ -1,20 +1,17 @@
 import {YesNoComponent} from "../yesNoComponent/YesNoComponent";
-import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
-import {eventService} from "../../services/EventService";
 
 
-export const EndEventComponent = ({isOpen, event, closeComponent, setEvent}) => {
+export const EndEventComponent = ({isOpen, event, closeComponent, setEvent, sendSocketMessage}) => {
     const clickSuccess = () => {
       closeComponent();
     }
     const clickEndEvent = () => {
-        // setIsEndEvent(true);
-        setEvent(false);
-        authDecoratorWithoutLogin(eventService.endEvent, {"id": event.id}).then((response) => {
-            if (response.status === 200) {
-                setEvent(response.data);
-            }
-        })
+        if (sendSocketMessage) {
+            sendSocketMessage({
+                type: "end_event",
+                event
+            })
+        }
     }
     
     return (

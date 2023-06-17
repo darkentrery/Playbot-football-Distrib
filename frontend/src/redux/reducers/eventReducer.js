@@ -5,7 +5,7 @@ import {
     PLAYER,
     PLAYER_BLOCK,
     PLAYERS,
-    SAME_EVENTS,
+    SAME_EVENTS, SEND_SOCKET_MESSAGE,
     STEPS,
     TEAM
 } from "../actions/actions";
@@ -20,6 +20,7 @@ const initialEventState = {
     sameEvents: [],
     game: false,
     playerBlock: true,
+    sendSocketMessage: false,
 }
 
 export const event = (state = initialEventState, action) => {
@@ -68,6 +69,11 @@ export const event = (state = initialEventState, action) => {
           return {
               ...state,
               playerBlock: action.value,
+          };
+      case SEND_SOCKET_MESSAGE:
+          return {
+              ...state,
+              sendSocketMessage: action.value,
           };
       default:
           return state;

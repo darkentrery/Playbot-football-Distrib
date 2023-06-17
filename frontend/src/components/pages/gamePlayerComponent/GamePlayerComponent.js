@@ -27,7 +27,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const [goal2Player, setGoal2Player] = useState(false);
     const [players1Pass, setPlayers1Pass] = useState([]);
     const [players2Pass, setPlayers2Pass] = useState([]);
-    const [socketState, setSocketState] = useState(false);
     const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
     // const [block, setBlock] = useState(false);
@@ -56,10 +55,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             setIsPlay(null)
         }
         console.log(game)
-
-        if (gameId && event) {
-
-        }
     }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
@@ -90,8 +85,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
 
     useEffect(() => {
         if (restTimeEnd && restTimeEnd > restTime) {
-            console.log(restTime)
-            console.log(restTimeEnd)
+            // console.log(restTime)
+            // console.log(restTimeEnd)
             let seconds = (event.duration.duration * 60 - restTimeEnd) % 60;
             let minutes = (((event.duration.duration * 60 - restTimeEnd) - seconds) / 60);
             setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
@@ -114,13 +109,10 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     funcs.setPlayerBlock(true);
                     // setBlock(true);
                     setIsPlay(false);
-                    authDecoratorWithoutLogin(eventService.endGame, game).then((response) => {
-                        console.log(response.data)
-                        if (response.status === 200) {
-                            funcs.setGame(response.data.game);
-                            funcs.setEvent(response.data.event);
-                        }
-                    })
+                    sendJsonMessage({
+                        type: 'end_game',
+                        game,
+                    });
                     clearTimeout(interval);
                 }
             }, 990);
@@ -136,10 +128,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 type: 'begin_game_period',
                 game,
             });
-            // authDecoratorWithoutLogin(eventService.beginGamePeriod, game).then((response) => {
-            //     console.log(response.data)
-            //     if (response.status === 200) {funcs.setPlayerBlock(false);}
-            // })
         }
     }
 
@@ -154,10 +142,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 type: 'end_game_period',
                 game,
             });
-            // authDecoratorWithoutLogin(eventService.endGamePeriod, game).then((response) => {
-            //     console.log(response.data)
-            //     if (response.status === 200) {funcs.setPlayerBlock(false);}
-            // })
         }
     }
 
@@ -177,13 +161,10 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             setRestTimeEnd(restTime);
             if (player) data.player = player.player.id;
             if (assistant) data.assistant = assistant.player.id;
-            authDecoratorWithoutLogin(eventService.createGoal, data).then((response) => {
-                console.log(response.data)
-                if (response.status === 200) {
-                    funcs.setPlayerBlock(false);
-                    funcs.setGame(response.data);
-                }
-            })
+            sendJsonMessage({
+                type: 'create_goal',
+                data: data,
+            });
         }
     }
 
@@ -274,7 +255,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     }
 
     const { sendJsonMessage } = useWebSocket(
-        user.isAuth ? `${SOCKET_URL}event-game/${game.id}/` : null,
+        user.isAuth && game ? `${SOCKET_URL}event-game/${game.id}/` : null,
         {
             queryParams: {
                 Authorization: user.isAuth
@@ -287,8 +268,12 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         }
     );
 
+    useEffect(() => {
+        funcs.setSendSocketMessage(sendJsonMessage);
+    }, [sendJsonMessage])
+
     const { readyState } = useWebSocket(
-        user.isAuth ? `${SOCKET_URL}event-game/${game.id}/` : null,
+        user.isAuth && game ? `${SOCKET_URL}event-game/${game.id}/` : null,
         {
             queryParams: {
                 Authorization: user.isAuth
@@ -310,6 +295,12 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     case 'game_message':
                         console.log(data);
                         funcs.setGame(data.game);
+                        funcs.setPlayerBlock(false);
+                        break;
+                    case 'event_game_message':
+                        console.log(data);
+                        funcs.setGame(data.game);
+                        funcs.setEvent(data.event);
                         funcs.setPlayerBlock(false);
                         break;
                     default:
@@ -402,7 +393,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     </div>
                     {game.goals.length !== 0 && <div className={"elem elem-5"}>
                         {game.goals.map((goal, key) => (
-                            <GoalRowComponent goal={goal} event={event} team1={game.team_1} team2={game.team_2} key={key} funcs={funcs}/>
+                            <GoalRowComponent goal={goal} event={event} team1={game.team_1} team2={game.team_2} key={key}
+                                              funcs={funcs} sendSocketMessage={sendJsonMessage}/>
                         ))}
                     </div>}
                 </div>
