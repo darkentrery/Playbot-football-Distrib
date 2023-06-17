@@ -124,3 +124,46 @@
     font-family: 'Raleway';
     font-style: normal;
 }
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+    .photo-bar-moderation-tip-content-mobile {
+        display: block;
+    }
+    .photo-bar.moderation-failed .upload-photo {
+        .photo-bar-moderation-tip-content {
+            display: none !important;
+        }
+    }
+}
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+    .photo-bar-moderation-tip-content-mobile {
+        display: block;
+    }
+    .photo-bar-moderation-tip-content {
+        max-width: 100%;
+    }
+    .photo-bar.moderation-failed .upload-photo {
+        
+        .photo-bar-moderation-tip-content {
+            display: none !important;
+            max-width: 100%;
+        }
+        .upload-photo-text {
+            .orange-400-14 {
+                width: max-content;
+            }
+        }
+    }
+    .photo-bar .upload-photo {
+        width: 100%;
+        .gray-400-14 {
+            br {
+                display: none;
+            }
+        }
+    }
+    .photo-bar-user-photo-wrapper {
+        width: 100%;
+    }
+}

@@ -6,8 +6,10 @@ import { cancelUserPhotoModeration } from '../../redux/reducers/loadPhotoReducer
 export const ProfilePersonalPhoto = () => {
     const dispatch = useDispatch()
     const [showCancelLoadPopup, setShowCancelLoadPopup] = useState(false);
+    const [isErrorTooltip, setIsErrorTooltip] = useState(false)
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const { media } = useSelector(state => state.user?.user)
+    console.log("user media", media)
     const photo = media?.user_photo
     const isModerationFinished = media?.moderation?.finished
     const photoOnModeration = media?.moderation?.photo
@@ -17,7 +19,6 @@ export const ProfilePersonalPhoto = () => {
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true))
     }
-    console.log(isModerationFinished)
 
     const handleCancelLoadPhotoClick = () => {
         dispatch(cancelUserPhotoModeration())
@@ -69,7 +70,7 @@ export const ProfilePersonalPhoto = () => {
             {!photo && !photoOnModeration && !isModerationFinished &&
                 <div className="photo-bar">
                     <span className="black-400-14">Фотография профиля:</span>
-                    <label className="upload-photo" onClick={handleLoadPhotoClick}>
+                    <label className="upload-photo">
                         {!photo && <div className="upload-photo-image no-photo-icon"></div>}
                         {photo && typeof photo !== "string" &&
                             <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photo)} />}
@@ -77,7 +78,7 @@ export const ProfilePersonalPhoto = () => {
                             <img alt="not fount" className="upload-photo-image" src={serverUrl + photo} />}
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Файл не выбран</span>
-                            <span className="orange-400-14">Загрузить фото</span>
+                            <span className="orange-400-14" onClick={handleLoadPhotoClick}>Загрузить фото</span>
                         </div>
                     </label>
                 </div>
@@ -86,19 +87,21 @@ export const ProfilePersonalPhoto = () => {
             {!photo && photoOnModeration && !isModerationFinished &&
                 <div className="photo-bar moderation-failed">
                     <span className="black-400-14">Фотография профиля:</span>
-                    <div className="photo-bar-moderation-tip-content photo-bar-moderation-tip-content-mobile gray-400-14">
-                        {loadPhotoErrorMsg}
-                    </div>
-                    <label className="upload-photo" onClick={handleLoadPhotoClick}>
+                    {isErrorTooltip &&
+                        <div className='photo-bar-moderation-tip-content photo-bar-moderation-tip-content-mobile gray-400-14'>
+                            {loadPhotoErrorMsg}
+                        </div>
+                    }
+                    <label className="upload-photo">
                         {typeof photoOnModeration !== "string" &&
                             <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}
                         {typeof photoOnModeration === "string" &&
                             <img alt="not fount" className="upload-photo-image" src={serverUrl + photoOnModeration} />}
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Файл не прошёл модерацию</span>
-                            <span className="orange-400-14">Загрузить новое фото</span>
+                            <span className="orange-400-14" onClick={handleLoadPhotoClick}>Загрузить новое фото</span>
                         </div>
-                        <div className='photo-bar-moderation-tip red-circle-warning-icon'></div>
+                        <div className='photo-bar-moderation-tip red-circle-warning-icon' onClick={() => {setIsErrorTooltip(!isErrorTooltip)}}></div>
                         <div className="photo-bar-moderation-tip-content gray-400-14">
                             {loadPhotoErrorMsg}
                         </div>

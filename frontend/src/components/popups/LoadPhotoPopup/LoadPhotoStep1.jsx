@@ -44,7 +44,6 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     }
 
     const disableInput = isAdmin && !selectedUser.username && true
-    console.log(disableInput, isAdmin, selectedUser)
     return (
 
         <>

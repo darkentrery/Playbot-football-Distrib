@@ -74,10 +74,12 @@ export const {
 export const loadPhotoAction = (photoData) => async (dispatch) => {
     dispatch(setIsLoading(true));
     try {
-        // запрос
+        
+
         if (!/png|jpg|heic/.test(photoData.name.split('.').pop()))
             throw new Error('Такой формат не поддерживается.');
-
+        //запрос который отсылает фотку на обработку беком
+        //await результ и запихнуть в диспатч ниже 
         dispatch(setPhoto(photoData));
         setTimeout(() => {
             dispatch(setStep(2));
@@ -91,25 +93,20 @@ export const loadPhotoAction = (photoData) => async (dispatch) => {
 
 export const confirmPhotoAction = () => async (dispatch, getState) => {
     try {
-        const {photo, isAdminLoad} = getState();
+        const state = getState();
+        const {isAdminLoad, photo} = state.loadPhoto
         // запрос на подтверждение фотки start
+        console.log("state", state)
         if (isAdminLoad) {
+            console.log('admin load action')
             // запрос админской загрузки
             dispatch(setStep(3))
         } else {
+            console.log('user load action')
             // запрос обычного пользователя загрузки
             dispatch(setStep(3));
-            dispatch(
-                // dispatch(setUserPhotoModeration({finished: false, photo: photo}));
-                setUserPhotoModeration({
-                    finished: false,
-                    photo: photo,
-                    message:
-                        'Такой формат не поддерживается. Поддерживаемые форматы: PNG, JPG, HEIC',
-                })
-            );
+            dispatch(setUserPhotoModeration({finished: false,photo: photo, message:'Такой формат не поддерживается. Поддерживаемые форматы: PNG, JPG, HEIC',}));
         }
-        // запрос на подтверждение фотки end
     } catch (error) {
         console.log(error);
     }

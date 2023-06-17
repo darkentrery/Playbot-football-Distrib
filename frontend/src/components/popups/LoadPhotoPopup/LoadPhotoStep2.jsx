@@ -10,7 +10,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch()
     const { username } = useSelector(state => state.user.user)
     const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin)
-    console.log(selectedUser)
+    
     const handleChangePhotoClick = () => {
         dispatch(setStateToDefault())
     }
@@ -64,7 +64,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
             <div className="load-user-photo-preview-text-step-2">
                 {isAdmin
                     ? <span>Так будет выглядеть карточка игрока в сезоне 2023.</span>
-                    : <span dangerouslySetInnerHTML={{ __html: 'Так будет выглядеть ваша карточка в сезоне 2023. Вы <strong>не сможете</strong> изменить фотографию до начала <strong>следующего сезона</strong>.' }} />
+                    : <span dangerouslySetInnerHTML={{ __html: 'Так будет выглядеть ваша карточка в сезоне 2023. <br/> Вы <strong>не сможете</strong> изменить фотографию до начала <strong>следующего сезона</strong>.' }} />
                 }
             </div>
             <div className="load-user-photo-preview-buttons-step-2">

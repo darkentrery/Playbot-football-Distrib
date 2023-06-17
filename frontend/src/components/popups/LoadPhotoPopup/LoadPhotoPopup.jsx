@@ -16,7 +16,6 @@ export const LoadPhotoPopup = ({ isOpen }) => {
         dispatch(setStateToDefault())
         dispatch(showLoadPhotoWindow(false))
     }
-    console.log(useSelector(state => state.loadPhoto), 'loadphotostate')
     return (
         <Modal
             isOpen={isOpen}

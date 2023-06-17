@@ -253,6 +253,9 @@
     text-align: center;
     color: #1b1b1b;
     max-width: var(--max-width);
+    br {
+        display: none;
+    }
 }
 
 .load-user-photo-step3-text-2 {
@@ -376,4 +379,65 @@
 .load-user-photo-step3-admin-button {
     display: flex;
     gap: 20px;
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+
+}
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+    .load-user-photo-example {
+        img {
+            width: 138px;
+            height: 132px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .load-photo-example-text {
+        font-size: 14px;
+        line-height: 120%;
+    }
+
+    .load-user-photo-button {
+        width: 258px;
+    }
+
+    .load-photo-supported-formats {
+        letter-spacing: 0.2px;
+    }
+
+    .load-user-photo-error-format {
+        margin-inline: auto;
+        width: 200px;
+        text-align: center;
+        letter-spacing: 0.4px;
+    }
+
+    .load-user-photo-error-btn {
+        padding: 13px 24px;
+    }
+    .load-user-photo-preview-text-step-2 {
+        width: 312px;
+    }
+    .load-user-photo-preview-buttons-step-2 {
+        button {
+            padding: 14px 8px;
+        }
+    }
+    
+    .load-user-photo-step3-text-1{
+        width: 250px;
+        margin-inline: auto;
+        br {
+            display: unset;
+        }
+    }
+    .load-user-photo-step3-text-2{
+        width: 300px;
+    }
+
+    .load-user-photo-as-admin-user-list-wrapper {
+        left: 0px;
+    }
 }
