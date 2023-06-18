@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { setIsAdminLoad } from '../../../redux/reducers/loadPhotoReducer';
 
 
 const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
@@ -11,7 +12,10 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
     
     const handleChangePhotoClick = () => {
-        dispatch(setStateToDefault())
+        if (isAdmin) {
+            dispatch(setStateToDefault())
+            dispatch(setIsAdminLoad(true))
+        }
     }
 
     const handleConfirmPhotoClick = () => {
