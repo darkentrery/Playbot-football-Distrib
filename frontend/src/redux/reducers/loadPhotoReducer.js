@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-    auth, player,
     setUserPhotoModeration,
     showLoadPhotoWindow,
 } from '../actions/actions';

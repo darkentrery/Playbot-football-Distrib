@@ -15,7 +15,11 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     }
 
     const handleConfirmPhotoClick = () => {
-        dispatch(confirmPhotoAction(user));
+        if (isAdmin) {
+            dispatch(confirmPhotoAction(selectedUser));
+        } else {
+            dispatch(confirmPhotoAction(user));
+        }
     }
 
     const [loader, setLoader] = useState(true);

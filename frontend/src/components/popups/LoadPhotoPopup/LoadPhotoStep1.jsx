@@ -4,15 +4,28 @@ import GoodPhotoExPng from "../../../assets/icon/good-photo-example.jpg"
 import BadPhotoExPng from "../../../assets/icon/bad-photo-example.png"
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
 import { setError, loadPhotoAction, setSelectedUserByAdmin } from '../../../redux/reducers/loadPhotoReducer';
+import {authService} from "../../../services/AuthService";
 
 const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
     const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
     const user = useSelector(state => state.user.user);
     const [loader, setLoader] = useState(true);
+    const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    const { isOpenLoadPhoto } = useSelector(state => state.windows);
 
     const [photo1Loading, setPhoto1Loading] = useState(true);
     const [photo2Loading, setPhoto2Loading] = useState(true);
+
+    useEffect(() => {
+        if (isOpenLoadPhoto) {
+            authService.getUsers().then((response) => {
+                setUsers(response.data)
+                console.log(response.data)
+            });
+        }
+    }, [isOpenLoadPhoto])
 
     useEffect(() => {
         if (!photo1Loading && !photo2Loading) {
@@ -20,14 +33,14 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
         }
     }, [photo1Loading, photo2Loading])
 
-    const [searchValue, setSearchValue] = useState('')
-
-    const users = [{ username: "zagre", id: 1 }, { username: "zagreadmin", id: 2 }, { username: "user", id: 3 }, { username: "test4", id: 4 }, { username: "test5", id: 5 }]
-    const filteredUsers = users.filter(user => user.username.toUpperCase().includes(searchValue.toUpperCase()) && user.username !== selectedUser.username).slice(0, 3)
-
+    const [searchValue, setSearchValue] = useState('');
 
     const handlePhotoLoad = (e) => {
-        dispatch(loadPhotoAction(e.target.files[0], user))
+        if (isAdmin) {
+            dispatch(loadPhotoAction(e.target.files[0], {username: searchValue}));
+        } else {
+            dispatch(loadPhotoAction(e.target.files[0], user));
+        }
     }
 
     const handleRetryClick = () => {
@@ -35,13 +48,15 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     }
 
     const handleSearchInput = (e) => {
-        dispatch(setSelectedUserByAdmin({}))
-        setSearchValue(e)
+        dispatch(setSelectedUserByAdmin({}));
+        setSearchValue(e);
+        let filtered = users.filter(user => user.username.toUpperCase().includes(e.toUpperCase()) && user.username !== selectedUser.username).slice(0, 3);
+        setFilteredUsers(filtered);
     }
 
     const handleSearchSelect = (user) => {
-        setSearchValue(user.username)
-        dispatch(setSelectedUserByAdmin(user))
+        setSearchValue(user.username);
+        dispatch(setSelectedUserByAdmin(user));
     }
 
     const disableInput = isAdmin && !selectedUser.username && true

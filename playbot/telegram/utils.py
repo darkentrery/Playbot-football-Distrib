@@ -1,4 +1,7 @@
-from aiogram import Bot
+import pathlib
+from io import BytesIO
+
+from aiogram import Bot, types
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from loguru import logger
@@ -103,10 +106,15 @@ async def update_announce(announce: Announce, event: Event) -> None:
 @async_to_sync
 async def send_photo_for_moderation(user: User) -> None:
     try:
-        bot_is_member = await bot.get_chat_member(chat_id="1338438926", user_id=bot.id)
+        bot_is_member = await bot.get_chat_member(chat_id=settings.TELEGRAM_MODERATOR_ID, user_id=bot.id)
         if bot_is_member.status in ["administrator", "member"]:
-            text = user.username
-            message = await bot.send_message("1338438926", text)
+            with open(user.photo.path, "rb") as photo:
+                img = BytesIO(photo.read())
+                img.name = "card.png"
+                kb = types.InlineKeyboardMarkup()
+                kb.row(types.InlineKeyboardButton("✅ Одобрить", callback_data=f"playerAvatarVerify_{user.id}"))
+                kb.row(types.InlineKeyboardButton("❌ Отклонить", callback_data=f"playerAvatarDecline_{user.id}"))
+                await bot.send_document(chat_id=settings.TELEGRAM_MODERATOR_ID, document=img, reply_markup=kb)
 
         if bot_is_member.status in ["left", "kicked"]:
             logger.debug(f"Bot {bot.id} {bot_is_member.status=}")

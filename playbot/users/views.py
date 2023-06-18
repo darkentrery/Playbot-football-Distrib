@@ -288,7 +288,7 @@ class CheckUserPhotoView(APIView):
 
     def post(self, request, format='json'):
         try:
-            user = User.objects.get(id=request.data["id"])
+            user = User.objects.get(username=request.data["username"])
             if request.user.id == user.id or request.user.is_superuser:
                 photo = request.data["upload_photo"]
                 errors = PhotoErrorSerializer(PhotoError.objects.all(), many=True).data
