@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from playbot.events.models import Event
 from playbot.telegram.models import Announce, TelegramChannel
+from playbot.users.models import User
 
 bot = Bot(token=settings.SOCIAL_AUTH_TELEGRAM_BOT_TOKEN)
 
@@ -92,6 +93,21 @@ async def update_announce(announce: Announce, event: Event) -> None:
         if bot_is_member.status == "administrator":
             text = await sync_to_async(lambda: get_message_for_announce(event))()
             await bot.edit_message_text(text=text, chat_id=channel_id, message_id=announce.message_id, parse_mode="html")
+        if bot_is_member.status in ["left", "kicked"]:
+            logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
+    except Exception as e:
+        logger.debug(f"Bot {bot.id} {e}")
+
+
+@logger.catch
+@async_to_sync
+async def send_photo_for_moderation(user: User) -> None:
+    try:
+        bot_is_member = await bot.get_chat_member(chat_id="1338438926", user_id=bot.id)
+        if bot_is_member.status in ["administrator", "member"]:
+            text = user.username
+            message = await bot.send_message("1338438926", text)
+
         if bot_is_member.status in ["left", "kicked"]:
             logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
     except Exception as e:

@@ -3,6 +3,8 @@ import {
     setUserPhotoModeration,
     showLoadPhotoWindow,
 } from '../actions/actions';
+import {authService} from "../../services/AuthService";
+import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 const initialState = {
     step: 1,
@@ -71,32 +73,37 @@ export const {
     setSelectedUserByAdmin,
 } = loadPhotoSlice.actions;
 
-export const loadPhotoAction = (photoData) => async (dispatch) => {
+export const loadPhotoAction = (photoData, user) => async (dispatch) => {
     dispatch(setIsLoading(true));
     try {
-        
-
-        if (!/png|jpg|heic/.test(photoData.name.split('.').pop()))
+        if (!/png|jpg|heic/.test(photoData.name.split('.').pop())) {
             throw new Error('Такой формат не поддерживается.');
-        //запрос который отсылает фотку на обработку беком
-        //await результ и запихнуть в диспатч ниже 
-        dispatch(setPhoto(photoData));
-        setTimeout(() => {
-            dispatch(setStep(2));
-            dispatch(setIsLoading(false));
-        }, 500);
+        }
+        let response = await authDecoratorWithoutLogin(authService.checkUserPhoto, {...user, upload_photo: photoData});
+        if (response.data.errors.length) {
+            let errors = response.errors.data.map((error) => error.name);
+            throw new Error(errors.join(", "));
+        } else {
+            dispatch(setPhoto(response.data.photo));
+            setTimeout(() => {
+                dispatch(setStep(2));
+                dispatch(setIsLoading(false));
+            }, 500);
+        }
     } catch (error) {
         dispatch(setError(error.message));
         dispatch(setIsLoading(false));
     }
 };
 
-export const confirmPhotoAction = () => async (dispatch, getState) => {
+export const confirmPhotoAction = (user) => async (dispatch, getState) => {
     try {
         const state = getState();
-        const {isAdminLoad, photo} = state.loadPhoto
+        const {isAdminLoad, photo} = state.loadPhoto;
         // запрос на подтверждение фотки start
         console.log("state", state)
+        let response = await authDecoratorWithoutLogin(authService.confirmUserPhoto, user);
+        console.log(response)
         if (isAdminLoad) {
             console.log('admin load action')
             // запрос админской загрузки

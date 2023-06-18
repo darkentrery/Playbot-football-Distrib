@@ -34,6 +34,7 @@ urlpatterns = [
     path("api/get-user/<int:pk>/", views.GetUserView.as_view(), name='get-user'),
     path("api/update-user/", views.UpdateUserView.as_view(), name='update-user'),
     path("api/check-user-photo/", views.CheckUserPhotoView.as_view(), name='check-user-photo'),
+    path("api/confirm-user-photo/", views.ConfirmUserPhotoView.as_view(), name='confirm-user-photo'),
     path("api/first-login/", views.FirstLoginView.as_view(), name='first-login'),
     path("api/update-photo-username/", views.UpdatePhotoUsernameView.as_view(), name='update-photo-username'),
     path("api/update-password/", views.UpdatePasswordView.as_view(), name='update-password'),

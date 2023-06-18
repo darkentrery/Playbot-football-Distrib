@@ -11,11 +11,12 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.cities.models import Address
+from playbot.telegram.utils import send_photo_for_moderation
 from playbot.users.models import User, RankHistory, PhotoError
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
-    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer
+    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer
 from playbot.users.utils import parse_init_data
 
 
@@ -286,14 +287,33 @@ class CheckUserPhotoView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        serializer = UpdatePhotoSerializer(instance=request.user, data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            error = PhotoError.objects.get(id=1)
-            user.photo_errors.add(error)
-            json = UserSerializer(instance=user).data
-            return Response(json, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = User.objects.get(id=request.data["id"])
+            if request.user.id == user.id or request.user.is_superuser:
+                photo = request.data["upload_photo"]
+                errors = PhotoErrorSerializer(PhotoError.objects.all(), many=True).data
+                errors = []
+                output_photo = ""
+                if not len(errors):
+                    serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
+                    if serializer.is_valid():
+                        user = serializer.save()
+                        output_photo = user.photo.url
+
+                return Response({"photo": output_photo, "errors": errors}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(e, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ConfirmUserPhotoView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        user = User.objects.get(id=request.data["id"])
+        if request.user.id == user.id or request.user.is_superuser:
+            send_photo_for_moderation(user)
+            return Response({}, status=status.HTTP_200_OK)
+        return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CatchErrorView(APIView):

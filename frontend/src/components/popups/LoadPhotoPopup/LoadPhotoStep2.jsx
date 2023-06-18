@@ -1,4 +1,3 @@
-import TempPreviewPng from "../../../assets/icon/temp-preview-photo.png"
 import { confirmPhotoAction, setStateToDefault } from '../../../redux/reducers/loadPhotoReducer';
 import { useDispatch } from "react-redux";
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
@@ -7,16 +6,17 @@ import { useSelector } from "react-redux";
 
 
 const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
-    const dispatch = useDispatch()
-    const { username } = useSelector(state => state.user.user)
-    const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin)
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.user);
+    const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
+    console.log(user)
     
     const handleChangePhotoClick = () => {
         dispatch(setStateToDefault())
     }
 
     const handleConfirmPhotoClick = () => {
-        dispatch(confirmPhotoAction())
+        dispatch(confirmPhotoAction(user));
     }
 
     const [loader, setLoader] = useState(true);
@@ -48,7 +48,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
                     </div>
                     <div className="load-user-photo-preview-bottom">
                         <div className="load-user-photo-preview-username">
-                            {isAdmin ? selectedUser.username : username}
+                            {isAdmin ? selectedUser.username : user.username}
                         </div>
                         <div className="load-user-photo-preview-bottom-stats">
                             <div className='load-user-photo-preview-stats'>

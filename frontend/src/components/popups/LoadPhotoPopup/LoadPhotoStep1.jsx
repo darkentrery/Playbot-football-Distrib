@@ -7,7 +7,8 @@ import { setError, loadPhotoAction, setSelectedUserByAdmin } from '../../../redu
 
 const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
-    const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin)
+    const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
+    const user = useSelector(state => state.user.user);
     const [loader, setLoader] = useState(true);
 
     const [photo1Loading, setPhoto1Loading] = useState(true);
@@ -26,7 +27,7 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
 
 
     const handlePhotoLoad = (e) => {
-        dispatch(loadPhotoAction(e.target.files[0]))
+        dispatch(loadPhotoAction(e.target.files[0], user))
     }
 
     const handleRetryClick = () => {
