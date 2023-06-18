@@ -9,7 +9,6 @@ export const ProfilePersonalPhoto = () => {
     const [isErrorTooltip, setIsErrorTooltip] = useState(false)
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const { media } = useSelector(state => state.user?.user)
-    console.log("user media", media)
     const photo = media?.user_photo
     const isModerationFinished = media?.moderation?.finished
     const photoOnModeration = media?.moderation?.photo
@@ -70,7 +69,7 @@ export const ProfilePersonalPhoto = () => {
             {!photo && !photoOnModeration && !isModerationFinished &&
                 <div className="photo-bar">
                     <span className="black-400-14">Фотография профиля:</span>
-                    <label className="upload-photo">
+                    <label className="upload-photo" onClick={handleLoadPhotoClick}>
                         {!photo && <div className="upload-photo-image no-photo-icon"></div>}
                         {photo && typeof photo !== "string" &&
                             <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photo)} />}
@@ -78,7 +77,7 @@ export const ProfilePersonalPhoto = () => {
                             <img alt="not fount" className="upload-photo-image" src={serverUrl + photo} />}
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Файл не выбран</span>
-                            <span className="orange-400-14" onClick={handleLoadPhotoClick}>Загрузить фото</span>
+                            <span className="orange-400-14">Загрузить фото</span>
                         </div>
                     </label>
                 </div>

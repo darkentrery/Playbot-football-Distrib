@@ -9,7 +9,6 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.user);
     const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
-    console.log(user)
     
     const handleChangePhotoClick = () => {
         dispatch(setStateToDefault())

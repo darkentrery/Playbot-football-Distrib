@@ -20,6 +20,7 @@
         box-sizing: border-box;
         align-items: center;
         gap: 23px;
+        cursor: pointer;
     }
     &.on-moderation {
         .upload-photo-image {

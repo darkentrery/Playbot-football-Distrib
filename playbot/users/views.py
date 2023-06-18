@@ -311,7 +311,11 @@ class ConfirmUserPhotoView(APIView):
     def post(self, request, format='json'):
         user = User.objects.get(id=request.data["id"])
         if request.user.id == user.id or request.user.is_superuser:
-            send_photo_for_moderation(user)
+            if request.data["is_admin_load"]:
+                user.is_accept_photo = True
+                user.save()
+            else:
+                send_photo_for_moderation(user)
             return Response({}, status=status.HTTP_200_OK)
         return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
 

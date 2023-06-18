@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+    auth, player,
     setUserPhotoModeration,
     showLoadPhotoWindow,
 } from '../actions/actions';
@@ -73,6 +74,7 @@ export const {
     setSelectedUserByAdmin,
 } = loadPhotoSlice.actions;
 
+
 export const loadPhotoAction = (photoData, user) => async (dispatch) => {
     dispatch(setIsLoading(true));
     try {
@@ -101,17 +103,17 @@ export const confirmPhotoAction = (user) => async (dispatch, getState) => {
         const state = getState();
         const {isAdminLoad, photo} = state.loadPhoto;
         // запрос на подтверждение фотки start
-        console.log("state", state)
-        let response = await authDecoratorWithoutLogin(authService.confirmUserPhoto, user);
-        console.log(response)
+        let response = await authDecoratorWithoutLogin(authService.confirmUserPhoto, {...user, is_admin_load: isAdminLoad});
+        dispatch(setStep(3));
+
         if (isAdminLoad) {
             console.log('admin load action')
             // запрос админской загрузки
-            dispatch(setStep(3))
+            // dispatch(setStep(3))
         } else {
             console.log('user load action')
             // запрос обычного пользователя загрузки
-            dispatch(setStep(3));
+            // dispatch(setStep(3));
             dispatch(setUserPhotoModeration({finished: false,photo: photo, message:'Такой формат не поддерживается. Поддерживаемые форматы: PNG, JPG, HEIC',}));
         }
     } catch (error) {
