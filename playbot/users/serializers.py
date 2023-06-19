@@ -129,6 +129,14 @@ class UpdateUserSerializer(serializers.ModelSerializer):
                   "photo", "about_self"]
 
 
+class UpdateUserPhotoErrorsSerializer(serializers.ModelSerializer):
+    photo_errors = serializers.PrimaryKeyRelatedField(queryset=PhotoError.objects.all(), many=True, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ["photo_errors"]
+
+
 class UpdatePasswordSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

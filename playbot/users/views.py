@@ -16,7 +16,8 @@ from playbot.users.models import User, RankHistory, PhotoError
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
-    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer
+    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer, \
+    UpdateUserPhotoErrorsSerializer
 from playbot.users.utils import parse_init_data
 
 
@@ -329,6 +330,45 @@ class CancelUserPhotoView(APIView):
         user.is_accept_photo = False
         user.save()
         return Response({}, status=status.HTTP_200_OK)
+
+
+class AcceptUserPhotoView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        try:
+            user = User.objects.get(id=request.data["id"])
+            if request.user.id == user.id or request.user.is_organizer:
+                user.is_accept_photo = True
+                user.save()
+                return Response({}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RejectUserPhotoView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        try:
+            user = User.objects.get(id=request.data["id"])
+            if request.user.id == user.id or request.user.is_organizer:
+                serializer = UpdateUserPhotoErrorsSerializer(instance=user, data=request.data)
+                if serializer.is_valid():
+                    user = serializer.save()
+                    json = UserIsAuthSerializer(instance=user).data
+                    return Response(json, status=status.HTTP_200_OK)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetPhotoErrorsView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        json = PhotoErrorSerializer(instance=PhotoError.objects.all()).data
+        return Response(json, status=status.HTTP_200_OK)
 
 
 class CatchErrorView(APIView):
