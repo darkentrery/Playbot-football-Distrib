@@ -367,7 +367,7 @@ class GetPhotoErrorsView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format='json', **kwargs):
-        json = PhotoErrorSerializer(instance=PhotoError.objects.all()).data
+        json = PhotoErrorSerializer(instance=PhotoError.objects.all(), many=True).data
         return Response(json, status=status.HTTP_200_OK)
 
 
