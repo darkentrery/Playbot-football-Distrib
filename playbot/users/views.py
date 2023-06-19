@@ -288,8 +288,8 @@ class CheckUserPhotoView(APIView):
 
     def post(self, request, format='json'):
         try:
-            user = User.objects.get(username=request.data["username"])
-            if request.user.id == user.id or request.user.is_superuser:
+            user = User.objects.get(id=request.data["id"])
+            if request.user.id == user.id or request.user.is_organizer:
                 photo = request.data["upload_photo"]
                 errors = PhotoErrorSerializer(PhotoError.objects.all(), many=True).data
                 errors = []
@@ -310,7 +310,7 @@ class ConfirmUserPhotoView(APIView):
 
     def post(self, request, format='json'):
         user = User.objects.get(id=request.data["id"])
-        if request.user.id == user.id or request.user.is_superuser:
+        if request.user.id == user.id or request.user.is_organizer:
             if request.data["is_admin_load"]:
                 user.is_accept_photo = True
                 user.save()
@@ -318,6 +318,17 @@ class ConfirmUserPhotoView(APIView):
                 send_photo_for_moderation(user)
             return Response({}, status=status.HTTP_200_OK)
         return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CancelUserPhotoView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        user = request.user
+        user.photo = None
+        user.is_accept_photo = False
+        user.save()
+        return Response({}, status=status.HTTP_200_OK)
 
 
 class CatchErrorView(APIView):

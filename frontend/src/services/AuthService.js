@@ -259,6 +259,7 @@ export const authService = {
 	updateUser(data) { return postRequest('update-user/', data, "multipart/form-data"); },
 	checkUserPhoto(data) { return postRequest('check-user-photo/', data, "multipart/form-data"); },
 	confirmUserPhoto(data) { return postRequest('confirm-user-photo/', data); },
+	cancelUserPhoto() { return postRequest('cancel-user-photo/', {}); },
 	updatePhotoUsername(data) { return postRequest('update-photo-username/', data, "multipart/form-data"); },
 	updateAddress(data) { return postRequest('update-address/', data); },
 	firstLogin() { return postRequest('first-login/', {}); },

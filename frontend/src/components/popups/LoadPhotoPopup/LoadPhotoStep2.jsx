@@ -1,20 +1,28 @@
-import { confirmPhotoAction, setStateToDefault } from '../../../redux/reducers/loadPhotoReducer';
+import {confirmPhotoAction, setPhoto, setStateToDefault} from '../../../redux/reducers/loadPhotoReducer';
 import { useDispatch } from "react-redux";
 import { LoaderComponent } from '../../loaderComponent/LoaderComponent';
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setIsAdminLoad } from '../../../redux/reducers/loadPhotoReducer';
+import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
+import {authService} from "../../../services/AuthService";
+import {player} from "../../../redux/actions/actions";
 
 
 const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
-    const { user } = useSelector(state => state.user);
+    const user = useSelector(state => state.event.player);
     const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
     
     const handleChangePhotoClick = () => {
+        authDecoratorWithoutLogin(authService.cancelUserPhoto, {});
+
+        dispatch(setStateToDefault());
         if (isAdmin) {
-            dispatch(setStateToDefault())
-            dispatch(setIsAdminLoad(true))
+            dispatch(setIsAdminLoad(true));
+            dispatch(setPhoto(null));
+        } else {
+            dispatch(player({...user, photo: null}));
         }
     }
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
     setUserPhotoModeration,
-    showLoadPhotoWindow,
+    showLoadPhotoWindow, player
 } from '../actions/actions';
 import {authService} from "../../services/AuthService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
@@ -74,17 +74,20 @@ export const {
 } = loadPhotoSlice.actions;
 
 
-export const loadPhotoAction = (photoData, user) => async (dispatch) => {
+export const loadPhotoAction = (photoData, user, isAdmin) => async (dispatch) => {
     dispatch(setIsLoading(true));
     try {
         if (!/png|jpg|heic/.test(photoData.name.split('.').pop())) {
             throw new Error('Такой формат не поддерживается.');
         }
-        let response = await authDecoratorWithoutLogin(authService.checkUserPhoto, {...user, upload_photo: photoData});
+        let response = await authDecoratorWithoutLogin(authService.checkUserPhoto, {id: user.id, upload_photo: photoData});
         if (response.data.errors.length) {
             let errors = response.errors.data.map((error) => error.name);
             throw new Error(errors.join(", "));
         } else {
+            if (!isAdmin) {
+                dispatch(player({...user, photo: response.data.photo}));
+            }
             dispatch(setPhoto(response.data.photo));
             setTimeout(() => {
                 dispatch(setStep(2));
@@ -102,7 +105,7 @@ export const confirmPhotoAction = (user) => async (dispatch, getState) => {
         const state = getState();
         const {isAdminLoad, photo} = state.loadPhoto;
         // запрос на подтверждение фотки start
-        let response = await authDecoratorWithoutLogin(authService.confirmUserPhoto, {...user, is_admin_load: isAdminLoad});
+        let response = await authDecoratorWithoutLogin(authService.confirmUserPhoto, {id: user.id, is_admin_load: isAdminLoad});
         dispatch(setStep(3));
 
         if (isAdminLoad) {
@@ -113,18 +116,17 @@ export const confirmPhotoAction = (user) => async (dispatch, getState) => {
             console.log('user load action')
             // запрос обычного пользователя загрузки
             // dispatch(setStep(3));
-            dispatch(setUserPhotoModeration({finished: false,photo: photo, message:'Такой формат не поддерживается. Поддерживаемые форматы: PNG, JPG, HEIC',}));
+            dispatch(setUserPhotoModeration({finished: false, photo: photo, message:'Такой формат не поддерживается. Поддерживаемые форматы: PNG, JPG, HEIC',}));
         }
     } catch (error) {
         console.log(error);
     }
 };
 
-export const cancelUserPhotoModeration = () => async (dispatch) => {
+export const cancelUserPhotoModeration = (user) => async (dispatch) => {
     try {
-        // запрос на отмену модерации фотки
-
-        // запрос на отмену модерации фотки end
+        authDecoratorWithoutLogin(authService.cancelUserPhoto, {});
+        dispatch(player({...user, photo: null}));
 
         dispatch(setUserPhotoModeration({}));
     } catch (error) {

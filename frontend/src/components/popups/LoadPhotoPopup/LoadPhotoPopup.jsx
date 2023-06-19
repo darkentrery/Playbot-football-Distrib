@@ -9,8 +9,7 @@ import LoadPhotoStep3 from './LoadPhotoStep3';
 export const LoadPhotoPopup = ({ isOpen }) => {
     const dispatch = useDispatch();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
-
-    const { step, photo, error, isLoading, isAdminLoad} = useSelector(state => state.loadPhoto)
+    const { step, photo, error, isLoading, isAdminLoad} = useSelector(state => state.loadPhoto);
 
     const hidePopup = () => {
         dispatch(setStateToDefault())

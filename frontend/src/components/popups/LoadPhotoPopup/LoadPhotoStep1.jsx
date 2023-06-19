@@ -9,7 +9,7 @@ import {authService} from "../../../services/AuthService";
 const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
     const selectedUser = useSelector(state => state.loadPhoto.selectedUserByAdmin);
-    const user = useSelector(state => state.user.user);
+    const user = useSelector(state => state.event.player);
     const [loader, setLoader] = useState(true);
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -19,7 +19,7 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
     const [photo2Loading, setPhoto2Loading] = useState(true);
 
     useEffect(() => {
-        if (isOpenLoadPhoto) {
+        if (isOpenLoadPhoto && isAdmin) {
             authService.getUsers().then((response) => {
                 setUsers(response.data)
                 console.log(response.data)
@@ -33,13 +33,13 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
         }
     }, [photo1Loading, photo2Loading])
 
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState({username: ''});
 
     const handlePhotoLoad = (e) => {
         if (isAdmin) {
-            dispatch(loadPhotoAction(e.target.files[0], {username: searchValue}));
+            dispatch(loadPhotoAction(e.target.files[0], searchValue, isAdmin));
         } else {
-            dispatch(loadPhotoAction(e.target.files[0], user));
+            dispatch(loadPhotoAction(e.target.files[0], user, isAdmin));
         }
     }
 
@@ -49,13 +49,13 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
 
     const handleSearchInput = (e) => {
         dispatch(setSelectedUserByAdmin({}));
-        setSearchValue(e);
+        setSearchValue({username: e});
         let filtered = users.filter(user => user.username.toUpperCase().includes(e.toUpperCase()) && user.username !== selectedUser.username).slice(0, 3);
         setFilteredUsers(filtered);
     }
 
     const handleSearchSelect = (user) => {
-        setSearchValue(user.username);
+        setSearchValue({username: user.username, id: user.id});
         dispatch(setSelectedUserByAdmin(user));
     }
 
@@ -106,7 +106,7 @@ const LoadPhotoStep1 = ({ error, isLoading, photo, serverUrl, isAdmin }) => {
                 <div className="load-user-photo-as-admin">
                     <div className='black-400-20 load-user-photo-as-admin-title'>Введите username игрока</div>
                     <div className='load-user-photo-as-admin-input-wrapper'>
-                        <input type="text"  value={searchValue} onChange={(e) => handleSearchInput(e.currentTarget.value)} placeholder='Username' />
+                        <input type="text"  value={searchValue.username} onChange={(e) => handleSearchInput(e.currentTarget.value)} placeholder='Username' />
                         {filteredUsers[0] && !selectedUser?.username && searchValue &&
                             <div className='load-user-photo-as-admin-user-list-wrapper'>
 
