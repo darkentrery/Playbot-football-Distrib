@@ -196,9 +196,10 @@ class RankCalculation:
         # {"min": 201, "max": 1000, "win_proportion": 70, "rank_proportion": 30},
     ]
 
-    def __init__(self, user: User, event: Event) -> None:
+    def __init__(self, user: User, event: Event, game: EventGame = None) -> None:
         self.user = user
         self.event = event
+        self.game = game
 
     def get_proportion(self) -> tuple[float, float]:
         for proportion in self.proportions:
@@ -247,6 +248,19 @@ class RankCalculation:
         avr_opponents /= rivals
         return avr_opponents, unique_rivals
 
+    def get_average_opponents_rank_and_rivals_in_game(self, opponent_team: Team) -> tuple[float, int]:
+        avr_opponents = 0
+        rivals = 0
+        unique_rivals = self.user.rivals.filter(user_rivals_to_user__event=self.event).count()
+        for opponent in opponent_team.team_players.all():
+            avr_opponents += opponent.player.rank_fact
+            if opponent.player not in self.user.rivals.all():
+                unique_rivals += 1
+                self.user.rivals.add(opponent.player, through_defaults={"event": self.event})
+        rivals += opponent_team.team_players.all().count()
+        avr_opponents /= rivals
+        return avr_opponents, unique_rivals
+
     def get_teams(self) -> tuple[Team, QuerySet]:
         user_team = self.event.teams.all().first()
         opponents_id = []
@@ -258,6 +272,14 @@ class RankCalculation:
 
         opponent_teams = self.event.teams.filter(id__in=opponents_id)
         return user_team, opponent_teams
+
+    def get_teams_for_game(self) -> tuple[Team, Team]:
+        user_team = self.game.team_1
+        opponent_team = self.game.team_2
+        if not user_team.team_players.filter(player__id=self.user.id).exists():
+            user_team = self.game.team_2
+            opponent_team = self.game.team_1
+        return user_team, opponent_team
 
     @staticmethod
     def get_rate(rank_fact: float, avr_opponents: float) -> float:
@@ -285,6 +307,14 @@ class RankCalculation:
             # logger.info(f"{result_sum=}, {self.event.format.rate=}, {event_game.result_2=}, {k_goal=}, {time_sum=}, {event_duration=}")
         return result_sum
 
+    def get_game_result(self, user_team: Team) -> float:
+        win_goals = self.game.score_1 if user_team.id == self.game.team_1.id else self.game.score_2
+        loss_goals = self.game.score_2 if user_team.id == self.game.team_1.id else self.game.score_1
+        k_goal = self.get_k_goal(win_goals, loss_goals)
+        team_result = self.game.result_1 if user_team.id == self.game.team_1.id else self.game.result_2
+        result = self.event.format.rate * team_result * k_goal * 0.01
+        return result
+
     def get_next_rank(self, recalculate: bool = False) -> float:
         rank_fact = self.user.rank_before_event(self.event) if recalculate else self.user.rank_fact
         logger.info(f"username= {self.user.email}, {rank_fact=}")
@@ -308,3 +338,25 @@ class RankCalculation:
         logger.info(f"{win_proportion=}, {rank_proportion=}, {self.user.wins_percent=}, {total_rank=}\n")
 
         return round(total_rank, 2)
+
+    @logger.catch
+    def get_next_rank_after_game(self, recalculate: bool = False) -> float:
+        rank_fact = self.user.rank_before_game(self.game) if recalculate else self.user.rank_fact
+        event_duration = sum([game.current_duration for game in self.event.event_games.all()])
+        if not event_duration:
+            return rank_fact
+
+        user_team, opponent_team = self.get_teams_for_game()
+        avr_opponents, unique_rivals = self.get_average_opponents_rank_and_rivals_in_game(opponent_team)
+        rate = self.get_rate(rank_fact, avr_opponents)
+        result = self.get_game_result(user_team)
+        rank = (rank_fact + result + unique_rivals * 0.01 + rate * 0.001) * self.user.involvement * (100 - self.user.penalty) * 0.01
+        self.log_game_print(rank_fact, result, unique_rivals, avr_opponents, rate, rank)
+
+        return round(rank, 2)
+
+    def log_game_print(self, rank_fact: float, result: float, unique_rivals: int, avr_opponents: float, rate: float, rank: float):
+        logger.info(f"username= {self.user.email}, {rank_fact=}")
+        logger.info(f"{rank_fact=}, {result=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
+        logger.info(f"username= {self.user.email}, {rank=}")
+
