@@ -1,4 +1,7 @@
-from aiogram import Bot
+import pathlib
+from io import BytesIO
+
+from aiogram import Bot, types
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from loguru import logger
@@ -7,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from playbot.events.models import Event
 from playbot.telegram.models import Announce, TelegramChannel
+from playbot.users.models import User
 
 bot = Bot(token=settings.SOCIAL_AUTH_TELEGRAM_BOT_TOKEN)
 
@@ -93,6 +97,26 @@ async def update_announce(event: Event) -> None:
         if bot_is_member.status == "administrator":
             text = await sync_to_async(lambda: get_message_for_announce(event))()
             await bot.edit_message_text(text=text, chat_id=channel_id, message_id=message_id, parse_mode="html")
+        if bot_is_member.status in ["left", "kicked"]:
+            logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
+    except Exception as e:
+        logger.debug(f"Bot {bot.id} {e}")
+
+
+@logger.catch
+@async_to_sync
+async def send_photo_for_moderation(user: User) -> None:
+    try:
+        bot_is_member = await bot.get_chat_member(chat_id=settings.TELEGRAM_MODERATOR_ID, user_id=bot.id)
+        if bot_is_member.status in ["administrator", "member"]:
+            with open(user.photo.path, "rb") as photo:
+                img = BytesIO(photo.read())
+                img.name = "card.png"
+                kb = types.InlineKeyboardMarkup()
+                kb.row(types.InlineKeyboardButton("✅ Одобрить", callback_data=f"playerAvatarVerify_{user.id}"))
+                kb.row(types.InlineKeyboardButton("❌ Отклонить", callback_data=f"playerAvatarDecline_{user.id}"))
+                await bot.send_document(chat_id=settings.TELEGRAM_MODERATOR_ID, document=img, reply_markup=kb)
+
         if bot_is_member.status in ["left", "kicked"]:
             logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
     except Exception as e:

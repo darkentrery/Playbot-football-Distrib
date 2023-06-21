@@ -12,6 +12,7 @@ import ProfileRoutes from "../../../routes/ProfileRoutes";
 import {Profile376MenuComponent} from "../../profile376MenuComponent/Profile376MenuComponent";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {errorsUtil} from "../../../utils/errorsUtil";
+import ProfilePersonalPhoto from "../../ProfilePersonalPhoto/ProfilePersonalPhoto";
 
 
 export const ProfilePersonalDataComponent = ({
@@ -19,12 +20,12 @@ export const ProfilePersonalDataComponent = ({
     user,
     funcs,
 }) => {
+    const [photo, setPhoto] = useState(null);
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null);
     const [date, setDate] = useState(null);
     const [gender, setGender] = useState(null);
     const [phone, setPhone] = useState(null);
-    const [photo, setPhoto] = useState(null);
     const [position1, setPosition1] = useState(null);
     const [position2, setPosition2] = useState(null);
     const [aboutSelf, setAboutSelf] = useState(null);
@@ -168,21 +169,7 @@ export const ProfilePersonalDataComponent = ({
                             <span className={"black-500-14 el-1"} >Смотреть превью</span>
                         </Link>
                     </div>
-                    <div className={"photo-bar"}>
-                        <span className={"black-400-14"}>Фотография профиля:</span>
-                        <input id={"input__photo"} type="file" accept={"image/*"} onChange={(e) => setPhoto(e.target.files[0])} placeholder={""}/>
-                        <label className={"upload-photo"} htmlFor={"input__photo"}>
-                            {!photo && <div className={"el-1 no-photo-icon"}></div>}
-                            {photo && typeof photo !== "string" &&
-                                <img alt="not fount" className={"el-1 my-photo"} src={URL.createObjectURL(photo)}/>}
-                            {photo && typeof photo === "string" &&
-                                <img alt="not fount" className={"el-1 my-photo"} src={serverUrl + photo}/>}
-                            <div className={"el-2"}>
-                                <span className={"gray-400-14"}>Файл загружен</span>
-                                <span className={"orange-400-14"}>Выбрать файл</span>
-                            </div>
-                        </label>
-                    </div>
+                    <ProfilePersonalPhoto photo={photo} setPhoto={setPhoto}/>
                     <div className={"fields-form"}>
                         <InputComponent leftIcon={"avatar-icon disabled"} className={"elem elem-1"} placeholder={"Username"}
                                         value={username} setValue={setUsername} errorText={usernameError}/>

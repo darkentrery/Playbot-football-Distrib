@@ -13,7 +13,7 @@ from playbot.events.models import EventPlayer, Event
 from playbot.events.serializers import EventForPlayerListSerializer, EventListSerializer
 from playbot.notices.models import Notice
 from playbot.notices.serializers import UserNoticeSerializer
-from playbot.users.models import User, Position, RankHistory
+from playbot.users.models import User, Position, RankHistory, PhotoError
 from playbot.users.obtain_serializers import TokenObtainTelegramSerializer, CustomTokenObtainSerializer, \
     TokenObtainLoginAppleSerializer, TokenObtainSignUpAppleSerializer, TokenObtainTelegramAppSerializer
 from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
@@ -51,6 +51,13 @@ class RankHistorySerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+class PhotoErrorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PhotoError
+        fields = ["id", "name"]
+        read_only_fields = fields
+
+
 class SamePlayerSerializer(serializers.ModelSerializer):
     position_1 = PositionSerializer(read_only=True)
 
@@ -72,15 +79,16 @@ class UserSerializer(serializers.ModelSerializer):
     wins_percent = serializers.IntegerField(read_only=True)
     warning_notices = UserNoticeSerializer(Notice, many=True, read_only=True)
     address = AddressSerializer(read_only=True)
+    photo_errors = PhotoErrorSerializer(PhotoError, many=True, read_only=True)
 
     class Meta:
         model = User
         fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "confirm_slug",
-                  "count_goals", "count_assist", "date_joined", "events_organizer", "event_player", "favorite_events", "first_name", "gender",
+                  "count_goals", "count_assist", "date_joined", "events_organizer", "event_player", "favorite_events",
+                  "first_name", "gender", "photo_errors", "is_accept_photo", "first_login",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
-                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",
-                  "first_login"]
+                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",]
         read_only_fields = fields
 
 
@@ -94,7 +102,7 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
                   "user_notices", "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address",
-                  "is_organizer", "first_login"]
+                  "is_organizer", "first_login", "is_accept_photo",]
         read_only_fields = fields
 
 
@@ -121,6 +129,14 @@ class UpdateUserSerializer(serializers.ModelSerializer):
                   "photo", "about_self"]
 
 
+class UpdateUserPhotoErrorsSerializer(serializers.ModelSerializer):
+    photo_errors = serializers.PrimaryKeyRelatedField(queryset=PhotoError.objects.all(), many=True, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ["photo_errors"]
+
+
 class UpdatePasswordSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -136,6 +152,12 @@ class UpdatePhotoUsernameSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["username", "photo"]
+
+
+class UpdatePhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["photo"]
 
 
 class LoginMixin:

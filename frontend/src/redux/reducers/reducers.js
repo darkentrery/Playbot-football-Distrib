@@ -5,6 +5,7 @@ import {user} from "./userReducer";
 import {event} from "./eventReducer";
 import {location} from "./locationReducer";
 import {app} from "./appReducer";
+import {loadPhoto} from './loadPhotoReducer';
 
 
 export let rootReducer = combineReducers({
@@ -13,7 +14,8 @@ export let rootReducer = combineReducers({
     event,
     location,
     app,
-    Data,
+    Data, 
+    loadPhoto
 });
 
 

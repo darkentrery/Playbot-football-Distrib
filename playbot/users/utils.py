@@ -12,6 +12,7 @@ from urllib.parse import parse_qsl
 
 import cv2
 from PIL import Image
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.template.loader import render_to_string
 from loguru import logger

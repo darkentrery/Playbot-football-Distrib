@@ -64,6 +64,20 @@
   background-position: center;
 }
 
+.red-circle-warning-icon {
+  background: url("../icon/red-circle-warning.png");
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.add-photo-icon {
+  background: url("../icon/add-photo.svg");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
 .black-plus-icon {
   background: url("../icon/black-plus.png");
   background-repeat: no-repeat;
@@ -311,7 +325,13 @@
   height: 8px;
 }
 
-
+.cross-icon {
+  background: url("../icon/cross.png");
+  background-repeat: no-repeat;
+  background-size: 16px;
+  width: 16px;
+  height: 16px;
+}
 
 .map-point-icon {
   background: url("../icon/map-point.png") no-repeat;
@@ -875,3 +895,22 @@
   width: 18px;
   height: 15px;
 }
+
+@keyframes loading-circle-animation {
+  0% {transform: rotate(0deg)}
+  50% {transform: rotate(180deg)}
+  100% {transform: rotate(360deg)}
+}
+
+.loading-circle-icon {
+  background: url("../icon/loading-circle.svg");
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  width: 18px;
+  height: 18px;
+  animation-name: loading-circle-animation;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+

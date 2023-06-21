@@ -1,0 +1,23 @@
+[
+  {
+    "model": "users.PhotoError",
+    "pk": 1,
+    "fields": {
+      "name": "image cut off"
+    }
+  },
+  {
+    "model": "users.PhotoError",
+    "pk": 2,
+    "fields": {
+      "name": "not looking at the camera"
+    }
+  },
+  {
+    "model": "users.PhotoError",
+    "pk": 3,
+    "fields": {
+      "name": "bad quality"
+    }
+  }
+]

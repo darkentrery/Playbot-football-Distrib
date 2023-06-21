@@ -1,10 +1,12 @@
 import HeadComponent from "../../headComponent/HeadComponent";
 import BottomComponent from "../../bottomComponent/BottomComponent";
-import React, {useEffect} from "react";
-import {ProfileAsideComponent} from "../../profileAsideComponent/ProfileAsideComponent";
-import {Link, useParams} from "react-router-dom";
+import React, { useEffect } from "react";
+import { ProfileAsideComponent } from "../../profileAsideComponent/ProfileAsideComponent";
+import { Link, useParams } from "react-router-dom";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
-import {authService} from "../../../services/AuthService";
+import { authService } from "../../../services/AuthService";
+import { useDispatch } from "react-redux";
+import { openLoadUserPhotoPopupAsAdmin } from "../../../redux/reducers/loadPhotoReducer";
 
 
 export const ProfileWrapperComponent = ({
@@ -14,7 +16,7 @@ export const ProfileWrapperComponent = ({
     funcs,
 }) => {
     const { pk } = useParams();
-
+    const dispatch = useDispatch();
     useEffect(() => {
         if (!state.event.player || (state.event.player && state.event.player.id !== pk)) {
             funcs.setPlayer(false);
@@ -26,7 +28,7 @@ export const ProfileWrapperComponent = ({
             })
         }
     }, [pk])
-
+    
     const getOpenCreateEvent = () => {
         if (state.user.isAuth) {
             funcs.setEvent(false);
@@ -36,11 +38,15 @@ export const ProfileWrapperComponent = ({
         }
     }
 
+    const handleAdminUserPhotoLoad = () => {
+        dispatch(openLoadUserPhotoPopupAsAdmin())
+    }
+
     return (
         <main className={"main-wrapper-component"}>
-            <HeadComponent user={state.user} funcs={funcs}/>
+            <HeadComponent user={state.user} funcs={funcs} />
             <div className={"profile-wrapper-component"}>
-                <ProfileAsideComponent player={state.event.player} funcs={funcs}/>
+                <ProfileAsideComponent player={state.event.player} funcs={funcs} />
                 <div className={"my-profile"}>
                     <div className={"title-elem"}>
                         <span className={"black-700-28"}>Мой профиль</span>
@@ -64,6 +70,14 @@ export const ProfileWrapperComponent = ({
                             className={`nav-link ${window.location.pathname.includes('personal-data') ? 'black-400-14 active' : 'A7-gray-400-14'}`}
                             to={ProfileRoutes.profilePersonalDataLink(pk)}
                         >Личные данные</Link>
+                        {
+                            (state.user.isAuth && state.user.user.is_organizer) &&
+                            <button className="admin-load-user-photo-btn black-500-14 add-photo-icon" onClick={handleAdminUserPhotoLoad}>
+                                Загрузить фото других игроков
+                            </button>
+                        }
+
+
                     </div>
                     {children}
                 </div>
@@ -71,7 +85,7 @@ export const ProfileWrapperComponent = ({
             <div className={`profile-wrapper-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
                 {children}
             </div>
-            <BottomComponent user={state.user.user} isIPhone={app.isIPhone}/>
+            <BottomComponent user={state.user.user} isIPhone={app.isIPhone} />
         </main>
     )
 }
