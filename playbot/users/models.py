@@ -216,10 +216,18 @@ class User(AbstractUser):
         last_rank = self.ranks_history.filter(create__lt=time_rank).last()
         return round(last_rank.rank, 2)
 
+    def rank_before_game(self, game):
+        time_rank = datetime.datetime.combine(game.event.date, game.event.time_end or game.event.time_begin)
+        if self.ranks_history.filter(event=game.event).exists():
+            time_rank = self.ranks_history.filter(event=game.event)[game.number - 1].create
+        last_rank = self.ranks_history.filter(create__lt=time_rank).last()
+        return round(last_rank.rank, 2)
+
     @property
     def acronym_positions(self):
         positions = [position.acronym for position in (self.position_1, self.position_2) if position]
         return "/".join(positions)
+
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")
