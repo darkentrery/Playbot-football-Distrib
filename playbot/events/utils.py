@@ -353,7 +353,7 @@ class RankCalculation:
         rank = (rank_fact + result + unique_rivals * 0.01 + rate * 0.001) * self.user.involvement * (100 - self.user.penalty) * 0.01
         self.log_game_print(rank_fact, result, unique_rivals, avr_opponents, rate, rank)
 
-        return round(rank, 2)
+        return rank
 
     def log_game_print(self, rank_fact: float, result: float, unique_rivals: int, avr_opponents: float, rate: float, rank: float):
         logger.info(f"username= {self.user.email}, {rank_fact=}")
