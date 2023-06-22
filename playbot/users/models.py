@@ -219,7 +219,11 @@ class User(AbstractUser):
     def rank_before_game(self, game):
         time_rank = datetime.datetime.combine(game.event.date, game.event.time_end or game.event.time_begin)
         if self.ranks_history.filter(event=game.event).exists():
-            time_rank = self.ranks_history.filter(event=game.event)[game.number - 1].create
+            rank_histories = self.ranks_history.filter(event=game.event)
+            if rank_histories.count() == 1:
+                time_rank = rank_histories.first().create
+            else:
+                time_rank = rank_histories[game.number - 1].create
         last_rank = self.ranks_history.filter(create__lt=time_rank).last()
         return round(last_rank.rank, 2)
 
