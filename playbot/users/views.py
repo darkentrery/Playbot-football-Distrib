@@ -1,5 +1,6 @@
 import copy
 
+from django.core.files.base import ContentFile
 from django.views.generic import TemplateView
 from loguru import logger
 from rest_framework import status
@@ -289,6 +290,7 @@ class CheckUserPhotoView(APIView):
     permission_classes = (IsAuthenticated,)
 
 
+    @logger.catch
     def post(self, request, format='json'):
         try:
             user = User.objects.get(id=request.data["id"])
@@ -304,6 +306,9 @@ class CheckUserPhotoView(APIView):
                     errors, photos = check_photo(user)
                     for photo in photos:
                         logger.info(f"{photo}")
+                    if len(photos):
+                        user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photos[0]), save=True)
+                        user.save()
                     errors = PhotoErrorSerializer(PhotoError.objects.filter(name__in=errors), many=True).data
 
 
