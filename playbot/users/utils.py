@@ -12,11 +12,17 @@ from urllib.parse import parse_qsl
 
 import cv2
 from PIL import Image
-from asgiref.sync import async_to_sync
 from django.conf import settings
+from django.core.files.images import ImageFile
+from django.core.files.storage import FileSystemStorage
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.template.loader import render_to_string
+from heic2png import HEIC2PNG
 from loguru import logger
+from rest_framework import serializers
 from sendgrid import Mail, SendGridAPIClient
+
+from playbot.users.models import User
 
 
 def send_message(recipient, new_password):
@@ -205,3 +211,29 @@ def parse_init_data(raw_init_data: str):
         })
         del result["user"]
     return result
+
+
+class UpdatePhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["photo"]
+
+
+def save_upload_photo(photo: InMemoryUploadedFile, user: User) -> User:
+    if photo.name.endswith("HEIC"):
+        FileSystemStorage(location=settings.MEDIA_ROOT + "/temp_photos/").save(photo.name, photo)
+        heic_img = HEIC2PNG(settings.MEDIA_ROOT + f"/temp_photos/{photo.name}")
+        heic_img.save()
+        with open(f"{settings.MEDIA_ROOT}/temp_photos/{photo.name}".replace(".HEIC", ".png"), "rb") as p:
+            file = BytesIO(p.read())
+            file = ImageFile(file, name=f"{user.id}-original_photo.png")
+            user.photo = file
+            user.save()
+        os.remove(f"{settings.MEDIA_ROOT}/temp_photos/{photo.name}".replace(".HEIC", ".png"))
+        os.remove(f"{settings.MEDIA_ROOT}/temp_photos/{photo.name}")
+    else:
+        serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
+        if serializer.is_valid():
+            user = serializer.save()
+
+    return user

@@ -20,3 +20,4 @@ pyjwt==2.6.0
 opencv-python==4.7.0.68
 rembg==2.0.31
 halftone==0.0.1
+heic2png==1.0.1

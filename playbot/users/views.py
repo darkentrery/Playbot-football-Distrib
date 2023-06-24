@@ -1,7 +1,6 @@
 import copy
 
 from django.conf import settings
-from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
 from django.views.generic import TemplateView
 from loguru import logger
@@ -21,7 +20,7 @@ from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, 
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
     UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer, \
     UpdateUserPhotoErrorsSerializer
-from playbot.users.utils import parse_init_data
+from playbot.users.utils import parse_init_data, save_upload_photo
 
 
 class IndexView(APIView):
@@ -295,26 +294,24 @@ class CheckUserPhotoView(APIView):
         try:
             user = User.objects.get(id=request.data["id"])
             if request.user.id == user.id or request.user.is_organizer:
-                photo = request.data["upload_photo"]
-                serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
-                if serializer.is_valid():
-                    user = serializer.save()
-                    output_photo = ""
-                    errors = []
-                    if settings.UNIX_OS:
-                        from playbot.users.avatar_service import check_photo
-                        errors, photos = check_photo(user)
-                        if len(photos):
-                            user.photo = ImageFile(photos[0], name=f"{user.id}-original_photo.png")
-                            user.big_card_photo = ImageFile(photos[1], name=f"{user.id}-big_card_photo.png")
-                            user.small_card_photo = ImageFile(photos[2], name=f"{user.id}-small_card_photo.png")
-                            user.overlay_photo = ImageFile(photos[3], name=f"{user.id}-overlay_photo.png")
-                            user.save()
-                            output_photo = user.big_card_photo.url
+                user = save_upload_photo(request.data["upload_photo"], user)
+                output_photo = ""
+                errors = [{"name": "Local environ!"}]
+                if settings.UNIX_OS:
+                    from playbot.users.avatar_service import check_photo
+                    errors, photos = check_photo(user)
+                    if len(photos):
+                        user.photo = ImageFile(photos[0], name=f"{user.id}-original_photo.png")
+                        user.big_card_photo = ImageFile(photos[1], name=f"{user.id}-big_card_photo.png")
+                        user.small_card_photo = ImageFile(photos[2], name=f"{user.id}-small_card_photo.png")
+                        user.overlay_photo = ImageFile(photos[3], name=f"{user.id}-overlay_photo.png")
+                        user.save()
+                        output_photo = user.big_card_photo.url
 
                     errors = PhotoErrorSerializer(PhotoError.objects.filter(name__in=errors), many=True).data
 
-                    return Response({"photo": output_photo, "errors": errors}, status=status.HTTP_200_OK)
+                return Response({"photo": output_photo, "errors": errors}, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 

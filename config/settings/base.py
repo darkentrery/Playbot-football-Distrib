@@ -289,4 +289,4 @@ WEBPUSH_SETTINGS = {
    "VAPID_ADMIN_EMAIL": env("VAPID_ADMIN_EMAIL"),
 }
 
-UNIX_OS = env("UNIX_OS")
+UNIX_OS = env.bool("UNIX_OS")
