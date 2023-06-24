@@ -56,6 +56,7 @@ import {LandingComponent} from "./components/pages/landingComponent/LandingCompo
 import VisibleOnboardingStep1 from "./redux/containers/VisibleOnboardingStep1";
 import VisibleOnboardingStep2 from "./redux/containers/VisibleOnboardingStep2";
 import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
+import LoadPhotoPopup from "./components/popups/LoadPhotoPopup/LoadPhotoPopup";
 
 
 function App({state, funcs}) {
@@ -247,6 +248,7 @@ function App({state, funcs}) {
                 <VisibleEndEvent/>
                 <VisibleOnboardingStep1/>
                 <VisibleOnboardingStep2/>
+                <LoadPhotoPopup isOpen={state.windows.isOpenLoadPhoto}/>
                 <div ref={refTelegram}></div>
             </Router>
         </div>

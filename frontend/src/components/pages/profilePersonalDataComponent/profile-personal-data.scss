@@ -47,55 +47,7 @@
       }
     }
   }
-  .photo-bar {
-    display: flex;
-    flex: 0 0 150px;
-    border-top: 1px solid #E8E8E8;
-    border-bottom: 1px solid #E8E8E8;
-    padding: 24px 40px;
-    box-sizing: border-box;
-    gap: 14px;
-    flex-direction: column;
-
-    #input__photo {
-      display: none;
-    }
-    .upload-photo {
-      display: flex;
-      background: $lightGrayColor;
-      border-radius: 8px;
-      flex: 0 0 72px;
-      width: 280px;
-      padding: 16px 18px;
-      box-sizing: border-box;
-      align-items: center;
-      gap: 23px;
-
-      .el-1 {
-        display: flex;
-        flex: 0 0 40px;
-        align-self: stretch;
-        &.my-photo {
-          width: 40px;
-          height: 40px;
-        }
-      }
-      .el-2 {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        justify-content: center;
-        flex: 1 1 auto;
-        cursor: pointer;
-
-        .orange-400-14 {
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-  }
+  
   .fields-form {
     display: flex;
     padding: 24px 75px 32px 40px;

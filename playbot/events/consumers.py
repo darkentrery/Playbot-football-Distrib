@@ -5,7 +5,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.utils import timezone
 from loguru import logger
 
-from playbot.events.models import EventGame, GamePeriod, Goal
+from playbot.events.models import EventGame, GamePeriod, Goal, Event
 from playbot.events.serializers import EventGameSerializer, CreateGoalSerializer, UpdateGoalSerializer, EventSerializer
 from playbot.events.utils import RankCalculation
 from playbot.users.models import RankHistory
@@ -132,9 +132,8 @@ class EventGameConsumer(AsyncJsonWebsocketConsumer):
         if not event.event_games.filter(time_end=None).exists():
             event.time_end = self.game.time_end
             event.save()
-            for player in event.event_player.all():
-                rank = RankCalculation(player.player, event).get_next_rank()
-                RankHistory.objects.create(user=player.player, rank=rank, event=event)
+
+            self.update_rank()
 
     @sync_to_async
     def end_event(self):
@@ -147,6 +146,21 @@ class EventGameConsumer(AsyncJsonWebsocketConsumer):
         for game in event.event_games.filter(time_begin=None):
             game.time_begin = event.time_end
             game.save()
-        for player in event.event_player.all():
-            rank = RankCalculation(player.player, event).get_next_rank()
-            RankHistory.objects.create(user=player.player, rank=rank, event=event)
+
+        self.update_rank()
+
+    def update_rank(self):
+        for game in self.game.event.event_games.all():
+            for player in game.team_1.team_players.all():
+                rank = RankCalculation(player.player, self.game.event, game=game).get_next_rank_after_game()
+                event_player = self.game.event.event_player.get(player_id=player.player.id)
+                if event_player.played - 1 == RankHistory.objects.filter(user=player.player, event=self.game.event).count():
+                    rank += 0.01
+                RankHistory.objects.create(user=player.player, rank=rank, event=self.game.event)
+
+            for player in game.team_2.team_players.all():
+                rank = RankCalculation(player.player, self.game.event, game=game).get_next_rank_after_game()
+                event_player = self.game.event.event_player.get(player_id=player.player.id)
+                if event_player.played - 1 == RankHistory.objects.filter(user=player.player, event=self.game.event).count():
+                    rank += 0.01
+                RankHistory.objects.create(user=player.player, rank=rank, event=self.game.event)

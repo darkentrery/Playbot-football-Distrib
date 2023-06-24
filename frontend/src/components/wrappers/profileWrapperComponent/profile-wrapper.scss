@@ -1,136 +1,151 @@
 .profile-wrapper-component {
-  display: flex;
-  justify-content: stretch;
-  background: #F9F9F9;
-  box-sizing: border-box;
-  flex: 1 1 auto;
-
-  .my-profile {
     display: flex;
-    padding: 36px 60px 36px 40px;
+    justify-content: stretch;
+    background: #f9f9f9;
     box-sizing: border-box;
-    gap: 28px;
-    flex-direction: column;
     flex: 1 1 auto;
 
-    .title-elem {
-      display: flex;
-      justify-content: space-between;
-      flex: 0 0 40px;
-      .btn-second {
-        flex: 0 0 184px;
-        white-space: nowrap;
-
-        .black-ball-icon {
-          display: flex;
-          flex: 0 0 13.33px;
-          height: 13.33px;
-          background-size: 13.33px;
-        }
-      }
-    }
-    .navigate-bar-1280 {
-      display: flex;
-      flex: 0 0 35px;
-      gap: 48px;
-
-      .nav-link {
+    .my-profile {
         display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &.active {
-          border: 1px solid $orangeColor;
-          border-radius: 25px;
-          padding: 0 25px;
-        }
-      }
-      .active {
-        border: 1px solid $orangeColor;
-        border-radius: 25px;
-      }
-      .inactive {
-      }
-      .end-game-link {
+        padding: 36px 60px 36px 40px;
+        box-sizing: border-box;
+        gap: 28px;
+        flex-direction: column;
         flex: 1 1 auto;
-        justify-content: end;
-        padding: 0;
-        cursor: pointer;
-        &:hover {
-          text-decoration: underline;
+
+        .title-elem {
+            display: flex;
+            justify-content: space-between;
+            flex: 0 0 40px;
+            .btn-second {
+                flex: 0 0 184px;
+                white-space: nowrap;
+
+                .black-ball-icon {
+                    display: flex;
+                    flex: 0 0 13.33px;
+                    height: 13.33px;
+                    background-size: 13.33px;
+                }
+            }
         }
-      }
+        .navigate-bar-1280 {
+            display: flex;
+            flex: 0 0 35px;
+            gap: 48px;
+
+            .nav-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &.active {
+                    border: 1px solid $orangeColor;
+                    border-radius: 25px;
+                    padding: 0 25px;
+                }
+            }
+            .active {
+                border: 1px solid $orangeColor;
+                border-radius: 25px;
+            }
+            .inactive {
+            }
+            .end-game-link {
+                flex: 1 1 auto;
+                justify-content: end;
+                padding: 0;
+                cursor: pointer;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
     }
-  }
 }
 
 .profile-wrapper-component-376 {
-  display: none;
-}
-
-@media screen and (min-width: 1280px){
-  .profile-wrapper-component {
-    min-height: calc(100vh - 96px - 224px);
-    padding: 0 calc((100vw - 1280px) / 2);
-  }
-}
-
-@media screen and (min-width: 744px) and (max-width: 1279px){
-  .profile-wrapper-component {
-    min-height: calc(100% - 96px - 323px);
-
-    .my-profile {
-      padding: 24px 20px 24px 24px;
-      gap: 16px;
-
-      .title-elem {
-        flex: 0 0 24px;
-        margin-bottom: 16px;
-        .black-700-28 {
-          font-size: 22px;
-        }
-        .btn-second {
-          flex: 0 0 146px;
-          padding: 5px 19px;
-          font-size: 12px;
-          .black-ball-icon {
-            display: none;
-          }
-        }
-      }
-      .navigate-bar-1280 {
-        gap: 31px;
-        .nav-link {
-          font-size: 12px;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
-  .profile-wrapper-component {
     display: none;
-  }
-  .profile-wrapper-component-376 {
-    display: flex;
-    flex: 0 0 calc(100vh - 66px);
-    justify-content: stretch;
-    overflow-y: auto;
+}
 
-    &::-webkit-scrollbar {
-      -webkit-appearance: none;
-      display: none;
+.admin-load-user-photo-btn {
+    font-family: 'Raleway';
+    font-style: normal;
+    margin-left: auto;
+    background-color: transparent;
+    border: 1px solid #1b1b1b;
+    border-radius: 8px;
+    padding: 12px 16px 12px 40px;
+    cursor: pointer;
+    &.add-photo-icon {
+        background-position: 15px 13px;
     }
+}
 
-    &.safari-margin {
-      margin-bottom: 66px;
+@media screen and (min-width: 1280px) {
+    .profile-wrapper-component {
+        min-height: calc(100vh - 96px - 224px);
+        padding: 0 calc((100vw - 1280px) / 2);
     }
-  }
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px) {
+    .profile-wrapper-component {
+        min-height: calc(100% - 96px - 323px);
+
+        .my-profile {
+            padding: 24px 20px 24px 24px;
+            gap: 16px;
+
+            .title-elem {
+                flex: 0 0 24px;
+                margin-bottom: 16px;
+                .black-700-28 {
+                    font-size: 22px;
+                }
+                .btn-second {
+                    flex: 0 0 146px;
+                    padding: 5px 19px;
+                    font-size: 12px;
+                    .black-ball-icon {
+                        display: none;
+                    }
+                }
+            }
+            .navigate-bar-1280 {
+                gap: 31px;
+                .nav-link {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 743px),
+    (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
+    .profile-wrapper-component {
+        display: none;
+    }
+    .profile-wrapper-component-376 {
+        display: flex;
+        flex: 0 0 calc(100vh - 66px);
+        justify-content: stretch;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+            display: none;
+        }
+
+        &.safari-margin {
+            margin-bottom: 66px;
+        }
+    }
 }
 
 @media screen and (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
-  .profile-wrapper-component-376 {
-    flex: 0 0 calc(100vw - 66px);
-  }
+    .profile-wrapper-component-376 {
+        flex: 0 0 calc(100vw - 66px);
+    }
 }

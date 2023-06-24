@@ -31,6 +31,17 @@ class Gender(models.Model):
         return f"{self.name}"
 
 
+class PhotoError(models.Model):
+    name = models.CharField(_("Error Name"), max_length=250, unique=True)
+
+    class Meta:
+        verbose_name = "Photo Error"
+        verbose_name_plural = "Photo Errors"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class User(AbstractUser):
     class Gender(models.TextChoices):
         MALE = "Парень", _("Парень")
@@ -49,6 +60,8 @@ class User(AbstractUser):
     position_2 = models.ForeignKey(Position, on_delete=models.SET_NULL, related_name="users_position_2", blank=True, null=True)
     birthday = models.DateField(_("Birthday"), blank=True, null=True)
     photo = models.ImageField(upload_to="photos", verbose_name="Photo", blank=True, null=True)
+    photo_errors = models.ManyToManyField(PhotoError, related_name="users", blank=True)
+    is_accept_photo = models.BooleanField(_("Is Accept Photo"), default=False)
     about_self = models.TextField(_("About Self"), blank=True, null=True)
     favorite_events = models.ManyToManyField("events.Event", related_name="in_favorites", blank=True)
     favorite_players = models.ManyToManyField("users.User", related_name="in_favorite_players", blank=True)
@@ -203,10 +216,22 @@ class User(AbstractUser):
         last_rank = self.ranks_history.filter(create__lt=time_rank).last()
         return round(last_rank.rank, 2)
 
+    def rank_before_game(self, game):
+        time_rank = datetime.datetime.combine(game.event.date, game.event.time_end or game.event.time_begin)
+        if self.ranks_history.filter(event=game.event).exists():
+            rank_histories = self.ranks_history.filter(event=game.event)
+            if rank_histories.count() == 1:
+                time_rank = rank_histories.first().create
+            else:
+                time_rank = rank_histories[game.number - 1].create
+        last_rank = self.ranks_history.filter(create__lt=time_rank).last()
+        return round(last_rank.rank, 2)
+
     @property
     def acronym_positions(self):
         positions = [position.acronym for position in (self.position_1, self.position_2) if position]
         return "/".join(positions)
+
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")

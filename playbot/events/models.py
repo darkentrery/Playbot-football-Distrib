@@ -456,9 +456,6 @@ class EventGame(models.Model):
     def __str__(self):
         return f"{self.event.name} - {self.number}"
 
-    # def __call__(self, *args, **kwargs):
-    #     return self.__str__()
-
     @property
     def current_duration(self):
         duration = 0

@@ -1,0 +1,444 @@
+@import '../../../assets/css/mixins/buttonMixins.scss';
+
+.load-user-photo {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    z-index: 999;
+    font-family: 'Raleway';
+    font-style: normal;
+    .cross-icon {
+        position: absolute;
+        top: 31px;
+        right: 24px;
+        cursor: pointer;
+    }
+    &.loader {
+        border-radius: 10px !important;
+        .loader-component {
+            border-radius: 10px !important;
+            background: white;
+            border-radius: 10px;
+        }
+    }
+}
+
+.load-user-photo-title {
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+    color: #1b1b1b;
+}
+
+.load-user-photo-examples {
+    margin-top: 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.load-photo-example-text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    color: #1b1b1b;
+}
+
+.load-user-photo-button {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-inline: auto;
+    margin-top: 24px;
+    width: 261px;
+    background: #f3f3f3;
+    border: 0.8px solid #f3f3f3;
+    border-radius: 8px;
+    padding: 16px 20px;
+    user-select: none;
+    cursor: pointer;
+    .no-photo-icon {
+        width: 40px;
+        height: 40px;
+    }
+    &:hover {
+        .gray-400-14 {
+            text-decoration: underline;
+        }
+    }
+    .loading-circle-icon {
+        margin-left: auto;
+        opacity: 0.2;
+    }
+}
+
+#load-user-photo-input {
+    display: none;
+}
+
+.load-photo-supported-formats {
+    margin-top: 4px;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+// preview
+
+.load-user-photo-preview {
+    margin-top: 24px;
+    background: #f7f4ed;
+    box-shadow: -0.389864px 1.55945px 1.55945px rgba(48, 38, 29, 0.8),
+        -1.55945px 3.89864px 3.11891px rgba(39, 39, 39, 0.35),
+        inset 0.779727px -0.389864px 1.55945px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 7px;
+    width: max-content;
+    margin-inline: auto;
+}
+
+.load-user-photo-preview-frame {
+    border: 3.89864px solid #edc49f;
+    border-radius: 7.79727px;
+}
+
+.load-user-photo-preview-top-frame {
+    position: relative;
+    background: linear-gradient(
+        180deg,
+        rgba(247, 244, 237, 0) 54.02%,
+        #f7f4ed 79.03%
+    );
+    background-image: url('../../../assets/icon/background-user-photo.png');
+    background-repeat: no-repeat;
+    background-size: 185px;
+    width: 182px;
+    height: 198px;
+}
+
+.load-user-photo-preview-top-frame-fog {
+    position: absolute;
+    bottom: -25px;
+    left: 5px;
+    height: 40px;
+    width: 96%;
+    background-color: #f7f4f4;
+    filter: blur(8px);
+    border-radius: 20px;
+}
+
+.load-user-photo-preview-user-img {
+    width: 182px;
+    height: 198px;
+}
+
+.load-user-photo-preview-bottom {
+    position: relative;
+    z-index: 5;
+    margin-top: 14px;
+}
+
+.load-user-photo-preview-username {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23.3918px;
+    text-align: center;
+    line-height: 95.4%;
+    color: #e2b184;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-inline: auto;
+}
+
+.load-user-photo-preview-decor-square {
+    padding-top: 4px;
+}
+
+.load-user-photo-preview-bottom-stats {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 21px;
+    justify-content: center;
+}
+
+.load-user-photo-preview-stats {
+}
+
+.load-user-photo-preview-stats-name {
+    font-weight: 700;
+    font-size: 9.66757px;
+    line-height: 12px;
+    color: #edc49f;
+}
+
+.load-user-photo-preview-stats-value {
+    font-weight: 700;
+    font-size: 16.791px;
+    line-height: 20px;
+    color: #e2b184;
+}
+
+.load-user-photo-preview-stats-right {
+    text-align: end;
+}
+
+.load-user-photo-preview-text-step-2 {
+    margin-top: 24px;
+    max-width: 390px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    text-align: center;
+    color: #1b1b1b;
+    margin-inline: auto;
+}
+
+.load-user-photo-preview-buttons-step-2 {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    button {
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        width: max-content;
+        transition: 0.3s;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+.load-user-photo-preview-step-2-accept {
+    background: #d19c6c;
+    border-radius: 8px;
+    padding: 14px 48px;
+    text-align: center;
+    color: #ffffff;
+    outline: none;
+    border: none;
+}
+
+.load-user-photo-preview-step-2-decline {
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    color: #1b1b1b;
+    padding: 12px 61px;
+}
+
+.load-user-photo-step3 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    --max-width: 337px;
+    img {
+        display: block;
+        margin-inline: auto;
+    }
+}
+
+.load-user-photo-step3-text-1 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 120%;
+    text-align: center;
+    color: #1b1b1b;
+    max-width: var(--max-width);
+    br {
+        display: none;
+    }
+}
+
+.load-user-photo-step3-text-2 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    text-align: center;
+    color: #949494;
+    text-align: center;
+    max-width: var(--max-width);
+}
+
+.load-user-photo-step3-button {
+    @include orangeButton(10px 0px);
+    width: 100%;
+    font-family: 'Raleway';
+    font-style: normal;
+}
+
+// error
+
+.load-user-photo-error {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px;
+    background: #fff3f2;
+    border-radius: 8px;
+    .red-warning-icon {
+        height: 22px;
+        width: 24px;
+    }
+}
+
+.load-user-photo-error {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 130%;
+    color: #000000;
+}
+
+.load-user-photo-error-format {
+    margin-top: 8px;
+    text-align: unset;
+    margin-left: 50px;
+}
+
+.load-user-photo-error-btn {
+    @include orangeButton(5px 24px);
+    margin-top: 26px;
+    display: block;
+    border-radius: 50px;
+    margin-inline: auto;
+    font-size: 12px;
+}
+
+// admin load
+
+.load-user-photo-as-admin {
+    margin-top: 40px;
+    .load-user-photo-as-admin-title {
+        text-align: center;
+        font-family: 'Raleway';
+        font-style: normal;
+        margin-bottom: 12px;
+    }
+    input {
+        position: relative;
+        display: block;
+        margin-inline: auto;
+        padding: 14px 8px 14px 16px;
+        max-width: 332px;
+        width: 100%;
+        border: 0.8px solid #949494;
+        border-radius: 8px;
+    }
+}
+
+.load-user-photo-as-admin-input-wrapper {
+    position: relative;
+}
+
+.load-user-photo-as-admin-user-list-wrapper {
+    position: absolute;
+    bottom: -105px;
+    left: 80px;
+    height: 163px;
+    max-width: 332px;
+    width: 100%;
+    bottom: -174px;
+}
+
+.load-user-photo-as-admin-user-list {
+    border: 0.8px solid #949494;
+    border-radius: 8px;
+    width: 100%;
+    & > div:first-child {
+        border-radius: 8px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    & > div:last-child {
+        border-radius: 8px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+}
+
+.load-user-photo-as-admin-user-item {
+    width: 100%;
+    padding: 14px 8px 14px 16px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover {
+        background-color: #F3F3F4;
+    }
+}
+
+.load-user-photo-step3-admin-button {
+    display: flex;
+    gap: 20px;
+}
+
+@media screen and (min-width: 744px) and (max-width: 1279px){
+
+}
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+    .load-user-photo-example {
+        img {
+            width: 138px;
+            height: 132px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .load-photo-example-text {
+        font-size: 14px;
+        line-height: 120%;
+    }
+
+    .load-user-photo-button {
+        width: 258px;
+    }
+
+    .load-photo-supported-formats {
+        letter-spacing: 0.2px;
+    }
+
+    .load-user-photo-error-format {
+        margin-inline: auto;
+        width: 200px;
+        text-align: center;
+        letter-spacing: 0.4px;
+    }
+
+    .load-user-photo-error-btn {
+        padding: 13px 24px;
+    }
+    .load-user-photo-preview-text-step-2 {
+        width: 312px;
+    }
+    .load-user-photo-preview-buttons-step-2 {
+        button {
+            padding: 14px 8px;
+        }
+    }
+    
+    .load-user-photo-step3-text-1{
+        width: 250px;
+        margin-inline: auto;
+        br {
+            display: unset;
+        }
+    }
+    .load-user-photo-step3-text-2{
+        width: 300px;
+    }
+
+    .load-user-photo-as-admin-user-list-wrapper {
+        left: 0px;
+    }
+}
