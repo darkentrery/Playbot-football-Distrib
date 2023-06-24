@@ -288,6 +288,7 @@ class UpdatePhotoUsernameView(APIView):
 class CheckUserPhotoView(APIView):
     permission_classes = (IsAuthenticated,)
 
+
     def post(self, request, format='json'):
         try:
             user = User.objects.get(id=request.data["id"])
@@ -297,6 +298,8 @@ class CheckUserPhotoView(APIView):
                 serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
                 if serializer.is_valid():
                     user = serializer.save()
+                    photos = []
+                    errors = []
                     errors, photos = check_photo(user)
                     for photo in photos:
                         logger.info(f"{photo}")

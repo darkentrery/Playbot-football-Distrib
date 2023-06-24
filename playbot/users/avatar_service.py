@@ -294,7 +294,9 @@ def check_photo(user: User) -> tuple[list, list]:
     image = ImageOps.exif_transpose(image)
     errors = []
     photos = []
+    logger.info(f"Begin processing!")
     faces_data = UserAvatarProcessing.getFacesData(image)
+    logger.info(f"Continue processing!")
     if len(faces_data):
         face_data = faces_data[0]
         if image.height < face_data["faceHeight"] * 2 or image.width < face_data["faceWidth"] * 2:
@@ -304,9 +306,12 @@ def check_photo(user: User) -> tuple[list, list]:
             errors.append("Photo is cropped. Pick another picture.")
 
         with open(user.photo.path, "rb") as photo:
+            logger.info(f"Open photo!")
             file = BytesIO(photo.read())
+            logger.info(f"Open 2 photo!")
             original_photo, big_card_photo, small_card, overlay_photo = UserAvatarProcessing.prepareAvatarImages(file=file,
                                                                                                             faceData=face_data)
+            logger.info(f"Open 3 photo!")
             photos.extend([original_photo, big_card_photo, small_card, overlay_photo])
     else:
         errors.append("No faces found. Upload another picture.")
