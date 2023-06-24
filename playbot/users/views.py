@@ -299,6 +299,7 @@ class CheckUserPhotoView(APIView):
                 serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
                 if serializer.is_valid():
                     user = serializer.save()
+                    output_photo = ""
                     photos = []
                     errors = []
                     if settings.UNIX_OS:
@@ -310,10 +311,11 @@ class CheckUserPhotoView(APIView):
                             user.small_card_photo = ImageFile(photos[2], name=f"{user.id}-small_card_photo.png")
                             user.overlay_photo = ImageFile(photos[3], name=f"{user.id}-overlay_photo.png")
                             user.save()
+                            output_photo = user.big_card_photo.url
                     for photo in photos:
                         logger.info(f"{photo}")
                     errors = PhotoErrorSerializer(PhotoError.objects.filter(name__in=errors), many=True).data
-                    output_photo = user.photo.url
+
                     return Response({"photo": output_photo, "errors": errors}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
@@ -340,6 +342,9 @@ class CancelUserPhotoView(APIView):
     def post(self, request, format='json'):
         user = request.user
         user.photo = None
+        user.big_card_photo = None
+        user.small_card_photo = None
+        user.overlay_photo = None
         user.is_accept_photo = False
         user.save()
         return Response({}, status=status.HTTP_200_OK)

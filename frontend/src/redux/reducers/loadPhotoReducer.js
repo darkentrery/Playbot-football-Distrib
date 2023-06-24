@@ -83,7 +83,7 @@ export const loadPhotoAction = (photoData, user, isAdmin) => async (dispatch) =>
         let response = await authDecoratorWithoutLogin(authService.checkUserPhoto, {id: user.id, upload_photo: photoData});
         console.log(response)
         if (response.data.errors.length) {
-            let errors = response.data.errors.data.map((error) => error.name);
+            let errors = response.data.errors.map((error) => error.name);
             throw new Error(errors.join(", "));
         } else {
             if (!isAdmin) {
