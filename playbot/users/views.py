@@ -300,7 +300,6 @@ class CheckUserPhotoView(APIView):
                 if serializer.is_valid():
                     user = serializer.save()
                     output_photo = ""
-                    photos = []
                     errors = []
                     if settings.UNIX_OS:
                         from playbot.users.avatar_service import check_photo
@@ -312,8 +311,7 @@ class CheckUserPhotoView(APIView):
                             user.overlay_photo = ImageFile(photos[3], name=f"{user.id}-overlay_photo.png")
                             user.save()
                             output_photo = user.big_card_photo.url
-                    for photo in photos:
-                        logger.info(f"{photo}")
+
                     errors = PhotoErrorSerializer(PhotoError.objects.filter(name__in=errors), many=True).data
 
                     return Response({"photo": output_photo, "errors": errors}, status=status.HTTP_200_OK)
