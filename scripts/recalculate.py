@@ -27,8 +27,8 @@ def team_recalculate(team: Team, event: Event, game: EventGame) -> None:
 
 @logger.catch
 def recalculate() -> None:
-    # for event in Event.objects.filter(time_end__isnull=False):
-    for event in Event.objects.filter(date__gte="2023-06-22"):
+    for event in Event.objects.filter(time_end__isnull=False):
+    # for event in Event.objects.filter(date__gte="2023-06-22"):
         for game in event.event_games.all():
             team_recalculate(game.team_1, event, game)
             team_recalculate(game.team_2, event, game)
