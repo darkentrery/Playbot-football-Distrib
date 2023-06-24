@@ -1,6 +1,7 @@
 import copy
 
 from django.core.files.base import ContentFile
+from django.core.files.images import ImageFile
 from django.views.generic import TemplateView
 from loguru import logger
 from rest_framework import status
@@ -307,7 +308,9 @@ class CheckUserPhotoView(APIView):
                     for photo in photos:
                         logger.info(f"{photo}")
                     if len(photos):
-                        user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photos[0]), save=True)
+                        image = ImageFile(photos[0], name='foo.jpg')
+                        user.photo = image
+                        # user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photos[0]), save=True)
                         user.save()
                     errors = PhotoErrorSerializer(PhotoError.objects.filter(name__in=errors), many=True).data
 
