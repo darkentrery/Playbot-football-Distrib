@@ -77,7 +77,7 @@ export const {
 export const loadPhotoAction = (photoData, user, isAdmin) => async (dispatch) => {
     dispatch(setIsLoading(true));
     try {
-        if (!/png|jpg|heic/.test(photoData.name.split('.').pop())) {
+        if (!/png|jpg|heic|HEIC/.test(photoData.name.split('.').pop())) {
             throw new Error('Такой формат не поддерживается.');
         }
         let response = await authDecoratorWithoutLogin(authService.checkUserPhoto, {id: user.id, upload_photo: photoData});
