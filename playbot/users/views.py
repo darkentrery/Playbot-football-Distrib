@@ -298,6 +298,7 @@ class CheckUserPhotoView(APIView):
                 serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
                 if serializer.is_valid():
                     user = serializer.save()
+                    output_photo = user.photo.path
                     photos = []
                     errors = []
                     errors, photos = check_photo(user)

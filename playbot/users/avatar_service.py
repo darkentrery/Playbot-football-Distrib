@@ -297,6 +297,7 @@ def check_photo(user: User) -> tuple[list, list]:
     logger.info(f"Begin processing!")
     faces_data = UserAvatarProcessing.getFacesData(image)
     logger.info(f"Continue processing!")
+    logger.info(f"{faces_data}")
     if len(faces_data):
         face_data = faces_data[0]
         if image.height < face_data["faceHeight"] * 2 or image.width < face_data["faceWidth"] * 2:
