@@ -149,8 +149,7 @@ class UserAvatarProcessing:
             cropY1 = faceData['faceTop'] + faceData['faceHeight'] * 5
 
         withRemovedBG = withRemovedBG.crop((cropX0, cropY0, cropX1, cropY1))
-        cropped = withRemovedBG.crop(
-            withRemovedBG.getbbox())  # Убираем лишние участки фото, на которых потенциально могут быть проблемные участки удалённого фона
+        cropped = withRemovedBG.crop(withRemovedBG.getbbox())  # Убираем лишние участки фото, на которых потенциально могут быть проблемные участки удалённого фона
         regularCardFile = BytesIO()
 
         croppedThumbnail = cropped.copy()
@@ -181,8 +180,7 @@ class UserAvatarProcessing:
         else:
             rX0 -= abs(faceShiftDiff)
 
-        regularCardPic = regularCardPic.crop((rX0, rY0, rX1,
-                                              rY1))  # Обрезаем фото по корпусу и добавляем пространство для компенсации отклонения лица от центра
+        regularCardPic = regularCardPic.crop((rX0, rY0, rX1, rY1))
         ratio = 0.82
         fixedHeight = regularCardPic.width / ratio
         regularCardPic = regularCardPic.crop((0, 0, regularCardPic.width, fixedHeight))
