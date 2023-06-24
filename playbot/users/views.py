@@ -1,5 +1,6 @@
 import copy
 
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
 from django.views.generic import TemplateView
@@ -14,7 +15,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from playbot.cities.models import Address
 from playbot.telegram.utils import send_photo_for_moderation
-from playbot.users.avatar_service import check_photo
 from playbot.users.models import User, RankHistory, PhotoError
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
@@ -290,31 +290,30 @@ class UpdatePhotoUsernameView(APIView):
 class CheckUserPhotoView(APIView):
     permission_classes = (IsAuthenticated,)
 
-
     @logger.catch
     def post(self, request, format='json'):
         try:
             user = User.objects.get(id=request.data["id"])
             if request.user.id == user.id or request.user.is_organizer:
                 photo = request.data["upload_photo"]
-                output_photo = ""
                 serializer = UpdatePhotoSerializer(instance=user, data={"photo": photo})
                 if serializer.is_valid():
                     user = serializer.save()
-                    output_photo = user.photo.url
                     photos = []
                     errors = []
-                    errors, photos = check_photo(user)
+                    if settings.UNIX_OS:
+                        from playbot.users.avatar_service import check_photo
+                        errors, photos = check_photo(user)
+                        if len(photos):
+                            user.photo = ImageFile(photos[0], name=f"{user.id}-original_photo.png")
+                            user.big_card_photo = ImageFile(photos[1], name=f"{user.id}-big_card_photo.png")
+                            user.small_card_photo = ImageFile(photos[2], name=f"{user.id}-small_card_photo.png")
+                            user.overlay_photo = ImageFile(photos[3], name=f"{user.id}-overlay_photo.png")
+                            user.save()
                     for photo in photos:
                         logger.info(f"{photo}")
-                    if len(photos):
-                        image = ImageFile(photos[0], name='foo.jpg')
-                        user.photo = image
-                        # user.photo.save(str(user.photo).replace("/photos", ""), ContentFile(photos[0]), save=True)
-                        user.save()
                     errors = PhotoErrorSerializer(PhotoError.objects.filter(name__in=errors), many=True).data
-
-
+                    output_photo = user.photo.url
                     return Response({"photo": output_photo, "errors": errors}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
