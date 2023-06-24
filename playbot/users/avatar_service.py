@@ -3,6 +3,7 @@ from typing import Tuple
 import face_recognition, rembg
 from PIL import Image, ImageDraw, ImageFont, ImagePalette, ImageOps
 import numpy
+from django.conf import settings
 from loguru import logger
 from numpy.typing import NDArray
 from io import BytesIO
@@ -204,7 +205,7 @@ class UserAvatarProcessing:
         # halftoned = cls.applyHalftoneFilter(faceOnlyPicSmall, spacing=faceOnlyPicSmall.width/80)
         # halftoned.save(faceOnlyFile, "png")
         faceOnlyPicSmall.save(faceOnlyFile, "png")
-        smallCardMask = Image.open('smallCardMask.png').convert("L")
+        smallCardMask = Image.open(str(settings.APPS_DIR.path("static/images")) + 'smallCardMask.png').convert("L")
 
         smallCardImg = Image.new(mode="RGBA", size=(255, 318))
         faceOnlyPic = faceOnlyPic.crop(faceOnlyPic.getbbox())
@@ -275,7 +276,7 @@ class UserAvatarProcessing:
 
         smallCardImg.putdata(newData)
 
-        smallCard = Image.open("smallCard.png")
+        smallCard = Image.open(str(settings.APPS_DIR.path("static/images")) + "smallCard.png")
         smallCard.alpha_composite(smallCardImg)
         smallCardFile = BytesIO()
         smallCard.save(smallCardFile, format='png')
