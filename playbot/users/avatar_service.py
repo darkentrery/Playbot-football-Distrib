@@ -205,7 +205,7 @@ class UserAvatarProcessing:
         # halftoned = cls.applyHalftoneFilter(faceOnlyPicSmall, spacing=faceOnlyPicSmall.width/80)
         # halftoned.save(faceOnlyFile, "png")
         faceOnlyPicSmall.save(faceOnlyFile, "png")
-        smallCardMask = Image.open(str(settings.APPS_DIR.path("static/images")) + 'smallCardMask.png').convert("L")
+        smallCardMask = Image.open(str(settings.APPS_DIR.path("static/images")) + '/smallCardMask.png').convert("L")
 
         smallCardImg = Image.new(mode="RGBA", size=(255, 318))
         faceOnlyPic = faceOnlyPic.crop(faceOnlyPic.getbbox())
@@ -276,7 +276,7 @@ class UserAvatarProcessing:
 
         smallCardImg.putdata(newData)
 
-        smallCard = Image.open(str(settings.APPS_DIR.path("static/images")) + "smallCard.png")
+        smallCard = Image.open(str(settings.APPS_DIR.path("static/images")) + "/smallCard.png")
         smallCard.alpha_composite(smallCardImg)
         smallCardFile = BytesIO()
         smallCard.save(smallCardFile, format='png')
