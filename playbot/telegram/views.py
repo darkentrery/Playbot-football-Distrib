@@ -56,3 +56,12 @@ class CreateChannelView(APIView):
                 json = TelegramChannelSerializer(TelegramChannel.objects.get(id=channel.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteChannelView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        channel = TelegramChannel.objects.get(channel_id=request.data["channel_id"])
+        channel.delete()
+        return Response({}, status=status.HTTP_200_OK)
