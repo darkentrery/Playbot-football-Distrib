@@ -1,6 +1,6 @@
 import "./EventCardsInfo.scss";
-import ClockIcon from '../../assets/icon/clock.png';
-import AvatarIcon from '../../assets/icon/avatar-skeleton.svg';
+import ClockIcon from '../../assets/icon/clock.svg';
+import AvatarIcon from '../../assets/icon/avatar-skeleton-2.svg';
 import TrophyIcon from '../../assets/icon/trophy.svg';
 import DiagramIcon from '../../assets/icon/diagram.svg';
 import GenderIcon from '../../assets/icon/gender.svg';
@@ -18,10 +18,14 @@ export const EventCardsInfo = ({event}) => {
         <div className="event-cards-info">
             { event.duration_opt?.duration &&  
                 <div className="event-info-card">
-                    <img src={ClockIcon} alt="clock" height={15} />
+                    <img src={ClockIcon} alt="clock" width={18} height={18} />
                     <div>{event.duration_opt.duration} мин</div>
                 </div>
             }
+            <div className="event-info-card">
+                    <img src={ClockIcon} alt="clock" width={18} height={18} />
+                    <div>30 мин</div>
+                </div>
             { event.count_current_players !== 0 &&
                 <div className="event-info-card">
                     <img src={AvatarIcon} alt="avatar" width={15} height={17} />
@@ -60,7 +64,7 @@ export const EventCardsInfo = ({event}) => {
             }
             { genders.length !== 2 && genders[0] &&
                 <div className="event-info-card">
-                    <img src={GenderIcon} alt="Gender" width={20} height={20} />
+                    <img src={GenderIcon} alt="Gender" width={14.26} height={19.50} style={{marginRight: "4px"}}/>
                     <div>{genders[0].id == 1 ? "мужской" : "женский"}</div>
                 </div>
             }

@@ -1,11 +1,16 @@
 .event-join-action-calendar {
     display: flex;
+    align-items: center;
     gap: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 21px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
     color: #1B1B1B;
-    margin-bottom: 8px;
+    img {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 2px;
+    }
 }
 
 .event-join-action-price {
@@ -14,11 +19,11 @@
 }
 
 .event-join-action-text {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     color: #1B1B1B;
-    margin-left: 9px;
+    margin-left: 8px;
 }
 
 .event-join-action-warning {

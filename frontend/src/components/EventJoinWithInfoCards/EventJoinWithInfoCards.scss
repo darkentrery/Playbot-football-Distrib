@@ -12,6 +12,12 @@
     }
 }
 
+.event-join-action-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
 .event-join-action {
     display: flex;
     align-items: center;
@@ -52,12 +58,15 @@
     }
     .event-join-action {
         flex-direction: column;
-        gap: 19px;
+        gap: 21px;
         align-items: flex-start;
     }
 
     .event-join-action-info {
-        margin-left: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0px;
+        gap: 13px;
     }
 
     .event-join-top-organizer {

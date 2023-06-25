@@ -20,6 +20,7 @@ import EventLimitsInfo376 from '../../EventLimitsInfo376/EventLimitsInfo376';
 
 import VisibleEventOrganizerButtons from '../../../redux/containers/VisibleEventOrganizerButtons';
 import VisibleEventPlayerButtons from '../../../redux/containers/VisibleEventPlayerButtons';
+import EventAboutPlace376 from '../../EventAboutPlace376/EventAboutPlace376';
 
 export default function EventComponent({ event, sameEvents, user, funcs }) {
     const { pk } = useParams();
@@ -154,6 +155,7 @@ export default function EventComponent({ event, sameEvents, user, funcs }) {
                                     {event.name}
                                 </div>
                             )}
+                        <EventAboutPlace376 event={event}/>
                         <EventJoinInfo376 event={event} user={user.user} />
 
                         {event &&
@@ -186,7 +188,7 @@ export default function EventComponent({ event, sameEvents, user, funcs }) {
                                 <span className={'elem elem-1 black-600-20'}>
                                     Похожие события
                                 </span>
-                                <div className={'elem elem-2'}>
+                                <div className={'elem elem-2 same-events__list'}>
                                     {sameEvents.map((event, key) => (
                                         <SameEventComponent
                                             className={`same-event-${key}`}

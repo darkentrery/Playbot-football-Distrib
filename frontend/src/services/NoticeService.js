@@ -121,11 +121,15 @@ export const noticeService = {
 	},
 
 	async registerSw() {
-		if ('serviceWorker' in navigator) {
-		    const reg = await navigator.serviceWorker.register(`${SERVER_URL}/sw.js`, { scope: '/' });
-			this.initialiseState(reg);
-		} else {
-		   this.showNotAllowed("You can't send push notifications ☹️😢");
-	   }
+		try {
+			if ('serviceWorker' in navigator) {
+				const reg = await navigator.serviceWorker.register(`${SERVER_URL}/sw.js`, { scope: '/' });
+				this.initialiseState(reg);
+			} else {
+			   this.showNotAllowed("You can't send push notifications ☹️😢");
+		   }
+		} catch (error) {
+			console.log(error)
+		}
 	},
 }

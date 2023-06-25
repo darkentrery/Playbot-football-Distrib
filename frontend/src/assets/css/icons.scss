@@ -845,15 +845,23 @@
 }
 
 .calendar-same-icon {
-  background: url("../icon/calendar-same.svg");
+  background: url("../icon/calendar.svg");
   background-repeat: no-repeat;
-  background-size: 20px 17px;
-  width: 20px;
-  height: 17px;
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .avatar-black-skelet-icon {
   background: url("../icon/avatar-skeleton.svg");
+  background-repeat: no-repeat;
+  background-size: 15px 17px;
+  width: 15px;
+  height: 17px;
+}
+
+.avatar-skeleton-icon {
+  background: url("../icon/avatar-skeleton-2.svg");
   background-repeat: no-repeat;
   background-size: 15px 17px;
   width: 15px;

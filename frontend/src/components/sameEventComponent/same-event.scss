@@ -1,6 +1,6 @@
 .same-event-component {
   display: flex;
-  flex: 0 0 366px;
+  flex: 0 0 343px;
   border-radius: 8px;
   background: $whiteColor;
   flex-direction: column;
@@ -21,13 +21,12 @@
     box-sizing: border-box;
 
     &.elem-1 {
-      flex: 0 0 182px;
-      padding-right: 32px;
-      padding-left: 32px;
-      padding-top: 26px;
-      padding-bottom: 24px;
+      flex: 0 0 172px;
+      padding-right: 20px;
+      padding-left: 20px;
+      padding-top: 22px;
+      padding-bottom: 20px;
       flex-direction: column;
-      gap: 18px;
 
       .el {
         display: flex;
@@ -43,7 +42,10 @@
           border-radius: 25px;
           background: $lightGrayColor;
           align-items: center;
-          column-gap: 10px;
+          column-gap: 4px;
+          span {
+            line-height: 100% !important;
+          }
         }
 
         .star-icon {
@@ -55,7 +57,7 @@
     &.elem-2 {
       flex: 0 0 68px;
       border-top: 1px solid #E1E1E1;
-      padding-left: 35px;
+      padding-left: 20px;
       padding-right: 30px;
       align-items: center;
       gap: 17px;
@@ -67,6 +69,15 @@
       }
     }
   }
+}
+
+
+.same-event__title {
+  margin-top: 24px;
+}
+
+.same-event__text {
+  margin-top: 12px;
 }
 
 @media screen and (max-width: 1279px) {

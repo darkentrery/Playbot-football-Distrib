@@ -160,6 +160,12 @@
 }
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
+    .event-info {
+        .event-info-map {
+            display: none;
+        }
+    }
+    
     .event-info-map {
         flex-direction: column;
     }

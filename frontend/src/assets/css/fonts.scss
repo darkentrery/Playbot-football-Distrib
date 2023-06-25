@@ -6,6 +6,27 @@
 }
 
 @font-face {
+  font-family: "Raleway";
+  src: url('../fonts/Raleway/Raleway-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url('../fonts/Raleway/Raleway-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url('../fonts/FiraSans/FiraSans-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Inter";
   src: url('../fonts/Inter-Regular.woff') format('woff');
   font-weight: 400;
