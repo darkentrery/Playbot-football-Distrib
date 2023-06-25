@@ -17,3 +17,11 @@ class UpdateTelegramChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = TelegramChannel
         fields = ["channel_id", "has_bot", "admins"]
+
+
+class CreateTelegramChannelSerializer(serializers.ModelSerializer):
+    admins = serializers.SlugRelatedField(slug_field="telegram_id", queryset=User.objects.all(), required=False, many=True)
+
+    class Meta:
+        model = TelegramChannel
+        fields = ["name", "channel_id", "has_bot", "admins"]
