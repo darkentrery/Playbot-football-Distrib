@@ -1,4 +1,5 @@
 .event-about-place {
+    display: none;
     position: relative;
     margin-inline: -17px;
     overflow: hidden;
@@ -71,4 +72,11 @@
 
 .event-about-place__no-slots-text {
     font-size: 10px;
+}
+
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
+    .event-about-place {
+        display: block;
+    }
 }

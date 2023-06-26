@@ -161,11 +161,21 @@
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
     .event-info {
+        padding: 10px 12px;
         .event-info-map {
             display: none;
         }
     }
-    
+    .event-info-field-title {
+        font-family: 'Fira Sans';
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .event-info-field-assets-list {
+        margin-top: 16px;
+    }
+
     .event-info-map {
         flex-direction: column;
     }

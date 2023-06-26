@@ -58,19 +58,20 @@ export const EventMembers = ({
                     : <div className="event-members-no-players">Пока никто не присоединился.</div>
                 }
             </div>
-            {event.event_queues.length ?
+            {1 == 1 ?
                 <div className="event-members-queue">
                     <div className="event-members-queue-info">
                         <img src={WaitListIcon} width={16} height={20} alt="wait list" />
                         <span>Лист ожидания ({event.event_queues.length})</span>
                     </div>
                     <div className="event-members-list" >
-                        {event.event_queues.map((e, i) => {
+                    {event.count_current_players !== 0 && event.event_player.map((e, i) => {
                             return (
                                 <EventMemberCard
                                     name={e.player.username}
                                     rating={e.player.rank}
-                                    key={i} />
+                                    key={i}
+                                />
                             )
                         })}
                     </div>

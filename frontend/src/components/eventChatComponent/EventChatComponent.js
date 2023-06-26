@@ -171,6 +171,11 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                                 ? messageHistory[key - 1].from_user.id
                                 : false
                         }
+                        previousMsg={
+                            key !== 0
+                            ? messageHistory[key -1]
+                            : false
+                        }
                         message={message}
                         key={key}
                     />
@@ -180,7 +185,6 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                 <textarea
                     style={{
                         maxHeight: '200px',
-                        height: '20px',
                         overflowX: 'hidden',
                     }}
                     className={'el el-1 scroll autoheight-init'}

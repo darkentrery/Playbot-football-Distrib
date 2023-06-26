@@ -26,18 +26,17 @@
     max-width: 80%;
 
     .el-1 {
-      margin-block: 22px;
+      display: flex;
+      align-items: center;
+      margin-block: 8px;
       flex: 0 0 19px;
     }
     .el-2 {
       display: flex;
       background: #F8F8F8;
-      border-radius: 15px;
+      border-radius: 8px;
       box-sizing: border-box;
-      padding-left: 24px;
-      padding-right: 24px;
-      padding-top: 19px;
-      padding-bottom: 19px;
+      padding: 6px 8px;
       flex-direction: column;
       max-width: 80%;
       word-wrap: break-word;
@@ -46,6 +45,7 @@
       margin-top: 3px;
       flex: 0 0 19px;
       align-self: end;
+      padding-inline: 10px;
     }
     &.right {
       align-items: end;
