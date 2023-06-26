@@ -115,6 +115,7 @@ async def send_photo_for_moderation(user: User) -> None:
             kb.row(types.InlineKeyboardButton("❌ Отклонить", callback_data=f"playerAvatarDecline_{user.id}"))
             for moderation in settings.TELEGRAM_MODERATOR_ID:
                 bot_is_member = await bot.get_chat_member(chat_id=moderation, user_id=bot.id)
+                logger.info(f"{bot_is_member.status=}, {moderation=}")
                 if bot_is_member.status in ["administrator", "member"]:
                     await bot.send_document(chat_id=moderation, document=img, reply_markup=kb)
 
