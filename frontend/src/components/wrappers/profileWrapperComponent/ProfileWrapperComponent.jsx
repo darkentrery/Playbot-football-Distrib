@@ -28,7 +28,7 @@ export const ProfileWrapperComponent = ({
             })
         }
     }, [pk])
-    
+
     const getOpenCreateEvent = () => {
         if (state.user.isAuth) {
             funcs.setEvent(false);
@@ -51,10 +51,19 @@ export const ProfileWrapperComponent = ({
                     <div className={"title-elem"}>
                         <span className={"black-700-28"}>Мой профиль</span>
                         {((state.user.isAuth && state.user.user.is_organizer) || !state.user.isAuth) &&
-                            <span className={"btn-second"} onClick={getOpenCreateEvent}>
-                                <div className={"black-ball-icon"}></div>
-                                Создать событие
-                            </span>
+                            <>
+                                <span className="create-event-button only-desktop" onClick={getOpenCreateEvent}>
+                                    <div className={"black-ball-icon"}></div>
+                                    Создать событие
+                                </span>
+                                <div className="admin-profile-actions-744">
+                                    <span className="create-event-button" onClick={getOpenCreateEvent}>
+                                        <div className={"black-ball-icon"}></div>
+                                        Создать событие
+                                    </span>
+                                    <button className="admin-load-user-photo-btn black-500-14 add-photo-icon">Загрузить фото других игроков</button>
+                                </div>
+                            </>
                         }
                     </div>
                     <div className={"navigate-bar-1280"}>
@@ -72,7 +81,7 @@ export const ProfileWrapperComponent = ({
                         >Личные данные</Link>
                         {
                             (state.user.isAuth && state.user.user.is_organizer) &&
-                            <button className="admin-load-user-photo-btn black-500-14 add-photo-icon" onClick={handleAdminUserPhotoLoad}>
+                            <button className="admin-load-user-photo-btn black-500-14 add-photo-icon only-desktop" onClick={handleAdminUserPhotoLoad}>
                                 Загрузить фото других игроков
                             </button>
                         }

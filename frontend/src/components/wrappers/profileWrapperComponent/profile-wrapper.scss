@@ -4,7 +4,6 @@
     background: #f9f9f9;
     box-sizing: border-box;
     flex: 1 1 auto;
-
     .my-profile {
         display: flex;
         padding: 36px 60px 36px 40px;
@@ -17,6 +16,22 @@
             display: flex;
             justify-content: space-between;
             flex: 0 0 40px;
+            .create-event-button {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                border-radius: 8px;
+                border: 1px solid $blackColor;
+                font-size: 14px;
+                font-weight: 500;
+                padding: 10px 16px;
+                .black-ball-icon {
+                    width: 13px;
+                    height: 13px;
+                    background-size: 13px;
+                    margin-right: 9px;
+                }
+            }
             .btn-second {
                 flex: 0 0 184px;
                 white-space: nowrap;
@@ -64,6 +79,10 @@
     }
 }
 
+.admin-profile-actions-744 {
+    display: none;
+}
+
 .profile-wrapper-component-376 {
     display: none;
 }
@@ -75,10 +94,10 @@
     background-color: transparent;
     border: 1px solid #1b1b1b;
     border-radius: 8px;
-    padding: 12px 16px 12px 40px;
+    padding: 10.63px 16px 10.63px 40px;
     cursor: pointer;
     &.add-photo-icon {
-        background-position: 15px 13px;
+        background-position: 14px 11.3px;
     }
 }
 
@@ -90,16 +109,33 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px) {
+    .admin-profile-actions-744 {
+        display: flex;
+        flex-direction: column;
+    }
     .profile-wrapper-component {
         min-height: calc(100% - 96px - 323px);
+        .only-desktop {
+            display: none !important;
+        }
 
         .my-profile {
             padding: 24px 20px 24px 24px;
             gap: 16px;
 
             .title-elem {
+                flex-direction: column;
                 flex: 0 0 24px;
-                margin-bottom: 16px;
+                margin-bottom: 4px;
+                .create-event-button {
+                    margin-top: 19px;
+                    width: max-content;
+                }
+                .admin-load-user-photo-btn {
+                    margin-top: 8px;
+                    margin-left: 0px;
+                    width: max-content;
+                }
                 .black-700-28 {
                     font-size: 22px;
                 }
@@ -125,6 +161,12 @@
 @media screen and (max-width: 743px),
     (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
     .profile-wrapper-component {
+        display: none;
+        .only-desktop {
+            display: none !important;
+        }
+    }
+    .admin-profile-actions-744 {
         display: none;
     }
     .profile-wrapper-component-376 {
