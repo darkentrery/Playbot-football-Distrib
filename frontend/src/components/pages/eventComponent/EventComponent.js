@@ -136,7 +136,8 @@ export default function EventComponent({ event, sameEvents, user, funcs }) {
                             {/* <div className={`icon ${isFavorite ? 'yellow-star-icon' : 'dark-gray-star-icon'}`} onClick={addToFavorites}></div>  deleted design*/}
                             <img
                                 src={ShareArrowIcon}
-                                className={'icon'}
+                                width={20}
+                                height={20}
                                 onClick={() =>
                                     share(EventRoutes.eventLink(event.id))
                                 }
