@@ -1,0 +1,16 @@
+.DateInputPicker {
+    position: relative;
+    .react-datepicker-wrapper {
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        left: 0;
+        top: 0;
+        .react-datepicker__input-container {
+            height: 100%;
+            input {
+                height: 100%;
+            }
+        }
+    }
+}

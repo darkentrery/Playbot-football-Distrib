@@ -14,6 +14,8 @@ import { AccordionWrapper } from "../AccordionWrapper/AccordionWrapper";
 import InputFromToComponent from "../InputFromToComponent/InputFromToComponent";
 import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
 import { telegramService } from "../../services/TelegramService";
+import TimePicker from "../TimePicker/TimePicker";
+import DatePicker from "../DatePicker/DatePicker";
 
 
 export const FormEventComponent = ({
@@ -291,6 +293,11 @@ export const FormEventComponent = ({
         return value;
     }
 
+    const handleDateChange = (date) => {
+        console.log("new time21:", date)
+        setTime(date);
+    }
+
     return (
         <div className={`form-event-component scroll ${className}`}>
             <div onClick={closeWindow} className={"btn-close"}></div>
@@ -308,7 +315,7 @@ export const FormEventComponent = ({
                     />
                     <div className={"elem elem-5 min-content"}>
                         <div className="formEvent__date-time-input">
-                            <ReactDatetimeClass
+                            {/* <ReactDatetimeClass
                                 className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}
                                 timeFormat={false}
                                 dateFormat={"DD.MM.YYYY"}
@@ -318,11 +325,12 @@ export const FormEventComponent = ({
                                 ref={refDate}
                                 value={date ? date : ''}
                                 renderDay={renderDay}
-                            />
+                            /> */}
+                            <DatePicker className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}/>
                             <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         <div className="formEvent__date-time-input">
-                            <ReactDatetimeClass
+                            {/* <ReactDatetimeClass
                                 className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}
                                 timeFormat={"HH:mm"}
                                 dateFormat={false}
@@ -331,7 +339,8 @@ export const FormEventComponent = ({
                                 onChange={(e) => choiceTime(e, setTime, refTime)}
                                 ref={refTime}
                                 value={time ? time : ''}
-                            />
+                            /> */}
+                            <TimePicker setValue={handleDateChange} value={time} className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}/>
                             <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}

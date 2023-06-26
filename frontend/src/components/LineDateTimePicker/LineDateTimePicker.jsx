@@ -46,6 +46,7 @@ export const LineDateTimePicker = ({
                     locale={ru}
                     timeFormat="HH:mm"
                     timeIntervals={15}
+                    timeCaption='время'
                     dateFormat="dd MMMM yyyy, HH:mm"
                     dayClassName={(date) => (isDateDisabled(date) ? 'disabled' : '')}
                     timeClassName={(time) => (isTimeDisabled(time) ? 'disabled' : '')}
