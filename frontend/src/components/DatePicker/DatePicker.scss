@@ -13,4 +13,9 @@
             }
         }
     }
+    .disabled {
+        background-color: lightgray;
+        color: gray;
+        pointer-events: none;
+    }
 }

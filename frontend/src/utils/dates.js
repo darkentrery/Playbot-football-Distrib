@@ -1,3 +1,5 @@
+import format from "date-fns/format";
+
 const monthsNames = [
    'января',
    'февраля',
@@ -156,7 +158,6 @@ const getStringDate = (date) => {
 
 const getUTCTime = (value) => {
     let time = new Date();
-    console.log(value)
     time.setHours(value.slice(0, 2));
     time.setMinutes(value.slice(3, 5));
     let hours = time.getUTCHours() < 10 ? `0${time.getUTCHours()}` : time.getUTCHours();

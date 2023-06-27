@@ -16,6 +16,7 @@ import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
 import { telegramService } from "../../services/TelegramService";
 import TimePicker from "../TimePicker/TimePicker";
 import DatePicker from "../DatePicker/DatePicker";
+import {format as formatfns} from 'date-fns';
 
 
 export const FormEventComponent = ({
@@ -170,9 +171,8 @@ export const FormEventComponent = ({
         if (anonseLentaCheck || anonseTgCheck) setAnonseError(false);
         let newDate;
         if (date) {
-            let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
-            if (match !== null) {
-                newDate = `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}`;
+            if (typeof date === 'object') {
+                newDate = formatfns(date, 'yyyy-MM-dd');
             } else {
                 newDate = date;
             }
@@ -326,7 +326,7 @@ export const FormEventComponent = ({
                                 value={date ? date : ''}
                                 renderDay={renderDay}
                             /> */}
-                            <DatePicker className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}/>
+                            <DatePicker value={date} setValue={setDate} className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}/>
                             <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         <div className="formEvent__date-time-input">
@@ -379,7 +379,7 @@ export const FormEventComponent = ({
                     </div>
                 </div>
             </div>
-            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={true}>
+            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={false}>
                 <div className="formEvent__gender-and-age">
                     <div className={"formEvent__age-limit" + (genderError ? " formEvent__gender-error" : "")}>
                         <span className="text-footnote">Пол</span>
