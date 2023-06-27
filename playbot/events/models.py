@@ -310,6 +310,19 @@ class Team(models.Model):
         return self.wins * 3 + self.nothing
 
     @property
+    def scores_forecast(self):
+        game = EventGame.objects.get(id=self.event.current_game_id)
+        score = 0
+        if (self.id == game.team_1.id or self.id == game.team_2.id) and not game.time_end:
+            self_score = game.score_1 if self.id == game.team_1.id else game.score_2
+            other_score = game.score_2 if self.id == game.team_1.id else game.score_1
+            if self_score > other_score:
+                score = 3
+            elif self_score == other_score:
+                score = 1
+        return self.scores + score
+
+    @property
     def do_goals(self):
         goals_1 = [team.score_1 for team in self.event_games_teams_1.all()]
         goals_2 = [team.score_2 for team in self.event_games_teams_2.all()]

@@ -52,7 +52,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             funcs.setGame(false);
             setRestTimeEnd(false);
             setRestTime(false);
-            setIsPlay(null)
+            setIsPlay(null);
         }
         console.log(game)
     }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps

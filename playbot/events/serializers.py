@@ -89,7 +89,7 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ["id", "name", "count_players", "number", "wins", "loss", "nothing", "played", "scores", "do_goals",
-                  "miss_goals", "team_players", "color"]
+                  "miss_goals", "team_players", "color", "scores_forecast"]
         read_only_fields = fields
 
     def get_team_players(self, instance):

@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 import EventRoutes from "../../../routes/EventRoutes";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
 import {eventService} from "../../../services/EventService";
-import avatarIcon from "../../../assets/icon/avatar-2.png";
 import {PlayerIconComponent} from "../../playerIconComponent/PlayerIconComponent";
 
 
