@@ -71,7 +71,6 @@ class User(AbstractUser):
     penalty = models.PositiveIntegerField(_("Penalty"), default=0)
     involvement = models.PositiveIntegerField(_("Involvement"), default=1)
     rivals = models.ManyToManyField("users.User", related_name="in_rivals", blank=True, through="UserRivals")
-    # rivalss = models.ManyToManyField("users.User", related_name="in_rivalss", blank=True, through="UserRivals")
     is_organizer = models.BooleanField(_("Is Organizer"), default=False)
     first_login = models.BooleanField(_("Is First Login"), default=True)
     is_active = models.BooleanField(
