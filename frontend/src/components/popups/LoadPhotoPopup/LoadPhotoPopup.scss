@@ -38,6 +38,9 @@
     margin-top: 24px;
     display: flex;
     gap: 16px;
+    img {
+        object-fit: cover;
+    }
 }
 
 .load-photo-example-text {
