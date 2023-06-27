@@ -199,12 +199,10 @@ class SignUpAppleSerializer(LoginMixin, TokenObtainSignUpAppleSerializer):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    phone_number = serializers.CharField(max_length=128, write_only=True, required=False)
-    # address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all(), write_only=True)
 
     class Meta:
         model = User
-        fields = ("username", "phone_number", "email", "password")
+        fields = ("username", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -225,11 +223,12 @@ class SignUpSerializer(serializers.ModelSerializer):
         return instance
 
     def get_new_username(self, username):
-        if User.objects.filter(username=username).exists():
-            username += "1"
+        len_username = len(username) if len(username) <= 12 else 12
+        if User.objects.filter(username=username[:len_username]).exists():
+            username = username[:len_username] + "1"
             return self.get_new_username(username)
         else:
-            return username
+            return username[:len_username]
 
     def is_valid(self, *, raise_exception=False):
         assert hasattr(self, 'initial_data'), (
@@ -247,10 +246,6 @@ class SignUpSerializer(serializers.ModelSerializer):
                 self._errors = {}
             if self.validated_data.get("email") and User.objects.filter(email=self.validated_data["email"]).exists():
                 self._errors["email"] = "User with this email already exists!"
-            if self.validated_data.get("phone_number") and User.objects.filter(phone_number=self.validated_data["phone_number"]).exists():
-                self._errors["phone_number"] = "User with this phone_number already exists!"
-            if self.validated_data.get("username") and User.objects.filter(username=self.validated_data["username"]).exists():
-                self._errors["username"] = "User with this username already exists!"
 
         if self._errors and raise_exception:
             raise ValidationError(self.errors)

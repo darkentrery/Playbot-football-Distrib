@@ -19,8 +19,7 @@ export const InputComponent = ({
     const onChangeValue = (e) => {
         let value = onChange(e.target.value);
         if (!!(maxLength && value.length > maxLength)) {
-            console.log('returned')
-            return
+            return;
         }
         setValue(value);
     }
