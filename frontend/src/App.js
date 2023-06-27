@@ -57,6 +57,7 @@ import VisibleOnboardingStep1 from "./redux/containers/VisibleOnboardingStep1";
 import VisibleOnboardingStep2 from "./redux/containers/VisibleOnboardingStep2";
 import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
 import LoadPhotoPopup from "./components/popups/LoadPhotoPopup/LoadPhotoPopup";
+import {OverlayPage} from "./components/pages/overlayComponent/OverlayPage";
 
 
 function App({state, funcs}) {
@@ -226,6 +227,7 @@ function App({state, funcs}) {
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
                     <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>
                     <Route exact path={BaseRoutes.landing} element={<LandingComponent/>}/>
+                    <Route exact path={BaseRoutes.overlay} element={<OverlayPage user={state.user.user}/>}/>
                 </Routes>
 
                 <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone} funcs={funcs}/>

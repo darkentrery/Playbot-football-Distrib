@@ -23,5 +23,6 @@ const BaseRoutes = {
 	get instagramShare () {return `https://instagram.com/playbot.io?igshid=YWJhMjlhZTc=`;},
 	get landing () {return `/land/`;},
 	get confirmSignUp () {return `/confirm-sign-up/:userSlug/`;},
+	get overlay () {return `/overlay/event/:pk/`;},
 }
 export default BaseRoutes;
