@@ -15,7 +15,8 @@ from playbot.notices.models import Notice
 from playbot.notices.serializers import UserNoticeSerializer
 from playbot.users.models import User, Position, RankHistory, PhotoError
 from playbot.users.obtain_serializers import TokenObtainTelegramSerializer, CustomTokenObtainSerializer, \
-    TokenObtainLoginAppleSerializer, TokenObtainSignUpAppleSerializer, TokenObtainTelegramAppSerializer
+    TokenObtainLoginAppleSerializer, TokenObtainSignUpAppleSerializer, TokenObtainTelegramAppSerializer, \
+    TokenObtainFirstSignUpSerializer
 from playbot.users.utils import generate_password, send_email_refresh, send_email_confirm_sign_up
 
 
@@ -195,6 +196,10 @@ class LoginAppleSerializer(LoginMixin, TokenObtainLoginAppleSerializer):
 
 
 class SignUpAppleSerializer(LoginMixin, TokenObtainSignUpAppleSerializer):
+    pass
+
+
+class FirstLoginSerializer(LoginMixin, TokenObtainFirstSignUpSerializer):
     pass
 
 

@@ -121,7 +121,7 @@ function App({state, funcs}) {
     }, [window.Telegram])
 
     useEffect(() => {
-        if (state.user.isAuth && state.user.user.first_login) {
+        if (state.user.isAuth && state.user.user.first_login && !window.location.pathname.includes("confirm-sign-up/")) {
             funcs.openOnboardingStep1();
             authDecoratorWithoutLogin(authService.firstLogin, false).then(response => {
                 if (response.status === 200) {
@@ -147,9 +147,14 @@ function App({state, funcs}) {
 
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
-            authService.confirmSignUp(window.location.pathname);
-            setConfirmSignUp(true);
-            funcs.openSuccessSignUp2();
+            authService.confirmSignUp(window.location.pathname).then((response) => {
+                console.log(response)
+                if (response.status === 200) {
+                    setConfirmSignUp(true);
+                    funcs.setAuth(true, response.data.user);
+                    funcs.openSuccessSignUp2();
+                }
+            });
         }
     }, [confirmSignUp])
 

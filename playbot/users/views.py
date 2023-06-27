@@ -19,7 +19,7 @@ from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, 
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
     UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer, \
-    UpdateUserPhotoErrorsSerializer
+    UpdateUserPhotoErrorsSerializer, FirstLoginSerializer
 from playbot.users.utils import parse_init_data, save_upload_photo
 
 
@@ -36,18 +36,25 @@ class IndexView(APIView):
         return Response({}, status=status.HTTP_200_OK)
 
 
-class ConfirmSignUpView(APIView):
+class ConfirmSignUpView(TokenObtainPairView):
     permission_classes = (AllowAny,)
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'index.html'
+    serializer_class = FirstLoginSerializer
 
-    def get(self, request, slug):
-        users = User.objects.filter(confirm_slug=slug)
+    def post(self, request, *args, **kwargs):
+        users = User.objects.filter(confirm_slug=kwargs.get("slug"))
         if users.exists():
             user = users.first()
             user.is_active = True
             user.save()
-        return Response({"data": "success!"}, status=status.HTTP_200_OK)
+            login_serializer = self.get_serializer(data={"slug": kwargs.get("slug")})
+            try:
+                login_serializer.is_valid(raise_exception=True)
+                json = login_serializer.validated_data
+            except TokenError as e:
+                raise InvalidToken(e.args[0])
+
+            return Response(json, status=status.HTTP_200_OK)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ServiceWorkerView(TemplateView):
@@ -160,6 +167,7 @@ class FirstLoginView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
+        # login_serializer = FirstLoginSerializer(data={"email": use})
         user = request.user
         user.first_login = False
         user.save()

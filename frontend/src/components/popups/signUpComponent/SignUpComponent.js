@@ -148,9 +148,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     return(
         <Modal
             isOpen={isOpen}
-            // onAfterOpen={afterOpenModal}
-            // onRequestClose={closeModal}
-            // style={customStyles}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}
@@ -192,13 +189,13 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                                 <div className={`checkbox-div ${allowPolicyError ? 'error' : ''}`}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={clickAllowPolicy}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowPolicy} onClick={toMenu}>Я согласен с политикой конфеденциальности</Link>
+                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowPolicy} target={"_blank"}>Я согласен с политикой конфеденциальности</Link>
                             </div>
                             <div className={"sign-up-l-elem div-input-checkbox"} ref={refAllowOffer}>
                                 <div className={`checkbox-div ${allowOfferError ? 'error' : ''}`}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={clickAllowOffer}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowOffer} onClick={toMenu}>Я согласен с условиями договора-оферты</Link>
+                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowOffer} target={"_blank"}>Я согласен с условиями договора-оферты</Link>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem gap-element"}></div>

@@ -276,7 +276,7 @@ export const authService = {
 		localStorage.removeItem("refresh_token");
 		window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
 	},
-	confirmSignUp(pathName) { return getRequest(`${pathName.slice(1,)}`); },
+	confirmSignUp(pathName) { return postRequest(`${pathName.slice(1,)}`).then(this.saveLoginCredentials); },
 	isAuth(data) { return postRequest('is-auth/', data); },
 	isIPhone() {
 		if (navigator.appVersion.includes("iPhone") && navigator.userAgent.includes("iPhone")) {

@@ -271,3 +271,13 @@ class TokenObtainSignUpAppleSerializer(ObtainMixin, serializers.Serializer):
             )
 
         return {}
+
+
+class TokenObtainFirstSignUpSerializer(ObtainMixin, serializers.Serializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["slug"] = serializers.CharField()
+
+    def validate(self, attrs):
+        self.user = User.objects.get(confirm_slug=attrs["slug"])
+        return {}
