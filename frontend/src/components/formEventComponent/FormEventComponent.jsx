@@ -40,7 +40,7 @@ export const FormEventComponent = ({
     buttonText = 'Создать'
 }) => {
     const [id, setId] = useState(false);
-    const [name, setName] = useState(false);
+    // const [name, setName] = useState(false);
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
@@ -49,7 +49,7 @@ export const FormEventComponent = ({
     const [format, setFormat] = useState(false);
     const [isNotPlayer, setIsNotPlayer] = useState(false);
     const [incorrectDate, setIncorrectDate] = useState(false);
-    const [nameError, setNameError] = useState(false);
+    // const [nameError, setNameError] = useState(false);
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
     const [fieldError, setFieldError] = useState(false);
@@ -92,7 +92,7 @@ export const FormEventComponent = ({
 
     const closeWindow = () => {
         setId(false);
-        setName(false);
+        // setName(false);
         setDate(false);
         setTime(false);
         setAddress(false);
@@ -116,7 +116,7 @@ export const FormEventComponent = ({
         console.log(event)
         if (event && isOpen) {
             setId(event.id);
-            setName(event.name);
+            // setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             setCount(event.count_players);
@@ -162,7 +162,7 @@ export const FormEventComponent = ({
         })
     }, [event, isOpen])
     useEffect(() => {
-        setNameError(false);
+        // setNameError(false);
         setDateError(false);
         setTimeError(false);
         if ((allowFemale || allowMale) && genderError) setGenderError(false);
@@ -197,7 +197,7 @@ export const FormEventComponent = ({
         if (allowFemale) allowGenders.push(2);
         let bodyFormData = {
             'id': id,
-            'name': name,
+            // 'name': name,
             'date': newDate,
             'time_begin': time ? getUTCTime(time) : time,
             'field': newField,
@@ -221,7 +221,7 @@ export const FormEventComponent = ({
         }
         console.log(bodyFormData)
         setData(bodyFormData);
-    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
+    }, [/*name*/, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
         delayedTime, matchDuration, allowMale, allowFemale, ageLimit, anonseLentaCheck, publicInChannel, fields,
         isDelayedAnonse, anonseTgCheck]);
 
@@ -266,7 +266,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && field && count && (publicInChannel || !anonseTgCheck) && (allowMale || allowFemale) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
+        if (/*name* && */date && time && field && count && (publicInChannel || !anonseTgCheck) && (allowMale || allowFemale) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -274,7 +274,7 @@ export const FormEventComponent = ({
                 setTimeError("Заполните поле!");
             }
         }
-        if (!name) setNameError("Заполните поле!");
+        // if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
         if (!field) setFieldError("Заполните поле!");
@@ -306,8 +306,8 @@ export const FormEventComponent = ({
             </div>
             <div className={"form-event-body"}>
                 <div className="form-event-body-top">
-                    <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit ? () => { return name; } : inputName}
-                        placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName} />
+                    {/* <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit ? () => { return name; } : inputName}
+                        placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName} /> */}
                     <DropDownComponent
                         value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3"}
                         content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
