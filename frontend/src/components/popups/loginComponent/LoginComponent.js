@@ -5,7 +5,6 @@ import Modal from "react-modal";
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {RightFonComponent} from "../../rightFonComponent/RightFonComponent";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
-import {blockBodyScroll} from "../../../utils/manageElements";
 import {AppleAuthComponent} from "../../appleAuthComponent/AppleAuthComponent";
 
 
@@ -30,18 +29,6 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
         bodyFormData.append('password', password);
         setData(bodyFormData);
     }, [email, password]);
-
-    useEffect(() => {
-        // blockBodyScroll(isOpen);
-        // if (refTelegram.current) {
-        //     const tgScript = document.createElement('script');
-        //     tgScript.src = "http://127.0.0.1:8000/static/js/telegram-web-app.js";
-        //     tgScript.id = "id-tg";
-        //     refTelegram.current.appendChild(tgScript);
-        //
-        // }
-        // console.log(window.Telegram.WebApp.initData)
-    }, [isOpen, refTelegram])
 
     useEffect(() => {
         if (window.Telegram)

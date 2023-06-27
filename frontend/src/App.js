@@ -170,13 +170,23 @@ function App({state, funcs}) {
     }, [localStorage.telegramLogin])
 
     useEffect(() => {
+        let windows = [
+            state.windows.isOpenChoiceCity,
+            state.windows.isOpenShowMenu,
+            state.windows.isOpenConfirmPlayers,
+            state.windows.isOpenFillRegulation,
+            state.windows.isOpenConfirmTeamPlayers,
+            state.windows.isOpenConfirmTeams,
+            state.windows.isOpenSignUp,
+            state.windows.isOpenLogin,
+        ];
         let isOpenChoiceCity = state.windows.isOpenChoiceCity;
         let isOpenShowMenu = state.windows.isOpenShowMenu;
         let isOpenConfirmPlayers = state.windows.isOpenConfirmPlayers;
         let isOpenFillRegulation = state.windows.isOpenFillRegulation;
         let isOpenConfirmTeamPlayers = state.windows.isOpenConfirmTeamPlayers;
         let isOpenConfirmTeams = state.windows.isOpenConfirmTeams;
-        if (isOpenChoiceCity || isOpenShowMenu || isOpenConfirmPlayers || isOpenFillRegulation || isOpenConfirmTeamPlayers || isOpenConfirmTeams) {
+        if (windows.includes(true)) {
             document.body.style = 'overflow: hidden';
             document.querySelector('html').style = 'overflow: hidden';
         } else {
@@ -190,6 +200,8 @@ function App({state, funcs}) {
         state.windows.isOpenFillRegulation,
         state.windows.isOpenConfirmTeamPlayers,
         state.windows.isOpenConfirmTeams,
+        state.windows.isOpenSignUp,
+        state.windows.isOpenLogin,
     ])
 
     return (

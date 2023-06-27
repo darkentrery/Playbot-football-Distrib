@@ -4,7 +4,6 @@ import TelegramLoginComponent from "../../TelegramLoginComponent";
 import Modal from "react-modal";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
-import {blockBodyScroll} from "../../../utils/manageElements";
 import {InputComponent} from "../../inputComponent/InputComponent";
 
 
@@ -28,10 +27,6 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const refAllowPolicy = useRef();
     const refAllowOffer = useRef();
     const refBottom = useRef();
-
-    useEffect(() => {
-        blockBodyScroll(isOpen);
-    }, [isOpen])
 
     const dropErrors = () => {
         setEmailError(false);
