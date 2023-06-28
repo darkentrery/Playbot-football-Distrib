@@ -7,7 +7,7 @@ import {authService} from "../../services/AuthService";
 import {authDecoratorWithoutLogin} from "../../services/AuthDecorator";
 
 const initialState = {
-    step: 1,
+    step: 2,
     photo: null,
     isLoading: false,
     error: '',

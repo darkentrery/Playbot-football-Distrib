@@ -103,6 +103,7 @@
 }
 
 .load-user-photo-preview-frame {
+    overflow: hidden;
     border: 3.89864px solid #edc49f;
     border-radius: 7.79727px;
 }
@@ -118,34 +119,44 @@
     );
     background-image: url('../../../assets/icon/background-user-photo.png');
     background-repeat: no-repeat;
-    background-size: 185px;
-    width: 182px;
-    height: 198px;
+    background-size: 205px;
+    width: 193px;
+    height: 242px;
+    background-position-x: -10px;
 }
 
 .load-user-photo-preview-top-frame-fog {
     position: absolute;
-    bottom: -20px;
-    left: 5px;
-    height: 40px;
-    width: 96%;
+    bottom: -123px;
+    left: -13px;
+    height: 153px;
+    width: 117%;
     background-color: #f7f4ed;
-    filter: blur(8px);
+    filter: blur(12px);
     border-radius: 20px;
+}
+
+.load-user-photo-preview-top-frame-position {
+    position: absolute;
+    font-family: 'Fira Sans';
+    color: #e2b184;
+    font-weight: 700;
+    top: 5px;
+    right: 6px;
 }
 
 .load-user-photo-preview-user-img {
     object-fit: contain;
     margin: auto auto 0 auto;
-    max-width: 182px;
-    max-height: 198px;
+    max-width: 191px;
+    max-height: 258px;
 }
 
 .load-user-photo-preview-bottom {
     position: relative;
     z-index: 5;
     margin-top: 9px;
-    margin-bottom: 9px;
+    margin-bottom: 11px;
 }
 
 .load-user-photo-preview-username {
