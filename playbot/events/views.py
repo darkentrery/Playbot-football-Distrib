@@ -18,7 +18,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
 from playbot.telegram.utils import send_announce, update_announce
-from playbot.users.models import RankHistory
+from playbot.users.models import RankHistory, User
 from playbot.users.serializers import UserSerializer
 
 
@@ -263,6 +263,31 @@ class JoinPlayerView(APIView):
         return Response(event.data, status=status.HTTP_200_OK)
 
 
+class AdminJoinPlayerView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        if request.user.is_organizer:
+            event = Event.objects.get(id=request.data.get("event_id"))
+            if User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
+                user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+
+                if event.event_player.all().count() < event.count_players:
+                    EventPlayer.objects.update_or_create(player=user, event=event)
+                    event.notice_join_to_event(user)
+                    event.notice_new_player()
+                    if event.event_player.all().count() == event.count_players:
+                        event.notice_complete_players()
+                else:
+                    EventQueue.objects.update_or_create(player=user, event=event, number=event.next_queue_number)
+                    event.notice_not_places_in_event(user)
+                UserEventAction.objects.create(user=user, event=event)
+                event = EventSerializer(instance=event)
+                return Response(event.data, status=status.HTTP_200_OK)
+            return Response({"error": f"User with telegram_id = {request.data.get('telegram_id')} does not exists"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class LeaveEventView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -282,6 +307,33 @@ class LeaveEventView(APIView):
         UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)
+
+
+class AdminLeaveEventView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        if request.user.is_organizer:
+            event = Event.objects.get(id=request.data.get("event_id"))
+            if User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
+                user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+
+                reason, create = CancelReasons.objects.update_or_create(name=request.data["reason"])
+                event_player = EventPlayer.objects.filter(player=user, event=event)
+                if event_player.exists():
+                    event_player.delete()
+                    RankHistory.objects.create(user=user, rank=user.rank * 0.99)
+                    if event.first_order_queue:
+                        EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
+                        EventQueue.objects.get(player=event.first_order_queue).delete()
+                else:
+                    if event.event_queues.filter(player=user).exists():
+                        EventQueue.objects.get(player=user, event=event).delete()
+                UserEventAction.objects.create(user=user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
+                event = EventSerializer(instance=event)
+                return Response(event.data, status=status.HTTP_200_OK)
+            return Response({"error": f"User with telegram_id = {request.data.get('telegram_id')} does not exists"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BeginEventGameView(APIView):
