@@ -7,7 +7,7 @@ import { setIsAdminLoad } from '../../../redux/reducers/loadPhotoReducer';
 import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import {authService} from "../../../services/AuthService";
 import {player} from "../../../redux/actions/actions";
-
+import devIcon from "../../../assets/icon/temp-preview-photo.png"
 
 const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
     const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
         }
     }
 
-    const [loader, setLoader] = useState(true);
+    const [loader, setLoader] = useState(false); // true DEV
 
     const [photo1Loading, setPhoto1Loading] = useState(true);
     const [photo2Loading, setPhoto2Loading] = useState(true)
@@ -44,6 +44,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
             setLoader(false)
         }
     }, [photo1Loading, photo2Loading])
+    photo = devIcon // DEV - удалить
     return (
 
         <>
@@ -52,8 +53,8 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
                 <div className="load-user-photo-preview-frame">
                     <div className="load-user-photo-preview-top-frame" onLoad={() => setPhoto1Loading(false)}>
                         {
-                            photo && typeof photo === "string" &&
-                            <img className='load-user-photo-preview-user-img' src={serverUrl + photo} alt="user photo" onLoad={() => setPhoto2Loading(false)} />
+                            photo && typeof photo === "string" && 
+                            <img className='load-user-photo-preview-user-img' src={photo} /* вместо photo server + photo */ alt="user photo" onLoad={() => setPhoto2Loading(false)} />
                         }
                         {
                             photo && typeof photo !== "string" &&
@@ -64,14 +65,6 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
                     <div className="load-user-photo-preview-bottom">
                         <div className="load-user-photo-preview-username">
                             {isAdmin ? selectedUser.username : user.username}
-                        </div>
-                        <div className="load-user-photo-preview-bottom-stats">
-                            <div className='load-user-photo-preview-stats'>
-                                <div className='load-user-photo-preview-stats-name'>56</div>
-                            </div>
-                            <div className='load-user-photo-preview-stats load-user-photo-preview-stats-right'>
-                                <div className='load-user-photo-preview-stats-name'>СМ</div>
-                            </div>
                         </div>
                     </div>
                 </div>
