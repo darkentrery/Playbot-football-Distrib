@@ -10,13 +10,11 @@ export const ProfilePersonalPhoto = () => {
     const [showCancelLoadPopup, setShowCancelLoadPopup] = useState(false);
     const [isErrorTooltip, setIsErrorTooltip] = useState(false)
     const serverUrl = process.env.REACT_APP_SERVER_URL;
-    const { media } = useSelector(state => state.user?.user);
     const { player } = useSelector(state => state.event);
     const photo = player.photo;
     const isModerationFinished = !!player.photo && player.is_accept_photo;
     const photoOnModeration = !!player.photo && !player.is_accept_photo;
     const photoErrors = player.photo_errors;
-    const loadPhotoErrorMsg = media?.moderation?.message;
 
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true));
@@ -36,7 +34,7 @@ export const ProfilePersonalPhoto = () => {
                 clickSuccess={handleCancelLoadPhotoClick}
             />
             {/* фотка есть */}
-            {photoOnModeration && isModerationFinished && !photoErrors &&
+            {photoOnModeration && isModerationFinished && photoErrors.length == 0 &&
                 <div className='photo-bar'>
                     <div className="photo-bar-user-photo-wrapper">
                         <div className="photo-bar-user-photo">
@@ -93,7 +91,7 @@ export const ProfilePersonalPhoto = () => {
                     <span className="black-400-14">Фотография профиля:</span>
                     {isErrorTooltip &&
                         <div className='photo-bar-moderation-tip-content photo-bar-moderation-tip-content-mobile gray-400-14'>
-                            {loadPhotoErrorMsg}
+                            {photoErrors.join(', ')}
                         </div>
                     }
                     <label className="upload-photo">
@@ -106,15 +104,10 @@ export const ProfilePersonalPhoto = () => {
                             <span className="gray-400-14">Файл не прошёл модерацию</span>
                             <span className="orange-400-14" onClick={handleLoadPhotoClick}>Загрузить новое фото</span>
                         </div>
-                        {loadPhotoErrorMsg ?
-                            <>
-                                <div className='photo-bar-moderation-tip red-circle-warning-icon' onClick={() => { setIsErrorTooltip(!isErrorTooltip) }}></div>
-                                <div className="photo-bar-moderation-tip-content gray-400-14">
-                                    {loadPhotoErrorMsg}
-                                </div>
-                            </>
-                            : null
-                        }
+                        <div className='photo-bar-moderation-tip red-circle-warning-icon' onClick={() => { setIsErrorTooltip(!isErrorTooltip) }}></div>
+                        <div className="photo-bar-moderation-tip-content gray-400-14">
+                            {photoErrors.join(', ')}
+                        </div>
                     </label>
                 </div>
             }

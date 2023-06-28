@@ -34,7 +34,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
         }
     }
 
-    const [loader, setLoader] = useState(false); // true DEV
+    const [loader, setLoader] = useState(true);
 
     const [photo1Loading, setPhoto1Loading] = useState(true);
     const [photo2Loading, setPhoto2Loading] = useState(true)
@@ -44,7 +44,6 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
             setLoader(false)
         }
     }, [photo1Loading, photo2Loading])
-    photo = devIcon // DEV - удалить
     return (
 
         <>
@@ -54,7 +53,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
                     <div className="load-user-photo-preview-top-frame" onLoad={() => setPhoto1Loading(false)}>
                         {
                             photo && typeof photo === "string" && 
-                            <img className='load-user-photo-preview-user-img' src={photo} /* вместо photo server + photo */ alt="user photo" onLoad={() => setPhoto2Loading(false)} />
+                            <img className='load-user-photo-preview-user-img' src={serverUrl + photo}  alt="user photo" onLoad={() => setPhoto2Loading(false)} />
                         }
                         {
                             photo && typeof photo !== "string" &&
