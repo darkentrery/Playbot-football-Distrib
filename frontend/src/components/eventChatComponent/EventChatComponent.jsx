@@ -94,10 +94,13 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
     const sendForm = () => {
         if (message) {
             let trimMessage = message.trim();
+            // удаление \n в начале и конце строки
+            trimMessage = trimMessage.replace(/^\n+/, '');
+            trimMessage = trimMessage.replace(/\n+$/, '');
             if (trimMessage) {
                 sendJsonMessage({
                     type: 'chat_message',
-                    message,
+                    message: trimMessage,
                 });
                 setMessage('');
             }

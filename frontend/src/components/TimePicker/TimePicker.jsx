@@ -20,7 +20,7 @@ export const TimePicker = ({className = '', setValue = () => {}, value = undefin
 
     return (
         <div className={"time-picker " + (className ? className : '')}>
-            <input type="text" className="form-control" placeholder='время' value={inputValue ? inputValue : ''}/>
+            <input type="text" className="form-control" placeholder='время *' value={inputValue ? inputValue : ''}/>
             <DatePicker
                 selected={value}
                 onChange={handleDateChange}

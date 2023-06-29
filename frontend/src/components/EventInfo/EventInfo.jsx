@@ -25,11 +25,11 @@ export const EventInfo = ({ event }) => {
     const fieldAddress = `${event.field.address.city}, ${event.field.address.street}, ${event.field.address.house_number}`
     const isDressingRoom = event.field.dressing_room
     const isLighting = event.field.lighting
-    const fieldCoverage = event.field.coverage.name
+    const fieldCoverage = event.field.coverage.name.toLowerCase();
     const fieldFormat = event.field.format.name
     const isShowerRoom = event.field.shower_room
     const isTribune = event.field.tribune
-    const fieldType = event.field.type_field.name
+    const fieldType = event.field.type_field.name.toLowerCase();
 
     useEffect(() => {
         if (event && event.field) {

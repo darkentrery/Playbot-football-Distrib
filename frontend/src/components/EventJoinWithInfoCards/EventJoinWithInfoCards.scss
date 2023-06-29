@@ -8,7 +8,10 @@
     font-family: 'Raleway';
     font-style: normal;
     .btn {
-        padding: 14px 22px;
+        padding: 15px 24px;
+    }
+    .organizer-watch-results-btn {
+        padding: 16px 24px;
     }
 }
 
@@ -31,11 +34,25 @@
 .event-join-action-buttons {
     .elem-4 {
         display: flex;
-        gap: 25px;
+        flex-direction: column;
+        gap: 12px;
     }
     .buttons-board-player-component {
         display: unset;
     }
+
+    button, a {
+        line-height: 100%;
+        font-size: 16px;
+        padding: 15px 24px;
+    }
+
+    .event-organizer-buttons__start-game {
+        font-size: 16px;
+        padding: 14px 24px;
+    }
+
+    
 }
 @media only screen and (max-width: 1279px) {
     .event-join-action-buttons {
@@ -80,5 +97,5 @@
     .event-join-top {
         display: none;
     }
-
+    
 }

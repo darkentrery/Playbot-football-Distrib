@@ -129,9 +129,19 @@
       bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
-      button {
+      button, a {
         width: 100%;
         padding: 13px 22px;
+      }
+      a {
+        padding: 14px 22px;
+      }
+      .organizer-repeat-event-button {
+        display: none;
+      }
+      
+      .organizer-watch-results-btn {
+        bottom: 0px;
       }
     }
   }
