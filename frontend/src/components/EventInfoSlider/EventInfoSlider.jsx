@@ -17,8 +17,7 @@ export const EventInfoSlider = ({images, className = ''}) => {
                 >
                     {images.map((e, i) => (
                         <SwiperSlide key={i}>
-                            {/* <img src={serverUrl + e.photo} alt="" /> */}
-                            <img src={e} alt="" />
+                            <img src={serverUrl + e.photo} alt="" />
                         </SwiperSlide>
                     ))}
                 </Swiper>

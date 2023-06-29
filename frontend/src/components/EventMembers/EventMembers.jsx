@@ -20,7 +20,7 @@ export const EventMembers = ({
         setShowMemberListFog(false)
     }
 
-    if (event.count_current_players < 6 && showMemberListFog == true) {
+    if (event.count_current_players < 2 && showMemberListFog == true) {
         setShowMemberListFog(false)
     }
     return (

@@ -43,7 +43,7 @@ const EventAboutPlace376 = ({ event }) => {
                 </div>
                 : null
             }
-            <EventInfoSlider images={[Image, Image, Image, Image]} />
+            <EventInfoSlider images={event.field.field_photos} />
         </div>
     )
 }

@@ -39,7 +39,7 @@
 }
 
 .same-events__list {
-  gap: 56px;
+  gap: 58px;
 }
 
 .event-action__orange-button {
@@ -104,8 +104,7 @@
 
     .same-events__list {
       gap: 20px;
-
-      .same-event-2 {
+      a:nth-child(n+3) {
         display: none;
       }
     }
@@ -120,6 +119,11 @@
     left: 50%;
     width: max-content;
     transform: translate(-50%, 0);
+  }
+  .same-events__list {
+    a:nth-child(n+2) {
+      display: none;
+    }
   }
   .event-component-organizer {
     .event-player-buttons-376 {
@@ -218,7 +222,7 @@
 @media screen and (max-width: 405px){
   .event-component {
     .same-events-component {
-      .same-event-component {
+      .same-event {
         flex: 0 0 calc(100vw - 32px);
       }
     }
