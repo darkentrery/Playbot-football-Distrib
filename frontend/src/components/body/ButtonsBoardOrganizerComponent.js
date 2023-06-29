@@ -54,14 +54,14 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
                     {event.event_step.length === 3 &&
                         event.event_step[2]['complete'] && (
                             <Link
-                                className={`el el-2 btn-second organizer-watch-results-btn`}
+                                className={`event-action__white-button`}
                                 to={BaseRoutes.eventInfoLink(event.id)}
                             >
                                 Итоги игры
                             </Link>
                         )}
                     {
-                        <button className={`el el-3 btn organizer-repeat-event-button`} onClick={repeatEvent}>
+                        <button className={`event-action__orange-button`} onClick={repeatEvent}>
                             Повторить событие
                         </button>
                     }
@@ -74,7 +74,7 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
                         <>
                             {event.event_step.length === 0 && (
                                 <button
-                                    className={`event-organizer-buttons__start-game el el-${
+                                    className={`event-action__orange-button el el-${
                                         !event.is_begin ? '1' : '3'
                                     } btn ${
                                         new Date() < date ? 'disabled' : ''
@@ -87,29 +87,29 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
                             {event.event_step.length === 1 &&
                                 !event.event_step[0]['complete'] && (
                                     <button
-                                        className={`event-organizer-button event-organizer-buttons__confirm-teams el el-${
+                                        className={`event-action__white-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn-second`}
                                         onClick={toConfirmPlayers}
                                     >
-                                        Подтвердить команды
+                                        Подтвердить игроков
                                     </button>
                                 )}
                             {event.event_step.length === 2 &&
                                 !event.event_step[1]['complete'] && (
                                     <button
-                                        className={`event-organizer-button el el-${
+                                        className={`event-action__white-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn-second`}
                                         onClick={toFillRegulation}
                                     >
-                                        Регламент
+                                        Заполнить регламент
                                     </button>
                                 )}
                             {event.event_step.length === 3 &&
                                 !event.event_step[2]['complete'] && (
                                     <button
-                                        className={`event-organizer-button el el-${
+                                        className={`event-action__white-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn-second`}
                                         onClick={toConfirmTeams}
@@ -120,7 +120,7 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
                             {event.event_step.length === 3 &&
                                 event.event_step[2]['complete'] && (
                                     <Link
-                                        className={`event-organizer-button el el-${
+                                        className={`event-action__orange-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn`}
                                         to={BaseRoutes.eventInfoLink(event.id)}

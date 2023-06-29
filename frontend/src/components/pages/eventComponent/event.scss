@@ -42,6 +42,47 @@
   gap: 56px;
 }
 
+.event-action__orange-button {
+  font-family: 'Raleway';
+  font-size: 16px;
+  background-color: #D19C6C;
+  color: #FFFFFF;
+  height: 48px;
+  padding: 0px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  &.disabled {
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &:hover {
+      opacity: 0.8;
+  }
+}
+
+.event-action__white-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Raleway';
+  font-size: 16px;
+  background-color: #ffffff;
+  outline: 1px solid #000 !important;
+  color: #1B1B1B;
+  height: 48px;
+  padding: 0px 25px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  &:active, &:hover {
+    text-decoration: unset;
+    color: #1B1B1B;
+  }
+}
+
 @media only screen and (max-width: 1279px) {
   .event-component-title {
     margin-top: 5px;
@@ -122,19 +163,17 @@
       }
     }
     .event-organizer-buttons-376 {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       width: 303px;
       position: fixed;
       z-index: 999;
       bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
-      button, a {
+      .event-action__orange-button {
         width: 100%;
-        padding: 13px 22px;
-      }
-      a {
-        padding: 14px 22px;
       }
       .organizer-repeat-event-button {
         display: none;
