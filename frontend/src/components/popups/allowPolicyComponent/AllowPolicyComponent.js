@@ -10,9 +10,9 @@ export const AllowPolicyComponent = ({isOpen}) => {
     }
     return (
         <PopupWrapperComponent isOpen={isOpen} className={"allow-policy-component"} zIndex={1000} closeWindow={closeComponent}>
-            <div className={"block block-1 allow-policy-fon"}>
-                <span className={"white-700-40"}>Политика конфиденциальности</span>
-            </div>
+            {/*<div className={"block block-1 allow-policy-fon"}>*/}
+            {/*    <span className={"white-700-40"}>Политика конфиденциальности</span>*/}
+            {/*</div>*/}
             <div className={"block block-2"}>
                 <div className={"rules-block"}>
                     <div className={"paragraph"}>
