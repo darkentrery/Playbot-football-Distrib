@@ -15,7 +15,6 @@ export const EventMembers = ({
     const [showMemberListFog, setShowMemberListFog] = useState(true)
 
     const handleOpenMemberList = () => {
-        console.log("open list")
         setIsMemberListOpened(true)
         setShowMemberListFog(false)
     }
@@ -39,7 +38,7 @@ export const EventMembers = ({
                     }
                 </div>
                 {event.count_current_players !== 0 ?
-                    <div className="event-members-list" style={{ maxHeight: (isMemberListOpened && showMemberListFog ? "max-content" : "120px") }}>
+                    <div className="event-members-list" style={{ maxHeight: (isMemberListOpened && showMemberListFog ? "max-content" : "40px") }}>
                         {event.count_current_players !== 0 && event.event_player.map((e, i) => {
                             return (
                                 <EventMemberCard

@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import UserAvatar from "../UserAvatar/UserAvatar";
+import { eventService } from "../../services/EventService";
 
 export const MessageComponent = ({
     className='',
     message,
     user,
     previousId,
-    previousMsg
+    previousMsg,
+    event
 }) => {
     const [time, setTime] = useState(false);
     let date, newTime, isSameAuthor, isSameTime
@@ -52,19 +54,38 @@ export const MessageComponent = ({
         }
     }, [message])
 
+    const isOrganizer = eventService.isOrganizer(event, message.from_user)
+    const currentUserIsOrganizer = eventService.isOrganizer(event, user)
     return (
-        <div className={`message-component ${user.id === message.from_user.id ? 'right' : ''} ${className}`}>
-            <div className={`elem-2 ${user.id === message.from_user.id ? 'right' : ''}`}>
-                
-                {!isSameAuthor  &&
-                    <div className="event-chat__message-user-photo">
-                        <UserAvatar className="event-chat__message-user-photo-content"/>
-                        <span className={`el-1 black-600-16`}>{message.from_user.username}</span>
-                    </div>
-                }
-                <span className={`el-2 black-400-14`}>{message.content.split('\n').map((m, i) => (<span key={i}>{m ? m : <br></br>}</span>))}</span>
-                <span id={"msg_" + message.id} className={`el-3 gray-400-12`}>{date}</span>
+        <>
+            {currentUserIsOrganizer ? 
+            <div className={`message-component ${isOrganizer  ? 'right' : ''} ${className}`}>
+                <div className={`elem-2 ${isOrganizer ? 'right' : ''}`}>
+                    {!isSameAuthor  &&
+                        <div className="event-chat__message-user-photo">
+                            <UserAvatar className="event-chat__message-user-photo-content"/>
+                            <span className={`el-1 black-600-16`}>{message.from_user.username}</span>
+                        </div>
+                    }
+                    <span className={`el-2 black-400-14`}>{message.content.split('\n').map((m, i) => (<span key={i}>{m ? m : <br></br>}</span>))}</span>
+                    <span id={"msg_" + message.id} className={`el-3 gray-400-12`}>{date}</span>
+                </div>
             </div>
-        </div>
+            : 
+            <div className={`message-component ${isOrganizer  ? '' : 'right'} ${className}`}>
+                <div className={`elem-2 ${isOrganizer ? '' : 'right'}`}>
+                    {!isSameAuthor  &&
+                        <div className="event-chat__message-user-photo">
+                            <UserAvatar className="event-chat__message-user-photo-content"/>
+                            <span className={`el-1 black-600-16`}>{message.from_user.username}</span>
+                        </div>
+                    }
+                    <span className={`el-2 black-400-14`}>{message.content.split('\n').map((m, i) => (<span key={i}>{m ? m : <br></br>}</span>))}</span>
+                    <span id={"msg_" + message.id} className={`el-3 gray-400-12`}>{date}</span>
+                </div>
+            </div>
+            }
+        </>
+        
     )
 }

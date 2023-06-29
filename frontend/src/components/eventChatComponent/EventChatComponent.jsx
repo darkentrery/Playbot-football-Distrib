@@ -165,6 +165,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
         autosize.update(textAreaRef.current)
     }, [message])
 
+
     return (
         <div className={`event-chat-component ${className}`}>
             <span className={'elem elem-1'}>
@@ -174,6 +175,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             <div className={'elem elem-2 scroll'} ref={chatRef}>
                 {messageHistory.map((message, key) => (
                     <MessageComponent
+                        event={event}
                         user={user.user}
                         previousId={
                             key !== 0
