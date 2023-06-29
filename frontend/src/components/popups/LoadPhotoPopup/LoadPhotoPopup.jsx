@@ -17,7 +17,7 @@ export const LoadPhotoPopup = ({ isOpen }) => {
     }
     return (
         <Modal
-            isOpen={true}
+            isOpen={isOpen}
             className={"popup-fon"}
             contentLabel="Example Modal"
             ariaHideApp={false}

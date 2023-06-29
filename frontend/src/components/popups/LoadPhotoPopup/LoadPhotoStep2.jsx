@@ -44,7 +44,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
             setLoader(false)
         }
     }, [photo1Loading, photo2Loading])
-    photo = devIcon
+
     return (
 
         <>
@@ -54,7 +54,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
                     <div className="load-user-photo-preview-top-frame" onLoad={() => setPhoto1Loading(false)}>
                         {
                             photo && typeof photo === "string" && 
-                            <img className='load-user-photo-preview-user-img' src={photo}  alt="user photo" onLoad={() => setPhoto2Loading(false)} />
+                            <img className='load-user-photo-preview-user-img' src={serverUrl + photo}  alt="user photo" onLoad={() => setPhoto2Loading(false)} />
                         }
                         {
                             photo && typeof photo !== "string" &&
