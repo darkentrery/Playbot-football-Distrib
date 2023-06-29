@@ -150,12 +150,12 @@ export default function EventComponent({ event, sameEvents, user, funcs }) {
                             eventService.isOrganizer(event, user.user) && (
                                 <VisibleEventTopAdminEditBar />
                             )}
-                        {event.name &&
+                        {/* {event.name &&
                             !eventService.isOrganizer(event, user.user) && (
                                 <div className='event-component-title'>
                                     {event.name}
                                 </div>
-                            )}
+                            )} */}
                         <EventAboutPlace376 event={event}/>
                         <EventJoinInfo376 event={event} user={user.user} />
 

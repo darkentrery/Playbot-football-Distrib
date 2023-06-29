@@ -29,11 +29,11 @@ export const EventTopAdminEditBar = ({
     return (
         <div className='event-admin-bar'>
             <div className={"event-admin-bar-data " + (isNoDataItems && "no-data-items-376")}>
-                {event.name && 
+                {/* {event.name && 
                 <div className={"event-component-title" }>
                     {event.name}
                 </div>
-                }
+                } */}
                 <div className="event-admin-bar-data-inner">
                     <div className="event-admin-bar-data-item">
                         <div className="event-admin-bar-data-item-name">

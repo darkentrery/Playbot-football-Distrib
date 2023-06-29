@@ -159,6 +159,12 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
     }, [messageHistory, isScrolledToBottom]);
+
+    
+    useEffect(() => {
+        autosize.update(textAreaRef.current)
+    }, [message])
+
     return (
         <div className={`event-chat-component ${className}`}>
             <span className={'elem elem-1'}>

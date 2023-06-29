@@ -12,6 +12,12 @@
     height: 20px;
   }
 
+  .elem-3 {
+    .el-1 {
+      line-height: 140%;
+      font-size: 14px;
+    }
+  }
   .elem {
     display: flex;
     font-weight: 500;
@@ -59,7 +65,7 @@
 
         &.el-1 {
           flex: 1 1 auto;
-          height: 20px;
+          height: 18px;
           padding: 0;
           border: 0;
           border-radius: 0;
