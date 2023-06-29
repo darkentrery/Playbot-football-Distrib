@@ -1,4 +1,4 @@
-.allow-policy-component {
+.allow-offer-component {
   width: 90%;
   height: 90%;
   padding: 30px 60px;
@@ -55,7 +55,7 @@
 }
 
 @media screen and (min-width: 744px) and (max-width: 1279px) {
-  .allow-policy-component {
+  .allow-offer-component {
     .block-1 {
       flex: 0 0 80px;
 
@@ -67,7 +67,7 @@
 }
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
-  .allow-policy-component {
+  .allow-offer-component {
     width: 100%;
     height: 100%;
     padding: 30px;

@@ -58,6 +58,7 @@ import VisibleOnboardingStep2 from "./redux/containers/VisibleOnboardingStep2";
 import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
 import LoadPhotoPopup from "./components/popups/LoadPhotoPopup/LoadPhotoPopup";
 import {AllowPolicyComponent as AllowPolicyPopup} from "./components/popups/allowPolicyComponent/AllowPolicyComponent";
+import {AllowOfferComponent as AllowOfferPopup} from "./components/popups/allowOfferComponent/AllowOfferComponent";
 
 
 function App({state, funcs}) {
@@ -184,22 +185,6 @@ function App({state, funcs}) {
     ]
 
     useEffect(() => {
-        let windows = [
-            state.windows.isOpenChoiceCity,
-            state.windows.isOpenShowMenu,
-            state.windows.isOpenConfirmPlayers,
-            state.windows.isOpenFillRegulation,
-            state.windows.isOpenConfirmTeamPlayers,
-            state.windows.isOpenConfirmTeams,
-            state.windows.isOpenSignUp,
-            state.windows.isOpenLogin,
-        ];
-        let isOpenChoiceCity = state.windows.isOpenChoiceCity;
-        let isOpenShowMenu = state.windows.isOpenShowMenu;
-        let isOpenConfirmPlayers = state.windows.isOpenConfirmPlayers;
-        let isOpenFillRegulation = state.windows.isOpenFillRegulation;
-        let isOpenConfirmTeamPlayers = state.windows.isOpenConfirmTeamPlayers;
-        let isOpenConfirmTeams = state.windows.isOpenConfirmTeams;
         if (popupsStates.includes(true)) {
             document.body.style = 'overflow: hidden';
             document.querySelector('html').style = 'overflow: hidden';
@@ -272,6 +257,7 @@ function App({state, funcs}) {
                 <VisibleOnboardingStep2/>
                 <LoadPhotoPopup isOpen={state.windows.isOpenLoadPhoto}/>
                 <AllowPolicyPopup isOpen={state.windows.isOpenAllowPolicy}/>
+                <AllowOfferPopup isOpen={state.windows.isOpenAllowOffer}/>
                 <div ref={refTelegram}></div>
             </Router>
         </div>

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {InputComponent} from "../../inputComponent/InputComponent";
 import {useDispatch} from "react-redux";
-import {allowPolicyWindow} from "../../../redux/actions/actions";
+import {allowOfferWindow, allowPolicyWindow} from "../../../redux/actions/actions";
 
 
 export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
@@ -33,6 +33,10 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
 
     const openAllowPolicy = () => {
         dispatch(allowPolicyWindow(true));
+    }
+
+    const openAllowOffer = () => {
+        dispatch(allowOfferWindow(true));
     }
 
     const dropErrors = () => {
@@ -192,13 +196,12 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                                 <input id={"id-policy"} type="checkbox" onChange={clickAllowPolicy}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
                                 <span className={"gray-400-14 link label-link"} onClick={openAllowPolicy}>Я согласен с политикой конфеденциальности</span>
-                                {/*<Link className={"gray-400-14 link"} to={BaseRoutes.allowPolicy} target={"_blank"}>Я согласен с политикой конфеденциальности</Link>*/}
                             </div>
                             <div className={"sign-up-l-elem div-input-checkbox"} ref={refAllowOffer}>
                                 <div className={`checkbox-div ${allowOfferError ? 'error' : ''}`}></div>
                                 <input id={"id-offer"} type="checkbox" onChange={clickAllowOffer}/>
                                 <label className={"checkbox-label"} htmlFor={"id-offer"}></label>
-                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowOffer} target={"_blank"}>Я согласен с условиями договора-оферты</Link>
+                                <span className={"gray-400-14 link label-link"} onClick={openAllowOffer}>Я согласен с условиями договора-оферты</span>
                             </div>
                         </div>
                         <div className={"sign-up-l-elem gap-element"}></div>
