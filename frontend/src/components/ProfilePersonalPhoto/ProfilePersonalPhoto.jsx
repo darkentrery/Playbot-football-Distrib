@@ -83,7 +83,7 @@ export const ProfilePersonalPhoto = () => {
                     <span className="black-400-14">Фотография профиля:</span>
                     {isErrorTooltip &&
                         <div className='photo-bar-moderation-tip-content photo-bar-moderation-tip-content-mobile gray-400-14'>
-                            {photoErrors.join(', ')}
+                            {photoErrors.map(e => e.name).join(', ')}
                         </div>
                     }
                     <label className="upload-photo">
