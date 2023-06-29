@@ -33,6 +33,8 @@ export const ONBOARDING_STEP_1_WINDOW = 'ONBOARDING_STEP_1_WINDOW';
 export const ONBOARDING_STEP_2_WINDOW = 'ONBOARDING_STEP_2_WINDOW';
 export const ONBOARDING_STEP_3_WINDOW = 'ONBOARDING_STEP_3_WINDOW';
 export const SHOW_LOAD_PHOTO_WINDOW = 'SHOW_LOAD_PHOTO_WINDOW';
+export const ALLOW_POLICY_WINDOW = 'ALLOW_POLICY_WINDOW';
+export const ALLOW_OFFER_WINDOW = 'ALLOW_OFFER_WINDOW';
 
 export const AUTH = 'AUTH';
 export const SET_USER_PHOTO_MODERATION = 'SET_USER_PHOTO_MODERATION'
@@ -228,6 +230,17 @@ export const showLoadPhotoWindow = (value) => ({
   type: SHOW_LOAD_PHOTO_WINDOW,
   value,
 })
+
+export const allowPolicyWindow = (value) => ({
+  type: ALLOW_POLICY_WINDOW,
+  value,
+})
+
+export const allowOfferWindow = (value) => ({
+  type: ALLOW_OFFER_WINDOW,
+  value,
+})
+
 
 export const auth = (value, user) => ({
   type: AUTH,

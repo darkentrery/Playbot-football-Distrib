@@ -72,6 +72,11 @@
         &.div-input-checkbox {
           flex: 0 0 34px;
           margin-bottom: 12px;
+
+          .label-link {
+            flex: 1 1 auto;
+            margin-left: 12px;
+          }
         }
         &.gap-element {
           flex: 1 1 auto;

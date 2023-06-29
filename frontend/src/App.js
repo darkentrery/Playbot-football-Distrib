@@ -57,6 +57,7 @@ import VisibleOnboardingStep1 from "./redux/containers/VisibleOnboardingStep1";
 import VisibleOnboardingStep2 from "./redux/containers/VisibleOnboardingStep2";
 import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
 import LoadPhotoPopup from "./components/popups/LoadPhotoPopup/LoadPhotoPopup";
+import {AllowPolicyComponent as AllowPolicyPopup} from "./components/popups/allowPolicyComponent/AllowPolicyComponent";
 
 
 function App({state, funcs}) {
@@ -169,6 +170,19 @@ function App({state, funcs}) {
         }
     }, [localStorage.telegramLogin])
 
+    const popupsStates = [
+        state.windows.isOpenChoiceCity,
+        state.windows.isOpenShowMenu,
+        state.windows.isOpenConfirmPlayers,
+        state.windows.isOpenFillRegulation,
+        state.windows.isOpenConfirmTeamPlayers,
+        state.windows.isOpenConfirmTeams,
+        state.windows.isOpenSignUp,
+        state.windows.isOpenLogin,
+        state.windows.isOpenAllowPolicy,
+        state.windows.isOpenAllowOffer,
+    ]
+
     useEffect(() => {
         let windows = [
             state.windows.isOpenChoiceCity,
@@ -186,23 +200,14 @@ function App({state, funcs}) {
         let isOpenFillRegulation = state.windows.isOpenFillRegulation;
         let isOpenConfirmTeamPlayers = state.windows.isOpenConfirmTeamPlayers;
         let isOpenConfirmTeams = state.windows.isOpenConfirmTeams;
-        if (windows.includes(true)) {
+        if (popupsStates.includes(true)) {
             document.body.style = 'overflow: hidden';
             document.querySelector('html').style = 'overflow: hidden';
         } else {
             document.body.style = null;
             document.querySelector('html').style = null;
         }
-    }, [
-        state.windows.isOpenChoiceCity,
-        state.windows.isOpenShowMenu,
-        state.windows.isOpenConfirmPlayers,
-        state.windows.isOpenFillRegulation,
-        state.windows.isOpenConfirmTeamPlayers,
-        state.windows.isOpenConfirmTeams,
-        state.windows.isOpenSignUp,
-        state.windows.isOpenLogin,
-    ])
+    }, [...popupsStates])
 
     return (
         <div className="App">
@@ -266,6 +271,7 @@ function App({state, funcs}) {
                 <VisibleOnboardingStep1/>
                 <VisibleOnboardingStep2/>
                 <LoadPhotoPopup isOpen={state.windows.isOpenLoadPhoto}/>
+                <AllowPolicyPopup isOpen={state.windows.isOpenAllowPolicy}/>
                 <div ref={refTelegram}></div>
             </Router>
         </div>

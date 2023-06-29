@@ -1,4 +1,6 @@
 import {
+    ALLOW_OFFER_WINDOW,
+    ALLOW_POLICY_WINDOW,
     CANCEL_EVENT_WINDOW,
     CHOICE_CITY_WINDOW,
     CONFIRM_PLAYERS_WINDOW,
@@ -71,6 +73,8 @@ const initialState = {
     isOpenOnboardingStep2: false,
     isOpenOnboardingStep3: false,
     isOpenLoadPhoto: false,
+    isOpenAllowPolicy: false,
+    isOpenAllowOffer: false,
 }
 
 export const windows = (state = initialState, action) => {
@@ -249,6 +253,16 @@ export const windows = (state = initialState, action) => {
           return {
               ...state,
               isOpenLoadPhoto: action.value
+          };
+      case ALLOW_POLICY_WINDOW:
+          return {
+              ...state,
+              isOpenAllowPolicy: action.value
+          };
+      case ALLOW_OFFER_WINDOW:
+          return {
+              ...state,
+              isOpenAllowOffer: action.value
           };
       default:
           return state;

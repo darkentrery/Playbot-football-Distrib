@@ -1,0 +1,32 @@
+.popup-wrapper-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(27, 27, 27, 0.7);
+  z-index: 999;
+  position: absolute;
+
+  .frame {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    border-radius: 10px;
+    background: #FFFFFF;
+    position: relative;
+
+    .close-element {
+      top: 28px;
+      right: 28px;
+    }
+  }
+}
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
+  .popup-wrapper-component {
+    .frame {
+      border-radius: 0;
+    }
+  }
+}

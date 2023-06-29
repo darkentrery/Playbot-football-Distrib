@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import {Link} from "react-router-dom";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import {InputComponent} from "../../inputComponent/InputComponent";
+import {useDispatch} from "react-redux";
+import {allowPolicyWindow} from "../../../redux/actions/actions";
 
 
 export default function SignUpComponent ({isOpen, isIPhone, closeComponent, openLogin, openSuccessSignUp, showMap}) {
@@ -14,6 +16,7 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const [passwordConfirm, setPasswordConfirm] = useState(false);
     const [allowPolicy, setAllowPolicy] = useState(false);
     const [allowOffer, setAllowOffer] = useState(false);
+    const dispatch = useDispatch();
 
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -27,6 +30,10 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
     const refAllowPolicy = useRef();
     const refAllowOffer = useRef();
     const refBottom = useRef();
+
+    const openAllowPolicy = () => {
+        dispatch(allowPolicyWindow(true));
+    }
 
     const dropErrors = () => {
         setEmailError(false);
@@ -184,7 +191,8 @@ export default function SignUpComponent ({isOpen, isIPhone, closeComponent, open
                                 <div className={`checkbox-div ${allowPolicyError ? 'error' : ''}`}></div>
                                 <input id={"id-policy"} type="checkbox" onChange={clickAllowPolicy}/>
                                 <label className={"checkbox-label"} htmlFor={"id-policy"}></label>
-                                <Link className={"gray-400-14 link"} to={BaseRoutes.allowPolicy} target={"_blank"}>Я согласен с политикой конфеденциальности</Link>
+                                <span className={"gray-400-14 link label-link"} onClick={openAllowPolicy}>Я согласен с политикой конфеденциальности</span>
+                                {/*<Link className={"gray-400-14 link"} to={BaseRoutes.allowPolicy} target={"_blank"}>Я согласен с политикой конфеденциальности</Link>*/}
                             </div>
                             <div className={"sign-up-l-elem div-input-checkbox"} ref={refAllowOffer}>
                                 <div className={`checkbox-div ${allowOfferError ? 'error' : ''}`}></div>
