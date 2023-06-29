@@ -54,12 +54,13 @@
   cursor: pointer;
   transition: 0.2s;
   &.disabled {
-    &:hover {
-      opacity: 1;
-    }
+    pointer-events: none;
   }
   &:hover {
-      opacity: 0.8;
+    background: #E8B07D;
+  }
+  &:active {
+
   }
 }
 
@@ -77,9 +78,13 @@
   border: none;
   border-radius: 8px;
   text-decoration: none;
+  transition: 0.2s;
   &:active, &:hover {
     text-decoration: unset;
-    color: #1B1B1B;
+    color: #1B1B1B !important;
+  }
+  &:hover {
+    background-color: #F3F3F3;
   }
 }
 

@@ -38,17 +38,19 @@
       box-sizing: border-box;
       padding: 6px 8px;
       flex-direction: column;
-      max-width: 80%;
+      max-width: 100%;
       word-wrap: break-word;
     }
     .el-3 {
       margin-top: 3px;
       flex: 0 0 19px;
-      align-self: end;
-      padding-inline: 10px;
+      padding-inline: 8px;
     }
     &.right {
       align-items: end;
+      .event-chat__message-user-photo {
+        flex-direction: row-reverse;
+      }
 
       .el-2 {
         justify-content: end;
@@ -68,6 +70,12 @@
   }
 }
 
+.event-chat__message-user-photo {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .message-component {
     padding-right: 0;
@@ -81,7 +89,21 @@
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   .message-component {
     padding-right: 0;
-
+    .event-chat__message-user-photo {
+      .el-1 {
+        font-weight: 500;
+        font-size: 13px;
+        margin: 0px;
+      }
+    }
+    .elem-2 {
+      .el-2 {
+        font-size: 12px;
+      }
+    }
+    .event-chat__message-user-photo-content {
+      display: none;
+    }
     &.right {
       padding-left: 0;
     }
