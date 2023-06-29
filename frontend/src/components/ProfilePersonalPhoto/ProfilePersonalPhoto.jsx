@@ -98,7 +98,7 @@ export const ProfilePersonalPhoto = () => {
                         </div>
                         <div className='photo-bar-moderation-tip red-circle-warning-icon' onClick={() => { setIsErrorTooltip(!isErrorTooltip) }}></div>
                         <div className="photo-bar-moderation-tip-content gray-400-14">
-                            {photoErrors.join(', ')}
+                            {photoErrors.map(e => e.name).join(', ')}
                         </div>
                     </label>
                 </div>
