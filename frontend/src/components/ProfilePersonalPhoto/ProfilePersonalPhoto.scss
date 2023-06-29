@@ -17,13 +17,23 @@
         border-radius: 8px;
         flex: 0 0 72px;
         width: 280px;
-        padding: 16px 18px;
+        padding: 7px 24px;
         box-sizing: border-box;
         align-items: center;
         gap: 23px;
         cursor: pointer;
+        .no-photo-icon {
+            align-self: center;
+        }
+        img {
+            object-fit: contain;
+        }
     }
+    
     &.on-moderation {
+        .upload-photo {
+            padding: 7px 24px;
+        }
         .upload-photo-image {
             height: 54px;
             margin-right: -2px;
@@ -75,8 +85,9 @@
     background: #fff3f2;
     border-radius: 8px;
     max-width: 300px;
+    width: max-content;
     position: absolute;
-    right: -340px;
+    left: 300px;
     top: -38px;
     line-height: 130%;
 }
@@ -97,7 +108,7 @@
 .upload-photo-text {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     justify-content: center;
     flex: 1 1 auto;
     .orange-400-14 {
@@ -132,6 +143,9 @@
         height: 80px;
         width: 64px;
         border-radius: 2px;
+        object-fit: contain;
+        padding-top: 5px;
+        box-sizing: border-box;
     }
 }
 

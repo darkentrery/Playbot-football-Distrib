@@ -20,7 +20,6 @@ export const EventTopAdminEditBar = ({
     const isPublishDelayed = event.is_delay_publish
 
     let publishTime;
-
     if (isPublishDelayed) {
         publishTime = format(new Date(event.publish_time), `dd MMMM yyyy 'в' HH:mm`, { locale: ru });
     }

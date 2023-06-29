@@ -10,14 +10,12 @@ export const ProfilePersonalPhoto = () => {
     const [showCancelLoadPopup, setShowCancelLoadPopup] = useState(false);
     const [isErrorTooltip, setIsErrorTooltip] = useState(false)
     const serverUrl = process.env.REACT_APP_SERVER_URL;
-    const { media } = useSelector(state => state.user?.user);
     const { player } = useSelector(state => state.event);
     const photo = player.photo;
+    const photoErrors = player.photo_errors;
     const isModerationFinished = !!player.photo && player.is_accept_photo;
     const photoOnModeration = !!player.photo && !player.is_accept_photo;
-    const photoErrors = player.photo_errors;
-    const loadPhotoErrorMsg = media?.moderation?.message;
-
+    
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true));
     }
@@ -27,7 +25,7 @@ export const ProfilePersonalPhoto = () => {
     }
 
     return (
-        <> {/* test */}
+        <> 
             <YesNoComponent
                 isOpen={showCancelLoadPopup}
                 closeSuccess={() => setShowCancelLoadPopup(false)}
@@ -36,15 +34,11 @@ export const ProfilePersonalPhoto = () => {
                 clickSuccess={handleCancelLoadPhotoClick}
             />
             {/* фотка есть */}
-            {photoOnModeration &&
+            {!photoOnModeration && isModerationFinished && photoErrors.length == 0 &&
                 <div className='photo-bar'>
                     <div className="photo-bar-user-photo-wrapper">
                         <div className="photo-bar-user-photo">
-                            {/*{photoOnModeration && typeof photoOnModeration !== "string" &&*/}
-                            {/*    <img alt="not fount" src={URL.createObjectURL(photoOnModeration)} />}*/}
-                            {/*{photo && typeof photo === "string" &&*/}
-                                <img alt="not fount" src={serverUrl + photo} />
-                            {/*}*/}
+                            <img alt="not fount" src={serverUrl + photo} />
                         </div>
                         <div className="photo-bar-user-photo-text black-600-16">
                             Фотография профиля на сезон 23/24
@@ -53,15 +47,11 @@ export const ProfilePersonalPhoto = () => {
                 </div>
             }
             {/* на модерации */}
-            {!isModerationFinished && photoOnModeration &&
+            {!isModerationFinished && photoOnModeration && !photoErrors.length &&
                 <div className="photo-bar on-moderation">
                     <span className="black-400-14">Фотография профиля:</span>
-                    <label className="upload-photo"  onClick={() => { setShowCancelLoadPopup(true) }}>
-                        {/*{typeof photoOnModeration !== "string" &&*/}
-                        {/*    <img height={40} width={40} alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}*/}
-                        {/*{typeof photoOnModeration === "string" &&*/}
-                            <img height={40} width={40} alt="not fount" className="upload-photo-image" src={serverUrl + photo} />
-                        {/*}*/}
+                    <label className="upload-photo" onClick={() => { setShowCancelLoadPopup(true) }}>
+                        <img height={40} width={40} alt="not fount" className="upload-photo-image" src={serverUrl + photo} />
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Фотография находится <br /> на модерации</span>
                             <span className="orange-400-14" style={{ cursor: "pointer" }}>Отменить загрузку</span>
@@ -93,22 +83,22 @@ export const ProfilePersonalPhoto = () => {
                     <span className="black-400-14">Фотография профиля:</span>
                     {isErrorTooltip &&
                         <div className='photo-bar-moderation-tip-content photo-bar-moderation-tip-content-mobile gray-400-14'>
-                            {loadPhotoErrorMsg}
+                            {photoErrors.join(', ')}
                         </div>
                     }
                     <label className="upload-photo">
                         {/*{typeof photoOnModeration !== "string" &&*/}
                         {/*    <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}*/}
                         {/*{typeof photoOnModeration === "string" &&*/}
-                            <img alt="not fount" className="upload-photo-image" src={serverUrl + photoOnModeration} />
+                        <img alt="not fount" className="upload-photo-image" src={serverUrl + photoOnModeration} />
                         {/*}*/}
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Файл не прошёл модерацию</span>
                             <span className="orange-400-14" onClick={handleLoadPhotoClick}>Загрузить новое фото</span>
                         </div>
-                        <div className='photo-bar-moderation-tip red-circle-warning-icon' onClick={() => {setIsErrorTooltip(!isErrorTooltip)}}></div>
+                        <div className='photo-bar-moderation-tip red-circle-warning-icon' onClick={() => { setIsErrorTooltip(!isErrorTooltip) }}></div>
                         <div className="photo-bar-moderation-tip-content gray-400-14">
-                            {loadPhotoErrorMsg}
+                            {photoErrors.map(e => e.name).join(', ')}
                         </div>
                     </label>
                 </div>
