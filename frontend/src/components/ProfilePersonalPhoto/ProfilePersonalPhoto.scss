@@ -86,7 +86,7 @@
     border-radius: 8px;
     max-width: 300px;
     position: absolute;
-    right: -340px;
+    left: 300px;
     top: -38px;
     line-height: 130%;
 }
@@ -142,6 +142,9 @@
         height: 80px;
         width: 64px;
         border-radius: 2px;
+        object-fit: contain;
+        padding-top: 5px;
+        box-sizing: border-box;
     }
 }
 
