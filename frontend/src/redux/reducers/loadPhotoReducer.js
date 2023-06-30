@@ -121,7 +121,22 @@ export const confirmPhotoAction = (user) => async (dispatch, getState) => {
             console.log('user load action')
             // запрос обычного пользователя загрузки
             // dispatch(setStep(3));
-            dispatch(setUserPhotoModeration({finished: false, photo: photo, message:'Такой формат не поддерживается. Поддерживаемые форматы: PNG, JPG, HEIC',}));
+            dispatch(setUserPhotoModeration({
+                is_accept_photo: false,
+                photo: photo,
+                small_card_photo: photo,
+                overlay_photo: photo,
+                big_card_photo: photo,
+            }));
+            dispatch(player({
+                ...user,
+                is_accept_photo: false,
+                photo: photo,
+                small_card_photo: photo,
+                overlay_photo: photo,
+                big_card_photo: photo,
+
+        }));
         }
     } catch (error) {
         console.log(error);
@@ -131,9 +146,22 @@ export const confirmPhotoAction = (user) => async (dispatch, getState) => {
 export const cancelUserPhotoModeration = (user) => async (dispatch) => {
     try {
         authDecoratorWithoutLogin(authService.cancelUserPhoto, {});
-        dispatch(player({...user, photo: null}));
+        dispatch(player({
+                ...user, 
+                is_accept_photo: false,
+                photo: false,
+                small_card_photo: false,
+                overlay_photo: false,
+                big_card_photo: false,
+        }));
 
-        dispatch(setUserPhotoModeration({}));
+        dispatch(setUserPhotoModeration({
+            is_accept_photo: false,
+            photo: false,
+            small_card_photo: false,
+            overlay_photo: false,
+            big_card_photo: false,
+        }));
     } catch (error) {
         console.log(error);
     }

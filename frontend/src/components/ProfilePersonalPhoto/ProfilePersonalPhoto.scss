@@ -24,6 +24,8 @@
         cursor: pointer;
         .no-photo-icon {
             align-self: center;
+            width: 40px;
+            height: 40px;
         }
         img {
             object-fit: contain;
@@ -35,7 +37,7 @@
             padding: 7px 24px;
         }
         .upload-photo-image {
-            height: 54px;
+            max-height: 54px;
             margin-right: -2px;
             filter: grayscale(0.7);
         }
@@ -47,7 +49,7 @@
             position: relative;
         }
         .upload-photo-image {
-            height: 54px;
+            max-height: 54px;
             margin-right: -2px;
             filter: grayscale(0.7);
         }
@@ -99,10 +101,6 @@
 
 .upload-photo-image {
     display: flex;
-    flex: 0 0 40px;
-    align-self: stretch;
-    width: 40px;
-    height: 40px;
 }
 
 .upload-photo-text {
@@ -139,9 +137,11 @@
     border-radius: 3.72793px;
     height: 80px;
     width: 64px;
+    display: flex;
     img {
-        height: 80px;
-        width: 64px;
+        margin-top: auto;
+        max-width: 64px;
+        max-height: 80px;
         border-radius: 2px;
         object-fit: contain;
         padding-top: 5px;
