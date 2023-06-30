@@ -5,6 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
 
 from playbot.cities.models import Address
+from playbot.users.forms import UserCustomForm
 from playbot.users.models import User, Position, RankHistory, UserRivals, Gender, PhotoError
 
 
@@ -29,6 +30,7 @@ class UserRivalsInline(admin.TabularInline):
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    form = UserCustomForm
     list_display = [
         "email",
         "username",
