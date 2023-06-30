@@ -102,9 +102,6 @@ export const RulesPageComponent = () => {
         <VisibleMainWrapper>
             <div className={"rules-pattern-component"}>
                 <Top376Component label={"Главная"} to={BaseRoutes.main}/>
-                <div className={"block block-1 allow-policy-fon"}>
-                    <span className={"white-700-40"}>Правила пользования</span>
-                </div>
                 <div className={"block block-2"}>
                     <div className={"rules-block"}>
                         <div className={"paragraph"}>

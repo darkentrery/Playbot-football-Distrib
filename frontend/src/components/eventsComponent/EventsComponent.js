@@ -76,14 +76,14 @@ export default function EventsComponent ({city, user, isAuth}) {
 
         return (<>
             <Link className={"event"} to={EventRoutes.eventLink(event.id)}>
-                <span className={`elem elem-1 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>
+                {/* <span className={`elem elem-1 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>
                     {user !== false && eventService.isFavorite(user, event) && <div className={"yellow-star-icon"}></div>}
                     {event.is_begin && !event.is_end && <div className={"pulse-yellow-point"}></div>}
                     {event.name}
-                </span>
+                </span> */}
                 <span className={`elem elem-2 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>
                     {address}
-                    {!event.is_end && <span className={"gray-400-13"}>{event.is_begin ? '' : 'Событие начнется в, '}{getLocalTime(event.time_begin)}</span>}
+                    {!event.is_end && <span className={"gray-400-13"}>{event.is_begin ? '' : 'Событие начнется в '}{getLocalTime(event.time_begin)}</span>}
                     {event.is_end && <span className={"gray-400-13"}>Событие завершено</span>}
                 </span>
                 {!event.is_end && <span className={`elem elem-3 ${event.is_paid ? 'black-400-13' : 'gray-400-13'}`}>{event.is_paid ? event.price + ' р.' : 'Бесплатно'}</span>}
@@ -116,7 +116,7 @@ export default function EventsComponent ({city, user, isAuth}) {
             {!!events.length &&
                 <div className={"events-table"}>
                     <div className={"table-head"}>
-                        <span className={"elem elem-1 gray-400-13"}>Название</span>
+                        {/* <span className={"elem elem-1 gray-400-13"}>Название</span> */}
                         <span className={"elem elem-2 gray-400-13"}>Место проведения и дата начала</span>
                         <span className={"elem elem-3 gray-400-13"}>Стоимость  участия</span>
                         <span className={"elem elem-4 gray-400-13"}>Кол-во участников</span>

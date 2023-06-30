@@ -19,9 +19,6 @@ export const TopStatisticComponent = ({
 
     return (
         <div className={`top-statistic-component`}>
-            <div className={"fon allow-policy-fon"}>
-                <span className={"white-700-40"}>Статистика</span>
-            </div>
             <div className={`button-filters ${isFilter ? 'orange' : ''}`} onClick={() => setIsFilter(!isFilter)}>
                 <div className={isFilter ? 'orange-filter-icon' : 'filter-icon'}></div>
             </div>

@@ -23,9 +23,6 @@ export const FaqPageComponent = () => {
         <VisibleMainWrapper>
             <div className={"rules-pattern-component"}>
                 <Top376Component label={"Главная"} to={BaseRoutes.main}/>
-                <div className={"block block-1 allow-policy-fon"}>
-                    <span className={"white-700-40"}>FAQ</span>
-                </div>
                 <div className={"block block-3"}>
                     <FaqParagraph title={"Что такое Сервис Коробка?"}>
 
