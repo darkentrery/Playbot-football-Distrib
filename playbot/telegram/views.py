@@ -29,17 +29,19 @@ class UpdateChannelView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        channel = TelegramChannel.objects.get(channel_id=request.data["channel_id"])
-        if request.data.get("admins"):
-            users = [id for id in request.data["admins"] if id in User.objects.filter(telegram_id__isnull=False).values_list("telegram_id", flat=True)]
-            request.data["admins"] = users
-        serializer = UpdateTelegramChannelSerializer(channel, data=request.data)
-        if serializer.is_valid():
-            channel = serializer.save()
-            if channel:
-                json = TelegramChannelSerializer(TelegramChannel.objects.get(id=channel.id)).data
-                return Response(json, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if TelegramChannel.objects.filter(channel_id=request.data["channel_id"]).exists():
+            channel = TelegramChannel.objects.get(channel_id=request.data["channel_id"])
+            if request.data.get("admins"):
+                users = [id for id in request.data["admins"] if id in User.objects.filter(telegram_id__isnull=False).values_list("telegram_id", flat=True)]
+                request.data["admins"] = users
+            serializer = UpdateTelegramChannelSerializer(channel, data=request.data)
+            if serializer.is_valid():
+                channel = serializer.save()
+                if channel:
+                    json = TelegramChannelSerializer(TelegramChannel.objects.get(id=channel.id)).data
+                    return Response(json, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Channel id does not exists!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CreateChannelView(APIView):

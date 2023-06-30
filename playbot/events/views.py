@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from playbot.chats.models import Chat
+from playbot.events.exeptions import ErrorException
 from playbot.events.models import Event, CancelReasons, EventStep, Format, DistributionMethod, Duration, CountCircles, \
     EventPlayer, Team, TeamPlayer, EventGame, EventQueue, GamePeriod, Color, PlayerNumber, Goal
 from playbot.events.serializers import CreateEventSerializer, EventSerializer, EditEventSerializer, \
@@ -267,25 +268,47 @@ class AdminJoinPlayerView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        if request.user.is_organizer:
-            event = Event.objects.get(id=request.data.get("event_id"))
-            if User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
-                user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+        """
+        errors = {
+            1: "Если событие уже начато",
+            2: "Если событие было отменено",
+            3: "Если событие было завершено",
+            4: "Если пользователь пытается покинуть, но не присоединялся и не находится в очереди",
+            5: "Пользователь не является администратором",
+            6: "Пользователя с указанным telegram id не существует",
+        }
+        """
 
-                if event.event_player.all().count() < event.count_players:
-                    EventPlayer.objects.update_or_create(player=user, event=event)
-                    event.notice_join_to_event(user)
-                    event.notice_new_player()
-                    if event.event_player.all().count() == event.count_players:
-                        event.notice_complete_players()
-                else:
-                    EventQueue.objects.update_or_create(player=user, event=event, number=event.next_queue_number)
-                    event.notice_not_places_in_event(user)
-                UserEventAction.objects.create(user=user, event=event)
-                event = EventSerializer(instance=event)
-                return Response(event.data, status=status.HTTP_200_OK)
-            return Response({"error": f"User with telegram_id = {request.data.get('telegram_id')} does not exists"}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            if not request.user.is_organizer:
+                raise ErrorException(5)
+            event = Event.objects.get(id=request.data.get("event_id"))
+            if event.is_begin and not event.is_end:
+                raise ErrorException(1)
+            if event.cancel:
+                raise ErrorException(2)
+            if event.is_end:
+                raise ErrorException(3)
+            if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
+                raise ErrorException(6)
+
+            user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+
+            if event.event_player.all().count() < event.count_players:
+                EventPlayer.objects.update_or_create(player=user, event=event)
+                event.notice_join_to_event(user)
+                event.notice_new_player()
+                if event.event_player.all().count() == event.count_players:
+                    event.notice_complete_players()
+            else:
+                EventQueue.objects.update_or_create(player=user, event=event, number=event.next_queue_number)
+                event.notice_not_places_in_event(user)
+            UserEventAction.objects.create(user=user, event=event)
+            event = EventSerializer(instance=event)
+            return Response(event.data, status=status.HTTP_200_OK)
+
+        except ErrorException as e:
+            return Response({"error": e.error_code}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LeaveEventView(APIView):
@@ -313,27 +336,36 @@ class AdminLeaveEventView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
-        if request.user.is_organizer:
+        try:
+            if not request.user.is_organizer:
+                raise ErrorException(5)
             event = Event.objects.get(id=request.data.get("event_id"))
-            if User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
-                user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+            if event.is_begin and not event.is_end:
+                raise ErrorException(1)
+            if event.cancel:
+                raise ErrorException(2)
+            if event.is_end:
+                raise ErrorException(3)
+            if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
+                raise ErrorException(6)
 
-                reason, create = CancelReasons.objects.update_or_create(name=request.data["reason"])
-                event_player = EventPlayer.objects.filter(player=user, event=event)
-                if event_player.exists():
-                    event_player.delete()
-                    RankHistory.objects.create(user=user, rank=user.rank * 0.99)
-                    if event.first_order_queue:
-                        EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
-                        EventQueue.objects.get(player=event.first_order_queue).delete()
-                else:
-                    if event.event_queues.filter(player=user).exists():
-                        EventQueue.objects.get(player=user, event=event).delete()
-                UserEventAction.objects.create(user=user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
-                event = EventSerializer(instance=event)
-                return Response(event.data, status=status.HTTP_200_OK)
-            return Response({"error": f"User with telegram_id = {request.data.get('telegram_id')} does not exists"}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"error": "Permission denied!"}, status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+            reason, create = CancelReasons.objects.update_or_create(name=request.data["reason"])
+            event_player = EventPlayer.objects.filter(player=user, event=event)
+            if event_player.exists():
+                event_player.delete()
+                RankHistory.objects.create(user=user, rank=user.rank * 0.99)
+                if event.first_order_queue:
+                    EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
+                    EventQueue.objects.get(player=event.first_order_queue).delete()
+            else:
+                if event.event_queues.filter(player=user).exists():
+                    EventQueue.objects.get(player=user, event=event).delete()
+            UserEventAction.objects.create(user=user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
+            event = EventSerializer(instance=event)
+            return Response(event.data, status=status.HTTP_200_OK)
+        except ErrorException as e:
+            return Response({"error": e.error_code}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BeginEventGameView(APIView):
