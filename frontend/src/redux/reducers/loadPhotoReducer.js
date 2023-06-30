@@ -85,10 +85,13 @@ export const loadPhotoAction = (photoData, user, isAdmin) => async (dispatch) =>
         console.log(response)
         if (response.data.errors.length) {
             let errors = response.data.errors.map((error) => error.name);
+            if (!isAdmin) {
+                dispatch(player({...user, photo_errors: []}));
+            }
             throw new Error(errors.join(", "));
         } else {
             if (!isAdmin) {
-                dispatch(player({...user, photo: response.data.photo}));
+                dispatch(player({...user, photo: response.data.photo, photo_errors: []}));
             }
             dispatch(setPhoto(response.data.photo));
             setTimeout(() => {

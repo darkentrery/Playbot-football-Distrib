@@ -302,6 +302,7 @@ class CheckUserPhotoView(APIView):
         try:
             user = User.objects.get(id=request.data["id"])
             if request.user.id == user.id or request.user.is_organizer:
+                user.photo_errors.clear()
                 user = save_upload_photo(request.data["upload_photo"], user)
                 output_photo = ""
                 errors = [{"name": "Local environ!"}]
@@ -350,6 +351,7 @@ class CancelUserPhotoView(APIView):
         user.overlay_photo = None
         user.is_accept_photo = False
         user.save()
+        user.photo_errors.clear()
         return Response({}, status=status.HTTP_200_OK)
 
 
