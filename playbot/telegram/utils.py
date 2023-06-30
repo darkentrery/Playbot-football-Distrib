@@ -29,13 +29,15 @@ def get_message_for_announce(event: Event) -> str:
         player_count_emoji = "🔴"
 
     message += _(
-        f"🆔 {event.id}, <b>{event.status}</b>\n"
-        f"🏷️ {event.name}\n"
-        f"🕒 {event.date.strftime('%d.%m')} - {event.time_begin.strftime('%H:%M')}\n"
+        # f"🆔 {event.id}, <b>{event.status}</b>\n"
+        f"🕒 {event.date.strftime('%A, %d.%m')} {event.time_begin.strftime('%H:%M')} (id {event.id})\n"
         f"🏟 {event.field}, {event.format if event.format else ''}\n"
         f"{player_count_emoji} {event.count_current_players}/{event.count_players}, <b>💰{cost}</b>\n"
         f"👨‍⚖️ Host: {event.organizers.all()[0].username}\n"
     )
+
+    if event.notice:
+        message += f"🖊 {event.notice}\n"
 
     if event.count_current_players:
         message += "\n" + _("<u>👬 Participants:</u>") + "\n"
@@ -125,3 +127,13 @@ async def send_photo_for_moderation(user: User) -> None:
                 logger.debug(f"Bot {bot.id} {bot_is_member.status=}, {moderation=}")
     except Exception as e:
         logger.debug(f"Bot {bot.id} {e}")
+
+
+def update_or_create_announce(event: Event) -> None:
+    if event.announce:
+        update_announce(event)
+    elif not event.announce and event.public_in_channel:
+        logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
+        announce = send_announce(event.public_in_channel, event)
+        event.announce = announce
+        event.save()

@@ -34,7 +34,7 @@ export const ProfilePersonalPhoto = () => {
                 clickSuccess={handleCancelLoadPhotoClick}
             />
             {/* фотка есть */}
-            {!photoOnModeration && isModerationFinished && photoErrors.length == 0 &&
+            {!photoOnModeration && isModerationFinished && photoErrors.length === 0 &&
                 <div className='photo-bar'>
                     <div className="photo-bar-user-photo-wrapper">
                         <div className="photo-bar-user-photo">

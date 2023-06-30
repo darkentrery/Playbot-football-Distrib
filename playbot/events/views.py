@@ -18,7 +18,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     UpdateGoalSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
-from playbot.telegram.utils import send_announce, update_announce
+from playbot.telegram.utils import send_announce, update_announce, update_or_create_announce
 from playbot.users.models import RankHistory, User
 from playbot.users.serializers import UserSerializer
 
@@ -98,14 +98,7 @@ class EditEventView(APIView):
             event = serializer.save()
             if event:
                 event = Event.objects.get(id=request.data["id"])
-                if event.announce:
-                    update_announce(event)
-                elif not event.announce and event.public_in_channel:
-                    logger.info(f"Published {event.id=} in {event.public_in_channel.channel_id=}")
-                    announce = send_announce(event.public_in_channel, event)
-                    event.announce = announce
-                    event.save()
-
+                update_or_create_announce(event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -260,6 +253,7 @@ class JoinPlayerView(APIView):
             EventQueue.objects.update_or_create(player=request.user, event=event, number=event.next_queue_number)
             event.notice_not_places_in_event(request.user)
         UserEventAction.objects.create(user=request.user, event=event)
+        update_or_create_announce(event)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)
 
@@ -304,6 +298,7 @@ class AdminJoinPlayerView(APIView):
                 EventQueue.objects.update_or_create(player=user, event=event, number=event.next_queue_number)
                 event.notice_not_places_in_event(user)
             UserEventAction.objects.create(user=user, event=event)
+            update_or_create_announce(event)
             event = EventSerializer(instance=event)
             return Response(event.data, status=status.HTTP_200_OK)
 
@@ -328,6 +323,7 @@ class LeaveEventView(APIView):
             if event.event_queues.filter(player=request.user).exists():
                 EventQueue.objects.get(player=request.user, event=event).delete()
         UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
+        update_or_create_announce(event)
         event = EventSerializer(instance=event)
         return Response(event.data, status=status.HTTP_200_OK)
 
@@ -362,6 +358,7 @@ class AdminLeaveEventView(APIView):
                 if event.event_queues.filter(player=user).exists():
                     EventQueue.objects.get(player=user, event=event).delete()
             UserEventAction.objects.create(user=user, event=event, reason=reason, action=UserEventAction.Actions.LEAVE)
+            update_or_create_announce(event)
             event = EventSerializer(instance=event)
             return Response(event.data, status=status.HTTP_200_OK)
         except ErrorException as e:
