@@ -6,7 +6,7 @@
         pointer-events: none;
     }
     .react-datepicker {
-        width: 278px;
+        width: 279px;
     }
     p {
         font-family: 'Raleway';
@@ -17,6 +17,11 @@
         color: #949494;
         padding: 0px 5px 3px 5px;
         border-bottom: 1px solid rgba(148, 148, 148, 0.5);
+    }
+    .react-datepicker__input-container  {
+        .react-datepicker-ignore-onclickoutside {
+            width: 130px;
+        }
     }
 }
 
