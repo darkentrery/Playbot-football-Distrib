@@ -13,8 +13,8 @@ export const ProfilePersonalPhoto = () => {
     const { player } = useSelector(state => state.event);
     const photo = player.photo;
     const photoErrors = player.photo_errors;
-    const isModerationFinished = !!player.photo && player.is_accept_photo;
-    const photoOnModeration = !!player.photo && !player.is_accept_photo;
+    const isModerationFinished = !!player.big_card_photo && player.is_accept_photo;
+    const photoOnModeration = !!player.big_card_photo && !player.is_accept_photo;
     
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true));
@@ -38,7 +38,7 @@ export const ProfilePersonalPhoto = () => {
                 <div className='photo-bar'>
                     <div className="photo-bar-user-photo-wrapper">
                         <div className="photo-bar-user-photo">
-                            <img alt="not fount" src={serverUrl + photo} />
+                            <img alt="not fount" src={serverUrl + player.big_card_photo} />
                         </div>
                         <div className="photo-bar-user-photo-text black-600-16">
                             Фотография профиля на сезон 23/24
@@ -51,7 +51,7 @@ export const ProfilePersonalPhoto = () => {
                 <div className="photo-bar on-moderation">
                     <span className="black-400-14">Фотография профиля:</span>
                     <label className="upload-photo" onClick={() => { setShowCancelLoadPopup(true) }}>
-                        <img height={40} width={40} alt="not fount" className="upload-photo-image" src={serverUrl + photo} />
+                        <img height={40} width={40} alt="not fount" className="upload-photo-image" src={serverUrl + player.big_card_photo} />
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Фотография находится <br /> на модерации</span>
                             <span className="orange-400-14" style={{ cursor: "pointer" }}>Отменить загрузку</span>
@@ -90,7 +90,7 @@ export const ProfilePersonalPhoto = () => {
                         {/*{typeof photoOnModeration !== "string" &&*/}
                         {/*    <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}*/}
                         {/*{typeof photoOnModeration === "string" &&*/}
-                        <img alt="not fount" className="upload-photo-image" src={serverUrl + photo} />
+                        <img alt="not fount" className="upload-photo-image" src={serverUrl + player.big_card_photo} />
                         {/*}*/}
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Файл не прошёл модерацию</span>
