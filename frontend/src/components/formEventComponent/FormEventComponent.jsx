@@ -16,7 +16,7 @@ import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
 import { telegramService } from "../../services/TelegramService";
 import TimePicker from "../TimePicker/TimePicker";
 import DatePicker from "../DatePicker/DatePicker";
-import {format as formatfns} from 'date-fns';
+import { format as formatfns } from 'date-fns';
 
 
 export const FormEventComponent = ({
@@ -119,6 +119,7 @@ export const FormEventComponent = ({
             // setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
+
             setCount(event.count_players);
             if (event.field) setField(`${event.field.name} - ${event.field.address.s_h_string}`);
             setNotice(event.notice);
@@ -173,7 +174,12 @@ export const FormEventComponent = ({
         if (date) {
             if (typeof date === 'object') {
                 newDate = formatfns(date, 'yyyy-MM-dd');
-            } else {
+
+            } else if (date.includes('.')) {
+                let parts = date.split(".");
+                newDate = parts[2] + "-" + parts[1] + "-" + parts[0];
+            }
+            else {
                 newDate = date;
             }
         }
@@ -326,7 +332,7 @@ export const FormEventComponent = ({
                                 value={date ? date : ''}
                                 renderDay={renderDay}
                             /> */}
-                            <DatePicker value={date} setValue={setDate} className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}/>
+                            <DatePicker value={date} setValue={setDate} className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`} />
                             <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         <div className="formEvent__date-time-input">
@@ -340,7 +346,7 @@ export const FormEventComponent = ({
                                 ref={refTime}
                                 value={time ? time : ''}
                             /> */}
-                            <TimePicker setValue={handleDateChange} value={time} className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}/>
+                            <TimePicker setValue={handleDateChange} value={time} className={`div-input elem-select-time time ${timeError ? 'error' : ''}`} />
                             <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
