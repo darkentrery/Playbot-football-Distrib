@@ -67,7 +67,7 @@ const LoadPhotoStep2 = ({ photo, serverUrl, isAdmin }) => {
                     </div>
                     <div className="load-user-photo-preview-bottom">
                         <div className="load-user-photo-preview-username">
-                            {isAdmin ? selectedUser.username?.toUpperCase() : user.username?.toUpperCase()}
+                            {isAdmin ? selectedUser.username?.split('').slice(0, 12).join('').toUpperCase() : user.username?.split('').slice(0, 12).join('').toUpperCase()}
                         </div>
                     </div>
                 </div>

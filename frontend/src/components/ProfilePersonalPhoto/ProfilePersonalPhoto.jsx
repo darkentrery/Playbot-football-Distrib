@@ -90,7 +90,7 @@ export const ProfilePersonalPhoto = () => {
                         {/*{typeof photoOnModeration !== "string" &&*/}
                         {/*    <img alt="not fount" className="upload-photo-image" src={URL.createObjectURL(photoOnModeration)} />}*/}
                         {/*{typeof photoOnModeration === "string" &&*/}
-                        <img alt="not fount" className="upload-photo-image" src={serverUrl + photoOnModeration} />
+                        <img alt="not fount" className="upload-photo-image" src={serverUrl + photo} />
                         {/*}*/}
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Файл не прошёл модерацию</span>
