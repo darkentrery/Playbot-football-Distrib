@@ -89,7 +89,8 @@ class UserSerializer(serializers.ModelSerializer):
                   "first_name", "gender", "photo_errors", "is_accept_photo", "first_login",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
-                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",]
+                  "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",
+                  "small_card_photo", "overlay_photo", "big_card_photo"]
         read_only_fields = fields
 
 
