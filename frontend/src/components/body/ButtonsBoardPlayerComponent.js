@@ -47,20 +47,20 @@ export const ButtonsBoardPlayerComponent = ({className='', event, user, funcs}) 
                 {!!event && <>
                     {event.is_end ?
                         <>{event.event_step.length === 3 && event.event_step[2].complete &&
-                            <Link className={"el el-2 btn-second"} to={BaseRoutes.eventInfoLink(event.id)}>Итоги игры</Link>}
+                            <Link className={"event-action__white-button"} to={BaseRoutes.eventInfoLink(event.id)}>Итоги игры</Link>}
                         </> :
 
                         <>
                             {!user.isAuth && event.event_step.length < 1 &&
-                                <button className={"el el-1 btn"} onClick={joinUnAuth}>Присоединиться к игре</button>}
+                                <button className={"event-action__orange-button"} onClick={joinUnAuth}>Присоединиться к игре</button>}
                             {user.isAuth && !ids.includes(user.user.id) && !idsQueue.includes(user.user.id) && event.event_step.length < 1 &&
-                                <button className={"el el-1 btn"} onClick={joinToEvent}>Присоединиться к игре</button>}
+                                <button className={"event-action__orange-button"} onClick={joinToEvent}>Присоединиться к игре</button>}
                             {user.isAuth && (ids.includes(user.user.id) || idsQueue.includes(user.user.id)) && event.event_step.length < 1 &&
-                                <button className={"el el-1 btn-second"} onClick={leaveEvent}>Покинуть событие</button>}
+                                <button className={"event-action__white-button"} onClick={leaveEvent}>Покинуть событие</button>}
                             {event.event_step.length >= 1 && (event.event_step.length !== 3 || !event.event_step[2].complete) &&
-                                <span className={`el el-1 btn disabled`}>Перейти в меню игры</span>}
+                                <span className={`event-action__orange-button disabled`}>Перейти в меню игры</span>}
                             {event.event_step.length === 3 && event.event_step[2].complete &&
-                                <Link className={`el el-1 btn`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
+                                <Link className={`event-action__orange-button`} to={BaseRoutes.eventInfoLink(event.id)}>Перейти в меню игры</Link>}
                         </>
                     }
                 </>}

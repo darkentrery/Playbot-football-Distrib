@@ -14,6 +14,9 @@ import { AccordionWrapper } from "../AccordionWrapper/AccordionWrapper";
 import InputFromToComponent from "../InputFromToComponent/InputFromToComponent";
 import LineDateTimePicker from "../LineDateTimePicker/LineDateTimePicker";
 import { telegramService } from "../../services/TelegramService";
+import TimePicker from "../TimePicker/TimePicker";
+import DatePicker from "../DatePicker/DatePicker";
+import {format as formatfns} from 'date-fns';
 
 
 export const FormEventComponent = ({
@@ -37,7 +40,7 @@ export const FormEventComponent = ({
     buttonText = 'Создать'
 }) => {
     const [id, setId] = useState(false);
-    const [name, setName] = useState(false);
+    // const [name, setName] = useState(false);
     const [date, setDate] = useState(false);
     const [time, setTime] = useState(false);
     const [address, setAddress] = useState(false);
@@ -46,7 +49,7 @@ export const FormEventComponent = ({
     const [format, setFormat] = useState(false);
     const [isNotPlayer, setIsNotPlayer] = useState(false);
     const [incorrectDate, setIncorrectDate] = useState(false);
-    const [nameError, setNameError] = useState(false);
+    // const [nameError, setNameError] = useState(false);
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
     const [fieldError, setFieldError] = useState(false);
@@ -89,7 +92,7 @@ export const FormEventComponent = ({
 
     const closeWindow = () => {
         setId(false);
-        setName(false);
+        // setName(false);
         setDate(false);
         setTime(false);
         setAddress(false);
@@ -113,7 +116,7 @@ export const FormEventComponent = ({
         console.log(event)
         if (event && isOpen) {
             setId(event.id);
-            setName(event.name);
+            // setName(event.name);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);
             if (event.time_begin) setTime(getLocalTime(event.time_begin.slice(0, 5)));
             setCount(event.count_players);
@@ -159,7 +162,7 @@ export const FormEventComponent = ({
         })
     }, [event, isOpen])
     useEffect(() => {
-        setNameError(false);
+        // setNameError(false);
         setDateError(false);
         setTimeError(false);
         if ((allowFemale || allowMale) && genderError) setGenderError(false);
@@ -168,9 +171,8 @@ export const FormEventComponent = ({
         if (anonseLentaCheck || anonseTgCheck) setAnonseError(false);
         let newDate;
         if (date) {
-            let match = date.match(/\d{2}[.]\d{2}[.]\d{4}/);
-            if (match !== null) {
-                newDate = `${date.slice(6, 10)}-${date.slice(3, 5)}-${date.slice(0, 2)}`;
+            if (typeof date === 'object') {
+                newDate = formatfns(date, 'yyyy-MM-dd');
             } else {
                 newDate = date;
             }
@@ -195,7 +197,7 @@ export const FormEventComponent = ({
         if (allowFemale) allowGenders.push(2);
         let bodyFormData = {
             'id': id,
-            'name': name,
+            // 'name': name,
             'date': newDate,
             'time_begin': time ? getUTCTime(time) : time,
             'field': newField,
@@ -219,7 +221,7 @@ export const FormEventComponent = ({
         }
         console.log(bodyFormData)
         setData(bodyFormData);
-    }, [name, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
+    }, [/*name*/, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
         delayedTime, matchDuration, allowMale, allowFemale, ageLimit, anonseLentaCheck, publicInChannel, fields,
         isDelayedAnonse, anonseTgCheck]);
 
@@ -264,7 +266,7 @@ export const FormEventComponent = ({
     }
 
     const sendForm = async () => {
-        if (name && date && time && field && count && (publicInChannel || !anonseTgCheck) && (allowMale || allowFemale) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
+        if (/*name* && */date && time && field && count && (publicInChannel || !anonseTgCheck) && (allowMale || allowFemale) && ((delayedTime.date && delayedTime.time) || !isDelayedAnonse)) {
             if (new Date(`${data.date}T${getLocalTime(data.time_begin)}`) > new Date()) {
                 onClick(data);
             } else {
@@ -272,7 +274,7 @@ export const FormEventComponent = ({
                 setTimeError("Заполните поле!");
             }
         }
-        if (!name) setNameError("Заполните поле!");
+        // if (!name) setNameError("Заполните поле!");
         if (!date) setDateError("Заполните поле!");
         if (!time) setTimeError("Заполните поле!");
         if (!field) setFieldError("Заполните поле!");
@@ -291,6 +293,11 @@ export const FormEventComponent = ({
         return value;
     }
 
+    const handleDateChange = (date) => {
+        console.log("new time21:", date)
+        setTime(date);
+    }
+
     return (
         <div className={`form-event-component scroll ${className}`}>
             <div onClick={closeWindow} className={"btn-close"}></div>
@@ -299,8 +306,8 @@ export const FormEventComponent = ({
             </div>
             <div className={"form-event-body"}>
                 <div className="form-event-body-top">
-                    <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit ? () => { return name; } : inputName}
-                        placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName} />
+                    {/* <InputComponent maxLength={20} className={"elem elem-2"} value={name ? name : ''} onChange={isEdit ? () => { return name; } : inputName}
+                        placeholder={"Название события *"} leftIcon={"ball-icon"} errorText={nameError} setValue={setName} /> */}
                     <DropDownComponent
                         value={field} setValue={setField} leftIcon={'map-point-icon'} sizingClass={"elem elem-3"}
                         content={fieldsView} errorText={fieldError} setErrorText={setFieldError}
@@ -308,7 +315,7 @@ export const FormEventComponent = ({
                     />
                     <div className={"elem elem-5 min-content"}>
                         <div className="formEvent__date-time-input">
-                            <ReactDatetimeClass
+                            {/* <ReactDatetimeClass
                                 className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}
                                 timeFormat={false}
                                 dateFormat={"DD.MM.YYYY"}
@@ -318,11 +325,12 @@ export const FormEventComponent = ({
                                 ref={refDate}
                                 value={date ? date : ''}
                                 renderDay={renderDay}
-                            />
+                            /> */}
+                            <DatePicker value={date} setValue={setDate} className={`div-input elem-5-select-date date ${dateError ? 'error' : ''}`}/>
                             <span className={`input-message date-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         <div className="formEvent__date-time-input">
-                            <ReactDatetimeClass
+                            {/* <ReactDatetimeClass
                                 className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}
                                 timeFormat={"HH:mm"}
                                 dateFormat={false}
@@ -331,7 +339,8 @@ export const FormEventComponent = ({
                                 onChange={(e) => choiceTime(e, setTime, refTime)}
                                 ref={refTime}
                                 value={time ? time : ''}
-                            />
+                            /> */}
+                            <TimePicker setValue={handleDateChange} value={time} className={`div-input elem-select-time time ${timeError ? 'error' : ''}`}/>
                             <span className={`input-message time-message ${dateError || timeError ? 'error' : ''}`}>{dateError || timeError}</span>
                         </div>
                         {/*<div className={`confirm-time black-plus-icon ${isTimeOpen ? '' : 'hidden'}`} onClick={() => setIsTimeOpen(false)}></div>*/}
@@ -370,7 +379,7 @@ export const FormEventComponent = ({
                     </div>
                 </div>
             </div>
-            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={true}>
+            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={false}>
                 <div className="formEvent__gender-and-age">
                     <div className={"formEvent__age-limit" + (genderError ? " formEvent__gender-error" : "")}>
                         <span className="text-footnote">Пол</span>

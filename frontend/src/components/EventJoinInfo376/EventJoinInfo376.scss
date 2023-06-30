@@ -2,9 +2,6 @@
     display: none;
     font-family: 'Raleway';
     font-style: normal;
-    padding: 20px;
-    background: #FFFFFF;
-    border-radius: 8px;
     .event-join-action-calendar {
         font-weight: 600;
         font-size: 16px;
@@ -16,8 +13,24 @@
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
     .event-join-info-376 {
         display: block;
+        padding-right: 8px;
+        .event-join-action-info {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .event-join-action-calendar {
+                margin-bottom: 0px;
+                font-size: 16px;
+                font-weight: 600;
+                font-family: 'Fira Sans';
+                img {
+                    width: 21px;
+                    height: 24px;
+                }
+            }
+        }
         .event-join-action-text-paid {
-            margin-left: 18px;
+            margin-left: 6px;
         }
     }
 }

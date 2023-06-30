@@ -94,10 +94,13 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
     const sendForm = () => {
         if (message) {
             let trimMessage = message.trim();
+            // удаление \n в начале и конце строки
+            trimMessage = trimMessage.replace(/^\n+/, '');
+            trimMessage = trimMessage.replace(/\n+$/, '');
             if (trimMessage) {
                 sendJsonMessage({
                     type: 'chat_message',
-                    message,
+                    message: trimMessage,
                 });
                 setMessage('');
             }
@@ -117,7 +120,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
         if (e.ctrlKey && e.keyCode === 13) {
             setMessage(
                 message.slice(0, e.target.selectionStart) +
-                    '\r\n' +
+                    '\n' +
                     message.slice(e.target.selectionStart, message.length)
             );
             setLastR(e.target.selectionStart);
@@ -156,6 +159,13 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
     }, [messageHistory, isScrolledToBottom]);
+
+    
+    useEffect(() => {
+        autosize.update(textAreaRef.current)
+    }, [message])
+
+
     return (
         <div className={`event-chat-component ${className}`}>
             <span className={'elem elem-1'}>
@@ -165,11 +175,17 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
             <div className={'elem elem-2 scroll'} ref={chatRef}>
                 {messageHistory.map((message, key) => (
                     <MessageComponent
+                        event={event}
                         user={user.user}
                         previousId={
                             key !== 0
                                 ? messageHistory[key - 1].from_user.id
                                 : false
+                        }
+                        previousMsg={
+                            key !== 0
+                            ? messageHistory[key -1]
+                            : false
                         }
                         message={message}
                         key={key}
@@ -180,7 +196,6 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
                 <textarea
                     style={{
                         maxHeight: '200px',
-                        height: '20px',
                         overflowX: 'hidden',
                     }}
                     className={'el el-1 scroll autoheight-init'}

@@ -7,9 +7,12 @@
     border-radius: 8px;
     font-family: 'Raleway';
     font-style: normal;
-    .btn {
-        padding: 14px 22px;
-    }
+}
+
+.event-join-action-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
 .event-join-action {
@@ -25,22 +28,24 @@
 .event-join-action-buttons {
     .elem-4 {
         display: flex;
-        gap: 25px;
+        flex-direction: column;
+        gap: 12px;
     }
     .buttons-board-player-component {
         display: unset;
     }
+
 }
 @media only screen and (max-width: 1279px) {
     .event-join-action-buttons {
         .el-2 {
-            flex: 0 0 47px !important;
+            flex: 0 0 48px !important;
         }
     }
     .event-join-top {
         padding: 24px 20px;
         .event-cards-info {
-            max-width: 263px;
+            max-width: 353px;
         }
     }
     .event-join-action-buttons {
@@ -49,15 +54,19 @@
             flex-direction: column;
             gap: 12px;
         }
+        
     }
     .event-join-action {
         flex-direction: column;
-        gap: 19px;
+        gap: 21px;
         align-items: flex-start;
     }
 
     .event-join-action-info {
-        margin-left: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0px;
+        gap: 13px;
     }
 
     .event-join-top-organizer {
@@ -71,5 +80,5 @@
     .event-join-top {
         display: none;
     }
-
+    
 }

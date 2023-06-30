@@ -51,20 +51,21 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
         <div className={'elem elem-4'}>
             {event.is_end && (
                 <>
-                    {
-                        <button className={`el el-3 btn`} onClick={repeatEvent}>
-                            Повторить событие
-                        </button>
-                    }
                     {event.event_step.length === 3 &&
                         event.event_step[2]['complete'] && (
                             <Link
-                                className={`el el-2 btn-second organizer-watch-results-btn`}
+                                className={`event-action__white-button`}
                                 to={BaseRoutes.eventInfoLink(event.id)}
                             >
-                                Итоги события
+                                Итоги игры
                             </Link>
                         )}
+                    {
+                        <button className={`event-action__orange-button`} onClick={repeatEvent}>
+                            Повторить событие
+                        </button>
+                    }
+                    
                 </>
             )}
             {!event.is_end && (
@@ -73,7 +74,7 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
                         <>
                             {event.event_step.length === 0 && (
                                 <button
-                                    className={`el el-${
+                                    className={`event-action__orange-button el el-${
                                         !event.is_begin ? '1' : '3'
                                     } btn ${
                                         new Date() < date ? 'disabled' : ''
@@ -86,40 +87,40 @@ export const ButtonsBoardOrganizerComponent = ({ event, funcs }) => {
                             {event.event_step.length === 1 &&
                                 !event.event_step[0]['complete'] && (
                                     <button
-                                        className={`el el-${
+                                        className={`event-action__white-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn-second`}
                                         onClick={toConfirmPlayers}
                                     >
-                                        Подтверждение игроков
+                                        Подтвердить игроков
                                     </button>
                                 )}
                             {event.event_step.length === 2 &&
                                 !event.event_step[1]['complete'] && (
                                     <button
-                                        className={`el el-${
+                                        className={`event-action__white-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn-second`}
                                         onClick={toFillRegulation}
                                     >
-                                        Регламент
+                                        Заполнить регламент
                                     </button>
                                 )}
                             {event.event_step.length === 3 &&
                                 !event.event_step[2]['complete'] && (
                                     <button
-                                        className={`el el-${
+                                        className={`event-action__white-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn-second`}
                                         onClick={toConfirmTeams}
                                     >
-                                        Подтверждение команд
+                                        Подтвердить команды
                                     </button>
                                 )}
                             {event.event_step.length === 3 &&
                                 event.event_step[2]['complete'] && (
                                     <Link
-                                        className={`el el-${
+                                        className={`event-action__orange-button el-${
                                             !event.is_begin ? '1' : '3'
                                         } btn`}
                                         to={BaseRoutes.eventInfoLink(event.id)}

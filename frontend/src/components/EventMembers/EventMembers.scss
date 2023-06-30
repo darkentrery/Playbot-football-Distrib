@@ -103,6 +103,9 @@
 }
 
 @media only screen and (max-width: 1279px) {
+    .event-members {
+        padding: 20px;
+    }
     .event-members-list {
         margin-top: 24px;
     }
@@ -116,7 +119,31 @@
     .event-members-info {
         gap: 10px;
     }
+
+    .event-members-item {
+        gap: 8px;
+    }
+
+    .event-members-list {
+        margin-top: 29px;
+    }
     .event-members {
         padding: 20px;
+    }
+
+    .event-members-item__info {
+        gap: 5px !important;
+    }
+
+    .event-members-queue-info {
+        span {
+            margin-left: 7px;
+        }
+    }
+    .event-members-queue {
+        margin-top: 24px;
+        .event-members-list {
+            margin-top: 24px;
+        }
     }
 }

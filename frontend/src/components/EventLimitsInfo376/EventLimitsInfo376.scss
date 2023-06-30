@@ -1,13 +1,13 @@
 .EventLimitsInfo376 {
-    padding: 20px;
-    background: #FFFFFF;
-    border-radius: 8px;
     display: none;
 }
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
     .EventLimitsInfo376 {
         display: block;
+        .event-info-card {
+            background-color: #ffffff;
+        }
         .event-cards-info {
             max-width: unset;
         }

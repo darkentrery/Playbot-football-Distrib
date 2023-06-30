@@ -1,34 +1,73 @@
 import {useEffect, useState} from "react";
-
+import UserAvatar from "../UserAvatar/UserAvatar";
+import { eventService } from "../../services/EventService";
 
 export const MessageComponent = ({
     className='',
     message,
     user,
     previousId,
+    previousMsg,
+    event
 }) => {
     const [time, setTime] = useState(false);
+    let date, newTime, isSameAuthor, isSameTime
+    const prevMsgDate = new Date(previousMsg.timestamp).getTime()
+    const currentMsgDate = new Date(message.timestamp).getTime()
+    if (previousId === message.from_user.id) {
+        isSameAuthor = true;
 
+    }
+
+    if (message.content) {
+        try {
+            message.content = message.content.replace(/^\n+/, '');
+            message.content = message.content.replace(/\n+$/, '');
+        } catch (e) {
+            
+        }
+    }
+
+    if (currentMsgDate - (5000 * 60) > prevMsgDate) {
+        isSameTime = false;
+    } else {
+        isSameTime = true;
+    }
+
+    if (isSameTime && isSameAuthor) {
+        const elem = document.getElementById("msg_" + (message.id - 1))
+        if (elem) {
+            elem.remove()
+        }
+    }
+
+    if (time) {
+        date = time?.split(' ')[0];
+        newTime = time?.split(' ')[1];
+    }
     useEffect(() => {
         if (message.timestamp) {
             let newTime = new Date(message.timestamp);
-            let day = newTime.getDate() < 10 ? '0' + newTime.getDate().toString() : newTime.getDate();
-            let month = newTime.getUTCMonth() + 1 < 10 ? '0' + (newTime.getUTCMonth() + 1).toString() : newTime.getUTCMonth() + 1;
             let minutes = newTime.getMinutes() < 10 ? '0' + newTime.getMinutes() : newTime.getMinutes();
-            newTime = `${day}.${month}.${newTime.getFullYear()} ${newTime.getHours()}:${minutes}`
+            newTime = `${newTime.getHours()}:${minutes}`
             setTime(newTime);
         }
     }, [message])
 
+    const isOrganizer = eventService.isOrganizer(event, message.from_user)
     return (
-        <div className={`message-component ${user.id === message.from_user.id ? 'right' : ''} ${className}`}>
-            <div className={`elem-1 ${message.from_user.id === previousId ? '' : 'player-avatar-icon'} ${user.id === message.from_user.id ? 'hidden' : ''}`}></div>
-            <div className={`elem-3 ${message.from_user.id === previousId ? '' : 'player-avatar-icon'} ${user.id === message.from_user.id ? '' : 'hidden'}`}></div>
-            <div className={`elem-2 ${user.id === message.from_user.id ? 'right' : ''}`}>
-                {message.from_user.id !== previousId && <span className={`el-1 black-500-16`}>{message.from_user.username}</span>}
-                <span className={`el-2 black-500-16`}>{message.content.split('\n').map((m, i) => (<span key={i}>{m ? m : <br></br>}</span>))}</span>
-                <span className={`el-3 dark-gray-500-16`}>{time}</span>
+        <div className={`message-component ${isOrganizer  ? '' : 'right'} ${className}`}>
+                <div className={`elem-2 ${isOrganizer ? '' : 'right'}`}>
+                    {!isSameAuthor  &&
+                        <div className="event-chat__message-user-photo">
+                            <UserAvatar className="event-chat__message-user-photo-content"/>
+                            <span className={`el-1 black-600-16`}>{message.from_user.username}</span>
+                        </div>
+                    }
+                    <span className={`el-2 black-400-14`}>{message.content.split('\n').map((m, i) => (<span key={i}>{m ? m : <br></br>}</span>))}</span>
+                    <span id={"msg_" + message.id} className={`el-3 gray-400-12`}>{date}</span>
+                </div>
             </div>
-        </div>
+        
     )
 }

@@ -1,3 +1,5 @@
+import format from "date-fns/format";
+
 const monthsNames = [
    'января',
    'февраля',

@@ -3,10 +3,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru'; // Импорт русской локализации
 import { format } from 'date-fns';
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { startOfDay } from 'date-fns';
 export const LineDateTimePicker = ({
-    output = () => {},
+    output = () => { },
     value,
     isError = true,
 }) => {
@@ -24,13 +24,13 @@ export const LineDateTimePicker = ({
         setSelectedDate(date);
         let dateFormated = format(date, 'yyyy-MM-dd');
         let timeFormated = format(date, 'HH:mm');
-        output({'date': dateFormated, 'time': timeFormated});
+        output({ 'date': dateFormated, 'time': timeFormated });
     };
     const isDateDisabled = (date) => {
         console.log(startOfDay(today))
         console.log(date)
         return date < startOfDay(today);
-    }; 
+    };
 
     const isTimeDisabled = (time) => {
         return time < today.getTime()
@@ -46,6 +46,7 @@ export const LineDateTimePicker = ({
                     locale={ru}
                     timeFormat="HH:mm"
                     timeIntervals={15}
+                    timeCaption='время'
                     dateFormat="dd MMMM yyyy, HH:mm"
                     dayClassName={(date) => (isDateDisabled(date) ? 'disabled' : '')}
                     timeClassName={(time) => (isTimeDisabled(time) ? 'disabled' : '')}

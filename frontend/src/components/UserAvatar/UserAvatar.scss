@@ -1,0 +1,14 @@
+.user-avatar {
+    display: flex;
+    width: 31px;
+    height: 41px;
+    border: 3px solid #EDC49F;
+    border-radius: 5px;
+    box-shadow: -0.7455856204032898px 1.8639639616012573px 1.4911712408065796px 0px #27272759;
+    img {
+        margin-top: auto;
+        max-width: 31px;
+        max-height: 41px;
+        object-fit: contain;
+    }
+}

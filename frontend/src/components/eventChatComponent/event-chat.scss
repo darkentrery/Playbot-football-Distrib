@@ -12,6 +12,12 @@
     height: 20px;
   }
 
+  .elem-3 {
+    .el-1 {
+      line-height: 140%;
+      font-size: 14px;
+    }
+  }
   .elem {
     display: flex;
     font-weight: 500;
@@ -25,7 +31,7 @@
       font-family: 'Raleway';
       font-style: normal;
       font-weight: 700;
-      font-size: 20px;
+      font-size: 16px;
       color: #1B1B1B;
       img {
         margin-right: 12px;
@@ -35,7 +41,7 @@
       flex-direction: column;
       align-items: stretch;
       max-height: 370px;
-      gap: 16px;
+      gap: 8px;
       padding-right: 10px;
     }
 
@@ -59,6 +65,7 @@
 
         &.el-1 {
           flex: 1 1 auto;
+          height: 18px;
           padding: 0;
           border: 0;
           border-radius: 0;
@@ -76,10 +83,11 @@
   }
 }
 
+
 @media screen and (min-width: 744px) and (max-width: 1279px){
   .event-chat-component {
     width: 100%;
-    padding: 24px;
+    padding: 20px;
     flex: 1 1 auto;
     align-self: start;
 
@@ -91,9 +99,10 @@
 
 @media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape){
   .event-chat-component {
-    padding: 24px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 27px;
+    padding-bottom: 20px;
     margin-top: 0;
 
     &.disabled {

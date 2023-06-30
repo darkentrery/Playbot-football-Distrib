@@ -11,18 +11,7 @@ export const EventMembers = ({
     const maxPlayersNumber = event.count_players
     const currentPlayersNumber = event.count_current_players
     const organizerName = event.organizers?.[0]?.username ?? null;
-    const [isMemberListOpened, setIsMemberListOpened] = useState(false)
-    const [showMemberListFog, setShowMemberListFog] = useState(true)
 
-    const handleOpenMemberList = () => {
-        console.log("open list")
-        setIsMemberListOpened(true)
-        setShowMemberListFog(false)
-    }
-
-    if (event.count_current_players < 6 && showMemberListFog == true) {
-        setShowMemberListFog(false)
-    }
     return (
         <div className="event-members">
             <div className="event-members-active">
@@ -39,7 +28,7 @@ export const EventMembers = ({
                     }
                 </div>
                 {event.count_current_players !== 0 ?
-                    <div className="event-members-list" style={{ maxHeight: (isMemberListOpened && showMemberListFog ? "max-content" : "120px") }}>
+                    <div className="event-members-list">
                         {event.count_current_players !== 0 && event.event_player.map((e, i) => {
                             return (
                                 <EventMemberCard
@@ -49,11 +38,6 @@ export const EventMembers = ({
                                 />
                             )
                         })}
-                        {showMemberListFog &&
-                            <div className="event-members-list-show-all-wrapper">
-                                <div className='event-members-list-show-all-decor'></div>
-                                <img src={DownArrowIcon} width={30} height={30} onClick={handleOpenMemberList} alt="down arrow" />
-                            </div>}
                     </div>
                     : <div className="event-members-no-players">Пока никто не присоединился.</div>
                 }

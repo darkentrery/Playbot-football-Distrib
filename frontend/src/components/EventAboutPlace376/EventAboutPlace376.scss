@@ -1,0 +1,82 @@
+.event-about-place {
+    display: none;
+    position: relative;
+    margin-inline: -17px;
+    overflow: hidden;
+    .event-info-slider {
+        width: 100%;
+        height: 198px;
+        img {
+            border-radius: 0px;
+        }
+    }
+}
+
+.event-about-place__top {
+    display: flex;
+    width: 100%;
+    padding-right: 32px;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 3;
+    top: 13px;
+    left: 10px;
+    align-items: center;
+}
+
+.event-about-place__top-mask {
+    position: absolute;
+    z-index: 2;
+    top: -20px;
+    left: 0px;
+    width: 120%;
+    height: 57px;
+    filter: blur(6px);
+    background: #1b1b1b91;
+
+
+}
+
+.event-about-place__top-address {
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+
+.event-about-place__top-icons {
+    display: flex;
+    gap: 24px;
+    margin-left: auto;
+}
+
+.event-about-place__no-slots {
+    position: absolute;
+    z-index: 2;
+    padding-inline: 8px;
+    border-radius: 20px;
+    bottom: 8px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    font-family: 'Raleway';
+    color: #1b1b1b;
+    background-color: rgba(209, 156, 108, 0.90);
+}
+
+.event-about-place__no-slots-icon-text {
+    margin-right: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.event-about-place__no-slots-text {
+    font-size: 10px;
+}
+
+
+@media screen and (max-width: 743px) , (max-width: $maxScreenHeight) and (max-height: 743px) and (orientation: landscape) {
+    .event-about-place {
+        display: block;
+    }
+}
