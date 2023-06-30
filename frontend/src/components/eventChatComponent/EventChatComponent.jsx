@@ -120,7 +120,7 @@ export const EventChatComponent = ({ event, user, className = '' }) => {
         if (e.ctrlKey && e.keyCode === 13) {
             setMessage(
                 message.slice(0, e.target.selectionStart) +
-                    '\r\n' +
+                    '\n' +
                     message.slice(e.target.selectionStart, message.length)
             );
             setLastR(e.target.selectionStart);
