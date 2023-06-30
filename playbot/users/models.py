@@ -47,7 +47,7 @@ class User(AbstractUser):
         MALE = "Парень", _("Парень")
         FEMALE = "Девушка", _("Девушка")
 
-    email = models.EmailField(_("Email Address"), unique=True, blank=True, null=True)
+    email = models.EmailField(_("Email Address"), blank=True, null=True)
     first_name = models.CharField(_("First Name"), max_length=150, blank=True)
     username = models.CharField(_("Username"), max_length=150, unique=True, blank=True, null=True)
     last_name = models.CharField(_("Last Name"), max_length=150, blank=True)

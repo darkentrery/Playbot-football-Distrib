@@ -30,7 +30,7 @@ class UserRivalsInline(admin.TabularInline):
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    form = UserCustomForm
+    # form = UserCustomForm
     list_display = [
         "email",
         "username",
@@ -52,7 +52,7 @@ class CustomUserAdmin(UserAdmin):
                     "username",
                     "first_name",
                     "last_name",
-                    # "email",
+                    "email",
                     "phone_number",
                     "telegram_id",
                     "address",

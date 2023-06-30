@@ -1,9 +1,6 @@
 import hashlib
 import hmac
-import json
 import re
-from urllib.parse import parse_qsl
-from hashlib import sha256
 
 import jwt
 from django.contrib.auth import get_user_model, authenticate
