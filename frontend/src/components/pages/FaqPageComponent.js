@@ -3,6 +3,7 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
 import {useState} from "react";
 import FaqItemList from "../FaqItemList/FaqItemList";
+import { motion, AnimatePresence } from "framer-motion"
 
 
 export const FaqPageComponent = () => {
@@ -15,7 +16,20 @@ export const FaqPageComponent = () => {
                     <div className={unfolded ? 'orange-minus-icon' : 'black-plus-icon'}></div>
                     <span className={unfolded ? 'orange-700-16' : 'black-700-16'}>{title}</span>
                 </div>
-                <div className={`faq-block-text ${unfolded ? '' : 'hidden'}`}>{children}</div>
+                <AnimatePresence >
+                    {unfolded && (
+                        <motion.div 
+                            initial={{ height: 0 }} 
+                            animate={{height: "auto"}} 
+                            exit={{height: 0}}
+                            transition={{ duration: 0.2 }}
+                            className={`faq-block-text `}
+                        >
+                            {children}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                
             </div>
         )
     }
