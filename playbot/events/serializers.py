@@ -221,7 +221,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "count_players", "notice", "organizers",
+        fields = ["id", "date", "time_begin", "count_players", "notice", "organizers",
                   "is_paid", "price", "field", "duration_opt", "is_news_line", "public_in_channel", "publish_time",
                   "genders", "min_age", "max_age", "min_players_rank",
                   "max_players_rank", "currency"]
@@ -292,7 +292,7 @@ class EditEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ["id", "name", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizers",
+        fields = ["id", "date", "time_begin", "field", "count_players", "is_player", "notice", "organizers",
                   "is_paid", "price", "duration_opt", "is_news_line", "public_in_channel", "publish_time", "genders",
                   "min_age", "max_age", "min_players_rank", "max_players_rank", "currency"]
 

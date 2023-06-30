@@ -69,7 +69,7 @@ class CountCircles(models.Model):
 
 
 class Event(models.Model, CreateNotice):
-    name = models.CharField(_("Name"), max_length=150)
+    name = models.CharField(_("Name"), max_length=150, blank=True, null=True)
     date = models.DateField(_("Date Of Game"))
     time_begin = models.TimeField(_("Time Begin"))
     time_end = models.TimeField(_("Time End"), blank=True, null=True)

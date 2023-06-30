@@ -2,14 +2,13 @@ import AvatarSkeletonIcon from '../../assets/icon/avatar-skeleton-space.svg'
 import Zaglushka from '../../assets/icon/star.png'
 import WaitListIcon from '../../assets/icon/wait-list.svg';
 import { EventMemberCard } from '../EventMemberCard/EventMemberCard'
-import DownArrowIcon from '../../assets/icon/down-arrow.png';
-import { useState } from 'react';
+
 
 export const EventMembers = ({
     event
 }) => {
-    const maxPlayersNumber = event.count_players
-    const currentPlayersNumber = event.count_current_players
+    const maxPlayersNumber = event.count_players;
+    const currentPlayersNumber = event.count_current_players;
     const organizerName = event.organizers?.[0]?.username ?? null;
 
     return (

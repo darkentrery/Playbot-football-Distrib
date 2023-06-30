@@ -1,3 +1,5 @@
+import re
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
@@ -96,7 +98,7 @@ class CustomUserAdmin(UserAdmin):
         # "rivals",
     )
     inlines = [RankHistoryInline, UserRivalsInline]
-    actions = ["set_first_rank", "send_notification", "set_default_address", "change_gender"]
+    actions = ["set_first_rank", "send_notification", "set_default_address", "change_gender", "cut_username"]
 
     @admin.action()
     def set_first_rank(self, request, queryset):
@@ -125,6 +127,22 @@ class CustomUserAdmin(UserAdmin):
             if user.gender == "Жен.":
                 user.gender = User.Gender.FEMALE
                 user.save()
+
+    @admin.action()
+    def cut_username(self, request, queryset):
+        for user in queryset:
+            username = re.sub(r'@[^@]*', "", user.username)
+            cut_name = self.get_new_username(username)
+            user.username = cut_name
+            user.save()
+
+    def get_new_username(self, username):
+        len_username = len(username) if len(username) <= 12 else 12
+        if User.objects.filter(username=username[:len_username]).exists():
+            username = username[:len_username] + "1"
+            return self.get_new_username(username)
+        else:
+            return username[:len_username]
 
 
 @admin.register(Position)
