@@ -13,7 +13,8 @@
   }
   .row {
     display: flex;
-    flex: 1 1 auto;
+    flex: unset;
+    height: 27px;
 
     &.row-1 {
       align-items: stretch;
