@@ -267,15 +267,15 @@ class AdminJoinPlayerView(APIView):
             1: "Если событие уже начато",
             2: "Если событие было отменено",
             3: "Если событие было завершено",
-            4: "Если пользователь пытается покинуть, но не присоединялся и не находится в очереди",
-            5: "Пользователь не является администратором",
-            6: "Пользователя с указанным telegram id не существует",
+            4: "Если пользователь пытается присоединиться, но уже присоединился ранее",
+            5: "Если пользователь пытается присоединиться, но находится в очереди",
+            6: "Пользователь не является администратором",
         }
         """
 
         try:
             if not request.user.is_organizer:
-                raise ErrorException(5)
+                raise ErrorException(6)
             event = Event.objects.get(id=request.data.get("event_id"))
             if event.is_begin and not event.is_end:
                 raise ErrorException(1)
@@ -284,9 +284,15 @@ class AdminJoinPlayerView(APIView):
             if event.is_end:
                 raise ErrorException(3)
             if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
-                raise ErrorException(6)
+                user = User.objects.create(telegram_id=request.data.get("telegram_id"), username=request.data.get("username"))
+                RankHistory.objects.create(user=user)
 
             user = User.objects.get(telegram_id=request.data.get("telegram_id"))
+
+            if event.event_player.filter(player=user).exists():
+                raise ErrorException(4)
+            if event.event_queues.filter(player=user).exists():
+                raise ErrorException(5)
 
             if event.event_player.all().count() < event.count_players:
                 EventPlayer.objects.update_or_create(player=user, event=event)
@@ -332,6 +338,15 @@ class AdminLeaveEventView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format='json'):
+        """
+        errors = {
+            1: "Если событие уже начато",
+            2: "Если событие было отменено",
+            3: "Если событие было завершено",
+            4: "Если пользователь пытается покинуть, но не присоединялся и не находится в очереди",
+            5: "Пользователь не является администратором",
+        }
+        """
         try:
             if not request.user.is_organizer:
                 raise ErrorException(5)
@@ -342,12 +357,14 @@ class AdminLeaveEventView(APIView):
                 raise ErrorException(2)
             if event.is_end:
                 raise ErrorException(3)
-            if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
-                raise ErrorException(6)
 
             user = User.objects.get(telegram_id=request.data.get("telegram_id"))
             reason, create = CancelReasons.objects.update_or_create(name=request.data["reason"])
             event_player = EventPlayer.objects.filter(player=user, event=event)
+
+            if not event_player.exists() and not event.event_queues.filter(player=user).exists():
+                raise ErrorException(4)
+
             if event_player.exists():
                 event_player.delete()
                 RankHistory.objects.create(user=user, rank=user.rank * 0.99)
