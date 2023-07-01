@@ -1,5 +1,5 @@
 .top-statistic-component {
-  display: flex;
+  display: none;
   flex: 0 0 140px;
   box-sizing: border-box;
   align-items: stretch;
@@ -28,6 +28,7 @@
     background: $whiteColor;
     align-items: stretch;
     box-sizing: border-box;
+    margin-left: auto;
 
     &.orange {
      border: 1px solid $orangeColor;
@@ -62,6 +63,7 @@
 
 @media screen and (min-width: 744px) and (max-width: 1279px) {
   .top-statistic-component {
+    display: flex;
     flex: 0 0 80px;
     gap: 24px;
 

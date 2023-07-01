@@ -16,6 +16,8 @@ export const ProfilePersonalPhoto = () => {
     const isModerationFinished = !!player.big_card_photo && player.is_accept_photo;
     const photoOnModeration = !!player.big_card_photo && !player.is_accept_photo;
     
+    console.log(player)
+
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true));
     }
@@ -51,7 +53,7 @@ export const ProfilePersonalPhoto = () => {
                 <div className="photo-bar on-moderation">
                     <span className="black-400-14">Фотография профиля:</span>
                     <label className="upload-photo" onClick={() => { setShowCancelLoadPopup(true) }}>
-                        <img height={40} width={40} alt="not fount" className="upload-photo-image" src={serverUrl + player.big_card_photo} />
+                        <img alt="not fount" className="upload-photo-image" src={serverUrl + player.big_card_photo} />
                         <div className="upload-photo-text">
                             <span className="gray-400-14">Фотография находится <br /> на модерации</span>
                             <span className="orange-400-14" style={{ cursor: "pointer" }}>Отменить загрузку</span>

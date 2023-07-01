@@ -30,7 +30,7 @@ export const EventItem376Component = ({event, isFavorite=false}) => {
             <div className={"row row-1"}>
                 {isFavorite && <div className={"yellow-star-icon"}></div>}
                 {event.is_begin && !event.is_end && <div className={"pulse-yellow-point"}></div>}
-                <div className={`elem elem-1 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{event.name}
+                <div className={`elem elem-1 ${event.is_end ? 'gray-400-13' : 'black-400-13'}`}>{/* event.name */}
                     {!event.is_end && <span className={"gray-400-13"}>{getLocalTime(event.time_begin)}</span>}
                     {event.is_end && <span className={"gray-400-13"}>Событие завершено</span>}
                 </div>

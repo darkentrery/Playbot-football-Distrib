@@ -2,9 +2,12 @@ import {Top376Component} from "../top376Component/Top376Component";
 import BaseRoutes from "../../routes/BaseRoutes";
 import VisibleMainWrapper from "../../redux/containers/VisibleMainWrapper";
 import {useState} from "react";
-
+import FaqItemList from "../FaqItemList/FaqItemList";
+import { motion, AnimatePresence } from "framer-motion"
+import { useTranslation } from "react-i18next";
 
 export const FaqPageComponent = () => {
+    const {t, i18n} = useTranslation();
 
     const FaqParagraph = ({title, children}) => {
         const [unfolded, setUnfolded] = useState(false);
@@ -14,7 +17,20 @@ export const FaqPageComponent = () => {
                     <div className={unfolded ? 'orange-minus-icon' : 'black-plus-icon'}></div>
                     <span className={unfolded ? 'orange-700-16' : 'black-700-16'}>{title}</span>
                 </div>
-                <div className={`faq-block-text ${unfolded ? '' : 'hidden'}`}>{children}</div>
+                <AnimatePresence >
+                    {unfolded && (
+                        <motion.div 
+                            initial={{ height: 0 }} 
+                            animate={{height: "auto"}} 
+                            exit={{height: 0}}
+                            transition={{ duration: 0.2 }}
+                            className={`faq-block-text `}
+                        >
+                            {children}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                
             </div>
         )
     }
@@ -23,20 +39,76 @@ export const FaqPageComponent = () => {
         <VisibleMainWrapper>
             <div className={"rules-pattern-component"}>
                 <Top376Component label={"Главная"} to={BaseRoutes.main}/>
-                <div className={"block block-1 allow-policy-fon"}>
-                    <span className={"white-700-40"}>FAQ</span>
-                </div>
                 <div className={"block block-3"}>
-                    <FaqParagraph title={"Что такое Сервис Коробка?"}>
-
+                    <FaqParagraph title={t('faqPage.faq1.title')}>
+                        
                     </FaqParagraph>
-                    <FaqParagraph title={"Что такое Бот Коробка в Телеграме?"}>
-                        <span className={"black-400-14"}>Бот Коробка в Telegram позволяет вам создавать события на площадках, присоединяться к ним и управлять игрой с девайса.</span>
-                        <span className={"black-400-14"}>Вся информация, собранная на мероприятиях, будет выгружаться в красивую базу данных на сайт korobkaplay.ru</span>
-                        <span className={"black-400-14"}>Управлять игрой через плеер пока возможно только через Telegram Бот.</span>
-                        <span className={"black-400-14"}>Весь остальной функционал доступен на этом сайте.</span>
+                    <FaqParagraph title={t('faqPage.faq2.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq2.text1')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq2.text2')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq2.text3')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq2.text4')}</span>
                     </FaqParagraph>
 
+                    <FaqParagraph title={t('faqPage.faq3.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq3.text1')}</span>
+                        <FaqItemList>
+                            <span className={"black-400-14"}>{t('faqPage.faq3.text2')}</span>
+                            <span className={"black-400-14"}>{t('faqPage.faq3.text3')}</span>
+                            <span className={"black-400-14"}>{t('faqPage.faq3.text4')}</span>
+                            <span className={"black-400-14"}>{t('faqPage.faq3.text5')}</span>
+                        </FaqItemList>
+                        <span className={"black-400-14"}>{t('faqPage.faq3.text6')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq4.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq4.text1')}</span>
+                        <FaqItemList>
+                            <span className={"black-400-14"}>{t('faqPage.faq4.text2')}</span>
+                            <span className={"black-400-14"}>{t('faqPage.faq4.text3')}</span>
+                        </FaqItemList>
+                        <span className={"black-400-14"}>{t('faqPage.faq4.text4')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq5.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq5.text1')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq5.text2')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq5.text3')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq6.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq6.text1')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq6.text2')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq6.text3')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq7.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq7.text1')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq7.text2')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq7.text3')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq8.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq8.text1')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq8.text2')}</span>
+                        <span className={"black-400-14"}>{t('faqPage.faq8.text3')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq9.title')}>
+                        <span className={"black-400-14"}>(скоро)</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq10.title')}>
+                        <span className={"black-400-14"}></span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq11.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq11.text1')}</span>
+                    </FaqParagraph>
+
+                    <FaqParagraph title={t('faqPage.faq12.title')}>
+                        <span className={"black-400-14"}>{t('faqPage.faq12.text1')}</span>
+                    </FaqParagraph>
                 </div>
             </div>
         </VisibleMainWrapper>

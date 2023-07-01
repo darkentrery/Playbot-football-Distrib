@@ -3,17 +3,26 @@ import EventInfoSlider from "../EventInfoSlider/EventInfoSlider"
 import Image from "../../assets/icon/temp-event-image.png"
 import MapIcon from "../../assets/icon/map-icon.svg"
 import CopyIcon from "../../assets/icon/copy-bold-white.svg"
+import EventInfoAddressCopyText from "../EventInfoAddressCopyText/EventInfoAddressCopyText"
+import { useState } from "react"
 
 const EventAboutPlace376 = ({ event }) => {
+    const [isTooltipActive, setIsTooltipActive] = useState(false)
     const fieldAddress = `${event.field.address.city}, ${event.field.address.street}, ${event.field.address.house_number}`
     const handleCopyAddressClick = () => {
+        if (isTooltipActive) return
         window.navigator.clipboard.writeText(fieldAddress);
+        setIsTooltipActive(true)
+        setTimeout(() => {
+            setIsTooltipActive(false)
+        }, 3000)
     }
     const slots = event.count_players - event.count_current_players
     return (
         <div className="event-about-place">
             <div className="event-about-place__top">
                 <div className="event-about-place__top-address">
+                    {isTooltipActive ? <div className="event-about-place__top-address-copy">Скопировано !</div> : null}
                     {fieldAddress}
                 </div>
                 <div className="event-about-place__top-icons">
