@@ -358,6 +358,10 @@ class AdminLeaveEventView(APIView):
             if event.is_end:
                 raise ErrorException(3)
 
+            if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
+                user = User.objects.create(telegram_id=request.data.get("telegram_id"), username=request.data.get("username"))
+                RankHistory.objects.create(user=user)
+
             user = User.objects.get(telegram_id=request.data.get("telegram_id"))
             reason, create = CancelReasons.objects.update_or_create(name=request.data["reason"])
             event_player = EventPlayer.objects.filter(player=user, event=event)
