@@ -1,7 +1,7 @@
 import {PopupWrapperComponent} from "../../wrappers/popupWrapperComponent/PopupWrapperComponent";
 import {useDispatch} from "react-redux";
 import {allowPolicyWindow} from "../../../redux/actions/actions";
-
+import { Fragment } from "react";
 
 export const AllowPolicyComponent = ({isOpen}) => {
     const dispatch = useDispatch();
@@ -69,9 +69,14 @@ export const AllowPolicyComponent = ({isOpen}) => {
                         <span className={"black-700-18"}>Политика конфиденциальности и обработки персональных данных <br/> (далее – «Политика»)</span>
                         {paragraphs.map((paragraph, key) => (
                             <span className={"black-400-16"} key={key}>
-                                {paragraph.map((point, i) => (<>{point}{i !== paragraph.length - 1 && <><br/><br/></>}</>))}
+                                {paragraph.map((point, i) => (
+                                    <Fragment key={`${key}-${i}`}>
+                                        {point}
+                                        {i !== paragraph.length - 1 && <><br/><br/></>}
+                                    </Fragment>
+                                ))}
                             </span>
-                        ))}
+                        ))} 
                     </div>
                 </div>
             </div>

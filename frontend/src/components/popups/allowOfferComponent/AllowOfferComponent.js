@@ -1,6 +1,7 @@
 import {PopupWrapperComponent} from "../../wrappers/popupWrapperComponent/PopupWrapperComponent";
 import {useDispatch} from "react-redux";
 import {allowOfferWindow} from "../../../redux/actions/actions";
+import { Fragment } from "react";
 
 
 export const AllowOfferComponent = ({isOpen}) => {
@@ -153,7 +154,11 @@ export const AllowOfferComponent = ({isOpen}) => {
                         <span className={"black-700-18"}>ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ</span>
                         {paragraphs.map((paragraph, key) => (
                             <span className={"black-400-16"} key={key}>
-                                {paragraph.map((point, i) => (<>{point}{i !== paragraph.length - 1 && <><br/><br/></>}</>))}
+                                {paragraph.map((point, i) => (
+                                    <Fragment key={`${key}-${i}`}>
+                                        {point}{i !== paragraph.length - 1 && <><br/><br/></>}
+                                    </Fragment>
+                                ))}
                             </span>
                         ))}
                     </div>

@@ -9,8 +9,7 @@ i18
   .use(initReactI18next)
   .init({
   lng: 'ru', // for development
-  debug: true,
-  localePath: './public/locales',
+  // debug: true,
 });
 
 export default i18;
