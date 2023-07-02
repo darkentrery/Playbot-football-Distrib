@@ -11,7 +11,6 @@ export const MainSearchComponent = ({
     isOpen=true,
     setIsOpen = () => {},
 }) => {
-    const [events, setEvents] = useState([]);
     const [players, setPlayers] = useState([]);
     const [eventsView, setEventsView] = useState([]);
     const [eventsPastView, setEventsPastView] = useState([]);
@@ -22,11 +21,6 @@ export const MainSearchComponent = ({
 
     useEffect(() => {
         if (isOpen) {
-            eventService.getEvents().then((response) => {
-                if (response.status === 200) {
-                    setEvents(response.data);
-                }
-            })
             authService.getUsers().then((response) => {
                 if (response.status === 200) {
                     let array = response.data.map((player) => { return player; });
@@ -42,23 +36,23 @@ export const MainSearchComponent = ({
     const search = (e) => {
         let val = e.target.value;
         let array = [];
-        let arrayPast = [];
-        let arrayFuture = [];
-        events.forEach((item) => {
-            if (item.name.toLowerCase().includes(val.toLowerCase())) {
-                if (item.is_end) {
-                    arrayPast.push(item);
-                } else if (item.is_begin && !item.is_end) {
-                    array.push(item);
-                } else {
-                    arrayFuture.push(item);
-                }
-            }
-        })
-        setEventsView(array);
-        setEventsPastView(arrayPast);
-        setEventsFutureView(arrayFuture);
-        array = [];
+        // let arrayPast = [];
+        // let arrayFuture = [];
+        // events.forEach((item) => {
+        //     if (item.name.toLowerCase().includes(val.toLowerCase())) {
+        //         if (item.is_end) {
+        //             arrayPast.push(item);
+        //         } else if (item.is_begin && !item.is_end) {
+        //             array.push(item);
+        //         } else {
+        //             arrayFuture.push(item);
+        //         }
+        //     }
+        // })
+        // setEventsView(array);
+        // setEventsPastView(arrayPast);
+        // setEventsFutureView(arrayFuture);
+        // array = [];
         players.forEach((item) => {
             if (item.username.toLowerCase().includes(val.toLowerCase())) array.push(item);
         })
