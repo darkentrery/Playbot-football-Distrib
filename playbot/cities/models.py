@@ -83,6 +83,7 @@ class CoverageType(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+
 class Field(models.Model):
     name = models.CharField(_("Name"), max_length=255)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="fields")

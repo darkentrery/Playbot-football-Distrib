@@ -55,16 +55,9 @@ def get_message_for_announce(event: Event) -> str:
     leave_actions = event.users_events_actions.filter(action=UserEventAction.Actions.LEAVE).distinct("user__id")
     # leave_actions = leave_actions.order_by("action_time")
     if leave_actions.count():
-        message += "\n" + _("<u>🚪 Left</u>") + "\n"
+        message += "\n" + _("<u>🚪 Left:</u>") + "\n"
         for action in leave_actions:
             message += f"{action.user.username}"
-
-    # leftPlayers = await self.getLeftUsers()
-    #
-    # if len(leftPlayers) > 0:
-    #     messageResult += "\n" + _("<u>🚪 Left</u>") + "\n"
-    #     for ply in leftPlayers:  # Дописываем вышедших
-    #         messageResult += f"{ply.getHTMLMention()}{ply.getStanceAbbr(comma=True)}\n"
 
     return message
 

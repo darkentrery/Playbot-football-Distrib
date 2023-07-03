@@ -87,13 +87,13 @@ class PlayerNumberAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = [
-        "name",
+        # "name",
+        "field",
         "date",
         "time_begin",
         "time_end",
         "count_players",
         "address",
-        "field",
         "cancel",
         "cancel_reasons",
         "format",
