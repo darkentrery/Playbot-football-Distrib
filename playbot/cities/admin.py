@@ -49,6 +49,7 @@ class FieldAdmin(admin.ModelAdmin):
         "name",
         "address",
         "format",
+        "timezone",
         "type_field",
         "coverage",
         "shower_room",

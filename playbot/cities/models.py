@@ -95,6 +95,7 @@ class Field(models.Model):
     lighting = models.BooleanField(_("Lighting"), default=False)
     tribune = models.BooleanField(_("Tribunes"), default=False)
     is_active = models.BooleanField(_("Is Active"), default=True)
+    timezone = models.IntegerField(_("Time Zone Difference"), default=0)
 
     class Meta:
         verbose_name = "Field"

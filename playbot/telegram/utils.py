@@ -1,3 +1,4 @@
+import datetime
 from io import BytesIO
 
 from aiogram import Bot, types
@@ -18,6 +19,7 @@ bot = Bot(token=settings.SOCIAL_AUTH_TELEGRAM_BOT_TOKEN)
 number_emojis = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣",]
 
 
+@sync_to_async
 def get_message_for_announce(event: Event) -> str:
     message = ""
     cost = "free" if not event.is_paid else f"{event.price} {event.currency}"
@@ -29,8 +31,10 @@ def get_message_for_announce(event: Event) -> str:
     if percent > 79:
         player_count_emoji = "🔴"
 
+    local_time_begin = event.datetime_begin + datetime.timedelta(minutes=event.field.timezone)
+
     message += _(
-        f"🕒 {event.date.strftime('%A, %d.%m')} {event.time_begin.strftime('%H:%M')} (id {event.id})\n"
+        f"🕒 {local_time_begin.strftime('%A, %d.%m')} {local_time_begin.strftime('%H:%M')} (id {event.id})\n"
         f"🏟 {event.field}, {event.format if event.format else ''}\n"
         f"{player_count_emoji} {event.count_current_players}/{event.count_players}, <b>💰{cost}</b>\n"
     )
@@ -52,7 +56,9 @@ def get_message_for_announce(event: Event) -> str:
             message += f"{number_emojis[number]} {player.player.username}{player.player.acronym_positions}\n"
             number += 1
 
-    leave_actions = event.users_events_actions.filter(action=UserEventAction.Actions.LEAVE).distinct("user__id")
+    exists_users = list(event.event_player.all().values_list("player__id", flat=True)) + list(event.event_queues.all().values_list("player__id", flat=True))
+    exists_users = list(set(exists_users))
+    leave_actions = event.users_events_actions.filter(action=UserEventAction.Actions.LEAVE).exclude(user__id__in=exists_users).distinct("user__id")
     # leave_actions = leave_actions.order_by("action_time")
     if leave_actions.count():
         message += "\n" + _("<u>🚪 Left:</u>") + "\n"
@@ -80,7 +86,7 @@ async def send_announce(channel: TelegramChannel, event: Event) -> Announce:
     # try:
     bot_is_member = await bot.get_chat_member(chat_id=channel.channel_id, user_id=bot.id)
     if bot_is_member.status in ["administrator", "member"]:
-        text = await sync_to_async(lambda: get_message_for_announce(event))()
+        text = await get_message_for_announce(event)
         buttons = await get_buttons(event)
         message = await bot.send_message(channel.channel_id, text, parse_mode="html", reply_markup=buttons)
         announce, create = await sync_to_async(lambda: Announce.objects.get_or_create(message_id=message.message_id, channel=channel))()
@@ -96,16 +102,16 @@ async def send_announce(channel: TelegramChannel, event: Event) -> Announce:
 async def update_announce(event: Event) -> None:
     channel_id = await sync_to_async(lambda: event.announce.channel.channel_id)()
     message_id = await sync_to_async(lambda: event.announce.message_id)()
-    try:
-        bot_is_member = await bot.get_chat_member(chat_id=channel_id, user_id=bot.id)
-        if bot_is_member.status in ["administrator", "member"]:
-            buttons = await get_buttons(event)
-            text = await sync_to_async(lambda: get_message_for_announce(event))()
-            await bot.edit_message_text(text=text, chat_id=channel_id, message_id=message_id, parse_mode="html", reply_markup=buttons)
-        if bot_is_member.status in ["left", "kicked"]:
-            logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
-    except Exception as e:
-        logger.debug(f"Bot {bot.id} {e}")
+    # try:
+    bot_is_member = await bot.get_chat_member(chat_id=channel_id, user_id=bot.id)
+    if bot_is_member.status in ["administrator", "member"]:
+        buttons = await get_buttons(event)
+        text = await get_message_for_announce(event)
+        await bot.edit_message_text(text=text, chat_id=channel_id, message_id=message_id, parse_mode="html", reply_markup=buttons)
+    if bot_is_member.status in ["left", "kicked"]:
+        logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
+    # except Exception as e:
+    #     logger.debug(f"Bot {bot.id} {e}")
 
 
 @logger.catch
