@@ -24,7 +24,10 @@ export const EventTopAdminEditBar = ({
         publishTime = format(new Date(event.publish_time), `dd MMMM yyyy 'в' HH:mm`, { locale: ru });
     }
 
-    let isNoDataItems = !isPublishDelayed && !event.is_news_line && true
+    const isTelegramAnonse = event?.public_in_channel 
+    const isLentaAnonse = event?.is_news_line
+
+    let isNoDataItems = !isPublishDelayed && !event.is_news_line && !isTelegramAnonse && true
     return (
         <div className='event-admin-bar'>
             <div className={"event-admin-bar-data " + (isNoDataItems && "no-data-items-376")}>
@@ -36,10 +39,12 @@ export const EventTopAdminEditBar = ({
                 <div className="event-admin-bar-data-inner">
                     <div className="event-admin-bar-data-item">
                         <div className="event-admin-bar-data-item-name">
-                            Плейсмент
+                            {(isLentaAnonse || isTelegramAnonse) ? "Плейсмент" : null}
                         </div>
                         <div className="event-admin-bar-data-item-text">
-                            {event.is_news_line ? "В главной ленте" : "В телеграмм чате"}
+                            {(isLentaAnonse && !isTelegramAnonse) ? "В главной ленте" : null}
+                            {(!isLentaAnonse && isTelegramAnonse) ? "В чате телеграмм" : null}
+                            {(isLentaAnonse && isTelegramAnonse) ? "В ленте, телеграмме" : null}
                         </div>
                     </div>
                     {isPublishDelayed && 
