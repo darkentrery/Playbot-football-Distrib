@@ -16,7 +16,8 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EventGameSerializer, \
     CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer, EditTeamSerializer, \
     UpdateGoalSerializer
-from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
+from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation, parse_username, \
+    get_validate_username
 from playbot.history.models import UserEventAction
 from playbot.telegram.utils import update_or_create_announce, delete_announce
 from playbot.users.models import RankHistory, User
@@ -285,7 +286,9 @@ class AdminJoinPlayerView(APIView):
             if event.is_end:
                 raise ErrorException(3)
             if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
-                user = User.objects.create(telegram_id=request.data.get("telegram_id"), username=request.data.get("username"))
+                username = parse_username(request.data.get("username"))
+                username = get_validate_username(username)
+                user = User.objects.create(telegram_id=request.data.get("telegram_id"), username=username)
                 RankHistory.objects.create(user=user)
 
             user = User.objects.get(telegram_id=request.data.get("telegram_id"))
@@ -360,7 +363,9 @@ class AdminLeaveEventView(APIView):
                 raise ErrorException(3)
 
             if not User.objects.filter(telegram_id=request.data.get("telegram_id")).exists():
-                user = User.objects.create(telegram_id=request.data.get("telegram_id"), username=request.data.get("username"))
+                username = parse_username(request.data.get("username"))
+                username = get_validate_username(username)
+                user = User.objects.create(telegram_id=request.data.get("telegram_id"), username=username)
                 RankHistory.objects.create(user=user)
 
             user = User.objects.get(telegram_id=request.data.get("telegram_id"))

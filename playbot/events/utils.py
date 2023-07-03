@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 from itertools import combinations
 
@@ -359,4 +360,19 @@ class RankCalculation:
         logger.info(f"username= {self.user.email}, {rank_fact=}")
         logger.info(f"{rank_fact=}, {result=}, {unique_rivals=}, {avr_opponents=}, {rate=}, {self.user.involvement=}, {self.user.penalty=}")
         logger.info(f"username= {self.user.email}, {rank=}")
+
+
+def parse_username(username: str) -> str:
+    username = re.sub(r'\s', "_", username).strip()
+    username = re.sub(r'\W', "", username)
+    return username
+
+
+def get_validate_username(username: str) -> str:
+    len_username = len(username) if len(username) <= 12 else 12
+    if User.objects.filter(username=username[:len_username]).exists():
+        username = username[:len_username] + "1"
+        return get_validate_username(username)
+    else:
+        return username[:len_username]
 
