@@ -238,6 +238,7 @@ class EventGameAdmin(admin.ModelAdmin):
 @admin.register(EventQueue)
 class EventQueueAdmin(admin.ModelAdmin):
     list_display = [
+        "event",
         "player",
         "number",
     ]

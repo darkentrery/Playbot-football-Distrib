@@ -8,6 +8,7 @@ from loguru import logger
 from django.utils.translation import gettext_lazy as _
 
 from playbot.events.models import Event
+from playbot.history.models import UserEventAction
 from playbot.telegram.models import Announce, TelegramChannel
 from playbot.users.models import User
 
@@ -19,7 +20,7 @@ number_emojis = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣
 
 def get_message_for_announce(event: Event) -> str:
     message = ""
-    cost = "free" if not event.is_paid else event.price
+    cost = "free" if not event.is_paid else f"{event.price} {event.currency}"
 
     percent = event.count_current_players / event.count_players * 100
     player_count_emoji = "🟢"
@@ -45,9 +46,17 @@ def get_message_for_announce(event: Event) -> str:
 
     if event.event_queues.count():
         message += "\n" + _("<u>👥 Wait list:</u>") + "\n"
+        number = 1
         for player in event.event_queues.all():
             # messageResult += f"{misc.emojizeNumbers(counter)} {ply.getHTMLMention()}{ply.getStanceAbbr(comma=True)}\n"
-            message += f"{number_emojis[player.number]} {player.player.username}{player.player.acronym_positions}\n"
+            message += f"{number_emojis[number]} {player.player.username}{player.player.acronym_positions}\n"
+            number += 1
+
+    leave_actions = event.users_events_actions.filter(action=UserEventAction.Actions.LEAVE).order_by("action_time").distinct("user__id")
+    if leave_actions.count():
+        message += "\n" + _("<u>🚪 Left</u>") + "\n"
+        for action in leave_actions:
+            message += f"{action.user.username}"
 
     # leftPlayers = await self.getLeftUsers()
     #
