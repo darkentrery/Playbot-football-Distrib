@@ -78,6 +78,7 @@ export const loadPhotoAction = (photoData, user, isAdmin) => async (dispatch) =>
     dispatch(setIsLoading(true));
     console.log(photoData)
     try {
+        console.log("Format is " + photoData.name.split('.').pop().toLowerCase());
         if (!/png|jpg|heic/.test(photoData.name.split('.').pop().toLowerCase())) {
             throw new Error('Такой формат не поддерживается.');
         }
