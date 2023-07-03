@@ -18,7 +18,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     UpdateGoalSerializer
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation
 from playbot.history.models import UserEventAction
-from playbot.telegram.utils import update_or_create_announce
+from playbot.telegram.utils import update_or_create_announce, delete_announce
 from playbot.users.models import RankHistory, User
 from playbot.users.serializers import UserSerializer
 
@@ -124,6 +124,8 @@ class CancelEventView(APIView):
                 RankHistory.objects.create(user=request.user, rank=request.user.rank * 0.98)
                 UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.CANCEL)
                 event.notice_cancel_event()
+                if event.public_in_channel:
+                    delete_announce(event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

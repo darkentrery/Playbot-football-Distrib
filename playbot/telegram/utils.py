@@ -76,7 +76,7 @@ def get_buttons(event: Event):
 async def send_announce(channel: TelegramChannel, event: Event) -> Announce:
     # try:
     bot_is_member = await bot.get_chat_member(chat_id=channel.channel_id, user_id=bot.id)
-    if bot_is_member.status == "administrator":
+    if bot_is_member.status in ["administrator", "member"]:
         text = await sync_to_async(lambda: get_message_for_announce(event))()
         buttons = await get_buttons(event)
         message = await bot.send_message(channel.channel_id, text, parse_mode="html", reply_markup=buttons)
@@ -95,7 +95,7 @@ async def update_announce(event: Event) -> None:
     message_id = await sync_to_async(lambda: event.announce.message_id)()
     try:
         bot_is_member = await bot.get_chat_member(chat_id=channel_id, user_id=bot.id)
-        if bot_is_member.status == "administrator":
+        if bot_is_member.status in ["administrator", "member"]:
             buttons = await get_buttons(event)
             text = await sync_to_async(lambda: get_message_for_announce(event))()
             await bot.edit_message_text(text=text, chat_id=channel_id, message_id=message_id, parse_mode="html", reply_markup=buttons)
@@ -127,6 +127,20 @@ async def send_photo_for_moderation(user: User) -> None:
                 logger.debug(f"Bot {bot.id} {bot_is_member.status=}, {moderation=}")
     except Exception as e:
         logger.debug(f"Bot {bot.id} {e}")
+
+
+@logger.catch
+@async_to_sync
+async def delete_announce(event: Event) -> None:
+    channel_id = await sync_to_async(lambda: event.announce.channel.channel_id)()
+    message_id = await sync_to_async(lambda: event.announce.message_id)()
+
+    bot_is_member = await bot.get_chat_member(chat_id=channel_id, user_id=bot.id)
+    if bot_is_member.status in ["administrator", "member"]:
+        await bot.delete_message(channel_id, message_id)
+        await sync_to_async(lambda: Announce.objects.get(message_id=message_id, channel_id=channel_id).delete())()
+    if bot_is_member.status in ["left", "kicked"]:
+        logger.debug(f"Bot {bot.id} {bot_is_member.status=}")
 
 
 def update_or_create_announce(event: Event) -> None:
