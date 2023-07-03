@@ -52,7 +52,8 @@ def get_message_for_announce(event: Event) -> str:
             message += f"{number_emojis[number]} {player.player.username}{player.player.acronym_positions}\n"
             number += 1
 
-    leave_actions = event.users_events_actions.filter(action=UserEventAction.Actions.LEAVE).order_by("action_time").distinct("user__id")
+    leave_actions = event.users_events_actions.filter(action=UserEventAction.Actions.LEAVE).distinct("user__id")
+    # leave_actions = leave_actions.order_by("action_time")
     if leave_actions.count():
         message += "\n" + _("<u>🚪 Left</u>") + "\n"
         for action in leave_actions:
