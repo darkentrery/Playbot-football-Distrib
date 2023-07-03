@@ -20,6 +20,7 @@ export const EventInfo = ({ event }) => {
     const [position, setPosition] = useState(false);
 
     const markerRef = useRef(false);
+    const fieldGoogleLink = event.field.address.google_link;
 
     const fieldName = event.field.name
     const fieldAddress = `${event.field.address.city}, ${event.field.address.street}, ${event.field.address.house_number}`
@@ -139,7 +140,7 @@ export const EventInfo = ({ event }) => {
                 </div>
                 <div className="event-info-map">
                     <div className="event-info-map-inner">
-                        <EventInfoAddressCopyText copyText={fieldAddress} className={"event-info-address-tooltip"} />
+                        <EventInfoAddressCopyText text={fieldAddress} copyText={fieldGoogleLink} className={"event-info-address-tooltip"} />
                         <MapBody />
                     </div>
                     {event.field.field_photos.length !== 0 &&

@@ -1,17 +1,16 @@
 
 import EventInfoSlider from "../EventInfoSlider/EventInfoSlider"
-import Image from "../../assets/icon/temp-event-image.png"
 import MapIcon from "../../assets/icon/map-icon.svg"
 import CopyIcon from "../../assets/icon/copy-bold-white.svg"
-import EventInfoAddressCopyText from "../EventInfoAddressCopyText/EventInfoAddressCopyText"
 import { useState } from "react"
 
 const EventAboutPlace376 = ({ event }) => {
     const [isTooltipActive, setIsTooltipActive] = useState(false)
     const fieldAddress = `${event.field.address.city}, ${event.field.address.street}, ${event.field.address.house_number}`
+    const fieldGoogleLink = event.field.address.google_link;
     const handleCopyAddressClick = () => {
         if (isTooltipActive) return
-        window.navigator.clipboard.writeText(fieldAddress);
+        window.navigator.clipboard.writeText(fieldGoogleLink);
         setIsTooltipActive(true)
         setTimeout(() => {
             setIsTooltipActive(false)

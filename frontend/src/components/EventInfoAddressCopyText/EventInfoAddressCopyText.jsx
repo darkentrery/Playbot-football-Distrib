@@ -3,6 +3,7 @@ import './EventInfoAddressCopyText.scss';
 import CopyIcon from '../../assets/icon/copy-squares.svg';
 
 export const EventInfoAddressCopyText = ({
+    text = '',
     copyText = '',
     className = ''
 }) => {
@@ -22,7 +23,7 @@ export const EventInfoAddressCopyText = ({
     return (
         <div className="event-info-map-address-wrapper">
             <div className="event-info-map-address">
-                {copyText}
+                {text}
                 <img src={CopyIcon} width={16} height={16} onClick={handleCopyAddressClick} alt="" />
             </div>
             {isTooltip &&
