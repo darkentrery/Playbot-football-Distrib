@@ -35,7 +35,7 @@ def get_message_for_announce(event: Event) -> str:
 
     message += _(
         f"🕒 {local_time_begin.strftime('%A, %d.%m')} {local_time_begin.strftime('%H:%M')} (id {event.id})\n"
-        f"🏟 {event.field.address.s_h_string}, {event.field.format}\n"
+        f"🏟 {event.field}, {event.field.address.s_h_string}, {event.field.format}\n"
         f"{player_count_emoji} {event.count_current_players}/{event.count_players}, <b>💰{cost}</b>\n"
     )
 

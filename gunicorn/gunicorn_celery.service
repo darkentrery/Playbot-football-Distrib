@@ -1,6 +1,6 @@
 [Unit]
 Description=gunicorn daemon
-Requires=gunicorn_recalculation.socket
+Requires=gunicorn_celery.socket
 After=network.target
 
 [Service]
@@ -8,7 +8,7 @@ User=root
 Group=www-data
 WorkingDirectory=/home/site/Playbot_football
 Environment="PATH=/home/site/Playbot_football/venv/bin"
-ExecStart=/home/site/Playbot_football/venv/bin/python3 /home/site/Playbot_football/recalculation_rank.py
+ExecStart=/home/site/Playbot_football/venv/bin/celery --app=playbot.taskapp worker --loglevel=INFO
 
 [Install]
 WantedBy=multi-user.target
