@@ -5,6 +5,7 @@ import ScoreTable from "../../overlay/ScoreTable/ScoreTable";
 import Teams from "../../overlay/Teams/Teams";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {eventService} from "../../../services/EventService";
+import PlayerBigCard from "./PlayerBigCard";
 import "./overlay.scss";
 
 
@@ -146,12 +147,18 @@ export const OverlayPage = ({user}) => {
     console.log(connectionStatus)
 
     return (
-        <div className='wrapper'>
-          <main>
-            <RatingTable event={event}/>
-            <ScoreTable game={game} allGames={event ? event.event_games.length : 0} timer={timer}/>
-          </main>
-          <Teams game={game}/>
+        <div className={'wrapper ' + ((!event?.is_begin || event?.all_games_finished) && ("hide-overlay"))}>
+            {(event && game) && (
+                <>
+                    <main>
+                        <RatingTable event={event} game={game} />
+                        <ScoreTable game={game} allGames={event.event_games.length} timer={timer} />
+                    </main>
+                    <Teams game={game} />
+                    <PlayerBigCard game={game} />
+
+                </>
+            )}
         </div>
     )
 }
