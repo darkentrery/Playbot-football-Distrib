@@ -10,7 +10,8 @@ from playbot.telegram.utils import update_or_create_announce
 
 @shared_task()
 @logger.catch
-def send_announce_task(event: Event) -> None:
+def send_announce_task(event_id: int) -> None:
+    event = Event.objects.get(id=event_id)
     if event.publish_time:
         delay = (event.publish_time - datetime.datetime.utcnow()).total_seconds()
         time.sleep(delay)
