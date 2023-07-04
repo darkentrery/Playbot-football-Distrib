@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from playbot.history.models import UserEventAction
 from playbot.notices.models import Notice
 
 
@@ -244,13 +245,13 @@ class User(AbstractUser):
         return acronym
 
 
-
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")
     rank = models.FloatField(_("Rank"), default=5)
     create = models.DateTimeField(_("Time Create"), default=timezone.now)
     event = models.ForeignKey("events.Event", on_delete=models.CASCADE, related_name="ranks_history", blank=True, null=True)
     update = models.DateTimeField(_("Time Update"), auto_now=True)
+    reason = models.CharField(_("Reason Of Creation Rank"), max_length=50, choices=UserEventAction.Actions.choices, default=None, blank=True, null=True)
 
     class Meta:
         ordering = ["create",]

@@ -131,7 +131,7 @@ class CancelEventView(APIView):
         if serializer.is_valid() and event.organizers.filter(id=request.user.id).exists():
             event = serializer.save()
             if event:
-                RankHistory.objects.create(user=request.user, rank=request.user.rank * 0.98)
+                RankHistory.objects.create(user=request.user, rank=request.user.rank_fact * 0.98)
                 UserEventAction.objects.create(user=request.user, event=event, reason=reason, action=UserEventAction.Actions.CANCEL)
                 event.notice_cancel_event()
                 if event.public_in_channel:
@@ -334,7 +334,7 @@ class LeaveEventView(APIView):
         event_player = EventPlayer.objects.filter(player=request.user, event=event)
         if event_player.exists():
             event_player.delete()
-            RankHistory.objects.create(user=request.user, rank=request.user.rank * 0.99)
+            RankHistory.objects.create(user=request.user, rank=request.user.rank_fact * 0.99)
             if event.first_order_queue:
                 EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
                 EventQueue.objects.get(player=event.first_order_queue).delete()
@@ -386,7 +386,7 @@ class AdminLeaveEventView(APIView):
 
             if event_player.exists():
                 event_player.delete()
-                RankHistory.objects.create(user=user, rank=user.rank * 0.99)
+                RankHistory.objects.create(user=user, rank=user.rank_fact * 0.99)
                 if event.first_order_queue:
                     EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
                     EventQueue.objects.get(player=event.first_order_queue).delete()

@@ -5,8 +5,8 @@ from django.contrib.auth.admin import UserAdmin
 from webpush import send_user_notification
 
 from playbot.cities.models import Address
-from playbot.users.forms import UserCustomForm
 from playbot.users.models import User, Position, RankHistory, UserRivals, Gender, PhotoError
+from scripts.recalculate import recalculate
 
 
 class RankHistoryInline(admin.TabularInline):
@@ -164,7 +164,13 @@ class RankHistoryAdmin(admin.ModelAdmin):
         "create",
         "update",
         "event",
+        "reason",
     ]
+    # actions = ["recalculate_ranks"]
+    #
+    # @admin.action()
+    # def recalculate_ranks(self, request, queryset):
+    #     recalculate()
 
 
 @admin.register(UserRivals)

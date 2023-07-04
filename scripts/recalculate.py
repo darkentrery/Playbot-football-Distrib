@@ -4,6 +4,7 @@ from loguru import logger
 
 from playbot.events.models import Event, Team, EventGame
 from playbot.events.utils import RankCalculation
+from playbot.history.models import UserEventAction
 from playbot.users.models import RankHistory
 
 
@@ -27,8 +28,26 @@ def team_recalculate(team: Team, event: Event, game: EventGame) -> None:
 
 @logger.catch
 def recalculate() -> None:
-    for event in Event.objects.filter(time_end__isnull=False):
-    # for event in Event.objects.filter(date__gte="2023-06-22"):
-        for game in event.event_games.all():
-            team_recalculate(game.team_1, event, game)
-            team_recalculate(game.team_2, event, game)
+    recalculate_events = []
+    for rank_history in RankHistory.objects.all():
+        if rank_history.event and rank_history.event.id not in recalculate_events:
+            for game in rank_history.event.event_games.all():
+                team_recalculate(game.team_1, rank_history.event, game)
+                team_recalculate(game.team_2, rank_history.event, game)
+            recalculate_events.append(rank_history.event.id)
+        else:
+            match rank_history.reason:
+                case UserEventAction.Actions.LEAVE:
+                    rank_history.rank = rank_history.rank * 0.99
+                    rank_history.save()
+                case UserEventAction.Actions.CANCEL:
+                    rank_history.rank = rank_history.rank * 0.98
+                    rank_history.save()
+                case _:
+                    pass
+
+    # for event in Event.objects.filter(time_end__isnull=False):
+    # # for event in Event.objects.filter(date__gte="2023-06-22"):
+    #     for game in event.event_games.all():
+    #         team_recalculate(game.team_1, event, game)
+    #         team_recalculate(game.team_2, event, game)
