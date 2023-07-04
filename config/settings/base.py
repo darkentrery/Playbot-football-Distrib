@@ -294,6 +294,6 @@ WEBPUSH_SETTINGS = {
 
 UNIX_OS = env.bool("UNIX_OS")
 
-CELERY_BROKER_URL = f"redis://localhost:{env.int('REDIS_PORT')}"
+CELERY_BROKER_URL = f"redis://{env('REDIS_HOST')}:{env.int('REDIS_PORT')}"
 
-CELERY_RESULT_BACKEND = f"redis://localhost:{env.int('REDIS_PORT')}"
+CELERY_RESULT_BACKEND = f"redis://{env('REDIS_HOST')}:{env.int('REDIS_PORT')}"
