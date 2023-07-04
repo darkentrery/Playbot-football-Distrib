@@ -35,7 +35,7 @@ def get_message_for_announce(event: Event) -> str:
 
     message += _(
         f"🕒 {local_time_begin.strftime('%A, %d.%m')} {local_time_begin.strftime('%H:%M')} (id {event.id})\n"
-        f"🏟 {event.field}, {event.format if event.format else ''}\n"
+        f"🏟 {event.field.address.s_h_string}, {event.field.format}\n"
         f"{player_count_emoji} {event.count_current_players}/{event.count_players}, <b>💰{cost}</b>\n"
     )
 
@@ -46,14 +46,14 @@ def get_message_for_announce(event: Event) -> str:
         message += "\n" + _("<u>👬 Participants:</u>") + "\n"
         for player in event.event_player.all():
             # messageResult += ply.getHTMLMention() + ply.getStanceAbbr(comma=True) + "\n"
-            message += player.player.username + player.player.acronym_positions + "\n"
+            message += f"{player.player.username}, {player.player.acronym_positions}\n"
 
     if event.event_queues.count():
         message += "\n" + _("<u>👥 Wait list:</u>") + "\n"
         number = 1
         for player in event.event_queues.all():
             # messageResult += f"{misc.emojizeNumbers(counter)} {ply.getHTMLMention()}{ply.getStanceAbbr(comma=True)}\n"
-            message += f"{number_emojis[number]} {player.player.username}{player.player.acronym_positions}\n"
+            message += f"{number_emojis[number]} {player.player.username}, {player.player.acronym_positions}\n"
             number += 1
 
     exists_users = list(event.event_player.all().values_list("player__id", flat=True)) + list(event.event_queues.all().values_list("player__id", flat=True))
@@ -63,7 +63,7 @@ def get_message_for_announce(event: Event) -> str:
     if leave_actions.count():
         message += "\n" + _("<u>🚪 Left:</u>") + "\n"
         for action in leave_actions:
-            message += f"{action.user.username}"
+            message += f"{action.user.username}, {player.player.acronym_positions}\n"
 
     return message
 
