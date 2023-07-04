@@ -45,7 +45,7 @@ class CreateEventView(APIView):
                 if event.public_in_channel:
                     event = Event.objects.get(id=event.id)
                     # update_or_create_announce(event)
-                    send_announce_task.delay(event.id)
+                    send_announce_task.apply_async(args=[event.id], countdown=3)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -102,7 +102,7 @@ class EditEventView(APIView):
             if event:
                 event = Event.objects.get(id=request.data["id"])
                 # update_or_create_announce(event)
-                send_announce_task.delay(event.id)
+                send_announce_task.apply_async(args=[event.id], countdown=3)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

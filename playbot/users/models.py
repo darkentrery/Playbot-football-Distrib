@@ -234,6 +234,16 @@ class User(AbstractUser):
         positions = [position.acronym for position in (self.position_1, self.position_2) if position]
         return "/".join(positions)
 
+    @property
+    def acronym_position(self):
+        acronym = ""
+        if self.position_1:
+            acronym = self.position_1.acronym
+        if self.position_2:
+            acronym = self.position_2.acronym
+        return acronym
+
+
 
 class RankHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ranks_history")
