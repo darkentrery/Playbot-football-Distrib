@@ -44,7 +44,6 @@ class CreateEventView(APIView):
                 UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
                 if event.public_in_channel:
                     event = Event.objects.get(id=event.id)
-                    # update_or_create_announce(event)
                     send_announce_task.apply_async(args=[event.id], countdown=3)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
@@ -101,7 +100,6 @@ class EditEventView(APIView):
             event = serializer.save()
             if event:
                 event = Event.objects.get(id=request.data["id"])
-                # update_or_create_announce(event)
                 send_announce_task.apply_async(args=[event.id], countdown=3)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
