@@ -109,7 +109,7 @@ class Event(models.Model, CreateNotice):
         verbose_name_plural = "Events"
 
     def __str__(self):
-        return f"{self.field.name} - {self.date.strftime('%d.%m.%Y')} - {self.time_begin.strftime('%H:%M')}"
+        return f"{self.field.name if self.field else ''} - {self.date.strftime('%d.%m.%Y')} - {self.time_begin.strftime('%H:%M')}"
 
     @property
     def next_number(self):
