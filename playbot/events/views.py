@@ -32,6 +32,7 @@ class CreateEventView(APIView):
         if request.user.is_authenticated:
             return Response(status=status.HTTP_200_OK)
 
+    @logger.catch
     def post(self, request, format='json'):
         data = request.data
         data.update({"organizers": [request.user.pk]})
