@@ -113,6 +113,7 @@ LOCAL_APPS = [
     "playbot.chats.apps.ChatsConfig",
     "playbot.notices.apps.NoticesConfig",
     "playbot.telegram.apps.TelegramConfig",
+    "playbot.taskapp.celery.CeleryAppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -292,3 +293,7 @@ WEBPUSH_SETTINGS = {
 }
 
 UNIX_OS = env.bool("UNIX_OS")
+
+CELERY_BROKER_URL = f"redis://localhost:{env.int('REDIS_PORT')}"
+
+CELERY_RESULT_BACKEND = f"redis://localhost:{env.int('REDIS_PORT')}"

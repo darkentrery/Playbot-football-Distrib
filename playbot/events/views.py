@@ -16,6 +16,7 @@ from playbot.events.serializers import CreateEventSerializer, EventSerializer, E
     CountCirclesSerializer, SetRegulationSerializer, CancelEventSerializer, EventGameSerializer, \
     CreateGoalSerializer, EventListSerializer, ColorSerializer, PlayerNumberSerializer, EditTeamSerializer, \
     UpdateGoalSerializer
+from playbot.events.tasks import send_announce_task
 from playbot.events.utils import auto_distribution, create_teams, create_event_games, RankCalculation, parse_username, \
     get_validate_username
 from playbot.history.models import UserEventAction
@@ -42,7 +43,8 @@ class CreateEventView(APIView):
                 UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
                 if event.public_in_channel:
                     event = Event.objects.get(id=event.id)
-                    update_or_create_announce(event)
+                    # update_or_create_announce(event)
+                    send_announce_task.delay(event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -98,7 +100,8 @@ class EditEventView(APIView):
             event = serializer.save()
             if event:
                 event = Event.objects.get(id=request.data["id"])
-                update_or_create_announce(event)
+                # update_or_create_announce(event)
+                send_announce_task.delay(event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
