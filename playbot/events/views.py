@@ -1,5 +1,6 @@
 import datetime
 
+from django.conf import settings
 from django.utils import timezone
 from loguru import logger
 from rest_framework import status
@@ -44,7 +45,10 @@ class CreateEventView(APIView):
                 UserEventAction.objects.create(user=request.user, event=event, action=UserEventAction.Actions.CREATE)
                 if event.public_in_channel:
                     event = Event.objects.get(id=event.id)
-                    send_announce_task.apply_async(args=[event.id], countdown=3)
+                    if settings.UNIX_OS:
+                        send_announce_task.apply_async(args=[event.id], countdown=3)
+                    else:
+                        update_or_create_announce(event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -100,7 +104,10 @@ class EditEventView(APIView):
             event = serializer.save()
             if event:
                 event = Event.objects.get(id=request.data["id"])
-                send_announce_task.apply_async(args=[event.id], countdown=3)
+                if settings.UNIX_OS:
+                    send_announce_task.apply_async(args=[event.id], countdown=3)
+                else:
+                    update_or_create_announce(event)
                 json = EventSerializer(Event.objects.get(id=event.id)).data
                 return Response(json, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -11,7 +11,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl
 
 import cv2
-from PIL import Image
+from PIL import Image, ImageOps
 from django.conf import settings
 from django.core.files.images import ImageFile
 from django.core.files.storage import FileSystemStorage
@@ -222,6 +222,9 @@ class UpdatePhotoSerializer(serializers.ModelSerializer):
 def save_upload_photo(photo: InMemoryUploadedFile, user: User) -> User:
     if photo.name.endswith("HEIC"):
         FileSystemStorage(location=settings.MEDIA_ROOT + "/temp_photos/").save(photo.name, photo)
+        image = Image.open(settings.MEDIA_ROOT + f"/temp_photos/{photo.name}")
+        image = ImageOps.exif_transpose(image)
+        image.save(settings.MEDIA_ROOT + f"/temp_photos/{photo.name}")
         heic_img = HEIC2PNG(settings.MEDIA_ROOT + f"/temp_photos/{photo.name}")
         heic_img.save()
         with open(f"{settings.MEDIA_ROOT}/temp_photos/{photo.name}".replace(".HEIC", ".png"), "rb") as p:
