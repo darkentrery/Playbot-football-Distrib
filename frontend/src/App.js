@@ -59,6 +59,7 @@ import VisibleEndEvent from "./redux/containers/VisibleEndEvent";
 import LoadPhotoPopup from "./components/popups/LoadPhotoPopup/LoadPhotoPopup";
 import {AllowPolicyComponent as AllowPolicyPopup} from "./components/popups/allowPolicyComponent/AllowPolicyComponent";
 import {AllowOfferComponent as AllowOfferPopup} from "./components/popups/allowOfferComponent/AllowOfferComponent";
+import {OverlayPage} from "./components/pages/overlayComponent/OverlayPage";
 
 
 function App({state, funcs}) {
@@ -216,6 +217,7 @@ function App({state, funcs}) {
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
                     <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>
                     <Route exact path={BaseRoutes.landing} element={<LandingComponent/>}/>
+                    <Route exact path={BaseRoutes.overlay} element={<OverlayPage user={state.user.user}/>}/>
                 </Routes>
 
                 <MobileFirstPageComponent isOpen={state.windows.isOpenMobileFirstPage} isIPhone={state.app.isIPhone} funcs={funcs}/>
