@@ -1,5 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { getShortRolePosition } from "../../../utils/translateRole"
+import NoPhotoIcon from '../../../assets/icon/big-card-alt.png'
+import TestIcon from '../../../assets/icon/temp-preview-photo.png'
 
 const PlayerBigCard = ({game}) => {
     const [show, setShow] = useState(false)
@@ -14,7 +16,7 @@ const PlayerBigCard = ({game}) => {
         setUser(player)
         setShow(true)
         setTimeout(() => {
-            setShow(false)
+            // setShow(false)
         }, 5000)
     }, [memoizedGoalsLength])
 
@@ -26,28 +28,34 @@ const PlayerBigCard = ({game}) => {
         <>
         {show && (
             <div className='goal-names-popup'>
-            <div className='player-card-wrapper'>
-                <div className='player-card-component'>
-                    {user && user.is_accept_photo && user.photo ?
-                        // eslint-disable-next-line react/prop-types
-                        <img src={serverUrl + user.photo} className='player-card-photo' alt="player" />
-                        : <img src={""} className='player-card-photo' alt="player" />
-                    }
-                    <div className='player-card-bottom-bg'></div>
-                    <div className="player-card-bg">
-                        <div className='avatar-fade'></div>
+                <div className="overlay__big-player-card">
+                    <div className="overlay__big-player-card-top">
+                        {user && user.is_accept_photo && user.photo ?
+                            // eslint-disable-next-line react/prop-types
+                            <img src={serverUrl + user.photo} className='overlay__big-player-card-user-img' alt="player" />
+                            : <img src={TestIcon} className='overlay__big-player-card-user-img' alt="player" style={{marginBottom: "2vh"}}/>
+                        }
+                        <div className="overlay__big-player-card-top-position">
+                            FW
+                        </div>
+                        <div className="overlay__big-player-card-top-fog"></div>
                     </div>
-                    <span className='player-main-position'>{position1}</span>
-                    <span className='player-name'>
-                        <span className="player-name-text" id="bombardier-name">
-                            {user?.username}
-                        </span>
-                    </span>
+                    <div className="overlay__big-player-card-bottom-name">
+                        Zagrebalski
+                    </div>
                 </div>
             </div>
-        </div>
         )}
         </>
+        /* {user?.username}  {position1}  */
+
+        /* 
+                        {user && user.is_accept_photo && user.photo ?
+                            // eslint-disable-next-line react/prop-types
+                            <img src={serverUrl + user.photo} className='player-card-photo' alt="player" />
+                            : <img src={NoPhotoIcon} className='player-card-photo' alt="player" style={{bottom: 100}}/>
+                        }
+        */
     )
 }
 

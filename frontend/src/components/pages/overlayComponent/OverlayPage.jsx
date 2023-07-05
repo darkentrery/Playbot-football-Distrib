@@ -145,10 +145,10 @@ export const OverlayPage = ({user}) => {
     }[readyState];
 
     return (
-        <div className={'wrapper ' + ((!event?.is_begin || event?.all_games_finished) && ("hide-overlay"))}>
+        <div className={'overlay-wrapper ' + ((!event?.is_begin || event?.all_games_finished) && ("hide-overlay"))}>
             {(event && game) && (
                 <>
-                    <main>
+                    <main className="overlay-main">
                         <RatingTable event={event} game={game} />
 
                         <ScoreTable game={game} allGames={event.event_games.length} timer={timer} />
