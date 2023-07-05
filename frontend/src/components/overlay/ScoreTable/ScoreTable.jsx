@@ -33,7 +33,9 @@ function ScoreTable({game, allGames, timer}) {
 				</div>
 			</div>
 			<div className='score-table-stage'>{game.number ? game.number : 0}/{allGames}</div>
-			<Pause />
+			{!game.is_play && (
+				<Pause />
+			)}
 		</div>
 	)
 }
