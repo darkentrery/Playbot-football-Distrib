@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { getShortRolePosition } from "../../../utils/translateRole"
 import NoPhotoIcon from '../../../assets/icon/big-card-alt.png'
+import TestIcon from '../../../assets/icon/temp-preview-photo.png'
 
 const PlayerBigCard = ({game}) => {
     const [show, setShow] = useState(false)
@@ -32,7 +33,7 @@ const PlayerBigCard = ({game}) => {
                         {user && user.is_accept_photo && user.photo ?
                             // eslint-disable-next-line react/prop-types
                             <img src={serverUrl + user.photo} className='overlay__big-player-card-user-img' alt="player" />
-                            : <img src={NoPhotoIcon} className='overlay__big-player-card-user-img' alt="player" style={{marginBottom: "2vh"}}/>
+                            : <img src={TestIcon} className='overlay__big-player-card-user-img' alt="player" style={{marginBottom: "2vh"}}/>
                         }
                         <div className="overlay__big-player-card-top-position">
                             FW
