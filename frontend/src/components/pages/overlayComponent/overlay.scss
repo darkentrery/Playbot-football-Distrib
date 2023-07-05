@@ -466,7 +466,8 @@
   .goal-names-popup {
     position: absolute;
     z-index: 999;
-    right: -300px;
+    // right: -300px;
+    right: 30px;
     top: 50%;
     transform: translate(0px, -60%);
     animation: fadeOutBigCardAnimation;
@@ -486,7 +487,6 @@
   .player-card-bg{
     box-sizing: border-box;
     display: flex;
-    width: 288px;
     flex: 0 0 100%;
     flex-direction: column;
     background: url("../../../assets/icon/player_card_june23.svg") no-repeat;
@@ -495,7 +495,8 @@
     background-size: auto;
     background-position: 50%;
     background-size: contain;
-    min-height: 380px;    
+    min-height: 51vh;
+    width: 20vw; 
   }
   
   .player-card-bottom-bg{
@@ -529,8 +530,8 @@
   
   .player-card-component .avatar-fade{
     position: absolute;
-    width: 224px;
-    height: 346px;
+    width: 84%;
+    height: 92%;
     background: linear-gradient(180deg, rgba(247, 244, 237, 0) 54.02%, #F7F4ED 82.96%);
     border-radius: 9.9px;
     top: 10px;
@@ -564,7 +565,7 @@
     left: 0;
     position: absolute;
     text-align: center;
-    bottom: 36px;
+    bottom: 55px;
     width: 100%;
     z-index: 3;
   
@@ -599,11 +600,64 @@
     }
   }
   
+  .goal-names-popup {
+    background: #f7f4ed;
+    border-radius: 0.416666vw;
+    box-shadow: -0.0204167vw 0.0816668vw 0.0816668vw rgba(48,38,29,.8), -0.0816668vw 0.204167vw 0.163333vw rgba(39,39,39,.35), inset 0.0408334vw -0.0204167vw 0.0816668vw rgba(0,0,0,.2);
+    padding: 0.364583vw;
+  }
   
+  .overlay__big-player-card {
+    position: relative;
+    border: 0.204167vw solid #edc49f;
+    border-radius: 0.364583vw;
+    overflow: hidden;
+    width: max-content;
+  }
   
+  .overlay__big-player-card-top {
+    background: linear-gradient(180deg,hsla(42,38%,95%,0) 54.02%,#f7f4ed 79.03%);
+    background-image: url("../../../assets/icon/background-user-photo.png");
+    background-position-x: -0.364583vw;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 18.0875vh;
+    width: 7.78125vw;
+    background-size: 8.18125vw 18.0875vh;
+  }
   
+  .overlay__big-player-card-bottom-name {
+    text-align: center;
+    margin-bottom: 0.39375vh;
+    margin-top: 0.39375vh;
+    color: #e2b184;
+    font-family: "Fira Sans";
+    font-size: 1.226vw;
+    font-style: normal;
+    font-weight: 700;
+    max-width: 8.854167vw;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+  }
   
+  .overlay__big-player-card-top-position {
+    color: #e2b184;
+    font-family: "Fira Sans";
+    font-weight: 700;
+    position: absolute;
+    right: 0.3125vw;
+    top: 0.46875vw;
+  }
   
+  .overlay__big-player-card-user-img {
+    object-fit: contain;
+    margin: auto auto 0 auto;
+    max-width: 7.5vw;
+  }
   
   
   

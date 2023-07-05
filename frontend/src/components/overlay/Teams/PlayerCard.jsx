@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import maskBottom from '../../../assets/icon/mask-bottom.png'
 import maskTop from '../../../assets/icon/mask-top.png'
-import mira from '../../../assets/icon/mira.png'
+import NoPhotoIcon from '../../../assets/icon/big-card-alt.png'
 import ball from '../../../assets/icon/ball.svg'
 import shoes from '../../../assets/icon/shoes.svg'
 
@@ -36,7 +36,7 @@ function PlayerCard({cardLine, player}) {
         <div className='player-card'>
             {!!player && player.player.is_accept_photo && player.player.overlay_photo ?
                 <img src={serverUrl + player.player.overlay_photo} className='player-card__img' alt="player" />
-                : <img src={mira} className='player-card__img' alt="player" />
+                : <img src={NoPhotoIcon} className='player-card__img' alt="player" />
             }
 
             <img src={maskBottom} className='player-card__mask-bottom' alt="mask" />
