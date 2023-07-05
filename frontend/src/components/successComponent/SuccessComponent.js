@@ -14,7 +14,7 @@ export default function SuccessComponent ({
 
      useEffect(() => {
         if (isOpen) {
-            windowRef.current.parentNode.parentNode.style.zIndex = 1000;
+            windowRef.current.parentNode.parentNode.style.zIndex = 1010;
         }
     }, [windowRef.current])
 
