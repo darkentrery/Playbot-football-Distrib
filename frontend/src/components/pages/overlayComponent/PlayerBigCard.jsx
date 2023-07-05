@@ -14,7 +14,7 @@ const PlayerBigCard = ({game}) => {
         setUser(player)
         setShow(true)
         setTimeout(() => {
-            // setShow(false)
+            setShow(false)
         }, 5000)
     }, [memoizedGoalsLength])
 
