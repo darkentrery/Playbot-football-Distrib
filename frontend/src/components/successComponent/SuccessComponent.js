@@ -13,10 +13,12 @@ export default function SuccessComponent ({
     const windowRef = useRef();
 
      useEffect(() => {
-        if (isOpen) {
-            windowRef.current.parentNode.parentNode.style.zIndex = 1010;
+         console.log(windowRef.current);
+        if (isOpen && windowRef.current) {
+            console.log(windowRef.current.parentNode.parentNode);
+            windowRef.current.parentNode.parentNode.style.zIndex = 1000;
         }
-    }, [windowRef.current])
+    }, [windowRef.current, isOpen])
 
     const closeWindow = () => {
         closeSuccess();
