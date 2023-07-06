@@ -72,18 +72,16 @@ export const FormEventComponent = ({
     const [publicInChannel, setPublicInChannel] = useState(null);
     const [publicInChannelError, setPublicInChannelError] = useState(false);
     const [channels, setChannels] = useState([]);
-    const [genders, setGenders] = useState([1, 2]);
     const [delayedTimeError, setDelayedTimeError] = useState(false);
     const [ageLimitError, setAgeLimitError] = useState(false);
     const [anonseError, setAnonseError] = useState(false);
 
     // need backend -->
 
-    const [ratingLimit, setRatingLimit] = useState([0, 5000]); // [0, 25] min
-    // const [anonseList, setAnonseList] = useState(['Lenta']) // anonse list - может быть пустым [] или с данными куда пост выкатить ['Lenta', 'Telegram']
-    const [delayedTime, setDelayedTime] = useState({ 'date': false, 'time': false }); // date - 01.03.2022  time - 17:01 UTC
-    const [matchDuration, setMatchDuration] = useState(false); // в минутах 30, 60 и тд, если false то без времени
-    const [ageLimit, setAgeLimit] = useState([0, 0]); // [0, 100], может быть [18, false] - это от 18 лет или [false, 30] - до 30 лет
+    const [ratingLimit, setRatingLimit] = useState([0, 5000]);
+    const [delayedTime, setDelayedTime] = useState({ 'date': false, 'time': false });
+    const [matchDuration, setMatchDuration] = useState(false);
+    const [ageLimit, setAgeLimit] = useState([0, 0]);
 
     const refDate = useRef();
     const refTime = useRef();
@@ -304,6 +302,7 @@ export const FormEventComponent = ({
         setTime(date);
     }
 
+    const accordionIsOpen = (genderError || ageLimitError) ? true : false
     return (
         <div className={`form-event-component scroll ${className}`}>
             <div onClick={closeWindow} className={"btn-close"}></div>
@@ -385,7 +384,7 @@ export const FormEventComponent = ({
                     </div>
                 </div>
             </div>
-            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={false}>
+            <AccordionWrapper wrapperClasses="formEvent__accordion" defaultValue={false} isError={accordionIsOpen}>
                 <div className="formEvent__gender-and-age">
                     <div className={"formEvent__age-limit" + (genderError ? " formEvent__gender-error" : "")}>
                         <span className="text-footnote">Пол</span>
