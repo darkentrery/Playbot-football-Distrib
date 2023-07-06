@@ -20,6 +20,7 @@ from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, 
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
     UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer, \
     UpdateUserPhotoErrorsSerializer, FirstLoginSerializer
+from playbot.users.tasks import send_photo_to_moderation_task
 from playbot.users.utils import parse_init_data, save_upload_photo
 
 
@@ -306,6 +307,7 @@ class CheckUserPhotoView(APIView):
                 user = save_upload_photo(request.data["upload_photo"], user)
                 output_photo = ""
                 errors = [{"name": "Local environ!"}]
+                # send_photo_for_moderation(user)
                 if settings.UNIX_OS:
                     from playbot.users.avatar_service import check_photo
                     errors, photos = check_photo(user)
@@ -335,7 +337,8 @@ class ConfirmUserPhotoView(APIView):
                 user.is_accept_photo = True
                 user.save()
             else:
-                send_photo_for_moderation(user)
+                send_photo_to_moderation_task.apply_async(args=[user.id], countdown=3)
+                # send_photo_for_moderation(user)
             return Response({}, status=status.HTTP_200_OK)
         return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
 
