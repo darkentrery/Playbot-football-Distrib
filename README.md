@@ -23,6 +23,8 @@ playbot/fixtures/coverage_type.json playbot/fixtures/field_type.json playbot/fix
 
 `sudo systemctl restart gunicorn_recalculation`
 
+`sudo nano /etc/systemd/system/gunicorn.service`
+
 `sudo nano /etc/nginx/sites-available/playbot_football.conf`
 
 `sudo systemctl restart nginx`

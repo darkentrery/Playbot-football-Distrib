@@ -2,9 +2,16 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import React from "react";
 import ProfileRoutes from "../../routes/ProfileRoutes";
+import {useDispatch} from "react-redux";
+import {loginWindow} from "../../redux/actions/actions";
 
 
 export default function BottomComponent ({user, isIPhone}) {
+    const dispatch = useDispatch();
+
+    const toLogin = () => {
+        dispatch(loginWindow(true));
+    }
 
     return(
         <div className={`bottom-component ${isIPhone ? 'safari-margin' : ''}`}>
@@ -103,11 +110,14 @@ export default function BottomComponent ({user, isIPhone}) {
                     className={`elem orange-600-11 orange-statistic-icon ${window.location.pathname === `${BaseRoutes.statistic}` ? '' : 'disabled'}`}
                     to={BaseRoutes.statistic}
                 >Лидеры</Link>
-                <Link
-                    className={`elem orange-600-11 orange-avatar-icon 
-                    ${user && window.location.pathname.includes("profile") ? '' : 'disabled'}`}
-                    to={user ? ProfileRoutes.myProfileLink(user.id) : BaseRoutes.main}
-                >Профиль</Link>
+                {!!user
+                    ? <Link
+                        className={`elem orange-600-11 orange-avatar-icon 
+                        ${user && window.location.pathname.includes("profile") ? '' : 'disabled'}`}
+                        to={user ? ProfileRoutes.myProfileLink(user.id) : BaseRoutes.main}
+                    >Профиль</Link>
+                    : <div className={`elem orange-600-11 orange-avatar-icon disabled`} onClick={toLogin}>Профиль</div>
+                }
             </div>
         </div>
     )
