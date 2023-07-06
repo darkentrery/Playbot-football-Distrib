@@ -1,5 +1,5 @@
 import './AccordionWrapper.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const AccordionWrapper = ({
     defaultValue = false,
@@ -7,13 +7,20 @@ export const AccordionWrapper = ({
     contentClasses = '',
     wrapperClasses = '',
     actionElClasses = '',
+    isError = false,
   }) => {
-    const [isExpanded, setExpanded] = useState(defaultValue);
+    const [isExpanded, setIsExpanded] = useState(defaultValue);
   
     const handleClick = () => {
-      setExpanded(!isExpanded);
+      setIsExpanded(!isExpanded);
     };
   
+    useEffect(() => {
+      if (isError && !isExpanded) {
+        setIsExpanded(true)
+        isError = false;
+      }
+    }, [isError])
     return (
       <div className={'accordion__wrapper ' + wrapperClasses}>
         <p onClick={handleClick} className={'accordion__wrapper-action ' + actionElClasses + (isExpanded && 'accordion__wrapper-action--active')}>
