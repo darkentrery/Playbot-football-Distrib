@@ -94,6 +94,11 @@ export const OverlayPage = ({user}) => {
             onClose: () => {
                 console.log('Disconnected!');
             },
+            onError: (e) =>  {
+                console.log("I have error")
+                console.log(e)
+            },
+            shouldReconnect: true,
             onMessage: (e) => {
                 const data = JSON.parse(e.data);
                 switch (data.type) {
