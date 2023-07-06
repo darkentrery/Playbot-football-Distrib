@@ -16,7 +16,7 @@ const PlayerBigCard = ({game}) => {
         setUser(player)
         setShow(true)
         setTimeout(() => {
-            // setShow(false)
+            setShow(false)
         }, 5000)
     }, [memoizedGoalsLength])
 
@@ -33,29 +33,20 @@ const PlayerBigCard = ({game}) => {
                         {user && user.is_accept_photo && user.photo ?
                             // eslint-disable-next-line react/prop-types
                             <img src={serverUrl + user.photo} className='overlay__big-player-card-user-img' alt="player" />
-                            : <img src={TestIcon} className='overlay__big-player-card-user-img' alt="player" style={{marginBottom: "2vh"}}/>
+                            : <img src={NoPhotoIcon} className='overlay__big-player-card-user-img' alt="player" style={{marginBottom: "2vw"}}/>
                         }
                         <div className="overlay__big-player-card-top-position">
-                            FW
+                            {position1}
                         </div>
                         <div className="overlay__big-player-card-top-fog"></div>
                     </div>
                     <div className="overlay__big-player-card-bottom-name">
-                        Zagrebalski
+                        {user?.username}
                     </div>
                 </div>
             </div>
         )}
         </>
-        /* {user?.username}  {position1}  */
-
-        /* 
-                        {user && user.is_accept_photo && user.photo ?
-                            // eslint-disable-next-line react/prop-types
-                            <img src={serverUrl + user.photo} className='player-card-photo' alt="player" />
-                            : <img src={NoPhotoIcon} className='player-card-photo' alt="player" style={{bottom: 100}}/>
-                        }
-        */
     )
 }
 

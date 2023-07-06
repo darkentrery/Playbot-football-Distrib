@@ -143,7 +143,9 @@ export const OverlayPage = ({user}) => {
         [ReadyState.CLOSED]: 'Closed',
         [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
     }[readyState];
-
+    console.log(connectionStatus);
+    console.log(event)
+    console.log(game)
     return (
         <div className={'overlay-wrapper ' + ((!event?.is_begin || event?.all_games_finished) && ("hide-overlay"))}>
             {(event && game) && (
