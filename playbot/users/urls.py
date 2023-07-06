@@ -14,6 +14,7 @@ urlpatterns = [
     re_path(r"^rules/", views.IndexView.as_view(), name='index-rules'),
     re_path(r"^profile/", views.IndexView.as_view(), name='index-profile'),
     re_path(r"^confirm-sign-up/", views.IndexView.as_view(), name='index-sign-up'),
+    re_path(r"^overlay/", views.IndexView.as_view(), name='index-overlay'),
     path("apple-login", views.IndexView.as_view(), name='apple-login-view'),
     path("login/", views.IndexView.as_view(), name='index'),
     path("sign-up/", views.IndexView.as_view(), name='index'),
