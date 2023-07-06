@@ -11,9 +11,6 @@ def main() -> None:
     django.setup()
 
     from scripts.recalculate import recalculate
-    from scripts.test import send_photo_for_moderation
-
-    send_photo_for_moderation()
 
     while True:
         recalculate()
