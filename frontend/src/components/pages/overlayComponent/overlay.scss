@@ -453,10 +453,10 @@
   
   @keyframes fadeOutBigCardAnimation {
     10% {
-      transform: translate(-340px, -60%);
+      transform: translate(-32vw, -60%);
     }
     90% {
-      transform: translate(-340px, -60%);
+      transform: translate(-32vw, -60%);
     }
     100% {
       transform: translate(300px, -60%)
@@ -467,7 +467,7 @@
     position: absolute;
     z-index: 999;
     // right: -300px;
-    right: 30px;
+    right: -511px;
     top: 50%;
     transform: translate(0px, -60%);
     animation: fadeOutBigCardAnimation;
@@ -604,12 +604,12 @@
     background: #f7f4ed;
     border-radius: 1.041666vw;
     box-shadow: -0.0510417vw 0.204166vw 0.204166vw rgba(48,38,29,.8), -0.204166vw 0.510417vw 0.408332vw rgba(39,39,39,.35), inset 0.102083vw -0.0510417vw 0.204166vw rgba(0,0,0,.2);
-    padding: 0.911458vw;
+    padding: 0.711458vw;
   }
   
   .overlay__big-player-card {
     position: relative;
-    border: 0.510417vw solid #edc49f;
+    border: 0.450417vw solid #edc49f;
     border-radius: 0.911458vw;
     overflow: hidden;
     width: max-content;
@@ -623,18 +623,18 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 45.21875vh;
-    width: 19.453125vw;
-    background-size: 20.453125vw 45.21875vh;
+    height: 30.21875vw;
+    width: 21.253125vw;
+    background-size: 22.253125vw 30.01875vw;
   }
   
   .overlay__big-player-card-bottom-name {
     text-align: center;
-    margin-bottom: 1.984375vh;
-    margin-top: 1.984375vh;
+    margin-bottom: 1.184375vw;
+    margin-top: -1.915625vw;
     color: #e2b184;
     font-family: "Fira Sans";
-    font-size: 1.965vw;
+    font-size: 2.465vw;
     font-style: normal;
     font-weight: 700;
     max-width: 22.135417vw;
@@ -642,6 +642,12 @@
     text-align: center;
     text-overflow: ellipsis;
     text-transform: uppercase;
+    position: relative;
+    z-index: 5;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0.03vw;
+
   }
   
   .overlay__big-player-card-top-position {
@@ -650,17 +656,28 @@
     font-weight: 700;
     position: absolute;
     right: 0.78125vw;
-    top: 0.571875vw;
-    font-size: 1.4vw;
+    top: 0.371875vw;
+    font-size: 1.6vw;
   }
   
   .overlay__big-player-card-user-img {
     object-fit: contain;
     margin: auto auto 0 auto;
-    max-width: 18.75vw;
-    min-width: 19.3vw;
+    width: 100%;
+    padding-bottom: 2.8vw;
   }
   
+  .overlay__big-player-card-top-fog {
+    background-color: #f7f4ed;
+    border-radius: 20px;
+    bottom: -3.3vw;
+    filter: blur(29px);
+    height: 153px;
+    left: -13px;
+    position: absolute;
+    width: 142%;
+    height: 9.4vw;
+  }
   
   
   
