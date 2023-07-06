@@ -256,7 +256,11 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
 
     const { sendJsonMessage } = useWebSocket(
         user.isAuth && game ? `${SOCKET_URL}event-game/${game.id}/` : null,
-        {
+        {   
+            shouldReconnect: true,
+            onError: (e) => {
+                console.log("socket is broken: ", e)
+            },
             queryParams: {
                 Authorization: user.isAuth
                     ? `Bearer ${localStorage.getItem('access_token')}`
@@ -282,6 +286,10 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 Refresh: user.isAuth
                     ? `${localStorage.getItem('refresh_token')}`
                     : '',
+            },
+            shouldReconnect: true,
+            onError: (e) => {
+                console.log("socket is borken: ", e);
             },
             onOpen: () => {
                 console.log('Connected!');
