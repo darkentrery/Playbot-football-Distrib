@@ -2,10 +2,14 @@ import {Link, useParams} from "react-router-dom";
 import NoPhotoIcon from "../../assets/icon/mira.png"
 import './UserProfileHeader.scss';
 import ProfileRoutes from "../../routes/ProfileRoutes";
+import { calculateAge } from "../../utils/dates";
 
 export const UserProfileHeader = ({ username, photo, rating, ratingPlace, age, isProfileOwner }) => {
     const {pk} = useParams()
     
+    const date = new Date(age)
+    age = calculateAge(date)
+
     return (
         <div className="user-profile__header-376">
             <div className="user-profile__header-user-photo-wrapper-376">

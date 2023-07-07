@@ -2,51 +2,41 @@ import './UserProfileStats.scss';
 
 export const UserProfileStats = ({ wins, draw, lose, winRate, goals, assists, totalGames }) => {
 
-    if (totalGames === 0 || totalGames === undefined) {
-        return null;
-    }
+
     return (
         <div className="user-profile__stats-376">
             <div className="user-profile__stats-title-376">
                 Статистика
             </div>
             <div className="user-profile__stats-list-376">
-                
-                {wins !== 0 && (
-                    <div className="user-profile__stats-item-376">
-                        {wins}
-                        <div style={{ background: "#72C140" }} className="user-profile__stats-item-right-ballon-376">
 
-                        </div>
+                <div className="user-profile__stats-item-376">
+                    {wins}
+                    <div style={{ background: "#72C140" }} className="user-profile__stats-item-right-ballon-376">
+
                     </div>
-                )}
+                </div>
 
-                {draw !== 0 && (
-                    <div className="user-profile__stats-item-376">
-                        {draw}
-                        <div style={{ background: "#EFB041" }} className="user-profile__stats-item-right-ballon-376">
+                <div className="user-profile__stats-item-376">
+                    {draw}
+                    <div style={{ background: "#EFB041" }} className="user-profile__stats-item-right-ballon-376">
 
-                        </div>
                     </div>
-                )}
+                </div>
 
-                {lose !== 0 && (
-                    <div className="user-profile__stats-item-376">
-                        {lose}
-                        <div style={{ background: "#EC5B56" }} className="user-profile__stats-item-right-ballon-376">
+                <div className="user-profile__stats-item-376">
+                    {lose}
+                    <div style={{ background: "#EC5B56" }} className="user-profile__stats-item-right-ballon-376">
 
-                        </div>
                     </div>
-                )}
+                </div>
 
-                {totalGames !== 0 && (
-                    <div className="user-profile__stats-item-376">
-                        {winRate}%
-                        <span className='user-profile__stats-item-text-16-376'>
-                            WR
-                        </span>
-                    </div>
-                )}
+                <div className="user-profile__stats-item-376">
+                    {winRate}%
+                    <span className='user-profile__stats-item-text-16-376'>
+                        WR
+                    </span>
+                </div>
 
                 {goals !== 0 && (
                     <div className="user-profile__stats-item-376">

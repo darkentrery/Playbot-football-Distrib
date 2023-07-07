@@ -35,7 +35,7 @@ export const MyProfileComponent = ({
                 username={event.player.username}
                 photo={event.player.small_card_photo} rating={300}
                 ratingPlace={event.player.ranking_place}
-                age={"backend"}
+                age={event.player.birthday}
                 isProfileOwner={isProfileOwner}
             />
 

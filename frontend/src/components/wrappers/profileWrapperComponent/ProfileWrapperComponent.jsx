@@ -2,7 +2,7 @@ import HeadComponent from "../../headComponent/HeadComponent";
 import BottomComponent from "../../bottomComponent/BottomComponent";
 import React, { useEffect } from "react";
 import { ProfileAsideComponent } from "../../profileAsideComponent/ProfileAsideComponent";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ProfileRoutes from "../../../routes/ProfileRoutes";
 import { authService } from "../../../services/AuthService";
 import { useDispatch } from "react-redux";
@@ -43,13 +43,18 @@ export const ProfileWrapperComponent = ({
         dispatch(openLoadUserPhotoPopupAsAdmin())
     }
     console.log(state.event.player)
+
+    const location = useLocation()
+    console.log(location.pathname)
+    let isPersonalDataPage = location.pathname.includes("personal-data")
+    console.log(isPersonalDataPage)
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs} />
             <div className={"profile-wrapper-component"}>
                 {children}  
             </div>
-            <div className={`profile-wrapper-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
+            <div className={`profile-wrapper-component-376 ${app.isIPhone ? 'safari-margin' : ''} ${isPersonalDataPage ? "bg-white" : ""}`}>
                {children}
             </div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone} />

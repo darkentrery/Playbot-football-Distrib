@@ -107,6 +107,9 @@
     background-color: #F3F3F3;
     padding: 0px 16px;
     padding-bottom: 50px;
+    &.bg-white {
+        background-color: #FFFFFF;
+    }
 }
 
 // by zagrebalski mobile 376 start
@@ -190,6 +193,7 @@
         display: flex;
         flex-direction: column;
     }
+
     .profile-wrapper-component {
         min-height: calc(100% - 96px - 323px);
         .only-desktop {
@@ -243,6 +247,18 @@
             display: none !important;
         }
     }
+
+    .profile-personal-data-component {
+        .fields-form {
+            padding-top: 0px;
+        }
+        .photo-bar {
+            > span {
+                display: none;
+            }
+        }
+    }
+
     .admin-profile-actions-744 {
         display: none;
     }
