@@ -19,7 +19,7 @@ from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, 
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
     UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, PhotoErrorSerializer, \
-    UpdateUserPhotoErrorsSerializer, FirstLoginSerializer
+    UpdateUserPhotoErrorsSerializer, FirstLoginSerializer, UserPhotosSerializer
 from playbot.users.utils import parse_init_data, save_upload_photo
 
 
@@ -180,6 +180,14 @@ class GetUsersView(APIView):
 
     def get(self, request, format='json', **kwargs):
         json = UserListSerializer(User.objects.all(), many=True).data
+        return Response(json, status=status.HTTP_200_OK)
+
+
+class GetUserPhotosView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format='json', **kwargs):
+        json = UserPhotosSerializer(instance=User.objects.get(pk=kwargs.get("pk"))).data
         return Response(json, status=status.HTTP_200_OK)
 
 

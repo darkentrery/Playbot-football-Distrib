@@ -120,6 +120,17 @@ class UserListSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+class UserPhotosSerializer(serializers.ModelSerializer):
+    position_1 = PositionSerializer(read_only=True)
+    position_2 = PositionSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "photo", "position_1", "position_2", "small_card_photo", "overlay_photo",
+                  "big_card_photo", "is_accept_photo"]
+        read_only_fields = fields
+
+
 class UpdateUserSerializer(serializers.ModelSerializer):
     position_1 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
     position_2 = serializers.SlugRelatedField(slug_field="name", queryset=Position.objects.all(), required=False)
