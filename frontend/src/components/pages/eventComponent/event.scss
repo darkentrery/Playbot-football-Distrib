@@ -43,6 +43,9 @@
 }
 
 .event-action__orange-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Raleway';
   font-size: 16px;
   background-color: #D19C6C;
