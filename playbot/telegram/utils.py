@@ -186,7 +186,7 @@ async def send_photo_for_moderation(user: User) -> None:
             kb = types.InlineKeyboardMarkup()
             kb.row(types.InlineKeyboardButton("✅ Одобрить", callback_data=f"playerAvatarVerify_{user.id}"))
             kb.row(types.InlineKeyboardButton("❌ Отклонить", callback_data=f"playerAvatarDecline_{user.id}"))
-            await bot.send_message(chat_id=moderation, text=url, parse_mode="html",  reply_markup=kb)
+            await bot.send_message(chat_id=moderation, text=f'<a href="{url}">{user.username or user.email}</a>', parse_mode="html",  reply_markup=kb)
             logger.info(f"Success for {moderation=}")
 
         if bot_is_member.status in ["left", "kicked"]:
