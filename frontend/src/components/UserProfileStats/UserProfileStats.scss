@@ -1,0 +1,57 @@
+.user-profile__stats-title-376 {
+    color: #1B1B1B;
+    font-family: "Fira Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.user-profile__stats-list-376 {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.user-profile__stats-item-376 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 20px;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    color: #1B1B1B;
+
+    font-family: "Fira Sans";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+
+    box-shadow: 4px 5px 10px 10px rgba(0, 0, 0, 0.10);
+}
+
+.user-profile__stats-item-text-16-376 {
+    font-family: "Fira Sans";
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.user-profile__stats-item-goals-plus-pass-376 {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+
+    color: #949494;
+    font-family: "Raleway";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.user-profile__stats-item-right-ballon-376 {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}

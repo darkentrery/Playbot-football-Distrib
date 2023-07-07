@@ -101,6 +101,81 @@
     }
 }
 
+.profile-wrapper-component-376 {
+    flex-direction: column;
+    background-color: #F3F3F3;
+    padding: 0px 16px;
+}
+
+// by zagrebalski mobile 376 start
+.user-profile__header-376 {
+    margin-top: 20px;
+
+    
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+}
+
+.user-profile__header-info-stats-376 {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-profile__header-info-stat-376 {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.user-profile__header-user-photo-wrapper-376 {
+    display: flex;
+    border-radius: 3.73px;
+    background: #F3F3F3;
+    border: 3px solid #EDC49F;
+    box-shadow: 0.3727928102016449px -0.18639640510082245px 0.7455856204032898px 0px rgba(0, 0, 0, 0.20) inset;
+    filter: drop-shadow(-0.7455856204032898px 1.8639639616012573px 1.4911712408065796px rgba(39, 39, 39, 0.35)) drop-shadow(-0.18639640510082245px 0.7455856204032898px 0.7455856204032898px rgba(48, 38, 29, 0.80));
+    width: 116px;
+    height: 146px;
+    img {
+        width: 100%;
+        margin-top: auto;
+        object-fit: contain;
+    }
+    
+}
+
+.user-profile__header-info-name-376 {
+    color: $blackColor;
+    font-family: "Fira Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.user-profile__header-info-stat-name-376 {
+    color: $grayColor;
+    font-family: "Fira Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.user-profile__header-info-stat-value-376 {
+    color: $blackColor;
+    font-family: "Raleway";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+// by zagrebalski mobile 376 end
+
 @media screen and (min-width: 1280px) {
     .profile-wrapper-component {
         min-height: calc(100vh - 96px - 224px);
