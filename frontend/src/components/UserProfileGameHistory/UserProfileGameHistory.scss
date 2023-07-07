@@ -1,0 +1,54 @@
+.user-profile__game-history-title {
+    margin-top: 24px;
+    color: #1B1B1B;
+    font-family: "Fira Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.user-profile__game-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 12px;
+
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 4px 5px 10px 10px rgba(0, 0, 0, 0.10);
+}
+
+.user-profile__game-history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-family: "Fira Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 14px;
+}
+
+.user-profile__game-history-date {
+    width: 56px;
+}
+
+.user-profile__game-history-format {
+    width: 25px;
+}
+
+.user-profile__game-history-field {
+    width: 122px;
+}
+
+.user-profile__game-history-elo {
+    width: 25px;
+    &.green {
+        color: #72C140;
+    }
+    &.red {
+        color: #EC5B56;
+    }
+}

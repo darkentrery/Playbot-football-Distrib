@@ -9,10 +9,12 @@ export const UserProfileAchievements = () => {
                 Достижения
             </div>
             <div className="user-profile__achiev-list-376">
-                <img src={TempAchievIcon} alt="" width={78} height={100}/>
-                <img src={TempAchievIcon} alt="" width={78} height={100}/>
-                <img src={TempAchievIcon} alt="" width={78} height={100}/>
-                <img src={TempAchievIcon} alt="" width={78} height={100}/>
+                <img src={TempAchievIcon} alt="achiev" width={48} height={61}/>
+                <img src={TempAchievIcon} alt="achiev" width={48} height={61}/>
+                <img src={TempAchievIcon} alt="achiev" width={48} height={61}/>
+                <img src={TempAchievIcon} alt="achiev" width={48} height={61}/>
+                <img src={TempAchievIcon} alt="achiev" width={48} height={61}/>
+                <img src={TempAchievIcon} alt="achiev" width={48} height={61}/>
             </div>
         </div>
     )

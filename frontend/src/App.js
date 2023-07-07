@@ -212,7 +212,6 @@ function App({state, funcs}) {
                     <Route exact path={EventRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
                     <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
                     <Route exact path={ProfileRoutes.profileMyEvents} element={<VisibleMyEventsPage/>}/>
-                    <Route exact path={ProfileRoutes.profileFavorites} element={<VisibleFavorites/>}/>
                     <Route exact path={ProfileRoutes.profilePersonalData} element={<VisibleProfilePersonalData/>}/>
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
                     <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>

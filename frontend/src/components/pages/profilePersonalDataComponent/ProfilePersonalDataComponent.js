@@ -160,7 +160,7 @@ export const ProfilePersonalDataComponent = ({
         <VisibleProfileWrapper>
             <div className={`profile-personal-data-component ${!player || !user ? 'loader' : ''}`}>
                 {player && user && <>
-                    <Profile376MenuComponent pk={user.id}/>
+
                     <div className={"top-bar"}>
                         <span className={`elem-1-1280 btn ${update ? 'disabled' : ''}`} onClick={updateUser}>Сохранить изменения</span>
                         <span className={`elem-1-744 btn ${update ? 'disabled' : ''}`} onClick={updateUser}>Сохранить</span>

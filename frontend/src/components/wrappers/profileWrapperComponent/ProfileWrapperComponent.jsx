@@ -7,10 +7,7 @@ import ProfileRoutes from "../../../routes/ProfileRoutes";
 import { authService } from "../../../services/AuthService";
 import { useDispatch } from "react-redux";
 import { openLoadUserPhotoPopupAsAdmin } from "../../../redux/reducers/loadPhotoReducer";
-import { UserProfileHeader } from "../../UserProfileHeader/UserProfileHeader";
-import { UserProfilePins } from "../../UserProfilePins/UserProfilePins";
-import { UserProfileStats } from "../../UserProfileStats/UserProfileStats";
-import { UserProfileAchievements } from "../../UserProfileAchievements/UserProfileAchievements";
+
 
 
 export const ProfileWrapperComponent = ({
@@ -45,18 +42,15 @@ export const ProfileWrapperComponent = ({
     const handleAdminUserPhotoLoad = () => {
         dispatch(openLoadUserPhotoPopupAsAdmin())
     }
-
+    console.log(state.event.player)
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs} />
             <div className={"profile-wrapper-component"}>
-                
+                {children}  
             </div>
             <div className={`profile-wrapper-component-376 ${app.isIPhone ? 'safari-margin' : ''}`}>
-               <UserProfileHeader/>
-               <UserProfilePins/>
-               <UserProfileStats/>
-               <UserProfileAchievements/>
+               {children}
             </div>
             <BottomComponent user={state.user.user} isIPhone={app.isIPhone} />
         </main>

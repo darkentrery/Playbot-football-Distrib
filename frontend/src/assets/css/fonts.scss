@@ -34,6 +34,13 @@
 }
 
 @font-face {
+  font-family: "Fira Sans";
+  src: url('../fonts/FiraSans/FiraSans-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Inter";
   src: url('../fonts/Inter-Regular.woff') format('woff');
   font-weight: 400;
