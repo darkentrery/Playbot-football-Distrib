@@ -18,9 +18,8 @@ from playbot.users.models import User, RankHistory, PhotoError
 from playbot.users.serializers import LoginSerializer, LoginTelegramSerializer, SignUpSerializer, \
     RefreshPasswordSerializer, UserSerializer, UpdateUserSerializer, \
     UpdatePasswordSerializer, UserListSerializer, UserIsAuthSerializer, LoginAppleSerializer, SignUpAppleSerializer, \
-    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, UpdatePhotoSerializer, PhotoErrorSerializer, \
+    UpdatePhotoUsernameSerializer, LoginTelegramAppSerializer, PhotoErrorSerializer, \
     UpdateUserPhotoErrorsSerializer, FirstLoginSerializer
-from playbot.users.tasks import send_photo_to_moderation_task
 from playbot.users.utils import parse_init_data, save_upload_photo
 
 
