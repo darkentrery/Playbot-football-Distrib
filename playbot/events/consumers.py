@@ -94,11 +94,10 @@ class EventGameConsumer(AsyncJsonWebsocketConsumer):
         if serializer.is_valid():
             goal = serializer.save()
             if goal:
-                if self.game.game_periods.filter(time_end=None).exists():
-                    period = self.game.game_periods.filter(time_end=None).last()
-                    period.time_end = goal.time
-                    period.save()
+                if self.game.game_periods.exclude(time_end=None).exists():
+                    period = self.game.game_periods.exclude(time_end=None).last()
                     goal.game_time = self.game.current_duration
+                    goal.time = period.time_end
                     goal.save()
 
     @sync_to_async

@@ -179,13 +179,14 @@ async def send_photo_for_moderation(user: User) -> None:
             # with open(user.photo.path, "rb") as photo:
             #     img = BytesIO(photo.read())
             #     img.name = "card.png"
-            img = await do_web_page_screenshot(urls="https://pbxbot.korobkaplay.ru/getPlayerCardPic?userID=1&all=1&unverified=1")
-            img = BytesIO(img[0])
-            img.name = 'card.png'
+            # img = await do_web_page_screenshot(urls="https://pbxbot.korobkaplay.ru/getPlayerCardPic?userID=1&all=1&unverified=1")
+            # img = BytesIO(img[0])
+            # img.name = 'card.png'
+            url = f"https://pbxbot.korobkaplay.ru/getPlayerCardPic?userID={user.id}&all=1&unverified=1"
             kb = types.InlineKeyboardMarkup()
             kb.row(types.InlineKeyboardButton("✅ Одобрить", callback_data=f"playerAvatarVerify_{user.id}"))
             kb.row(types.InlineKeyboardButton("❌ Отклонить", callback_data=f"playerAvatarDecline_{user.id}"))
-            await bot.send_document(chat_id=moderation, document=img, reply_markup=kb)
+            await bot.send_message(chat_id=moderation, text=url, parse_mode="html",  reply_markup=kb)
             logger.info(f"Success for {moderation=}")
 
         if bot_is_member.status in ["left", "kicked"]:

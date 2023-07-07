@@ -337,8 +337,8 @@ class ConfirmUserPhotoView(APIView):
                 user.is_accept_photo = True
                 user.save()
             else:
-                send_photo_to_moderation_task.apply_async(args=[user.id], countdown=3)
-                # send_photo_for_moderation(user)
+                # send_photo_to_moderation_task.apply_async(args=[user.id], countdown=3)
+                send_photo_for_moderation(user)
             return Response({}, status=status.HTTP_200_OK)
         return Response({"error": "Permissions denied!"}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -59,7 +59,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
 
     useEffect(() => {
         if (game && event) {
-            if (!restTime) {
+            // if (!restTime) {
                 let currentDuration = game.current_duration_without_last;
                 if (game.last_time_begin) {
                     let time = new Date(game.last_time_begin);
@@ -70,7 +70,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 let minutes = ((currentDuration - seconds) / 60);
                 setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
                 setRestTime(event.duration.duration * 60 - currentDuration);
-            }
+            // }
             if (isPlay === null) setIsPlay(game.is_play);
         }
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -83,17 +83,17 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         )
     }
 
-    useEffect(() => {
-        if (restTimeEnd && restTimeEnd > restTime) {
-            // console.log(restTime)
-            // console.log(restTimeEnd)
-            let seconds = (event.duration.duration * 60 - restTimeEnd) % 60;
-            let minutes = (((event.duration.duration * 60 - restTimeEnd) - seconds) / 60);
-            setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-            setRestTime(restTimeEnd);
-            setRestTimeEnd(false);
-        }
-    }, [restTime, restTimeEnd])
+    // useEffect(() => {
+    //     if (restTimeEnd && restTimeEnd > restTime) {
+    //         // console.log(restTime)
+    //         // console.log(restTimeEnd)
+    //         let seconds = (event.duration.duration * 60 - restTimeEnd) % 60;
+    //         let minutes = (((event.duration.duration * 60 - restTimeEnd) - seconds) / 60);
+    //         setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+    //         setRestTime(restTimeEnd);
+    //         setRestTimeEnd(false);
+    //     }
+    // }, [restTime, restTimeEnd])
 
     useEffect(() => {
         if (isPlay && !game.time_end) {
@@ -188,11 +188,13 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     }
 
     const team1Goal = () => {
+        endGamePeriod();
         setIsOpen1(true);
         setIsOpen1Auto(false);
     }
 
     const team2Goal = () => {
+        endGamePeriod();
         setIsOpen2(true);
         setIsOpen2Auto(false);
     }
@@ -289,7 +291,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             },
             shouldReconnect: true,
             onError: (e) => {
-                console.log("socket is borken: ", e);
+                console.log("socket is broken: ", e);
             },
             onOpen: () => {
                 console.log('Connected!');
@@ -307,9 +309,18 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                         break;
                     case 'event_game_message':
                         console.log(data);
-                        funcs.setGame(data.game);
+                        // funcs.setGame(data.game);
                         funcs.setEvent(data.event);
                         funcs.setPlayerBlock(false);
+                        for (let g of data.event.event_games) {
+                            if (g.id === data.event.current_game_id) {
+                                funcs.setGame(g);
+                                console.log(g)
+                                if (!g.time_begin) {
+                                    setTimer("0000");
+                                }
+                            }
+                        }
                         break;
                     default:
                         console.error('Unknown message type!');

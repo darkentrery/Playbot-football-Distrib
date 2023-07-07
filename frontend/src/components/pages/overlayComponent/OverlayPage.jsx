@@ -126,7 +126,6 @@ export const OverlayPage = ({user}) => {
                         for (let g of data.event.event_games) {
                             if (g.id === data.event.current_game_id) {
                                 setGame(g);
-                                console.log(g)
                                 if (!g.time_begin) {
                                     setTimer("0000");
                                 }
