@@ -93,7 +93,7 @@ class User(AbstractUser):
         verbose_name_plural = "Users"
 
     def __str__(self):
-        return f"{self.email}" or f"{self.username}"
+        return self.email or self.username
 
     @property
     def all_games(self):
