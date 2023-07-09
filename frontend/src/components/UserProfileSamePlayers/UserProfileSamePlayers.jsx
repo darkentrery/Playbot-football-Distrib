@@ -3,6 +3,9 @@ import { UserProfileSamePlayersSingle } from "./UserProfileSamePlayersSingle"
 
 export const UserProfileSamePlayers = ({users}) => {
     users = users?.slice(0, 2)
+    if (!users?.length) {
+        return null;
+    }
     return (
         <div className="user-profile__same-players">
             <div className="user-profile__same-players-title">
