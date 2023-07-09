@@ -1,14 +1,13 @@
 import { useEffect, useState, useMemo } from "react"
 import { getShortRolePosition } from "../../../utils/translateRole"
 import NoPhotoIcon from '../../../assets/icon/big-card-alt.png'
-import TestIcon from '../../../assets/icon/temp-preview-photo.png'
 
 const PlayerBigCard = ({game}) => {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState(false)
     const [isFirstLoad, setIsFirstLoad] = useState(true)
     const memoizedGoalsLength = useMemo(() => game, [game.goals.length]);
-    const serverUrl = "http://127.0.0.1:8000";
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
     useEffect(() => {
         if (!game.goals.length || isFirstLoad) return
         const updatedGoals = [...game.goals];
