@@ -5,7 +5,7 @@ import ScoreTable from "../../overlay/ScoreTable/ScoreTable";
 import Teams from "../../overlay/Teams/Teams";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {eventService} from "../../../services/EventService";
-import PlayerBigCard from "./PlayerBigCard";
+import PlayerBigCard from "../../overlay/Teams/PlayerBigCard";
 import "./overlay.scss";
 
 
@@ -74,6 +74,21 @@ export const OverlayPage = ({user}) => {
                     clearTimeout(interval);
                 }
             }, 990);
+        } else if (!isPlay) {
+            if (game && event) {
+                let currentDuration = game.current_duration_without_last;
+                if (game.last_time_begin) {
+                    let time = new Date(game.last_time_begin);
+                    let additionalTime = Math.ceil((new Date() - time) / 1000);
+                    currentDuration += additionalTime;
+                }
+                let seconds = currentDuration % 60;
+                let minutes = ((currentDuration - seconds) / 60);
+                console.log(seconds, minutes)
+                setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+                setRestTime(event.duration.duration * 60 - currentDuration);
+                setIsPlay(game.is_play);
+            }
         }
     }, [restTime, isPlay])
 
@@ -151,7 +166,7 @@ export const OverlayPage = ({user}) => {
     console.log(event)
     console.log(game)
     return (
-        <div className={'overlay-wrapper ' + ((!event?.is_begin || event?.all_games_finished) && ("hide-overlay"))}>
+        <div className={`overlay-wrapper ${!event?.is_begin || event?.all_games_finished ? 'hide-overlay' : ''}`}>
             {(event && game) && (
                 <>
                     <main className="overlay-main">
