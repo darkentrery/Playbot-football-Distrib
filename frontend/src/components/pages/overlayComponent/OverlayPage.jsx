@@ -53,7 +53,6 @@ export const OverlayPage = ({user}) => {
             }
             let seconds = currentDuration % 60;
             let minutes = ((currentDuration - seconds) / 60);
-            console.log(seconds, minutes)
             setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
             setRestTime(event.duration.duration * 60 - currentDuration);
             setIsPlay(game.is_play);
@@ -84,7 +83,6 @@ export const OverlayPage = ({user}) => {
                 }
                 let seconds = currentDuration % 60;
                 let minutes = ((currentDuration - seconds) / 60);
-                console.log(seconds, minutes)
                 setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
                 setRestTime(event.duration.duration * 60 - currentDuration);
                 setIsPlay(game.is_play);
@@ -166,7 +164,7 @@ export const OverlayPage = ({user}) => {
     console.log(event)
     console.log(game)
     return (
-        <div className={`overlay-wrapper ${!event?.is_begin || event?.all_games_finished ? 'hide-overlay' : ''}`}>
+        <div className={`overlay-wrapper ${!event?.is_begin || event?.all_games_finished || (!!game && !game.time_begin) ? 'hide-overlay' : ''}`}>
             {(event && game) && (
                 <>
                     <main className="overlay-main">
@@ -176,7 +174,6 @@ export const OverlayPage = ({user}) => {
                     </main>
                     <Teams game={game} />
                     <PlayerBigCard game={game} />
-
                 </>
             )}
         </div>
