@@ -31,12 +31,16 @@ export const UserProfileStats = ({ wins, draw, lose, winRate, goals, assists, to
                     </div>
                 </div>
 
-                <div className="user-profile__stats-item-376">
-                    {winRate}%
-                    <span className='user-profile__stats-item-text-16-376'>
-                        WR
-                    </span>
-                </div>
+                {
+                    totalGames !== 0 && (
+                        <div className="user-profile__stats-item-376">
+                            {winRate}%
+                            <span className='user-profile__stats-item-text-16-376'>
+                                WR
+                            </span>
+                        </div>
+                    )
+                }
 
                 {goals !== 0 && (
                     <div className="user-profile__stats-item-376">
