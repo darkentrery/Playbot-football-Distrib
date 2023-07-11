@@ -19,7 +19,7 @@ export const SameEventComponent = ({
     }, [event])
     
     let fieldImage
-    if (event) {
+    if (event && event?.field) {
         if (event.field?.field_photos?.[0]?.photo ) {
             fieldImage = serverUrl + event.field.field_photos[0].photo
         } else {
@@ -30,7 +30,7 @@ export const SameEventComponent = ({
 
     return (
         <>
-            {event && 
+            {event && event?.field && 
             <Link className={`same-event ${className}`} to={BaseRoutes.eventLink(event.id)}>
                 <div className="same-event__top">
                     <img src={fieldImage} alt="field photo" />

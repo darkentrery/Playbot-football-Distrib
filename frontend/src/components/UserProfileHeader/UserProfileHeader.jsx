@@ -13,7 +13,7 @@ export const UserProfileHeader = ({ username, photo, rating, ratingPlace, age, i
 
     return (
         <div className="user-profile__header-376">
-            <div className="user-profile__header-user-photo-wrapper-376">
+            <div className="user-profile__header-user-photo-wrapper-376" style={{border: photo ? "none" : "", background: photo ? "none" : ""}}>
                 {photo
                     ? <img src={serverUrl + photo}/>
                     : <img src={NoPhotoIcon} style={{marginBottom: "auto"}}/>
