@@ -17,7 +17,7 @@ export const UserProfileGameHistory = ({ events }) => {
                         format={event.event.field.format.name}
                         fieldName={event.event.field.name}
                         date={event.event.date}
-                        rate={25} // TODO Корректное значение рейтинга
+                        rate={25} // TODO изменение рейтинга
                         key={event.event.id}
                         id={event.event.id}
                     />
