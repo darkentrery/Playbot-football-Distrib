@@ -54,6 +54,7 @@ export const CITY = 'CITY';
 export const COUNTRY = 'COUNTRY';
 
 export const IPHONE = 'PHONE';
+export const TELEGRAM_APP = 'TELEGRAM_APP';
 
 
 export const signUpWindow = (value) => ({
@@ -315,5 +316,10 @@ export const country = (value) => ({
 
 export const iphone = (value) => ({
   type: IPHONE,
+  value,
+});
+
+export const telegramApp = (value) => ({
+  type: TELEGRAM_APP,
   value,
 });

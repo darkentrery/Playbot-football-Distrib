@@ -2,15 +2,19 @@ import BaseRoutes from "../../routes/BaseRoutes";
 import {Link} from "react-router-dom";
 import React from "react";
 import ProfileRoutes from "../../routes/ProfileRoutes";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginWindow} from "../../redux/actions/actions";
 
 
 export default function BottomComponent ({user, isIPhone}) {
     const dispatch = useDispatch();
+    const {isTelegramApp} = useSelector(state => state.app);
 
     const toLogin = () => {
-        dispatch(loginWindow(true));
+        console.log(isTelegramApp)
+        if (!isTelegramApp) {
+            dispatch(loginWindow(true));
+        }
     }
 
     return(

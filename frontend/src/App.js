@@ -113,6 +113,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp.initData) {
+            funcs.setIsTelegramApp(true);
             authService.telegramAppLogin(window.Telegram.WebApp.initData).then(response => {
                 console.log(response)
                 if (response.status === 200) {
