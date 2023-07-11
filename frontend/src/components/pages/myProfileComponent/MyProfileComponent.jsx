@@ -97,3 +97,5 @@ export const MyProfileComponent = ({
         </>
     )
 }
+
+export default MyProfileComponent
