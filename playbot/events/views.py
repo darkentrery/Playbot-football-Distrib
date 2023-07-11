@@ -391,6 +391,7 @@ class AdminLeaveEventView(APIView):
                 if event.first_order_queue:
                     EventPlayer.objects.update_or_create(player=event.first_order_queue, event=event)
                     EventQueue.objects.get(player=event.first_order_queue).delete()
+                    event.notice_leave_event(request.user)
             else:
                 if event.event_queues.filter(player=user).exists():
                     EventQueue.objects.get(player=user, event=event).delete()
