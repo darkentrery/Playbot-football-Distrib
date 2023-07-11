@@ -63,6 +63,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             let seconds = currentDuration % 60;
             let minutes = ((currentDuration - seconds) / 60);
             setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+            console.log(event.duration.duration * 60 - currentDuration)
             setRestTime(event.duration.duration * 60 - currentDuration);
             setIsPlay(game.is_play);
         }
