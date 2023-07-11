@@ -211,6 +211,7 @@
     .fields-form {
       padding: 16px 0px;
       gap: 0 500px;
+      padding-bottom: 0px;
 
       .elem {
         flex: 1 1 auto;
@@ -251,9 +252,10 @@
       justify-content: space-between;
 
       .elem-1 {
-        flex: 0 0 190px;
+        flex: unset;
+        width: 100%;
         font-size: 14px;
-        padding: 10px 20px;
+        padding: 13.5px 20px;
       }
       .black-eye-icon {
         display: flex;

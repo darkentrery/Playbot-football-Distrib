@@ -64,8 +64,7 @@
                 border: 1px solid $orangeColor;
                 border-radius: 25px;
             }
-            .inactive {
-            }
+
             .end-game-link {
                 flex: 1 1 auto;
                 justify-content: end;
@@ -140,6 +139,7 @@
 
 .user-profile__header-user-photo-wrapper-376 {
     display: flex;
+    flex-shrink: 0;
     border-radius: 3.73px;
     background: #F3F3F3;
     border: 3px solid #EDC49F;

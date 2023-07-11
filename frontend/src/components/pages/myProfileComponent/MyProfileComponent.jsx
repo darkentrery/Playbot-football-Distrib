@@ -9,6 +9,7 @@ import { UserProfileNavMobile } from "../../UserProfileNavMobile/UserProfileNavM
 import { UserProfileGameHistory } from "../../UserProfileGameHistory/UserProfileGameHistory";
 import { UserProfileSamePlayers } from "../../UserProfileSamePlayers/UserProfileSamePlayers";
 import { useSelector } from "react-redux";
+import { UserProfileFutureGames } from "../../UserProfileFutureGames/UserProfileFutureGames";
 
 export const MyProfileComponent = ({
     player,
@@ -23,17 +24,20 @@ export const MyProfileComponent = ({
     const { event } = useSelector(state => state)
 
     let isProfileOwner = false;
-
     if (event.player.id === user.id) {
         isProfileOwner = true;
     }
+
     return (
         <VisibleProfileWrapper>
-            <UserProfileNavMobile />
+            {isProfileOwner
+                ? <UserProfileNavMobile type="myProfile" />
+                : <UserProfileNavMobile type="onlyArrow" />
+            }
 
             <UserProfileHeader
                 username={event.player.username}
-                photo={event.player.small_card_photo} rating={300}
+                photo={event.player.small_card_photo} rating={event.player.rank}
                 ratingPlace={event.player.ranking_place}
                 age={event.player.birthday}
                 isProfileOwner={isProfileOwner}
@@ -42,20 +46,24 @@ export const MyProfileComponent = ({
             {!isProfileOwner && (
                 <UserProfilePins
                     dateJoined={event.player.date_joined}
-                    playedTogether={"backend"}
+                    playedTogether={"need backend"}
                     totalGames={event.player.all_games}
                 />
             )}
 
             <UserProfileStats
                 wins={event.player.wins}
-                draw={"backend"}
+                draw={"need backend"}
                 lose={event.player.loss}
                 winRate={event.player.wins_percent}
                 goals={event.player.count_goals}
                 assists={event.player.count_assist}
                 totalGames={event.player.all_games}
             />
+
+            {isProfileOwner && (
+                <UserProfileFutureGames events={event.player.event_player} />
+            )}
 
             <UserProfileAchievements />
 

@@ -76,7 +76,6 @@ export const FormEventComponent = ({
     const [ageLimitError, setAgeLimitError] = useState(false);
     const [anonseError, setAnonseError] = useState(false);
 
-    // need backend -->
 
     const [ratingLimit, setRatingLimit] = useState([0, 5000]);
     const [delayedTime, setDelayedTime] = useState({ 'date': false, 'time': false });

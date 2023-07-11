@@ -1,0 +1,35 @@
+.user-profile-future-games {
+    margin-top: 24px;
+}
+
+.user-profile-future-games__title {
+    color: #1B1B1B;
+    font-family: "Fira Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.user-profile-future-games__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.user-profile-future-games__item {
+    flex-shrink: 0;
+    width: 100%;
+    .same-event__top-fog {
+        background-color: #000000c9;
+    }
+
+    .same-event__top-date {
+        margin-top: 12px;
+        margin-left: 12px;
+    }
+
+    .same-event__info  {
+        padding: 12px 12px 20px 12px;
+    }
+}

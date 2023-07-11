@@ -1,19 +1,22 @@
-import {Link, useParams} from "react-router-dom";
-import NoPhotoIcon from "../../assets/icon/mira.png"
+import { Link, useParams } from "react-router-dom";
+import NoPhotoIcon from "../../assets/icon/big-card-alt.png"
 import './UserProfileHeader.scss';
 import ProfileRoutes from "../../routes/ProfileRoutes";
 import { calculateAge } from "../../utils/dates";
 
 export const UserProfileHeader = ({ username, photo, rating, ratingPlace, age, isProfileOwner }) => {
-    const {pk} = useParams()
-    
+    const { pk } = useParams()
+
     const date = new Date(age)
     age = calculateAge(date)
 
     return (
         <div className="user-profile__header-376">
             <div className="user-profile__header-user-photo-wrapper-376">
-                <img src={NoPhotoIcon} />
+                {photo
+                    ? <div>sdf</div> // TODO: serverUrl + overlayPhoto
+                    : <img src={NoPhotoIcon} style={{marginBottom: "auto"}}/>
+                }
             </div>
             <div className="user-profile__header-info-376">
                 <div className="user-profile__header-info-name-376">
@@ -55,7 +58,7 @@ export const UserProfileHeader = ({ username, photo, rating, ratingPlace, age, i
                     )}
                     {isProfileOwner && (
                         <div className="user-profile__header-info-edit-icon">
-                            <Link 
+                            <Link
                                 to={ProfileRoutes.profilePersonalDataLink(pk)}
                             >
                                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">

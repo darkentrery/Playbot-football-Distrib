@@ -161,7 +161,7 @@ export const ProfilePersonalDataComponent = ({
         <VisibleProfileWrapper>
             <div className={`profile-personal-data-component ${!player || !user ? 'loader' : ''}`}>
                 {player && user && <>
-                    <UserProfileNavMobile/>
+                    <UserProfileNavMobile type={"settings"}/>
                     <div className={"top-bar"}>
                         <span className={`elem-1-1280 btn ${update ? 'disabled' : ''}`} onClick={updateUser}>Сохранить изменения</span>
                         <span className={`elem-1-744 btn ${update ? 'disabled' : ''}`} onClick={updateUser}>Сохранить</span>
@@ -172,8 +172,15 @@ export const ProfilePersonalDataComponent = ({
                     </div>
                     <ProfilePersonalPhoto photo={photo} setPhoto={setPhoto}/>
                     <div className={"fields-form"}>
+                        
+                        {/* <InputComponent leftIcon={"phone-icon"} className={"elem elem-5"} placeholder={"Телефон"}
+                                        value={phone} setValue={setPhone} errorText={phoneError}/>
+                        <SelectCityComponent className={"elem elem-6"} value={city} setValue={setCity}
+                                             placeholder={"Город"} errorText={errorCity} setErrorText={setErrorCity}
+                        /> */}
                         <InputComponent leftIcon={"avatar-icon disabled"} className={"elem elem-1"} placeholder={"Username"}
-                                        value={username} setValue={setUsername} errorText={usernameError}/>
+                                        value={username} setValue={setUsername} errorText={usernameError}
+                        />
                         <div className={"elem elem-2"}>
                             <ReactDatetimeClass
                                 className={`div-input date ${dateError ? 'error' : ''}`}
@@ -188,19 +195,12 @@ export const ProfilePersonalDataComponent = ({
                             <span className={`input-message date-message ${dateError ? 'error' : ''}`}>{dateError}</span>
                         </div>
                         <InputComponent leftIcon={"email-icon"} className={"elem elem-3"} placeholder={"Почта"}
-                                        value={email} setValue={setEmail} errorText={emailError}/>
+                                        value={email} setValue={setEmail} errorText={emailError}
+                        />
                         <DropDownComponent
                             value={gender} setValue={setGender} leftIcon={'gender-man-icon'} sizingClass={"elem elem-4"}
                             content={["Парень", "Девушка"]} placeholder={"Пол"}
                         />
-                        <InputComponent leftIcon={"phone-icon"} className={"elem elem-5"} placeholder={"Телефон"}
-                                        value={phone} setValue={setPhone} errorText={phoneError}/>
-                        <SelectCityComponent className={"elem elem-6"} value={city} setValue={setCity}
-                                             placeholder={"Город"} errorText={errorCity} setErrorText={setErrorCity}/>
-                        <div className={"elem elem-8-744 link"}>
-                            <div className={"orange-plus-icon"}></div>
-                            <span className={"orange-400-14"}>Добавить район</span>
-                        </div>
                         <DropDownComponent
                             value={position1} setValue={setPosition1} leftIcon={'man-in-target-icon'}
                             sizingClass={"elem elem-7"} content={positions1} placeholder={"Позиция на поле"}
@@ -209,18 +209,6 @@ export const ProfilePersonalDataComponent = ({
                             <div className={"orange-plus-icon"}></div>
                             <span className={"orange-400-14"}>Играть за район</span>
                         </div>
-                        <div className={`elem elem-9 link ${plusPosition ? 'hidden' : ''}`} onClick={() => setPlusPosition(!plusPosition)}>
-                            <div className={"orange-plus-icon"}></div>
-                            <span className={"orange-400-14"}>Добавить позицию</span>
-                        </div>
-                        <DropDownComponent
-                            value={position2} setValue={setPosition2} leftIcon={'man-in-target-icon'}
-                            sizingClass={`elem elem-10 ${plusPosition ? '' : 'hidden'}`} content={positions2}
-                            placeholder={"Позиция на поле"}
-                        />
-                        {/*<textarea className={"elem elem-11 map-point-icon"} name="" id="" cols="30" rows="10"*/}
-                        {/*          onChange={inputAbout} placeholder={"Пара слов о себе"} value={aboutSelf ? aboutSelf : ''}*/}
-                        {/*></textarea>*/}
                     </div>
                     <div className={"change-password"}>
                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,7 +225,7 @@ export const ProfilePersonalDataComponent = ({
                     </div>
                     <div className={"bottom-bar-376"}>
                         <span className={`elem-1 btn ${update ? 'disabled' : ''}`} onClick={updateUser}>Сохранить изменения</span>
-                        <Link className={"black-eye-icon"} to={ProfileRoutes.previewPlayerLink(player.id)}></Link>
+                        {/* <Link className={"black-eye-icon"} to={ProfileRoutes.previewPlayerLink(player.id)}></Link> */}
                     </div>
                 </>}
                 {(!player || !user) && <LoaderComponent/>}
