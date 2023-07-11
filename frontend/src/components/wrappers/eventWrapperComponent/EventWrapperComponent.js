@@ -4,9 +4,10 @@ import BaseRoutes from "../../../routes/BaseRoutes";
 import {Top376Component} from "../../top376Component/Top376Component";
 import {eventService} from "../../../services/EventService";
 import EventRoutes from "../../../routes/EventRoutes";
+import BottomComponent from "../../bottomComponent/BottomComponent";
 
 
-export const EventWrapperComponent = ({children, event, user, game, playerBlock, funcs}) => {
+export const EventWrapperComponent = ({children, event, user, game, playerBlock, app, funcs}) => {
     const [gameId, setGameId] = useState(false);
     const [isEndEvent, setIsEndEvent] = useState(false);
     const { pk } = useParams();
@@ -91,6 +92,7 @@ export const EventWrapperComponent = ({children, event, user, game, playerBlock,
                 </div>
                 {children}
             </div>
+            <BottomComponent className={"bottom-menu"} user={user.user} isIPhone={app.isIPhone}/>
         </main>
     )
 }

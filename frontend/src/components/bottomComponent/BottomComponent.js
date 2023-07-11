@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginWindow} from "../../redux/actions/actions";
 
 
-export default function BottomComponent ({user, isIPhone}) {
+export default function BottomComponent ({className='', user, isIPhone}) {
     const dispatch = useDispatch();
     const {isTelegramApp} = useSelector(state => state.app);
 
@@ -17,7 +17,7 @@ export default function BottomComponent ({user, isIPhone}) {
     }
 
     return(
-        <div className={`bottom-component ${isIPhone ? 'safari-margin' : ''}`}>
+        <div className={`bottom-component ${className} ${isIPhone ? 'safari-margin' : ''}`}>
             <div className={"elem-1280"}>
                 <div className={"el el-1"}>
                     <div className={"logo"}>

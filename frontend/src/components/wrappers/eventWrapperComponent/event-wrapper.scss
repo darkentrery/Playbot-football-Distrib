@@ -6,6 +6,9 @@
   min-height: 100vh;
   background: $lightGrayColor;
 
+  .bottom-menu {
+    display: none;
+  }
   .event-wrapper-head-1280 {
     display: flex;
     align-items: center;
@@ -89,6 +92,9 @@
     min-height: calc(100% - 66px);
     padding-bottom: 66px;
 
+    .bottom-menu {
+      display: flex;
+    }
     .event-wrapper-head-1280 {
       display: none;
     }
