@@ -75,11 +75,10 @@ class CreateNotice:
         )
         UserNotice.objects.create(user=user, notice=notice)
 
-        if user.telegram_id:
-            for admin in self.organizers.all():
-                UserNotice.objects.create(user=admin, notice=notice)
-                if admin.telegram_id:
-                    self.notice_join_to_event_tg(user, admin.telegram_id)
+        for admin in self.organizers.all():
+            UserNotice.objects.create(user=admin, notice=notice)
+            message = f'❕ {user} joined the event "{self.id}"'
+            self.send_telegram_message(admin.telegram_id, message)
 
     @logger.catch
     def notice_leave_event(self, user):
@@ -90,23 +89,17 @@ class CreateNotice:
         )
         UserNotice.objects.create(user=user, notice=notice)
 
-        if user.telegram_id:
-            message = self.message_for_leave_notice(user)
-            for admin in self.organizers.all():
-                UserNotice.objects.create(user=admin, notice=notice)
-                if admin.telegram_id:
-                    self.notice_leave_event_tg(admin.telegram_id, message)
-            if self.event_queues.all().count() > 0 and self.announce:
-                self.notice_leave_event_tg(self.announce.channel.channel_id, message)
+        message = self.message_for_leave_notice(user)
+        for admin in self.organizers.all():
+            UserNotice.objects.create(user=admin, notice=notice)
+            self.send_telegram_message(admin.telegram_id, message)
+        if self.event_queues.all().count() > 0 and self.announce:
+            self.send_telegram_message(self.announce.channel.channel_id, message)
 
     @async_to_sync
-    async def notice_join_to_event_tg(self, user, channel_id) -> None:
-        text = f'❕ {user} joined the event "{self.id}"'
-        await bot.send_message(channel_id, text, parse_mode="html")
-
-    @async_to_sync
-    async def notice_leave_event_tg(self, channel_id, message) -> None:
-        await bot.send_message(channel_id, message)
+    async def send_telegram_message(self, channel_id, message) -> None:
+        if channel_id is not None:
+            await bot.send_message(channel_id, message, parse_mode="html")
 
     def message_for_leave_notice(self, user) -> str:
         number = get_emoji_number(self.id)
@@ -116,7 +109,7 @@ class CreateNotice:
             chat_notification += f"{last_queue_user} is now in the game.\n"
 
         joined_players = self.count_current_players
-        chat_notification += f"👥 Players: <b>{joined_players}/{self.format.count}</b>\n"
+        chat_notification += f"👥 Players: <b>{joined_players}/{self.count_players}</b>\n"
 
         players_in_queue = self.event_queues.all().count()
         if players_in_queue > 0:
