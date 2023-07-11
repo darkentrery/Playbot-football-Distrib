@@ -110,7 +110,6 @@ export const FormEventComponent = ({
     }
 
     useEffect(() => {
-        console.log(event)
         if (event && isOpen) {
             setId(event.id);
             // setName(event.name);
@@ -222,7 +221,6 @@ export const FormEventComponent = ({
         if (isDelayedAnonse && delayedTime.date && delayedTime.time) {
             bodyFormData.publish_time = `${delayedTime.date}T${delayedTime.time ? getUTCTime(delayedTime.time) : delayedTime.time}`;
         }
-        console.log(bodyFormData)
         setData(bodyFormData);
     }, [/*name*/, date, time, field, count, isNotPlayer, notice, isPaid, price, format, currency, ratingLimit,
         delayedTime, matchDuration, allowMale, allowFemale, ageLimit, anonseLentaCheck, publicInChannel, fields,

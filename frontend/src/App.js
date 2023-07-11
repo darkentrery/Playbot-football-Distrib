@@ -74,7 +74,6 @@ function App({state, funcs}) {
     }
 
     useEffect(() => {
-        console.log(state)
         // funcs.openOnboardingStep1();
         authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status === 200) {
@@ -114,13 +113,11 @@ function App({state, funcs}) {
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp.initData) {
             authService.telegramAppLogin(window.Telegram.WebApp.initData).then(response => {
-                console.log(response)
                 if (response.status === 200) {
                     funcs.setAuth(true, response.data.user);
                 }
             });
         }
-        console.log(window.Telegram.WebApp.initData)
     }, [window.Telegram])
 
     useEffect(() => {
@@ -151,7 +148,6 @@ function App({state, funcs}) {
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
             authService.confirmSignUp(window.location.pathname).then((response) => {
-                console.log(response)
                 if (response.status === 200) {
                     setConfirmSignUp(true);
                     funcs.setAuth(true, response.data.user);

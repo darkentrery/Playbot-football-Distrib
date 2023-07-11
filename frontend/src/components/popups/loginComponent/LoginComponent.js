@@ -31,8 +31,10 @@ export default function LoginComponent ({isOpen, closeComponent, openSignUp, ope
     }, [email, password]);
 
     useEffect(() => {
-        if (window.Telegram)
-        console.log(window.Telegram.WebApp.initData)
+        if (window.Telegram) {
+            console.log(window.Telegram.WebApp.initData)
+        }
+        
     }, [window.Telegram])
 
     const closeWindow = () => {

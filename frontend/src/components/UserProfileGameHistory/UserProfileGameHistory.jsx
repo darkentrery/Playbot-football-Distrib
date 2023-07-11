@@ -2,7 +2,7 @@ import './UserProfileGameHistory.scss';
 import { UserProfileGameHistorySingle } from './UserProfileGameHistorySingle';
 
 export const UserProfileGameHistory = ({ events }) => {
-    console.log(events)
+
     if (!events?.length) {
         return null;
     }
@@ -17,8 +17,9 @@ export const UserProfileGameHistory = ({ events }) => {
                         format={event.event.field.format.name}
                         fieldName={event.event.field.name}
                         date={event.event.date}
-                        rate={25}
+                        rate={25} // TODO Корректное значение рейтинга
                         key={event.event.id}
+                        id={event.event.id}
                     />
                 ))}
             </div>

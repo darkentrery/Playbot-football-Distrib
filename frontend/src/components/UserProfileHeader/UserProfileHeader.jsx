@@ -6,6 +6,7 @@ import { calculateAge } from "../../utils/dates";
 
 export const UserProfileHeader = ({ username, photo, rating, ratingPlace, age, isProfileOwner }) => {
     const { pk } = useParams()
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const date = new Date(age)
     age = calculateAge(date)
@@ -14,7 +15,7 @@ export const UserProfileHeader = ({ username, photo, rating, ratingPlace, age, i
         <div className="user-profile__header-376">
             <div className="user-profile__header-user-photo-wrapper-376">
                 {photo
-                    ? <div>sdf</div> // TODO: serverUrl + overlayPhoto
+                    ? <img src={serverUrl + photo}/>
                     : <img src={NoPhotoIcon} style={{marginBottom: "auto"}}/>
                 }
             </div>

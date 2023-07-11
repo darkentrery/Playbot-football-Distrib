@@ -31,11 +31,14 @@ export const MyProfileComponent = ({
         isProfileOwner = true;
     }
 
-    // useEffect(() => {
-    //     if (player) {
-    //         setIsLoading(false)
-    //     }
-    // }, [player])
+    useEffect(() => {
+        if (player) {
+            setIsLoading(false)
+        } 
+        return (() => {
+            setIsLoading(true)
+        })
+    }, [player])
     return (
         <>
             {isLoading ?
@@ -65,9 +68,10 @@ export const MyProfileComponent = ({
                         />
                     )}
 
+                    {/* TODO корректное значение в draw */}
                     <UserProfileStats
                         wins={event.player.wins}
-                        draw={"need backend"}
+                        draw={0}
                         lose={event.player.loss}
                         winRate={event.player.wins_percent}
                         goals={event.player.count_goals}

@@ -18,14 +18,14 @@ export const UserProfilePins = ({ dateJoined, playedTogether, totalGames }) => {
                     : null
                 }
 
-                {playedTogether !== 0 && (
+                {/* {playedTogether !== 0 && (
                     <div className="user-profile__pin-376">
                         Вы играли вместе
                         <span className='user-profile__pin-orange-376'>
                             {playedTogether} раза
                         </span>
                     </div>
-                )}
+                )} */}
 
                 { totalGames === 0 && (
                     <div className="user-profile__pin-376">

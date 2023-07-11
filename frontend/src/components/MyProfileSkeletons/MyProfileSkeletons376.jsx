@@ -45,22 +45,9 @@ export const MyProfileSkeletons376 = () => {
                     <Skeleton width={90} />
                 </div>
             </div>
-            {/* pins */}
-            <div style={{
-                backgroundColor: "#FFFFFF",
-                height: 25,
-                width: 120,
-                padding: 8,
-                paddingLeft: 10,
-                paddingRight: 10,
-                marginTop: 17,
-                borderRadius: 10
-            }}>
-                <Skeleton width={"100%"} height={14}/>
-            </div>
             {/* статистика */}
             <Skeleton width={83} style={{
-                marginTop: 17
+                marginTop: 21
             }} />
             <div style={{
                 marginTop: 20,
@@ -161,6 +148,16 @@ export const MyProfileSkeletons376 = () => {
                     display: "flex",
                     gap: "10px"
                 }}>
+                    <Skeleton style={{
+                        width: 50,
+                        height: 80,
+                        borderRadius: "50%"
+                    }} />
+                    <Skeleton style={{
+                        width: 50,
+                        height: 80,
+                        borderRadius: "50%"
+                    }} />
                     <Skeleton style={{
                         width: 50,
                         height: 80,

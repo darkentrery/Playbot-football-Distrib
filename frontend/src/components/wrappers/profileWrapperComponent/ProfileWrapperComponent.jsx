@@ -23,7 +23,6 @@ export const ProfileWrapperComponent = ({
             funcs.setPlayer(false);
             authService.getUser(pk.toString()).then((response) => {
                 if (response.status === 200) {
-                    console.log(response)
                     funcs.setPlayer(response.data);
                 }
             })
@@ -42,12 +41,9 @@ export const ProfileWrapperComponent = ({
     const handleAdminUserPhotoLoad = () => {
         dispatch(openLoadUserPhotoPopupAsAdmin())
     }
-    console.log(state.event.player)
 
     const location = useLocation()
-    console.log(location.pathname)
     let isPersonalDataPage = location.pathname.includes("personal-data")
-    console.log(isPersonalDataPage)
     return (
         <main className={"main-wrapper-component"}>
             <HeadComponent user={state.user} funcs={funcs} />
