@@ -135,6 +135,13 @@ class Event(models.Model, CreateNotice):
         return user
 
     @property
+    def last_joined_player(self):
+        user = None
+        if self.event_player.all().exists():
+            user = self.event_queues.all().order_by("pk").last().player
+        return user
+
+    @property
     def rank(self):
         players = self.event_player.all()
         rank = 0
