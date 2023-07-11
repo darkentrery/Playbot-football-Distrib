@@ -125,7 +125,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         if (state.app.isTelegramApp) {
-            funcs.openMobileFirstPage();
+            funcs.closeMobileFirstPage();
         }
     }, [state.app.isTelegramApp])
 
