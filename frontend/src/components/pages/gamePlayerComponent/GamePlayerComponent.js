@@ -25,12 +25,23 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const [players2Pass, setPlayers2Pass] = useState([]);
     const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
-    // const [block, setBlock] = useState(false);
     const [isPlay, setIsPlay] = useState(null);
 
     const getFullDigit = (value) => {
         value = value > 9 ? value.toString() : '0' + value.toString();
         return value;
+    }
+
+    const setTimeProps = () => {
+        if (game && event) {
+            let currentDuration = event.duration.duration * 60 - game.rest_time;
+            let seconds = currentDuration % 60;
+            let minutes = ((currentDuration - seconds) / 60);
+            setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+            console.log(event.duration.duration * 60 - currentDuration)
+            setRestTime(game.rest_time);
+            setIsPlay(game.is_play);
+        }
     }
 
     useEffect(() => {
@@ -53,20 +64,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if (game && event) {
-            let currentDuration = game.current_duration_without_last;
-            if (game.last_time_begin) {
-                let time = new Date(game.last_time_begin);
-                let additionalTime = Math.ceil((new Date() - time) / 1000);
-                currentDuration += additionalTime;
-            }
-            let seconds = currentDuration % 60;
-            let minutes = ((currentDuration - seconds) / 60);
-            setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-            console.log(event.duration.duration * 60 - currentDuration)
-            setRestTime(event.duration.duration * 60 - currentDuration);
-            setIsPlay(game.is_play);
-        }
+        console.log("Change game")
+        setTimeProps();
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const ClockDigit = ({value}) => {
@@ -98,27 +97,15 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     clearTimeout(interval);
                 }
             }, 990);
-        } else if (!isPlay) {
-            if (game && event) {
-                let currentDuration = game.current_duration_without_last;
-                if (game.last_time_begin) {
-                    let time = new Date(game.last_time_begin);
-                    let additionalTime = Math.ceil((new Date() - time) / 1000);
-                    currentDuration += additionalTime;
-                }
-                let seconds = currentDuration % 60;
-                let minutes = ((currentDuration - seconds) / 60);
-                setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-                setRestTime(event.duration.duration * 60 - currentDuration);
-                setIsPlay(game.is_play);
-            }
+        } else if (!isPlay && !game.is_play) {
+            console.log("Not is play")
+            setTimeProps();
         }
     }, [restTime, isPlay])
 
     const beginGamePeriod = () => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
-            // setBlock(true);
             setIsPlay(true);
             sendJsonMessage({
                 type: 'begin_game_period',
@@ -130,7 +117,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const endGamePeriod = () => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
-            // setBlock(true);
             setIsPlay(false);
             console.log(new Date())
             sendJsonMessage({
@@ -143,7 +129,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const createGoal = (teamId, auto, player=false, assistant=false) => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
-            // setBlock(true);
             setIsPlay(false);
             let data = {
                 game: game.id,
