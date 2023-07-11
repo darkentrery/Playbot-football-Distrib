@@ -83,8 +83,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     let seconds = (event.duration.duration * 60 - restTime + 1) % 60;
                     let minutes = (((event.duration.duration * 60 - restTime + 1) - seconds) / 60);
                     setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-                    // console.log(restTime - 1)
-                    // console.log(new Date())
+                    console.log(restTime - 1)
+                    console.log(new Date())
                     setRestTime(restTime - 1);
                 } else if (restTime - 1 < 0 && user.isAuth && eventService.isOrganizer(event, user.user) && !game.time_end) {
                     funcs.setPlayerBlock(true);
