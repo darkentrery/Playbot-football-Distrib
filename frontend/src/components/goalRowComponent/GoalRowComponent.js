@@ -31,12 +31,6 @@ export const GoalRowComponent = ({event, goal, team1, team2, funcs, sendSocketMe
             type: "update_goal",
             data: updateGoal,
         })
-        // authDecoratorWithoutLogin(eventService.updateGoal, updateGoal).then((response) => {
-        //     if (response.status === 200) {
-        //         // funcs.setPlayerBlock(false);
-        //         funcs.setGame(response.data);
-        //     }
-        // })
     }
 
     const closeElem = () => {

@@ -13,6 +13,7 @@ class Notice(models.Model):
         CANCEL_EVENT = "Cancel Event", _("Cancel Event")
         JOIN = "Join", _("Join")
         REGARD = "Regard", _("Regard")
+        LEAVE = "Leave", _("Leave")
 
     notice_type = models.CharField(_("Notice Type"), max_length=150, choices=Type.choices, default=Type.WARNING)
     text = models.TextField(_("Notice Text"))

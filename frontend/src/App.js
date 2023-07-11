@@ -50,7 +50,6 @@ import VisibleShowEmblem from "./redux/containers/VisibleShowEmblem";
 import VisibleShowMenu from "./redux/containers/VisibleShowMenu";
 import VisibleStatisticPage from "./redux/containers/VisibleStatisticPage";
 import VisibleSuccessExistsUser from "./redux/containers/VisibleSuccessExistsUser";
-import $ from "jquery";
 import VisibleDeleteAccount from "./redux/containers/VisibleDeleteAccount";
 import {LandingComponent} from "./components/pages/landingComponent/LandingComponent";
 import VisibleOnboardingStep1 from "./redux/containers/VisibleOnboardingStep1";
@@ -95,7 +94,7 @@ function App({state, funcs}) {
             } else {
                 funcs.setAuth(false, false);
                 let landing = document.querySelector('.landing-component');
-                if (!landing) {
+                if (!landing && !window.location.href.includes('/overlay/')) {
                     funcs.openMobileFirstPage();
                 }
             }
@@ -112,6 +111,7 @@ function App({state, funcs}) {
 
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp.initData) {
+            funcs.setIsTelegramApp(true);
             authService.telegramAppLogin(window.Telegram.WebApp.initData).then(response => {
                 if (response.status === 200) {
                     funcs.setAuth(true, response.data.user);
@@ -119,6 +119,12 @@ function App({state, funcs}) {
             });
         }
     }, [window.Telegram])
+
+    useEffect(() => {
+        if (state.app.isTelegramApp) {
+            funcs.closeMobileFirstPage();
+        }
+    }, [state.app.isTelegramApp])
 
     useEffect(() => {
         if (state.user.isAuth && state.user.user.first_login && !window.location.pathname.includes("confirm-sign-up/")) {
@@ -159,7 +165,6 @@ function App({state, funcs}) {
 
     useEffect(() => {
         if (localStorage.telegramLogin === 'true') {
-            // openChoiceCity();
             localStorage.telegramLogin = false;
             funcs.openSuccessSignUp2();
         } else if (localStorage.telegramLogin === 'username') {

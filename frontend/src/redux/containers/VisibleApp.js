@@ -20,7 +20,7 @@ import {
   successExistsUserWindow,
   onboardingStep1Window,
   onboardingStep2Window,
-  onboardingStep3Window
+  onboardingStep3Window, telegramApp
 } from "../actions/actions";
 
 
@@ -67,6 +67,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setIsIPhone: (value) => {
         dispatch(iphone(value));
+      },
+      setIsTelegramApp: (value) => {
+        dispatch(telegramApp(value));
       },
       openFillRegulation: () => {
         dispatch(fillRegulationWindow(true));

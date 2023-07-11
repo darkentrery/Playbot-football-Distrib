@@ -27,8 +27,8 @@ export default function MainPageComponent ({state, funcs}) {
     return (
         <VisibleMainWrapper>
             <div className={"main-page-component"}>
-                {!!state.user.user && state.user.user.warning_notices.length !== 0 &&
-                    <NoticeListTopComponent user={state.user.user} setUser={funcs.setAuth}/>}
+                {/*{!!state.user.user && state.user.user.warning_notices.length !== 0 &&*/}
+                {/*    <NoticeListTopComponent user={state.user.user} setUser={funcs.setAuth}/>}*/}
                 {/*<VisibleBoardCreateEvent/>*/}
                 <TitleComponent label={"Список событий"} to={BaseRoutes.events}/>
                 <LocationComponent state={state} funcs={funcs}/>

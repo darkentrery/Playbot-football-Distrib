@@ -2,7 +2,6 @@ import VisibleEventWrapper from "../../../redux/containers/VisibleEventWrapper";
 import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {eventService} from "../../../services/EventService";
-import {authDecoratorWithoutLogin} from "../../../services/AuthDecorator";
 import BaseRoutes from "../../../routes/BaseRoutes";
 import $ from "jquery";
 import {LoaderComponent} from "../../loaderComponent/LoaderComponent";
@@ -16,25 +15,33 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const { gameId } = useParams();
     const [timer, setTimer] = useState('0000');
     const [restTime, setRestTime] = useState(false);
-    const [restTimeEnd, setRestTimeEnd] = useState(false);
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isOpen1Auto, setIsOpen1Auto] = useState(false);
     const [isOpen2Auto, setIsOpen2Auto] = useState(false);
     const [isOpen1Pass, setIsOpen1Pass] = useState(false);
     const [isOpen2Pass, setIsOpen2Pass] = useState(false);
-    const [goal1Player, setGoal1Player] = useState(false);
-    const [goal2Player, setGoal2Player] = useState(false);
     const [players1Pass, setPlayers1Pass] = useState([]);
     const [players2Pass, setPlayers2Pass] = useState([]);
     const SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
-    // const [block, setBlock] = useState(false);
     const [isPlay, setIsPlay] = useState(null);
 
     const getFullDigit = (value) => {
         value = value > 9 ? value.toString() : '0' + value.toString();
         return value;
+    }
+
+    const setTimeProps = () => {
+        if (game && event) {
+            let currentDuration = event.duration.duration * 60 - game.rest_time;
+            let seconds = currentDuration % 60;
+            let minutes = ((currentDuration - seconds) / 60);
+            setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
+            console.log(event.duration.duration * 60 - currentDuration)
+            setRestTime(game.rest_time);
+            setIsPlay(game.is_play);
+        }
     }
 
     useEffect(() => {
@@ -50,7 +57,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             })
         } else {
             funcs.setGame(false);
-            setRestTimeEnd(false);
             setRestTime(false);
             setIsPlay(null);
         }
@@ -58,21 +64,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     }, [gameId, event]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if (game && event) {
-            // if (!restTime) {
-                let currentDuration = game.current_duration_without_last;
-                if (game.last_time_begin) {
-                    let time = new Date(game.last_time_begin);
-                    let additionalTime = Math.ceil((new Date() - time) / 1000);
-                    currentDuration += additionalTime;
-                }
-                let seconds = currentDuration % 60;
-                let minutes = ((currentDuration - seconds) / 60);
-                setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-                setRestTime(event.duration.duration * 60 - currentDuration);
-            // }
-            if (isPlay === null) setIsPlay(game.is_play);
-        }
+        console.log("Change game")
+        setTimeProps();
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const ClockDigit = ({value}) => {
@@ -83,18 +76,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         )
     }
 
-    // useEffect(() => {
-    //     if (restTimeEnd && restTimeEnd > restTime) {
-    //         // console.log(restTime)
-    //         // console.log(restTimeEnd)
-    //         let seconds = (event.duration.duration * 60 - restTimeEnd) % 60;
-    //         let minutes = (((event.duration.duration * 60 - restTimeEnd) - seconds) / 60);
-    //         setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-    //         setRestTime(restTimeEnd);
-    //         setRestTimeEnd(false);
-    //     }
-    // }, [restTime, restTimeEnd])
-
     useEffect(() => {
         if (isPlay && !game.time_end) {
             let interval = setTimeout(() => {
@@ -102,8 +83,8 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     let seconds = (event.duration.duration * 60 - restTime + 1) % 60;
                     let minutes = (((event.duration.duration * 60 - restTime + 1) - seconds) / 60);
                     setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
-                    // console.log(restTime - 1)
-                    // console.log(new Date())
+                    console.log(restTime - 1)
+                    console.log(new Date())
                     setRestTime(restTime - 1);
                 } else if (restTime - 1 < 0 && user.isAuth && eventService.isOrganizer(event, user.user) && !game.time_end) {
                     funcs.setPlayerBlock(true);
@@ -116,13 +97,15 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                     clearTimeout(interval);
                 }
             }, 990);
+        } else if (!isPlay && !game.is_play) {
+            console.log("Not is play")
+            setTimeProps();
         }
     }, [restTime, isPlay])
 
     const beginGamePeriod = () => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
-            // setBlock(true);
             setIsPlay(true);
             sendJsonMessage({
                 type: 'begin_game_period',
@@ -134,9 +117,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const endGamePeriod = () => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
-            // setBlock(true);
             setIsPlay(false);
-            setRestTimeEnd(restTime);
             console.log(new Date())
             sendJsonMessage({
                 type: 'end_game_period',
@@ -148,7 +129,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const createGoal = (teamId, auto, player=false, assistant=false) => {
         if (!playerBlock) {
             funcs.setPlayerBlock(true);
-            // setBlock(true);
             setIsPlay(false);
             let data = {
                 game: game.id,
@@ -157,8 +137,6 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 game_time: event.duration.duration * 60 - restTime,
                 auto: auto,
             }
-            console.log(new Date())
-            setRestTimeEnd(restTime);
             if (player) data.player = player.player.id;
             if (assistant) data.assistant = assistant.player.id;
             sendJsonMessage({
@@ -166,6 +144,23 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 data: data,
             });
         }
+    }
+
+    const updateGoalAssistant = (goal, assistant) => {
+        let updateGoal = {...goal};
+        updateGoal.player = updateGoal.player.id;
+        updateGoal.assistant = assistant.player.id;
+        sendJsonMessage({
+            type: "update_goal",
+            data: updateGoal,
+        })
+    }
+
+    const deleteGoal = () => {
+        sendJsonMessage({
+            type: "delete_goal",
+            data: game.goals[game.goals.length - 1],
+        })
     }
 
     const fonClick = (e) => {
@@ -202,11 +197,13 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
     const pass1Back = () => {
         setIsOpen1Pass(false);
         setIsOpen1(true);
+        deleteGoal();
     }
 
     const pass2Back = () => {
         setIsOpen2Pass(false);
         setIsOpen2(true);
+        deleteGoal();
     }
 
     const closeHighLight = () => {
@@ -216,44 +213,58 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
         setIsOpen2Auto(false);
         setIsOpen1Pass(false);
         setIsOpen2Pass(false);
-        setGoal1Player(false);
-        setGoal2Player(false);
     }
 
     const click1TeamGoalPlayer = (player) => {
-        setIsOpen1(false);
-        setIsOpen1Pass(true);
-        setGoal1Player(player);
-        let players = game.team_1.team_players.filter(item => { if (player.id !== item.id) return item; });
-        setPlayers1Pass(players);
+        if (!playerBlock) {
+            setIsOpen1(false);
+            setIsOpen1Pass(true);
+            let players = game.team_1.team_players.filter(item => {
+                if (player.id !== item.id) return item;
+            });
+            setPlayers1Pass(players);
+            createGoal(game.team_1.id, false, player, false);
+        }
     }
 
     const click2TeamGoalPlayer = (player) => {
-        setIsOpen2(false);
-        setIsOpen2Pass(true);
-        setGoal2Player(player);
-        let players = game.team_2.team_players.filter(item => { if (player.id !== item.id) return item; });
-        setPlayers2Pass(players);
+        if (!playerBlock) {
+            setIsOpen2(false);
+            setIsOpen2Pass(true);
+            let players = game.team_2.team_players.filter(item => {
+                if (player.id !== item.id) return item;
+            });
+            setPlayers2Pass(players);
+            createGoal(game.team_2.id, false, player, false);
+        }
     }
 
     const click1AutoGoal = (player) => {
-        createGoal(game.team_1.id, true, player);
-        closeHighLight();
+        if (!playerBlock) {
+            createGoal(game.team_1.id, true, player);
+            closeHighLight();
+        }
     }
 
     const click2AutoGoal = (player) => {
-        createGoal(game.team_2.id, true, player);
-        closeHighLight();
+        if (!playerBlock) {
+            createGoal(game.team_2.id, true, player);
+            closeHighLight();
+        }
     }
 
     const click1Goal = (player) => {
-        createGoal(game.team_1.id, false, goal1Player, player);
-        closeHighLight();
+        if (!game.goals[game.goals.length - 1].auto && !game.goals[game.goals.length - 1].assistant) {
+            updateGoalAssistant(game.goals[game.goals.length - 1], player);
+            closeHighLight();
+        }
     }
 
     const click2Goal = (player) => {
-        createGoal(game.team_2.id, false, goal2Player, player);
-        closeHighLight();
+        if (!game.goals[game.goals.length - 1].auto && !game.goals[game.goals.length - 1].assistant) {
+            updateGoalAssistant(game.goals[game.goals.length - 1], player);
+            closeHighLight();
+        }
     }
 
     const { sendJsonMessage } = useWebSocket(

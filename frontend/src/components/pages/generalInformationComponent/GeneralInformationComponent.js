@@ -51,9 +51,9 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
             if (game) {
                 if (!game.time_begin) {
                     setValue3(<div className={"gray-cross-icon"}></div>);
-                } else if (game.time_begin && !game.time_end) {
+                } else if (game.time_begin && !game.time_end && !event.is_end) {
                     setValue3(<div className={"point-icon"}></div>);
-                } else if (game.time_end) {
+                } else if (game.time_end || event.is_end) {
                     setValue3(`${game.score_1} : ${game.score_2}`);
                 }
             }
@@ -195,7 +195,7 @@ export const GeneralInformationComponent = ({event, user, funcs}) => {
                             value6={team.scores}
                             color={team.color ? team.color.color_hex : false}
                             key={key}
-                            flagFinish={team.played ? true : false}
+                            flagFinish={false}
                         />
                     ))}
                 </EventTable>
