@@ -11,7 +11,6 @@ export default function BottomComponent ({user, isIPhone}) {
     const {isTelegramApp} = useSelector(state => state.app);
 
     const toLogin = () => {
-        console.log(isTelegramApp)
         if (!isTelegramApp) {
             dispatch(loginWindow(true));
         }
