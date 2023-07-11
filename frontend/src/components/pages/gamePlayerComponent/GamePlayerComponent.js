@@ -64,7 +64,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
             let minutes = ((currentDuration - seconds) / 60);
             setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
             setRestTime(event.duration.duration * 60 - currentDuration);
-            if (isPlay === null) setIsPlay(game.is_play);
+            setIsPlay(game.is_play);
         }
     }, [game]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -109,7 +109,7 @@ export const GamePlayerComponent = ({event, user, game, playerBlock, funcs}) => 
                 let minutes = ((currentDuration - seconds) / 60);
                 setTimer(`${getFullDigit(minutes)}${getFullDigit(seconds)}`);
                 setRestTime(event.duration.duration * 60 - currentDuration);
-                if (isPlay === null) setIsPlay(game.is_play);
+                setIsPlay(game.is_play);
             }
         }
     }, [restTime, isPlay])
