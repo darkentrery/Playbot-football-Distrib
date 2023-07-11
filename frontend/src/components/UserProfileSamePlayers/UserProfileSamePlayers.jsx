@@ -19,6 +19,7 @@ export const UserProfileSamePlayers = ({users}) => {
                         rating={user.rank}
                         photoUrl={undefined}
                         key={user.id}
+                        id={user.id}
                     />
                 ))}
             </div>

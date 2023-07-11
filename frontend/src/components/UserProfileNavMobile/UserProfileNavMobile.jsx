@@ -1,18 +1,25 @@
 import './UserProfileNavMobile.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { share } from '../../services/LinkShareService';
+import ProfileRoutes from '../../routes/ProfileRoutes';
 
 export const UserProfileNavMobile = ({ type = "settings" }) => {
     const navigate = useNavigate();
+    const { pk } = useParams()
 
     const handleReturnClick = () => {
         navigate(-1)
+    }
+
+    const handleShareClick = () => {
+        share(ProfileRoutes.myProfileLink(pk))
     }
 
     return (
         <div className="user-profile__nav">
             {type === "myProfile" && (
                 <>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg onClick={handleShareClick} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22 14.5C22 16.8536 22 19.5893 22 19.5893C22 20.9207 20.8808 22 19.5 22H4.5C3.11929 22 2 20.9207 2 19.5893C2 19.5893 2 16.8536 2 14.5" stroke="#1B1B1B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M17 7L12 2L7 7" stroke="#1B1B1B" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
                         <path d="M12 2V17" stroke="#1B1B1B" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
