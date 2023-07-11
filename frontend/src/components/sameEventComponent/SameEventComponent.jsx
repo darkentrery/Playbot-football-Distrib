@@ -27,6 +27,7 @@ export const SameEventComponent = ({
         }
     }
     
+
     return (
         <>
             {event && 

@@ -16,7 +16,6 @@ export const ProfilePersonalPhoto = () => {
     const isModerationFinished = !!player.big_card_photo && player.is_accept_photo;
     const photoOnModeration = !!player.big_card_photo && !player.is_accept_photo;
     
-    console.log(player)
 
     const handleLoadPhotoClick = () => {
         dispatch(showLoadPhotoWindow(true));

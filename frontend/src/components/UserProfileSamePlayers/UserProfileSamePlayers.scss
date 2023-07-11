@@ -1,0 +1,52 @@
+.user-profile__same-players-title {
+    margin-top: 24px;
+    color: #1B1B1B;
+    font-family: "Fira Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.user-profile__same-players-list {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.user-profile__same-players-item {
+    display: flex;
+}
+
+.user-profile__same-player-info {
+    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.user-profile__same-player-name {
+    color: #1B1B1B;
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    width: 100px;
+}
+
+.user-profile__same-player-elo {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 120%;
+    color: #1B1B1B;
+
+    padding: 2px 8px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    max-width: 33px;
+    overflow: hidden;
+    width: max-content;
+}

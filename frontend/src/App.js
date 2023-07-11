@@ -74,7 +74,6 @@ function App({state, funcs}) {
     }
 
     useEffect(() => {
-        console.log(state)
         // funcs.openOnboardingStep1();
         authDecoratorWithoutLogin(authService.isAuth, false).then((response) => {
             if (response.status === 200) {
@@ -114,13 +113,11 @@ function App({state, funcs}) {
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp.initData) {
             authService.telegramAppLogin(window.Telegram.WebApp.initData).then(response => {
-                console.log(response)
                 if (response.status === 200) {
                     funcs.setAuth(true, response.data.user);
                 }
             });
         }
-        console.log(window.Telegram.WebApp.initData)
     }, [window.Telegram])
 
     useEffect(() => {
@@ -151,7 +148,6 @@ function App({state, funcs}) {
     useEffect(() => {
         if (!confirmSignUp && window.location.pathname.includes("confirm-sign-up/")) {
             authService.confirmSignUp(window.location.pathname).then((response) => {
-                console.log(response)
                 if (response.status === 200) {
                     setConfirmSignUp(true);
                     funcs.setAuth(true, response.data.user);
@@ -212,7 +208,6 @@ function App({state, funcs}) {
                     <Route exact path={EventRoutes.eventGamePlayer} element={<VisibleGamePlayer/>}/>
                     <Route exact path={BaseRoutes.rules} element={<RulesPageComponent/>}/>
                     <Route exact path={ProfileRoutes.profileMyEvents} element={<VisibleMyEventsPage/>}/>
-                    <Route exact path={ProfileRoutes.profileFavorites} element={<VisibleFavorites/>}/>
                     <Route exact path={ProfileRoutes.profilePersonalData} element={<VisibleProfilePersonalData/>}/>
                     <Route exact path={ProfileRoutes.previewPlayer} element={<VisiblePreviewPlayer/>}/>
                     <Route exact path={ProfileRoutes.myProfile} element={<VisibleMyProfile/>}/>

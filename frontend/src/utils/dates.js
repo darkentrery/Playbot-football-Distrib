@@ -178,4 +178,19 @@ const getLocalTime = (value) => {
     }
 }
 
-export {getMonth, getWeekDay, getShortWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate, getUTCTime, getLocalTime};
+const calculateAge = (date) => {
+    const today = new Date();
+    const birthdate = new Date(date);
+    let age = today.getFullYear() - birthdate.getFullYear();
+  
+    if (
+      today.getMonth() < birthdate.getMonth() ||
+      (today.getMonth() === birthdate.getMonth() && today.getDate() < birthdate.getDate())
+    ) {
+      age--;
+    }
+  
+    return age;
+  }
+
+export {calculateAge, getMonth, getWeekDay, getShortWeekDay, choiceDate, choiceTime, getMinutesStr, choiceBirthDate, getStringDate, getUTCTime, getLocalTime};

@@ -53,7 +53,6 @@ useEffect (() => {
       videoRef.current.play();
     }
 
-    console.log(videoClicked);
   return (
     <section className="section-four">
       <img className="ball4" src={ball4} alt="ball" />
