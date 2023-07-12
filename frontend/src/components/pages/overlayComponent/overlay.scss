@@ -345,6 +345,7 @@
   
     height: 144px;
     height: 13.33vh;
+    height: 9.91vw;
   
     background-color: rgba(50, 50, 50, 0.58);
     overflow: hidden;
@@ -371,9 +372,8 @@
   .player-card__img {
     margin-top: auto;
     margin-inline: auto;
-    width: 95%;
-    width: 7.44vw;
-    height: 12.81vh;
+    width: 98%;
+    height: 98%;
     object-fit: contain;
   }
   
