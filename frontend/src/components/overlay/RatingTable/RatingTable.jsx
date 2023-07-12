@@ -5,8 +5,8 @@ import React, { useEffect, useRef, useState, useMemo } from 'react'
 function RatingTable({ event, game }) {
 
   // const [currentPos,setCurrentPos]=useState(0);
-  const [closed, setClosed] = useState(true)
-  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  const [closed, setClosed] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const tableRowsRef = useRef([]);
   const rulerRef = useRef([]);
 
@@ -26,16 +26,16 @@ function RatingTable({ event, game }) {
 
       move();
       setClosed(false);
-      sortTable()
-      setTimeout(() => {
-        setClosed(true);
-      }, 3000);
+      sortTable();
+      // setTimeout(() => {
+      //   setClosed(true);
+      // }, 3000);
       console.log(event)
     }
   }, [event.is_begin]);
 
   const updateTable = () => {
-    sortTable()
+    sortTable();
   }
 
   //Тут происходит сортировка
@@ -132,4 +132,4 @@ function RatingTable({ event, game }) {
   );
 }
 
-export default RatingTable
+export default RatingTable;

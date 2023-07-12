@@ -220,6 +220,7 @@
     visibility: visible;
     opacity: 1;
     transition: 1s;
+    align-self: start;
   
     /* position: absolute;
     left:30px;
@@ -279,7 +280,6 @@
     padding: 4px 7px;
     justify-content: space-between;
     top: 0;
-    width: 100%;
     transition: transform 0.5s;
     transition-timing-function: ease-in-out;
     transform: translateY(0);
