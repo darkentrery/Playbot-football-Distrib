@@ -17,7 +17,6 @@ export default function SuccessComponent ({
     const {isOpenShowMenu} = useSelector(state => state.windows);
 
      useEffect(() => {
-         console.log(windowRef.current);
         if (isOpen && windowRef.current) {
             console.log(windowRef.current.parentNode.parentNode);
             windowRef.current.parentNode.parentNode.style.zIndex = 1000;

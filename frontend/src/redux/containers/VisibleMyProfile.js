@@ -8,7 +8,7 @@ import {
   signUpWindow, steps,
   successSignUp2Window, team
 } from "../actions/actions";
-import {MyProfileComponent} from "../../components/pages/myProfileComponent/MyProfileComponent";
+import {MyProfileComponent} from "../../components/pages/myProfileComponent/MyProfileComponent.jsx";
 
 
 const mapStateToProps = (state) => {

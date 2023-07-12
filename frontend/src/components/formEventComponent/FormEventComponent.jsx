@@ -73,7 +73,6 @@ export const FormEventComponent = ({
     const [ageLimitError, setAgeLimitError] = useState(false);
     const [anonseError, setAnonseError] = useState(false);
 
-    // need backend -->
 
     const [ratingLimit, setRatingLimit] = useState([0, 5000]);
     const [delayedTime, setDelayedTime] = useState({ 'date': false, 'time': false });
@@ -106,7 +105,6 @@ export const FormEventComponent = ({
     }
 
     useEffect(() => {
-        console.log(event)
         if (event && isOpen) {
             setId(event.id);
             if (event.date && event.date.length) setDate(`${event.date.slice(8, 10)}.${event.date.slice(5, 7)}.${event.date.slice(0, 4)}`);

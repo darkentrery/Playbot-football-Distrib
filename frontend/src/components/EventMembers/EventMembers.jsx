@@ -33,6 +33,7 @@ export const EventMembers = ({
                                 <EventMemberCard
                                     name={e.player.username}
                                     rating={e.player.rank}
+                                    id={e.player.id}
                                     key={i}
                                 />
                             )

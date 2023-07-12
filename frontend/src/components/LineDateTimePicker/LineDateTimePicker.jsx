@@ -28,7 +28,6 @@ export const LineDateTimePicker = ({
     };
     const isDateDisabled = (date) => {
         console.log(startOfDay(today))
-        console.log(date)
         return date < startOfDay(today);
     };
 

@@ -1,14 +1,12 @@
 import './DatePicker.scss';
 import ru from 'date-fns/locale/ru';
 import DatePicker from 'react-datepicker';
-import { useState } from 'react';
 import { format, startOfDay } from 'date-fns';
 
 export const DateInputPicker = ({className = '', value = undefined, setValue = () => {}}) => {
 
     const handleDateChange = (date) => {
         setValue(date);
-        console.log("new data123", date)
     };
     let inputDate;
 

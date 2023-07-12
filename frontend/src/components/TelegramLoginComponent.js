@@ -17,7 +17,6 @@ export default function TelegramLoginComponent () {
                     localStorage.setItem("refresh_token" , response.data.refresh);
                     localStorage.setItem("date_token", Date.now());
                     localStorage.setItem("telegramLogin", true);
-                    console.log(response);
                     // window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
                 })
                 .catch((error) => {
@@ -25,10 +24,8 @@ export default function TelegramLoginComponent () {
                     localStorage.setItem("telegramLogin", "username");
                     window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
                 });
-            console.log(e)
         }
 
-        console.log(e)
         const url = `${process.env.REACT_APP_API_URL}telegram-login/`;
         login(e);
         // navigator.geolocation.getCurrentPosition((response) => {
