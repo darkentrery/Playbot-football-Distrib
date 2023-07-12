@@ -86,7 +86,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "about_self", "all_games", "all_rivals", "birthday", "confirm_slug",
                   "count_goals", "count_assist", "date_joined", "events_organizer", "event_player", "favorite_events",
-                  "first_name", "gender", "photo_errors", "is_accept_photo", "first_login",
+                  "first_name", "gender", "photo_errors", "is_accept_photo", "first_login", "nothing",
                   "last_name", "loss", "phone_number", "photo", "position_1", "position_2", "rank", "ranking_place",
                   "ranks_history", "same_players", "telegram_id", "total_time", "user_notices", "wins", "wins_percent",
                   "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address", "is_organizer",
@@ -104,7 +104,7 @@ class UserIsAuthSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "confirm_slug", "favorite_events", "phone_number", "telegram_id",
                   "user_notices", "warning_notices", "favorite_players", "showing_notices", "delta_rank", "address",
-                  "is_organizer", "first_login", "is_accept_photo",]
+                  "is_organizer", "first_login", "is_accept_photo", "small_card_photo", "overlay_photo", "big_card_photo"]
         read_only_fields = fields
 
 
@@ -116,7 +116,8 @@ class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "rank", "ranks_history", "wins", "all_games", "gender", "event_player",
-                  "wins_percent", "delta_rank", "address"]
+                  "wins_percent", "delta_rank", "address", "count_goals", "count_assist", "small_card_photo",
+                  "overlay_photo", "big_card_photo", "is_accept_photo"]
         read_only_fields = fields
 
 
