@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState, useMemo } from 'react'
 function RatingTable({ event, game }) {
 
   // const [currentPos,setCurrentPos]=useState(0);
-  const [closed, setClosed] = useState(false);
+  const [closed, setClosed] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const tableRowsRef = useRef([]);
   const rulerRef = useRef([]);
@@ -27,9 +27,9 @@ function RatingTable({ event, game }) {
       move();
       setClosed(false);
       sortTable();
-      // setTimeout(() => {
-      //   setClosed(true);
-      // }, 3000);
+      setTimeout(() => {
+        setClosed(true);
+      }, 3000);
       console.log(event)
     }
   }, [event.is_begin]);
